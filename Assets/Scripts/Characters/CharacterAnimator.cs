@@ -12,6 +12,7 @@ public class CharacterAnimator : MonoBehaviour
     public string horizontalProperty = "horizontal";
     [Tooltip("Does the character look towards the right by default? (used to flip the character to face the right move direction)")]
     public bool defaultRight = true;
+    public string groundedProperty = "isGrounded";
 
     private CharacterMove characterMove;
 
@@ -49,6 +50,7 @@ public class CharacterAnimator : MonoBehaviour
             //Set new scale as current scale
             animator.transform.localScale = scale;
 
+            animator.SetBool(groundedProperty, characterMove.isGrounded);
         }
     }
 }

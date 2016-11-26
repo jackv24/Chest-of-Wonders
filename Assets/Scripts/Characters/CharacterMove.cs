@@ -15,6 +15,9 @@ public class CharacterMove : MonoBehaviour
     public float minJumpHeight = 2f;
     public float maxJumpHeight = 6f;
 
+    [Space()]
+    public bool isGrounded = true;
+
     private bool pressedJump = false;
 
     //The vector to add to the velocity
