@@ -20,9 +20,9 @@ MonoBehaviour:
   RandomTiles: 
   RandomTileList:
   - tileData: 0
-    probabilityFactor: 1
+    probabilityFactor: 0.5
   - tileData: 22
-    probabilityFactor: 1
+    probabilityFactor: 0.25
   - tileData: 44
-    probabilityFactor: 1
+    probabilityFactor: 0.25
   RandomizeFlagMask: 0
