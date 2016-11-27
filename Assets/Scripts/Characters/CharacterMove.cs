@@ -4,26 +4,38 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterMove : MonoBehaviour
 {
+    [Header("Movement")]
     [Tooltip("The horizontal move speed (m/s).")]
     public float moveSpeed = 2f;
-    private float targetMoveSpeed = 0f;
 
     [Tooltip("The rate at which the character accelerates to reach the move speed.")]
     public float acceleration = 1f;
 
-    [Space()]
+    private float inputDirection = 0f;
+    public float InputDirection { get { return inputDirection; } }
+
+    [Header("Jumping")]
     public float minJumpHeight = 2f;
     public float maxJumpHeight = 6f;
 
     [Space()]
-    public bool isGrounded = true;
+    [Tooltip("How long after the player leaves the ground until they can no longer jump (recommended to have this delay for platformers).")]
+    public float stopJumpDelay = 0.02f;
+    private float stopJumpTime;
+
+    private bool isGrounded = true;
+    public bool IsGrounded { get { return isGrounded; } }
+    [Space()]
+    public LayerMask groundLayer;
+    [Space()]
+    public Vector2 circleCastOrigin;
+    public float circleCastRadius = 0.5f;
+    public float groundedDistance = 0.01f;
 
     private bool pressedJump = false;
 
     //The vector to add to the velocity
     private Vector2 moveVector = Vector2.zero;
-    //Public read-only property to get input 
-    public Vector2 MoveVector { get { return moveVector; } }
 
     //The RigidBody2D attached to this GameObject
     private Rigidbody2D body;
@@ -36,31 +48,63 @@ public class CharacterMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        isGrounded = CheckGrounded();
+
+        if (isGrounded)
+            stopJumpTime = Time.time + stopJumpDelay;
+
         //Get current velocity
         moveVector = body.velocity;
 
         //Accelerate to reach target move speed
-        moveVector.x = Mathf.Lerp(moveVector.x, targetMoveSpeed, acceleration * Time.fixedDeltaTime);
+        moveVector.x = Mathf.Lerp(moveVector.x, inputDirection * moveSpeed, acceleration * Time.fixedDeltaTime);
 
         if (pressedJump)
         {
             pressedJump = false;
 
-            //Calculate velocity required to reach min jump height
-            moveVector.y = Mathf.Sqrt(2f * minJumpHeight * -Physics2D.gravity.y * body.gravityScale);
+            if (isGrounded || Time.time < stopJumpTime)
+            {
+                //Stop double jumping when grounded
+                stopJumpTime = 0;
+
+                //Calculate velocity required to reach min jump height
+                moveVector.y = CalculateVelocityFromJumpHeight(minJumpHeight);
+            }
         }
 
         body.velocity = moveVector;
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere((Vector2)transform.position + circleCastOrigin, circleCastRadius);
+    }
+
+    private bool CheckGrounded()
+    {
+        Vector2 origin = (Vector2)transform.position + circleCastOrigin;
+
+        RaycastHit2D hit = Physics2D.CircleCast(origin, circleCastRadius, Vector2.down, 1000f, groundLayer);
+
+        Debug.DrawLine(origin, hit.point);
+
+        return hit.distance <= groundedDistance;
+    }
+
     public void Move(float direction)
     {
         //Set the target move speed (actual movement is handled in FixedUpdate)
-        targetMoveSpeed = direction * moveSpeed;
+        inputDirection = direction;
     }
 
     public void Jump()
     {
         pressedJump = true;
+    }
+
+    private float CalculateVelocityFromJumpHeight(float height)
+    {
+        return Mathf.Sqrt(2f * height * -Physics2D.gravity.y * body.gravityScale);
     }
 }

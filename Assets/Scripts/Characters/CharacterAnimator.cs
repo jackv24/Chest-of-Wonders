@@ -8,10 +8,10 @@ public class CharacterAnimator : MonoBehaviour
     public Animator animator;
 
     [Space()]
-    [Tooltip("The name of the animator property to use for horizontal speed.")]
-    public string horizontalProperty = "horizontal";
     [Tooltip("Does the character look towards the right by default? (used to flip the character to face the right move direction)")]
     public bool defaultRight = true;
+    [Tooltip("The name of the animator property to use for horizontal speed.")]
+    public string horizontalProperty = "horizontal";
     public string groundedProperty = "isGrounded";
 
     private CharacterMove characterMove;
@@ -32,7 +32,7 @@ public class CharacterAnimator : MonoBehaviour
         if (animator)
         {
             //Get horizontal move speed
-            float horizontal = characterMove.MoveVector.x;
+            float horizontal = characterMove.InputDirection;
 
             //Set property on animator
             animator.SetFloat(horizontalProperty, horizontal);
@@ -50,7 +50,7 @@ public class CharacterAnimator : MonoBehaviour
             //Set new scale as current scale
             animator.transform.localScale = scale;
 
-            animator.SetBool(groundedProperty, characterMove.isGrounded);
+            animator.SetBool(groundedProperty, characterMove.IsGrounded);
         }
     }
 }

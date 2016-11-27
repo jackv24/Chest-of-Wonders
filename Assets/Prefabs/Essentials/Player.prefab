@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000010964507712}
   - 212: {fileID: 212000014160401936}
   - 95: {fileID: 95000013828001912}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,11 +37,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013017421258}
   - 58: {fileID: 58000011781405724}
+  - 58: {fileID: 58000013156831428}
   - 50: {fileID: 50000010992803108}
   - 114: {fileID: 114000013110640092}
   - 114: {fileID: 114000013052724214}
   - 114: {fileID: 114000014123730578}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -100,7 +101,21 @@ CircleCollider2D:
   m_GameObject: {fileID: 1000012949439504}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ba8c62f7cc429d94b92cba7191a490f2, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0.95}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!58 &58000013156831428
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012949439504}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: ba8c62f7cc429d94b92cba7191a490f2, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0.5}
@@ -149,6 +164,13 @@ MonoBehaviour:
   acceleration: 15
   minJumpHeight: 2.5
   maxJumpHeight: 6.5
+  stopJumpDelay: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  circleCastOrigin: {x: 0, y: 0.5}
+  circleCastRadius: 0.4
+  groundedDistance: 0.15
 --- !u!114 &114000014123730578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,8 +183,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95000013828001912}
-  horizontalProperty: horizontal
   defaultRight: 1
+  horizontalProperty: horizontal
+  groundedProperty: isGrounded
 --- !u!212 &212000014160401936
 SpriteRenderer:
   m_ObjectHideFlags: 1
