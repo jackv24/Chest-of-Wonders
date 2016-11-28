@@ -15,12 +15,9 @@ public class CharacterMove : MonoBehaviour
     public float InputDirection { get { return inputDirection; } }
 
     [Header("Jumping")]
-    public float minJumpHeight = 2f;
-    public float maxJumpHeight = 6f;
+    public float jumpForce = 10f;
 
-    private float gravity;
-
-    public float jumpHoldTime = 1f;
+    public float jumpTime = 1f;
     private float jumpHeldTime = 0;
 
     [Space()]
@@ -29,6 +26,7 @@ public class CharacterMove : MonoBehaviour
     private float stopJumpTime;
 
     private bool pressedJump = false;
+    private bool canJump = false;
     private bool heldJump = false;
 
     private bool isGrounded = true;
@@ -52,11 +50,6 @@ public class CharacterMove : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
-        gravity = body.gravityScale;
-    }
-
     private void FixedUpdate()
     {
         isGrounded = CheckGrounded();
@@ -76,27 +69,19 @@ public class CharacterMove : MonoBehaviour
 
             if (isGrounded || Time.time < stopJumpTime)
             {
-                //Stop double jumping when grounded
                 stopJumpTime = 0;
-
-                //Calculate velocity required to reach min jump height
-                moveVector.y = CalculateVelocityFromJumpHeight(minJumpHeight);
+                canJump = true;
             }
         }
 
-        if (heldJump && jumpHeldTime <= jumpHoldTime)
+        if (canJump && heldJump && jumpHeldTime <= jumpTime)
         {
             jumpHeldTime += Time.fixedDeltaTime;
 
-            float minVel = CalculateVelocityFromJumpHeight(minJumpHeight);
-            float maxVel = CalculateVelocityFromJumpHeight(maxJumpHeight);
-
-            moveVector.y = Mathf.Lerp(minVel, maxVel, jumpHeldTime / jumpHoldTime);
-
-            body.gravityScale = 0;
+            moveVector.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
         }
         else
-            body.gravityScale = gravity;
+            canJump = false;
 
         body.velocity = moveVector;
     }
@@ -135,10 +120,5 @@ public class CharacterMove : MonoBehaviour
         {
             heldJump = false;
         }
-    }
-
-    private float CalculateVelocityFromJumpHeight(float height)
-    {
-        return Mathf.Sqrt(2f * height * -Physics2D.gravity.y * gravity);
     }
 }

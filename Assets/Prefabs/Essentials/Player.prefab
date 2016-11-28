@@ -162,10 +162,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   acceleration: 15
-  minJumpHeight: 2.5
-  maxJumpHeight: 6.5
+  jumpForce: 10
+  jumpTime: 1
   stopJumpDelay: 0.2
-  jumpHoldTime: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
