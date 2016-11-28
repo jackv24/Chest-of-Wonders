@@ -31,6 +31,8 @@ public class PlayerInput : MonoBehaviour
         characterMove.Move(inputDirection);
 
         if (Input.GetButtonDown("Jump") || device.Action1.WasPressed)
-            characterMove.Jump();
+            characterMove.Jump(true);
+        else if (Input.GetButtonUp("Jump") || device.Action1.WasReleased)
+            characterMove.Jump(false);
     }
 }

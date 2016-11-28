@@ -165,6 +165,7 @@ MonoBehaviour:
   minJumpHeight: 2.5
   maxJumpHeight: 6.5
   stopJumpDelay: 0.2
+  jumpHoldTime: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 256

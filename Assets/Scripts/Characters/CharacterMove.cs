@@ -18,10 +18,18 @@ public class CharacterMove : MonoBehaviour
     public float minJumpHeight = 2f;
     public float maxJumpHeight = 6f;
 
+    private float gravity;
+
+    public float jumpHoldTime = 1f;
+    private float jumpHeldTime = 0;
+
     [Space()]
     [Tooltip("How long after the player leaves the ground until they can no longer jump (recommended to have this delay for platformers).")]
     public float stopJumpDelay = 0.02f;
     private float stopJumpTime;
+
+    private bool pressedJump = false;
+    private bool heldJump = false;
 
     private bool isGrounded = true;
     public bool IsGrounded { get { return isGrounded; } }
@@ -31,8 +39,6 @@ public class CharacterMove : MonoBehaviour
     public Vector2 circleCastOrigin;
     public float circleCastRadius = 0.5f;
     public float groundedDistance = 0.01f;
-
-    private bool pressedJump = false;
 
     //The vector to add to the velocity
     private Vector2 moveVector = Vector2.zero;
@@ -44,6 +50,11 @@ public class CharacterMove : MonoBehaviour
     {
         //Get references
         body = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        gravity = body.gravityScale;
     }
 
     private void FixedUpdate()
@@ -73,6 +84,20 @@ public class CharacterMove : MonoBehaviour
             }
         }
 
+        if (heldJump && jumpHeldTime <= jumpHoldTime)
+        {
+            jumpHeldTime += Time.fixedDeltaTime;
+
+            float minVel = CalculateVelocityFromJumpHeight(minJumpHeight);
+            float maxVel = CalculateVelocityFromJumpHeight(maxJumpHeight);
+
+            moveVector.y = Mathf.Lerp(minVel, maxVel, jumpHeldTime / jumpHoldTime);
+
+            body.gravityScale = 0;
+        }
+        else
+            body.gravityScale = gravity;
+
         body.velocity = moveVector;
     }
 
@@ -98,13 +123,22 @@ public class CharacterMove : MonoBehaviour
         inputDirection = direction;
     }
 
-    public void Jump()
+    public void Jump(bool pressed)
     {
-        pressedJump = true;
+        if (pressed)
+        {
+            pressedJump = true;
+            heldJump = true;
+            jumpHeldTime = 0;
+        }
+        else
+        {
+            heldJump = false;
+        }
     }
 
     private float CalculateVelocityFromJumpHeight(float height)
     {
-        return Mathf.Sqrt(2f * height * -Physics2D.gravity.y * body.gravityScale);
+        return Mathf.Sqrt(2f * height * -Physics2D.gravity.y * gravity);
     }
 }
