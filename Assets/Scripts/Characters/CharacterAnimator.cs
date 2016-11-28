@@ -26,6 +26,11 @@ public class CharacterAnimator : MonoBehaviour
         characterMove = GetComponent<CharacterMove>();
     }
 
+    private void Start()
+    {
+        characterMove.OnChangedDirection += FlipOnDirectionChange;
+    }
+
     private void Update()
     {
         //If there has been an animator assigned
@@ -37,20 +42,23 @@ public class CharacterAnimator : MonoBehaviour
             //Set property on animator
             animator.SetFloat(horizontalProperty, horizontal);
 
-            //Flip character to face the right direction
-            //Get current scale
-            Vector3 scale = animator.transform.localScale;
-
-            //Edit x scale to flip character
-            if (horizontal >= 0)
-                scale.x = defaultRight ? 1 : -1;
-            else
-                scale.x = defaultRight ? -1 : 1;
-
-            //Set new scale as current scale
-            animator.transform.localScale = scale;
-
             animator.SetBool(groundedProperty, characterMove.IsGrounded);
         }
+    }
+
+    void FlipOnDirectionChange(float direction)
+    {
+        //Flip character to face the right direction
+        //Get current scale
+        Vector3 scale = animator.transform.localScale;
+
+        //Edit x scale to flip character
+        if (direction >= 0)
+            scale.x = defaultRight ? 1 : -1;
+        else
+            scale.x = defaultRight ? -1 : 1;
+
+        //Set new scale as current scale
+        animator.transform.localScale = scale;
     }
 }

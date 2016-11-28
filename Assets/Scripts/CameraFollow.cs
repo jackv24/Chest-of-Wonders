@@ -7,8 +7,13 @@ public class CameraFollow : MonoBehaviour
 
     [Space()]
     public float followSpeed = 10f;
+    public float heightOffset = 1f;
 
-    public Vector2 offset = Vector2.up;
+    [Space()]
+    public float lookAhead = 5f;
+    public float lookAheadSpeed = 2f;
+    private float aheadDistance;
+    private bool lookRight = true;
 
     private Vector3 targetPos;
     private LevelBounds bounds;
@@ -38,13 +43,34 @@ public class CameraFollow : MonoBehaviour
             minY = vertExtent - bounds.height / 2.0f + bounds.centre.y;
             maxY = bounds.height / 2.0f - vertExtent + bounds.centre.y;
         }
+
+        if (target)
+        {
+            CharacterMove move = target.GetComponent<CharacterMove>();
+
+            if (move)
+            {
+                move.OnChangedDirection += (float direction) =>
+                {
+                    if (direction >= 0)
+                        lookRight = true;
+                    else
+                        lookRight = false;
+                };
+            }
+        }
     }
 
     private void LateUpdate()
     {
         if (target)
         {
-            targetPos = target.position + (Vector3)offset;
+            aheadDistance = Mathf.Lerp(aheadDistance, lookAhead * (lookRight ? 1 : -1), lookAheadSpeed * Time.deltaTime);
+
+            targetPos = target.position;
+            targetPos.y += heightOffset;
+            targetPos.x += aheadDistance;
+
             targetPos.z = transform.position.z;
 
             if (bounds)

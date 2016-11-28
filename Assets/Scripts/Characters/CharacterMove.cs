@@ -4,6 +4,10 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterMove : MonoBehaviour
 {
+    public delegate void ChangeFloat(float newFloat);
+    public event ChangeFloat OnChangedDirection;
+    private float oldDirection;
+
     [Header("Movement")]
     [Tooltip("The horizontal move speed (m/s).")]
     public float moveSpeed = 2f;
@@ -104,8 +108,13 @@ public class CharacterMove : MonoBehaviour
 
     public void Move(float direction)
     {
+        oldDirection = inputDirection;
+
         //Set the target move speed (actual movement is handled in FixedUpdate)
         inputDirection = direction;
+
+        if (inputDirection != oldDirection && OnChangedDirection != null && inputDirection != 0)
+            OnChangedDirection(inputDirection);
     }
 
     public void Jump(bool pressed)
