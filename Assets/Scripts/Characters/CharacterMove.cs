@@ -67,26 +67,37 @@ public class CharacterMove : MonoBehaviour
         //Accelerate to reach target move speed
         moveVector.x = Mathf.Lerp(moveVector.x, inputDirection * moveSpeed, acceleration * Time.fixedDeltaTime);
 
+        //Allow jump after button press
         if (pressedJump)
         {
             pressedJump = false;
 
+            //Only jump if grounded, or just walked off a ledge
             if (isGrounded || Time.time < stopJumpTime)
             {
+                //Reset jump time and allow jumping
                 stopJumpTime = 0;
                 canJump = true;
             }
         }
 
+        //Jump as long as button is held (up to a point)
         if (canJump && heldJump && jumpHeldTime <= jumpTime)
         {
+            //Keep track of time jumping
             jumpHeldTime += Time.fixedDeltaTime;
 
+            //Lerp velocity down over jump (for the natural look)
             moveVector.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
         }
         else
             canJump = false;
 
+        //Stop from sticking to ceilings when jump is held
+        if (canJump && jumpHeldTime > 0.05f && body.velocity.y <= 0)
+            canJump = false;
+
+        //Set velocity at end
         body.velocity = moveVector;
     }
 
