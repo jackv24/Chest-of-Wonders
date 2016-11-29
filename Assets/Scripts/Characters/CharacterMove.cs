@@ -122,7 +122,8 @@ public class CharacterMove : MonoBehaviour
         oldDirection = inputDirection;
 
         //Set the target move speed (actual movement is handled in FixedUpdate)
-        inputDirection = direction;
+        //Make direction either -1, 1 or 0 - no in-between
+        inputDirection = direction != 0 ? Mathf.Sign(direction) : 0;
 
         if (inputDirection != oldDirection && OnChangedDirection != null && inputDirection != 0)
             OnChangedDirection(inputDirection);
@@ -130,7 +131,7 @@ public class CharacterMove : MonoBehaviour
 
     public void Jump(bool pressed)
     {
-        if (pressed)
+        if (pressed && !heldJump)
         {
             pressedJump = true;
             heldJump = true;

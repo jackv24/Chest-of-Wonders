@@ -10,7 +10,8 @@ public class PlayerInput : MonoBehaviour
     public float rotationOffset;
 
     //Horizontal direction of the movement input
-    private float inputDirection;
+    private Vector2 inputDirection;
+    private Vector3 attackDirection;
 
     //InControl active controller
     private InputDevice device;
@@ -29,22 +30,36 @@ public class PlayerInput : MonoBehaviour
         device = InputManager.ActiveDevice;
 
         //Get input from controllers and keyboard, clamped
-        inputDirection = Mathf.Clamp(Input.GetAxisRaw("Horizontal") + device.DPadX, -1f, 1f);
+        inputDirection = new Vector2(Mathf.Clamp(device.DPadX + device.LeftStickX, -1f, 1f), Mathf.Clamp(device.DPadY + device.LeftStickY, -1f, 1f));
 
         //Move the player using the CharacterMove script
-        characterMove.Move(inputDirection);
+        characterMove.Move(inputDirection.x);
 
-        if (Input.GetButtonDown("Jump") || device.Action1.WasPressed)
+        if (device.Action1.WasPressed || device.LeftBumper.WasPressed)
             characterMove.Jump(true);
-        else if (Input.GetButtonUp("Jump") || device.Action1.WasReleased)
+        else if (device.Action1.WasReleased || device.LeftBumper.WasReleased)
             characterMove.Jump(false);
 
         if (aimIndicator)
         {
-            Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - aimIndicator.position;
-            diff.Normalize();
+            //If using keyboard and mouse, aim at mouse
+            if(device.Name == "Keyboard/Mouse")
+                attackDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - aimIndicator.position;
+            //If using a controller, use controller
+            else
+            {
+                //If right stick is being used, aim at right stick
+                if (device.RightStick.Vector.magnitude > 0.1f)
+                    attackDirection = new Vector2(device.RightStickX, device.RightStickY);
+                //Otherwise, aim in input direction
+                else if (inputDirection.magnitude > 0.1f)
+                    attackDirection = inputDirection;
+            }
 
-            float rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            attackDirection.Normalize();
+
+            //Rotate aim indicator to direction
+            float rotationZ = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
             aimIndicator.rotation = Quaternion.Euler(0, 0, rotationZ + rotationOffset);
         }
     }
