@@ -5,6 +5,10 @@ using InControl;
 [RequireComponent(typeof(CharacterMove))]
 public class PlayerInput : MonoBehaviour
 {
+    public Transform aimIndicator;
+    [Range(0, 360f)]
+    public float rotationOffset;
+
     //Horizontal direction of the movement input
     private float inputDirection;
 
@@ -34,5 +38,14 @@ public class PlayerInput : MonoBehaviour
             characterMove.Jump(true);
         else if (Input.GetButtonUp("Jump") || device.Action1.WasReleased)
             characterMove.Jump(false);
+
+        if (aimIndicator)
+        {
+            Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - aimIndicator.position;
+            diff.Normalize();
+
+            float rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            aimIndicator.rotation = Quaternion.Euler(0, 0, rotationZ + rotationOffset);
+        }
     }
 }
