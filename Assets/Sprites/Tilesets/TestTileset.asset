@@ -27,8 +27,6 @@ MonoBehaviour:
     BrushAsset: {fileID: 11400000, guid: 709296bc79cb223489063a9a4465a4b3, type: 2}
   - Id: 2
     BrushAsset: {fileID: 11400000, guid: 2bcbd2e0715348747af4c25accce3632, type: 2}
-  - Id: 3
-    BrushAsset: {fileID: 11400000, guid: ddf7538cd50a6a74995f1e4f7880ca52, type: 2}
   m_tiles:
   - uv:
       serializedVersion: 2
@@ -130,7 +128,7 @@ MonoBehaviour:
       height: 0.083333336
     collData:
       vertices: []
-      type: 0
+      type: 1
     paramContainer:
       m_paramList: []
     prefabData:
@@ -146,7 +144,7 @@ MonoBehaviour:
       height: 0.083333336
     collData:
       vertices: []
-      type: 0
+      type: 1
     paramContainer:
       m_paramList: []
     prefabData:
@@ -162,7 +160,7 @@ MonoBehaviour:
       height: 0.083333336
     collData:
       vertices: []
-      type: 0
+      type: 1
     paramContainer:
       m_paramList: []
     prefabData:
@@ -178,7 +176,7 @@ MonoBehaviour:
       height: 0.083333336
     collData:
       vertices: []
-      type: 0
+      type: 1
     paramContainer:
       m_paramList: []
     prefabData:
@@ -521,8 +519,12 @@ MonoBehaviour:
       width: 0.045454547
       height: 0.083333336
     collData:
-      vertices: []
-      type: 0
+      vertices:
+      - {x: 0.421875, y: 0.15625}
+      - {x: 0, y: 1}
+      - {x: 1, y: 1}
+      - {x: 1, y: 0}
+      type: 2
     paramContainer:
       m_paramList: []
     prefabData:
@@ -537,8 +539,12 @@ MonoBehaviour:
       width: 0.045454547
       height: 0.083333336
     collData:
-      vertices: []
-      type: 0
+      vertices:
+      - {x: 0, y: 0}
+      - {x: 0, y: 1}
+      - {x: 1, y: 1}
+      - {x: 0.609375, y: 0.171875}
+      type: 2
     paramContainer:
       m_paramList: []
     prefabData:
