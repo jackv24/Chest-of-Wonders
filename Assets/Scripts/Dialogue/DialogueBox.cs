@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class DialogueBox : MonoBehaviour
 {
@@ -13,8 +14,12 @@ public class DialogueBox : MonoBehaviour
 
     [Space()]
     public GameObject button;
+    private Button[] buttons;
+    private int selectedButton = 0;
 
     private Vector3 worldPos;
+
+    private PlayerActions playerActions;
 
     private void Awake()
     {
@@ -31,8 +36,42 @@ public class DialogueBox : MonoBehaviour
 
     private void Start()
     {
+        playerActions = new PlayerActions();
+
+        InControl.InControlInputModule inputModule = GameObject.Find("EventSystem").GetComponent<InControl.InControlInputModule>();
+        if (inputModule != null)
+        {
+            inputModule.SubmitAction = playerActions.Submit;
+        }
+
         //Hide by default
         gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        //Navigate buttons with actions
+        if (playerActions.Left.WasPressed && buttons.Length > 0)
+        {
+            selectedButton = selectedButton > 0 ? selectedButton - 1 : buttons.Length - 1;
+            EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
+        }
+        else if (playerActions.Right.WasPressed && buttons.Length > 0)
+        {
+            selectedButton = selectedButton < buttons.Length - 1 ? selectedButton + 1 : 0;
+            EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
+        }
+        //Close dialogue if no buttons present, and action is pressed
+        else if (playerActions.Submit.WasPressed && buttons.Length <= 0)
+        {
+            GameManager.instance.canMove = true;
+            gameObject.SetActive(false);
+        }
+        else if (playerActions.Attack1.WasPressed && buttons.Length <= 0)
+        {
+            GameManager.instance.canMove = true;
+            gameObject.SetActive(false);
+        }
     }
 
     private void LateUpdate()
@@ -56,7 +95,8 @@ public class DialogueBox : MonoBehaviour
         DialogueGraph.DialogueGraphNode node = graph.nodes[nodeIndex];
 
         //Get all buttons in the dialogue
-        Button[] buttons = button.transform.parent.GetComponentsInChildren<Button>();
+        buttons = button.transform.parent.GetComponentsInChildren<Button>();
+        selectedButton = 0;
 
         foreach (Button button in buttons)
         {
@@ -93,6 +133,11 @@ public class DialogueBox : MonoBehaviour
                 obj.GetComponent<Button>().onClick.AddListener(delegate { UpdateDialogue(graph, node.options[n].target); });
             }
         }
+
+        //Get buttons for input
+        buttons = button.transform.parent.GetComponentsInChildren<Button>();
+
+        EventSystem.current.SetSelectedGameObject(null);
 
         //Show the dialogue
         gameObject.SetActive(true);

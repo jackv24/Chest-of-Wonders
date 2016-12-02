@@ -16,6 +16,9 @@ public class DialogueSpeaker : MonoBehaviour
     //DialogueGraph to store the deserialised json
     private DialogueGraph graph;
 
+    private PlayerActions playerActions;
+    private bool inRange = false;
+
     private void Start()
     {
         //Load json from text asset
@@ -24,6 +27,23 @@ public class DialogueSpeaker : MonoBehaviour
 
         //Deserialise json into DialogueGraph
         graph = JsonUtility.FromJson<DialogueGraph>(json);
+
+        playerActions = new PlayerActions();
+    }
+
+    private void Update()
+    {
+        //If interact buttons is pressed in range...
+        if (inRange && playerActions.Interact.WasPressed)
+        {
+            //...and the player "can move" (can perform actions outside of UI)
+            if (GameManager.instance.canMove)
+            {
+                //Stop them moving and open dialogue
+                GameManager.instance.canMove = false;
+                DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,7 +51,7 @@ public class DialogueSpeaker : MonoBehaviour
         //When the player enters the range
         if (collision.tag == "Player")
         {
-            DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset);
+            inRange = true;
         }
     }
 
@@ -40,7 +60,7 @@ public class DialogueSpeaker : MonoBehaviour
         //When the player exits the range
         if (collision.tag == "Player")
         {
-            DialogueBox.instance.gameObject.SetActive(false);
+            inRange = false;
         }
     }
 }

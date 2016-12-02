@@ -13,7 +13,8 @@ public class PlayerInput : MonoBehaviour
     private Vector3 attackDirection;
 
     //InControl active controller
-    private InputDevice device;
+    //private InputDevice device;
+    private PlayerActions playerActions;
 
     //Character scripts
     private CharacterMove characterMove;
@@ -26,36 +27,41 @@ public class PlayerInput : MonoBehaviour
         characterAttack = GetComponent<CharacterAttack>();
     }
 
+    private void Start()
+    {
+        playerActions = new PlayerActions();
+    }
+
     private void Update()
     {
-        if (characterMove)
+        if (characterMove && GameManager.instance.canMove)
         {
             //Get active device at start of frame (always current)
-            device = InputManager.ActiveDevice;
+            //device = InputManager.ActiveDevice;
 
             //Get input from controllers and keyboard, clamped
-            inputDirection = new Vector2(Mathf.Clamp(device.DPadX + device.LeftStickX, -1f, 1f), Mathf.Clamp(device.DPadY + device.LeftStickY, -1f, 1f));
+            inputDirection = playerActions.Move;
 
             //Move the player using the CharacterMove script
             characterMove.Move(inputDirection.x);
 
-            if (device.Action1.WasPressed || device.LeftBumper.WasPressed)
+            if (playerActions.Jump.WasPressed)
                 characterMove.Jump(true);
-            else if (device.Action1.WasReleased || device.LeftBumper.WasReleased)
+            else if (playerActions.Jump.WasReleased)
                 characterMove.Jump(false);
         }
 
         if (aimIndicator)
         {
             //If using keyboard and mouse, aim at mouse
-            if(device.Name == "Keyboard/Mouse")
+            if (playerActions.LastInputType == BindingSourceType.KeyBindingSource)
                 attackDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - aimIndicator.position;
             //If using a controller, use controller
             else
             {
                 //If right stick is being used, aim at right stick
-                if (device.RightStick.Vector.magnitude > 0.1f)
-                    attackDirection = new Vector2(device.RightStickX, device.RightStickY);
+                if (InputManager.ActiveDevice.RightStick.Vector.magnitude > 0.1f)
+                    attackDirection = InputManager.ActiveDevice.RightStick.Vector;
                 //Otherwise, aim in input direction
                 else if (inputDirection.magnitude > 0.1f)
                     attackDirection = inputDirection;
@@ -68,11 +74,11 @@ public class PlayerInput : MonoBehaviour
             aimIndicator.rotation = Quaternion.Euler(0, 0, rotationZ + rotationOffset);
         }
 
-        if (characterAttack)
+        if (characterAttack && GameManager.instance.canMove)
         {
-            if (device.RightBumper.WasPressed)
+            if (playerActions.Attack1.WasPressed)
                 characterAttack.UsePrimary();
-            else if (device.RightTrigger.WasPressed)
+            else if (playerActions.Attack2.WasPressed)
                 characterAttack.UseSecondary();
         }
     }

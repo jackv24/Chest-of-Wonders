@@ -98,6 +98,9 @@ public class CharacterMove : MonoBehaviour
             canJump = false;
 
         //Set velocity at end
+        if (!GameManager.instance.canMove)
+            moveVector.x = 0;
+
         body.velocity = moveVector;
     }
 
