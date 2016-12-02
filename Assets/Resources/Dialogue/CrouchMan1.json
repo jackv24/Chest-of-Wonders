@@ -1,0 +1,44 @@
+{
+    "speakerName": "Crouching Guy",
+    "nodes": [
+        {
+            "text": "What do you want? I'm busy.",
+            "options": [
+                {
+                    "text": "Help me",
+                    "target": 1
+                },
+                {
+                    "text": "Yo got stuff?",
+                    "target": 2
+                }
+            ]
+        },
+        {
+            "text": "I SAID I'M BUSY!!",
+            "options": []
+        },
+        {
+            "text": "I- what?",
+            "options": [
+                {
+                    "text": "The \"stuff\"",
+                    "target": 3
+                },
+                {
+                    "text": "Nothing",
+                    "target": 4
+                }
+            ]
+        },
+        {
+            "text": "No.",
+            "options": []
+        }
+        ,
+        {
+            "text": "Then go away.",
+            "options": []
+        }
+    ]
+}
