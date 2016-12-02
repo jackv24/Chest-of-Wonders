@@ -1,0 +1,79 @@
+{
+    "speakerName": "Crouching Guy",
+    "nodes": [
+        {
+            "text": "What do you want? I'm busy.",
+			"rect": {
+                "serializedVersion": "2",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 300.0,
+                "height": 200.0
+            },
+            "options": [
+                {
+                    "text": "Help me",
+                    "target": 1
+                },
+                {
+                    "text": "Yo got stuff?",
+                    "target": 2
+                }
+            ]
+        },
+        {
+            "text": "I SAID I'M BUSY!!",
+			"rect": {
+                "serializedVersion": "2",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 300.0,
+                "height": 200.0
+            },
+            "options": []
+        },
+        {
+            "text": "I- what?",
+			"rect": {
+                "serializedVersion": "2",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 300.0,
+                "height": 200.0
+            },
+            "options": [
+                {
+                    "text": "The \"stuff\"",
+                    "target": 3
+                },
+                {
+                    "text": "Nothing",
+                    "target": 4
+                }
+            ]
+        },
+        {
+            "text": "No.",
+			"rect": {
+                "serializedVersion": "2",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 300.0,
+                "height": 200.0
+            },
+            "options": []
+        }
+        ,
+        {
+            "text": "Then go away.",
+			"rect": {
+                "serializedVersion": "2",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 300.0,
+                "height": 200.0
+            },
+            "options": []
+        }
+    ]
+}

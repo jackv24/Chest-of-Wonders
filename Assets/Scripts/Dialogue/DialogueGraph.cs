@@ -14,6 +14,8 @@ public class DialogueGraph
     {
         public string text = "Default dialogue text.";
 
+        public Rect rect = new Rect(0, 0, 300, 200);
+
         [System.Serializable]
         public class Option
         {
