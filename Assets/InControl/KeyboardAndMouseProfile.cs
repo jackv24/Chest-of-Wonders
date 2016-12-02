@@ -37,7 +37,21 @@ namespace CustomProfileExample
 					Target = InputControlType.Action1,
 					Source = KeyCodeButton( KeyCode.Space )
 				},
-			};
+
+                new InputControlMapping
+                {
+                    Handle = "Primary Attack",
+                    Target = InputControlType.RightBumper,
+                    Source = KeyCodeButton( KeyCode.Mouse0 )
+                },
+
+                new InputControlMapping
+                {
+                    Handle = "Secondary Attack",
+                    Target = InputControlType.RightTrigger,
+                    Source = KeyCodeButton( KeyCode.Mouse1 )
+                },
+            };
 
 			AnalogMappings = new[]
 			{

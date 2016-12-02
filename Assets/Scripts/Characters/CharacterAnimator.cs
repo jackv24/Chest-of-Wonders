@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterMove))]
 public class CharacterAnimator : MonoBehaviour
 {
     [Tooltip("The Animator to use for animation (usually attached the a child graphic).")]
@@ -28,7 +27,8 @@ public class CharacterAnimator : MonoBehaviour
 
     private void Start()
     {
-        characterMove.OnChangedDirection += FlipOnDirectionChange;
+        if(characterMove)
+            characterMove.OnChangedDirection += FlipOnDirectionChange;
     }
 
     private void Update()
@@ -36,13 +36,16 @@ public class CharacterAnimator : MonoBehaviour
         //If there has been an animator assigned
         if (animator)
         {
-            //Get horizontal move speed
-            float horizontal = characterMove.InputDirection;
+            if (characterMove)
+            {
+                //Get horizontal move speed
+                float horizontal = characterMove.InputDirection;
 
-            //Set property on animator
-            animator.SetFloat(horizontalProperty, horizontal);
+                //Set property on animator
+                animator.SetFloat(horizontalProperty, horizontal);
 
-            animator.SetBool(groundedProperty, characterMove.IsGrounded);
+                animator.SetBool(groundedProperty, characterMove.IsGrounded);
+            }
         }
     }
 

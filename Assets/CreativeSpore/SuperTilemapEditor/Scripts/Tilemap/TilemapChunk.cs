@@ -244,7 +244,8 @@ namespace CreativeSpore.SuperTilemapEditor
 #if UNITY_EDITOR
             if (m_meshRenderer != null)
             {
-                EditorUtility.SetSelectedWireframeHidden(m_meshRenderer, true);
+                //EditorUtility.SetSelectedWireframeHidden(m_meshRenderer, true);
+                EditorUtility.SetSelectedRenderState(m_meshRenderer, EditorSelectedRenderState.Hidden);
             }
 #endif
             m_meshRenderer = GetComponent<MeshRenderer>();
@@ -279,7 +280,8 @@ namespace CreativeSpore.SuperTilemapEditor
 #if UNITY_EDITOR
             if (m_meshRenderer != null)
             {
-                EditorUtility.SetSelectedWireframeHidden(m_meshRenderer, true);
+                //EditorUtility.SetSelectedWireframeHidden(m_meshRenderer, true);
+                EditorUtility.SetSelectedRenderState(m_meshRenderer, EditorSelectedRenderState.Hidden);
             }
 #endif
 

@@ -225,7 +225,8 @@ namespace CreativeSpore.TiledImporter
 					textureImporter.spriteImportMode = SpriteImportMode.Single;
 					textureImporter.wrapMode = TextureWrapMode.Clamp;
 					textureImporter.filterMode = FilterMode.Point;
-					textureImporter.textureFormat = TextureImporterFormat.ARGB32;
+                    //textureImporter.textureFormat = TextureImporterFormat.ARGB32;
+                    textureImporter.textureCompression = TextureImporterCompression.CompressedHQ;
                     textureImporter.textureType = TextureImporterType.Sprite;
 					textureImporter.maxTextureSize = 8192;                    
 					AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate); 
