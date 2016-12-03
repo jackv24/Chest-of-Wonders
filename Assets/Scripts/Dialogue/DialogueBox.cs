@@ -53,12 +53,12 @@ public class DialogueBox : MonoBehaviour
     private void Update()
     {
         //Navigate buttons with actions
-        if (playerActions.Left.WasPressed && buttons.Length > 0)
+        if ((playerActions.Left.WasPressed || playerActions.Up.WasPressed) && buttons.Length > 0)
         {
             selectedButton = selectedButton > 0 ? selectedButton - 1 : buttons.Length - 1;
             EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
         }
-        else if (playerActions.Right.WasPressed && buttons.Length > 0)
+        else if ((playerActions.Right.WasPressed || playerActions.Down.WasPressed) && buttons.Length > 0)
         {
             selectedButton = selectedButton < buttons.Length - 1 ? selectedButton + 1 : 0;
             EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
@@ -97,7 +97,7 @@ public class DialogueBox : MonoBehaviour
         DialogueGraph.DialogueGraphNode node = graph.GetNode(nodeID);
 
         //Get all buttons in the dialogue
-        buttons = button.transform.parent.GetComponentsInChildren<Button>();
+        buttons = button.transform.parent.GetComponentsInChildren<Button>(true);
         selectedButton = 0;
 
         foreach (Button button in buttons)

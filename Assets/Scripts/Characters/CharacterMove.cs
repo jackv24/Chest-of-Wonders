@@ -98,9 +98,6 @@ public class CharacterMove : MonoBehaviour
             canJump = false;
 
         //Set velocity at end
-        if (!GameManager.instance.canMove)
-            moveVector.x = 0;
-
         body.velocity = moveVector;
     }
 
@@ -126,7 +123,10 @@ public class CharacterMove : MonoBehaviour
 
         //Set the target move speed (actual movement is handled in FixedUpdate)
         //Make direction either -1, 1 or 0 - no in-between
-        inputDirection = direction != 0 ? Mathf.Sign(direction) : 0;
+        if (GameManager.instance.canMove)
+            inputDirection = direction != 0 ? Mathf.Sign(direction) : 0;
+        else
+            inputDirection = 0;
 
         if (inputDirection != oldDirection && OnChangedDirection != null && inputDirection != 0)
             OnChangedDirection(inputDirection);
@@ -134,15 +134,18 @@ public class CharacterMove : MonoBehaviour
 
     public void Jump(bool pressed)
     {
-        if (pressed && !heldJump)
+        if (GameManager.instance.canMove)
         {
-            pressedJump = true;
-            heldJump = true;
-            jumpHeldTime = 0;
-        }
-        else
-        {
-            heldJump = false;
+            if (pressed && !heldJump)
+            {
+                pressedJump = true;
+                heldJump = true;
+                jumpHeldTime = 0;
+            }
+            else
+            {
+                heldJump = false;
+            }
         }
     }
 }

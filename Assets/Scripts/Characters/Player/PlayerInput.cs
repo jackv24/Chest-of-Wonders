@@ -34,7 +34,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if (characterMove && GameManager.instance.canMove)
+        if (characterMove)
         {
             //Get active device at start of frame (always current)
             //device = InputManager.ActiveDevice;
@@ -53,28 +53,35 @@ public class PlayerInput : MonoBehaviour
 
         if (aimIndicator)
         {
-            //If using keyboard and mouse, aim at mouse
-            if (playerActions.LastInputType == BindingSourceType.KeyBindingSource)
-                attackDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - aimIndicator.position;
-            //If using a controller, use controller
-            else
+            if (GameManager.instance.canMove)
             {
-                //If right stick is being used, aim at right stick
-                if (InputManager.ActiveDevice.RightStick.Vector.magnitude > 0.1f)
-                    attackDirection = InputManager.ActiveDevice.RightStick.Vector;
-                //Otherwise, aim in input direction
-                else if (inputDirection.magnitude > 0.1f)
-                    attackDirection = inputDirection;
+                aimIndicator.gameObject.SetActive(true);
+
+                //If using keyboard and mouse, aim at mouse
+                if (playerActions.LastInputType == BindingSourceType.KeyBindingSource)
+                    attackDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - aimIndicator.position;
+                //If using a controller, use controller
+                else
+                {
+                    //If right stick is being used, aim at right stick
+                    if (InputManager.ActiveDevice.RightStick.Vector.magnitude > 0.1f)
+                        attackDirection = InputManager.ActiveDevice.RightStick.Vector;
+                    //Otherwise, aim in input direction
+                    else if (inputDirection.magnitude > 0.1f)
+                        attackDirection = inputDirection;
+                }
+
+                attackDirection.Normalize();
+
+                //Rotate aim indicator to direction
+                float rotationZ = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
+                aimIndicator.rotation = Quaternion.Euler(0, 0, rotationZ + rotationOffset);
             }
-
-            attackDirection.Normalize();
-
-            //Rotate aim indicator to direction
-            float rotationZ = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
-            aimIndicator.rotation = Quaternion.Euler(0, 0, rotationZ + rotationOffset);
+            else
+                aimIndicator.gameObject.SetActive(false);
         }
 
-        if (characterAttack && GameManager.instance.canMove)
+        if (characterAttack)
         {
             if (playerActions.Attack1.WasPressed)
                 characterAttack.UsePrimary();

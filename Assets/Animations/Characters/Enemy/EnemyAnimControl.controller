@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PlayerAnimControl
+  m_Name: EnemyAnimControl
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: horizontal
@@ -41,7 +41,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: aae1da80bdc985347b52ffc3c01365db, type: 2}
+    m_Motion: {fileID: 7400000, guid: 9115544f8adb18c4680621c223095291, type: 2}
     m_Threshold: -0.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -49,7 +49,7 @@ BlendTree:
     m_DirectBlendParameter: horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: aae1da80bdc985347b52ffc3c01365db, type: 2}
+    m_Motion: {fileID: 7400000, guid: 9115544f8adb18c4680621c223095291, type: 2}
     m_Threshold: -0.1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 0.5
@@ -57,7 +57,7 @@ BlendTree:
     m_DirectBlendParameter: horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 949fc83e0e908e1408e8ed1ff13b673c, type: 2}
+    m_Motion: {fileID: 7400000, guid: 8b203c353cd84f74eae15f3eaf5354fb, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -65,7 +65,7 @@ BlendTree:
     m_DirectBlendParameter: horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: aae1da80bdc985347b52ffc3c01365db, type: 2}
+    m_Motion: {fileID: 7400000, guid: 9115544f8adb18c4680621c223095291, type: 2}
     m_Threshold: 0.1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 0.5
@@ -73,7 +73,7 @@ BlendTree:
     m_DirectBlendParameter: horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: aae1da80bdc985347b52ffc3c01365db, type: 2}
+    m_Motion: {fileID: 7400000, guid: 9115544f8adb18c4680621c223095291, type: 2}
     m_Threshold: 0.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -165,7 +165,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Jump
+  m_Name: Jumo
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -178,7 +178,7 @@ AnimatorState:
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 913bce4f85b6bba48a1a524a48acf005, type: 2}
+  m_Motion: {fileID: 7400000, guid: 992428e02edaa5c4783468466aa84332, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
