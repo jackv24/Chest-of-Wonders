@@ -19,6 +19,9 @@ public class DialogueSpeaker : MonoBehaviour
     private PlayerActions playerActions;
     private bool inRange = false;
 
+    public float range = 2f;
+    private GameObject player;
+
     private void Start()
     {
         //Load json from text asset
@@ -30,11 +33,21 @@ public class DialogueSpeaker : MonoBehaviour
             graph = JsonUtility.FromJson<DialogueGraph>(json);
         }
 
+        player = GameObject.FindWithTag("Player");
+
         playerActions = new PlayerActions();
     }
 
     private void Update()
     {
+        if (player)
+        {
+            if (Vector2.Distance(player.transform.position, transform.position) <= range)
+                inRange = true;
+            else
+                inRange = false;
+        }
+
         //If interact buttons is pressed in range...
         if (inRange && playerActions.Interact.WasPressed && graph != null)
         {
@@ -48,21 +61,8 @@ public class DialogueSpeaker : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnDrawGizmosSelected()
     {
-        //When the player enters the range
-        if (collision.tag == "Player")
-        {
-            inRange = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        //When the player exits the range
-        if (collision.tag == "Player")
-        {
-            inRange = false;
-        }
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }

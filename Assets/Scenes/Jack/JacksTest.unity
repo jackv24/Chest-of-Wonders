@@ -644,7 +644,6 @@ GameObject:
   - component: {fileID: 1137835751}
   - component: {fileID: 1137835750}
   - component: {fileID: 1137835749}
-  - component: {fileID: 1137835748}
   m_Layer: 9
   m_Name: CrouchMan2
   m_TagString: Untagged
@@ -652,20 +651,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!58 &1137835748
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1137835747}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2
 --- !u!114 &1137835749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueFile: {fileID: 4900000, guid: 36c16d799b5cb0e4ea53c2ca749bb000, type: 3}
   boxOffset: {x: 0, y: 1}
+  range: 2
 --- !u!212 &1137835750
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1139,7 +1125,6 @@ GameObject:
   - component: {fileID: 1353912802}
   - component: {fileID: 1353912801}
   - component: {fileID: 1353912803}
-  - component: {fileID: 1353912804}
   m_Layer: 9
   m_Name: CrouchMan1
   m_TagString: Untagged
@@ -1208,20 +1193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueFile: {fileID: 4900000, guid: 6c4e6842970171c409b5b4f74be1d619, type: 3}
   boxOffset: {x: 0, y: 1}
---- !u!58 &1353912804
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1353912800}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2
+  range: 2
 --- !u!1 &1384049157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1204,6 @@ GameObject:
   - component: {fileID: 1384049160}
   - component: {fileID: 1384049159}
   - component: {fileID: 1384049158}
-  - component: {fileID: 1384049161}
   m_Layer: 0
   m_Name: HoleGuy
   m_TagString: Untagged
@@ -1253,6 +1224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueFile: {fileID: 4900000, guid: a97b6d1c8ac8170408ec229facccf0bd, type: 3}
   boxOffset: {x: 0, y: 1}
+  range: 2
 --- !u!212 &1384049159
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1301,20 +1273,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1384049161
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1384049157}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2
 --- !u!1 &1442324605
 GameObject:
   m_ObjectHideFlags: 0

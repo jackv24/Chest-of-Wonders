@@ -1,31 +1,31 @@
 fileFormatVersion: 2
 guid: c240673a4dfcff54186fa7bddc38d6d8
-timeCreated: 1480152859
+timeCreated: 1480766618
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: p3_duck
-    21300002: p3_front
-    21300004: p3_hurt
-    21300006: p3_jump
-    21300008: p3_stand
-    21300010: p3_walk01
-    21300012: p3_walk02
-    21300014: p3_walk03
-    21300016: p3_walk04
-    21300018: p3_walk05
-    21300020: p3_walk06
-    21300022: p3_walk07
-    21300024: p3_walk08
-    21300026: p3_walk09
-    21300028: p3_walk10
-    21300030: p3_walk11
-  serializedVersion: 2
+    21300000: duck
+    21300002: front
+    21300004: hurt
+    21300006: jump
+    21300008: stand
+    21300010: walk01
+    21300012: walk02
+    21300014: walk03
+    21300016: walk04
+    21300018: walk05
+    21300020: walk06
+    21300022: walk07
+    21300024: walk08
+    21300026: walk09
+    21300028: walk10
+    21300030: walk11
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -37,10 +37,8 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
@@ -51,9 +49,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -61,15 +57,52 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 64
+  alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: p3_duck
+      name: duck
       rect:
         serializedVersion: 2
         x: 365
@@ -82,7 +115,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_front
+      name: front
       rect:
         serializedVersion: 2
         x: 0
@@ -95,7 +128,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_hurt
+      name: hurt
       rect:
         serializedVersion: 2
         x: 438
@@ -108,7 +141,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_jump
+      name: jump
       rect:
         serializedVersion: 2
         x: 438
@@ -121,7 +154,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_stand
+      name: stand
       rect:
         serializedVersion: 2
         x: 67
@@ -134,7 +167,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk01
+      name: walk01
       rect:
         serializedVersion: 2
         x: 0
@@ -147,7 +180,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk02
+      name: walk02
       rect:
         serializedVersion: 2
         x: 73
@@ -160,7 +193,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk03
+      name: walk03
       rect:
         serializedVersion: 2
         x: 146
@@ -173,7 +206,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk04
+      name: walk04
       rect:
         serializedVersion: 2
         x: 0
@@ -186,7 +219,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk05
+      name: walk05
       rect:
         serializedVersion: 2
         x: 73
@@ -199,7 +232,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk06
+      name: walk06
       rect:
         serializedVersion: 2
         x: 146
@@ -212,7 +245,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk07
+      name: walk07
       rect:
         serializedVersion: 2
         x: 219
@@ -225,7 +258,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk08
+      name: walk08
       rect:
         serializedVersion: 2
         x: 292
@@ -238,7 +271,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk09
+      name: walk09
       rect:
         serializedVersion: 2
         x: 219
@@ -251,7 +284,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk10
+      name: walk10
       rect:
         serializedVersion: 2
         x: 365
@@ -264,7 +297,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk11
+      name: walk11
       rect:
         serializedVersion: 2
         x: 292

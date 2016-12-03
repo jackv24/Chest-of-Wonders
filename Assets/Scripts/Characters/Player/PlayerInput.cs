@@ -10,7 +10,6 @@ public class PlayerInput : MonoBehaviour
 
     //Horizontal direction of the movement input
     private Vector2 inputDirection;
-    private Vector3 attackDirection;
 
     //InControl active controller
     //private InputDevice device;
@@ -57,25 +56,12 @@ public class PlayerInput : MonoBehaviour
             {
                 aimIndicator.gameObject.SetActive(true);
 
-                //If using keyboard and mouse, aim at mouse
-                if (playerActions.LastInputType == BindingSourceType.KeyBindingSource)
-                    attackDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - aimIndicator.position;
-                //If using a controller, use controller
-                else
-                {
-                    //If right stick is being used, aim at right stick
-                    if (InputManager.ActiveDevice.RightStick.Vector.magnitude > 0.1f)
-                        attackDirection = InputManager.ActiveDevice.RightStick.Vector;
-                    //Otherwise, aim in input direction
-                    else if (inputDirection.magnitude > 0.1f)
-                        attackDirection = inputDirection;
-                }
-
-                attackDirection.Normalize();
-
                 //Rotate aim indicator to direction
-                float rotationZ = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
-                aimIndicator.rotation = Quaternion.Euler(0, 0, rotationZ + rotationOffset);
+                if (inputDirection.magnitude > 0.01f)
+                {
+                    float rotationZ = Mathf.Atan2(inputDirection.y, inputDirection.x) * Mathf.Rad2Deg;
+                    aimIndicator.rotation = Quaternion.Euler(0, 0, rotationZ + rotationOffset);
+                }
             }
             else
                 aimIndicator.gameObject.SetActive(false);
