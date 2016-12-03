@@ -1,16 +1,1 @@
-{
-    "speakerName": "Crouching Guy",
-    "nodes": [
-        {
-            "text": "Go away.",
-			"rect": {
-                "serializedVersion": "2",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 300.0,
-                "height": 200.0
-            },
-            "options": []
-        }
-    ]
-}
+{"speakerName":"Crouching Guy","nodes":[{"id":0,"text":"Go away.","rect":{"serializedVersion":"2","x":4.0,"y":30.0,"width":300.0,"height":174.0},"options":[{"text":"No.","target":1},{"text":"Fine.","target":2}]},{"id":1,"text":"Fuck you","rect":{"serializedVersion":"2","x":594.0,"y":50.0,"width":300.0,"height":134.0},"options":[]},{"id":2,"text":"That's right","rect":{"serializedVersion":"2","x":344.0,"y":302.0,"width":300.0,"height":154.0},"options":[{"text":"Actually no, screw you","target":1}]}]}

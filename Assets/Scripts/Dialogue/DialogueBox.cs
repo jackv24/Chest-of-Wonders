@@ -89,10 +89,10 @@ public class DialogueBox : MonoBehaviour
         UpdateDialogue(graph, 0);
     }
 
-    public void UpdateDialogue(DialogueGraph graph, int nodeIndex)
+    public void UpdateDialogue(DialogueGraph graph, int nodeID)
     {
         //Get node from graph based on index
-        DialogueGraph.DialogueGraphNode node = graph.nodes[nodeIndex];
+        DialogueGraph.DialogueGraphNode node = graph.GetNode(nodeID);
 
         //Get all buttons in the dialogue
         buttons = button.transform.parent.GetComponentsInChildren<Button>();
@@ -115,22 +115,25 @@ public class DialogueBox : MonoBehaviour
             //Create copy of variable to fix "capturing" error with delegates
             int n = i;
 
-            //if option is within already existing buttons, re-use buttons
-            if (i < buttons.Length)
+            if (graph.GetNode(node.options[i].target) != null)
             {
-                buttons[i].gameObject.SetActive(true);
-                buttons[i].GetComponentInChildren<Text>().text = node.options[i].text;
-                //Add click listener to target
-                buttons[i].onClick.AddListener(delegate { UpdateDialogue(graph, node.options[n].target); });
-            }
-            //If extra buttons are required, instantiate them
-            else
-            {
-                GameObject obj = Instantiate(button, button.transform.parent);
-                obj.SetActive(true);
-                obj.GetComponentInChildren<Text>().text = node.options[i].text;
-                //Add click listener to target
-                obj.GetComponent<Button>().onClick.AddListener(delegate { UpdateDialogue(graph, node.options[n].target); });
+                //if option is within already existing buttons, re-use buttons
+                if (i < buttons.Length)
+                {
+                    buttons[i].gameObject.SetActive(true);
+                    buttons[i].GetComponentInChildren<Text>().text = node.options[i].text;
+                    //Add click listener to target
+                    buttons[i].onClick.AddListener(delegate { UpdateDialogue(graph, node.options[n].target); });
+                }
+                //If extra buttons are required, instantiate them
+                else
+                {
+                    GameObject obj = Instantiate(button, button.transform.parent);
+                    obj.SetActive(true);
+                    obj.GetComponentInChildren<Text>().text = node.options[i].text;
+                    //Add click listener to target
+                    obj.GetComponent<Button>().onClick.AddListener(delegate { UpdateDialogue(graph, node.options[n].target); });
+                }
             }
         }
 

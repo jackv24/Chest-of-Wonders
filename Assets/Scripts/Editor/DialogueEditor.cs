@@ -9,11 +9,14 @@ public class DialogueEditor : EditorWindow
     DialogueGraph graph = null;
 
     List<Rect> windows = new List<Rect>();
-    List<int> attachedWindows = new List<int>();
+    List<int> markedForDeletion = new List<int>();
+
+    DialogueGraph.DialogueGraphNode tempNode = null;
+    DialogueGraph.DialogueGraphNode.Option tempOption = null;
 
     Vector2 scrollPos;
 
-    [MenuItem("Custom/Dialogue Editor")]
+    [MenuItem("Jack's Custom Tools/Dialogue Editor")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(DialogueEditor), false, "Dialogue Editor", true);
@@ -21,7 +24,20 @@ public class DialogueEditor : EditorWindow
 
     private void OnGUI()
     {
-        EditorGUILayout.LabelField("Dialogue Asset", EditorStyles.boldLabel);
+        for (int i = 0; i < markedForDeletion.Count; i++)
+        {
+            int id = markedForDeletion[i];
+
+            windows.RemoveAt(graph.nodes.IndexOf(graph.GetNode(id)));
+            graph.nodes.Remove(graph.GetNode(id));
+        }
+
+        markedForDeletion.Clear();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.BeginVertical(GUILayout.Width(300));
+
+        EditorGUILayout.LabelField("Dialogue Options", EditorStyles.boldLabel);
 
         textAsset = (TextAsset)EditorGUILayout.ObjectField("Dialogue Text Asset", textAsset, typeof(TextAsset), false);
         EditorGUILayout.Space();
@@ -32,16 +48,22 @@ public class DialogueEditor : EditorWindow
             //Deserialise json into graph
             graph = JsonUtility.FromJson<DialogueGraph>(textAsset.text);
 
-            CreateNode(0, -1);
+            windows.Clear();
+
+            for(int i = 0; i < graph.nodes.Count; i++)
+                CreateNode(i);
         }
 
         if (GUILayout.Button("Save"))
         {
             string json = JsonUtility.ToJson(graph);
             System.IO.File.WriteAllText(AssetDatabase.GetAssetPath(textAsset), json);
+            AssetDatabase.Refresh();
         }
         EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
 
+        EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("Dialogue Graph", EditorStyles.boldLabel);
 
         if (graph == null || graph.nodes.Count <= 0)
@@ -52,10 +74,11 @@ public class DialogueEditor : EditorWindow
         {
             graph.speakerName = EditorGUILayout.TextField("Speaker Name", graph.speakerName);
 
-            //if (GUILayout.Button("Create Node"))
-            //{
-            //    windows.Add(new Rect(10, 10, 100, 100));
-            //}
+            if (GUILayout.Button("Create New"))
+            {
+                graph.nodes.Add(new DialogueGraph.DialogueGraphNode(graph.GetNewID(), ""));
+                CreateNode(graph.nodes.Count - 1);
+            }
 
             Rect scrollSize = new Rect();
 
@@ -79,52 +102,114 @@ public class DialogueEditor : EditorWindow
             BeginWindows();
             for (int i = 0; i < windows.Count; i++)
             {
-                windows[i] = GUI.Window(i, windows[i], DrawNodeWindow, "Window " + i);
+                windows[i] = GUILayout.Window(graph.nodes[i].id, windows[i], DrawNodeWindow, "Node" + graph.nodes[i].id);
             }
             EndWindows();
 
-            if (attachedWindows.Count >= 2)
+            for (int i = 0; i < windows.Count; i++)
             {
-                for (int i = 0; i < attachedWindows.Count; i += 2)
+                for (int j = 0; j < graph.nodes[i].options.Count; j++)
                 {
-                    DrawNodeCurve(windows[attachedWindows[i]], windows[attachedWindows[i + 1]]);
+                    Rect startRect = windows[i];
+                    startRect.height = EditorGUIUtility.singleLineHeight;
+                    startRect.y += EditorGUIUtility.singleLineHeight * (j + 5) + EditorGUIUtility.singleLineHeight / 2;
+
+                    DialogueGraph.DialogueGraphNode node = graph.GetNode(graph.nodes[i].options[j].target);
+
+                    if (node != null)
+                        //DrawNodeCurve(startRect, windows[graph.nodes[i].options[j].target]);
+                        DrawNodeCurve(startRect, node.rect);
                 }
             }
 
             GUI.EndScrollView();
         }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndHorizontal();
     }
 
-    private void CreateNode(int index, int fromIndex)
+    private void CreateNode(int index)
     {
         DialogueGraph.DialogueGraphNode node = graph.nodes[index];
 
-        windows.Add(node.rect);
+        Rect rect = node.rect;
+        rect.height = 0;
 
-        for (int i = 0; i < node.options.Count; i++)
-        {
-            CreateNode(node.options[i].target, index);
-        }
-
-        if (fromIndex >= 0)
-        {
-            attachedWindows.Add(fromIndex);
-            attachedWindows.Add(index);
-        }
+        windows.Add(rect);
     }
 
     void DrawNodeWindow(int id)
     {
-        DialogueGraph.DialogueGraphNode node = graph.nodes[id];
+        DialogueGraph.DialogueGraphNode node = graph.GetNode(id);
 
-        node.text = EditorGUILayout.TextField("Text", node.text);
+        EditorGUILayout.PrefixLabel("Text");
+        node.text = EditorGUILayout.TextArea(node.text, GUILayout.Height(EditorGUIUtility.singleLineHeight * 3));
+
+        int optionToDelete = -1;
 
         for (int i = 0; i < node.options.Count; i++)
         {
-            node.options[i].text = EditorGUILayout.TextField("Option", node.options[i].text);
+            EditorGUILayout.BeginHorizontal();
+            node.options[i].text = EditorGUILayout.TextField(node.options[i].text);
+
+            if (GUILayout.Button("Remove"))
+            {
+                optionToDelete = i;
+            }
+
+            if (graph.GetNode(node.options[i].target) == null)
+            {
+                if (node.options[i] != tempOption)
+                {
+                    if (GUILayout.Button("+", GUILayout.Width(30)))
+                    {
+                        tempOption = node.options[i];
+                        tempNode = node;
+                    }
+                }
+                else
+                {
+                    if (GUILayout.Button("x", GUILayout.Width(30)))
+                    {
+                        tempOption = null;
+                        tempNode = null;
+                    }
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("-", GUILayout.Width(30)))
+                {
+                    node.options[i].target = -1;
+                }
+            }
+            EditorGUILayout.EndHorizontal();
         }
 
-        node.rect = windows[id];
+        if(optionToDelete >= 0)
+            node.options.RemoveAt(optionToDelete);
+
+        if (GUILayout.Button("Add Option"))
+        {
+            node.options.Add(new DialogueGraph.DialogueGraphNode.Option("New Option"));
+        }
+
+        if (GUILayout.Button("Delete Node"))
+        {
+            markedForDeletion.Add(id);
+        }
+
+        node.rect = windows[graph.nodes.IndexOf(graph.GetNode(id))];
+
+        Event e = Event.current;
+
+        if (node != tempNode && tempOption != null && e.type == EventType.MouseDown && e.button == 0 && (e.mousePosition.x < node.rect.width && e.mousePosition.y < node.rect.height))
+        {
+            tempOption.target = id;
+
+            tempNode = null;
+            tempOption = null;
+        }
 
         GUI.DragWindow();
     }
