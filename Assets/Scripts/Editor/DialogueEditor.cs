@@ -22,6 +22,19 @@ public class DialogueEditor : EditorWindow
         EditorWindow.GetWindow(typeof(DialogueEditor), false, "Dialogue Editor", true);
     }
 
+    public static void ShowWindow(TextAsset asset)
+    {
+        DialogueEditor editor = (DialogueEditor)EditorWindow.GetWindow(typeof(DialogueEditor), false, "Dialogue Editor", true);
+        editor.textAsset = asset;
+
+        editor.graph = JsonUtility.FromJson<DialogueGraph>(editor.textAsset.text);
+
+        editor.windows.Clear();
+
+        for (int i = 0; i < editor.graph.nodes.Count; i++)
+            editor.CreateNode(i);
+    }
+
     private void OnGUI()
     {
         for (int i = 0; i < markedForDeletion.Count; i++)
@@ -59,6 +72,27 @@ public class DialogueEditor : EditorWindow
             string json = JsonUtility.ToJson(graph);
             System.IO.File.WriteAllText(AssetDatabase.GetAssetPath(textAsset), json);
             AssetDatabase.Refresh();
+        }
+
+        if (GUILayout.Button("Create New"))
+        {
+            if(EditorUtility.DisplayDialog(
+                "Create new dialogue graph?",
+                "A new file called \"NewDialog.json\" will be created in the resources folder",
+                "OK", "Cancel"))
+            {
+                graph = new DialogueGraph();
+
+                System.IO.File.WriteAllText("Assets/Resources/Dialogue/NewDialogue.json", JsonUtility.ToJson(graph));
+                AssetDatabase.Refresh();
+
+                textAsset = Resources.Load<TextAsset>("Dialogue/NewDialogue");
+
+                windows.Clear();
+
+                for (int i = 0; i < graph.nodes.Count; i++)
+                    CreateNode(i);
+            }
         }
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
@@ -228,5 +262,21 @@ public class DialogueEditor : EditorWindow
         }
 
         Handles.DrawBezier(startPos, endPos, startTan, endTan, Color.black, null, 1);
+    }
+
+    [UnityEditor.Callbacks.OnOpenAsset(1)]
+    public static bool OnOpenAsset(int instanceID, int line)
+    {
+        if (Selection.activeObject.GetType() == typeof(TextAsset) && EditorUtility.DisplayDialog(
+                "Open in Dialogue Editor?",
+                "Any non-dialogue JSON files may cause errors - please make sure this is a dialogue file.",
+                "Open in Dialogue Editor", "Open in Text Editor"))
+        {
+            ShowWindow((TextAsset)Selection.activeObject);
+
+            return true;
+        }
+
+        return false;
     }
 }

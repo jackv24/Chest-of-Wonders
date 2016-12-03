@@ -53,6 +53,11 @@ public class DialogueGraph
         }
     }
 
+    public DialogueGraph()
+    {
+        nodes.Add(new DialogueGraphNode(0, ""));
+    }
+
     public DialogueGraphNode GetNode(int id)
     {
         DialogueGraphNode node = null;

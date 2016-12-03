@@ -5,7 +5,7 @@ using UnityEngine;
 public class DialogueSpeaker : MonoBehaviour
 {
     //Where to load the dialog json file
-    public string resourceFile = "Dialogue/DialogueFile";
+    public TextAsset dialogueFile;
 
     [Space()]
     //How far offset from the gameobject should it be (in world space)
@@ -22,11 +22,13 @@ public class DialogueSpeaker : MonoBehaviour
     private void Start()
     {
         //Load json from text asset
-        TextAsset asset = Resources.Load<TextAsset>(resourceFile);
-        json = asset.text;
+        if (dialogueFile)
+        {
+            json = dialogueFile.text;
 
-        //Deserialise json into DialogueGraph
-        graph = JsonUtility.FromJson<DialogueGraph>(json);
+            //Deserialise json into DialogueGraph
+            graph = JsonUtility.FromJson<DialogueGraph>(json);
+        }
 
         playerActions = new PlayerActions();
     }
@@ -34,7 +36,7 @@ public class DialogueSpeaker : MonoBehaviour
     private void Update()
     {
         //If interact buttons is pressed in range...
-        if (inRange && playerActions.Interact.WasPressed)
+        if (inRange && playerActions.Interact.WasPressed && graph != null)
         {
             //...and the player "can move" (can perform actions outside of UI)
             if (GameManager.instance.canMove)

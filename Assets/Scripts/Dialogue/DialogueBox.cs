@@ -17,6 +17,8 @@ public class DialogueBox : MonoBehaviour
     private Button[] buttons;
     private int selectedButton = 0;
 
+    public float textSpeed = 2f;
+
     private Vector3 worldPos;
 
     private PlayerActions playerActions;
@@ -107,7 +109,6 @@ public class DialogueBox : MonoBehaviour
 
         //Set dialogue text
         nameText.text = graph.speakerName;
-        dialogueText.text = node.text;
 
         //Loop through any options
         for (int i = 0; i < node.options.Count; i++)
@@ -144,5 +145,23 @@ public class DialogueBox : MonoBehaviour
 
         //Show the dialogue
         gameObject.SetActive(true);
+
+        StartCoroutine("DisplayTextOverTime", node.text);
+    }
+
+    IEnumerator DisplayTextOverTime(string text)
+    {
+        char[] chars = (text).ToCharArray();
+
+        Transform buttonGroup = button.transform.parent;
+
+        dialogueText.text = "";
+
+        for (int i = 0; i < chars.Length; i++)
+        {
+            yield return new WaitForSeconds(1 / textSpeed);
+
+            dialogueText.text += chars[i];
+        }
     }
 }
