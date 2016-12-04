@@ -18,6 +18,8 @@ public class DialogueSpeaker : MonoBehaviour
 
     private PlayerActions playerActions;
     private bool inRange = false;
+    [HideInInspector]
+    public bool rangeToggle = false;
 
     public float range = 2f;
     private GameObject player;
@@ -48,16 +50,28 @@ public class DialogueSpeaker : MonoBehaviour
                 inRange = false;
         }
 
-        //If interact buttons is pressed in range...
-        if (inRange && playerActions.Interact.WasPressed && graph != null)
+
+        if (inRange)
         {
-            //...and the player "can move" (can perform actions outside of UI)
-            if (GameManager.instance.canMove)
+            if (rangeToggle)
+                DialogueBox.instance.ShowIcon(true, this);
+
+            rangeToggle = false;
+
+            //If interact buttons is pressed in range...and the player "can move" (can perform actions outside of UI)
+            if (playerActions.Interact.WasPressed && graph != null && GameManager.instance.canMove)
             {
                 //Stop them moving and open dialogue
                 GameManager.instance.canMove = false;
                 DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset);
             }
+        }
+        else
+        {
+            if(!rangeToggle)
+                DialogueBox.instance.ShowIcon(false);
+
+            rangeToggle = true;
         }
     }
 

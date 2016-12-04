@@ -19,6 +19,8 @@ public class DialogueBox : MonoBehaviour
 
     public float textSpeed = 2f;
 
+    public GameObject openIcon;
+
     private Vector3 worldPos;
 
     private PlayerActions playerActions;
@@ -67,11 +69,13 @@ public class DialogueBox : MonoBehaviour
         else if (playerActions.Submit.WasPressed && buttons.Length <= 0)
         {
             GameManager.instance.canMove = true;
+            ShowIcon(true);
             gameObject.SetActive(false);
         }
         else if (playerActions.Attack1.WasPressed && buttons.Length <= 0)
         {
             GameManager.instance.canMove = true;
+            ShowIcon(true);
             gameObject.SetActive(false);
         }
     }
@@ -82,8 +86,32 @@ public class DialogueBox : MonoBehaviour
         transform.position = Camera.main.WorldToScreenPoint(worldPos);
     }
 
+    public void ShowIcon(bool value)
+    {
+        if (openIcon)
+        {
+            openIcon.GetComponent<Animator>().SetBool("isVisible", value);
+        }
+    }
+
+    public void ShowIcon(bool value, DialogueSpeaker speaker)
+    {
+        if (openIcon)
+        {
+            if (value)
+            {
+                openIcon.transform.position = (Vector2)speaker.transform.position + speaker.boxOffset;
+                openIcon.GetComponent<Animator>().SetBool("isVisible", true);
+            }
+            else
+                openIcon.GetComponent<Animator>().SetBool("isVisible", false);
+        }
+    }
+
     public void ShowDialogue(DialogueGraph graph, Vector3 worldPos)
     {
+        ShowIcon(false);
+
         //Set world position
         this.worldPos = worldPos;
 

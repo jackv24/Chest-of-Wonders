@@ -68,10 +68,11 @@ public class PlayerActions : PlayerActionSet
         Attack2.AddDefaultBinding(Key.K);
         Attack2.AddDefaultBinding(InputControlType.Action2);
 
-        Interact.AddDefaultBinding(Key.J);
+        Interact.AddDefaultBinding(Key.E);
         Interact.AddDefaultBinding(InputControlType.Action4);
 
         Submit.AddDefaultBinding(Key.J);
+        Submit.AddDefaultBinding(Key.E);
         Submit.AddDefaultBinding(Key.Space);
         Submit.AddDefaultBinding(Key.Return);
         Submit.AddDefaultBinding(InputControlType.Action1);
