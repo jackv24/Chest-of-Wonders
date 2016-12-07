@@ -18,6 +18,8 @@ public class CharacterMove : MonoBehaviour
     private float inputDirection = 0f;
     public float InputDirection { get { return inputDirection; } }
 
+    public bool canMove = true;
+
     [Header("Jumping")]
     public float jumpForce = 10f;
 
@@ -123,7 +125,7 @@ public class CharacterMove : MonoBehaviour
 
         //Set the target move speed (actual movement is handled in FixedUpdate)
         //Make direction either -1, 1 or 0 - no in-between
-        if (GameManager.instance.canMove)
+        if (GameManager.instance.gameRunning && canMove)
             inputDirection = direction != 0 ? Mathf.Sign(direction) : 0;
         else
             inputDirection = 0;
@@ -134,7 +136,7 @@ public class CharacterMove : MonoBehaviour
 
     public void Jump(bool pressed)
     {
-        if (GameManager.instance.canMove)
+        if (GameManager.instance.gameRunning && canMove)
         {
             if (pressed && !heldJump)
             {

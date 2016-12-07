@@ -59,10 +59,10 @@ public class DialogueSpeaker : MonoBehaviour
             rangeToggle = false;
 
             //If interact buttons is pressed in range...and the player "can move" (can perform actions outside of UI)
-            if (playerActions.Interact.WasPressed && graph != null && GameManager.instance.canMove)
+            if (playerActions.Interact.WasPressed && graph != null && GameManager.instance.gameRunning)
             {
                 //Stop them moving and open dialogue
-                GameManager.instance.canMove = false;
+                GameManager.instance.gameRunning = false;
                 DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset);
             }
         }

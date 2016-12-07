@@ -52,10 +52,8 @@ public class PlayerInput : MonoBehaviour
 
         if (aimIndicator)
         {
-            if (GameManager.instance.canMove)
+            if (GameManager.instance.gameRunning)
             {
-                aimIndicator.gameObject.SetActive(true);
-
                 //Rotate aim indicator to direction
                 if (inputDirection.magnitude > 0.01f)
                 {
@@ -63,8 +61,6 @@ public class PlayerInput : MonoBehaviour
                     aimIndicator.rotation = Quaternion.Euler(0, 0, rotationZ + rotationOffset);
                 }
             }
-            else
-                aimIndicator.gameObject.SetActive(false);
         }
 
         if (characterAttack)

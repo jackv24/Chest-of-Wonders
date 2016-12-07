@@ -68,13 +68,13 @@ public class DialogueBox : MonoBehaviour
         //Close dialogue if no buttons present, and action is pressed
         else if (playerActions.Submit.WasPressed && buttons.Length <= 0)
         {
-            GameManager.instance.canMove = true;
+            GameManager.instance.gameRunning = true;
             ShowIcon(true);
             gameObject.SetActive(false);
         }
         else if (playerActions.Attack1.WasPressed && buttons.Length <= 0)
         {
-            GameManager.instance.canMove = true;
+            GameManager.instance.gameRunning = true;
             ShowIcon(true);
             gameObject.SetActive(false);
         }

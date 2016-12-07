@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public bool canMove = true;
+    public bool gameRunning = true;
 
     private void Awake()
     {

@@ -1,29 +1,33 @@
 fileFormatVersion: 2
-guid: ef83be9acb00789418235d7ee0eb4efb
-timeCreated: 1480152859
+guid: 410a2e75204b79445a8d95f85c8dc45e
+timeCreated: 1481085546
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: p3_duck
-    21300002: p3_front
-    21300004: p3_hurt
-    21300006: p3_jump
-    21300008: p3_stand
-    21300010: p3_walk01
-    21300012: p3_walk02
-    21300014: p3_walk03
-    21300016: p3_walk04
-    21300018: p3_walk05
-    21300020: p3_walk06
-    21300022: p3_walk07
-    21300024: p3_walk08
-    21300026: p3_walk09
-    21300028: p3_walk10
-    21300030: p3_walk11
+    21300000: player_idle_01
+    21300002: player_idle_02
+    21300004: player_idle_03
+    21300006: player_idle_04
+    21300008: player_run_01
+    21300010: player_run_02
+    21300012: player_run_03
+    21300014: player_run_04
+    21300016: player_run_05
+    21300018: player_run_06
+    21300020: player_run_07
+    21300022: player_run_08
+    21300024: player_bat_01
+    21300026: player_bat_02
+    21300028: player_bat_03
+    21300030: player_bat_04
+    21300032: player_bat_05
+    21300034: player_bat_06
+    21300036: player_bat_07
+    21300038: player_bat_08
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -40,11 +44,11 @@ TextureImporter:
   generateCubemap: 6
   cubemapConvolution: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: 1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
-    aniso: 16
+    filterMode: 0
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -56,7 +60,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 32
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -69,7 +73,7 @@ TextureImporter:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -77,7 +81,7 @@ TextureImporter:
   - buildTarget: Standalone
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -85,7 +89,7 @@ TextureImporter:
   - buildTarget: Android
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,7 +97,7 @@ TextureImporter:
   - buildTarget: WebGL
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -102,210 +106,262 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: p3_duck
+      name: player_idle_01
       rect:
         serializedVersion: 2
-        x: 365
-        y: 119
-        width: 69
-        height: 71
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 8
+        y: 417
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_front
+      name: player_idle_02
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 66
-        height: 92
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 43
+        y: 417
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_hurt
+      name: player_idle_03
       rect:
         serializedVersion: 2
-        x: 438
-        y: 196
-        width: 69
-        height: 92
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 78
+        y: 417
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_jump
+      name: player_idle_04
       rect:
         serializedVersion: 2
-        x: 438
-        y: 101
-        width: 67
-        height: 94
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 113
+        y: 417
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_stand
+      name: player_run_01
       rect:
         serializedVersion: 2
-        x: 67
-        y: 0
-        width: 66
-        height: 92
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 8
+        y: 338
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk01
+      name: player_run_02
       rect:
         serializedVersion: 2
-        x: 0
-        y: 191
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 43
+        y: 338
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk02
+      name: player_run_03
       rect:
         serializedVersion: 2
-        x: 73
-        y: 191
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 78
+        y: 338
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk03
+      name: player_run_04
       rect:
         serializedVersion: 2
-        x: 146
-        y: 191
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 113
+        y: 338
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk04
+      name: player_run_05
       rect:
         serializedVersion: 2
-        x: 0
-        y: 93
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 148
+        y: 338
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk05
+      name: player_run_06
       rect:
         serializedVersion: 2
-        x: 73
-        y: 93
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 184
+        y: 338
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk06
-      rect:
-        serializedVersion: 2
-        x: 146
-        y: 93
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: p3_walk07
+      name: player_run_07
       rect:
         serializedVersion: 2
         x: 219
-        y: 191
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 338
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk08
+      name: player_run_08
       rect:
         serializedVersion: 2
-        x: 292
-        y: 191
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 254
+        y: 338
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk09
+      name: player_bat_01
       rect:
         serializedVersion: 2
-        x: 219
-        y: 93
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 7
+        y: 257
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk10
+      name: player_bat_02
       rect:
         serializedVersion: 2
-        x: 365
-        y: 191
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 138
+        y: 257
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: p3_walk11
+      name: player_bat_03
       rect:
         serializedVersion: 2
-        x: 292
-        y: 93
-        width: 72
-        height: 97
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 269
+        y: 257
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_04
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 257
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_05
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 188
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_06
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 188
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_07
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 188
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_08
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 188
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
