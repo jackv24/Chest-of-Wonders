@@ -6,11 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    //Game running refers to if events can happen in game. Inside menus the game is considered "not running"
     public bool gameRunning = true;
 
     private void Awake()
     {
-        //There should only be one dialogue box present in the scene
+        //There should only be one game manager present in the scene
         if (!instance)
             instance = this;
         else

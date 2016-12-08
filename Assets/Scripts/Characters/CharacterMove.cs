@@ -48,7 +48,8 @@ public class CharacterMove : MonoBehaviour
     private Vector2 moveVector = Vector2.zero;
 
     //The RigidBody2D attached to this GameObject
-    private Rigidbody2D body;
+    [HideInInspector]
+    public Rigidbody2D body;
 
     private void Awake()
     {
@@ -112,10 +113,12 @@ public class CharacterMove : MonoBehaviour
     {
         Vector2 origin = (Vector2)transform.position + circleCastOrigin;
 
+        //Circle cast to check if character is within distance of the ground
         RaycastHit2D hit = Physics2D.CircleCast(origin, circleCastRadius, Vector2.down, 1000f, groundLayer);
 
         Debug.DrawLine(origin, hit.point);
 
+        //If character is within correct distance, it is considered grounded
         return hit.distance <= groundedDistance;
     }
 
@@ -138,12 +141,14 @@ public class CharacterMove : MonoBehaviour
     {
         if (GameManager.instance.gameRunning && canMove)
         {
+            //Handle first jump button press and continued holding
             if (pressed && !heldJump)
             {
                 pressedJump = true;
                 heldJump = true;
                 jumpHeldTime = 0;
             }
+            //If holding stopped, set bool
             else
             {
                 heldJump = false;

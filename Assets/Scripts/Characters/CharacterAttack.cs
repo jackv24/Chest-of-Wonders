@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class CharacterAttack : MonoBehaviour
 {
-    private CharacterStats characterStats;
     private CharacterAnimator characterAnimator;
 
     private void Awake()
     {
-        characterStats = GetComponent<CharacterStats>();
         characterAnimator = GetComponent<CharacterAnimator>();
     }
 

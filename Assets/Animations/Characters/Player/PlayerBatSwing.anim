@@ -34,6 +34,8 @@ AnimationClip:
       value: {fileID: 21300036, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
     - time: 0.5833333
       value: {fileID: 21300038, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300038, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -60,12 +62,13 @@ AnimationClip:
     - {fileID: 21300034, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
     - {fileID: 21300036, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
     - {fileID: 21300038, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
+    - {fileID: 21300038, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.59999996
+    m_StopTime: 0.68333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -88,13 +91,13 @@ AnimationClip:
   m_IsEmpty: 0
   m_Events:
   - time: 0
-    functionName: DisallowMovement
+    functionName: SlideStopMovement
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
+    floatParameter: 0.5
     intParameter: 0
     messageOptions: 0
-  - time: 0.5833333
+  - time: 0.6666667
     functionName: AllowMovement
     data: 
     objectReferenceParameter: {fileID: 0}

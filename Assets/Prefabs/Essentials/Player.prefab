@@ -239,6 +239,7 @@ MonoBehaviour:
   circleCastOrigin: {x: 0, y: 0.25}
   circleCastRadius: 0.2
   groundedDistance: 0.15
+  body: {fileID: 0}
 --- !u!114 &114000014123730578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -290,6 +291,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterMove: {fileID: 114000013110640092}
+  slideTime: 0.5
+  slideCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: -0.007932089
+      outSlope: -0.007932089
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0.25
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!212 &212000011903624906
 SpriteRenderer:
   m_ObjectHideFlags: 1

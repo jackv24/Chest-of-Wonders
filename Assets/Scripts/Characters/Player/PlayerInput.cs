@@ -63,7 +63,8 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (characterAttack)
+        //Can only attack while game is running
+        if (characterAttack && GameManager.instance.gameRunning)
         {
             if (playerActions.Attack1.WasPressed)
                 characterAttack.UsePrimary();
