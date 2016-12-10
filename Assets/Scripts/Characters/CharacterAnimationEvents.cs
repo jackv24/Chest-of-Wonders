@@ -12,6 +12,9 @@ public class CharacterAnimationEvents : MonoBehaviour
     public AnimationCurve slideCurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1,0));
     private bool canSlide = false;
 
+    [Space()]
+    public ParticleSystem stepParticles;
+
     public void AllowMovement()
     {
         if (characterMove)
@@ -43,6 +46,9 @@ public class CharacterAnimationEvents : MonoBehaviour
 
         if (canSlide)
         {
+            if (stepParticles)
+                stepParticles.Play();
+
             Rigidbody2D body = characterMove.body;
 
             //Get initial velocity
@@ -65,6 +71,15 @@ public class CharacterAnimationEvents : MonoBehaviour
                 yield return new WaitForEndOfFrame();
                 timeElapsed += Time.deltaTime;
             }
+
+            if (stepParticles)
+                stepParticles.Stop();
         }
+    }
+
+    public void EmitStepParticles(int amount)
+    {
+        if (stepParticles)
+            stepParticles.Emit(amount);
     }
 }
