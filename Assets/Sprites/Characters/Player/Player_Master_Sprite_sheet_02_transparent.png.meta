@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 410a2e75204b79445a8d95f85c8dc45e
-timeCreated: 1481085546
+timeCreated: 1481378707
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -24,6 +24,10 @@ TextureImporter:
     21300034: player_bat_06
     21300036: player_bat_07
     21300038: player_bat_08
+    21300040: player_jump_01
+    21300042: player_jump_02
+    21300044: player_fall_01
+    21300046: player_fall_02
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -359,6 +363,58 @@ TextureImporter:
         x: 400
         y: 188
         width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_jump_01
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 431
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_jump_02
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 431
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_fall_01
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 431
+        width: 32
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_fall_02
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 431
+        width: 32
         height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}

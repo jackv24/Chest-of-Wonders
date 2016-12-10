@@ -50,11 +50,13 @@ public class CharacterMove : MonoBehaviour
     //The RigidBody2D attached to this GameObject
     [HideInInspector]
     public Rigidbody2D body;
+    private CharacterAnimator characterAnimator;
 
     private void Awake()
     {
         //Get references
         body = GetComponent<Rigidbody2D>();
+        characterAnimator = GetComponent<CharacterAnimator>();
     }
 
     private void FixedUpdate()
@@ -147,6 +149,10 @@ public class CharacterMove : MonoBehaviour
                 pressedJump = true;
                 heldJump = true;
                 jumpHeldTime = 0;
+
+                if (characterAnimator)
+                    characterAnimator.animator.SetTrigger("jump");
+                
             }
             //If holding stopped, set bool
             else
