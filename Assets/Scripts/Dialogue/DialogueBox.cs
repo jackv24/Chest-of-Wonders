@@ -24,6 +24,7 @@ public class DialogueBox : MonoBehaviour
     private Vector3 worldPos;
 
     private PlayerActions playerActions;
+    private Animator speakerAnimator;
 
     private void Awake()
     {
@@ -66,17 +67,14 @@ public class DialogueBox : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
         }
         //Close dialogue if no buttons present, and action is pressed
-        else if (playerActions.Submit.WasPressed && buttons.Length <= 0)
+        else if ((playerActions.Submit.WasPressed || playerActions.Attack1.WasPressed) && buttons.Length <= 0)
         {
             GameManager.instance.gameRunning = true;
             ShowIcon(true);
             gameObject.SetActive(false);
-        }
-        else if (playerActions.Attack1.WasPressed && buttons.Length <= 0)
-        {
-            GameManager.instance.gameRunning = true;
-            ShowIcon(true);
-            gameObject.SetActive(false);
+
+            if (speakerAnimator)
+                speakerAnimator.SetBool("isTalking", false);
         }
     }
 
@@ -117,6 +115,16 @@ public class DialogueBox : MonoBehaviour
 
         //Start dialogue at first node
         UpdateDialogue(graph, 0);
+    }
+
+    public void ShowDialogue(DialogueGraph graph, Vector3 worldPos, Animator speakerAnimator)
+    {
+        this.speakerAnimator = speakerAnimator;
+
+        if(speakerAnimator)
+            speakerAnimator.SetBool("isTalking", true);
+
+        ShowDialogue(graph, worldPos);
     }
 
     public void UpdateDialogue(DialogueGraph graph, int nodeID)

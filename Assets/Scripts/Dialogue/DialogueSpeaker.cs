@@ -24,6 +24,9 @@ public class DialogueSpeaker : MonoBehaviour
     public float range = 2f;
     private GameObject player;
 
+    [Space()]
+    public Animator animator;
+
     private void Start()
     {
         //Load json from text asset
@@ -63,7 +66,7 @@ public class DialogueSpeaker : MonoBehaviour
             {
                 //Stop them moving and open dialogue
                 GameManager.instance.gameRunning = false;
-                DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset);
+                DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset, animator);
             }
         }
         else

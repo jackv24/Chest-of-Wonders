@@ -16,14 +16,14 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010633836028}
-  - 20: {fileID: 20000012058651594}
-  - 92: {fileID: 92000010493052606}
-  - 124: {fileID: 124000011010066802}
-  - 81: {fileID: 81000010550850078}
-  - 114: {fileID: 114000010702937752}
+  - component: {fileID: 4000010633836028}
+  - component: {fileID: 20000012058651594}
+  - component: {fileID: 92000010493052606}
+  - component: {fileID: 124000011010066802}
+  - component: {fileID: 81000010550850078}
+  - component: {fileID: 114000010702937752}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -40,10 +40,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20000012058651594
 Camera:
   m_ObjectHideFlags: 1
@@ -64,7 +64,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   followSpeed: 10
-  offset: {x: 0, y: 1}
-  lookAhead: 5
+  heightOffset: 1
+  lookAhead: 3
   lookAheadSpeed: 1
 --- !u!124 &124000011010066802
 Behaviour:

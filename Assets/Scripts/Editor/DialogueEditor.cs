@@ -83,10 +83,10 @@ public class DialogueEditor : EditorWindow
             {
                 graph = new DialogueGraph();
 
-                System.IO.File.WriteAllText("Assets/Resources/Dialogue/NewDialogue.json", JsonUtility.ToJson(graph));
+                System.IO.File.WriteAllText("Assets/Data/Dialogue/NewDialogue.json", JsonUtility.ToJson(graph));
                 AssetDatabase.Refresh();
 
-                textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Resources/Dialogue/NewDialogue.json");
+                textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Data/Dialogue/NewDialogue.json");
 
                 windows.Clear();
 
