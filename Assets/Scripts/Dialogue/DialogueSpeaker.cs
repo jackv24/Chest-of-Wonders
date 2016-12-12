@@ -26,6 +26,7 @@ public class DialogueSpeaker : MonoBehaviour
 
     [Space()]
     public Animator animator;
+    public bool facePlayer = true;
 
     private void Start()
     {
@@ -67,6 +68,15 @@ public class DialogueSpeaker : MonoBehaviour
                 //Stop them moving and open dialogue
                 GameManager.instance.gameRunning = false;
                 DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset, animator);
+
+                //If desired, face the player while speaking
+                if (facePlayer && animator)
+                {
+                    //Make x scale -1 or 1 to flip the sprite to face the player
+                    Vector3 scale = animator.transform.localScale;
+                    scale.x = Mathf.Sign(player.transform.position.x - transform.position.x);
+                    animator.transform.localScale = scale;
+                }
             }
         }
         else

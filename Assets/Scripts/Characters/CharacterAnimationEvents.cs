@@ -35,6 +35,8 @@ public class CharacterAnimationEvents : MonoBehaviour
         if (characterMove)
         {
             canSlide = true;
+            //Only play one at a time
+            StopCoroutine("SlideStopOverTime");
             StartCoroutine("SlideStopOverTime", slideTime);
         }
     }
@@ -46,9 +48,6 @@ public class CharacterAnimationEvents : MonoBehaviour
 
         if (canSlide)
         {
-            if (stepParticles)
-                stepParticles.Play();
-
             Rigidbody2D body = characterMove.body;
 
             //Get initial velocity
@@ -62,6 +61,15 @@ public class CharacterAnimationEvents : MonoBehaviour
             //Slide over time
             while (timeElapsed <= slideTime)
             {
+                if (stepParticles)
+                {
+                    //Only show particles when on ground
+                    if (stepParticles.isStopped && characterMove.IsGrounded)
+                        stepParticles.Play();
+                    else if (stepParticles.isPlaying && !characterMove.IsGrounded)
+                        stepParticles.Stop();
+                }
+
                 //Change velocity to fit curve (scaled)
                 vel.x = initialMoveSpeed * slideCurve.Evaluate(timeElapsed / slideTime);
                 vel.y = body.velocity.y;

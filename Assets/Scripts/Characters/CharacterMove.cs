@@ -83,6 +83,9 @@ public class CharacterMove : MonoBehaviour
                 //Reset jump time and allow jumping
                 stopJumpTime = 0;
                 canJump = true;
+
+                if (characterAnimator)
+                    characterAnimator.animator.SetTrigger("jump");
             }
         }
 
@@ -148,11 +151,7 @@ public class CharacterMove : MonoBehaviour
             {
                 pressedJump = true;
                 heldJump = true;
-                jumpHeldTime = 0;
-
-                if (characterAnimator)
-                    characterAnimator.animator.SetTrigger("jump");
-                
+                jumpHeldTime = 0;                
             }
             //If holding stopped, set bool
             else

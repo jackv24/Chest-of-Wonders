@@ -18,6 +18,9 @@ public class DialogueGraph
 
         public Rect rect = new Rect(0, 0, 300, 200);
 
+        //For dialogue nodes with no options to lead on
+        public int nextNode = -1;
+
         [System.Serializable]
         public class Option
         {

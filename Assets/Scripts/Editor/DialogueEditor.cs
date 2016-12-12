@@ -47,6 +47,13 @@ public class DialogueEditor : EditorWindow
 
         markedForDeletion.Clear();
 
+        //Remove connection
+        for (int j = 0; j < graph.nodes.Count; j++)
+        {
+            if (graph.GetNode(graph.nodes[j].nextNode) == null)
+                graph.nodes[j].nextNode = -1;
+        }
+
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.BeginVertical(GUILayout.Width(300));
 
@@ -69,7 +76,7 @@ public class DialogueEditor : EditorWindow
 
         if (GUILayout.Button("Save"))
         {
-            string json = JsonUtility.ToJson(graph);
+            string json = JsonUtility.ToJson(graph, true);
             System.IO.File.WriteAllText(AssetDatabase.GetAssetPath(textAsset), json);
             AssetDatabase.Refresh();
         }
@@ -146,13 +153,22 @@ public class DialogueEditor : EditorWindow
                 {
                     Rect startRect = windows[i];
                     startRect.height = EditorGUIUtility.singleLineHeight;
-                    startRect.y += EditorGUIUtility.singleLineHeight * (j + 5) + EditorGUIUtility.singleLineHeight / 2;
+                    startRect.y += EditorGUIUtility.singleLineHeight * (j + 5);
 
                     DialogueGraph.DialogueGraphNode node = graph.GetNode(graph.nodes[i].options[j].target);
 
                     if (node != null)
                         //DrawNodeCurve(startRect, windows[graph.nodes[i].options[j].target]);
                         DrawNodeCurve(startRect, node.rect);
+                }
+
+                //Draw connections between nodes (the ones without options)
+                DialogueGraph.DialogueGraphNode n = graph.GetNode(graph.nodes[i].id);
+                if (n != null)
+                {
+                    //if the next node is valid, then draw the line
+                    if (n.nextNode >= 0)
+                        DrawNodeCurve(windows[i], windows[graph.GetNode(i).nextNode]);
                 }
             }
 
@@ -176,8 +192,31 @@ public class DialogueEditor : EditorWindow
     {
         DialogueGraph.DialogueGraphNode node = graph.GetNode(id);
 
-        EditorGUILayout.PrefixLabel("Text");
-        node.text = EditorGUILayout.TextArea(node.text, GUILayout.Height(EditorGUIUtility.singleLineHeight * 3));
+        EditorGUILayout.BeginHorizontal();
+
+        EditorGUILayout.LabelField("Text", GUILayout.Width(50));
+        node.text = EditorGUILayout.TextArea(node.text, GUILayout.Height(EditorGUIUtility.singleLineHeight * 3), GUILayout.Width(200));
+
+        if (node.options.Count <= 0)
+        {
+            if (node == tempNode)
+            {
+                if (GUILayout.Button("x", GUILayout.Width(30)))
+                    tempNode = null;
+            }
+            else if (node.nextNode < 0)
+            {
+                if (GUILayout.Button("+", GUILayout.Width(30)))
+                    tempNode = node;
+            }
+            else
+            {
+                if (GUILayout.Button("-", GUILayout.Width(30)))
+                    node.nextNode = -1;
+            }
+        }
+
+        EditorGUILayout.EndHorizontal();
 
         int optionToDelete = -1;
 
@@ -226,6 +265,11 @@ public class DialogueEditor : EditorWindow
         if (GUILayout.Button("Add Option"))
         {
             node.options.Add(new DialogueGraph.DialogueGraphNode.Option("New Option"));
+
+            node.nextNode = -1;
+
+            tempNode = null;
+            tempOption = null;
         }
 
         if (GUILayout.Button("Delete Node"))
@@ -237,9 +281,12 @@ public class DialogueEditor : EditorWindow
 
         Event e = Event.current;
 
-        if (node != tempNode && tempOption != null && e.type == EventType.MouseDown && e.button == 0 && (e.mousePosition.x < node.rect.width && e.mousePosition.y < node.rect.height))
+        if (node != tempNode && e.type == EventType.MouseDown && e.button == 0 && (e.mousePosition.x < node.rect.width && e.mousePosition.y < node.rect.height))
         {
-            tempOption.target = id;
+            if (tempOption != null)
+                tempOption.target = id;
+            else if (tempNode != null)
+                tempNode.nextNode = id;
 
             tempNode = null;
             tempOption = null;

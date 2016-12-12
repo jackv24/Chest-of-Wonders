@@ -26,6 +26,10 @@ public class DialogueBox : MonoBehaviour
     private PlayerActions playerActions;
     private Animator speakerAnimator;
 
+    //Keep track of next node for when there is no button to setup listeners
+    private DialogueGraph currentGraph;
+    private int nextNode = -1;
+
     private void Awake()
     {
         //There should only be one dialogue box present in the scene
@@ -69,12 +73,20 @@ public class DialogueBox : MonoBehaviour
         //Close dialogue if no buttons present, and action is pressed
         else if ((playerActions.Submit.WasPressed || playerActions.Attack1.WasPressed) && buttons.Length <= 0)
         {
-            GameManager.instance.gameRunning = true;
-            ShowIcon(true);
-            gameObject.SetActive(false);
+            //If there is no next node, dialogue has finished
+            if (nextNode < 0)
+            {
+                GameManager.instance.gameRunning = true;
+                ShowIcon(true);
+                gameObject.SetActive(false);
 
-            if (speakerAnimator)
-                speakerAnimator.SetBool("isTalking", false);
+                if (speakerAnimator)
+                    speakerAnimator.SetBool("isTalking", false);
+            }
+            else
+            {
+                UpdateDialogue(currentGraph, nextNode);
+            }
         }
     }
 
@@ -112,6 +124,8 @@ public class DialogueBox : MonoBehaviour
 
         //Set world position
         this.worldPos = worldPos;
+
+        currentGraph = graph;
 
         //Start dialogue at first node
         UpdateDialogue(graph, 0);
@@ -173,6 +187,11 @@ public class DialogueBox : MonoBehaviour
                 }
             }
         }
+
+        if (node.options.Count <= 0 && node.nextNode >= 0)
+            nextNode = node.nextNode;
+        else
+            nextNode = -1;
 
         //Get buttons for input
         buttons = button.transform.parent.GetComponentsInChildren<Button>();

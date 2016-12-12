@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4198061183610684}
   - component: {fileID: 114512495726707682}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Belle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4387791407899404}
   - component: {fileID: 212019925378070514}
   - component: {fileID: 95393219126460876}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1068437205747888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: -1, z: 0}
+  m_LocalPosition: {x: 31.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4387791407899404}
@@ -99,11 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee314be393e91064ab5754a84bec453a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueFile: {fileID: 4900000, guid: c63d71a1bbee4f74b83e874f494c4af3, type: 3}
+  dialogueFile: {fileID: 4900000, guid: f867e8f15190f2b40bd511c62c6d65b3, type: 3}
   boxOffset: {x: 0, y: 1.75}
   rangeToggle: 0
   range: 2
   animator: {fileID: 95393219126460876}
+  facePlayer: 1
 --- !u!212 &212019925378070514
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -133,7 +134,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -291414749
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300006, guid: 6ad3f40b2cf3ddf47891723f6fb2f600, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

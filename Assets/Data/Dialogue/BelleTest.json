@@ -1,0 +1,79 @@
+{
+    "speakerName": "Belle",
+    "nodes": [
+        {
+            "id": 0,
+            "text": "Hi there, I'm Belle the Blacksmith!",
+            "rect": {
+                "serializedVersion": "2",
+                "x": 14.0,
+                "y": 54.0,
+                "width": 300.0,
+                "height": 115.0
+            },
+            "nextNode": 1,
+            "options": []
+        },
+        {
+            "id": 1,
+            "text": "I'll be able to craft weapons and stuff for you eventually, but right now I'm just a pretty face.",
+            "rect": {
+                "serializedVersion": "2",
+                "x": 256.0,
+                "y": 250.0,
+                "width": 300.0,
+                "height": 155.0
+            },
+            "nextNode": -1,
+            "options": [
+                {
+                    "text": "Weapons?",
+                    "target": 2
+                },
+                {
+                    "text": "Stuff?",
+                    "target": 3
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "text": "More on that later!",
+            "rect": {
+                "serializedVersion": "2",
+                "x": 628.0,
+                "y": 108.0,
+                "width": 300.0,
+                "height": 115.0
+            },
+            "nextNode": -1,
+            "options": []
+        },
+        {
+            "id": 3,
+            "text": "Yeah?",
+            "rect": {
+                "serializedVersion": "2",
+                "x": 666.0,
+                "y": 308.0,
+                "width": 300.0,
+                "height": 115.0
+            },
+            "nextNode": 4,
+            "options": []
+        },
+        {
+            "id": 4,
+            "text": "Safe travels!",
+            "rect": {
+                "serializedVersion": "2",
+                "x": 982.0,
+                "y": 204.0,
+                "width": 300.0,
+                "height": 115.0
+            },
+            "nextNode": -1,
+            "options": []
+        }
+    ]
+}
