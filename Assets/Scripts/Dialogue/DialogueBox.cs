@@ -18,6 +18,8 @@ public class DialogueBox : MonoBehaviour
     private int selectedButton = 0;
 
     public float textSpeed = 2f;
+    private bool textDonePrinting = false;
+    private string targetText;
 
     public GameObject openIcon;
 
@@ -71,21 +73,32 @@ public class DialogueBox : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
         }
         //Close dialogue if no buttons present, and action is pressed
-        else if ((playerActions.Submit.WasPressed || playerActions.Attack1.WasPressed) && buttons.Length <= 0)
+        else if (playerActions.Submit.WasPressed || playerActions.Attack1.WasPressed)
         {
-            //If there is no next node, dialogue has finished
-            if (nextNode < 0)
+            //Only go to next node if text is done printing, and there are no buttons
+            if (textDonePrinting && buttons.Length <= 0)
             {
-                GameManager.instance.gameRunning = true;
-                ShowIcon(true);
-                gameObject.SetActive(false);
+                //If there is no next node, dialogue has finished
+                if (nextNode < 0)
+                {
+                    GameManager.instance.gameRunning = true;
+                    ShowIcon(true);
+                    gameObject.SetActive(false);
 
-                if (speakerAnimator)
-                    speakerAnimator.SetBool("isTalking", false);
+                    if (speakerAnimator)
+                        speakerAnimator.SetBool("isTalking", false);
+                }
+                else
+                {
+                    UpdateDialogue(currentGraph, nextNode);
+                }
             }
+            //If text is not done, then skip to end
             else
             {
-                UpdateDialogue(currentGraph, nextNode);
+                StopCoroutine("DisplayTextOverTime");
+                dialogueText.text = targetText;
+                textDonePrinting = true;
             }
         }
     }
@@ -206,6 +219,9 @@ public class DialogueBox : MonoBehaviour
 
     IEnumerator DisplayTextOverTime(string text)
     {
+        textDonePrinting = false;
+        targetText = text;
+
         char[] chars = (text).ToCharArray();
 
         Transform buttonGroup = button.transform.parent;
@@ -218,5 +234,7 @@ public class DialogueBox : MonoBehaviour
 
             dialogueText.text += chars[i];
         }
+
+        textDonePrinting = true;
     }
 }
