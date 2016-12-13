@@ -15,6 +15,15 @@ public class CharacterAnimationEvents : MonoBehaviour
     [Space()]
     public ParticleSystem stepParticles;
 
+    [Header("Attacks")]
+    public GameObject batSwingCollider;
+
+    private void Start()
+    {
+        if (batSwingCollider)
+            batSwingCollider.SetActive(false);
+    }
+
     public void AllowMovement()
     {
         if (characterMove)
@@ -89,5 +98,17 @@ public class CharacterAnimationEvents : MonoBehaviour
     {
         if (stepParticles)
             stepParticles.Emit(amount);
+    }
+
+    public void EnableBatCollider()
+    {
+        if (batSwingCollider)
+            batSwingCollider.SetActive(true);
+    }
+
+    public void DisableBatCollider()
+    {
+        if (batSwingCollider)
+            batSwingCollider.SetActive(false);
     }
 }

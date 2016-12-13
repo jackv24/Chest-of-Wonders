@@ -17,7 +17,7 @@ TagManager:
   - Ground
   - Characters
   - Player
-  - 
+  - Attacks
   - 
   - 
   - 
@@ -56,6 +56,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3794133429
+    locked: 0
+  - name: Effects
+    uniqueID: 1651463339
     locked: 0
   - name: UI
     uniqueID: 2045548755

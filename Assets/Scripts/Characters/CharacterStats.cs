@@ -18,7 +18,11 @@ public class CharacterStats : MonoBehaviour
 
         //Keep health above or equal to 0
         if (currentHealth <= 0)
+        {
             currentHealth = 0;
+
+            Die();
+        }
     }
 
     //Removes the specified amount of health
@@ -29,5 +33,10 @@ public class CharacterStats : MonoBehaviour
         //Keep mana above or equal to 0
         if (currentMana <= 0)
             currentMana = 0;
+    }
+
+    public void Die()
+    {
+        gameObject.SetActive(false);
     }
 }
