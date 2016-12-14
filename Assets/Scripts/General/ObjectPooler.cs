@@ -37,7 +37,7 @@ public static class ObjectPooler
             //Set name to that of prefab for comparisons
             obj.name = prefab.name;
             //Organised under pooled object "maintenance" gameobject
-            obj.transform.parent = poolObject.transform;
+            obj.transform.SetParent(poolObject.transform);
             //Add new gameobject to pool and return
             pooledObjects.Add(obj);
             return obj;

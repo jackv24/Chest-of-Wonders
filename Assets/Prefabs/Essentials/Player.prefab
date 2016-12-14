@@ -280,9 +280,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0.85, y: 0.65}
+  m_Offset: {x: 0.7, y: 0.65}
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 0.5}
+  m_Size: {x: 1.75, y: 0.5}
 --- !u!95 &95000013828001912
 Animator:
   serializedVersion: 3
@@ -376,6 +376,7 @@ MonoBehaviour:
   maxHealth: 100
   currentMana: 100
   maxMana: 100
+  damageTextOffset: {x: 0, y: 1}
 --- !u!114 &114872607700838032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -429,7 +430,6 @@ MonoBehaviour:
   damageTag: Enemy
   amount: 20
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  effectShowTime: 0.25
 --- !u!198 &198085593881181328
 ParticleSystem:
   m_ObjectHideFlags: 1

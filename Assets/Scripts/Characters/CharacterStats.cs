@@ -11,10 +11,16 @@ public class CharacterStats : MonoBehaviour
     public int currentMana = 100;
     public int maxMana = 100;
 
+    [Space()]
+    public Vector2 damageTextOffset = Vector2.up;
+
     //Removes the specified amount of health
     public void RemoveHealth(int amount)
     {
         currentHealth -= amount;
+
+        if (DamageText.instance)
+            DamageText.instance.ShowDamageText((Vector2)transform.position + damageTextOffset, amount);
 
         //Keep health above or equal to 0
         if (currentHealth <= 0)
