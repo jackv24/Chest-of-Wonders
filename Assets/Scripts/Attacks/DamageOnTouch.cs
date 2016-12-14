@@ -13,7 +13,6 @@ public class DamageOnTouch : MonoBehaviour
     [Space()]
     [Tooltip("The effect to show when something is hit.")]
     public GameObject hitEffect;
-    public float effectShowTime = 0.25f;
 
     private List<GameObject> hitInSwing = new List<GameObject>();
 
@@ -30,9 +29,9 @@ public class DamageOnTouch : MonoBehaviour
 
             Vector3 centre = (GetComponent<Collider2D>().bounds.center + collision.bounds.center) / 2;
 
-            //SHow hit effect (TODO: Object pooling)
-            GameObject effect = (GameObject)Instantiate(hitEffect, centre, Quaternion.identity);
-            Destroy(effect, effectShowTime);
+            //Show hit effect at centre of colliders (with object pooling)
+            GameObject effect = ObjectPooler.GetPooledObject(hitEffect);
+            effect.transform.position = centre;
 
             CharacterStats stats = collision.GetComponent<CharacterStats>();
 

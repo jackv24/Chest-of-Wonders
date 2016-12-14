@@ -27,6 +27,8 @@ MonoBehaviour:
     BrushAsset: {fileID: 11400000, guid: 709296bc79cb223489063a9a4465a4b3, type: 2}
   - Id: 2
     BrushAsset: {fileID: 11400000, guid: 2bcbd2e0715348747af4c25accce3632, type: 2}
+  - Id: 3
+    BrushAsset: {fileID: 11400000, guid: 4eba1db356b6e9349b18d1a6d91ef548, type: 2}
   m_tiles:
   - uv:
       serializedVersion: 2
@@ -4322,4 +4324,5 @@ MonoBehaviour:
   m_brushTypeMaskOptions:
   - RandomBrush
   - CarpetBrush
+  - AnimBrush
   m_brushTypeMask: -1
