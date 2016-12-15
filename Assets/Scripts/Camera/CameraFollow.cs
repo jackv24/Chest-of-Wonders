@@ -32,17 +32,7 @@ public class CameraFollow : MonoBehaviour
 
         bounds = FindObjectOfType<LevelBounds>();
 
-        if (bounds)
-        {
-            float vertExtent = Camera.main.orthographicSize;
-            float horzExtent = vertExtent * Screen.width / Screen.height;
-
-            //Calculate area in which camera can move inside the level
-            minX = horzExtent - bounds.width / 2.0f + bounds.centre.x;
-            maxX = bounds.width / 2.0f - horzExtent + bounds.centre.x;
-            minY = vertExtent - bounds.height / 2.0f + bounds.centre.y;
-            maxY = bounds.height / 2.0f - vertExtent + bounds.centre.y;
-        }
+        CalculateBounds();
 
         if (target)
         {
@@ -81,6 +71,21 @@ public class CameraFollow : MonoBehaviour
             }
 
             transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
+        }
+    }
+
+    public void CalculateBounds()
+    {
+        if (bounds)
+        {
+            float vertExtent = Camera.main.orthographicSize;
+            float horzExtent = vertExtent * Screen.width / Screen.height;
+
+            //Calculate area in which camera can move inside the level
+            minX = horzExtent - bounds.width / 2.0f + bounds.centre.x;
+            maxX = bounds.width / 2.0f - horzExtent + bounds.centre.x;
+            minY = vertExtent - bounds.height / 2.0f + bounds.centre.y;
+            maxY = bounds.height / 2.0f - vertExtent + bounds.centre.y;
         }
     }
 }
