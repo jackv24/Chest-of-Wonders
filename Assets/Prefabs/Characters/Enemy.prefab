@@ -156,6 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   acceleration: 15
+  canMove: 1
   jumpForce: 15
   jumpTime: 0.75
   stopJumpDelay: 0.2
@@ -165,6 +166,8 @@ MonoBehaviour:
   circleCastOrigin: {x: 0, y: 0.5}
   circleCastRadius: 0.4
   groundedDistance: 0.15
+  knockBackRecoveryTime: 0.25
+  body: {fileID: 0}
 --- !u!114 &114221548071508702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,8 +181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95090968209211048}
   defaultRight: 1
-  horizontalProperty: horizontal
-  groundedProperty: isGrounded
 --- !u!114 &114484292579894648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -191,8 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb64b71810dcfe47bc475006ec468bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryAttack: {fileID: 11400000, guid: 9983e38cf9db2ce40b867eda704546e6, type: 2}
-  secondaryAttack: {fileID: 11400000, guid: 3b4d546adc6f0214abae5339f3f0f78e, type: 2}
 --- !u!114 &114823241359853506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,6 +207,7 @@ MonoBehaviour:
   maxHealth: 100
   currentMana: 100
   maxMana: 100
+  damageTextOffset: {x: 0, y: 1}
 --- !u!114 &114865313038255290
 MonoBehaviour:
   m_ObjectHideFlags: 1

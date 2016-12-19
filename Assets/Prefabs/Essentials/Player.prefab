@@ -280,9 +280,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0.7, y: 0.65}
+  m_Offset: {x: 0.75, y: 0.65}
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 0.5}
+  m_Size: {x: 2, y: 0.6}
 --- !u!95 &95000013828001912
 Animator:
   serializedVersion: 3
@@ -336,6 +336,7 @@ MonoBehaviour:
   circleCastOrigin: {x: 0, y: 0.25}
   circleCastRadius: 0.2
   groundedDistance: 0.15
+  knockBackRecoveryTime: 1
   body: {fileID: 0}
 --- !u!114 &114000014123730578
 MonoBehaviour:
@@ -389,7 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterMove: {fileID: 114000013110640092}
-  slideTime: 0.5
+  slideTime: 0.25
   slideCurve:
     serializedVersion: 2
     m_Curve:
@@ -431,6 +432,8 @@ MonoBehaviour:
   amount: 20
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.25
+  knockBackAmount: 10
+  knockBackCentreOffset: {x: -0, y: -1}
 --- !u!198 &198085593881181328
 ParticleSystem:
   m_ObjectHideFlags: 1

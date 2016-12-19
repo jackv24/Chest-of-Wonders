@@ -47,6 +47,9 @@ public class CharacterMove : MonoBehaviour
     //The vector to add to the velocity
     private Vector2 moveVector = Vector2.zero;
 
+    [Header("Misc")]
+    public float knockBackRecoveryTime = 0.25f;
+
     //The RigidBody2D attached to this GameObject
     [HideInInspector]
     public Rigidbody2D body;
@@ -66,51 +69,55 @@ public class CharacterMove : MonoBehaviour
         if (isGrounded)
             stopJumpTime = Time.time + stopJumpDelay;
 
-        //Get current velocity
-        moveVector = body.velocity;
-
-        //Accelerate to reach target move speed
-        moveVector.x = Mathf.Lerp(moveVector.x, inputDirection * moveSpeed, acceleration * Time.fixedDeltaTime);
-
-        //Allow jump after button press
-        if (pressedJump)
+        if (canMove)
         {
-            pressedJump = false;
+            //Get current velocity
+            moveVector = body.velocity;
 
-            //Only jump if grounded, or just walked off a ledge
-            if (isGrounded || Time.time < stopJumpTime)
+            //Accelerate to reach target move speed
+            moveVector.x = Mathf.Lerp(moveVector.x, inputDirection * moveSpeed, acceleration * Time.fixedDeltaTime);
+
+            //Allow jump after button press
+            if (pressedJump)
             {
-                //Reset jump time and allow jumping
-                stopJumpTime = 0;
-                canJump = true;
+                pressedJump = false;
 
-                if (characterAnimator)
-                    characterAnimator.animator.SetTrigger("jump");
+                //Only jump if grounded, or just walked off a ledge
+                if (isGrounded || Time.time < stopJumpTime)
+                {
+                    //Reset jump time and allow jumping
+                    stopJumpTime = 0;
+                    canJump = true;
+
+                    if (characterAnimator)
+                        characterAnimator.animator.SetTrigger("jump");
+                }
             }
+
+            //Jump as long as button is held (up to a point)
+            if (canJump && heldJump && jumpHeldTime <= jumpTime)
+            {
+                //Keep track of time jumping
+                jumpHeldTime += Time.fixedDeltaTime;
+
+                //Lerp velocity down over jump (for the natural look)
+                moveVector.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
+            }
+            else
+                canJump = false;
+
+            //Stop from sticking to ceilings when jump is held
+            if (canJump && jumpHeldTime > 0.05f && body.velocity.y <= 0)
+                canJump = false;
+
+            //Set velocity at end
+            body.velocity = moveVector;
         }
-
-        //Jump as long as button is held (up to a point)
-        if (canJump && heldJump && jumpHeldTime <= jumpTime)
-        {
-            //Keep track of time jumping
-            jumpHeldTime += Time.fixedDeltaTime;
-
-            //Lerp velocity down over jump (for the natural look)
-            moveVector.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
-        }
-        else
-            canJump = false;
-
-        //Stop from sticking to ceilings when jump is held
-        if (canJump && jumpHeldTime > 0.05f && body.velocity.y <= 0)
-            canJump = false;
-
-        //Set velocity at end
-        body.velocity = moveVector;
     }
 
     private void OnDrawGizmosSelected()
     {
+        //Show ground check circle cast
         Gizmos.DrawWireSphere((Vector2)transform.position + circleCastOrigin, circleCastRadius);
     }
 
@@ -159,5 +166,40 @@ public class CharacterMove : MonoBehaviour
                 heldJump = false;
             }
         }
+    }
+
+    public void Knockback(Vector2 centre, float amount)
+    {
+        //If this gameobject is active
+        if (gameObject.activeInHierarchy)
+        {
+            //Start the knockback delay coruotine
+            StartCoroutine("SwitchToPhysics", knockBackRecoveryTime);
+
+            //Calculate force direction
+            Vector2 direction = (Vector2)transform.position - centre;
+            direction.Normalize();
+
+            //Apply force
+            body.AddForceAtPosition(direction * amount, centre, ForceMode2D.Impulse);
+        }
+    }
+
+    IEnumerator SwitchToPhysics(float timeAfterGrounded)
+    {
+        //Disable movement
+        canMove = false;
+
+        //Continue until grounded
+        while(!IsGrounded)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        //After grounded, wait for specified time
+        yield return new WaitForSeconds(timeAfterGrounded);
+
+        //Re-enable movement
+        canMove = true;
     }
 }
