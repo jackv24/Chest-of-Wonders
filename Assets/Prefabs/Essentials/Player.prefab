@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c7ac02eb63664419f2556b87649a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 9
+  moveSpeed: 8
   acceleration: 10
   canMove: 1
   jumpForce: 12
@@ -334,7 +334,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   circleCastOrigin: {x: 0, y: 0.25}
-  circleCastRadius: 0.2
+  circleCastRadius: 0.22
   groundedDistance: 0.15
   knockBackRecoveryTime: 1
   body: {fileID: 0}

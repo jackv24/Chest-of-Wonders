@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5656c5e200a31c945b469abda4211525, type: 3}
-  m_Name: GroundRandomSubBrush
+  m_Name: BackgroundRandomBrush
   m_EditorClassIdentifier: 
   Tileset: {fileID: 11400000, guid: 8940cb01a2f3fb3478b6f343ea57d44c, type: 2}
   Params:
@@ -19,10 +19,10 @@ MonoBehaviour:
   m_showInPalette: 1
   RandomTiles: 
   RandomTileList:
-  - tileData: 0
+  - tileData: 132
     probabilityFactor: 0.5
-  - tileData: 22
+  - tileData: 154
     probabilityFactor: 0.25
-  - tileData: 44
+  - tileData: 176
     probabilityFactor: 0.25
   RandomizeFlagMask: 0
