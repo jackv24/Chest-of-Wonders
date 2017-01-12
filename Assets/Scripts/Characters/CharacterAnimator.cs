@@ -24,8 +24,11 @@ public class CharacterAnimator : MonoBehaviour
 
     private void Start()
     {
-        if(characterMove)
+        if (characterMove)
+        {
             characterMove.OnChangedDirection += FlipOnDirectionChange;
+            characterMove.OnJump += Jump;
+        }
     }
 
     private void Update()
@@ -36,12 +39,12 @@ public class CharacterAnimator : MonoBehaviour
             if (characterMove)
             {
                 //Get horizontal move speed
-                float horizontal = characterMove.InputDirection;
+                float horizontal = characterMove.inputDirection;
 
                 //Set property on animator
                 animator.SetFloat("horizontal", horizontal);
 
-                animator.SetBool("isGrounded", characterMove.IsGrounded);
+                animator.SetBool("isGrounded", characterMove.isGrounded);
             }
         }
     }
@@ -70,5 +73,10 @@ public class CharacterAnimator : MonoBehaviour
     public void SecondaryAttack()
     {
         animator.SetTrigger("attack2");
+    }
+
+    void Jump()
+    {
+        animator.SetTrigger("jump");
     }
 }

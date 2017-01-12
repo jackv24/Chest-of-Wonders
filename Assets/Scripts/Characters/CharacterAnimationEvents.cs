@@ -52,7 +52,7 @@ public class CharacterAnimationEvents : MonoBehaviour
 
     IEnumerator SlideStopOverTime(float slideTime)
     {
-        while (!characterMove.IsGrounded)
+        while (!characterMove.isGrounded)
             yield return new WaitForEndOfFrame();
 
         if (canSlide)
@@ -73,9 +73,9 @@ public class CharacterAnimationEvents : MonoBehaviour
                 if (stepParticles)
                 {
                     //Only show particles when on ground
-                    if (stepParticles.isStopped && characterMove.IsGrounded)
+                    if (stepParticles.isStopped && characterMove.isGrounded)
                         stepParticles.Play();
-                    else if (stepParticles.isPlaying && !characterMove.IsGrounded)
+                    else if (stepParticles.isPlaying && !characterMove.isGrounded)
                         stepParticles.Stop();
                 }
 

@@ -36,7 +36,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4734510423594088}
-  - component: {fileID: 58082324433165468}
   - component: {fileID: 61807571450189952}
   - component: {fileID: 50259299617630004}
   - component: {fileID: 114220330662029630}
@@ -71,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570463987493718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -0.5, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4026268335730914}
@@ -86,7 +85,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570463987493718}
   m_BodyType: 0
-  m_Simulated: 1
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -98,20 +97,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &58082324433165468
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1570463987493718}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: ba8c62f7cc429d94b92cba7191a490f2, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0.5}
-  serializedVersion: 2
-  m_Radius: 0.45
 --- !u!61 &61807571450189952
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -123,9 +108,9 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: ba8c62f7cc429d94b92cba7191a490f2, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0.9}
+  m_Offset: {x: -0, y: 0.65}
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.8}
+  m_Size: {x: 0.8, y: 1.25}
 --- !u!95 &95090968209211048
 Animator:
   serializedVersion: 3
@@ -156,16 +141,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   acceleration: 15
+  inputDirection: 0
   canMove: 1
   jumpForce: 15
   jumpTime: 0.75
   stopJumpDelay: 0.2
+  isGrounded: 0
+  gravity: 10
+  maxFallSpeed: 20
+  verticalRays: 3
+  horizontalRays: 5
+  skinWidth: 0.01
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  circleCastOrigin: {x: 0, y: 0.5}
-  circleCastRadius: 0.4
-  groundedDistance: 0.15
   knockBackRecoveryTime: 0.25
   body: {fileID: 0}
 --- !u!114 &114221548071508702

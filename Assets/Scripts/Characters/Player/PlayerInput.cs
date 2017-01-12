@@ -4,10 +4,6 @@ using InControl;
 
 public class PlayerInput : MonoBehaviour
 {
-    public Transform aimIndicator;
-    [Range(0, 360f)]
-    public float rotationOffset;
-
     //Horizontal direction of the movement input
     private Vector2 inputDirection;
 
@@ -48,19 +44,6 @@ public class PlayerInput : MonoBehaviour
                 characterMove.Jump(true);
             else if (playerActions.Jump.WasReleased)
                 characterMove.Jump(false);
-        }
-
-        if (aimIndicator)
-        {
-            if (GameManager.instance.gameRunning)
-            {
-                //Rotate aim indicator to direction
-                if (inputDirection.magnitude > 0.01f)
-                {
-                    float rotationZ = Mathf.Atan2(inputDirection.y, inputDirection.x) * Mathf.Rad2Deg;
-                    aimIndicator.rotation = Quaternion.Euler(0, 0, rotationZ + rotationOffset);
-                }
-            }
         }
 
         //Can only attack while game is running

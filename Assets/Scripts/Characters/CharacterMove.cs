@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class CharacterMove : MonoBehaviour
 {
     public delegate void ChangeFloat(float newFloat);
+    public delegate void GeneralEvent();
+
     public event ChangeFloat OnChangedDirection;
     private float oldDirection;
+    public event GeneralEvent OnJump;
 
     [Header("Movement")]
     [Tooltip("The horizontal move speed (m/s).")]
@@ -15,9 +17,10 @@ public class CharacterMove : MonoBehaviour
     [Tooltip("The rate at which the character accelerates to reach the move speed.")]
     public float acceleration = 1f;
 
-    private float inputDirection = 0f;
-    public float InputDirection { get { return inputDirection; } }
+    [HideInInspector]
+    public float inputDirection = 0f;
 
+    [HideInInspector]
     public bool canMove = true;
 
     [Header("Jumping")]
@@ -31,21 +34,22 @@ public class CharacterMove : MonoBehaviour
     public float stopJumpDelay = 0.02f;
     private float stopJumpTime;
 
-    private bool pressedJump = false;
-    private bool canJump = false;
-    private bool heldJump = false;
+    private bool shouldJump = false;
 
-    private bool isGrounded = true;
-    public bool IsGrounded { get { return isGrounded; } }
+    [HideInInspector]
+    public bool isGrounded = false;
+
+    [Header("Physics")]
+    public float gravity = 10f;
+    public float maxFallSpeed = 20f;
+
+    [Space()]
+    public int verticalRays = 3;
+    public int horizontalRays = 5;
+    public float skinWidth = 0.01f;
+
     [Space()]
     public LayerMask groundLayer;
-    [Space()]
-    public Vector2 circleCastOrigin;
-    public float circleCastRadius = 0.5f;
-    public float groundedDistance = 0.01f;
-
-    //The vector to add to the velocity
-    private Vector2 moveVector = Vector2.zero;
 
     [Header("Misc")]
     public float knockBackRecoveryTime = 0.25f;
@@ -55,116 +59,165 @@ public class CharacterMove : MonoBehaviour
     public Rigidbody2D body;
     private CharacterAnimator characterAnimator;
 
+    private Collider2D col;
+    private Rect box;
+    private Vector2 velocity;
+
     private void Awake()
     {
         //Get references
+        col = GetComponent<Collider2D>();
         body = GetComponent<Rigidbody2D>();
         characterAnimator = GetComponent<CharacterAnimator>();
     }
 
-    private void FixedUpdate()
+    private void Start()
     {
-        isGrounded = CheckGrounded();
+        //Movemement is not handled by rigidbody until knocked back
+        if(body)
+            body.simulated = false;
+    }
 
+    private void Update()
+    {
+        //Store collider rect for easy typing
+        box = new Rect(
+            col.bounds.min.x,
+            col.bounds.min.y,
+            col.bounds.size.x,
+            col.bounds.size.y
+            );
+
+        //Apply gravity, capping fall speed
+        velocity.y = Mathf.Max(velocity.y - gravity * Time.deltaTime, -maxFallSpeed);
+
+        //Vertical collision detection (scoped for variable naming convenience)
+        {
+            //Calculate start and end points that rays will be cast from between
+            Vector2 startPoint = new Vector2(box.xMin + skinWidth, box.center.y);
+            Vector2 endPoint = new Vector2(box.xMax - skinWidth, box.center.y);
+
+            //Distance of rays should (when cast from centre) extend past the bottom by velocity amount (or skin width if grounded)
+            float distance = box.height / 2 + (isGrounded ? skinWidth : Mathf.Abs(velocity.y * Time.deltaTime));
+
+            //Not grounded unless a ray connects
+            isGrounded = false;
+
+            //Loops through and cast rays
+            for(int i = 0; i < verticalRays; i++)
+            {
+                //Get origin between start and end points
+                Vector2 origin = Vector2.Lerp(startPoint, endPoint, i / (float)(verticalRays - 1));
+
+                //Cast ray
+                RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, distance, groundLayer);
+
+                Debug.DrawLine(origin, new Vector2(origin.x, origin.y - distance));
+
+                //If ray connected then player should be considered grounded
+                if (hit.collider != null)
+                {
+                    //Set grounded and stop falling
+                    isGrounded = true;
+                    velocity.y = 0;
+
+                    //Move player flush to ground
+                    transform.Translate(Vector2.down * (hit.distance - box.height / 2));
+                    
+                    //If one ray has connected then it is grounded
+                    break;
+                }
+            }
+        }
+
+        //Horizontal movement
+        velocity.x = Mathf.Lerp(velocity.x, moveSpeed * inputDirection, acceleration * Time.deltaTime);
+
+        //Lateral collision detection
+        //Only required if there is lateral movement
+        if (velocity.x != 0)
+        {
+            //Start and end points that ray origins will lay between
+            Vector2 startPoint = new Vector2(box.center.x, box.yMin + skinWidth);
+            Vector2 endPoint = new Vector2(box.center.x, box.yMax - skinWidth);
+
+            //Rays are cast out according to velocity, from the center
+            float distance = box.width / 2 + Mathf.Abs(velocity.x * Time.deltaTime);
+
+            //Rays are cast in the direction of movement
+            Vector2 direction = velocity.x > 0 ? Vector2.right : Vector2.left;
+
+            //Cast required amount of rays
+            for (int i = 0; i < horizontalRays; i++)
+            {
+                //Calculate origin for this ray
+                Vector2 origin = Vector2.Lerp(startPoint, endPoint, i / (float)(horizontalRays - 1));
+
+                //Cast ray
+                RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, groundLayer);
+
+                Debug.DrawLine(origin, new Vector2(origin.x + distance * direction.x, origin.y));
+
+                //If ray hit, there is a wall
+                if (hit.collider != null)
+                {
+                    //Make character flush against wall
+                    transform.Translate(direction * (hit.distance - box.width / 2));
+
+                    //Cease any lateral movement
+                    velocity.x = 0;
+
+                    //If one ray has connected, no more rays should be cast
+                    break;
+                }
+            }
+        }
+
+        //Jumping
         if (isGrounded)
             stopJumpTime = Time.time + stopJumpDelay;
 
-        if (canMove)
+        //If jump button has been pressed
+        if (shouldJump)
         {
-            //Get current velocity
-            moveVector = body.velocity;
+            //Jump should be performed once
+            shouldJump = false;
 
-            //Accelerate to reach target move speed
-            moveVector.x = Mathf.Lerp(moveVector.x, inputDirection * moveSpeed, acceleration * Time.fixedDeltaTime);
-
-            //Allow jump after button press
-            if (pressedJump)
+            if (Time.time <= stopJumpTime)
             {
-                pressedJump = false;
+                //Set upwards jump velocity
+                velocity.y = jumpForce;
 
-                //Only jump if grounded, or just walked off a ledge
-                if (isGrounded || Time.time < stopJumpTime)
-                {
-                    //Reset jump time and allow jumping
-                    stopJumpTime = 0;
-                    canJump = true;
-
-                    if (characterAnimator)
-                        characterAnimator.animator.SetTrigger("jump");
-                }
+                //Call jump events
+                if (OnJump != null)
+                    OnJump();
             }
-
-            //Jump as long as button is held (up to a point)
-            if (canJump && heldJump && jumpHeldTime <= jumpTime)
-            {
-                //Keep track of time jumping
-                jumpHeldTime += Time.fixedDeltaTime;
-
-                //Lerp velocity down over jump (for the natural look)
-                moveVector.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
-            }
-            else
-                canJump = false;
-
-            //Stop from sticking to ceilings when jump is held
-            if (canJump && jumpHeldTime > 0.05f && body.velocity.y <= 0)
-                canJump = false;
-
-            //Set velocity at end
-            body.velocity = moveVector;
         }
+
+        //Move character by velocity
+        transform.Translate(velocity * Time.deltaTime);
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        //Show ground check circle cast
-        Gizmos.DrawWireSphere((Vector2)transform.position + circleCastOrigin, circleCastRadius);
-    }
-
-    private bool CheckGrounded()
-    {
-        Vector2 origin = (Vector2)transform.position + circleCastOrigin;
-
-        //Circle cast to check if character is within distance of the ground
-        RaycastHit2D hit = Physics2D.CircleCast(origin, circleCastRadius, Vector2.down, 1000f, groundLayer);
-
-        Debug.DrawLine(origin, hit.point);
-
-        //If character is within correct distance, it is considered grounded
-        return hit.distance <= groundedDistance;
-    }
 
     public void Move(float direction)
     {
+        //Cache old direction for comparison
         oldDirection = inputDirection;
 
-        //Set the target move speed (actual movement is handled in FixedUpdate)
-        //Make direction either -1, 1 or 0 - no in-between
-        if (GameManager.instance.gameRunning && canMove)
-            inputDirection = direction != 0 ? Mathf.Sign(direction) : 0;
-        else
-            inputDirection = 0;
+        //Update input direction
+        inputDirection = direction;
 
-        if (inputDirection != oldDirection && OnChangedDirection != null && inputDirection != 0)
-            OnChangedDirection(inputDirection);
+        //If direction has changed (and does not equal 0), then call changed direction event
+        if (inputDirection != oldDirection && direction != 0 && OnChangedDirection != null)
+            OnChangedDirection(direction);
     }
 
     public void Jump(bool pressed)
     {
         if (GameManager.instance.gameRunning && canMove)
         {
-            //Handle first jump button press and continued holding
-            if (pressed && !heldJump)
-            {
-                pressedJump = true;
-                heldJump = true;
-                jumpHeldTime = 0;                
-            }
-            //If holding stopped, set bool
-            else
-            {
-                heldJump = false;
-            }
+            if (pressed)
+                shouldJump = true;
         }
     }
 
@@ -187,19 +240,26 @@ public class CharacterMove : MonoBehaviour
 
     IEnumerator SwitchToPhysics(float timeAfterGrounded)
     {
-        //Disable movement
-        canMove = false;
-
-        //Continue until grounded
-        while(!IsGrounded)
+        if (!body)
+            Debug.LogWarning("There is no Rigidbody2D attached to " + name);
+        else
         {
-            yield return new WaitForEndOfFrame();
+            //Disable movement
+            canMove = false;
+            body.simulated = true;
+
+            //Continue until grounded
+            while (!isGrounded)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+            //After grounded, wait for specified time
+            yield return new WaitForSeconds(timeAfterGrounded);
+
+            //Re-enable movement
+            canMove = true;
+            body.simulated = false;
         }
-
-        //After grounded, wait for specified time
-        yield return new WaitForSeconds(timeAfterGrounded);
-
-        //Re-enable movement
-        canMove = true;
     }
 }
