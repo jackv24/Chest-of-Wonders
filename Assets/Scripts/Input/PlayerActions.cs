@@ -42,18 +42,22 @@ public class PlayerActions : PlayerActionSet
 
         //Bind actions
         Left.AddDefaultBinding(Key.A);
+        Left.AddDefaultBinding(Key.LeftArrow);
         Left.AddDefaultBinding(InputControlType.DPadLeft);
         Left.AddDefaultBinding(InputControlType.LeftStickLeft);
 
         Right.AddDefaultBinding(Key.D);
+        Right.AddDefaultBinding(Key.RightArrow);
         Right.AddDefaultBinding(InputControlType.DPadRight);
         Right.AddDefaultBinding(InputControlType.LeftStickRight);
 
         Up.AddDefaultBinding(Key.W);
+        Up.AddDefaultBinding(Key.UpArrow);
         Up.AddDefaultBinding(InputControlType.DPadUp);
         Up.AddDefaultBinding(InputControlType.LeftStickUp);
 
         Down.AddDefaultBinding(Key.S);
+        Down.AddDefaultBinding(Key.DownArrow);
         Down.AddDefaultBinding(InputControlType.DPadDown);
         Down.AddDefaultBinding(InputControlType.LeftStickDown);
 

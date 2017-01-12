@@ -110,9 +110,9 @@ public class CharacterMove : MonoBehaviour
                 Vector2 origin = Vector2.Lerp(startPoint, endPoint, i / (float)(verticalRays - 1));
 
                 //Cast ray
-                RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, distance, groundLayer);
+                RaycastHit2D hit = Physics2D.Raycast(origin, (velocity.y > 0 ? Vector2.up : Vector2.down), distance, groundLayer);
 
-                Debug.DrawLine(origin, new Vector2(origin.x, origin.y - distance));
+                Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(velocity.y) * distance));
 
                 //If ray connected then player should be considered grounded
                 if (hit.collider != null)
