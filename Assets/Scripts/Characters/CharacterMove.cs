@@ -35,6 +35,7 @@ public class CharacterMove : MonoBehaviour
     private float stopJumpTime;
 
     private bool shouldJump = false;
+    private bool heldJump = false;
 
     [HideInInspector]
     public bool isGrounded = false;
@@ -91,6 +92,40 @@ public class CharacterMove : MonoBehaviour
         //Apply gravity, capping fall speed
         velocity.y = Mathf.Max(velocity.y - gravity * Time.deltaTime, -maxFallSpeed);
 
+        //Jumping
+        if (isGrounded)
+            stopJumpTime = Time.time + stopJumpDelay;
+
+        //If jump button has been pressed
+        if (shouldJump)
+        {
+            //Consume jump button flag
+            shouldJump = false;
+
+            //If jump button was pressed within a small amount of time after leaving the ground (or still on ground)
+            if (Time.time <= stopJumpTime)
+            {
+                //Call jump events
+                if (OnJump != null)
+                    OnJump();
+
+                //Reset jump held time, allowing jump to be held
+                jumpHeldTime = 0;
+            }
+        }
+
+        //If jump has been held for less than the max time
+        if (heldJump && jumpHeldTime < jumpTime)
+        {
+            //Set velocity, slowly decreasing to zero over time
+            velocity.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
+
+            //Count time jump is held
+            jumpHeldTime += Time.deltaTime;
+        }
+        else //If jump has been released, at can not be held again until a new jump is started
+            jumpHeldTime = jumpTime;
+
         //Vertical collision detection (scoped for variable naming convenience)
         {
             //Calculate start and end points that rays will be cast from between
@@ -117,8 +152,11 @@ public class CharacterMove : MonoBehaviour
                 //If ray connected then player should be considered grounded
                 if (hit.collider != null)
                 {
-                    //Set grounded and stop falling
-                    isGrounded = true;
+                    //Set grounded and stop falling (if already falling)
+                    if (velocity.y <= 0)
+                        isGrounded = true;
+                    else //If moving upwards, stop jumping
+                        heldJump = false;
                     velocity.y = 0;
 
                     //Move player flush to ground
@@ -173,27 +211,6 @@ public class CharacterMove : MonoBehaviour
             }
         }
 
-        //Jumping
-        if (isGrounded)
-            stopJumpTime = Time.time + stopJumpDelay;
-
-        //If jump button has been pressed
-        if (shouldJump)
-        {
-            //Jump should be performed once
-            shouldJump = false;
-
-            if (Time.time <= stopJumpTime)
-            {
-                //Set upwards jump velocity
-                velocity.y = jumpForce;
-
-                //Call jump events
-                if (OnJump != null)
-                    OnJump();
-            }
-        }
-
         //Move character by velocity
         transform.Translate(velocity * Time.deltaTime);
     }
@@ -218,6 +235,8 @@ public class CharacterMove : MonoBehaviour
         {
             if (pressed)
                 shouldJump = true;
+
+            heldJump = pressed;
         }
     }
 
