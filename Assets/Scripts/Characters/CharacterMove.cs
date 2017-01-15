@@ -222,7 +222,10 @@ public class CharacterMove : MonoBehaviour
         oldDirection = inputDirection;
 
         //Update input direction
-        inputDirection = direction;
+        if (GameManager.instance.gameRunning)
+            inputDirection = direction;
+        else
+            inputDirection = 0;
 
         //If direction has changed (and does not equal 0), then call changed direction event
         if (inputDirection != oldDirection && direction != 0 && OnChangedDirection != null)
