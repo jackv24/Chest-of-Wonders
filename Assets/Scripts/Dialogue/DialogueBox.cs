@@ -12,10 +12,16 @@ public class DialogueBox : MonoBehaviour
     public Text nameText;
     public Text dialogueText;
 
+    public Image[] accents;
+
     [Space()]
     public GameObject button;
     private Button[] buttons;
     private int selectedButton = 0;
+
+    public RectTransform buttonsRect;
+    public AnimationCurve buttonsFoldoutCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+    public float foldoutLength = 0.25f;
 
     public float textSpeed = 2f;
     private bool textDonePrinting = false;
@@ -62,12 +68,12 @@ public class DialogueBox : MonoBehaviour
     private void Update()
     {
         //Navigate buttons with actions
-        if ((playerActions.Left.WasPressed || playerActions.Up.WasPressed) && buttons.Length > 0)
+        if ((playerActions.Left.WasPressed || playerActions.Up.WasPressed) && buttons.Length > 0 && textDonePrinting)
         {
             selectedButton = selectedButton > 0 ? selectedButton - 1 : buttons.Length - 1;
             EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
         }
-        else if ((playerActions.Right.WasPressed || playerActions.Down.WasPressed) && buttons.Length > 0)
+        else if ((playerActions.Right.WasPressed || playerActions.Down.WasPressed) && buttons.Length > 0 && textDonePrinting)
         {
             selectedButton = selectedButton < buttons.Length - 1 ? selectedButton + 1 : 0;
             EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
@@ -131,7 +137,7 @@ public class DialogueBox : MonoBehaviour
         }
     }
 
-    public void ShowDialogue(DialogueGraph graph, Vector3 worldPos)
+    public void ShowDialogue(DialogueGraph graph, Vector3 worldPos, Color color)
     {
         ShowIcon(false);
 
@@ -140,18 +146,21 @@ public class DialogueBox : MonoBehaviour
 
         currentGraph = graph;
 
+        foreach (Image img in accents)
+            img.color = color;
+
         //Start dialogue at first node
         UpdateDialogue(graph, 0);
     }
 
-    public void ShowDialogue(DialogueGraph graph, Vector3 worldPos, Animator speakerAnimator)
+    public void ShowDialogue(DialogueGraph graph, Vector3 worldPos, Animator speakerAnimator, Color color)
     {
         this.speakerAnimator = speakerAnimator;
 
         if(speakerAnimator)
             speakerAnimator.SetBool("isTalking", true);
 
-        ShowDialogue(graph, worldPos);
+        ShowDialogue(graph, worldPos, color);
     }
 
     public void UpdateDialogue(DialogueGraph graph, int nodeID)
@@ -214,7 +223,12 @@ public class DialogueBox : MonoBehaviour
         //Show the dialogue
         gameObject.SetActive(true);
 
+        //Start printing text one character at a time
         StartCoroutine("DisplayTextOverTime", node.text);
+
+        //If there are buttons, let them fold out
+        if (buttons.Length > 0)
+            StartCoroutine("FoldoutOptions");
     }
 
     IEnumerator DisplayTextOverTime(string text)
@@ -236,5 +250,26 @@ public class DialogueBox : MonoBehaviour
         }
 
         textDonePrinting = true;
+    }
+
+    IEnumerator FoldoutOptions()
+    {
+        float timeElapsed = 0;
+
+        while (timeElapsed < foldoutLength)
+        {
+            //Evaluate and set scale
+            Vector3 scale = buttonsRect.localScale;
+            scale.y = buttonsFoldoutCurve.Evaluate(timeElapsed / foldoutLength);
+            buttonsRect.localScale = scale;
+
+            //Do not fold out until text is done printing
+            while (!textDonePrinting)
+                yield return new WaitForEndOfFrame();
+
+            //Wait one frame and count time elapsed
+            yield return new WaitForEndOfFrame();
+            timeElapsed += Time.deltaTime;
+        }
     }
 }

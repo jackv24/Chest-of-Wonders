@@ -6,6 +6,7 @@ public class DialogueSpeaker : MonoBehaviour
 {
     //Where to load the dialog json file
     public TextAsset dialogueFile;
+    public Color windowColor = Color.grey;
 
     [Space()]
     //How far offset from the gameobject should it be (in world space)
@@ -67,7 +68,7 @@ public class DialogueSpeaker : MonoBehaviour
             {
                 //Stop them moving and open dialogue
                 GameManager.instance.gameRunning = false;
-                DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset, animator);
+                DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset, animator, windowColor);
 
                 //If desired, face the player while speaking
                 if (facePlayer && animator)
