@@ -57,11 +57,9 @@ public class CharacterAnimationEvents : MonoBehaviour
 
         if (canSlide)
         {
-            Rigidbody2D body = characterMove.body;
-
             //Get initial velocity
-            float initialMoveSpeed = body.velocity.x;
-            Vector2 vel = body.velocity;
+            Vector2 vel = characterMove.velocity;
+            float initialMoveSpeed = vel.x;
 
             characterMove.canMove = false;
 
@@ -81,9 +79,9 @@ public class CharacterAnimationEvents : MonoBehaviour
 
                 //Change velocity to fit curve (scaled)
                 vel.x = initialMoveSpeed * slideCurve.Evaluate(timeElapsed / slideTime);
-                vel.y = body.velocity.y;
+                vel.y = characterMove.velocity.y;
 
-                body.velocity = vel;
+                characterMove.velocity = vel;
 
                 yield return new WaitForEndOfFrame();
                 timeElapsed += Time.deltaTime;

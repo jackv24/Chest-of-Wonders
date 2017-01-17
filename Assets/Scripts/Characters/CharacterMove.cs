@@ -14,8 +14,12 @@ public class CharacterMove : MonoBehaviour
     [Tooltip("The horizontal move speed (m/s).")]
     public float moveSpeed = 2f;
 
-    [Tooltip("The rate at which the character accelerates to reach the move speed.")]
+    [Tooltip("The rate at which the character accelerates to reach the move speed (m/s^2).")]
     public float acceleration = 1f;
+
+    [Space()]
+    [Tooltip("The maximum angle at which a slope is considered walkable.")]
+    public float slopeLimit = 50f;
 
     [HideInInspector]
     public float inputDirection = 0f;
@@ -24,13 +28,15 @@ public class CharacterMove : MonoBehaviour
     public bool canMove = true;
 
     [Header("Jumping")]
+    [Tooltip("Indirectly controls jump height (this force is applied every fram jump is held, but in smaller and smaller fractions.")]
     public float jumpForce = 10f;
 
+    [Tooltip("How long the jump button can be held for before the character starts falling.")]
     public float jumpTime = 1f;
     private float jumpHeldTime = 0;
 
     [Space()]
-    [Tooltip("How long after the player leaves the ground until they can no longer jump (recommended to have this delay for platformers).")]
+    [Tooltip("How long after the character leaves the ground until they can no longer jump (recommended to have this delay for platformers).")]
     public float stopJumpDelay = 0.02f;
     private float stopJumpTime;
 
@@ -41,12 +47,17 @@ public class CharacterMove : MonoBehaviour
     public bool isGrounded = false;
 
     [Header("Physics")]
+    [Tooltip("How fast the character falls (m/s^2).")]
     public float gravity = 10f;
+    [Tooltip("The maximum speed at which the character can fall (otherwise known as terminal velocity).")]
     public float maxFallSpeed = 20f;
 
     [Space()]
+    [Tooltip("How many rays to cast down and up for collision detection.")]
     public int verticalRays = 3;
+    [Tooltip("How many rays to cast left and right for collision detection.")]
     public int horizontalRays = 5;
+    [Tooltip("How far inside the characters collider should the rays start from? (should be greater than 0)")]
     public float skinWidth = 0.01f;
 
     [Space()]
@@ -62,7 +73,9 @@ public class CharacterMove : MonoBehaviour
 
     private Collider2D col;
     private Rect box;
-    private Vector2 velocity;
+
+    [HideInInspector]
+    public Vector2 velocity;
 
     private void Awake()
     {
@@ -169,7 +182,8 @@ public class CharacterMove : MonoBehaviour
         }
 
         //Horizontal movement
-        velocity.x = Mathf.Lerp(velocity.x, moveSpeed * inputDirection, acceleration * Time.deltaTime);
+        if(canMove)
+            velocity.x = Mathf.Lerp(velocity.x, moveSpeed * inputDirection, acceleration * Time.deltaTime);
 
         //Lateral collision detection
         //Only required if there is lateral movement
