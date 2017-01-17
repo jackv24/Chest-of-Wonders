@@ -106,40 +106,42 @@ public class CharacterMove : MonoBehaviour
         velocity.y = Mathf.Max(velocity.y - gravity * Time.deltaTime, -maxFallSpeed);
 
         //Jumping
-        if (isGrounded)
-            stopJumpTime = Time.time + stopJumpDelay;
-
-        //If jump button has been pressed
-        if (shouldJump)
         {
-            //Consume jump button flag
-            shouldJump = false;
+            if (isGrounded)
+                stopJumpTime = Time.time + stopJumpDelay;
 
-            //If jump button was pressed within a small amount of time after leaving the ground (or still on ground)
-            if (Time.time <= stopJumpTime)
+            //If jump button has been pressed
+            if (shouldJump)
             {
-                //Call jump events
-                if (OnJump != null)
-                    OnJump();
+                //Consume jump button flag
+                shouldJump = false;
 
-                //Reset jump held time, allowing jump to be held
-                jumpHeldTime = 0;
+                //If jump button was pressed within a small amount of time after leaving the ground (or still on ground)
+                if (Time.time <= stopJumpTime)
+                {
+                    //Call jump events
+                    if (OnJump != null)
+                        OnJump();
+
+                    //Reset jump held time, allowing jump to be held
+                    jumpHeldTime = 0;
+                }
             }
+
+            //If jump has been held for less than the max time
+            if (heldJump && jumpHeldTime < jumpTime)
+            {
+                //Set velocity, slowly decreasing to zero over time
+                velocity.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
+
+                //Count time jump is held
+                jumpHeldTime += Time.deltaTime;
+            }
+            else //If jump has been released, at can not be held again until a new jump is started
+                jumpHeldTime = jumpTime;
         }
 
-        //If jump has been held for less than the max time
-        if (heldJump && jumpHeldTime < jumpTime)
-        {
-            //Set velocity, slowly decreasing to zero over time
-            velocity.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
-
-            //Count time jump is held
-            jumpHeldTime += Time.deltaTime;
-        }
-        else //If jump has been released, at can not be held again until a new jump is started
-            jumpHeldTime = jumpTime;
-
-        //Vertical collision detection (scoped for variable naming convenience)
+        //Vertical collision detection
         {
             //Calculate start and end points that rays will be cast from between
             Vector2 startPoint = new Vector2(box.xMin + skinWidth, box.center.y);
@@ -151,6 +153,14 @@ public class CharacterMove : MonoBehaviour
             //Not grounded unless a ray connects
             isGrounded = false;
 
+            //All raycasts
+            RaycastHit2D[] hits = new RaycastHit2D[verticalRays];
+            bool connected = false;
+
+            //Keep track of the shortest ray
+            float minDistance = Mathf.Infinity;
+            int index = 0;
+
             //Loops through and cast rays
             for(int i = 0; i < verticalRays; i++)
             {
@@ -158,26 +168,36 @@ public class CharacterMove : MonoBehaviour
                 Vector2 origin = Vector2.Lerp(startPoint, endPoint, i / (float)(verticalRays - 1));
 
                 //Cast ray
-                RaycastHit2D hit = Physics2D.Raycast(origin, (velocity.y > 0 ? Vector2.up : Vector2.down), distance, groundLayer);
+                hits[i] = Physics2D.Raycast(origin, (velocity.y > 0 ? Vector2.up : Vector2.down), distance, groundLayer);
 
                 Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(velocity.y) * distance));
 
                 //If ray connected then player should be considered grounded
-                if (hit.collider != null)
+                if (hits[i].collider != null)
                 {
-                    //Set grounded and stop falling (if already falling)
-                    if (velocity.y <= 0)
-                        isGrounded = true;
-                    else //If moving upwards, stop jumping
-                        heldJump = false;
-                    velocity.y = 0;
+                    connected = true;
 
-                    //Move player flush to ground
-                    transform.Translate(Vector2.down * (hit.distance - box.height / 2));
-                    
-                    //If one ray has connected then it is grounded
-                    break;
+                    //If this ray is shorter than any other, set it as the shortest and one to use
+                    if (hits[i].distance < minDistance)
+                    {
+                        minDistance = hits[i].distance;
+                        index = i;
+                    }
                 }
+            }
+
+            //If a ray has connected witht the ground
+            if (connected)
+            {
+                //Set grounded and stop falling (if already falling)
+                if (velocity.y <= 0)
+                    isGrounded = true;
+                else //If moving upwards, stop jumping
+                    heldJump = false;
+                velocity.y = 0;
+
+                //Move player flush to ground (using shortest ray)
+                transform.Translate(Vector2.down * (hits[index].distance - box.height / 2));
             }
         }
 
@@ -186,41 +206,50 @@ public class CharacterMove : MonoBehaviour
             velocity.x = Mathf.Lerp(velocity.x, moveSpeed * inputDirection, acceleration * Time.deltaTime);
 
         //Lateral collision detection
-        //Only required if there is lateral movement
-        if (velocity.x != 0)
         {
-            //Start and end points that ray origins will lay between
-            Vector2 startPoint = new Vector2(box.center.x, box.yMin + skinWidth);
-            Vector2 endPoint = new Vector2(box.center.x, box.yMax - skinWidth);
-
-            //Rays are cast out according to velocity, from the center
-            float distance = box.width / 2 + Mathf.Abs(velocity.x * Time.deltaTime);
-
-            //Rays are cast in the direction of movement
-            Vector2 direction = velocity.x > 0 ? Vector2.right : Vector2.left;
-
-            //Cast required amount of rays
-            for (int i = 0; i < horizontalRays; i++)
+            //Only required if there is lateral movement
+            if (velocity.x != 0)
             {
-                //Calculate origin for this ray
-                Vector2 origin = Vector2.Lerp(startPoint, endPoint, i / (float)(horizontalRays - 1));
+                //Start and end points that ray origins will lay between
+                Vector2 startPoint = new Vector2(box.center.x, box.yMin + skinWidth);
+                Vector2 endPoint = new Vector2(box.center.x, box.yMax - skinWidth);
 
-                //Cast ray
-                RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, groundLayer);
+                //Rays are cast out according to velocity, from the center
+                float distance = box.width / 2 + Mathf.Abs(velocity.x * Time.deltaTime);
 
-                Debug.DrawLine(origin, new Vector2(origin.x + distance * direction.x, origin.y));
+                //Rays are cast in the direction of movement
+                Vector2 direction = velocity.x > 0 ? Vector2.right : Vector2.left;
 
-                //If ray hit, there is a wall
-                if (hit.collider != null)
+                //Cast required amount of rays
+                for (int i = 0; i < horizontalRays; i++)
                 {
-                    //Make character flush against wall
-                    transform.Translate(direction * (hit.distance - box.width / 2));
+                    //Calculate origin for this ray
+                    Vector2 origin = Vector2.Lerp(startPoint, endPoint, i / (float)(horizontalRays - 1));
 
-                    //Cease any lateral movement
-                    velocity.x = 0;
+                    //Cast ray
+                    RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, groundLayer);
 
-                    //If one ray has connected, no more rays should be cast
-                    break;
+                    Debug.DrawLine(origin, new Vector2(origin.x + distance * direction.x, origin.y));
+
+                    //If ray hit, there is a wall
+                    if (hit.collider != null)
+                    {
+                        //Calculate angle of slope
+                        float angle = Vector2.Angle(Vector2.up, hit.normal);
+
+                        //This is only considered a wall if outside slope limit
+                        if (angle > slopeLimit)
+                        {
+                            //Make character flush against wall
+                            transform.Translate(direction * (hit.distance - box.width / 2));
+
+                            //Cease any lateral movement
+                            velocity.x = 0;
+                        }
+
+                        //If one ray has connected, no more rays should be cast
+                        break;
+                    }
                 }
             }
         }
@@ -236,7 +265,7 @@ public class CharacterMove : MonoBehaviour
         oldDirection = inputDirection;
 
         //Update input direction
-        if (GameManager.instance.gameRunning)
+        if (GameManager.instance.gameRunning && canMove)
             inputDirection = direction;
         else
             inputDirection = 0;
