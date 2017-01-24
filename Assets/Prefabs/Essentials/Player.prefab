@@ -288,7 +288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   acceleration: 10
-  slopeLimit: 60
+  upSlopeLimit: 50
+  downSlopeLimit: 50
   inputDirection: 0
   canMove: 1
   jumpForce: 8
@@ -396,7 +397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageTag: Enemy
+  damageLayer:
+    serializedVersion: 2
+    m_Bits: 512
   amount: 20
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.25

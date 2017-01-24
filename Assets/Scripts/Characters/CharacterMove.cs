@@ -18,8 +18,10 @@ public class CharacterMove : MonoBehaviour
     public float acceleration = 1f;
 
     [Space()]
-    [Tooltip("The maximum angle at which a slope is considered walkable.")]
-    public float slopeLimit = 50f;
+    [Tooltip("The maximum angle at which a slope is considered walkable upwards.")]
+    public float upSlopeLimit = 50f;
+    [Tooltip("The maximum angle at which a slope is considered walkable downwards (otherwise falling).")]
+    public float downSlopeLimit = 30f;
 
     [HideInInspector]
     public float inputDirection = 0f;
@@ -45,6 +47,8 @@ public class CharacterMove : MonoBehaviour
 
     [HideInInspector]
     public bool isGrounded = false;
+
+    private bool stickToSlope = false;
 
     [Header("Physics")]
     [Tooltip("How fast the character falls (m/s^2).")]
@@ -88,8 +92,8 @@ public class CharacterMove : MonoBehaviour
     private void Start()
     {
         //Movemement is not handled by rigidbody until knocked back
-        if(body)
-            body.simulated = false;
+        if (body)
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     private void Update()
@@ -125,6 +129,9 @@ public class CharacterMove : MonoBehaviour
 
                     //Reset jump held time, allowing jump to be held
                     jumpHeldTime = 0;
+                    stopJumpTime = 0;
+
+                    stickToSlope = false;
                 }
             }
 
@@ -168,9 +175,12 @@ public class CharacterMove : MonoBehaviour
                 Vector2 origin = Vector2.Lerp(startPoint, endPoint, i / (float)(verticalRays - 1));
 
                 //Cast ray
-                hits[i] = Physics2D.Raycast(origin, (velocity.y > 0 ? Vector2.up : Vector2.down), distance, groundLayer);
+                if (velocity.y > 0)
+                    hits[i] = Physics2D.Raycast(origin, Vector2.up, distance, groundLayer);
+                else
+                    hits[i] = Physics2D.Raycast(origin, Vector2.down, 1000f, groundLayer);
 
-                Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(velocity.y) * distance));
+                Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(velocity.y) * (velocity.y > 0 ? distance : 1000f)));
 
                 //If ray connected then player should be considered grounded
                 if (hits[i].collider != null)
@@ -183,21 +193,34 @@ public class CharacterMove : MonoBehaviour
                         minDistance = hits[i].distance;
                         index = i;
                     }
+
                 }
             }
 
-            //If a ray has connected witht the ground
+            //If a ray has connected with the ground
             if (connected)
             {
-                //Set grounded and stop falling (if already falling)
-                if (velocity.y <= 0)
-                    isGrounded = true;
-                else //If moving upwards, stop jumping
-                    heldJump = false;
-                velocity.y = 0;
+                float angle = Vector2.Angle(Vector2.up, hits[index].normal);
 
-                //Move player flush to ground (using shortest ray)
-                transform.Translate(Vector2.down * (hits[index].distance - box.height / 2));
+                //If within distance, or if it should stick to the slope
+                if (hits[index].distance <= distance || (angle <= downSlopeLimit && stickToSlope))
+                {
+                    //Set grounded and stop falling (if already falling)
+                    if (velocity.y <= 0)
+                    {
+                        isGrounded = true;
+                        stickToSlope = true;
+                    }
+                    else //If moving upwards, stop jumping
+                        heldJump = false;
+                    velocity.y = 0;
+
+                    //Move player flush to ground (using shortest ray)
+                    transform.Translate(Vector2.down * (hits[index].distance - box.height / 2));
+                }
+                else
+                    //Prevent character from snapping to ground when the slope was not within the limit
+                    stickToSlope = false;
             }
         }
 
@@ -238,7 +261,7 @@ public class CharacterMove : MonoBehaviour
                         float angle = Vector2.Angle(Vector2.up, hit.normal);
 
                         //This is only considered a wall if outside slope limit
-                        if (angle > slopeLimit)
+                        if (angle > upSlopeLimit)
                         {
                             //Make character flush against wall
                             transform.Translate(direction * (hit.distance - box.width / 2));
@@ -311,20 +334,28 @@ public class CharacterMove : MonoBehaviour
         {
             //Disable movement
             canMove = false;
-            body.simulated = true;
+            body.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            Debug.Log("Disabled");
+
+            float checkGroundedTime = Time.time + timeAfterGrounded;
 
             //Continue until grounded
-            while (!isGrounded)
+            while (!isGrounded || Time.time < checkGroundedTime)
             {
+                Debug.Log("Not grounded");
                 yield return new WaitForEndOfFrame();
             }
 
+            Debug.Log("grounded");
             //After grounded, wait for specified time
             yield return new WaitForSeconds(timeAfterGrounded);
 
             //Re-enable movement
             canMove = true;
-            body.simulated = false;
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+
+            Debug.Log("Enabled");
         }
     }
 }

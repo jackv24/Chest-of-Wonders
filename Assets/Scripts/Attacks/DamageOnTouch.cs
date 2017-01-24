@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DamageOnTouch : MonoBehaviour
 {
-    [Tooltip("Gameobjects with this tag will be damaged.")]
-    public string damageTag = "Enemy";
+    public LayerMask damageLayer;
 
     [Tooltip("How much damage to deal to everything this hits.")]
     public int amount = 10;
@@ -24,37 +23,48 @@ public class DamageOnTouch : MonoBehaviour
     private void OnEnable()
     {
         hitInSwing.Clear();
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == damageTag && !hitInSwing.Contains(collision.gameObject))
+        Collider2D col = GetComponent<Collider2D>();
+
+        Rect box = new Rect(
+            col.bounds.min.x,
+            col.bounds.min.y,
+            col.bounds.size.x,
+            col.bounds.size.y
+            );
+
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(box.center, box.size, 0, damageLayer);
+
+        foreach (Collider2D collider in colliders)
         {
-            //Keep track of what has already been
-            hitInSwing.Add(collision.gameObject);
+            if (!hitInSwing.Contains(collider.gameObject))
+            {
+                //Keep track of what has already been hit (in case gameobject has multiple colliders)
+                hitInSwing.Add(collider.gameObject);
 
-            //Calculate centre point between colliders to show hit effect
-            Vector3 centre = (GetComponent<Collider2D>().bounds.center + collision.bounds.center) / 2;
+                //Calculate centre point between colliders to show hit effect
+                Vector3 centre = (box.center + (Vector2)collider.bounds.center) / 2;
 
-            //Show hit effect at centre of colliders (with object pooling)
-            GameObject effect = ObjectPooler.GetPooledObject(hitEffect);
-            effect.transform.position = centre;
+                //Show hit effect at centre of colliders (with object pooling)
+                GameObject effect = ObjectPooler.GetPooledObject(hitEffect);
+                effect.transform.position = centre;
 
-            //Get character references
-            CharacterStats stats = collision.GetComponent<CharacterStats>();
-            CharacterMove move = collision.GetComponent<CharacterMove>();
+                //Get character references
+                CharacterStats stats = collider.GetComponent<CharacterStats>();
+                CharacterMove move = collider.GetComponent<CharacterMove>();
 
-            //Remove health
-            if(stats)
-                stats.RemoveHealth(amount);
+                //Remove health
+                if (stats)
+                    stats.RemoveHealth(amount);
 
-            //Knockback if amount is more than 0
-            if (move && knockBackAmount > 0)
-                move.Knockback((Vector2)transform.position + knockBackCentreOffset, knockBackAmount);
+                //Knockback if amount is more than 0
+                if (move && knockBackAmount > 0)
+                    move.Knockback((Vector2)transform.position + knockBackCentreOffset, knockBackAmount);
 
-            //Offset randomly (screen shake effect)
-            Vector2 camOffset = new Vector2(Random.Range(-1f, 1f) * screenShakeAmount, Random.Range(-1f, 1f) * screenShakeAmount);
-            Camera.main.transform.position += (Vector3)camOffset;
+                //Offset randomly (screen shake effect)
+                Vector2 camOffset = new Vector2(Random.Range(-1f, 1f) * screenShakeAmount, Random.Range(-1f, 1f) * screenShakeAmount);
+                Camera.main.transform.position += (Vector3)camOffset;
+            }
         }
     }
 }
