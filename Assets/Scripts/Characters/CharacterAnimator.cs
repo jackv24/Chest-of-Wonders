@@ -65,14 +65,14 @@ public class CharacterAnimator : MonoBehaviour
         animator.transform.localScale = scale;
     }
 
-    public void PrimaryAttack()
+    public void MeleeAttack()
     {
-        animator.SetTrigger("attack1");
+        animator.SetTrigger("melee");
     }
 
-    public void SecondaryAttack()
+    public void MagicAttack()
     {
-        animator.SetTrigger("attack2");
+        animator.SetTrigger("magic");
     }
 
     void Jump()

@@ -79,7 +79,7 @@ public class DialogueBox : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
         }
         //Close dialogue if no buttons present, and action is pressed
-        else if (playerActions.Submit.WasPressed || playerActions.Attack1.WasPressed)
+        else if (playerActions.Submit.WasPressed || playerActions.MeleeAttack.WasPressed)
         {
             //Only go to next node if text is done printing, and there are no buttons
             if (textDonePrinting && buttons.Length <= 0)

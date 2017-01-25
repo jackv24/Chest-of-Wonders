@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HUDControl : MonoBehaviour
 {
-    public CharacterStats targetStats;
+    public GameObject player;
 
     [Space()]
     public Slider healthSlider;
@@ -13,36 +13,64 @@ public class HUDControl : MonoBehaviour
     private string healthTextString;
 
     [Space()]
-    public Slider manaSlider;
-    public Text manaText;
-    private string manaTextString;
+    public GameObject manaBar;
+
+    private CharacterStats playerStats;
+    private PlayerAttack playerAttack;
 
     private void Start()
     {
+        if (!player)
+            player = GameObject.FindWithTag("Player");
+
+        if (player)
+        {
+            playerStats = player.GetComponent<CharacterStats>();
+            playerAttack = player.GetComponent<PlayerAttack>();
+
+            LoadManaBars();
+        }
+
         //Cache strings for formatting
-        if(healthText)
+        if (healthText)
             healthTextString = healthText.text;
-        if (manaText)
-            manaTextString = manaText.text;
     }
 
     private void Update()
     {
-        if (targetStats)
+        if (playerStats)
         {
             //Health bar
             if (healthSlider)
-                healthSlider.value = (float)targetStats.currentHealth / targetStats.maxHealth;
+                healthSlider.value = (float)playerStats.currentHealth / playerStats.maxHealth;
 
             if (healthText)
-                healthText.text = string.Format(healthTextString, targetStats.currentHealth, targetStats.maxHealth);
-
-            //Mana bar
-            if (manaSlider)
-                manaSlider.value = (float)targetStats.currentMana / targetStats.maxMana;
-
-            if (manaText)
-                manaText.text = string.Format(manaTextString, targetStats.currentMana, targetStats.maxMana);
+                healthText.text = string.Format(healthTextString, playerStats.currentHealth, playerStats.maxHealth);
         }
+    }
+
+    void LoadManaBars()
+    {
+        //Get attacks for easy referencing
+        MagicAttack[] attacks = playerAttack.magicAttacks;
+
+        //For each attack
+        for (int i = 0; i < attacks.Length; i++)
+        {
+            //Create a mana bar from template
+            GameObject obj = (GameObject)Instantiate(manaBar, manaBar.transform.parent);
+
+            ManaBar bar = obj.GetComponent<ManaBar>();
+
+            //Tell the mana bar what attack it is for
+            bar.playerAttack = playerAttack;
+            bar.representingAttack = i;
+
+            //Reload the bar
+            bar.Reload();
+        }
+
+        //Disable the template bar
+        manaBar.SetActive(false);
     }
 }

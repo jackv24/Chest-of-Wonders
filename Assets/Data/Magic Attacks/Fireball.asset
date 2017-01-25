@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9146121630e705649b854440d1a4885b, type: 3}
+  m_Name: Fireball
+  m_EditorClassIdentifier: 
+  displayName: Fireball
+  icon: {fileID: 21300006, guid: 6ad3f40b2cf3ddf47891723f6fb2f600, type: 3}
+  manaCost: 10
+  cooldownTime: 1
+  manaAmount: 100
+  castEffect: {fileID: 0}
+  projectilePrefab: {fileID: 0}

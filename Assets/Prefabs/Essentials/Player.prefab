@@ -333,6 +333,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb64b71810dcfe47bc475006ec468bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  magicAttacks:
+  - {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
+  - {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
+  selectedMagic: 0
+  manaAmounts: 
 --- !u!114 &114849662361689878
 MonoBehaviour:
   m_ObjectHideFlags: 1

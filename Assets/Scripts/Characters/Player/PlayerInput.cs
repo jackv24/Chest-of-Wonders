@@ -13,13 +13,13 @@ public class PlayerInput : MonoBehaviour
 
     //Character scripts
     private CharacterMove characterMove;
-    private CharacterAttack characterAttack;
+    private PlayerAttack playerAttack;
 
     private void Awake()
     {
         //Get references
         characterMove = GetComponent<CharacterMove>();
-        characterAttack = GetComponent<CharacterAttack>();
+        playerAttack = GetComponent<PlayerAttack>();
     }
 
     private void Start()
@@ -47,12 +47,17 @@ public class PlayerInput : MonoBehaviour
         }
 
         //Can only attack while game is running
-        if (characterAttack && GameManager.instance.gameRunning)
+        if (playerAttack && GameManager.instance.gameRunning)
         {
-            if (playerActions.Attack1.WasPressed)
-                characterAttack.UsePrimary();
-            else if (playerActions.Attack2.WasPressed)
-                characterAttack.UseSecondary();
+            if (playerActions.MeleeAttack.WasPressed)
+                playerAttack.UseMelee();
+            else if (playerActions.MagicAttack.WasPressed)
+                playerAttack.UseMagic();
+
+            if (playerActions.CycleMagicLeft.WasPressed)
+                playerAttack.CycleMagic(-1);
+            else if (playerActions.CycleMagicRight.WasPressed)
+                playerAttack.CycleMagic(1);
         }
     }
 }

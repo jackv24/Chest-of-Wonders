@@ -73,9 +73,6 @@ public class CharacterMove : MonoBehaviour
     [Space()]
     public LayerMask groundLayer;
 
-    [Header("Misc")]
-    public float knockBackRecoveryTime = 0.25f;
-
     //The RigidBody2D attached to this GameObject
     [HideInInspector]
     public Rigidbody2D body;
@@ -313,56 +310,6 @@ public class CharacterMove : MonoBehaviour
                 shouldJump = true;
 
             heldJump = pressed;
-        }
-    }
-
-    public void Knockback(Vector2 centre, float amount)
-    {
-        //If this gameobject is active
-        if (gameObject.activeInHierarchy)
-        {
-            //Start the knockback delay coruotine
-            StartCoroutine("SwitchToPhysics", knockBackRecoveryTime);
-
-            //Calculate force direction
-            Vector2 direction = (Vector2)transform.position - centre;
-            direction.Normalize();
-
-            //Apply force
-            body.AddForceAtPosition(direction * amount, centre, ForceMode2D.Impulse);
-        }
-    }
-
-    IEnumerator SwitchToPhysics(float timeAfterGrounded)
-    {
-        if (!body)
-            Debug.LogWarning("There is no Rigidbody2D attached to " + name);
-        else
-        {
-            //Disable movement
-            canMove = false;
-            body.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-            Debug.Log("Disabled");
-
-            float checkGroundedTime = Time.time + timeAfterGrounded;
-
-            //Continue until grounded
-            while (!isGrounded || Time.time < checkGroundedTime)
-            {
-                Debug.Log("Not grounded");
-                yield return new WaitForEndOfFrame();
-            }
-
-            Debug.Log("grounded");
-            //After grounded, wait for specified time
-            yield return new WaitForSeconds(timeAfterGrounded);
-
-            //Re-enable movement
-            canMove = true;
-            body.constraints = RigidbodyConstraints2D.FreezeAll;
-
-            Debug.Log("Enabled");
         }
     }
 }
