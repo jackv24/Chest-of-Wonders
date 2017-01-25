@@ -13,6 +13,8 @@ public class CharacterMove : MonoBehaviour
     [Header("Movement")]
     [Tooltip("The horizontal move speed (m/s).")]
     public float moveSpeed = 2f;
+    //What fraction of the move speed to actually move at (move speed is dampened on slopes)
+    private float slopeSpeedMultiplier = 1;
 
     [Tooltip("The rate at which the character accelerates to reach the move speed (m/s^2).")]
     public float acceleration = 1f;
@@ -22,6 +24,10 @@ public class CharacterMove : MonoBehaviour
     public float upSlopeLimit = 50f;
     [Tooltip("The maximum angle at which a slope is considered walkable downwards (otherwise falling).")]
     public float downSlopeLimit = 30f;
+    [Tooltip("The maximum distance at which a slope will be considered (prevents player snapping to slopes from great heights).")]
+    public float maxSlopeDistance = 1f;
+    [Tooltip("Should horizontal speed be dampened on slopes?")]
+    public bool slopeSpeedDampening = true;
 
     [HideInInspector]
     public float inputDirection = 0f;
@@ -73,7 +79,6 @@ public class CharacterMove : MonoBehaviour
     //The RigidBody2D attached to this GameObject
     [HideInInspector]
     public Rigidbody2D body;
-    private CharacterAnimator characterAnimator;
 
     private Collider2D col;
     private Rect box;
@@ -86,7 +91,6 @@ public class CharacterMove : MonoBehaviour
         //Get references
         col = GetComponent<Collider2D>();
         body = GetComponent<Rigidbody2D>();
-        characterAnimator = GetComponent<CharacterAnimator>();
     }
 
     private void Start()
@@ -178,9 +182,9 @@ public class CharacterMove : MonoBehaviour
                 if (velocity.y > 0)
                     hits[i] = Physics2D.Raycast(origin, Vector2.up, distance, groundLayer);
                 else
-                    hits[i] = Physics2D.Raycast(origin, Vector2.down, 1000f, groundLayer);
+                    hits[i] = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer);
 
-                Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(velocity.y) * (velocity.y > 0 ? distance : 1000f)));
+                Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(velocity.y) * (velocity.y > 0 ? distance : maxSlopeDistance)));
 
                 //If ray connected then player should be considered grounded
                 if (hits[i].collider != null)
@@ -217,6 +221,9 @@ public class CharacterMove : MonoBehaviour
 
                     //Move player flush to ground (using shortest ray)
                     transform.Translate(Vector2.down * (hits[index].distance - box.height / 2));
+
+                    //Calculate speed dampening based on slope (if slope dampening is not desired, make a value of 1)
+                    slopeSpeedMultiplier = slopeSpeedDampening ? Mathf.Cos(angle * Mathf.Deg2Rad) : 1;
                 }
                 else
                     //Prevent character from snapping to ground when the slope was not within the limit
@@ -226,7 +233,7 @@ public class CharacterMove : MonoBehaviour
 
         //Horizontal movement
         if(canMove)
-            velocity.x = Mathf.Lerp(velocity.x, moveSpeed * inputDirection, acceleration * Time.deltaTime);
+            velocity.x = Mathf.Lerp(velocity.x, moveSpeed * slopeSpeedMultiplier * inputDirection, acceleration * Time.deltaTime);
 
         //Lateral collision detection
         {
