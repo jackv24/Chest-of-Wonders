@@ -12,8 +12,19 @@ public class HUDControl : MonoBehaviour
     public Text healthText;
     private string healthTextString;
 
+    [System.Serializable]
+    public class ManaBar
+    {
+        public Image attackIcon;
+        public Slider slider;
+        public Text sliderText;
+
+        [HideInInspector]
+        public string sliderTextString;
+    }
     [Space()]
-    public GameObject manaBar;
+    public ManaBar manaBar1;
+    public ManaBar manaBar2;
 
     private CharacterStats playerStats;
     private PlayerAttack playerAttack;
@@ -28,7 +39,13 @@ public class HUDControl : MonoBehaviour
             playerStats = player.GetComponent<CharacterStats>();
             playerAttack = player.GetComponent<PlayerAttack>();
 
-            LoadManaBars();
+            if (playerAttack)
+            {
+                manaBar1.sliderTextString = manaBar1.sliderText.text;
+                manaBar2.sliderTextString = manaBar2.sliderText.text;
+
+                LoadManaBars();
+            }
         }
 
         //Cache strings for formatting
@@ -47,30 +64,61 @@ public class HUDControl : MonoBehaviour
             if (healthText)
                 healthText.text = string.Format(healthTextString, playerStats.currentHealth, playerStats.maxHealth);
         }
+
+        if (playerAttack)
+        {
+            //if there is a magic attack in the slot
+            if (playerAttack.magicSlot1.attack)
+            {
+                //Update slider
+                if (manaBar1.slider)
+                    manaBar1.slider.value = (float)playerAttack.magicSlot1.currentMana / playerAttack.magicSlot1.attack.manaAmount;
+
+                //Update slider text
+                if (manaBar1.sliderText)
+                    manaBar1.sliderText.text = string.Format(manaBar1.sliderTextString, playerAttack.magicSlot1.currentMana, playerAttack.magicSlot1.attack.manaAmount);
+            }
+
+            //if there is a magic attack in the slot
+            if (playerAttack.magicSlot2.attack)
+            {
+                //Update slider
+                if (manaBar2.slider)
+                    manaBar2.slider.value = (float)playerAttack.magicSlot2.currentMana / playerAttack.magicSlot2.attack.manaAmount;
+
+                //Update slider text
+                if (manaBar2.sliderText)
+                    manaBar2.sliderText.text = string.Format(manaBar2.sliderTextString, playerAttack.magicSlot2.currentMana, playerAttack.magicSlot2.attack.manaAmount);
+            }
+        }
     }
 
+    //Loads display for mana bars
     void LoadManaBars()
     {
-        //Get attacks for easy referencing
-        MagicAttack[] attacks = playerAttack.magicAttacks;
-
-        //For each attack
-        for (int i = 0; i < attacks.Length; i++)
+        //If there is an attack in the slot
+        if (playerAttack.magicSlot1.attack)
         {
-            //Create a mana bar from template
-            GameObject obj = (GameObject)Instantiate(manaBar, manaBar.transform.parent);
-
-            ManaBar bar = obj.GetComponent<ManaBar>();
-
-            //Tell the mana bar what attack it is for
-            bar.playerAttack = playerAttack;
-            bar.representingAttack = i;
-
-            //Reload the bar
-            bar.Reload();
+            //Set attack icon
+            manaBar1.attackIcon.sprite = playerAttack.magicSlot1.attack.icon;
+            //Show mana bar
+            manaBar1.attackIcon.transform.parent.gameObject.SetActive(true);
         }
+        else
+            //If there is no attack in slot, hide bar
+            manaBar1.attackIcon.transform.parent.gameObject.SetActive(false);
 
-        //Disable the template bar
-        manaBar.SetActive(false);
+        //If there is an attack in the slot
+        if (playerAttack.magicSlot2.attack)
+        {
+            //Set attack icon
+            manaBar2.attackIcon.sprite = playerAttack.magicSlot2.attack.icon;
+
+            //Show mana bar
+            manaBar2.attackIcon.transform.parent.gameObject.SetActive(true);
+        }
+        else
+            //If there is no attack in slot, hide bar
+            manaBar2.attackIcon.transform.parent.gameObject.SetActive(false);
     }
 }

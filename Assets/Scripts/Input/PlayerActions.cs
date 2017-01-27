@@ -14,10 +14,8 @@ public class PlayerActions : PlayerActionSet
     public PlayerTwoAxisAction Move;
 
     public PlayerAction MeleeAttack;
-    public PlayerAction MagicAttack;
-
-    public PlayerAction CycleMagicLeft;
-    public PlayerAction CycleMagicRight;
+    public PlayerAction MagicAttack1;
+    public PlayerAction MagicAttack2;
 
     public PlayerAction Interact;
     public PlayerAction Submit;
@@ -36,10 +34,8 @@ public class PlayerActions : PlayerActionSet
         Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
 
         MeleeAttack = CreatePlayerAction("Melee Attack");
-        MagicAttack = CreatePlayerAction("Magic Attack");
-
-        CycleMagicLeft = CreatePlayerAction("Cycle Magic Left");
-        CycleMagicRight = CreatePlayerAction("Cycle Magic Right");
+        MagicAttack1 = CreatePlayerAction("Magic Attack 1");
+        MagicAttack2 = CreatePlayerAction("Magic Attack 2");
 
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");
@@ -47,6 +43,7 @@ public class PlayerActions : PlayerActionSet
         Pause = CreatePlayerAction("Pause");
 
         //Bind actions
+        //Movement
         Left.AddDefaultBinding(Key.A);
         Left.AddDefaultBinding(Key.LeftArrow);
         Left.AddDefaultBinding(InputControlType.DPadLeft);
@@ -70,20 +67,19 @@ public class PlayerActions : PlayerActionSet
         Jump.AddDefaultBinding(Key.Space);
         Jump.AddDefaultBinding(InputControlType.Action1);
 
-        MeleeAttack.AddDefaultBinding(Mouse.LeftButton);
+        //Attacking
         MeleeAttack.AddDefaultBinding(Key.J);
         MeleeAttack.AddDefaultBinding(InputControlType.Action3);
 
-        MagicAttack.AddDefaultBinding(Mouse.RightButton);
-        MagicAttack.AddDefaultBinding(Key.K);
-        MagicAttack.AddDefaultBinding(InputControlType.Action2);
+        MagicAttack1.AddDefaultBinding(Key.K);
+        MagicAttack1.AddDefaultBinding(InputControlType.RightBumper);
+        MagicAttack1.AddDefaultBinding(InputControlType.RightTrigger);
 
-        CycleMagicLeft.AddDefaultBinding(Mouse.NegativeScrollWheel);
-        CycleMagicLeft.AddDefaultBinding(InputControlType.LeftBumper);
+        MagicAttack2.AddDefaultBinding(Key.L);
+        MagicAttack2.AddDefaultBinding(InputControlType.LeftBumper);
+        MagicAttack2.AddDefaultBinding(InputControlType.LeftTrigger);
 
-        CycleMagicRight.AddDefaultBinding(Mouse.PositiveScrollWheel);
-        CycleMagicRight.AddDefaultBinding(InputControlType.RightBumper);
-
+        //Misc
         Interact.AddDefaultBinding(Key.E);
         Interact.AddDefaultBinding(InputControlType.Action4);
 

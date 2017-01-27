@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public delegate void NormalEvent();
-
-    public event NormalEvent OnCycleMagic;
-
     private CharacterAnimator characterAnimator;
 
-    public MagicAttack[] magicAttacks;
-    [HideInInspector]
-    public int selectedMagic = 0;
+    [System.Serializable]
+    public class MagicSlot
+    {
+        public MagicAttack attack;
+        public int currentMana;
+    }
 
-    [HideInInspector]
-    public int[] manaAmounts;
+    public MagicSlot magicSlot1;
+    public MagicSlot magicSlot2;
 
     private void Awake()
     {
@@ -24,7 +23,19 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-        InitialiseMana();
+        //If there is an attack in the second slot, but not the first slot
+        if (!magicSlot1.attack && magicSlot2.attack)
+        {
+            //Move second magic attack to first slot
+            magicSlot1.attack = magicSlot2.attack;
+            magicSlot2.attack = null;
+        }
+
+        //Set starting mana
+        if (magicSlot1.attack)
+            magicSlot1.currentMana = magicSlot1.attack.manaAmount;
+        if (magicSlot2.attack)
+            magicSlot2.currentMana = magicSlot2.attack.manaAmount;
     }
 
     public void UseMelee()
@@ -34,47 +45,48 @@ public class PlayerAttack : MonoBehaviour
             characterAnimator.MeleeAttack();
     }
 
-    public void UseMagic()
+    //magic use functions to prevent index mismatch issues
+    public void UseMagic1()
     {
-        if (selectedMagic >= 0 && selectedMagic < magicAttacks.Length)
-        {
-            if (manaAmounts[selectedMagic] >= magicAttacks[selectedMagic].manaCost)
-            {
-                manaAmounts[selectedMagic] -= magicAttacks[selectedMagic].manaCost;
+        UseMagic(1);
+    }
+    public void UseMagic2()
+    {
+        UseMagic(2);
+    }
 
-                //TODO: Cast magic
-            }
+    //Function to use magic, wrapped by other magic use functions
+    void UseMagic(int number)
+    {
+        //The magic slot to use
+        MagicSlot slot;
+
+        //Choose correct magic slot
+        switch(number)
+        {
+            case 1:
+                slot = magicSlot1;
+                break;
+            case 2:
+                slot = magicSlot2;
+                break;
+            default:
+                slot = null;
+                break;
         }
-        else
-            Debug.LogWarning("Selected Attack is out of bounds! Attack: " + selectedMagic);
 
-        //Play attack animation
-        if (characterAnimator)
-            characterAnimator.MagicAttack();
-    }
-
-    public void CycleMagic(int direction)
-    {
-        //Add direction
-        selectedMagic += direction;
-
-        //If selected attack is out of bounds, wrap around
-        if (selectedMagic >= magicAttacks.Length)
-            selectedMagic = 0;
-        else if (selectedMagic < 0)
-            selectedMagic = magicAttacks.Length - 1;
-
-        if (OnCycleMagic != null)
-            OnCycleMagic();
-    }
-
-    void InitialiseMana()
-    {
-        manaAmounts = new int[magicAttacks.Length];
-
-        for(int i = 0; i < manaAmounts.Length; i++)
+        //If magic slot was chosen correctly, and there is an attack in the slot
+        if(slot != null && slot.attack)
         {
-            manaAmounts[i] = magicAttacks[i].manaAmount;
+            //If there is enough mana to use this attack
+            if (slot.currentMana >= slot.attack.manaCost)
+            {
+                //Subtract required mana
+                slot.currentMana -= slot.attack.manaCost;
+
+                //TODO: Cast attack
+                Debug.Log(string.Format("Used Attack {0}: {1}", number, slot.attack.displayName));
+            }
         }
     }
 }
