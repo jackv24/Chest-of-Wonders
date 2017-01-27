@@ -132,7 +132,10 @@ public class CharacterMove : MonoBehaviour
                     jumpHeldTime = 0;
                     stopJumpTime = 0;
 
+                    //Should not stick to slope when jumping
                     stickToSlope = false;
+                    //Slope speed multiplier should be reset, since character is no longer on slope
+                    slopeSpeedMultiplier = 1f;
                 }
             }
 
