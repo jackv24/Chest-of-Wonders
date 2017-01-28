@@ -73,6 +73,10 @@ public class CharacterMove : MonoBehaviour
     [Space()]
     public LayerMask groundLayer;
 
+    [Header("Miscellaneous")]
+    public float knockBackRecoveryTime = 1f;
+    private bool scriptControl = true;
+
     //The RigidBody2D attached to this GameObject
     [HideInInspector]
     public Rigidbody2D body;
@@ -90,15 +94,12 @@ public class CharacterMove : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
-        //Movemement is not handled by rigidbody until knocked back
-        if (body)
-            body.constraints = RigidbodyConstraints2D.FreezeAll;
-    }
-
     private void Update()
     {
+        //Only run if script should control movement
+        if (!scriptControl)
+            return;
+
         //Store collider rect for easy typing
         box = new Rect(
             col.bounds.min.x,
@@ -288,7 +289,6 @@ public class CharacterMove : MonoBehaviour
         transform.Translate(velocity * Time.deltaTime);
     }
 
-
     public void Move(float direction)
     {
         //Cache old direction for comparison
@@ -314,5 +314,42 @@ public class CharacterMove : MonoBehaviour
 
             heldJump = pressed;
         }
+    }
+
+    public void Knockback(Vector2 origin, float magnitude)
+    {
+        if (!gameObject.activeSelf)
+            return;
+
+        //Calculate force
+        Vector2 direction = ((Vector2)transform.position - origin).normalized;
+        Vector2 force = direction * magnitude;
+
+        //Disable script movement
+        scriptControl = false;
+        //Enable rigidbody movement
+        body.bodyType = RigidbodyType2D.Dynamic;
+
+        //Apply force
+        body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
+
+        //Coroutine to switch back to script control when required
+        StartCoroutine("KnockbackRecovery");
+    }
+
+    IEnumerator KnockbackRecovery()
+    {
+        //If body is still moving, cannot recover
+        while(body.velocity.magnitude > 0.01f)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        //After body has stopped moving, wait alotted recover time
+        yield return new WaitForSeconds(knockBackRecoveryTime);
+
+        //Switch back to script control
+        body.bodyType = RigidbodyType2D.Kinematic;
+        scriptControl = true;
     }
 }

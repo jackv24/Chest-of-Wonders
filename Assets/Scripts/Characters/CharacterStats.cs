@@ -43,6 +43,7 @@ public class CharacterStats : MonoBehaviour
 
     public void Die()
     {
+        //TODO: Animate death and then disable
         gameObject.SetActive(false);
     }
 }

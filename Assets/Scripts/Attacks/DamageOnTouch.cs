@@ -51,13 +51,15 @@ public class DamageOnTouch : MonoBehaviour
 
                 //Get character references
                 CharacterStats stats = collider.GetComponent<CharacterStats>();
+                CharacterMove move = collider.GetComponent<CharacterMove>();
 
                 //Remove health
                 if (stats)
                     stats.RemoveHealth(amount);
 
                 //Knockback if amount is more than 0
-                //TODO: Knockback
+                if (move && knockBackAmount > 0)
+                    move.Knockback((Vector2)transform.position + knockBackCentreOffset, knockBackAmount);
 
                 //Offset randomly (screen shake effect)
                 Vector2 camOffset = new Vector2(Random.Range(-1f, 1f) * screenShakeAmount, Random.Range(-1f, 1f) * screenShakeAmount);
