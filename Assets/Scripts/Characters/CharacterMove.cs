@@ -215,16 +215,18 @@ public class CharacterMove : MonoBehaviour
                     {
                         isGrounded = true;
                         stickToSlope = true;
+
+                        //Calculate speed dampening based on slope (if slope dampening is not desired, make a value of 1)
+                        slopeSpeedMultiplier = slopeSpeedDampening ? Mathf.Cos(angle * Mathf.Deg2Rad) : 1;
                     }
-                    else //If moving upwards, stop jumping
+                    else
+                        //If moving upwards, stop jumping
                         heldJump = false;
+
                     velocity.y = 0;
 
                     //Move player flush to ground (using shortest ray)
                     transform.Translate(Vector2.down * (hits[index].distance - box.height / 2));
-
-                    //Calculate speed dampening based on slope (if slope dampening is not desired, make a value of 1)
-                    slopeSpeedMultiplier = slopeSpeedDampening ? Mathf.Cos(angle * Mathf.Deg2Rad) : 1;
                 }
                 else
                     //Prevent character from snapping to ground when the slope was not within the limit
