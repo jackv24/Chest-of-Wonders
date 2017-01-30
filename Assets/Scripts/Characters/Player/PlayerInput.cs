@@ -52,9 +52,9 @@ public class PlayerInput : MonoBehaviour
             if (playerActions.MeleeAttack.WasPressed)
                 playerAttack.UseMelee();
             else if (playerActions.MagicAttack1.WasPressed)
-                playerAttack.UseMagic1();
+                playerAttack.UseMagic1(inputDirection);
             else if (playerActions.MagicAttack2.WasPressed)
-                playerAttack.UseMagic2();
+                playerAttack.UseMagic2(inputDirection);
         }
     }
 }

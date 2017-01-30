@@ -46,17 +46,17 @@ public class PlayerAttack : MonoBehaviour
     }
 
     //magic use functions to prevent index mismatch issues
-    public void UseMagic1()
+    public void UseMagic1(Vector2 direction)
     {
-        UseMagic(1);
+        UseMagic(1, direction);
     }
-    public void UseMagic2()
+    public void UseMagic2(Vector2 direction)
     {
-        UseMagic(2);
+        UseMagic(2, direction);
     }
 
     //Function to use magic, wrapped by other magic use functions
-    void UseMagic(int number)
+    void UseMagic(int number, Vector2 direction)
     {
         //The magic slot to use
         MagicSlot slot;
@@ -87,6 +87,12 @@ public class PlayerAttack : MonoBehaviour
                 //TODO: Cast attack
                 Debug.Log(string.Format("Used Attack {0}: {1}", number, slot.attack.displayName));
             }
+        }
+
+        if(characterAnimator)
+        {
+            characterAnimator.animator.SetFloat("vertical", direction.y);
+            characterAnimator.animator.SetTrigger("magic");
         }
     }
 }
