@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114221548071508702}
   - component: {fileID: 114484292579894648}
   - component: {fileID: 114823241359853506}
-  - component: {fileID: 114865313038255290}
+  - component: {fileID: 114658568679459128}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570463987493718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.5, y: 1, z: 0}
+  m_LocalPosition: {x: 4, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4026268335730914}
@@ -189,9 +189,28 @@ MonoBehaviour:
   magicSlot1:
     attack: {fileID: 0}
     currentMana: 0
+    nextFireTime: 0
   magicSlot2:
     attack: {fileID: 0}
     currentMana: 0
+    nextFireTime: 0
+  forwardFirePoint: {fileID: 0}
+  upFirePoint: {fileID: 0}
+  downFirePoint: {fileID: 0}
+  fireDelay: 0.1
+  upThreshold: 0.5
+--- !u!114 &114658568679459128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570463987493718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3c806cacf062b4bbbdcc6636baad55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterMove: {fileID: 0}
 --- !u!114 &114823241359853506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,17 +227,6 @@ MonoBehaviour:
   currentMana: 100
   maxMana: 100
   damageTextOffset: {x: 0, y: 1}
---- !u!114 &114865313038255290
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1570463987493718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfd380bab9e1a2d4f83a7dcf91ca9deb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212107043697564826
 SpriteRenderer:
   m_ObjectHideFlags: 1
