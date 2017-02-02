@@ -298,7 +298,7 @@ public class CharacterMove : MonoBehaviour
 
         //Update input direction
         if (GameManager.instance.gameRunning && canMove)
-            inputDirection = direction;
+            inputDirection = direction < 0 ? Mathf.Floor(direction) : Mathf.Ceil(direction);
         else
             inputDirection = 0;
 

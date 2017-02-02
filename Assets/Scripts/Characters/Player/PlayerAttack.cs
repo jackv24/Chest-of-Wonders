@@ -170,7 +170,7 @@ public class PlayerAttack : MonoBehaviour
                 effect.transform.position = firePoint.position;
                 effect.transform.eulerAngles = new Vector3(0, 0, effectAngle);
 
-                //Make particles move how the player was (so they are'nt left behind when the player is moving)
+                //Make particles move how the player was (so they aren't left behind when the player is moving)
                 ParticleSystem system = effect.GetComponentInChildren<ParticleSystem>();
                 ParticleSystem.VelocityOverLifetimeModule m = system.velocityOverLifetime;
                 m.x = characterMove.velocity.x;
