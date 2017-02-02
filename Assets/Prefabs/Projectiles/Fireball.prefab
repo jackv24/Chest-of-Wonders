@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4745104842247884}
   - component: {fileID: 212666958757794818}
   - component: {fileID: 114801452462288200}
-  - component: {fileID: 58945495747428550}
   - component: {fileID: 50769298057512066}
+  - component: {fileID: 58032376895041174}
   m_Layer: 11
   m_Name: Fireball
   m_TagString: Untagged
@@ -63,7 +63,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58945495747428550
+--- !u!58 &58032376895041174
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,7 +76,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.16
+  m_Radius: 0.2
 --- !u!114 &114801452462288200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,6 +90,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotForce: 20
   lifeTime: 3
+  destroyOnCollision: 1
+  explosionPrefab: {fileID: 1110034029969842, guid: fa1755586a68e164186463d734275cff,
+    type: 2}
 --- !u!212 &212666958757794818
 SpriteRenderer:
   m_ObjectHideFlags: 1

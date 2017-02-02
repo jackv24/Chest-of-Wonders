@@ -10,6 +10,10 @@ public class Projectile : MonoBehaviour
     [Tooltip("How long this projectile can exist.")]
     public float lifeTime = 5f;
 
+    [Space()]
+    public bool destroyOnCollision = true;
+    public GameObject explosionPrefab;
+
     private Rigidbody2D body;
 
     void Awake()
@@ -42,5 +46,32 @@ public class Projectile : MonoBehaviour
 
         //Add initial force
         body.AddForce(direction * shotForce, ForceMode2D.Impulse);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        //If it should destroy on collision
+        if (destroyOnCollision)
+        {
+            //Make sure the timer coroutine is no longer running
+            StopCoroutine("DisableAfterTime");
+
+            //Return to pool
+            gameObject.SetActive(false);
+        }
+    }
+
+    //When projectile has been disabled
+    void OnDisable()
+    {
+        //If there is an explosion prefab
+        if (explosionPrefab)
+        {
+            //Get from pool
+            GameObject effect = ObjectPooler.GetPooledObject(explosionPrefab);
+
+            //Position at projectile position
+            effect.transform.position = transform.position;
+        }
     }
 }
