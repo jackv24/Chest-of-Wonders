@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4209230865902622}
+  - component: {fileID: 114074213158858460}
   m_Layer: 0
   m_Name: IceCastEffect
   m_TagString: Untagged
@@ -70,6 +71,17 @@ Transform:
   m_Father: {fileID: 4209230865902622}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -40}
+--- !u!114 &114074213158858460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958410816669968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546c1eb91a1f6374f9809f4ad93ed818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198234673108638290
 ParticleSystem:
   m_ObjectHideFlags: 1
