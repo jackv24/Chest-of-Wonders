@@ -24,11 +24,12 @@ public class AIAgent : MonoBehaviour
 
         Sequence walkIfOutsideRange = new Sequence();
 
-        CheckRange range = new CheckRange(player.transform, 1f);
-        WalkTowards walk = new WalkTowards(player.transform);
+        CheckRange range = new CheckRange(player.transform, 1f, true, false);
+        //WalkTowards walk = new WalkTowards(player.transform);
+        HopTowards hop = new HopTowards(player.transform);
 
         walkIfOutsideRange.behaviours.Add(new InvertResult(range));
-        walkIfOutsideRange.behaviours.Add(walk);
+        walkIfOutsideRange.behaviours.Add(hop);
 
         moveTo.behaviours.Add(walkIfOutsideRange);
         moveTo.behaviours.Add(new StopMovement());
