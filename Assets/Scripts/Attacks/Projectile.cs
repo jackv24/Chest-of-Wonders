@@ -36,6 +36,7 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
+        SpawnEffect();
         gameObject.SetActive(false);
     }
 
@@ -57,12 +58,12 @@ public class Projectile : MonoBehaviour
             StopCoroutine("DisableAfterTime");
 
             //Return to pool
+            SpawnEffect();
             gameObject.SetActive(false);
         }
     }
 
-    //When projectile has been disabled
-    void OnDisable()
+    public void SpawnEffect()
     {
         //If there is an explosion prefab
         if (explosionPrefab)

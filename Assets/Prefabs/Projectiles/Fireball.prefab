@@ -57,7 +57,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0.5
   m_AngularDrag: 0.05
-  m_GravityScale: 0.05
+  m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: e5b765f79d07fab4fb9a77935d0599c6, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotForce: 20
   lifeTime: 3
-  destroyOnCollision: 1
+  destroyOnCollision: 0
   explosionPrefab: {fileID: 1110034029969842, guid: fa1755586a68e164186463d734275cff,
     type: 2}
 --- !u!212 &212666958757794818
