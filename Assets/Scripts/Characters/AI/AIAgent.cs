@@ -26,7 +26,7 @@ public class AIAgent : MonoBehaviour
 
         CheckRange range = new CheckRange(player.transform, 1f, true, false);
         //WalkTowards walk = new WalkTowards(player.transform);
-        HopTowards hop = new HopTowards(player.transform);
+        HopTowards hop = new HopTowards(player.transform, 1f);
 
         walkIfOutsideRange.behaviours.Add(new InvertResult(range));
         walkIfOutsideRange.behaviours.Add(hop);

@@ -10,6 +10,11 @@ public class Projectile : MonoBehaviour
     [Tooltip("How long this projectile can exist.")]
     public float lifeTime = 5f;
 
+    [Space]
+    public int damageAmount = 10;
+    [TagSelector]
+    public string damageTag;
+
     [Space()]
     public bool destroyOnCollision = true;
     public GameObject explosionPrefab;
@@ -51,8 +56,27 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        //If it should destroy on collision
-        if (destroyOnCollision)
+        bool hitCharacter = false;
+
+        //If it hit something that should be damaged
+        if(col.gameObject.tag == damageTag)
+        {
+            //Record hit to spawn effect later
+            hitCharacter = true;
+
+            //Get characterstats
+            CharacterStats stats = col.gameObject.GetComponent<CharacterStats>();
+
+            //If hit gameobject has characterstats
+            if(stats)
+            {
+                //Apply damage
+                stats.RemoveHealth(damageAmount);
+            }
+        }
+
+        //If it should destroy on collision with ground, or character
+        if (destroyOnCollision || hitCharacter)
         {
             //Make sure the timer coroutine is no longer running
             StopCoroutine("DisableAfterTime");

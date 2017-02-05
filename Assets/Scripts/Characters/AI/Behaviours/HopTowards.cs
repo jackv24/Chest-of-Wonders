@@ -11,9 +11,18 @@ namespace BehaviourTree
     {
         public Transform target;
 
+        public float anticipationTime;
+        private float nextHopTime = 0;
+
         public HopTowards(Transform target)
         {
             this.target = target;
+        }
+
+        public HopTowards(Transform target, float anticipationTime)
+        {
+            this.target = target;
+            this.anticipationTime = anticipationTime;
         }
 
         public Result Execute(AIAgent agent)
@@ -37,9 +46,17 @@ namespace BehaviourTree
                     //Set direction to move
                     move.Move(xInput);
                 }
-                else
+                //Hop after anticipation time
+                else if (Time.time >= nextHopTime)
+                {
+                    nextHopTime = Time.time + anticipationTime;
+
                     //Hold jump button
                     move.Jump(true);
+                }
+                //When on ground and waiting to hop, don't move
+                else
+                    move.Move(0);
 
                 //Should always succeed unless there is no movement script
                 return Result.Success;
