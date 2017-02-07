@@ -20,6 +20,7 @@ public class Projectile : MonoBehaviour
     public GameObject explosionPrefab;
 
     private Rigidbody2D body;
+    private GameObject owner;
 
     void Awake()
     {
@@ -43,6 +44,15 @@ public class Projectile : MonoBehaviour
 
         SpawnEffect();
         gameObject.SetActive(false);
+    }
+
+    public void SetOwner(GameObject obj)
+    {
+        owner = obj;
+
+        //Ignore collision with owner (if there is one)
+        if(owner)
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), owner.GetComponent<Collider2D>());
     }
 
     public void Fire(Vector2 direction)

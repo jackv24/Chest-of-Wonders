@@ -75,18 +75,20 @@ public class PlayerAttack : MonoBehaviour
     public void UseMelee()
     {
         //Play melee animation
-        if (characterAnimator)
+        if (characterAnimator && characterMove.canMove)
             characterAnimator.MeleeAttack();
     }
 
     //magic use functions to prevent index mismatch issues
     public void UseMagic1(Vector2 direction)
     {
-        UseMagic(magicSlot1, direction);
+        if(characterMove.canMove)
+            UseMagic(magicSlot1, direction);
     }
     public void UseMagic2(Vector2 direction)
     {
-        UseMagic(magicSlot2, direction);
+        if(characterMove.canMove)
+            UseMagic(magicSlot2, direction);
     }
 
     //Function to use magic, wrapped by other magic use functions
@@ -157,8 +159,13 @@ public class PlayerAttack : MonoBehaviour
 
             //Position projectile at fire point
             obj.transform.position = firePoint.position;
+
+            //Get projectile script reference
+            Projectile proj = obj.GetComponent<Projectile>();
+            //Set as owner of projectile
+            proj.SetOwner(gameObject);
             //Get projectile moving
-            obj.GetComponent<Projectile>().Fire(dir);
+            proj.Fire(dir);
 
             //If there is a cast effect
             if (fire.attack.castEffect)

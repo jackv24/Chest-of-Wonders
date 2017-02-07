@@ -155,7 +155,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -385,9 +385,11 @@ MonoBehaviour:
   magicSlot1:
     attack: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
     currentMana: 0
+    nextFireTime: 0
   magicSlot2:
     attack: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
     currentMana: 0
+    nextFireTime: 0
   forwardFirePoint: {fileID: 4265973003488688}
   upFirePoint: {fileID: 4894850495181718}
   downFirePoint: {fileID: 4807472343386172}
