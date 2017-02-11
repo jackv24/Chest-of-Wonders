@@ -40,11 +40,10 @@ GameObject:
   - component: {fileID: 50259299617630004}
   - component: {fileID: 114220330662029630}
   - component: {fileID: 114221548071508702}
-  - component: {fileID: 114484292579894648}
   - component: {fileID: 114823241359853506}
   - component: {fileID: 114658568679459128}
   m_Layer: 9
-  m_Name: TempEnemy
+  m_Name: BlazeHare
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1283032372313482}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4734510423594088}
@@ -108,9 +107,9 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: ba8c62f7cc429d94b92cba7191a490f2, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0, y: 0.65}
+  m_Offset: {x: -0, y: 0.5}
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.25}
+  m_Size: {x: 0.3, y: 1}
 --- !u!95 &95090968209211048
 Animator:
   serializedVersion: 3
@@ -139,15 +138,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c7ac02eb63664419f2556b87649a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  acceleration: 10
+  moveSpeed: 6
+  acceleration: 15
   upSlopeLimit: 50
   downSlopeLimit: 50
   maxSlopeDistance: 1
   slopeSpeedDampening: 1
   inputDirection: 0
   canMove: 1
-  jumpForce: 8
+  jumpForce: 10
   jumpTime: 0.5
   stopJumpDelay: 0.2
   isGrounded: 1
@@ -159,7 +158,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  knockBackRecoveryTime: 1
+  knockBackRecoveryTime: 0.25
   body: {fileID: 0}
   velocity: {x: 0, y: 0}
 --- !u!114 &114221548071508702
@@ -174,31 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95090968209211048}
-  defaultRight: 1
---- !u!114 &114484292579894648
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1570463987493718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eb64b71810dcfe47bc475006ec468bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  magicSlot1:
-    attack: {fileID: 0}
-    currentMana: 0
-    nextFireTime: 0
-  magicSlot2:
-    attack: {fileID: 0}
-    currentMana: 0
-    nextFireTime: 0
-  forwardFirePoint: {fileID: 0}
-  upFirePoint: {fileID: 0}
-  downFirePoint: {fileID: 0}
-  fireDelay: 0.1
-  upThreshold: 0.5
+  defaultRight: 0
 --- !u!114 &114658568679459128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -258,7 +233,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -291414749
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300008, guid: c240673a4dfcff54186fa7bddc38d6d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5692de13aef94884b83bb41bee161685, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
