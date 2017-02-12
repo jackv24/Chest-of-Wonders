@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114220330662029630}
   - component: {fileID: 114221548071508702}
   - component: {fileID: 114823241359853506}
-  - component: {fileID: 114658568679459128}
+  - component: {fileID: 114071396508618678}
   m_Layer: 9
   m_Name: BlazeHare
   m_TagString: Enemy
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570463987493718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: -2, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4026268335730914}
@@ -127,6 +127,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114071396508618678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570463987493718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd3d2bc7f777e948b7fe7850b11765b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterMove: {fileID: 0}
+  characterAnimator: {fileID: 0}
+  aggroRange: 5
+  stopRange: 1.5
+  hopAnticipation: 1
+  controlInAir: 0
 --- !u!114 &114220330662029630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -174,18 +191,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95090968209211048}
   defaultRight: 0
---- !u!114 &114658568679459128
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1570463987493718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd3c806cacf062b4bbbdcc6636baad55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterMove: {fileID: 0}
 --- !u!114 &114823241359853506
 MonoBehaviour:
   m_ObjectHideFlags: 1

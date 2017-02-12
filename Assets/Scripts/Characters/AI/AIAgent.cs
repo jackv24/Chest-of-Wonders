@@ -7,34 +7,25 @@ public class AIAgent : MonoBehaviour
 {
     [HideInInspector]
     public CharacterMove characterMove;
+    [HideInInspector]
+    public CharacterAnimator characterAnimator;
 
-    private IBehaviour behaviour;
+    protected IBehaviour behaviour;
 
     void Awake()
     {
         characterMove = GetComponent<CharacterMove>();
+        characterAnimator = GetComponent<CharacterAnimator>();
     }
 
     void Start()
     {
-        //TO-DO: Create some kind of system for creating and loading behaviour trees
-        GameObject player = GameObject.FindWithTag("Player");
+        ConstructBehaviour();
+    }
 
-        Selector moveTo = new Selector();
-
-        Sequence walkIfOutsideRange = new Sequence();
-
-        CheckRange range = new CheckRange(player.transform, 1f, true, false);
-        //WalkTowards walk = new WalkTowards(player.transform);
-        HopTowards hop = new HopTowards(player.transform, 1f);
-
-        walkIfOutsideRange.behaviours.Add(new InvertResult(range));
-        walkIfOutsideRange.behaviours.Add(hop);
-
-        moveTo.behaviours.Add(walkIfOutsideRange);
-        moveTo.behaviours.Add(new StopMovement());
-
-        behaviour = moveTo;
+    public virtual void ConstructBehaviour()
+    {
+        //AIAgents that inherit from this class implement this function
     }
 
     void Update()
