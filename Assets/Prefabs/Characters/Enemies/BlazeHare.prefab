@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114221548071508702}
   - component: {fileID: 114823241359853506}
   - component: {fileID: 114071396508618678}
+  - component: {fileID: 114164478770059898}
   m_Layer: 9
   m_Name: BlazeHare
   m_TagString: Enemy
@@ -144,6 +145,28 @@ MonoBehaviour:
   stopRange: 1.5
   hopAnticipation: 1
   controlInAir: 0
+--- !u!114 &114164478770059898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570463987493718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111b47b60ee8feb4d889a8c1622777cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  damageBoxPos: {x: 0, y: 0.6}
+  damageBoxSize: {x: 1, y: 1}
+  amount: 10
+  damageCooldown: 1
+  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
+  screenShakeAmount: 0.5
+  knockBackAmount: 10
+  knockBackCentreOffset: {x: -0, y: -2}
 --- !u!114 &114220330662029630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -155,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c7ac02eb63664419f2556b87649a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
+  moveSpeed: 4
   acceleration: 15
   upSlopeLimit: 50
   downSlopeLimit: 50
@@ -176,6 +199,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   knockBackRecoveryTime: 0.25
+  allowKnockback: 1
   body: {fileID: 0}
   velocity: {x: 0, y: 0}
 --- !u!114 &114221548071508702

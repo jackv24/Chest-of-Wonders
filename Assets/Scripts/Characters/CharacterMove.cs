@@ -75,6 +75,7 @@ public class CharacterMove : MonoBehaviour
 
     [Header("Miscellaneous")]
     public float knockBackRecoveryTime = 1f;
+    public bool allowKnockback = true;
     private bool scriptControl = true;
 
     //The RigidBody2D attached to this GameObject
@@ -320,6 +321,9 @@ public class CharacterMove : MonoBehaviour
 
     public void Knockback(Vector2 origin, float magnitude)
     {
+        if (!allowKnockback)
+            return;
+
         if (!gameObject.activeSelf)
             return;
 
