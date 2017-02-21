@@ -228,9 +228,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 100
   maxHealth: 100
-  currentMana: 100
-  maxMana: 100
   damageTextOffset: {x: 0, y: 1}
+  graphic: {fileID: 212107043697564826}
+  flashAmount: 0.75
+  flashInterval: 0.1
+  flashDuration: 0.5
 --- !u!212 &212107043697564826
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -244,7 +246,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a8187624fdced814bac764c445427fe7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

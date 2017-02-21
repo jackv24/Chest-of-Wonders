@@ -8,11 +8,14 @@ public class CharacterStats : MonoBehaviour
     public int maxHealth = 100;
 
     [Space()]
-    public int currentMana = 100;
-    public int maxMana = 100;
+    public Vector2 damageTextOffset = Vector2.up;
 
     [Space()]
-    public Vector2 damageTextOffset = Vector2.up;
+    public SpriteRenderer graphic;
+    [Range(0, 1f)]
+    public float flashAmount = 0.75f;
+    public float flashInterval = 0.1f;
+    public float flashDuration = 0.5f;
 
     //Removes the specified amount of health
     public void RemoveHealth(int amount)
@@ -29,21 +32,35 @@ public class CharacterStats : MonoBehaviour
 
             Die();
         }
-    }
 
-    //Removes the specified amount of health
-    public void RemoveMana(int amount)
-    {
-        currentMana -= amount;
-
-        //Keep mana above or equal to 0
-        if (currentMana <= 0)
-            currentMana = 0;
+        if (graphic && gameObject.activeSelf)
+        {
+            StopCoroutine("FlashSprite");
+            StartCoroutine("FlashSprite", flashDuration);
+        }
     }
 
     public void Die()
     {
         //TODO: Animate death and then disable
         gameObject.SetActive(false);
+    }
+
+    IEnumerator FlashSprite(float duration)
+    {
+        float elapsed = 0;
+
+        Material mat = graphic.material;
+
+        while(elapsed < duration)
+        {
+            yield return new WaitForSeconds(flashInterval);
+            mat.SetFloat("_FlashAmount", flashAmount);
+
+            yield return new WaitForSeconds(flashInterval);
+            mat.SetFloat("_FlashAmount", 0);
+
+            elapsed += flashInterval * 2;
+        }
     }
 }

@@ -23,14 +23,7 @@ public class DamageOnTouch : MonoBehaviour
     public float knockBackAmount = 10f;
     public Vector2 knockBackCentreOffset = -Vector2.up;
 
-    private Collider2D col;
-
     private List<Collider2D> onCoolDown = new List<Collider2D>();
-
-    void Awake()
-    {
-        col = GetComponent<Collider2D>();
-    }
 
     private void FixedUpdate()
     {
