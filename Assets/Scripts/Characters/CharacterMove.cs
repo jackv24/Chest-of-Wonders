@@ -82,6 +82,8 @@ public class CharacterMove : MonoBehaviour
     [HideInInspector]
     public Rigidbody2D body;
 
+    private CharacterAnimator characterAnimator;
+
     private Collider2D col;
     private Rect box;
 
@@ -93,6 +95,8 @@ public class CharacterMove : MonoBehaviour
         //Get references
         col = GetComponent<Collider2D>();
         body = GetComponent<Rigidbody2D>();
+
+        characterAnimator = GetComponent<CharacterAnimator>();
     }
 
     private void Update()
@@ -345,6 +349,9 @@ public class CharacterMove : MonoBehaviour
 
     IEnumerator KnockbackRecovery()
     {
+        if (characterAnimator)
+            characterAnimator.SetStunned(true);
+
         //If body is still moving, cannot recover
         while(body.velocity.magnitude > 0.01f)
         {
@@ -357,5 +364,8 @@ public class CharacterMove : MonoBehaviour
         //Switch back to script control
         body.bodyType = RigidbodyType2D.Kinematic;
         scriptControl = true;
+
+        if (characterAnimator)
+            characterAnimator.SetStunned(false);
     }
 }

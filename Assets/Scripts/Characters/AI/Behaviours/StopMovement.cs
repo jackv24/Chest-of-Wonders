@@ -9,8 +9,6 @@ namespace BehaviourTree
     /// </summary>
     public class StopMovement : IBehaviour
     {
-        private bool stopped = false;
-
         public Result Execute(AIAgent agent)
         {
             CharacterMove move = agent.characterMove;
@@ -20,11 +18,6 @@ namespace BehaviourTree
             {
                 //Stop movement
                 move.Move(0);
-
-                if(anim && !stopped)
-                {
-                    anim.animator.SetTrigger("returnToIdle");
-                }
                 
                 //Should always succeed unless there is no movement script
                 return Result.Success;

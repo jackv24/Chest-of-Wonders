@@ -35,8 +35,8 @@ public class CharacterStats : MonoBehaviour
 
         if (graphic && gameObject.activeSelf)
         {
-            StopCoroutine("FlashSprite");
-            StartCoroutine("FlashSprite", flashDuration);
+            StopCoroutine("Stunned");
+            StartCoroutine("Stunned", flashDuration);
         }
     }
 
@@ -46,7 +46,7 @@ public class CharacterStats : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    IEnumerator FlashSprite(float duration)
+    IEnumerator Stunned(float duration)
     {
         float elapsed = 0;
 

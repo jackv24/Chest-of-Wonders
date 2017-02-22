@@ -65,6 +65,14 @@ public class CharacterAnimator : MonoBehaviour
         animator.transform.localScale = scale;
     }
 
+    public void SetStunned(bool value)
+    {
+        if(value == true)
+            animator.SetTrigger("stun");
+
+        animator.SetBool("stunned", value);
+    }
+
     public void MeleeAttack()
     {
         animator.SetTrigger("melee");

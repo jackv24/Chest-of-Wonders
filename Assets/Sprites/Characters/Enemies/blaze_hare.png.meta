@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 5692de13aef94884b83bb41bee161685
-timeCreated: 1486809394
+timeCreated: 1487744575
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -16,6 +16,10 @@ TextureImporter:
     21300018: blaze_hare_jump_6
     21300020: blaze_hare_fall_1
     21300022: blaze_hare_fall_2
+    21300024: blaze_hare_stun_1
+    21300026: blaze_hare_stun_2
+    21300028: blaze_hare_stun_3
+    21300030: blaze_hare_stun_4
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -102,7 +106,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3
-        y: 232
+        y: 351
         width: 54
         height: 64
       alignment: 7
@@ -115,7 +119,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 232
+        y: 351
         width: 54
         height: 64
       alignment: 7
@@ -128,7 +132,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 126
-        y: 232
+        y: 351
         width: 54
         height: 64
       alignment: 7
@@ -141,7 +145,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 187
-        y: 232
+        y: 351
         width: 54
         height: 64
       alignment: 7
@@ -154,7 +158,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 7
-        y: 150
+        y: 269
         width: 54
         height: 64
       alignment: 7
@@ -167,7 +171,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 68
-        y: 150
+        y: 269
         width: 54
         height: 64
       alignment: 7
@@ -180,7 +184,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 129
-        y: 150
+        y: 269
         width: 54
         height: 64
       alignment: 7
@@ -193,7 +197,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 150
+        y: 269
         width: 54
         height: 64
       alignment: 7
@@ -206,7 +210,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 7
-        y: 65
+        y: 184
         width: 54
         height: 64
       alignment: 7
@@ -219,7 +223,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 68
-        y: 65
+        y: 184
         width: 54
         height: 64
       alignment: 7
@@ -232,7 +236,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 134
-        y: 65
+        y: 184
         width: 54
         height: 64
       alignment: 7
@@ -245,7 +249,59 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 197
-        y: 65
+        y: 184
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: blaze_hare_stun_1
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 48
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: blaze_hare_stun_2
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 48
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: blaze_hare_stun_3
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 48
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: blaze_hare_stun_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 48
         width: 54
         height: 64
       alignment: 7
