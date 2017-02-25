@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 410a2e75204b79445a8d95f85c8dc45e
-timeCreated: 1485766206
+timeCreated: 1487999228
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -40,6 +40,8 @@ TextureImporter:
     21300066: player_magic_up_02
     21300068: player_magic_up_03
     21300070: player_magic_up_04
+    21300072: player_stun_1
+    21300074: player_stun_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -584,6 +586,32 @@ TextureImporter:
         y: 611
         width: 54
         height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_stun_1
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 948
+        width: 30
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_stun_2
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 948
+        width: 30
+        height: 62
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -73,11 +73,9 @@ public class PlayerActions : PlayerActionSet
 
         MagicAttack1.AddDefaultBinding(Key.K);
         MagicAttack1.AddDefaultBinding(InputControlType.RightBumper);
-        MagicAttack1.AddDefaultBinding(InputControlType.RightTrigger);
 
         MagicAttack2.AddDefaultBinding(Key.L);
-        MagicAttack2.AddDefaultBinding(InputControlType.LeftBumper);
-        MagicAttack2.AddDefaultBinding(InputControlType.LeftTrigger);
+        MagicAttack2.AddDefaultBinding(InputControlType.RightTrigger);
 
         //Misc
         Interact.AddDefaultBinding(Key.E);
