@@ -17,6 +17,21 @@ public class CharacterStats : MonoBehaviour
     public float flashInterval = 0.1f;
     public float flashDuration = 0.5f;
 
+    [Space()]
+    public float deathTime = 1f;
+
+    //If health is zero or below, character is dead
+    public bool IsDead { get { return currentHealth <= 0; } }
+
+    private CharacterMove characterMove;
+    private CharacterAnimator characterAnimator;
+
+    void Awake()
+    {
+        characterMove = GetComponent<CharacterMove>();
+        characterAnimator = GetComponent<CharacterAnimator>();
+    }
+
     //Removes the specified amount of health
     public void RemoveHealth(int amount)
     {
@@ -32,9 +47,9 @@ public class CharacterStats : MonoBehaviour
 
             Die();
         }
-
-        if (graphic && gameObject.activeSelf)
+        else if (graphic && gameObject.activeSelf)
         {
+            //Run only one stunned coroutine
             StopCoroutine("Stunned");
             StartCoroutine("Stunned", flashDuration);
         }
@@ -42,7 +57,23 @@ public class CharacterStats : MonoBehaviour
 
     public void Die()
     {
-        //TODO: Animate death and then disable
+        //Show stunned flashing character
+        StartCoroutine("Stunned", deathTime);
+        //Count down to death
+        StartCoroutine("DeathTimer", deathTime);
+
+        if (characterMove)
+            characterMove.canMove = false;
+
+        if (characterAnimator)
+            characterAnimator.SetStunned(true);
+    }
+
+    IEnumerator DeathTimer(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        //TODO: Handle actual death and respawn
         gameObject.SetActive(false);
     }
 
@@ -54,9 +85,11 @@ public class CharacterStats : MonoBehaviour
 
         while(elapsed < duration)
         {
+            //Flash on
             yield return new WaitForSeconds(flashInterval);
             mat.SetFloat("_FlashAmount", flashAmount);
 
+            //Flash off
             yield return new WaitForSeconds(flashInterval);
             mat.SetFloat("_FlashAmount", 0);
 

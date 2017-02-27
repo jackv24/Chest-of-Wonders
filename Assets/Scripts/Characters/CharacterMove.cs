@@ -32,7 +32,7 @@ public class CharacterMove : MonoBehaviour
     [HideInInspector]
     public float inputDirection = 0f;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool canMove = true;
 
     [Header("Jumping")]
@@ -83,6 +83,7 @@ public class CharacterMove : MonoBehaviour
     public Rigidbody2D body;
 
     private CharacterAnimator characterAnimator;
+    private CharacterStats characterStats;
 
     private Collider2D col;
     private Rect box;
@@ -97,6 +98,7 @@ public class CharacterMove : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
 
         characterAnimator = GetComponent<CharacterAnimator>();
+        characterStats = GetComponent<CharacterStats>();
     }
 
     private void Update()
@@ -353,7 +355,7 @@ public class CharacterMove : MonoBehaviour
             characterAnimator.SetStunned(true);
 
         //If body is still moving, cannot recover
-        while(body.velocity.magnitude > 0.01f)
+        while (body.velocity.magnitude > 0.01f)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -365,7 +367,26 @@ public class CharacterMove : MonoBehaviour
         body.bodyType = RigidbodyType2D.Kinematic;
         scriptControl = true;
 
-        if (characterAnimator)
-            characterAnimator.SetStunned(false);
+        if (characterStats)
+        {
+            //If character is not dead...
+            if (!characterStats.IsDead)
+            {
+                //Re-enable movement
+                canMove = true;
+
+                //Set not stunned
+                if (characterAnimator)
+                    characterAnimator.SetStunned(false);
+            }
+        }
+        else //If there is no stats just re-enable everything anyway
+        {
+            canMove = true;
+
+            if (characterAnimator)
+                characterAnimator.SetStunned(false);
+        }
+
     }
 }

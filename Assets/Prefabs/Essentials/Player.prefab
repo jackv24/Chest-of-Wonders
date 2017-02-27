@@ -355,8 +355,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  knockBackRecoveryTime: 1
-  allowKnockback: 0
+  knockBackRecoveryTime: 0.1
+  allowKnockback: 1
   body: {fileID: 0}
   velocity: {x: 0, y: 0}
 --- !u!114 &114000014123730578
@@ -414,6 +414,7 @@ MonoBehaviour:
   flashAmount: 0.75
   flashInterval: 0.1
   flashDuration: 0.5
+  deathTime: 1
 --- !u!114 &114872607700838032
 MonoBehaviour:
   m_ObjectHideFlags: 1

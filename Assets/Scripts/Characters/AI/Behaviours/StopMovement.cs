@@ -12,7 +12,6 @@ namespace BehaviourTree
         public Result Execute(AIAgent agent)
         {
             CharacterMove move = agent.characterMove;
-            CharacterAnimator anim = agent.characterAnimator;
 
             if (move)
             {
