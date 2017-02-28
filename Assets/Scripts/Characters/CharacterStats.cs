@@ -19,6 +19,8 @@ public class CharacterStats : MonoBehaviour
 
     [Space()]
     public float deathTime = 1f;
+    public GameObject deathParticlePrefab;
+    public Vector2 deathParticleOffset;
 
     //If health is zero or below, character is dead
     public bool IsDead { get { return currentHealth <= 0; } }
@@ -72,6 +74,12 @@ public class CharacterStats : MonoBehaviour
     IEnumerator DeathTimer(float duration)
     {
         yield return new WaitForSeconds(duration);
+
+        if(deathParticlePrefab)
+        {
+            GameObject obj = ObjectPooler.GetPooledObject(deathParticlePrefab);
+            obj.transform.position = transform.position + (Vector3)deathParticleOffset;
+        }
 
         //TODO: Handle actual death and respawn
         gameObject.SetActive(false);
