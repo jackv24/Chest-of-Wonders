@@ -6,7 +6,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public Transform playerSpawn;
+    public GameObject playerPrefab;
+
+    private GameObject player;
+
     //Game running refers to if events can happen in game. Inside menus the game is considered "not running"
+    [Space()]
     public bool gameRunning = true;
 
     private void Awake()
@@ -20,5 +26,30 @@ public class GameManager : MonoBehaviour
 
             Destroy(gameObject);
         }
+    }
+
+    void Start()
+    {
+        //Can only spawn player if there is a place to spawn them
+        if (playerSpawn)
+        {
+            //Attempt to find and already existing player first
+            player = GameObject.FindWithTag("Player");
+
+            //If no player already exists, then spawn one
+            if (!player)
+            {
+                if (playerPrefab)
+                {
+                    player = Instantiate(playerPrefab);
+
+                    player.name = playerPrefab.name;
+                }
+                else
+                    Debug.LogWarning("No player prefab assigned to Game Manager");
+            }
+        }
+        else
+            Debug.LogWarning("No player spawn assigned to Game Manager");
     }
 }

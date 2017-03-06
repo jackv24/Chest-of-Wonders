@@ -142,7 +142,7 @@ MonoBehaviour:
   characterMove: {fileID: 0}
   characterAnimator: {fileID: 0}
   aggroRange: 5
-  stopRange: 1.5
+  stopRange: 0.75
   hopAnticipation: 1
   controlInAir: 0
 --- !u!114 &114164478770059898
@@ -234,6 +234,8 @@ MonoBehaviour:
   flashInterval: 0.1
   flashDuration: 0.5
   deathTime: 1
+  deathParticlePrefab: {fileID: 0}
+  deathParticleOffset: {x: 0, y: 0}
 --- !u!212 &212107043697564826
 SpriteRenderer:
   m_ObjectHideFlags: 1
