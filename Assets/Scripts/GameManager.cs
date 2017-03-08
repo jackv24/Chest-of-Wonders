@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
 
     private GameObject player;
+
+    [Space()]
+    public float playerRespawnDelay = 3f;
 
     //Game running refers to if events can happen in game. Inside menus the game is considered "not running"
     [Space()]
@@ -48,8 +52,26 @@ public class GameManager : MonoBehaviour
                 else
                     Debug.LogWarning("No player prefab assigned to Game Manager");
             }
+
+            if(player)
+            {
+                CharacterStats stats = player.GetComponent<CharacterStats>();
+                stats.OnDeath += Reload;
+            }
         }
         else
             Debug.LogWarning("No player spawn assigned to Game Manager");
+    }
+
+    public void Reload()
+    {
+        StartCoroutine("ReloadWithDelay", playerRespawnDelay);
+    }
+
+    IEnumerator ReloadWithDelay(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
