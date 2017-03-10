@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
 
+        ObjectPooler.PurgePools();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
