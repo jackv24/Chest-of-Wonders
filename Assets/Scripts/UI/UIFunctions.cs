@@ -21,6 +21,9 @@ public class UIFunctions : MonoBehaviour
 
     public void LoadScene(int index)
     {
+        //Cached GameObjects not valid between scene loads
+        ObjectPooler.PurgePools();
+
         //Load the scene at a specified build index
         SceneManager.LoadScene(index);
     }
@@ -40,6 +43,6 @@ public class UIFunctions : MonoBehaviour
     public void LoadGame()
     {
         //TODO: Replace with actual game reload code
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

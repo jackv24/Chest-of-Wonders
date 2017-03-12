@@ -48,6 +48,8 @@ public static class ObjectPooler
             //Destroy every gameobject in this pool
             for (int i = 0; i < pooledObjects.Count; i++)
                 GameObject.Destroy(pooledObjects[i]);
+
+            pooledObjects.Clear();
         }
     }
 
