@@ -42,6 +42,13 @@ public static class ObjectPooler
             pooledObjects.Add(obj);
             return obj;
         }
+
+        public void Purge()
+        {
+            //Destroy every gameobject in this pool
+            for (int i = 0; i < pooledObjects.Count; i++)
+                GameObject.Destroy(pooledObjects[i]);
+        }
     }
 
     //List of all object pools
@@ -57,6 +64,7 @@ public static class ObjectPooler
         {
             poolObject = GameObject.Find("PooledObjects");
 
+            //If there was no pre-existing object to hold them, create a new one
             if (!poolObject)
                 poolObject = new GameObject("PooledObjects");
         }
@@ -79,5 +87,16 @@ public static class ObjectPooler
 
         //Get a pooled object from the pool and return it
         return pool.GetPooledObject();
+    }
+
+    //Clears all object pools
+    public static void PurgePools()
+    {
+        //Eacg pool handles its own purging
+        foreach (Pool pool in objectPools)
+            pool.Purge();
+
+        //Once pools have been purged, clear them
+        objectPools.Clear();
     }
 }
