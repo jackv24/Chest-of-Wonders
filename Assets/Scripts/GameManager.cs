@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public delegate void NormalEvent();
+    public NormalEvent OnGameOver;
+
     public static GameManager instance;
 
     public Transform playerSpawn;
@@ -56,22 +58,16 @@ public class GameManager : MonoBehaviour
             if(player)
             {
                 CharacterStats stats = player.GetComponent<CharacterStats>();
-                stats.OnDeath += Reload;
+                stats.OnDeath += GameOver;
             }
         }
         else
             Debug.LogWarning("No player spawn assigned to Game Manager");
     }
 
-    public void Reload()
+    public void GameOver()
     {
-        StartCoroutine("ReloadWithDelay", playerRespawnDelay);
-    }
-
-    IEnumerator ReloadWithDelay(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (OnGameOver != null)
+            OnGameOver();
     }
 }
