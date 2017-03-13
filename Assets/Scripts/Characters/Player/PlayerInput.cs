@@ -47,7 +47,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         //Can only attack while game is running
-        if (playerAttack && GameManager.instance.gameRunning)
+        if (playerAttack && GameManager.instance.CanDoActions)
         {
             if (playerActions.MeleeAttack.WasPressed)
                 playerAttack.UseMelee();

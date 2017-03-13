@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIFunctions : MonoBehaviour
 {
     //The UI gameobject to enable to show the death screen
     public GameObject deathScreen;
+
+    public GameObject pauseMenu;
 
     void Start()
     {
@@ -15,8 +18,12 @@ public class UIFunctions : MonoBehaviour
         if (deathScreen)
             deathScreen.SetActive(false);
 
-        //Subscribe show death screen to Game Over event
+        if (pauseMenu)
+            pauseMenu.SetActive(false);
+
+        //Subscribe to events
         GameManager.instance.OnGameOver += ShowDeathScreen;
+        GameManager.instance.OnPausedChange += ShowPauseMenu;
     }
 
     public void LoadScene(int index)
@@ -33,6 +40,22 @@ public class UIFunctions : MonoBehaviour
         //If there is a death screen, enable it
         if (deathScreen)
             deathScreen.SetActive(true);
+    }
+
+    public void TogglePause()
+    {
+        GameManager.instance.TogglePaused();
+    }
+
+    public void ShowPauseMenu(bool value)
+    {
+        if (pauseMenu)
+        {
+            pauseMenu.SetActive(value);
+
+            if (value)
+                EventSystem.current.SetSelectedGameObject(pauseMenu.transform.GetComponentInChildren<Button>().gameObject);
+        }
     }
 
     public void SaveGame()

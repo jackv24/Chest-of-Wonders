@@ -304,7 +304,7 @@ public class CharacterMove : MonoBehaviour
         oldDirection = inputDirection;
 
         //Update input direction
-        if (GameManager.instance.gameRunning && canMove)
+        if (GameManager.instance.CanDoActions && canMove)
             inputDirection = direction < 0 ? Mathf.Floor(direction) : Mathf.Ceil(direction);
         else
             inputDirection = 0;
@@ -316,7 +316,7 @@ public class CharacterMove : MonoBehaviour
 
     public void Jump(bool pressed)
     {
-        if (GameManager.instance.gameRunning && canMove)
+        if (GameManager.instance.CanDoActions && canMove)
         {
             if (pressed)
                 shouldJump = true;
