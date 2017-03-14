@@ -9,8 +9,6 @@ namespace BehaviourTree
     /// </summary>
     public class HopTowards : IBehaviour
     {
-        public Transform target;
-
         public float anticipationTime;
         private float nextHopTime = 0;
 
@@ -19,82 +17,85 @@ namespace BehaviourTree
 
         private bool startedAnticipating = false;
 
-        public HopTowards(Transform target)
+        public HopTowards()
         {
-            this.target = target;
         }
 
-        public HopTowards(Transform target, float anticipationTime)
+        public HopTowards(float anticipationTime)
         {
-            this.target = target;
             this.anticipationTime = anticipationTime;
         }
 
-        public HopTowards(Transform target, float anticipationTime, bool controlInAir)
+        public HopTowards(float anticipationTime, bool controlInAir)
         {
-            this.target = target;
             this.anticipationTime = anticipationTime;
             this.controlInAir = controlInAir;
         }
 
         public Result Execute(AIAgent agent)
         {
-            //Get direction to target
-            Vector2 direction = target.position - agent.transform.position;
-            direction.Normalize();
-
-            //Direction should always be 1 or -1
-            float xInput = direction.x >= 0 ? 1 : -1;
-
-            CharacterMove move = agent.characterMove;
-            CharacterAnimator anim = agent.characterAnimator;
-
-            if(move)
+            if (agent.target)
             {
-                Result result = Result.Success;
+                //Get direction to target
+                Vector2 direction = agent.target.position - agent.transform.position;
+                direction.Normalize();
 
-                //If character is not on the ground
-                if (!move.isGrounded)
+                //Direction should always be 1 or -1
+                float xInput = direction.x >= 0 ? 1 : -1;
+
+                CharacterMove move = agent.characterMove;
+                CharacterAnimator anim = agent.characterAnimator;
+
+                if (move)
                 {
-                    //Set direction to move (if air contro, is disabled keep moving in same direction)
-                    move.Move(controlInAir ? xInput : lastDirection);
+                    Result result = Result.Success;
 
-                    //Don't change behaviours if air control is not allowed
-                    if (!controlInAir)
-                        result = Result.Pending;
-
-                    //Release jump button
-                    move.Jump(false);
-                }
-                //Hop after anticipation time
-                else if (Time.time >= nextHopTime)
-                {
-                    nextHopTime = Time.time + anticipationTime;
-                    startedAnticipating = false;
-
-                    //Set direction to move for ait control
-                    lastDirection = xInput;
-
-                    //Hold jump button
-                    move.Jump(true);
-                }
-                //When on ground and waiting to hop, don't move
-                else
-                {
-                    move.Move(0);
-
-                    if(!startedAnticipating && move.isGrounded)
+                    //If character is not on the ground
+                    if (!move.isGrounded)
                     {
-                        anim.animator.SetTrigger("anticipate");
-                        startedAnticipating = true;
+                        //Set direction to move (if air contro, is disabled keep moving in same direction)
+                        move.Move(controlInAir ? xInput : lastDirection);
+
+                        //Don't change behaviours if air control is not allowed
+                        if (!controlInAir)
+                            result = Result.Pending;
+
+                        //Release jump button
+                        move.Jump(false);
                     }
+                    //Hop after anticipation time
+                    else if (Time.time >= nextHopTime)
+                    {
+                        nextHopTime = Time.time + anticipationTime;
+                        startedAnticipating = false;
+
+                        //Set direction to move for ait control
+                        lastDirection = xInput;
+
+                        //Hold jump button
+                        move.Jump(true);
+                    }
+                    //When on ground and waiting to hop, don't move
+                    else
+                    {
+                        move.Move(0);
+
+                        if (!startedAnticipating && move.isGrounded)
+                        {
+                            anim.animator.SetTrigger("anticipate");
+                            startedAnticipating = true;
+                        }
+                    }
+
+                    //Should always succeed unless there is no movement script
+                    return result;
                 }
 
-                //Should always succeed unless there is no movement script
-                return result;
+                //There was no movement script, so it failed
+                return Result.Failure;
             }
 
-            //There was no movement script, so it failed
+            //There was no target, so it failed
             return Result.Failure;
         }
     }

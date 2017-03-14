@@ -1,22 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     //Events
     public delegate void NormalEvent();
     public delegate void BoolEvent(bool value);
+    public NormalEvent OnLevelLoaded;
     public NormalEvent OnGameOver;
     public BoolEvent OnPausedChange;
 
     //Static instance for easy access
     public static GameManager instance;
 
-    public Transform playerSpawn;
-    public GameObject playerPrefab;
+    public int firstSceneIndex = 2;
+    private int loadedLevelIndex;
 
-    private GameObject player;
+    [Space()]
+    public GameObject player;
 
     [Space()]
     public float playerRespawnDelay = 3f;
@@ -46,33 +49,28 @@ public class GameManager : MonoBehaviour
     {
         playerActions = new PlayerActions();
 
-        //Can only spawn player if there is a place to spawn them
-        if (playerSpawn)
-        {
-            //Attempt to find and already existing player first
+        if (!player)
             player = GameObject.FindWithTag("Player");
 
-            //If no player already exists, then spawn one
-            if (!player)
-            {
-                if (playerPrefab)
-                {
-                    player = Instantiate(playerPrefab);
-
-                    player.name = playerPrefab.name;
-                }
-                else
-                    Debug.LogWarning("No player prefab assigned to Game Manager");
-            }
-
-            if(player)
-            {
-                CharacterStats stats = player.GetComponent<CharacterStats>();
-                stats.OnDeath += GameOver;
-            }
+        if (player)
+        {
+            //Register player death as game over
+            CharacterStats stats = player.GetComponent<CharacterStats>();
+            stats.OnDeath += GameOver;
         }
-        else
-            Debug.LogWarning("No player spawn assigned to Game Manager");
+
+        if(SceneManager.sceneCount <= 1)
+            LoadLevel(firstSceneIndex);
+    }
+
+    private void LoadLevel(int buildIndex)
+    {
+        SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
+
+        loadedLevelIndex = buildIndex;
+
+        if (OnLevelLoaded != null)
+            OnLevelLoaded();
     }
 
     private void Update()

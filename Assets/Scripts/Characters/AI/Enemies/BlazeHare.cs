@@ -14,22 +14,20 @@ public class BlazeHare : AIAgent
 
     public override void ConstructBehaviour()
     {
-        //TO-DO: Create some kind of system for creating and loading behaviour trees
-        GameObject player = GameObject.FindWithTag("Player");
-
         Selector moveTo = new Selector();
 
         Sequence walkIfOutsideRange = new Sequence();
 
-        CheckRange stop = new CheckRange(player.transform, stopRange, true, false);
+        CheckRange stop = new CheckRange(stopRange, true, false);
         //WalkTowards walk = new WalkTowards(player.transform);
-        HopTowards hop = new HopTowards(player.transform, hopAnticipation, controlInAir);
+        HopTowards hop = new HopTowards(hopAnticipation, controlInAir);
 
         walkIfOutsideRange.behaviours.Add(new InvertResult(stop));
         walkIfOutsideRange.behaviours.Add(hop);
 
         Sequence returnToIdle = new Sequence();
-        returnToIdle.behaviours.Add(new InvertResult(new CheckRange(player.transform, aggroRange)));
+        returnToIdle.behaviours.Add(new GetTarget("Player"));
+        returnToIdle.behaviours.Add(new InvertResult(new CheckRange(aggroRange)));
         returnToIdle.behaviours.Add(new StopMovement());
 
         moveTo.behaviours.Add(returnToIdle);

@@ -8,6 +8,14 @@ public class LevelBounds : MonoBehaviour
     public float width = 10f;
     public float height = 10f;
 
+    private void Start()
+    {
+        CameraFollow cam = FindObjectOfType<CameraFollow>();
+
+        if(cam)
+            cam.SetBounds(this);
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(centre, new Vector3(width, height, 1));

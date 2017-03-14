@@ -22,13 +22,16 @@ public class UIFunctions : MonoBehaviour
             pauseMenu.SetActive(false);
 
         //Subscribe to events
-        GameManager.instance.OnGameOver += ShowDeathScreen;
-        GameManager.instance.OnPausedChange += ShowPauseMenu;
+        if (GameManager.instance)
+        {
+            GameManager.instance.OnGameOver += ShowDeathScreen;
+            GameManager.instance.OnPausedChange += ShowPauseMenu;
+        }
     }
 
     public void LoadScene(int index)
     {
-        //Cached GameObjects not valid between scene loads
+        //Pooled objects are destroyed, so pools should be purged
         ObjectPooler.PurgePools();
 
         //Load the scene at a specified build index
@@ -66,6 +69,6 @@ public class UIFunctions : MonoBehaviour
     public void LoadGame()
     {
         //TODO: Replace with actual game reload code
-        LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Reloading level yet to be implemented.");
     }
 }

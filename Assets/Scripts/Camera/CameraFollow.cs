@@ -23,14 +23,12 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         //If no target has been assigned, attempt to find and set the player as the target
-        if(!target)
+        if (!target)
         {
             GameObject player = GameObject.FindWithTag("Player");
             if (player)
                 target = player.transform;
         }
-
-        bounds = FindObjectOfType<LevelBounds>();
 
         CalculateBounds();
 
@@ -95,5 +93,12 @@ public class CameraFollow : MonoBehaviour
             minY = vertExtent - bounds.height / 2.0f + bounds.centre.y;
             maxY = bounds.height / 2.0f - vertExtent + bounds.centre.y;
         }
+    }
+
+    public void SetBounds(LevelBounds bounds)
+    {
+        this.bounds = bounds;
+
+        CalculateBounds();
     }
 }

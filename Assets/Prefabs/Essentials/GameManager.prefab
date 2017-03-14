@@ -54,4 +54,6 @@ MonoBehaviour:
   playerSpawn: {fileID: 0}
   playerPrefab: {fileID: 1000012949439504, guid: 99f5c5565a8074f4eb8901db7fb4c979,
     type: 2}
+  playerRespawnDelay: 3
   gameRunning: 1
+  gamePaused: 0
