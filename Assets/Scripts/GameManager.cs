@@ -99,4 +99,10 @@ public class GameManager : MonoBehaviour
         if (OnPausedChange != null)
             OnPausedChange(gamePaused);
     }
+
+    private void OnDisable()
+    {
+        //Reset timescale as scene may be exited when paused
+        Time.timeScale = 1;
+    }
 }

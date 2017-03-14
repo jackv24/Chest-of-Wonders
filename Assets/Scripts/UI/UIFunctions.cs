@@ -42,7 +42,12 @@ public class UIFunctions : MonoBehaviour
     {
         //If there is a death screen, enable it
         if (deathScreen)
+        {
             deathScreen.SetActive(true);
+
+            //Select first button
+            EventSystem.current.SetSelectedGameObject(deathScreen.transform.GetComponentInChildren<Button>().gameObject);
+        }
     }
 
     public void TogglePause()
@@ -56,6 +61,7 @@ public class UIFunctions : MonoBehaviour
         {
             pauseMenu.SetActive(value);
 
+            //Select first button if pause menu is shown
             if (value)
                 EventSystem.current.SetSelectedGameObject(pauseMenu.transform.GetComponentInChildren<Button>().gameObject);
         }
