@@ -12,7 +12,9 @@ public class UIFunctions : MonoBehaviour
     //The UI gameobject to enable to show the death screen
     public GameObject deathScreen;
     public GameObject pauseMenu;
+
     public GameObject loadingScreen;
+    private bool loadingScreenActive = false;
 
     void Awake()
     {
@@ -81,6 +83,7 @@ public class UIFunctions : MonoBehaviour
     {
         if(loadingScreen)
         {
+            loadingScreenActive = value;
             StartCoroutine("FadeLoadingScreen", fadeDuration);
         }
     }
@@ -89,7 +92,7 @@ public class UIFunctions : MonoBehaviour
     {
         Image img = loadingScreen.GetComponent<Image>();
 
-        if(!loadingScreen.activeSelf)
+        if(loadingScreenActive)
         {
             loadingScreen.SetActive(true);
 
