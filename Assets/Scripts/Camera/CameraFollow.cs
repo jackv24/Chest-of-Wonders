@@ -51,7 +51,7 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (target)
+        if (target && target.gameObject.activeSelf)
         {
             aheadDistance = Mathf.Lerp(aheadDistance, lookAhead * (lookRight ? 1 : -1), lookAheadSpeed * Time.deltaTime);
 
@@ -61,22 +61,27 @@ public class CameraFollow : MonoBehaviour
 
             targetPos.z = transform.position.z;
 
-            if (bounds)
-            {
-                //Keep camera inside of level (or centred on x if level does not exceed camera width)
-                if (Camera.main.orthographicSize * 2 * (Screen.width / Screen.height) > bounds.width)
-                    targetPos.x = 0;
-                else
-                    targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
-
-                //Keep camera inside of level (or centred on y if level does not exceed camera height)
-                if (Camera.main.orthographicSize * 2 > bounds.height)
-                    targetPos.y = 0;
-                else
-                    targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
-            }
+            KeepInBounds();
 
             transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
+        }
+    }
+
+    void KeepInBounds()
+    {
+        if (bounds)
+        {
+            //Keep camera inside of level (or centred on x if level does not exceed camera width)
+            if (Camera.main.orthographicSize * 2 * (Screen.width / Screen.height) > bounds.width)
+                targetPos.x = 0;
+            else
+                targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
+
+            //Keep camera inside of level (or centred on y if level does not exceed camera height)
+            if (Camera.main.orthographicSize * 2 > bounds.height)
+                targetPos.y = 0;
+            else
+                targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
         }
     }
 
@@ -100,5 +105,16 @@ public class CameraFollow : MonoBehaviour
         this.bounds = bounds;
 
         CalculateBounds();
+
+        //Set initial position to prevent weird lerping
+        targetPos = target.position;
+        targetPos.y += heightOffset;
+        targetPos.x += lookAhead * (lookRight ? 1 : -1);
+
+        targetPos.z = transform.position.z;
+
+        KeepInBounds();
+
+        transform.position = targetPos;
     }
 }

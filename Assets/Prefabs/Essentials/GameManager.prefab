@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cae71eb9bba0d448dd51127d51ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpawn: {fileID: 0}
-  playerPrefab: {fileID: 1000012949439504, guid: 99f5c5565a8074f4eb8901db7fb4c979,
-    type: 2}
+  firstSceneIndex: 2
+  player: {fileID: 0}
   playerRespawnDelay: 3
+  levelTransitionTime: 0.25
   gameRunning: 1
   gamePaused: 0

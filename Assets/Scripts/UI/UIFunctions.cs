@@ -7,10 +7,17 @@ using UnityEngine.EventSystems;
 
 public class UIFunctions : MonoBehaviour
 {
+    public static UIFunctions instance;
+
     //The UI gameobject to enable to show the death screen
     public GameObject deathScreen;
-
     public GameObject pauseMenu;
+    public GameObject loadingScreen;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -20,6 +27,9 @@ public class UIFunctions : MonoBehaviour
 
         if (pauseMenu)
             pauseMenu.SetActive(false);
+
+        if (loadingScreen)
+            loadingScreen.SetActive(false);
 
         //Subscribe to events
         if (GameManager.instance)
@@ -64,6 +74,56 @@ public class UIFunctions : MonoBehaviour
             //Select first button if pause menu is shown
             if (value)
                 EventSystem.current.SetSelectedGameObject(pauseMenu.transform.GetComponentInChildren<Button>().gameObject);
+        }
+    }
+
+    public void ShowLoadingScreen(bool value, float fadeDuration)
+    {
+        if(loadingScreen)
+        {
+            StartCoroutine("FadeLoadingScreen", fadeDuration);
+        }
+    }
+
+    IEnumerator FadeLoadingScreen(float duration)
+    {
+        Image img = loadingScreen.GetComponent<Image>();
+
+        if(!loadingScreen.activeSelf)
+        {
+            loadingScreen.SetActive(true);
+
+            Color col = img.color;
+            col.a = 0;
+            float elapsedTime = 0;
+
+            while (elapsedTime <= duration)
+            {
+                elapsedTime += Time.deltaTime;
+
+                col.a = Mathf.Lerp(0, 1, elapsedTime / duration);
+                img.color = col;
+
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        else
+        {
+            Color col = img.color;
+            col.a = 1;
+            float elapsedTime = 0;
+
+            while (elapsedTime <= duration)
+            {
+                elapsedTime += Time.deltaTime;
+
+                col.a = Mathf.Lerp(1, 0, elapsedTime / duration);
+                img.color = col;
+
+                yield return new WaitForEndOfFrame();
+            }
+
+            loadingScreen.SetActive(false);
         }
     }
 

@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     [Space()]
     public float playerRespawnDelay = 3f;
 
+    [Space()]
+    public float levelTransitionTime = 1f;
+
     //Game running and game pause are two seperate bools to keep track of in dialogue or menu, or game paused...
     [HideInInspector] public bool gameRunning = true;
     [HideInInspector] public bool gamePaused = false;
@@ -85,14 +88,20 @@ public class GameManager : MonoBehaviour
         player.transform.position = playerPos;
 
         //Start the unload of old level and load of new level
-        StartCoroutine("LoadLevelAsync", buildIndex);
+        StartCoroutine("ChangeLevel", buildIndex);
     }
 
-    IEnumerator LoadLevelAsync(int buildIndex)
+    IEnumerator ChangeLevel(int buildIndex)
     {
+        float fadeTime = levelTransitionTime / 2;
+
         //If a level is already loaded, unload it
         if (loadedLevelIndex >= 0)
         {
+            //Fade out
+            UIFunctions.instance.ShowLoadingScreen(true, fadeTime);
+            yield return new WaitForSeconds(fadeTime);
+
             AsyncOperation async = SceneManager.UnloadSceneAsync(loadedLevelIndex);
 
             //Wait until level has finished unloading
@@ -109,6 +118,9 @@ public class GameManager : MonoBehaviour
         //Call level loaded events
         if (OnLevelLoaded != null)
             OnLevelLoaded();
+
+        //Fade in
+        UIFunctions.instance.ShowLoadingScreen(false, fadeTime);
     }
 
     public void GameOver()

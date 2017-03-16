@@ -20,7 +20,7 @@ public class LevelBounds : MonoBehaviour
     {
         Gizmos.DrawWireCube(centre, new Vector3(width, height, 1));
 
-        Gizmos.color = Color.red;
+        Gizmos.color = new Color(1, 0, 0, 0.25f);
 
         float edgeWidth = 5f;
 
