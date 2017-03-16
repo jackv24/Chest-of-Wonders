@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public int firstSceneIndex = 2;
-    private int loadedLevelIndex;
+    private int loadedLevelIndex = -1;
 
     [Space()]
     public GameObject player;
@@ -59,18 +59,16 @@ public class GameManager : MonoBehaviour
             stats.OnDeath += GameOver;
         }
 
-        if(SceneManager.sceneCount <= 1)
-            LoadLevel(firstSceneIndex);
-    }
-
-    private void LoadLevel(int buildIndex)
-    {
-        SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
-
-        loadedLevelIndex = buildIndex;
-
-        if (OnLevelLoaded != null)
-            OnLevelLoaded();
+        //Load the first level
+        if (SceneManager.sceneCount <= 1)
+            LoadLevel(firstSceneIndex, player ? player.transform.position : Vector3.zero);
+        //If level is already open in the editor, use that instead
+        else if (SceneManager.sceneCount == 2)
+        {
+            loadedLevelIndex = SceneManager.GetSceneAt(1).buildIndex;
+        }
+        else
+            Debug.LogWarning("Too many scenes open!");
     }
 
     private void Update()
@@ -78,6 +76,39 @@ public class GameManager : MonoBehaviour
         //Toggle pause menu on button press
         if (playerActions.Pause.WasPressed)
             TogglePaused();
+    }
+
+    public void LoadLevel(int buildIndex, Vector2 playerPos)
+    {
+        //Disable and set player position
+        player.SetActive(false);
+        player.transform.position = playerPos;
+
+        //Start the unload of old level and load of new level
+        StartCoroutine("LoadLevelAsync", buildIndex);
+    }
+
+    IEnumerator LoadLevelAsync(int buildIndex)
+    {
+        //If a level is already loaded, unload it
+        if (loadedLevelIndex >= 0)
+        {
+            AsyncOperation async = SceneManager.UnloadSceneAsync(loadedLevelIndex);
+
+            //Wait until level has finished unloading
+            yield return async;
+        }
+
+        //Load new level additively, and keep track of it as loaded
+        SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
+        loadedLevelIndex = buildIndex;
+
+        //Re-enable the player after level is loaded
+        player.SetActive(true);
+
+        //Call level loaded events
+        if (OnLevelLoaded != null)
+            OnLevelLoaded();
     }
 
     public void GameOver()

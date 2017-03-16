@@ -31,7 +31,7 @@ public class CameraFollow : MonoBehaviour
         }
 
         CalculateBounds();
-
+        
         if (target)
         {
             CharacterMove move = target.GetComponent<CharacterMove>();
