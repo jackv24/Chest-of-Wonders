@@ -8,6 +8,7 @@ public class SaveManager : MonoBehaviour
 
     public int saveSlot = 0;
 
+    [HideInInspector]
     public SaveData data = null;
     private string saveLocation;
 
@@ -20,14 +21,17 @@ public class SaveManager : MonoBehaviour
 
     void Start()
     {
-        //Concatenate save location with data path and save slot
-        saveLocation = string.Format("{0}/Save{1}.cow", Application.persistentDataPath, saveSlot);
-
         player = GameObject.FindWithTag("Player");
     }
 
     public void SaveGame(bool hardSave)
     {
+        if(saveLocation == null)
+        {
+            Debug.Log("Save data NOT loaded, since level was open on startup");
+            return;
+        }
+
         //Only save data if there is a player
         if (player && data != null)
         {
@@ -60,15 +64,24 @@ public class SaveManager : MonoBehaviour
             Debug.LogWarning("Save Manager could not find player! Saving did not work.");
     }
 
-    public void LoadGame()
+    public bool LoadGame()
     {
+        //Concatenate save location with data path and save slot
+        saveLocation = string.Format("{0}/Save{1}.cow", Application.persistentDataPath, saveSlot);
+
         //Load existing save data first, if any
         if (System.IO.File.Exists(saveLocation))
         {
             string loadString = System.IO.File.ReadAllText(saveLocation);
             data = (SaveData)JsonUtility.FromJson(loadString, typeof(SaveData));
+
+            return true;
         }
         else
+        {
             data = new SaveData();
+
+            return false;
+        }
     }
 }

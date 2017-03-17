@@ -63,12 +63,14 @@ public class GameManager : MonoBehaviour
             stats.OnDeath += GameOver;
         }
 
-        //When game starts load save and player data, effectively respawning at start
-        RespawnPlayer();
-
         //Load the first level
         if (SceneManager.sceneCount <= 1)
+        {
+            //When game starts load save and player data, effectively respawning at start
+            RespawnPlayer();
+
             LoadLevel(firstSceneIndex, player ? player.transform.position : Vector3.zero);
+        }
         //If level is already open in the editor, use that instead
         else if (SceneManager.sceneCount == 2)
         {
@@ -166,21 +168,23 @@ public class GameManager : MonoBehaviour
         if (SaveManager.instance)
         {
             //Load game
-            SaveManager.instance.LoadGame();
-            SaveData data = SaveManager.instance.data;
-            SaveData.Location location = data.autoSave;
-
-            //Set first level to be loaded
-            firstSceneIndex = location.sceneIndex;
-            player.transform.position = location.position;
-
-            CharacterStats stats = player.GetComponent<CharacterStats>();
-
-            if(stats)
+            if (SaveManager.instance.LoadGame())
             {
-                //Load player data
-                stats.currentHealth = data.currentHealth;
-                stats.maxHealth = data.maxHealth;
+                SaveData data = SaveManager.instance.data;
+                SaveData.Location location = data.autoSave;
+
+                //Set first level to be loaded
+                firstSceneIndex = location.sceneIndex;
+                player.transform.position = location.position;
+
+                CharacterStats stats = player.GetComponent<CharacterStats>();
+
+                if (stats)
+                {
+                    //Load player data
+                    stats.currentHealth = data.currentHealth;
+                    stats.maxHealth = data.maxHealth;
+                }
             }
         }
     }
