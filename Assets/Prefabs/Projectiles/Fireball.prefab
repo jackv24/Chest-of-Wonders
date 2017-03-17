@@ -92,7 +92,7 @@ MonoBehaviour:
   lifeTime: 3
   damageAmount: 20
   damageTag: Enemy
-  destroyOnCollision: 0
+  destroyOnCollision: 1
   explosionPrefab: {fileID: 1110034029969842, guid: fa1755586a68e164186463d734275cff,
     type: 2}
 --- !u!212 &212666958757794818
