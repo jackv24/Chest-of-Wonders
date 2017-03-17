@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public int firstSceneIndex = 2;
-    private int loadedLevelIndex = -1;
+    public int loadedLevelIndex = -1;
 
     [Space()]
     public GameObject player;
@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
     public float playerRespawnDelay = 3f;
 
     [Space()]
-    public float levelTransitionTime = 1f;
+    public float levelTransitionTime = 0.25f;
+    public float autoSaveDelay = 0.25f;
 
     //Game running and game pause are two seperate bools to keep track of in dialogue or menu, or game paused...
     [HideInInspector] public bool gameRunning = true;
@@ -61,6 +62,9 @@ public class GameManager : MonoBehaviour
             CharacterStats stats = player.GetComponent<CharacterStats>();
             stats.OnDeath += GameOver;
         }
+
+        //When game starts load save and player data, effectively respawning at start
+        RespawnPlayer();
 
         //Load the first level
         if (SceneManager.sceneCount <= 1)
@@ -121,6 +125,12 @@ public class GameManager : MonoBehaviour
 
         //Fade in
         UIFunctions.instance.ShowLoadingScreen(false, fadeTime);
+
+        //Save game after entering new room
+        yield return new WaitForSeconds(autoSaveDelay);
+
+        if (SaveManager.instance)
+            SaveManager.instance.SaveGame(false);
     }
 
     public void GameOver()
@@ -147,5 +157,31 @@ public class GameManager : MonoBehaviour
     {
         //Reset timescale as scene may be exited when paused
         Time.timeScale = 1;
+    }
+
+    void RespawnPlayer()
+    {
+        player.SetActive(true);
+
+        if (SaveManager.instance)
+        {
+            //Load game
+            SaveManager.instance.LoadGame();
+            SaveData data = SaveManager.instance.data;
+            SaveData.Location location = data.autoSave;
+
+            //Set first level to be loaded
+            firstSceneIndex = location.sceneIndex;
+            player.transform.position = location.position;
+
+            CharacterStats stats = player.GetComponent<CharacterStats>();
+
+            if(stats)
+            {
+                //Load player data
+                stats.currentHealth = data.currentHealth;
+                stats.maxHealth = data.maxHealth;
+            }
+        }
     }
 }
