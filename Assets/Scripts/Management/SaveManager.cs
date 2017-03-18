@@ -84,4 +84,20 @@ public class SaveManager : MonoBehaviour
             return false;
         }
     }
+
+    public void ClearSave()
+    {
+        //Get file path to save slot
+        string location = string.Format("{0}/Save{1}.cow", Application.persistentDataPath, saveSlot);
+
+        //If the file exists, delete it
+        if (System.IO.File.Exists(location))
+        {
+            System.IO.File.Delete(location);
+
+            Debug.Log("Save data cleared in slot " + saveSlot);
+        }
+        else
+            Debug.LogWarning("No save data exists in slot " + saveSlot);
+    }
 }
