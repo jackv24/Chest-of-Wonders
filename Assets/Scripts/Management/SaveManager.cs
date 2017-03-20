@@ -8,6 +8,9 @@ public class SaveManager : MonoBehaviour
 
     public int saveSlot = 0;
 
+    [Space()]
+    public SaveData defaultSaveData;
+
     [HideInInspector]
     public SaveData data = null;
     private string saveLocation;
@@ -79,7 +82,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            data = new SaveData();
+            data = defaultSaveData;
 
             return false;
         }

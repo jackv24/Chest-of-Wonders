@@ -137,7 +137,15 @@ public class UIFunctions : MonoBehaviour
 
     public void LoadGame()
     {
-        //TODO: Replace with actual game reload code
-        Debug.Log("Reloading level yet to be implemented.");
+        //TODO: Replace with actual game load code
+    }
+
+    public void Respawn()
+    {
+        if(GameManager.instance)
+        {
+            GameManager.instance.SpawnPlayer(true);
+            deathScreen.SetActive(false);
+        }
     }
 }

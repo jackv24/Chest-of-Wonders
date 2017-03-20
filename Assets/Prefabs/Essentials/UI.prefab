@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 114581533880700762}
   - component: {fileID: 114371138038728428}
   m_Layer: 5
-  m_Name: LoadButton
+  m_Name: RespawnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1635,7 +1635,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114240564346664104}
-        m_MethodName: LoadGame
+        m_MethodName: Respawn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

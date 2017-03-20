@@ -67,9 +67,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.sceneCount <= 1)
         {
             //When game starts load save and player data, effectively respawning at start
-            RespawnPlayer();
-
-            LoadLevel(firstSceneIndex, player ? player.transform.position : Vector3.zero);
+            SpawnPlayer(false);
         }
         //If level is already open in the editor, use that instead
         else if (SceneManager.sceneCount == 2)
@@ -161,7 +159,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void RespawnPlayer()
+    public void SpawnPlayer(bool reset)
     {
         player.SetActive(true);
 
@@ -171,20 +169,28 @@ public class GameManager : MonoBehaviour
             if (SaveManager.instance.LoadGame())
             {
                 SaveData data = SaveManager.instance.data;
-                SaveData.Location location = data.autoSave;
+                SaveData.Location location = reset ? data.npcSave : data.autoSave;
 
                 //Set first level to be loaded
                 firstSceneIndex = location.sceneIndex;
                 player.transform.position = location.position;
 
                 CharacterStats stats = player.GetComponent<CharacterStats>();
+                CharacterMove move = player.GetComponent<CharacterMove>();
 
                 if (stats)
                 {
                     //Load player data
-                    stats.currentHealth = data.currentHealth;
+                    stats.currentHealth = reset ? data.maxHealth : data.currentHealth;
                     stats.maxHealth = data.maxHealth;
                 }
+
+                //If player was respawned after dying, let them move again
+                if (move)
+                    move.canMove = true;
+
+                //After player data is loaded, load the level
+                LoadLevel(firstSceneIndex, player.transform.position);
             }
         }
     }

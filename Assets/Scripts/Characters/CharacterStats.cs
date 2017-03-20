@@ -87,7 +87,8 @@ public class CharacterStats : MonoBehaviour
         if (OnDeath != null)
             OnDeath();
 
-        //TODO: Handle actual death and respawn
+        graphic.material.SetFloat("_FlashAmount", 0);
+
         gameObject.SetActive(false);
     }
 
