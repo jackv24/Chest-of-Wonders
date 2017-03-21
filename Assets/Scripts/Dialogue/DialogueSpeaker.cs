@@ -26,8 +26,14 @@ public class DialogueSpeaker : MonoBehaviour
     private GameObject player;
 
     [Space()]
-    public Animator animator;
+    public GameObject graphic;
+    private Animator animator;
     public bool facePlayer = true;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -71,12 +77,12 @@ public class DialogueSpeaker : MonoBehaviour
                 DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset, animator, windowColor);
 
                 //If desired, face the player while speaking
-                if (facePlayer && animator)
+                if (facePlayer && graphic)
                 {
                     //Make x scale -1 or 1 to flip the sprite to face the player
-                    Vector3 scale = animator.transform.localScale;
+                    Vector3 scale = graphic.transform.localScale;
                     scale.x = Mathf.Sign(player.transform.position.x - transform.position.x);
-                    animator.transform.localScale = scale;
+                    graphic.transform.localScale = scale;
                 }
             }
         }

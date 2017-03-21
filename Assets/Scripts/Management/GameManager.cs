@@ -177,6 +177,7 @@ public class GameManager : MonoBehaviour
 
                 CharacterStats stats = player.GetComponent<CharacterStats>();
                 CharacterMove move = player.GetComponent<CharacterMove>();
+                PlayerAttack attack = player.GetComponent<PlayerAttack>();
 
                 if (stats)
                 {
@@ -188,6 +189,9 @@ public class GameManager : MonoBehaviour
                 //If player was respawned after dying, let them move again
                 if (move)
                     move.canMove = true;
+
+                if (reset && attack)
+                    attack.ResetMana();
 
                 //After player data is loaded, load the level
                 LoadLevel(firstSceneIndex, player.transform.position);

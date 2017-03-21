@@ -79,7 +79,7 @@ public class DialogueBox : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
         }
         //Close dialogue if no buttons present, and action is pressed
-        else if (playerActions.Submit.WasPressed || playerActions.MeleeAttack.WasPressed)
+        else if (playerActions.Submit.WasPressed || playerActions.MeleeAttack.WasPressed || Input.GetMouseButtonDown(0))
         {
             //Only go to next node if text is done printing, and there are no buttons
             if (textDonePrinting && buttons.Length <= 0)
@@ -223,8 +223,17 @@ public class DialogueBox : MonoBehaviour
         //Show the dialogue
         gameObject.SetActive(true);
 
+        string text = node.text;
+
+        //Parse text for commands
+        if (text.Contains("<save>"))
+        {
+            SaveManager.instance.SaveGame(true);
+            text = text.Replace("<save>", "");
+        }
+
         //Start printing text one character at a time
-        StartCoroutine("DisplayTextOverTime", node.text);
+        StartCoroutine("DisplayTextOverTime", text);
 
         //If there are buttons, let them fold out
         if (buttons.Length > 0)

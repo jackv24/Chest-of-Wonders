@@ -188,4 +188,12 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
+    public void ResetMana()
+    {
+        if(magicSlot1 != null)
+            magicSlot1.currentMana = magicSlot1.attack.manaAmount;
+        if(magicSlot2 != null)
+            magicSlot2.currentMana = magicSlot2.attack.manaAmount;
+    }
 }
