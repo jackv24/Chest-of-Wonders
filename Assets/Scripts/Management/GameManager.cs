@@ -193,9 +193,10 @@ public class GameManager : MonoBehaviour
                 if (reset && attack)
                     attack.ResetMana();
 
-                //After player data is loaded, load the level
-                LoadLevel(firstSceneIndex, player.transform.position);
             }
         }
+
+        //After player data is loaded, load the level
+        LoadLevel(firstSceneIndex, player.transform.position);
     }
 }
