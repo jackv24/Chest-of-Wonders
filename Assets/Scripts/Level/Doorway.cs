@@ -9,6 +9,10 @@ public class Doorway : MonoBehaviour
     public Vector2 scenePosition;
 
     [Space()]
+    public float startDelay = 0.5f;
+    private float startTime;
+
+    [Space()]
     public bool useButton = false;
     private bool inDoor = false;
 
@@ -17,6 +21,8 @@ public class Doorway : MonoBehaviour
     void Start()
     {
         playerActions = new PlayerActions();
+
+        startTime = Time.time + startDelay;
     }
 
     void Update()
@@ -24,7 +30,7 @@ public class Doorway : MonoBehaviour
         if(useButton && inDoor)
         {
             //If up button was pressed, use the door
-            if(playerActions.Up.WasPressed)
+            if(playerActions.Up.WasPressed && Time.time > startTime)
                 Use();
         }
     }

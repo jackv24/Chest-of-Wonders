@@ -73,13 +73,13 @@ public class CameraFollow : MonoBehaviour
         {
             //Keep camera inside of level (or centred on x if level does not exceed camera width)
             if (Camera.main.orthographicSize * 2 * (Screen.width / Screen.height) > bounds.width)
-                targetPos.x = 0;
+                targetPos.x = bounds.centre.x;
             else
                 targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
 
             //Keep camera inside of level (or centred on y if level does not exceed camera height)
             if (Camera.main.orthographicSize * 2 > bounds.height)
-                targetPos.y = 0;
+                targetPos.y = bounds.centre.y;
             else
                 targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
         }
