@@ -23,7 +23,7 @@ public class DamageOnTouch : MonoBehaviour
     public float knockBackAmount = 10f;
     public Vector2 knockBackCentreOffset = -Vector2.up;
 
-    private List<Collider2D> onCoolDown = new List<Collider2D>();
+    private List<GameObject> onCoolDown = new List<GameObject>();
 
     private void FixedUpdate()
     {
@@ -33,42 +33,46 @@ public class DamageOnTouch : MonoBehaviour
 
         foreach (Collider2D other in cols)
         {
-            if (!onCoolDown.Contains(other))
+            //Make sure this gameobject was not damaged recently
+            if (!onCoolDown.Contains(other.gameObject))
             {
-                //Calculate centre point between colliders to show hit effect
-                Vector3 centre = (pos + (Vector2)other.bounds.center) / 2;
-
-                //Show hit effect at centre of colliders (with object pooling)
-                GameObject effect = ObjectPooler.GetPooledObject(hitEffect);
-                effect.transform.position = centre;
-
                 //Get character references
                 CharacterStats stats = other.GetComponent<CharacterStats>();
                 CharacterMove move = other.GetComponent<CharacterMove>();
 
-                //Remove health
                 if (stats)
-                    stats.RemoveHealth(amount);
+                {
+                    //Attempt to remove health
+                    if (stats.RemoveHealth(amount))
+                    {
+                        //Calculate centre point between colliders to show hit effect
+                        Vector3 centre = (pos + (Vector2)other.bounds.center) / 2;
 
-                //Knockback if amount is more than 0
-                if (move && knockBackAmount > 0)
-                    move.Knockback((Vector2)transform.position + knockBackCentreOffset, knockBackAmount);
+                        //Show hit effect at centre of colliders (with object pooling)
+                        GameObject effect = ObjectPooler.GetPooledObject(hitEffect);
+                        effect.transform.position = centre;
 
-                //Offset randomly (screen shake effect)
-                Vector2 camOffset = new Vector2(Random.Range(-1f, 1f) * screenShakeAmount, Random.Range(-1f, 1f) * screenShakeAmount);
-                Camera.main.transform.position += (Vector3)camOffset;
+                        //Knockback if amount is more than 0
+                        if (move && knockBackAmount > 0)
+                            move.Knockback((Vector2)transform.position + knockBackCentreOffset, knockBackAmount);
 
-                onCoolDown.Add(other);
-                StartCoroutine("RemoveFromCooldown", other);
+                        //Offset randomly (screen shake effect)
+                        Vector2 camOffset = new Vector2(Random.Range(-1f, 1f) * screenShakeAmount, Random.Range(-1f, 1f) * screenShakeAmount);
+                        Camera.main.transform.position += (Vector3)camOffset;
+
+                        onCoolDown.Add(other.gameObject);
+                        StartCoroutine("RemoveFromCooldown", other.gameObject);
+                    }
+                }
             }
         }
     }
 
-    IEnumerator RemoveFromCooldown(Collider2D other)
+    IEnumerator RemoveFromCooldown(GameObject gameObject)
     {
         yield return new WaitForSeconds(damageCooldown);
 
-        onCoolDown.Remove(other);
+        onCoolDown.Remove(gameObject);
     }
 
     void OnDrawGizmosSelected()

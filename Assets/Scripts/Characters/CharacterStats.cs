@@ -28,6 +28,8 @@ public class CharacterStats : MonoBehaviour
     //If health is zero or below, character is dead
     public bool IsDead { get { return currentHealth <= 0; } }
 
+    private bool damageImmunity = false;
+
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
 
@@ -38,8 +40,12 @@ public class CharacterStats : MonoBehaviour
     }
 
     //Removes the specified amount of health
-    public void RemoveHealth(int amount)
+    public bool RemoveHealth(int amount)
     {
+        //Do not remove health if immune to damage
+        if (damageImmunity)
+            return false;
+
         currentHealth -= amount;
 
         if (DamageText.instance)
@@ -55,15 +61,18 @@ public class CharacterStats : MonoBehaviour
         else if (graphic && gameObject.activeSelf)
         {
             //Run only one stunned coroutine
-            StopCoroutine("Stunned");
-            StartCoroutine("Stunned", flashDuration);
+            StopCoroutine("DamageFlash");
+            StartCoroutine("DamageFlash", flashDuration);
         }
+
+        //Health was removed, so return true
+        return true;
     }
 
     public void Die()
     {
         //Show stunned flashing character
-        StartCoroutine("Stunned", deathTime);
+        StartCoroutine("DamageFlash", deathTime);
         //Count down to death
         StartCoroutine("DeathTimer", deathTime);
 
@@ -92,11 +101,13 @@ public class CharacterStats : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    IEnumerator Stunned(float duration)
+    IEnumerator DamageFlash(float duration)
     {
         float elapsed = 0;
 
         Material mat = graphic.material;
+
+        damageImmunity = true;
 
         while(elapsed < duration)
         {
@@ -110,5 +121,7 @@ public class CharacterStats : MonoBehaviour
 
             elapsed += flashInterval * 2;
         }
+
+        damageImmunity = false;
     }
 }
