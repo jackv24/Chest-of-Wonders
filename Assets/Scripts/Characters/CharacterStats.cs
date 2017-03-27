@@ -11,6 +11,7 @@ public class CharacterStats : MonoBehaviour
     public int maxHealth = 100;
 
     [Space()]
+    public float damageImmunityTime = 1.0f;
     public Vector2 damageTextOffset = Vector2.up;
 
     [Space()]
@@ -18,7 +19,6 @@ public class CharacterStats : MonoBehaviour
     [Range(0, 1f)]
     public float flashAmount = 0.75f;
     public float flashInterval = 0.1f;
-    public float flashDuration = 0.5f;
 
     [Space()]
     public float deathTime = 1f;
@@ -28,7 +28,8 @@ public class CharacterStats : MonoBehaviour
     //If health is zero or below, character is dead
     public bool IsDead { get { return currentHealth <= 0; } }
 
-    private bool damageImmunity = false;
+    [HideInInspector]
+    public bool damageImmunity = false;
 
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
@@ -62,7 +63,7 @@ public class CharacterStats : MonoBehaviour
         {
             //Run only one stunned coroutine
             StopCoroutine("DamageFlash");
-            StartCoroutine("DamageFlash", flashDuration);
+            StartCoroutine("DamageFlash", damageImmunityTime);
         }
 
         //Health was removed, so return true
@@ -112,12 +113,12 @@ public class CharacterStats : MonoBehaviour
         while(elapsed < duration)
         {
             //Flash on
-            yield return new WaitForSeconds(flashInterval);
             mat.SetFloat("_FlashAmount", flashAmount);
+            yield return new WaitForSeconds(flashInterval);
 
             //Flash off
-            yield return new WaitForSeconds(flashInterval);
             mat.SetFloat("_FlashAmount", 0);
+            yield return new WaitForSeconds(flashInterval);
 
             elapsed += flashInterval * 2;
         }

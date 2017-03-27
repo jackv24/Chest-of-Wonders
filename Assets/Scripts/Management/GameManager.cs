@@ -184,6 +184,7 @@ public class GameManager : MonoBehaviour
                     //Load player data
                     stats.currentHealth = reset ? data.maxHealth : data.currentHealth;
                     stats.maxHealth = data.maxHealth;
+                    stats.damageImmunity = false;
                 }
 
                 //If player was respawned after dying, let them move again
