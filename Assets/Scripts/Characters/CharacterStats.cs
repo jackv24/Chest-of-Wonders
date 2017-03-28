@@ -28,8 +28,7 @@ public class CharacterStats : MonoBehaviour
     //If health is zero or below, character is dead
     public bool IsDead { get { return currentHealth <= 0; } }
 
-    [HideInInspector]
-    public bool damageImmunity = false;
+    private bool damageImmunity = false;
 
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
@@ -38,6 +37,11 @@ public class CharacterStats : MonoBehaviour
     {
         characterMove = GetComponent<CharacterMove>();
         characterAnimator = GetComponent<CharacterAnimator>();
+    }
+
+    private void OnEnable()
+    {
+        damageImmunity = false;
     }
 
     //Removes the specified amount of health

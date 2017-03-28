@@ -119,6 +119,9 @@ public class GameManager : MonoBehaviour
         //Re-enable the player after level is loaded
         player.SetActive(true);
 
+        //Return all pooled objects to their pools (prevents things like projectiles persisting between levels)
+        ObjectPooler.ReturnAll();
+
         //Call level loaded events
         if (OnLevelLoaded != null)
             OnLevelLoaded();
@@ -176,7 +179,6 @@ public class GameManager : MonoBehaviour
                 player.transform.position = location.position;
 
                 CharacterStats stats = player.GetComponent<CharacterStats>();
-                CharacterMove move = player.GetComponent<CharacterMove>();
                 PlayerAttack attack = player.GetComponent<PlayerAttack>();
 
                 if (stats)
@@ -184,12 +186,7 @@ public class GameManager : MonoBehaviour
                     //Load player data
                     stats.currentHealth = reset ? data.maxHealth : data.currentHealth;
                     stats.maxHealth = data.maxHealth;
-                    stats.damageImmunity = false;
                 }
-
-                //If player was respawned after dying, let them move again
-                if (move)
-                    move.canMove = true;
 
                 if (reset && attack)
                     attack.ResetMana();

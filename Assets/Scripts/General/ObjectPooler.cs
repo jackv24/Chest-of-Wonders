@@ -51,6 +51,12 @@ public static class ObjectPooler
 
             pooledObjects.Clear();
         }
+
+        public void ReturnAll()
+        {
+            for (int i = 0; i < pooledObjects.Count; i++)
+                pooledObjects[i].SetActive(false);
+        }
     }
 
     //List of all object pools
@@ -100,5 +106,11 @@ public static class ObjectPooler
 
         //Once pools have been purged, clear them
         objectPools.Clear();
+    }
+
+    public static void ReturnAll()
+    {
+        foreach (Pool pool in objectPools)
+            pool.ReturnAll();
     }
 }
