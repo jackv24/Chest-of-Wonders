@@ -11,6 +11,7 @@ public class DialogueBox : MonoBehaviour
 
     public Text nameText;
     public Text dialogueText;
+    public string textClearColour;
 
     public Image[] accents;
 
@@ -245,18 +246,26 @@ public class DialogueBox : MonoBehaviour
         textDonePrinting = false;
         targetText = text;
 
-        char[] chars = (text).ToCharArray();
+        //char[] chars = (text).ToCharArray();
 
         Transform buttonGroup = button.transform.parent;
 
-        dialogueText.text = "";
+        string colourString = "<color=" + textClearColour + ">";
+        dialogueText.text = string.Format("{0}{1}{2}", colourString, dialogueText.text, "</color>");
 
-        for (int i = 0; i < chars.Length; i++)
+        for (int i = 0; i < text.Length; i++)
         {
             yield return new WaitForSeconds(1 / textSpeed);
 
-            dialogueText.text += chars[i];
+            //dialogueText.text += chars[i];
+
+            string showText = text.Remove(i, text.Length - i);
+            string hideText = text.Remove(0, i);
+
+            dialogueText.text = string.Format("{0}{1}{2}{3}", showText, colourString, hideText, "</color>");
         }
+
+        dialogueText.text = text;
 
         textDonePrinting = true;
     }
