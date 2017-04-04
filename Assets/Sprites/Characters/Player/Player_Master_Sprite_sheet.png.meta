@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 410a2e75204b79445a8d95f85c8dc45e
-timeCreated: 1487999228
+timeCreated: 1491276359
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -42,6 +42,10 @@ TextureImporter:
     21300070: player_magic_up_04
     21300072: player_stun_1
     21300074: player_stun_2
+    21300076: player_magic_fwd_run_01
+    21300078: player_magic_fwd_run_02
+    21300080: player_magic_fwd_run_03
+    21300082: player_magic_fwd_run_04
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -612,6 +616,58 @@ TextureImporter:
         y: 948
         width: 30
         height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_magic_fwd_run_01
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 523
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_magic_fwd_run_02
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 523
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_magic_fwd_run_03
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 523
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_magic_fwd_run_04
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 523
+        width: 54
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
