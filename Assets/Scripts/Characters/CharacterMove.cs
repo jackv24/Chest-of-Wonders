@@ -347,8 +347,6 @@ public class CharacterMove : MonoBehaviour
         //Enable rigidbody movement
         body.bodyType = RigidbodyType2D.Dynamic;
 
-        Debug.Log("switched to physics");
-
         //Apply force
         body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
 
@@ -374,8 +372,6 @@ public class CharacterMove : MonoBehaviour
         //Switch back to script control
         body.bodyType = RigidbodyType2D.Kinematic;
         scriptControl = true;
-
-        Debug.Log("switched back");
 
         if (characterStats)
         {
