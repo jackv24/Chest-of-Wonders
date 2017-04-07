@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public delegate void IntEvent(int a);
+    public event IntEvent OnUsedMagic; //Event used to update UI, etc.
+
     [System.Serializable]
     public class MagicSlot
     {
@@ -119,6 +122,9 @@ public class PlayerAttack : MonoBehaviour
                     //Set trigger for magic animation
                     characterAnimator.animator.SetTrigger("magic");
                 }
+
+                if (OnUsedMagic != null)
+                    OnUsedMagic(slot == magicSlot1 ? 1 : 2);
             }
         }
     }

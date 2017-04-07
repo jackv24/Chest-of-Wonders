@@ -18,6 +18,7 @@ public class HUDControl : MonoBehaviour
         public Image attackIcon;
         public Slider slider;
         public Text sliderText;
+        public Image cooldownImage;
 
         [HideInInspector]
         public string sliderTextString;
@@ -45,6 +46,8 @@ public class HUDControl : MonoBehaviour
                 manaBar2.sliderTextString = manaBar2.sliderText.text;
 
                 LoadManaBars();
+
+                playerAttack.OnUsedMagic += (int slot) => { StartCoroutine("Cooldown", slot); };
             }
         }
 
@@ -120,5 +123,27 @@ public class HUDControl : MonoBehaviour
         else
             //If there is no attack in slot, hide bar
             manaBar2.attackIcon.transform.parent.gameObject.SetActive(false);
+    }
+
+    IEnumerator Cooldown(int slot)
+    {
+        //Get appropriate slot and bar from slot number
+        PlayerAttack.MagicSlot s = slot == 1 ? playerAttack.magicSlot1 : playerAttack.magicSlot2;
+        ManaBar b = slot == 1 ? manaBar1 : manaBar2;
+
+        //Loop for time
+        float timeElapsed = 0;
+        while(timeElapsed <= s.attack.cooldownTime)
+        {
+            //Set cooldown image fill amount
+            b.cooldownImage.fillAmount = 1 - (timeElapsed / s.attack.cooldownTime);
+
+            //Do with frame
+            yield return new WaitForEndOfFrame();
+            timeElapsed += Time.deltaTime;
+        }
+
+        //Make sure it's 0 at the end to prevent artifacts
+        b.cooldownImage.fillAmount = 0;
     }
 }
