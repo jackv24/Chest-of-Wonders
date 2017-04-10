@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public delegate void IntEvent(int a);
-    public event IntEvent OnUsedMagic; //Event used to update UI, etc.
-
     [System.Serializable]
     public class MagicSlot
     {
@@ -17,6 +14,8 @@ public class PlayerAttack : MonoBehaviour
 
     public MagicSlot magicSlot1;
     public MagicSlot magicSlot2;
+    [HideInInspector]
+    public MagicSlot magicSlotSelected;
 
     [Space()]
     public Transform forwardFirePoint;
@@ -28,6 +27,9 @@ public class PlayerAttack : MonoBehaviour
     [Range(0, 1f)]
     [Tooltip("How far the vertical axis needs to be to fire vertical (like a dead-zone).")]
     public float upThreshold = 0.5f;
+
+    [Space()]
+    public GameObject failedCastEffect;
 
     //Direction set by charactermove so that player doesnt have to hold x direction to fire
     private float directionX = 1;
@@ -70,6 +72,9 @@ public class PlayerAttack : MonoBehaviour
         if (magicSlot2.attack)
             magicSlot2.currentMana = magicSlot2.attack.manaAmount;
 
+        if (magicSlot1 != null)
+            magicSlotSelected = magicSlot1;
+
         //Create event handler to update the players facing direction
         if (characterMove)
             characterMove.OnChangedDirection += delegate (float newDir) { directionX = newDir; };
@@ -97,34 +102,37 @@ public class PlayerAttack : MonoBehaviour
     //Function to use magic, wrapped by other magic use functions
     void UseMagic(MagicSlot slot, Vector2 direction)
     {
+        //Selected magic slot is whatever was last used
+        //TODO: Replace with magic switching system
+        magicSlotSelected = slot;
+
         //If magic slot was chosen correctly, and there is an attack in the slot
         if(slot != null && slot.attack && Time.time >= slot.nextFireTime)
         {
+            slot.nextFireTime = Time.time + slot.attack.cooldownTime;
+
             //If there is enough mana to use this attack
             if (slot.currentMana >= slot.attack.manaCost)
             {
-                slot.nextFireTime = Time.time + slot.attack.cooldownTime;
-
                 //Subtract required mana
                 slot.currentMana -= slot.attack.manaCost;
 
                 //Fire projectile after delay (timed to animation)
                 StartCoroutine("FireWithDelay", new FireProjectile(slot.attack, direction));
+            }
+            else
+                StartCoroutine("FireWithDelay", new FireProjectile(null, direction));
 
-                if (characterAnimator)
-                {
-                    //If y direction is within threshold, cancel it out
-                    if (direction.y < upThreshold && direction.y > -upThreshold)
-                        direction.y = 0;
+            if (characterAnimator)
+            {
+                //If y direction is within threshold, cancel it out
+                if (direction.y < upThreshold && direction.y > -upThreshold)
+                    direction.y = 0;
 
-                    //Pass vertical axis into animator
-                    characterAnimator.animator.SetFloat("vertical", direction.y);
-                    //Set trigger for magic animation
-                    characterAnimator.animator.SetTrigger("magic");
-                }
-
-                if (OnUsedMagic != null)
-                    OnUsedMagic(slot == magicSlot1 ? 1 : 2);
+                //Pass vertical axis into animator
+                characterAnimator.animator.SetFloat("vertical", direction.y);
+                //Set trigger for magic animation
+                characterAnimator.animator.SetTrigger("magic");
             }
         }
     }
@@ -133,35 +141,39 @@ public class PlayerAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(fireDelay);
 
+        GameObject castEffect = failedCastEffect;
+
+        //Default values for a projectile fired RIGHT
+        Vector2 dir = Vector2.right;
+        Transform firePoint = forwardFirePoint;
+        float effectAngle = 0f;
+
+        //Change values to suit projectiles fired in the other 3 directions
+        if (fire.direction.y >= upThreshold)
+        {
+            dir = Vector2.up;
+            firePoint = upFirePoint;
+            effectAngle = 90f;
+        }
+        else if (fire.direction.y <= -upThreshold)
+        {
+            dir = Vector2.down;
+            firePoint = downFirePoint;
+            effectAngle = 270f;
+        }
+        else if (directionX < 0)
+        {
+            dir = Vector2.left;
+            effectAngle = 180f;
+        }
+
         //Spawn projectile (if there is one)
-        if (fire.attack.projectilePrefab)
+        if (fire.attack && fire.attack.projectilePrefab)
         {
             //Get projectile from pool
             GameObject obj = ObjectPooler.GetPooledObject(fire.attack.projectilePrefab);
 
-            //Default values for a projectile fired RIGHT
-            Vector2 dir = Vector2.right;
-            Transform firePoint = forwardFirePoint;
-            float effectAngle = 0f;
-
-            //Change values to suit proctiles fired in the other 3 directions
-            if (fire.direction.y >= upThreshold)
-            {
-                dir = Vector2.up;
-                firePoint = upFirePoint;
-                effectAngle = 90f;
-            }
-            else if (fire.direction.y <= -upThreshold)
-            {
-                dir = Vector2.down;
-                firePoint = downFirePoint;
-                effectAngle = 270f;
-            }
-            else if (directionX < 0)
-            {
-                dir = Vector2.left;
-                effectAngle = 180f;
-            }
+            castEffect = fire.attack.castEffect;
 
             //Position projectile at fire point
             obj.transform.position = firePoint.position;
@@ -172,26 +184,26 @@ public class PlayerAttack : MonoBehaviour
             proj.SetOwner(gameObject);
             //Get projectile moving
             proj.Fire(dir);
+        }
 
-            //If there is a cast effect
-            if (fire.attack.castEffect)
-            {
-                //Get effect from pool
-                GameObject effect = ObjectPooler.GetPooledObject(fire.attack.castEffect);
+        //If there is a cast effect
+        if (castEffect)
+        {
+            //Get effect from pool
+            GameObject effect = ObjectPooler.GetPooledObject(castEffect);
 
-                //Set position and rotation
-                effect.transform.position = firePoint.position;
-                effect.transform.eulerAngles = new Vector3(0, 0, effectAngle);
+            //Set position and rotation
+            effect.transform.position = firePoint.position;
+            effect.transform.eulerAngles = new Vector3(0, 0, effectAngle);
 
-                //Make particles move how the player was (so they aren't left behind when the player is moving)
-                ParticleSystem system = effect.GetComponentInChildren<ParticleSystem>();
-                ParticleSystem.VelocityOverLifetimeModule m = system.velocityOverLifetime;
-                m.x = characterMove.velocity.x;
-                m.y = characterMove.velocity.y;
+            //Make particles move how the player was (so they aren't left behind when the player is moving)
+            ParticleSystem system = effect.GetComponentInChildren<ParticleSystem>();
+            ParticleSystem.VelocityOverLifetimeModule m = system.velocityOverLifetime;
+            m.x = characterMove.velocity.x;
+            m.y = characterMove.velocity.y;
 
-                //Start the particle system (does not play on awake so values can be set through script beforehand)
-                system.Play();
-            }
+            //Start the particle system (does not play on awake so values can be set through script beforehand)
+            system.Play();
         }
     }
 

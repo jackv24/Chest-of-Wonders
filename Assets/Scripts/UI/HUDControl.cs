@@ -8,7 +8,7 @@ public class HUDControl : MonoBehaviour
     public GameObject player;
 
     [Space()]
-    public Slider healthSlider;
+    public Image healthSlider;
     public Text healthText;
     private string healthTextString;
 
@@ -16,7 +16,7 @@ public class HUDControl : MonoBehaviour
     public class ManaBar
     {
         public Image attackIcon;
-        public Slider slider;
+        public Image slider;
         public Text sliderText;
         public Image cooldownImage;
 
@@ -24,8 +24,10 @@ public class HUDControl : MonoBehaviour
         public string sliderTextString;
     }
     [Space()]
-    public ManaBar manaBar1;
-    public ManaBar manaBar2;
+    public ManaBar manaBar;
+
+    [Space()]
+    public float barLerpSpeed = 1f;
 
     private CharacterStats playerStats;
     private PlayerAttack playerAttack;
@@ -42,12 +44,10 @@ public class HUDControl : MonoBehaviour
 
             if (playerAttack)
             {
-                manaBar1.sliderTextString = manaBar1.sliderText.text;
-                manaBar2.sliderTextString = manaBar2.sliderText.text;
+                if(manaBar.sliderText)
+                    manaBar.sliderTextString = manaBar.sliderText.text;
 
-                LoadManaBars();
-
-                playerAttack.OnUsedMagic += (int slot) => { StartCoroutine("Cooldown", slot); };
+                LoadManaBar();
             }
         }
 
@@ -62,7 +62,7 @@ public class HUDControl : MonoBehaviour
         {
             //Health bar
             if (healthSlider)
-                healthSlider.value = (float)playerStats.currentHealth / playerStats.maxHealth;
+                healthSlider.fillAmount = Mathf.Lerp(healthSlider.fillAmount, (float)playerStats.currentHealth / playerStats.maxHealth, barLerpSpeed * Time.deltaTime);
 
             if (healthText)
                 healthText.text = string.Format(healthTextString, playerStats.currentHealth, playerStats.maxHealth);
@@ -71,79 +71,59 @@ public class HUDControl : MonoBehaviour
         if (playerAttack)
         {
             //if there is a magic attack in the slot
-            if (playerAttack.magicSlot1.attack)
+            if (playerAttack.magicSlotSelected.attack)
             {
                 //Update slider
-                if (manaBar1.slider)
-                    manaBar1.slider.value = (float)playerAttack.magicSlot1.currentMana / playerAttack.magicSlot1.attack.manaAmount;
+                if (manaBar.slider)
+                    manaBar.slider.fillAmount = Mathf.Lerp(manaBar.slider.fillAmount, (float)playerAttack.magicSlotSelected.currentMana / playerAttack.magicSlotSelected.attack.manaAmount, barLerpSpeed * Time.deltaTime);
 
                 //Update slider text
-                if (manaBar1.sliderText)
-                    manaBar1.sliderText.text = string.Format(manaBar1.sliderTextString, playerAttack.magicSlot1.currentMana, playerAttack.magicSlot1.attack.manaAmount);
-            }
-
-            //if there is a magic attack in the slot
-            if (playerAttack.magicSlot2.attack)
-            {
-                //Update slider
-                if (manaBar2.slider)
-                    manaBar2.slider.value = (float)playerAttack.magicSlot2.currentMana / playerAttack.magicSlot2.attack.manaAmount;
-
-                //Update slider text
-                if (manaBar2.sliderText)
-                    manaBar2.sliderText.text = string.Format(manaBar2.sliderTextString, playerAttack.magicSlot2.currentMana, playerAttack.magicSlot2.attack.manaAmount);
+                if (manaBar.sliderText)
+                    manaBar.sliderText.text = string.Format(manaBar.sliderTextString, playerAttack.magicSlotSelected.currentMana, playerAttack.magicSlotSelected.attack.manaAmount);
             }
         }
     }
 
     //Loads display for mana bars
-    void LoadManaBars()
+    void LoadManaBar()
     {
-        //If there is an attack in the slot
-        if (playerAttack.magicSlot1.attack)
+        if (manaBar.attackIcon)
         {
-            //Set attack icon
-            manaBar1.attackIcon.sprite = playerAttack.magicSlot1.attack.icon;
-            //Show mana bar
-            manaBar1.attackIcon.transform.parent.gameObject.SetActive(true);
+            //If there is an attack in the slot
+            if (playerAttack.magicSlotSelected.attack)
+            {
+                //Set attack icon
+                manaBar.attackIcon.sprite = playerAttack.magicSlotSelected.attack.icon;
+                //Show mana bar
+                manaBar.attackIcon.transform.parent.gameObject.SetActive(true);
+            }
+            else
+                //If there is no attack in slot, hide bar
+                manaBar.attackIcon.transform.parent.gameObject.SetActive(false);
         }
-        else
-            //If there is no attack in slot, hide bar
-            manaBar1.attackIcon.transform.parent.gameObject.SetActive(false);
-
-        //If there is an attack in the slot
-        if (playerAttack.magicSlot2.attack)
-        {
-            //Set attack icon
-            manaBar2.attackIcon.sprite = playerAttack.magicSlot2.attack.icon;
-
-            //Show mana bar
-            manaBar2.attackIcon.transform.parent.gameObject.SetActive(true);
-        }
-        else
-            //If there is no attack in slot, hide bar
-            manaBar2.attackIcon.transform.parent.gameObject.SetActive(false);
     }
 
-    IEnumerator Cooldown(int slot)
-    {
-        //Get appropriate slot and bar from slot number
-        PlayerAttack.MagicSlot s = slot == 1 ? playerAttack.magicSlot1 : playerAttack.magicSlot2;
-        ManaBar b = slot == 1 ? manaBar1 : manaBar2;
+    //IEnumerator Cooldown(int slot)
+    //{
+    //    //Get appropriate slot and bar from slot number
+    //    PlayerAttack.MagicSlot s = slot == 1 ? playerAttack.magicSlot1 : playerAttack.magicSlot2;
 
-        //Loop for time
-        float timeElapsed = 0;
-        while(timeElapsed <= s.attack.cooldownTime)
-        {
-            //Set cooldown image fill amount
-            b.cooldownImage.fillAmount = 1 - (timeElapsed / s.attack.cooldownTime);
+    //    if (manaBar.cooldownImage)
+    //    {
+    //        //Loop for time
+    //        float timeElapsed = 0;
+    //        while (timeElapsed <= s.attack.cooldownTime)
+    //        {
+    //            //Set cooldown image fill amount
+    //            manaBar.cooldownImage.fillAmount = 1 - (timeElapsed / s.attack.cooldownTime);
 
-            //Do with frame
-            yield return new WaitForEndOfFrame();
-            timeElapsed += Time.deltaTime;
-        }
+    //            //Do with frame
+    //            yield return new WaitForEndOfFrame();
+    //            timeElapsed += Time.deltaTime;
+    //        }
 
-        //Make sure it's 0 at the end to prevent artifacts
-        b.cooldownImage.fillAmount = 0;
-    }
+    //        //Make sure it's 0 at the end to prevent artifacts
+    //        manaBar.cooldownImage.fillAmount = 0;
+    //    }
+    //}
 }
