@@ -9,31 +9,31 @@ namespace BehaviourTree
     /// </summary>
     public class WalkTowards : IBehaviour
     {
-        public Transform target;
-
-        public WalkTowards(Transform target)
+        public WalkTowards()
         {
-            this.target = target;
         }
 
         public Result Execute(AIAgent agent)
         {
-            //Get direction to target
-            Vector2 direction = target.position - agent.transform.position;
-            direction.Normalize();
-
-            //Direction should always be 1 or -1
-            float xInput = direction.x >= 0 ? 1 : -1;
-
-            CharacterMove move = agent.characterMove;
-
-            if(move)
+            if (agent.target)
             {
-                //Set direction to move
-                move.Move(xInput);
+                //Get direction to target
+                Vector2 direction = agent.target.position - agent.transform.position;
+                direction.Normalize();
 
-                //Should always succeed unless there is no movement script
-                return Result.Success;
+                //Direction should always be 1 or -1
+                float xInput = direction.x >= 0 ? 1 : -1;
+
+                CharacterMove move = agent.characterMove;
+
+                if (move)
+                {
+                    //Set direction to move
+                    move.Move(xInput);
+
+                    //Should always succeed unless there is no movement script
+                    return Result.Success;
+                }
             }
 
             //There was no movement script, so it failed
