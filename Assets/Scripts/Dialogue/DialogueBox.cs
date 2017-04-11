@@ -289,5 +289,11 @@ public class DialogueBox : MonoBehaviour
             yield return new WaitForEndOfFrame();
             timeElapsed += Time.deltaTime;
         }
+
+        //Set first selected button
+        if (buttons.Length > 0)
+            EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
+        else
+            EventSystem.current.SetSelectedGameObject(null);
     }
 }
