@@ -11,6 +11,8 @@ public class Rambush : AIAgent
 
     public override void ConstructBehaviour()
     {
+        //TODO: Actual rambush behaviour - currently similiar to blaze hair
+
         Selector moveTo = new Selector();
 
         Sequence walkIfOutsideRange = new Sequence();
