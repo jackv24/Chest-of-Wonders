@@ -129,8 +129,12 @@ MonoBehaviour:
       width: 0.042666666
       height: 0.07804878
     collData:
-      vertices: []
-      type: 1
+      vertices:
+      - {x: 0, y: 0}
+      - {x: 0, y: 1}
+      - {x: 1, y: 1}
+      - {x: 1, y: 0}
+      type: 2
     paramContainer:
       m_paramList: []
     prefabData:
