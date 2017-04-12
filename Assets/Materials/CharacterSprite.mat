@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: FlashingSprite
+  m_Name: CharacterSprite
   m_Shader: {fileID: 4800000, guid: 673b898da427b0d40b7468f3ab4f6a32, type: 3}
-  m_ShaderKeywords: _EMISSION
+  m_ShaderKeywords: PIXELSNAP_ON _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -72,7 +72,7 @@ Material:
     m_Floats:
     - first:
         name: PixelSnap
-      second: 0
+      second: 1
     - first:
         name: _BumpScale
       second: 1

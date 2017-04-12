@@ -120,7 +120,7 @@ Animator:
   m_GameObject: {fileID: 1283032372313482}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a75da770763872b47a171a87548dd6ce, type: 2}
+  m_Controller: {fileID: 9100000, guid: 75f90e61538e8604092d14b0dcc7b488, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd3d2bc7f777e948b7fe7850b11765b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   characterMove: {fileID: 0}
   characterAnimator: {fileID: 0}
   aggroRange: 5
@@ -228,11 +229,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 100
   maxHealth: 100
+  damageImmunityTime: 1
   damageTextOffset: {x: 0, y: 1}
   graphic: {fileID: 212107043697564826}
   flashAmount: 0.75
   flashInterval: 0.1
-  flashDuration: 0.5
   deathTime: 1
   deathParticlePrefab: {fileID: 0}
   deathParticleOffset: {x: 0, y: 0}
