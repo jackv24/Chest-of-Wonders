@@ -6,6 +6,8 @@ using BehaviourTree;
 public class AIAgent : MonoBehaviour
 {
     public Transform target;
+    [HideInInspector]
+    public int targetDirection = 0;
 
     [HideInInspector]
     public CharacterMove characterMove;

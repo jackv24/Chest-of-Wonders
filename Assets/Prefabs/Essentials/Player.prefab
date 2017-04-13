@@ -343,11 +343,11 @@ MonoBehaviour:
   slopeSpeedDampening: 1
   inputDirection: 0
   canMove: 1
-  jumpForce: 8
+  jumpForce: 10
   jumpTime: 0.5
   stopJumpDelay: 0.2
   isGrounded: 1
-  gravity: 30
+  gravity: 35
   maxFallSpeed: 20
   verticalRays: 3
   horizontalRays: 5

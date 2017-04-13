@@ -6,8 +6,8 @@
             "text": "Do you want to save your game?",
             "rect": {
                 "serializedVersion": "2",
-                "x": 24.0,
-                "y": 244.0,
+                "x": 28.0,
+                "y": 228.0,
                 "width": 300.0,
                 "height": 155.0
             },
@@ -15,32 +15,10 @@
             "options": [
                 {
                     "text": "Absolutely",
-                    "target": 1
-                },
-                {
-                    "text": "Wait, nevermind",
-                    "target": 2
-                }
-            ]
-        },
-        {
-            "id": 1,
-            "text": "Your previous save will be overwritten, is this okay?",
-            "rect": {
-                "serializedVersion": "2",
-                "x": 398.0,
-                "y": 24.0,
-                "width": 300.0,
-                "height": 155.0
-            },
-            "nextNode": -1,
-            "options": [
-                {
-                    "text": "Sure",
                     "target": 3
                 },
                 {
-                    "text": "Wait no",
+                    "text": "Wait, nevermind",
                     "target": 2
                 }
             ]
@@ -50,8 +28,8 @@
             "text": "Okay then, bye~",
             "rect": {
                 "serializedVersion": "2",
-                "x": 710.0,
-                "y": 286.0,
+                "x": 405.0,
+                "y": 368.0,
                 "width": 300.0,
                 "height": 115.0
             },
@@ -63,8 +41,8 @@
             "text": "<save>Game saved!",
             "rect": {
                 "serializedVersion": "2",
-                "x": 764.0,
-                "y": 14.0,
+                "x": 398.0,
+                "y": 135.0,
                 "width": 300.0,
                 "height": 115.0
             },

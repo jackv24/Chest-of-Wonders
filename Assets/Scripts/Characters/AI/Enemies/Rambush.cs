@@ -7,40 +7,40 @@ public class Rambush : AIAgent
 {
     public float aggroRange = 5f;
 
-    public float stopRange = 1f;
+    public float turnStopRange = 1f;
+    public bool defaultRight = false;
 
     public override void ConstructBehaviour()
     {
-        //TODO: Actual rambush behaviour - currently similiar to blaze hair
+        //TODO: Fix, currently broken if turnStopRange is larger than aggroRange
 
-        Selector moveTo = new Selector();
+        Sequence followTarget = new Sequence();
 
-        Sequence walkIfOutsideRange = new Sequence();
+        Sequence targetInRange = new Sequence();
+        targetInRange.behaviours.Add(new GetTarget("Player"));
+        targetInRange.behaviours.Add(new CheckRange(aggroRange));
 
-        CheckRange stop = new CheckRange(stopRange, true, false);
-        //WalkTowards walk = new WalkTowards(player.transform);
-        WalkTowards walk = new WalkTowards();
+        Selector turnToPlayer = new Selector();
+        turnToPlayer.behaviours.Add(new CheckFacingTarget());
 
-        walkIfOutsideRange.behaviours.Add(new InvertResult(stop));
-        walkIfOutsideRange.behaviours.Add(walk);
+        Sequence turnAfterDistance = new Sequence();
+        turnAfterDistance.behaviours.Add(new InvertResult(new CheckRange(turnStopRange)));
+        turnAfterDistance.behaviours.Add(new FaceTarget());
 
-        Sequence returnToIdle = new Sequence();
-        returnToIdle.behaviours.Add(new GetTarget("Player"));
-        returnToIdle.behaviours.Add(new InvertResult(new CheckRange(aggroRange)));
-        returnToIdle.behaviours.Add(new StopMovement());
+        turnToPlayer.behaviours.Add(turnAfterDistance);
 
-        moveTo.behaviours.Add(returnToIdle);
-        moveTo.behaviours.Add(walkIfOutsideRange);
-        moveTo.behaviours.Add(new StopMovement());
+        followTarget.behaviours.Add(targetInRange);
+        followTarget.behaviours.Add(turnToPlayer);
+        followTarget.behaviours.Add(new WalkTowards());
 
-        behaviour = moveTo;
+        behaviour = followTarget;
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(new Vector2(-stopRange, 1) + (Vector2)transform.position, new Vector2(-stopRange, -1) + (Vector2)transform.position);
-        Gizmos.DrawLine(new Vector2(stopRange, 1) + (Vector2)transform.position, new Vector2(stopRange, -1) + (Vector2)transform.position);
+        Gizmos.DrawLine(new Vector2(-turnStopRange, 1) + (Vector2)transform.position, new Vector2(-turnStopRange, -1) + (Vector2)transform.position);
+        Gizmos.DrawLine(new Vector2(turnStopRange, 1) + (Vector2)transform.position, new Vector2(turnStopRange, -1) + (Vector2)transform.position);
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, aggroRange);
