@@ -57,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953207987183754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 2, z: 0}
+  m_LocalPosition: {x: -7.48, y: 2.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4296625811126952}
@@ -209,16 +209,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7667fb90041ce4f4ba97529315162bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 200
-  maxHealth: 200
+  currentHealth: 50
+  maxHealth: 50
   damageImmunityTime: 1
   damageTextOffset: {x: 0, y: 1}
   graphic: {fileID: 212130082368449006}
   flashAmount: 0.75
   flashInterval: 0.1
-  deathTime: 1
-  deathParticlePrefab: {fileID: 0}
-  deathParticleOffset: {x: 0, y: 0}
+  deathTime: 0.5
+  deathParticlePrefab: {fileID: 1340143815941872, guid: d78ed4a9948b7804ea89c147e194ded0,
+    type: 2}
+  deathParticleOffset: {x: 0, y: 0.75}
 --- !u!114 &114954935987558174
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -41,6 +41,8 @@ public class CharacterStats : MonoBehaviour
 
     private void OnEnable()
     {
+        graphic.material.SetFloat("_FlashAmount", 0);
+
         damageImmunity = false;
     }
 
@@ -116,16 +118,18 @@ public class CharacterStats : MonoBehaviour
 
         while(elapsed < duration)
         {
-            //Flash on
-            mat.SetFloat("_FlashAmount", flashAmount);
-            yield return new WaitForSeconds(flashInterval);
-
             //Flash off
             mat.SetFloat("_FlashAmount", 0);
             yield return new WaitForSeconds(flashInterval);
 
+            //Flash on
+            mat.SetFloat("_FlashAmount", flashAmount);
+            yield return new WaitForSeconds(flashInterval);
+
             elapsed += flashInterval * 2;
         }
+
+        mat.SetFloat("_FlashAmount", 0);
 
         damageImmunity = false;
     }
