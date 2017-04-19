@@ -14,12 +14,14 @@ public class PlayerInput : MonoBehaviour
     //Character scripts
     private CharacterMove characterMove;
     private PlayerAttack playerAttack;
+    private CharacterStats characterStats;
 
     private void Awake()
     {
         //Get references
         characterMove = GetComponent<CharacterMove>();
         playerAttack = GetComponent<PlayerAttack>();
+        characterStats = GetComponent<CharacterStats>();
     }
 
     private void Start()
@@ -29,6 +31,14 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        if(characterStats && Debug.isDebugBuild)
+        {
+            if(Input.GetKeyDown(KeyCode.H))
+            {
+                characterStats.currentHealth = characterStats.maxHealth;
+            }
+        }
+
         if (characterMove)
         {
             //Get active device at start of frame (always current)
