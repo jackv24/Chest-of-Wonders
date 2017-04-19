@@ -1,0 +1,66 @@
+{
+    "speakerName": "Belle",
+    "nodes": [
+        {
+            "id": 0,
+            "text": "Hey, I see you're surviving!",
+            "rect": {
+                "serializedVersion": "2",
+                "x": 14.0,
+                "y": 54.0,
+                "width": 300.0,
+                "height": 155.0
+            },
+            "nextNode": -1,
+            "options": [
+                {
+                    "text": "What is this place?",
+                    "target": 1
+                },
+                {
+                    "text": "Pretty place",
+                    "target": 2
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "text": "I dunno.",
+            "rect": {
+                "serializedVersion": "2",
+                "x": 397.0,
+                "y": 102.0,
+                "width": 300.0,
+                "height": 115.0
+            },
+            "nextNode": -1,
+            "options": []
+        },
+        {
+            "id": 2,
+            "text": "Yeah its really nice for such an old castle",
+            "rect": {
+                "serializedVersion": "2",
+                "x": 399.0,
+                "y": 227.0,
+                "width": 300.0,
+                "height": 115.0
+            },
+            "nextNode": 3,
+            "options": []
+        },
+        {
+            "id": 3,
+            "text": "But stay on your toes parts could crumble at any time.",
+            "rect": {
+                "serializedVersion": "2",
+                "x": 745.0,
+                "y": 222.0,
+                "width": 300.0,
+                "height": 115.0
+            },
+            "nextNode": -1,
+            "options": []
+        }
+    ]
+}
