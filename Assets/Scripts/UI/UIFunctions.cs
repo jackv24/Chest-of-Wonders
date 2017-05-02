@@ -50,6 +50,11 @@ public class UIFunctions : MonoBehaviour
         SceneManager.LoadScene(index);
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public void ShowDeathScreen()
     {
         //If there is a death screen, enable it
