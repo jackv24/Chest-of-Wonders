@@ -3369,7 +3369,7 @@ MonoBehaviour:
       height: 0.029357798
     collData:
       vertices:
-      - {x: 0, y: 0.59375}
+      - {x: 0, y: 0.625}
       - {x: 0, y: 0.96875}
       - {x: 0.125, y: 1}
       - {x: 1, y: 1}
@@ -3389,8 +3389,12 @@ MonoBehaviour:
       width: 0.029357798
       height: 0.029357798
     collData:
-      vertices: []
-      type: 0
+      vertices:
+      - {x: 0, y: 0.71875}
+      - {x: 0, y: 1}
+      - {x: 1, y: 1}
+      - {x: 1, y: 0.75}
+      type: 2
     paramContainer:
       m_paramList: []
     prefabData:
@@ -3629,7 +3633,7 @@ MonoBehaviour:
       - {x: 0, y: 1}
       - {x: 1, y: 1}
       - {x: 1, y: 0}
-      type: 2
+      type: 1
     paramContainer:
       m_paramList: []
     prefabData:
@@ -3669,7 +3673,7 @@ MonoBehaviour:
       - {x: 0, y: 1}
       - {x: 1, y: 1}
       - {x: 1, y: 0}
-      type: 2
+      type: 1
     paramContainer:
       m_paramList: []
     prefabData:
@@ -3689,7 +3693,7 @@ MonoBehaviour:
       - {x: 0, y: 1}
       - {x: 1, y: 1}
       - {x: 1, y: 0}
-      type: 2
+      type: 1
     paramContainer:
       m_paramList: []
     prefabData:
@@ -4476,8 +4480,8 @@ MonoBehaviour:
     collData:
       vertices:
       - {x: 0.4375, y: 0}
-      - {x: 0.75, y: 0.09375}
-      - {x: 1, y: 0.09375}
+      - {x: 0.71875, y: 0.09375}
+      - {x: 1, y: 0.125}
       - {x: 1, y: 0}
       type: 2
     paramContainer:
@@ -4496,8 +4500,8 @@ MonoBehaviour:
     collData:
       vertices:
       - {x: 0, y: 0}
-      - {x: 0, y: 0.09375}
-      - {x: 1, y: 0.09375}
+      - {x: 0, y: 0.125}
+      - {x: 1, y: 0.125}
       - {x: 1, y: 0}
       type: 2
     paramContainer:
@@ -4516,7 +4520,7 @@ MonoBehaviour:
     collData:
       vertices:
       - {x: 0, y: 0}
-      - {x: 0, y: 0.09375}
+      - {x: 0, y: 0.125}
       - {x: 0.59375, y: 0.09375}
       - {x: 0.6875, y: 0}
       type: 2
@@ -5030,8 +5034,12 @@ MonoBehaviour:
       width: 0.029357798
       height: 0.029357798
     collData:
-      vertices: []
-      type: 0
+      vertices:
+      - {x: 0, y: 0.75}
+      - {x: 0, y: 1}
+      - {x: 1, y: 1}
+      - {x: 1, y: 0.71875}
+      type: 2
     paramContainer:
       m_paramList: []
     prefabData:
@@ -5500,7 +5508,7 @@ MonoBehaviour:
       - {x: 0, y: 0.40625}
       - {x: 0, y: 0.875}
       - {x: 0.28125, y: 1}
-      - {x: 0.9375, y: 1}
+      - {x: 1, y: 1}
       type: 2
     paramContainer:
       m_paramList: []

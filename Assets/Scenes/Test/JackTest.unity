@@ -443,12 +443,11 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
-  - {x: 0, y: 11.09375}
+  - {x: 0, y: 11.125}
   - {x: 0.59375, y: 11.09375}
   - {x: 0.6875, y: 11}
   - {x: 0.6875, y: 10.6875}
   - {x: 0, y: 10.75}
-  - {x: 0, y: 11}
 --- !u!68 &140238238
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -480,6 +479,8 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
+  - {x: 16, y: 10.75}
+  - {x: 15, y: 10.71875}
   - {x: 14, y: 10.625}
   - {x: 13, y: 10.375}
   - {x: 12, y: 10}
@@ -494,30 +495,26 @@ EdgeCollider2D:
   - {x: 13, y: 10.6875}
   - {x: 13.4375, y: 10.84375}
   - {x: 14, y: 10.96875}
-  - {x: 14, y: 10.59375}
-  - {x: 15, y: 10.71875}
-  - {x: 15, y: 11}
-  - {x: 16, y: 11}
-  - {x: 16, y: 10.71875}
-  - {x: 17, y: 10.625}
-  - {x: 18, y: 10.375}
-  - {x: 19, y: 10}
-  - {x: 20, y: 9.375}
-  - {x: 20, y: 9.875}
-  - {x: 19.71875, y: 10}
-  - {x: 19.40625, y: 10.15625}
-  - {x: 19, y: 10.34375}
-  - {x: 18.5, y: 10.5625}
-  - {x: 18, y: 10.65625}
-  - {x: 17.5, y: 10.84375}
-  - {x: 17, y: 10.9375}
-  - {x: 16.75, y: 11}
-  - {x: 16.4375, y: 11.09375}
-  - {x: 16, y: 11.125}
-  - {x: 15, y: 11.125}
-  - {x: 14.65625, y: 11.09375}
   - {x: 14.125, y: 11}
-  - {x: 14, y: 10.96875}
+  - {x: 14.65625, y: 11.09375}
+  - {x: 15, y: 11.125}
+  - {x: 16, y: 11.125}
+  - {x: 16.4375, y: 11.09375}
+  - {x: 16.75, y: 11}
+  - {x: 17, y: 10.9375}
+  - {x: 17.5, y: 10.84375}
+  - {x: 18, y: 10.65625}
+  - {x: 18.5, y: 10.5625}
+  - {x: 19, y: 10.34375}
+  - {x: 19.40625, y: 10.15625}
+  - {x: 19.71875, y: 10}
+  - {x: 20, y: 9.875}
+  - {x: 20, y: 9.375}
+  - {x: 19, y: 10}
+  - {x: 18, y: 10.375}
+  - {x: 17, y: 10.625}
+  - {x: 16, y: 10.71875}
+  - {x: 16, y: 11}
 --- !u!68 &140238240
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -616,8 +613,6 @@ GameObject:
   - component: {fileID: 142265244}
   - component: {fileID: 142265243}
   - component: {fileID: 142265242}
-  - component: {fileID: 142265241}
-  - component: {fileID: 142265240}
   m_Layer: 8
   m_Name: -1_0
   m_TagString: Untagged
@@ -753,22 +748,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 142265228}
   m_Mesh: {fileID: 0}
---- !u!68 &142265240
-EdgeCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 142265228}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 81f318896039f0041a9d6ef19457de8a, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-  - {x: 60, y: 11}
-  - {x: 59, y: 11}
---- !u!68 &142265241
+--- !u!68 &142265242
 EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -782,9 +762,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
   - {x: 58.4375, y: 11}
-  - {x: 58.75, y: 11.09375}
-  - {x: 60, y: 11.09375}
---- !u!68 &142265242
+  - {x: 58.71875, y: 11.09375}
+  - {x: 59, y: 11.125}
+  - {x: 60, y: 11.125}
+--- !u!68 &142265243
 EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -802,23 +783,6 @@ EdgeCollider2D:
   - {x: 35, y: 16}
   - {x: 36, y: 16}
   - {x: 36, y: 11}
---- !u!68 &142265243
-EdgeCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 142265228}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 81f318896039f0041a9d6ef19457de8a, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-  - {x: 58, y: 10.625}
-  - {x: 57, y: 10.375}
-  - {x: 56, y: 10}
-  - {x: 55.28125, y: 10}
 --- !u!68 &142265244
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -832,7 +796,6 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
-  - {x: 44.4375, y: 11.09375}
   - {x: 44.75, y: 11}
   - {x: 45, y: 10.9375}
   - {x: 45.5, y: 10.84375}
@@ -847,18 +810,17 @@ EdgeCollider2D:
   - {x: 46, y: 10.375}
   - {x: 45, y: 10.625}
   - {x: 44, y: 10.71875}
-  - {x: 44, y: 11}
-  - {x: 43, y: 11}
-  - {x: 42.75, y: 11.09375}
-  - {x: 42.4375, y: 11}
-  - {x: 42, y: 10.9375}
-  - {x: 41.6875, y: 10.90625}
-  - {x: 41.78125, y: 10.625}
-  - {x: 42, y: 10.625}
   - {x: 43, y: 10.75}
+  - {x: 42, y: 10.625}
+  - {x: 41.78125, y: 10.625}
+  - {x: 41.6875, y: 10.90625}
+  - {x: 42, y: 10.9375}
+  - {x: 42.4375, y: 11}
+  - {x: 42.71875, y: 11.09375}
   - {x: 43, y: 11.125}
   - {x: 44, y: 11.125}
   - {x: 44.4375, y: 11.09375}
+  - {x: 44.75, y: 11}
 --- !u!68 &142265245
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -872,7 +834,11 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
-  - {x: 55.9375, y: 10}
+  - {x: 60, y: 10.75}
+  - {x: 59, y: 10.71875}
+  - {x: 58, y: 10.625}
+  - {x: 57, y: 10.375}
+  - {x: 56, y: 10}
   - {x: 55, y: 9.40625}
   - {x: 54.46875, y: 9}
   - {x: 54, y: 9}
@@ -884,11 +850,8 @@ EdgeCollider2D:
   - {x: 57, y: 10.6875}
   - {x: 57.4375, y: 10.84375}
   - {x: 58, y: 10.96875}
-  - {x: 58, y: 10.59375}
-  - {x: 59, y: 10.71875}
-  - {x: 59, y: 11}
   - {x: 58.125, y: 11}
-  - {x: 58, y: 10.96875}
+  - {x: 59, y: 11}
 --- !u!68 &142265246
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -989,7 +952,7 @@ MonoBehaviour:
   m_sortingLayer: 1202196009
   m_sortingLayerName: Default
   m_orderInLayer: 0
-  m_material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_material: {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_tintColor: {r: 1, g: 1, b: 1, a: 1}
   m_pixelSnap: 1
   m_isVisible: 1
@@ -1063,7 +1026,7 @@ MonoBehaviour:
   m_sortingLayer: 423766951
   m_sortingLayerName: Default
   m_orderInLayer: 0
-  m_material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_material: {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_tintColor: {r: 1, g: 1, b: 1, a: 1}
   m_pixelSnap: 1
   m_isVisible: 1
@@ -1523,7 +1486,7 @@ MonoBehaviour:
   m_sortingLayer: 1202196009
   m_sortingLayerName: Default
   m_orderInLayer: 1
-  m_material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_material: {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_tintColor: {r: 1, g: 1, b: 1, a: 1}
   m_pixelSnap: 1
   m_isVisible: 1
@@ -1939,7 +1902,7 @@ MonoBehaviour:
   - {fileID: 169656095}
   - {fileID: 1254046875}
   - {fileID: 222235228}
-  m_selectedIndex: 2
+  m_selectedIndex: 1
   m_unselectedColorMultiplier: 1
 --- !u!4 &1442324607
 Transform:
