@@ -8,26 +8,26 @@ public class HUDControl : MonoBehaviour
     public GameObject player;
 
     [Space()]
-    public Image healthSlider;
+    public Image healthBar;
     public Text healthText;
     private string healthTextString;
 
+    [Space()]
+    public Image manaBar;
+    public Text manaText;
+    private string manaTextString;
+
+    public float barLerpSpeed = 1f;
+
     [System.Serializable]
-    public class ManaBar
+    public class AttackSlot
     {
         public Image attackIcon;
-        public Image slider;
-        public Text sliderText;
         public Image cooldownImage;
-
-        [HideInInspector]
-        public string sliderTextString;
     }
     [Space()]
-    public ManaBar manaBar;
-
-    [Space()]
-    public float barLerpSpeed = 1f;
+    public AttackSlot primarySlot;
+    public AttackSlot secondarySlot;
 
     private CharacterStats playerStats;
     private PlayerAttack playerAttack;
@@ -44,10 +44,14 @@ public class HUDControl : MonoBehaviour
 
             if (playerAttack)
             {
-                if(manaBar.sliderText)
-                    manaBar.sliderTextString = manaBar.sliderText.text;
+                if(manaText)
+                    manaTextString = manaText.text;
 
-                LoadManaBar();
+                playerAttack.OnSwitchMagic += UpdateAttackSlots;
+
+                UpdateAttackSlots();
+
+                StartCoroutine("UpdateCooldowns");
             }
         }
 
@@ -61,8 +65,8 @@ public class HUDControl : MonoBehaviour
         if (playerStats)
         {
             //Health bar
-            if (healthSlider)
-                healthSlider.fillAmount = Mathf.Lerp(healthSlider.fillAmount, (float)playerStats.currentHealth / playerStats.maxHealth, barLerpSpeed * Time.deltaTime);
+            if (healthBar)
+                healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, (float)playerStats.currentHealth / playerStats.maxHealth, barLerpSpeed * Time.deltaTime);
 
             if (healthText)
                 healthText.text = string.Format(healthTextString, playerStats.currentHealth, playerStats.maxHealth);
@@ -71,59 +75,61 @@ public class HUDControl : MonoBehaviour
         if (playerAttack)
         {
             //if there is a magic attack in the slot
-            if (playerAttack.magicSlotSelected.attack)
+            if (playerAttack.magicSlot1.attack)
             {
                 //Update slider
-                if (manaBar.slider)
-                    manaBar.slider.fillAmount = Mathf.Lerp(manaBar.slider.fillAmount, (float)playerAttack.magicSlotSelected.currentMana / playerAttack.magicSlotSelected.attack.manaAmount, barLerpSpeed * Time.deltaTime);
+                if (manaBar)
+                    manaBar.fillAmount = Mathf.Lerp(manaBar.fillAmount, (float)playerAttack.magicSlot1.currentMana / playerAttack.magicSlot1.attack.manaAmount, barLerpSpeed * Time.deltaTime);
 
                 //Update slider text
-                if (manaBar.sliderText)
-                    manaBar.sliderText.text = string.Format(manaBar.sliderTextString, playerAttack.magicSlotSelected.currentMana, playerAttack.magicSlotSelected.attack.manaAmount);
+                if (manaText)
+                    manaText.text = string.Format(manaTextString, playerAttack.magicSlot1.currentMana, playerAttack.magicSlot1.attack.manaAmount);
             }
         }
     }
 
     //Loads display for mana bars
-    void LoadManaBar()
+    void UpdateAttackSlots()
     {
-        if (manaBar.attackIcon)
+        if (primarySlot.attackIcon)
         {
             //If there is an attack in the slot
-            if (playerAttack.magicSlotSelected.attack)
+            if (playerAttack.magicSlot1.attack)
             {
                 //Set attack icon
-                manaBar.attackIcon.sprite = playerAttack.magicSlotSelected.attack.icon;
-                //Show mana bar
-                manaBar.attackIcon.transform.parent.gameObject.SetActive(true);
+                primarySlot.attackIcon.sprite = playerAttack.magicSlot1.attack.icon;
             }
-            else
-                //If there is no attack in slot, hide bar
-                manaBar.attackIcon.transform.parent.gameObject.SetActive(false);
+        }
+
+        if (secondarySlot.attackIcon)
+        {
+            //If there is an attack in the slot
+            if (playerAttack.magicSlot2.attack)
+            {
+                //Set attack icon
+                secondarySlot.attackIcon.sprite = playerAttack.magicSlot2.attack.icon;
+            }
         }
     }
 
-    //IEnumerator Cooldown(int slot)
-    //{
-    //    //Get appropriate slot and bar from slot number
-    //    PlayerAttack.MagicSlot s = slot == 1 ? playerAttack.magicSlot1 : playerAttack.magicSlot2;
+    IEnumerator UpdateCooldowns()
+    {
+        while (true)
+        {
+            yield return new WaitForEndOfFrame();
 
-    //    if (manaBar.cooldownImage)
-    //    {
-    //        //Loop for time
-    //        float timeElapsed = 0;
-    //        while (timeElapsed <= s.attack.cooldownTime)
-    //        {
-    //            //Set cooldown image fill amount
-    //            manaBar.cooldownImage.fillAmount = 1 - (timeElapsed / s.attack.cooldownTime);
+            if (playerAttack)
+            {
+                if (primarySlot.cooldownImage)
+                {
+                    primarySlot.cooldownImage.fillAmount = (playerAttack.magicSlot1.nextFireTime - Time.time) / playerAttack.magicSlot1.attack.cooldownTime;
+                }
 
-    //            //Do with frame
-    //            yield return new WaitForEndOfFrame();
-    //            timeElapsed += Time.deltaTime;
-    //        }
-
-    //        //Make sure it's 0 at the end to prevent artifacts
-    //        manaBar.cooldownImage.fillAmount = 0;
-    //    }
-    //}
+                if (secondarySlot.cooldownImage)
+                {
+                    secondarySlot.cooldownImage.fillAmount = (playerAttack.magicSlot2.nextFireTime - Time.time) / playerAttack.magicSlot2.attack.cooldownTime;
+                }
+            }
+        }
+    }
 }

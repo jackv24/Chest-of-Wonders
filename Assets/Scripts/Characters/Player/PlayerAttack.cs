@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public delegate void NormalEvent();
+    public event NormalEvent OnSwitchMagic;
+
     [System.Serializable]
     public class MagicSlot
     {
@@ -14,8 +17,6 @@ public class PlayerAttack : MonoBehaviour
 
     public MagicSlot magicSlot1;
     public MagicSlot magicSlot2;
-    [HideInInspector]
-    public MagicSlot magicSlotSelected;
 
     [Space()]
     public Transform forwardFirePoint;
@@ -72,9 +73,6 @@ public class PlayerAttack : MonoBehaviour
         if (magicSlot2.attack)
             magicSlot2.currentMana = magicSlot2.attack.manaAmount;
 
-        if (magicSlot1 != null)
-            magicSlotSelected = magicSlot1;
-
         //Create event handler to update the players facing direction
         if (characterMove)
             characterMove.OnChangedDirection += delegate (float newDir) { directionX = newDir; };
@@ -87,24 +85,20 @@ public class PlayerAttack : MonoBehaviour
             characterAnimator.MeleeAttack();
     }
 
-    //magic use functions to prevent index mismatch issues
-    public void UseMagic1(Vector2 direction)
+    public void SwitchMagic()
     {
-        if(characterMove.canMove)
-            UseMagic(magicSlot1, direction);
-    }
-    public void UseMagic2(Vector2 direction)
-    {
-        if(characterMove.canMove)
-            UseMagic(magicSlot2, direction);
+        MagicSlot temp = magicSlot1;
+        magicSlot1 = magicSlot2;
+        magicSlot2 = temp;
+
+        if (OnSwitchMagic != null)
+            OnSwitchMagic();
     }
 
     //Function to use magic, wrapped by other magic use functions
-    void UseMagic(MagicSlot slot, Vector2 direction)
+    public void UseMagic(Vector2 direction)
     {
-        //Selected magic slot is whatever was last used
-        //TODO: Replace with magic switching system
-        magicSlotSelected = slot;
+        MagicSlot slot = magicSlot1;
 
         //If magic slot was chosen correctly, and there is an attack in the slot
         if(slot != null && slot.attack && Time.time >= slot.nextFireTime)

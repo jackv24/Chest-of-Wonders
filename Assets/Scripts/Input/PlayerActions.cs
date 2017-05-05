@@ -14,8 +14,8 @@ public class PlayerActions : PlayerActionSet
     public PlayerTwoAxisAction Move;
 
     public PlayerAction MeleeAttack;
-    public PlayerAction MagicAttack1;
-    public PlayerAction MagicAttack2;
+    public PlayerAction MagicAttack;
+    public PlayerAction MagicSwitch;
 
     public PlayerAction Interact;
     public PlayerAction Submit;
@@ -34,8 +34,8 @@ public class PlayerActions : PlayerActionSet
         Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
 
         MeleeAttack = CreatePlayerAction("Melee Attack");
-        MagicAttack1 = CreatePlayerAction("Magic Attack 1");
-        MagicAttack2 = CreatePlayerAction("Magic Attack 2");
+        MagicAttack = CreatePlayerAction("Magic Attack");
+        MagicSwitch = CreatePlayerAction("Magic Switch");
 
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");
@@ -71,11 +71,11 @@ public class PlayerActions : PlayerActionSet
         MeleeAttack.AddDefaultBinding(Key.J);
         MeleeAttack.AddDefaultBinding(InputControlType.Action3);
 
-        MagicAttack1.AddDefaultBinding(Key.K);
-        MagicAttack1.AddDefaultBinding(InputControlType.RightBumper);
+        MagicAttack.AddDefaultBinding(Key.K);
+        MagicAttack.AddDefaultBinding(InputControlType.RightTrigger);
 
-        MagicAttack2.AddDefaultBinding(Key.L);
-        MagicAttack2.AddDefaultBinding(InputControlType.RightTrigger);
+        MagicSwitch.AddDefaultBinding(Key.Tab);
+        MagicSwitch.AddDefaultBinding(InputControlType.RightBumper);
 
         //Misc
         Interact.AddDefaultBinding(Key.E);
