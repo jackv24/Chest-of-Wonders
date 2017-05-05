@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  targetDirection: 0
   characterMove: {fileID: 0}
   characterAnimator: {fileID: 0}
   aggroRange: 5
@@ -235,8 +236,9 @@ MonoBehaviour:
   flashAmount: 0.75
   flashInterval: 0.1
   deathTime: 1
-  deathParticlePrefab: {fileID: 0}
-  deathParticleOffset: {x: 0, y: 0}
+  deathParticlePrefab: {fileID: 1104381184592978, guid: 8ebb3aca29d9a0c42a88865fa9ee94c3,
+    type: 2}
+  deathParticleOffset: {x: 0, y: 0.5}
 --- !u!212 &212107043697564826
 SpriteRenderer:
   m_ObjectHideFlags: 1
