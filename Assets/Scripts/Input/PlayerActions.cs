@@ -73,6 +73,7 @@ public class PlayerActions : PlayerActionSet
 
         MagicAttack.AddDefaultBinding(Key.K);
         MagicAttack.AddDefaultBinding(InputControlType.RightTrigger);
+        MagicAttack.AddDefaultBinding(InputControlType.Action2);
 
         MagicSwitch.AddDefaultBinding(Key.Tab);
         MagicSwitch.AddDefaultBinding(InputControlType.RightBumper);

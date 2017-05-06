@@ -52,6 +52,8 @@ public class CharacterAnimationEvents : MonoBehaviour
 
     IEnumerator SlideStopOverTime(float slideTime)
     {
+        characterMove.canMove = false;
+
         while (!characterMove.isGrounded)
             yield return new WaitForEndOfFrame();
 
@@ -60,8 +62,6 @@ public class CharacterAnimationEvents : MonoBehaviour
             //Get initial velocity
             Vector2 vel = characterMove.velocity;
             float initialMoveSpeed = vel.x;
-
-            characterMove.canMove = false;
 
             float timeElapsed = 0;
 
