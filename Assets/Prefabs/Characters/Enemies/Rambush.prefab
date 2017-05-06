@@ -236,7 +236,8 @@ MonoBehaviour:
   characterMove: {fileID: 0}
   characterAnimator: {fileID: 0}
   aggroRange: 5
-  turnStopRange: 4
+  turnStopRange: 3
+  turnTime: 0.3
   defaultRight: 0
 --- !u!212 &212130082368449006
 SpriteRenderer:
