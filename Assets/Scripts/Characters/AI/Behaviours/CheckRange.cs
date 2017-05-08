@@ -14,6 +14,9 @@ namespace BehaviourTree
         public bool checkX = true;
         public bool checkY = true;
 
+        public bool isSticky = false;
+        private bool inRange = false;
+
         public CheckRange(float range)
         {
             this.range = range;
@@ -24,6 +27,20 @@ namespace BehaviourTree
             this.range = range;
             this.checkX = checkX;
             this.checkY = checkY;
+        }
+
+        public CheckRange(float range, bool isSticky)
+        {
+            this.range = range;
+            this.isSticky = isSticky;
+        }
+
+        public CheckRange(float range, bool checkX, bool checkY, bool isSticky)
+        {
+            this.range = range;
+            this.checkX = checkX;
+            this.checkY = checkY;
+            this.isSticky = isSticky;
         }
 
         public Result Execute(AIAgent agent)
@@ -40,7 +57,12 @@ namespace BehaviourTree
                 if (!checkY)
                     targetPos.y = agent.transform.position.y;
 
-                return Vector2.Distance(agent.transform.position, targetPos) <= range ? Result.Success : Result.Failure;
+                if (Vector2.Distance(agent.transform.position, targetPos) <= range)
+                    inRange = true;
+                else if (!isSticky)
+                    inRange = false;
+
+                return inRange ? Result.Success : Result.Failure;
             }
 
             return Result.Failure;

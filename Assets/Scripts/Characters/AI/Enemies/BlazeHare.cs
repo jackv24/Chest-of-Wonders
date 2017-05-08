@@ -27,7 +27,7 @@ public class BlazeHare : AIAgent
 
         Sequence returnToIdle = new Sequence();
         returnToIdle.behaviours.Add(new GetTarget("Player"));
-        returnToIdle.behaviours.Add(new InvertResult(new CheckRange(aggroRange)));
+        returnToIdle.behaviours.Add(new InvertResult(new CheckRange(aggroRange, true)));
         returnToIdle.behaviours.Add(new StopMovement());
 
         moveTo.behaviours.Add(returnToIdle);
