@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Doorway : MonoBehaviour
 {
-    public int targetLevelIndex = 2;
+    public int doorwayID = 0;
 
-    public Vector2 scenePosition;
+    public Vector2 exitOffset;
+
+    [Space()]
+    public SceneField targetLevel;
+    public int targetID = 0;
 
     [Space()]
     public float startDelay = 0.5f;
@@ -38,7 +43,7 @@ public class Doorway : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         //If a player enters this doorway, either use the doorway, or wait for button input in update
-        if (other.tag == "Player")
+        if (other.tag == "Player" && Time.time > startTime)
         {
             inDoor = true;
 
@@ -56,6 +61,11 @@ public class Doorway : MonoBehaviour
     void Use()
     {
         //Load level with player at position
-        GameManager.instance.LoadLevel(targetLevelIndex, scenePosition);
+        GameManager.instance.LoadLevel(targetLevel, targetID);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere((Vector2)transform.position + exitOffset, 0.25f);
     }
 }

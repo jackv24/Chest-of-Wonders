@@ -55,19 +55,19 @@ MonoBehaviour:
   saveSlot: 0
   defaultSaveData:
     autoSave:
-      sceneIndex: 2
+      sceneName: 
       position: {x: 0, y: 0}
     npcSave:
-      sceneIndex: 2
+      sceneName: 
       position: {x: 0, y: 0}
     maxHealth: 100
     currentHealth: 100
   data:
     autoSave:
-      sceneIndex: 0
+      sceneName: 
       position: {x: 0, y: 0}
     npcSave:
-      sceneIndex: 0
+      sceneName: 
       position: {x: 0, y: 0}
     maxHealth: 0
     currentHealth: 0
@@ -82,8 +82,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cae71eb9bba0d448dd51127d51ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSceneIndex: 2
-  loadedLevelIndex: -1
+  defaultLevel:
+    m_SceneAsset: {fileID: 102900000, guid: 6e935b660a453ad4f93ec0ed0b25c614, type: 3}
+    m_SceneName: JackTest
+  firstSceneName: 
+  loadedSceneName: 
   player: {fileID: 0}
   playerRespawnDelay: 3
   levelTransitionTime: 0.25

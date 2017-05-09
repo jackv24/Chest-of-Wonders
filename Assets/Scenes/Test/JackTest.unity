@@ -286,6 +286,27 @@ Prefab:
       propertyPath: scenePosition.x
       value: -24
       objectReference: {fileID: 0}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: targetLevel.m_SceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 6e935b660a453ad4f93ec0ed0b25c614,
+        type: 3}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: targetLevel.m_SceneName
+      value: JackTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: targetID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: exitOffset.x
+      value: -1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
   m_IsPrefabParent: 0
@@ -408,7 +429,7 @@ EdgeCollider2D:
   - {x: 22, y: 0.1875}
   - {x: 25, y: 0.1875}
   - {x: 25, y: 0}
-  - {x: 22, y: 0}
+  - {x: 23, y: 0}
 --- !u!114 &140238232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1166,15 +1187,11 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
-  - {x: 22, y: 60}
-  - {x: 22, y: 59}
-  - {x: 11, y: 59}
-  - {x: 11, y: 58}
-  - {x: 5, y: 58}
-  - {x: 5, y: 59}
-  - {x: 3, y: 59}
-  - {x: 3, y: 58}
-  - {x: 0, y: 58}
+  - {x: 23, y: 60}
+  - {x: 23, y: 59}
+  - {x: 18, y: 59}
+  - {x: 18, y: 56}
+  - {x: 0, y: 56}
 --- !u!68 &448295683
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -1425,6 +1442,32 @@ Prefab:
         type: 2}
       propertyPath: scenePosition.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: targetLevel.m_SceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 6e935b660a453ad4f93ec0ed0b25c614,
+        type: 3}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: targetLevel.m_SceneName
+      value: JackTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: doorwayID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: exitOffset.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: exitOffset.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
@@ -1869,15 +1912,9 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
-  - {x: 60, y: 58}
-  - {x: 56, y: 58}
-  - {x: 56, y: 59}
-  - {x: 52, y: 59}
-  - {x: 52, y: 58}
-  - {x: 50, y: 58}
-  - {x: 50, y: 59}
-  - {x: 48, y: 59}
-  - {x: 48, y: 58}
+  - {x: 60, y: 56}
+  - {x: 43, y: 56}
+  - {x: 43, y: 58}
   - {x: 40, y: 58}
   - {x: 40, y: 59}
   - {x: 39, y: 59}

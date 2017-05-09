@@ -39,7 +39,7 @@ public class SaveManager : MonoBehaviour
         if (player && data != null)
         {
             //Get location data for player (level and position)
-            SaveData.Location location = new SaveData.Location(GameManager.instance.loadedLevelIndex, player.transform.position);
+            SaveData.Location location = new SaveData.Location(GameManager.instance.loadedSceneName, player.transform.position);
 
             //Always update location for autosave
             data.autoSave = location;

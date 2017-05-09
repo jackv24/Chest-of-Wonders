@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     //Static instance for easy access
     public static GameManager instance;
 
-    public int firstSceneIndex = 2;
-    public int loadedLevelIndex = -1;
+    public SceneField defaultLevel;
+
+    private string firstSceneName = "";
+    [HideInInspector]
+    public string loadedSceneName = "";
 
     [Space()]
     public GameObject player;
@@ -72,7 +75,7 @@ public class GameManager : MonoBehaviour
         //If level is already open in the editor, use that instead
         else if (SceneManager.sceneCount == 2)
         {
-            loadedLevelIndex = SceneManager.GetSceneAt(1).buildIndex;
+            loadedSceneName = SceneManager.GetSceneAt(1).name;
         }
         else
             Debug.LogWarning("Too many scenes open!");
@@ -85,36 +88,63 @@ public class GameManager : MonoBehaviour
             TogglePaused();
     }
 
-    public void LoadLevel(int buildIndex, Vector2 playerPos)
+    public void LoadLevel(string sceneName, int doorwayID)
     {
         //Disable and set player position
         player.SetActive(false);
-        player.transform.position = playerPos;
 
         //Start the unload of old level and load of new level
-        StartCoroutine("ChangeLevel", buildIndex);
+        StartCoroutine(ChangeLevel(sceneName, doorwayID));
     }
 
-    IEnumerator ChangeLevel(int buildIndex)
+    IEnumerator ChangeLevel(string sceneName, int doorwayID)
     {
         float fadeTime = levelTransitionTime / 2;
 
         //If a level is already loaded, unload it
-        if (loadedLevelIndex >= 0)
+        if (loadedSceneName != "")
         {
             //Fade out
             UIFunctions.instance.ShowLoadingScreen(true, fadeTime);
             yield return new WaitForSeconds(fadeTime);
 
-            AsyncOperation async = SceneManager.UnloadSceneAsync(loadedLevelIndex);
+            AsyncOperation a = SceneManager.UnloadSceneAsync(loadedSceneName);
 
             //Wait until level has finished unloading
-            yield return async;
+            yield return a;
         }
 
         //Load new level additively, and keep track of it as loaded
-        SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
-        loadedLevelIndex = buildIndex;
+        AsyncOperation async = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        loadedSceneName = sceneName;
+
+        yield return async;
+
+        //If player has come through doorway, place them in correct position
+        if (doorwayID >= 0)
+        {
+            //Find doorway and place at doorway out position
+            GameObject[] doors = GameObject.FindGameObjectsWithTag("Doorway");
+
+            if (doors.Length < 1)
+                Debug.LogError("No doors found!");
+
+            bool found = false;
+
+            foreach(GameObject door in doors)
+            {
+                Doorway d = door.GetComponent<Doorway>();
+
+                if (d.doorwayID == doorwayID)
+                {
+                    player.transform.position = (Vector2)door.transform.position + d.exitOffset;
+                    found = true;
+                }
+            }
+
+            if(!found)
+                Debug.LogError("Target Doorway ID:" + doorwayID + " not found!");
+        }
 
         //Re-enable the player after level is loaded
         player.SetActive(true);
@@ -175,7 +205,7 @@ public class GameManager : MonoBehaviour
                 SaveData.Location location = reset ? data.npcSave : data.autoSave;
 
                 //Set first level to be loaded
-                firstSceneIndex = location.sceneIndex;
+                firstSceneName = location.sceneName;
                 player.transform.position = location.position;
 
                 CharacterStats stats = player.GetComponent<CharacterStats>();
@@ -194,7 +224,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (firstSceneName == "")
+            firstSceneName = defaultLevel;
+
         //After player data is loaded, load the level
-        LoadLevel(firstSceneIndex, player.transform.position);
+        LoadLevel(firstSceneName, -1);
     }
 }
