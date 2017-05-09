@@ -10,10 +10,26 @@ public class LevelBounds : MonoBehaviour
 
     private void Start()
     {
-        CameraFollow cam = FindObjectOfType<CameraFollow>();
+        StartCoroutine(FindCamera());
+    }
 
-        if(cam)
-            cam.SetBounds(this);
+    IEnumerator FindCamera()
+    {
+        bool found = false;
+
+        while (!found)
+        {
+            CameraFollow cam = Camera.main.GetComponent<CameraFollow>();
+
+            if(cam)
+            {
+                found = true;
+
+                cam.SetBounds(this);
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     private void OnDrawGizmosSelected()
