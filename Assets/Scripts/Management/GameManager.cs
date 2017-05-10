@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
     public void LoadLevel(string sceneName, int doorwayID)
     {
         //Disable and set player position
-        player.SetActive(false);
+        //player.SetActive(false);
 
         //Start the unload of old level and load of new level
         StartCoroutine(ChangeLevel(sceneName, doorwayID));
