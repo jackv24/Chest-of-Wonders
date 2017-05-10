@@ -120,6 +120,9 @@ public class GameManager : MonoBehaviour
 
         yield return async;
 
+        Vector2 targetPos = Vector2.zero;
+        bool exitRight = false;
+
         //If player has come through doorway, place them in correct position
         if (doorwayID >= 0)
         {
@@ -137,8 +140,13 @@ public class GameManager : MonoBehaviour
 
                 if (d.doorwayID == doorwayID)
                 {
-                    player.transform.position = (Vector2)door.transform.position + d.exitOffset;
+                    player.transform.position = (Vector2)door.transform.position;
+                    targetPos = (Vector2)door.transform.position + d.exitOffset;
+
                     found = true;
+
+                    if (d.exitOffset.x > 0)
+                        exitRight = true;
                 }
             }
 
@@ -158,6 +166,29 @@ public class GameManager : MonoBehaviour
 
         //Fade in
         UIFunctions.instance.ShowLoadingScreen(false, fadeTime);
+
+        PlayerInput input = player.GetComponent<PlayerInput>();
+        CharacterMove move = player.GetComponent<CharacterMove>();
+
+        if (input && move)
+        {
+            input.enabled = false;
+
+            float moveSpeed = move.moveSpeed;
+            move.moveSpeed *= 0.5f;
+
+            //Move player to doorway exit position
+            while ((exitRight && player.transform.position.x < targetPos.x) || (!exitRight && player.transform.position.x > targetPos.x))
+            {
+                move.Move(exitRight ? 1 : -1f);
+
+                yield return new WaitForEndOfFrame();
+            }
+
+            move.moveSpeed = moveSpeed;
+
+            input.enabled = true;
+        }
 
         //Save game after entering new room
         yield return new WaitForSeconds(autoSaveDelay);
