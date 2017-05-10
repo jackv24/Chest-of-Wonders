@@ -51,6 +51,10 @@ public class HUDControl : MonoBehaviour
 
                 UpdateAttackSlots();
 
+                //Reload magic UI display when attacks are loaded from save
+                if (GameManager.instance)
+                    GameManager.instance.OnSaveLoaded += UpdateAttackSlots;
+
                 StartCoroutine("UpdateCooldowns");
             }
         }

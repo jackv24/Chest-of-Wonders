@@ -25,4 +25,10 @@ public class SaveData
     //Player data
     public int maxHealth;
     public int currentHealth;
+
+    public MagicAttack attack1;
+    public int mana1;
+
+    public MagicAttack attack2;
+    public int mana2;
 }

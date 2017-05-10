@@ -155,7 +155,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -23.5, y: 9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -256,7 +256,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1904300614673374}
   m_BodyType: 1
-  m_Simulated: 1
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -349,7 +349,7 @@ MonoBehaviour:
   isGrounded: 1
   gravity: 35
   maxFallSpeed: 20
-  verticalRays: 3
+  verticalRays: 5
   horizontalRays: 5
   skinWidth: 0.01
   groundLayer:
@@ -357,6 +357,7 @@ MonoBehaviour:
     m_Bits: 256
   knockBackRecoveryTime: 0.1
   allowKnockback: 1
+  scriptControl: 1
   body: {fileID: 0}
   velocity: {x: 0, y: 0}
 --- !u!114 &114000014123730578
@@ -385,15 +386,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicSlot1:
     attack: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
-    currentMana: 0
+    currentMana: 100
     nextFireTime: 0
   magicSlot2:
     attack: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
-    currentMana: 0
-    nextFireTime: 0
-  magicSlotSelected:
-    attack: {fileID: 0}
-    currentMana: 0
+    currentMana: 100
     nextFireTime: 0
   forwardFirePoint: {fileID: 4265973003488688}
   upFirePoint: {fileID: 4894850495181718}

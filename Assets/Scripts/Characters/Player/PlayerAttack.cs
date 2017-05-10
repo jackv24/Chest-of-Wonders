@@ -67,12 +67,6 @@ public class PlayerAttack : MonoBehaviour
             magicSlot2.attack = null;
         }
 
-        //Set starting mana
-        if (magicSlot1.attack)
-            magicSlot1.currentMana = magicSlot1.attack.manaAmount;
-        if (magicSlot2.attack)
-            magicSlot2.currentMana = magicSlot2.attack.manaAmount;
-
         //Create event handler to update the players facing direction
         if (characterMove)
             characterMove.OnChangedDirection += delegate (float newDir) { directionX = newDir; };

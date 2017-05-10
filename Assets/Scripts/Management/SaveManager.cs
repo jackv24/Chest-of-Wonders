@@ -49,12 +49,22 @@ public class SaveManager : MonoBehaviour
                 data.npcSave = location;
 
             CharacterStats stats = player.GetComponent<CharacterStats>();
+            PlayerAttack attack = player.GetComponent<PlayerAttack>();
 
             if (stats)
             {
                 //Store player stats
                 data.maxHealth = stats.maxHealth;
                 data.currentHealth = stats.currentHealth;
+            }
+
+            if(attack)
+            {
+                data.attack1 = attack.magicSlot1.attack;
+                data.mana1 = attack.magicSlot1.currentMana;
+
+                data.attack2 = attack.magicSlot2.attack;
+                data.mana2 = attack.magicSlot2.currentMana;
             }
             
             //Serialise save data to JSON
@@ -84,7 +94,7 @@ public class SaveManager : MonoBehaviour
         {
             data = defaultSaveData;
 
-            return false;
+            return true;
         }
     }
 

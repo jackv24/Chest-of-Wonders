@@ -55,22 +55,30 @@ MonoBehaviour:
   saveSlot: 0
   defaultSaveData:
     autoSave:
-      sceneName: 
-      position: {x: 0, y: 0}
+      sceneName: JackTest
+      position: {x: -23.5, y: 9}
+    npcSave:
+      sceneName: JackTest
+      position: {x: -23.5, y: 9}
+    maxHealth: 100
+    currentHealth: 100
+    attack1: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
+    mana1: -1
+    attack2: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
+    mana2: -1
+  data:
+    autoSave:
+      sceneName: JackTest
+      position: {x: -23.5, y: 9}
     npcSave:
       sceneName: 
       position: {x: 0, y: 0}
     maxHealth: 100
     currentHealth: 100
-  data:
-    autoSave:
-      sceneName: 
-      position: {x: 0, y: 0}
-    npcSave:
-      sceneName: 
-      position: {x: 0, y: 0}
-    maxHealth: 0
-    currentHealth: 0
+    attack1: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
+    mana1: 100
+    attack2: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
+    mana2: 100
 --- !u!114 &114777719817609730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,7 +93,6 @@ MonoBehaviour:
   defaultLevel:
     m_SceneAsset: {fileID: 102900000, guid: 6e935b660a453ad4f93ec0ed0b25c614, type: 3}
     m_SceneName: JackTest
-  firstSceneName: 
   loadedSceneName: 
   player: {fileID: 0}
   playerRespawnDelay: 3

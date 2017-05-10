@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     //Events
     public delegate void NormalEvent();
     public delegate void BoolEvent(bool value);
+    public NormalEvent OnSaveLoaded;
     public NormalEvent OnLevelLoaded;
     public NormalEvent OnGameOver;
     public BoolEvent OnPausedChange;
@@ -91,7 +92,10 @@ public class GameManager : MonoBehaviour
     public void LoadLevel(string sceneName, int doorwayID)
     {
         //Disable and set player position
-        //player.SetActive(false);
+        CharacterMove move = player.GetComponent<CharacterMove>();
+
+        if (move)
+            move.scriptControl = false;
 
         //Start the unload of old level and load of new level
         StartCoroutine(ChangeLevel(sceneName, doorwayID));
@@ -170,7 +174,10 @@ public class GameManager : MonoBehaviour
         PlayerInput input = player.GetComponent<PlayerInput>();
         CharacterMove move = player.GetComponent<CharacterMove>();
 
-        if (input && move)
+        if (move)
+            move.scriptControl = true;
+
+        if (input && move && doorwayID >= 0)
         {
             input.enabled = false;
 
@@ -249,9 +256,20 @@ public class GameManager : MonoBehaviour
                     stats.maxHealth = data.maxHealth;
                 }
 
+                if(attack)
+                {
+                    attack.magicSlot1.attack = data.attack1;
+                    attack.magicSlot1.currentMana = data.mana1 >= 0 ? data.mana1 : data.attack1.manaAmount;
+
+                    attack.magicSlot2.attack = data.attack2;
+                    attack.magicSlot2.currentMana = data.mana2 >= 0 ? data.mana2 : data.attack2.manaAmount;
+                }
+
                 if (reset && attack)
                     attack.ResetMana();
 
+                if (OnSaveLoaded != null)
+                    OnSaveLoaded();
             }
         }
 
