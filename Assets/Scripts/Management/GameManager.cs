@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
 
         yield return async;
 
-        Vector2 targetPos = Vector2.zero;
+        float targetPos = 0;
         bool exitRight = false;
 
         //If player has come through doorway, place them in correct position
@@ -141,11 +141,11 @@ public class GameManager : MonoBehaviour
                 if (d.doorwayID == doorwayID)
                 {
                     player.transform.position = (Vector2)door.transform.position;
-                    targetPos = (Vector2)door.transform.position + d.exitOffset;
+                    targetPos = door.transform.position.x + d.exitOffset;
 
                     found = true;
 
-                    if (d.exitOffset.x > 0)
+                    if (d.exitOffset > 0)
                         exitRight = true;
                 }
             }
@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
             move.moveSpeed *= 0.5f;
 
             //Move player to doorway exit position
-            while ((exitRight && player.transform.position.x < targetPos.x) || (!exitRight && player.transform.position.x > targetPos.x))
+            while ((exitRight && player.transform.position.x < targetPos) || (!exitRight && player.transform.position.x > targetPos))
             {
                 move.Move(exitRight ? 1 : -1f);
 

@@ -7,7 +7,7 @@ public class Doorway : MonoBehaviour
 {
     public int doorwayID = 0;
 
-    public Vector2 exitOffset;
+    public float exitOffset = 1.5f;
 
     [Space()]
     public SceneField targetLevel;
@@ -66,6 +66,6 @@ public class Doorway : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere((Vector2)transform.position + exitOffset, 0.25f);
+        Gizmos.DrawWireSphere((Vector2)transform.position + new Vector2(exitOffset, 0), 0.25f);
     }
 }
