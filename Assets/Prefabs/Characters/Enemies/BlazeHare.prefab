@@ -202,6 +202,7 @@ MonoBehaviour:
     m_Bits: 256
   knockBackRecoveryTime: 0.25
   allowKnockback: 1
+  scriptControl: 1
   body: {fileID: 0}
   velocity: {x: 0, y: 0}
 --- !u!114 &114221548071508702
@@ -230,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 100
   maxHealth: 100
+  element: 1
   damageImmunityTime: 1
   damageTextOffset: {x: 0, y: 1}
   graphic: {fileID: 212107043697564826}

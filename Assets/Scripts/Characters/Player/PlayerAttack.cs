@@ -182,6 +182,10 @@ public class PlayerAttack : MonoBehaviour
             Projectile proj = obj.GetComponent<Projectile>();
             //Set as owner of projectile
             proj.SetOwner(gameObject);
+
+            //Projectile should have the same element as the attack that fired it
+            proj.element = fire.attack.element;
+
             //Get projectile moving
             proj.Fire(dir);
         }

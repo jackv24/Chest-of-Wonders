@@ -11,6 +11,10 @@ public class DamageText : MonoBehaviour
     //Prefab to spawn for damage text
     public GameObject textPrefab;
 
+    [Space()]
+    public Sprite damageUp;
+    public Sprite damageDown;
+
     //Animation
     [Space()]
     public float textLifeTime = 2f;
@@ -22,7 +26,7 @@ public class DamageText : MonoBehaviour
         instance = this;
     }
 
-    public void ShowDamageText(Vector2 characterPos, int amount)
+    public void ShowDamageText(Vector2 characterPos, int amount, int effectiveNess)
     {
         //Get damage text and make sure it is parented to this canvas
         GameObject obj = ObjectPooler.GetPooledObject(textPrefab);
@@ -35,6 +39,17 @@ public class DamageText : MonoBehaviour
         //Set damage text
         Text damageText = obj.GetComponent<Text>();
         damageText.text = amount.ToString();
+
+        if(effectiveNess != 0)
+        {
+            Image img = damageText.GetComponentInChildren<Image>();
+
+            if(img)
+            {
+                img.sprite = effectiveNess > 0 ? damageUp : damageDown;
+                img.color = Color.white;
+            }
+        }
 
         StartCoroutine("AnimateText", obj);
     }

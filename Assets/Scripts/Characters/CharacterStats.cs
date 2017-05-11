@@ -10,6 +10,8 @@ public class CharacterStats : MonoBehaviour
     public int currentHealth = 100;
     public int maxHealth = 100;
 
+    public ElementHelper.Element element;
+
     [Space()]
     public float damageImmunityTime = 1.0f;
     public Vector2 damageTextOffset = Vector2.up;
@@ -47,7 +49,7 @@ public class CharacterStats : MonoBehaviour
     }
 
     //Removes the specified amount of health
-    public bool RemoveHealth(int amount)
+    public bool RemoveHealth(int amount, int effectiveness)
     {
         //Do not remove health if immune to damage
         if (damageImmunity)
@@ -56,7 +58,7 @@ public class CharacterStats : MonoBehaviour
         currentHealth -= amount;
 
         if (DamageText.instance)
-            DamageText.instance.ShowDamageText((Vector2)transform.position + damageTextOffset, amount);
+            DamageText.instance.ShowDamageText((Vector2)transform.position + damageTextOffset, amount, effectiveness);
 
         //Keep health above or equal to 0
         if (currentHealth <= 0)
@@ -74,6 +76,19 @@ public class CharacterStats : MonoBehaviour
 
         //Health was removed, so return true
         return true;
+    }
+
+    public bool RemoveHealth(int amount)
+    {
+        return RemoveHealth(amount, 0);
+    }
+
+    public bool RemoveHealth(int amount, ElementHelper.Element sourceElement)
+    {
+        int newAmount = ElementHelper.CalculateDamage(amount, sourceElement, element);
+
+        //Return new calulcated health with the effectiveness
+        return RemoveHealth(newAmount, newAmount != amount ? (newAmount > amount ? 1 : -1) : 0);
     }
 
     public void Die()

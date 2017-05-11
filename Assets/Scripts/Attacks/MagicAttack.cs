@@ -9,9 +9,10 @@ public class MagicAttack : ScriptableObject
     public Sprite icon;
 
     [Space()]
+    public ElementHelper.Element element;
     public int manaCost = 10;
-    public float cooldownTime = 1f;
     public int manaAmount = 100;
+    public float cooldownTime = 1f;
 
     [Space()]
     public GameObject castEffect;

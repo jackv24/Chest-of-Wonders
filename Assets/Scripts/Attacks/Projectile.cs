@@ -19,6 +19,10 @@ public class Projectile : MonoBehaviour
     public bool destroyOnCollision = true;
     public GameObject explosionPrefab;
 
+    //Hidden from inspector as value is set by script when fired
+    [HideInInspector]
+    public ElementHelper.Element element;
+
     private Rigidbody2D body;
     private GameObject owner;
 
@@ -81,7 +85,7 @@ public class Projectile : MonoBehaviour
             if(stats)
             {
                 //Apply damage
-                stats.RemoveHealth(damageAmount);
+                stats.RemoveHealth(damageAmount, element);
             }
         }
 

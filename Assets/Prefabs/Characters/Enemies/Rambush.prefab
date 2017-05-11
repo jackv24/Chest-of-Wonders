@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 50
   maxHealth: 50
+  element: 3
   damageImmunityTime: 1
   damageTextOffset: {x: 0, y: 1}
   graphic: {fileID: 212130082368449006}

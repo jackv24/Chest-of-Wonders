@@ -2067,6 +2067,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPrefab: {fileID: 1625482758576090, guid: e4918c546d165a541adb3fbcaa4337b5, type: 2}
+  damageUp: {fileID: 21300000, guid: a5e7e446b02376249a2967dd2cc26153, type: 3}
+  damageDown: {fileID: 21300002, guid: a5e7e446b02376249a2967dd2cc26153, type: 3}
   textLifeTime: 0.75
   verticalMovement:
     serializedVersion: 2
