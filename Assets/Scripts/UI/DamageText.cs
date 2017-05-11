@@ -11,9 +11,17 @@ public class DamageText : MonoBehaviour
     //Prefab to spawn for damage text
     public GameObject textPrefab;
 
-    [Space()]
-    public Sprite damageUp;
-    public Sprite damageDown;
+    [System.Serializable]
+    public struct TextConfig
+    {
+        public Color textColor;
+        public Color outlineColor;
+        public int fontSize;
+    }
+
+    public TextConfig neutralText;
+    public TextConfig effectiveText;
+    public TextConfig ineffectiveText;
 
     //Animation
     [Space()]
@@ -38,23 +46,23 @@ public class DamageText : MonoBehaviour
 
         //Set damage text
         Text damageText = obj.GetComponent<Text>();
-        damageText.text = amount.ToString();
+        Outline outline = obj.GetComponent<Outline>();
 
+        TextConfig config = neutralText;
 
-        Image img = obj.GetComponentInChildren<Image>();
+        if (effectiveNess != 0)
+            config = effectiveNess > 0 ? effectiveText : ineffectiveText;
 
-        if(img)
+        if (damageText)
         {
-            if (effectiveNess != 0)
-            {
-                img.sprite = effectiveNess > 0 ? damageUp : damageDown;
-                img.color = Color.white;
-            }
-            else
-            {
-                img.sprite = null;
-                img.color = Color.clear;
-            }
+            damageText.text = amount.ToString();
+            damageText.fontSize = config.fontSize;
+            damageText.color = config.textColor;
+        }
+
+        if(outline)
+        {
+            outline.effectColor = config.outlineColor;
         }
 
         StartCoroutine("AnimateText", obj);
@@ -68,6 +76,8 @@ public class DamageText : MonoBehaviour
         Vector2 initialPos = posKeeper.worldPos;
         Text text = textObject.GetComponent<Text>();
 
+        Color initialColour = text.color;
+
         while (lifeTime < textLifeTime)
         {
             yield return new WaitForEndOfFrame();
@@ -76,7 +86,7 @@ public class DamageText : MonoBehaviour
             float percent = lifeTime / textLifeTime;
 
             posKeeper.worldPos = initialPos + new Vector2(0, verticalMovement.Evaluate(percent));
-            text.color = colourOverLifeTime.Evaluate(percent);
+            text.color = initialColour * colourOverLifeTime.Evaluate(percent);
         }
 
         textObject.SetActive(false);
