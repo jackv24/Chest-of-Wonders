@@ -354,11 +354,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magicSlot1:
-    attack: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
+    attack: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
     currentMana: 100
     nextFireTime: 0
   magicSlot2:
-    attack: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
+    attack: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
     currentMana: 100
     nextFireTime: 0
   forwardFirePoint: {fileID: 4265973003488688}

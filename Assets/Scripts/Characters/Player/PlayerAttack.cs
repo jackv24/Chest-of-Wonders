@@ -65,6 +65,9 @@ public class PlayerAttack : MonoBehaviour
             //Move second magic attack to first slot
             magicSlot1.attack = magicSlot2.attack;
             magicSlot2.attack = null;
+
+            if (OnSwitchMagic != null)
+                OnSwitchMagic();
         }
 
         //Create event handler to update the players facing direction
