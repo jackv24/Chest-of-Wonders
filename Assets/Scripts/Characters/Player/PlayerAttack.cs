@@ -98,21 +98,30 @@ public class PlayerAttack : MonoBehaviour
         MagicSlot slot = magicSlot1;
 
         //If magic slot was chosen correctly, and there is an attack in the slot
-        if(slot != null && slot.attack && Time.time >= slot.nextFireTime)
+        if (Time.time >= slot.nextFireTime)
         {
-            slot.nextFireTime = Time.time + slot.attack.cooldownTime;
-
-            //If there is enough mana to use this attack
-            if (slot.currentMana >= slot.attack.manaCost)
+            if (slot != null && slot.attack)
             {
-                //Subtract required mana
-                slot.currentMana -= slot.attack.manaCost;
+                slot.nextFireTime = Time.time + slot.attack.cooldownTime;
 
-                //Fire projectile after delay (timed to animation)
-                StartCoroutine("FireWithDelay", new FireProjectile(slot.attack, direction));
+                //If there is enough mana to use this attack
+                if (slot.currentMana >= slot.attack.manaCost)
+                {
+                    //Subtract required mana
+                    slot.currentMana -= slot.attack.manaCost;
+
+                    //Fire projectile after delay (timed to animation)
+                    StartCoroutine("FireWithDelay", new FireProjectile(slot.attack, direction));
+                }
+                else
+                    StartCoroutine("FireWithDelay", new FireProjectile(null, direction));
             }
             else
+            {
+                slot.nextFireTime = Time.time + 0.5f;
+
                 StartCoroutine("FireWithDelay", new FireProjectile(null, direction));
+            }
 
             if (characterAnimator)
             {
