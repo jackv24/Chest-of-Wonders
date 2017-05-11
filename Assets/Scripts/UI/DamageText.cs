@@ -40,14 +40,20 @@ public class DamageText : MonoBehaviour
         Text damageText = obj.GetComponent<Text>();
         damageText.text = amount.ToString();
 
-        if(effectiveNess != 0)
-        {
-            Image img = damageText.GetComponentInChildren<Image>();
 
-            if(img)
+        Image img = obj.GetComponentInChildren<Image>();
+
+        if(img)
+        {
+            if (effectiveNess != 0)
             {
                 img.sprite = effectiveNess > 0 ? damageUp : damageDown;
                 img.color = Color.white;
+            }
+            else
+            {
+                img.sprite = null;
+                img.color = Color.clear;
             }
         }
 
