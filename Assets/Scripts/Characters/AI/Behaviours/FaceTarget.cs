@@ -7,22 +7,26 @@ namespace BehaviourTree
     /// <summary>
     /// Returns success if the target is within the specified range
     /// </summary>
-    public class FaceTarget : IBehaviour
+    public class StopFaceTarget : IBehaviour
     {
-        public float turnTime = 0.25f;
-        private float hasTurnedTime = 0;
+        private bool hasStopped = false;
 
         private bool shouldTurn = false;
+        private bool canStop = true;
 
         private Animator anim;
 
-        public FaceTarget()
+        public GameObject slideEffect;
+        private GameObject currentSlideEffect;
+        private bool startedSlideEffect = false;
+
+        public StopFaceTarget()
         {
         }
 
-        public FaceTarget(float turnTime)
+        public StopFaceTarget(GameObject slideEffect)
         {
-            this.turnTime = turnTime;
+            this.slideEffect = slideEffect;
         }
 
         public Result Execute(AIAgent agent)
@@ -41,25 +45,67 @@ namespace BehaviourTree
                 float dist = targetPos - selfPos;
 
                 //Face towards target
-                if(agent.targetDirection != (int)Mathf.Sign(dist) && Time.time > hasTurnedTime && shouldTurn == false)
+                if(agent.targetDirection != (int)Mathf.Sign(dist) && hasStopped && shouldTurn == false)
                 {
                     shouldTurn = true;
-                    hasTurnedTime = Time.time + turnTime;
 
                     if (agent.characterMove)
                         agent.characterMove.Move(0);
 
                     if (anim)
+                    {
                         anim.SetBool("turning", true);
+                    }
                 }
 
-                if (shouldTurn && Time.time < hasTurnedTime)
+                if (!hasStopped)
                 {
+                    anim.SetBool("stopping", true);
+
+                    if (agent.characterMove)
+                        agent.characterMove.Move(0);
+
+                    if (Mathf.Abs(agent.characterMove.velocity.x) < agent.characterMove.moveSpeed * 0.1f && canStop)
+                    {
+                        canStop = false;
+                        hasStopped = true;
+
+                        anim.SetBool("stopping", false);
+                    }
+
+                    if(currentSlideEffect)
+                        currentSlideEffect.transform.position = agent.transform.position;
+
+                    if (!startedSlideEffect)
+                    {
+                        startedSlideEffect = true;
+
+                        //Show slide effect
+                        if (slideEffect)
+                        {
+                            currentSlideEffect = ObjectPooler.GetPooledObject(slideEffect);
+
+                            ParticleSystem system = currentSlideEffect.GetComponentInChildren<ParticleSystem>();
+                            system.Play(true);
+                        }
+                    }
+
                     return Result.Pending;
                 }
                 else
                 {
                     shouldTurn = false;
+                    canStop = true;
+                    hasStopped = false;
+
+                    startedSlideEffect = false;
+
+                    if (currentSlideEffect)
+                    {
+                        ParticleSystem system = currentSlideEffect.GetComponentInChildren<ParticleSystem>();
+                        system.Stop();
+                        currentSlideEffect = null;
+                    }
 
                     if (anim)
                         anim.SetBool("turning", false);

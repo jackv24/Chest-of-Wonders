@@ -8,9 +8,10 @@ public class Rambush : AIAgent
     public float aggroRange = 5f;
 
     public float turnStopRange = 1f;
-    public float turnTime = 0.25f;
 
     public bool defaultRight = false;
+
+    public GameObject slideEffect;
 
     public override void ConstructBehaviour()
     {
@@ -27,7 +28,7 @@ public class Rambush : AIAgent
 
         Sequence turnAfterDistance = new Sequence();
         turnAfterDistance.behaviours.Add(new InvertResult(new CheckRange(turnStopRange)));
-        turnAfterDistance.behaviours.Add(new FaceTarget(turnTime));
+        turnAfterDistance.behaviours.Add(new StopFaceTarget(slideEffect));
 
         turnToPlayer.behaviours.Add(turnAfterDistance);
 

@@ -13,7 +13,7 @@ public class CharacterAnimationEvents : MonoBehaviour
     private bool canSlide = false;
 
     [Space()]
-    public ParticleSystem stepParticles;
+    public GameObject slideEffect;
 
     [Header("Attacks")]
     public GameObject batSwingCollider;
@@ -52,6 +52,14 @@ public class CharacterAnimationEvents : MonoBehaviour
 
     IEnumerator SlideStopOverTime(float slideTime)
     {
+        ParticleSystem system = null;
+
+        if (slideEffect)
+        {
+            GameObject newSlideParticles = ObjectPooler.GetPooledObject(slideEffect);
+            system = newSlideParticles.GetComponentInChildren<ParticleSystem>();
+        }
+
         characterMove.canMove = false;
 
         while (!characterMove.isGrounded)
@@ -68,14 +76,17 @@ public class CharacterAnimationEvents : MonoBehaviour
             //Slide over time
             while (timeElapsed <= slideTime)
             {
-                if (stepParticles)
+                if (system)
                 {
                     //Only show particles when on ground
-                    if (stepParticles.isStopped && characterMove.isGrounded)
-                        stepParticles.Play();
-                    else if (stepParticles.isPlaying && !characterMove.isGrounded)
-                        stepParticles.Stop();
+                    if (system.isStopped && characterMove.isGrounded)
+                        system.Play();
+                    else if (system.isPlaying && !characterMove.isGrounded)
+                        system.Stop();
                 }
+
+                if (system)
+                    system.transform.position = transform.position;
 
                 //Change velocity to fit curve (scaled)
                 vel.x = initialMoveSpeed * slideCurve.Evaluate(timeElapsed / slideTime);
@@ -87,15 +98,9 @@ public class CharacterAnimationEvents : MonoBehaviour
                 timeElapsed += Time.deltaTime;
             }
 
-            if (stepParticles)
-                stepParticles.Stop();
+            if (system)
+                system.Stop();
         }
-    }
-
-    public void EmitStepParticles(int amount)
-    {
-        if (stepParticles)
-            stepParticles.Emit(amount);
     }
 
     public void EnableBatCollider()
