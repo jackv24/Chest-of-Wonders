@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4099164834869566}
   - component: {fileID: 114777719817609730}
   - component: {fileID: 114625276708325380}
+  - component: {fileID: 114658657317432228}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -79,6 +80,34 @@ MonoBehaviour:
     mana1: 100
     attack2: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
     mana2: 100
+--- !u!114 &114658657317432228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706048386432494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5409c616bd63524096b4364d854b13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageArray:
+  - 1
+  - 0.75
+  - 1
+  - 1.25
+  - 1.25
+  - 0.75
+  - 1.25
+  - 1.5
+  - 1
+  - 0.75
+  - 1
+  - 0.75
+  - 1
+  - 0.5
+  - 1.5
+  - 1
 --- !u!114 &114777719817609730
 MonoBehaviour:
   m_ObjectHideFlags: 1

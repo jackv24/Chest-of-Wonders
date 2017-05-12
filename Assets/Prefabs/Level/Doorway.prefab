@@ -67,10 +67,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorwayID: 0
-  exitOffset: {x: 0, y: 0}
+  exitOffset: NaN
   targetLevel:
     m_SceneAsset: {fileID: 0}
     m_SceneName: 
   targetID: 0
-  startDelay: 0.5
+  startDelay: 0.25
   useButton: 0

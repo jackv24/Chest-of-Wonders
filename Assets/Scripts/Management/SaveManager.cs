@@ -15,6 +15,9 @@ public class SaveManager : MonoBehaviour
     public SaveData data = null;
     private string saveLocation;
 
+    //Assembled save location with slot number and editor extension
+    public string SaveLocation { get { return string.Format("{0}/Save{1}{2}.cow", Application.persistentDataPath, saveSlot, Application.isEditor ? "_editor" : ""); } }
+
     private GameObject player;
 
     void Awake()
@@ -80,7 +83,7 @@ public class SaveManager : MonoBehaviour
     public bool LoadGame()
     {
         //Concatenate save location with data path and save slot
-        saveLocation = string.Format("{0}/Save{1}.cow", Application.persistentDataPath, saveSlot);
+        saveLocation = SaveLocation;
 
         //Load existing save data first, if any
         if (System.IO.File.Exists(saveLocation))
@@ -98,19 +101,41 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void ClearSave()
+    public void ClearSave(bool clearAll)
     {
-        //Get file path to save slot
-        string location = string.Format("{0}/Save{1}.cow", Application.persistentDataPath, saveSlot);
-
-        //If the file exists, delete it
-        if (System.IO.File.Exists(location))
+        if (!clearAll)
         {
-            System.IO.File.Delete(location);
+            //Get file path to save slot
+            string location = SaveLocation;
 
-            Debug.Log("Save data cleared in slot " + saveSlot);
+            //If the file exists, delete it
+            if (System.IO.File.Exists(location))
+            {
+                System.IO.File.Delete(location);
+
+                Debug.Log("Save data cleared in slot " + saveSlot);
+            }
+            else
+                Debug.LogWarning("No save data exists in slot " + saveSlot);
         }
         else
-            Debug.LogWarning("No save data exists in slot " + saveSlot);
+        {
+            string[] files = System.IO.Directory.GetFiles(Application.persistentDataPath);
+
+            int fileCount = 0;
+
+            foreach (string file in files)
+            {
+                //Delete all .cow files in persistent storage
+                if (System.IO.Path.GetExtension(file) == ".cow")
+                {
+                    System.IO.File.Delete(file);
+
+                    fileCount++;
+                }
+            }
+
+            Debug.Log("Save Files deleted: " + fileCount);
+        }
     }
 }

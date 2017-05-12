@@ -300,7 +300,7 @@ Prefab:
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
       propertyPath: targetID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -1185,7 +1185,7 @@ Prefab:
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
       propertyPath: targetID
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -1526,7 +1526,7 @@ Prefab:
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
       propertyPath: targetID
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -1624,6 +1624,11 @@ Prefab:
         type: 2}
       propertyPath: exitOffset
       value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
+        type: 2}
+      propertyPath: targetID
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}

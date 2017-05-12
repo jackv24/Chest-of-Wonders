@@ -124,6 +124,8 @@ public class GameManager : MonoBehaviour
 
         yield return async;
 
+        player.SetActive(false);
+
         float targetPos = 0;
         bool exitRight = false;
 

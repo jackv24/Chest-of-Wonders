@@ -105,6 +105,9 @@ public class CharacterMove : MonoBehaviour
     private void OnEnable()
     {
         canMove = true;
+
+        if (body)
+            body.isKinematic = true;
     }
 
     private void Update()

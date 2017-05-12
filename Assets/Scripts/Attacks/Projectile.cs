@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
 
     //Hidden from inspector as value is set by script when fired
     [HideInInspector]
-    public ElementHelper.Element element;
+    public ElementManager.Element element;
 
     private Rigidbody2D body;
     private GameObject owner;

@@ -10,10 +10,10 @@ public class CharacterStats : MonoBehaviour
     public int currentHealth = 100;
     public int maxHealth = 100;
 
-    public ElementHelper.Element element;
+    public ElementManager.Element element;
 
     [Space()]
-    public float damageImmunityTime = 1.0f;
+    public float damageImmunityTime = 0.5f;
     public Vector2 damageTextOffset = Vector2.up;
 
     [Space()]
@@ -83,9 +83,9 @@ public class CharacterStats : MonoBehaviour
         return RemoveHealth(amount, 0);
     }
 
-    public bool RemoveHealth(int amount, ElementHelper.Element sourceElement)
+    public bool RemoveHealth(int amount, ElementManager.Element sourceElement)
     {
-        int newAmount = ElementHelper.CalculateDamage(amount, sourceElement, element);
+        int newAmount = ElementManager.CalculateDamage(amount, sourceElement, element);
 
         //Return new calulcated health with the effectiveness
         return RemoveHealth(newAmount, newAmount != amount ? (newAmount > amount ? 1 : -1) : 0);

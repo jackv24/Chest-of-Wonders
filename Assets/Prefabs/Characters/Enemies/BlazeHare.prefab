@@ -232,7 +232,7 @@ MonoBehaviour:
   currentHealth: 100
   maxHealth: 100
   element: 1
-  damageImmunityTime: 1
+  damageImmunityTime: 0.5
   damageTextOffset: {x: 0, y: 1}
   graphic: {fileID: 212107043697564826}
   flashAmount: 0.75
