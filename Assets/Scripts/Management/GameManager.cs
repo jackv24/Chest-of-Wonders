@@ -271,9 +271,6 @@ public class GameManager : MonoBehaviour
                         attack.magicSlot2.currentMana = data.mana2 >= 0 ? data.mana2 : data.attack2.manaAmount;
                 }
 
-                if (reset && attack)
-                    attack.ResetMana();
-
                 if (OnSaveLoaded != null)
                     OnSaveLoaded();
             }
