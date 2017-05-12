@@ -47,7 +47,7 @@ public class HUDControl : MonoBehaviour
                 if(manaText)
                     manaTextString = manaText.text;
 
-                playerAttack.OnSwitchMagic += UpdateAttackSlots;
+                playerAttack.OnUpdateMagic += UpdateAttackSlots;
 
                 UpdateAttackSlots();
 

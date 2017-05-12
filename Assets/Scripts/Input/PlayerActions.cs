@@ -17,6 +17,8 @@ public class PlayerActions : PlayerActionSet
     public PlayerAction MagicAttack;
     public PlayerAction MagicSwitch;
 
+    public PlayerAction AbsorbMagic;
+
     public PlayerAction Interact;
     public PlayerAction Submit;
     public PlayerAction Menu;
@@ -36,6 +38,8 @@ public class PlayerActions : PlayerActionSet
         MeleeAttack = CreatePlayerAction("Melee Attack");
         MagicAttack = CreatePlayerAction("Magic Attack");
         MagicSwitch = CreatePlayerAction("Magic Switch");
+
+        AbsorbMagic = CreatePlayerAction("Absorb Magic");
 
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");
@@ -77,6 +81,10 @@ public class PlayerActions : PlayerActionSet
 
         MagicSwitch.AddDefaultBinding(Key.Tab);
         MagicSwitch.AddDefaultBinding(InputControlType.RightBumper);
+
+        AbsorbMagic.AddDefaultBinding(Key.Shift);
+        AbsorbMagic.AddDefaultBinding(InputControlType.LeftTrigger);
+        AbsorbMagic.AddDefaultBinding(InputControlType.LeftBumper);
 
         //Misc
         Interact.AddDefaultBinding(Key.E);

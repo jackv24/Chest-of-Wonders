@@ -27,6 +27,10 @@ public class CharacterStats : MonoBehaviour
     public GameObject deathParticlePrefab;
     public Vector2 deathParticleOffset;
 
+    [Space()]
+    public GameObject deathDrop;
+    public Vector2 dropOffset = Vector2.up;
+
     //If health is zero or below, character is dead
     public bool IsDead { get { return currentHealth <= 0; } }
 
@@ -119,6 +123,12 @@ public class CharacterStats : MonoBehaviour
             OnDeath();
 
         graphic.material.SetFloat("_FlashAmount", 0);
+
+        if (deathDrop)
+        {
+            GameObject dropped = ObjectPooler.GetPooledObject(deathDrop);
+            dropped.transform.position = (Vector2)gameObject.transform.position + dropOffset;
+        }
 
         gameObject.SetActive(false);
     }

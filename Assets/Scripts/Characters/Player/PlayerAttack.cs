@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public delegate void NormalEvent();
-    public event NormalEvent OnSwitchMagic;
+    public event NormalEvent OnUpdateMagic;
 
     [System.Serializable]
     public class MagicSlot
@@ -66,8 +66,8 @@ public class PlayerAttack : MonoBehaviour
             magicSlot1.attack = magicSlot2.attack;
             magicSlot2.attack = null;
 
-            if (OnSwitchMagic != null)
-                OnSwitchMagic();
+            if (OnUpdateMagic != null)
+                OnUpdateMagic();
         }
 
         //Create event handler to update the players facing direction
@@ -88,8 +88,13 @@ public class PlayerAttack : MonoBehaviour
         magicSlot1 = magicSlot2;
         magicSlot2 = temp;
 
-        if (OnSwitchMagic != null)
-            OnSwitchMagic();
+        UpdateMagic();
+    }
+
+    public void UpdateMagic()
+    {
+        if (OnUpdateMagic != null)
+            OnUpdateMagic();
     }
 
     //Function to use magic, wrapped by other magic use functions
@@ -114,7 +119,9 @@ public class PlayerAttack : MonoBehaviour
                     StartCoroutine("FireWithDelay", new FireProjectile(slot.attack, direction));
                 }
                 else
+                {
                     StartCoroutine("FireWithDelay", new FireProjectile(null, direction));
+                }
             }
             else
             {
@@ -133,6 +140,13 @@ public class PlayerAttack : MonoBehaviour
                 characterAnimator.animator.SetFloat("vertical", direction.y);
                 //Set trigger for magic animation
                 characterAnimator.animator.SetTrigger("magic");
+            }
+
+            //If attack runs out of mana, it is lost
+            if (slot.currentMana <= 0)
+            {
+                slot.attack = null;
+                UpdateMagic();
             }
         }
     }
