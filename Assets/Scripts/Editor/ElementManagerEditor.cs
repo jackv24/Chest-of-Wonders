@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(ElementManager))]
 public class ElementManagerEditor : Editor
@@ -53,6 +54,15 @@ public class ElementManagerEditor : Editor
         }
 
         //Make sure values are saved
-        EditorUtility.SetDirty(target);
+        if(GUI.changed)
+        {
+            GameObject obj = ((ElementManager)target).gameObject;
+
+            //If this object is a prefab, mark it as dirty
+            if (PrefabUtility.GetPrefabObject(obj) != null)
+                EditorUtility.SetDirty(target);
+
+            EditorSceneManager.MarkSceneDirty(obj.scene);
+        }
     }
 }
