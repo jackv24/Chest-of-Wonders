@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     [Space()]
     public bool destroyOnCollision = true;
     public GameObject explosionPrefab;
+    public AnimationClip deathAnimClip;
 
     //Hidden from inspector as value is set by script when fired
     [HideInInspector]
@@ -25,10 +26,12 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody2D body;
     private GameObject owner;
+    private Animator animator;
 
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void OnEnable()
@@ -38,6 +41,9 @@ public class Projectile : MonoBehaviour
         body.angularVelocity = 0;
         body.rotation = 0;
 
+        if (animator)
+            animator.SetBool("isAlive", true);
+
         //Disable after its lifetime
         StartCoroutine("DisableAfterTime", lifeTime);
     }
@@ -46,8 +52,7 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        SpawnEffect();
-        gameObject.SetActive(false);
+        Die();
     }
 
     public void SetOwner(GameObject obj)
@@ -96,8 +101,7 @@ public class Projectile : MonoBehaviour
             StopCoroutine("DisableAfterTime");
 
             //Return to pool
-            SpawnEffect();
-            gameObject.SetActive(false);
+            Die();
         }
     }
 
@@ -112,5 +116,28 @@ public class Projectile : MonoBehaviour
             //Position at projectile position
             effect.transform.position = transform.position;
         }
+    }
+
+    void Die()
+    {
+        StartCoroutine("DeathAnimation");
+    }
+
+    IEnumerator DeathAnimation()
+    {
+        if (animator)
+        {
+            animator.SetBool("isAlive", false);
+        }
+
+        body.velocity = Vector2.zero;
+        body.angularVelocity = 0;
+
+        if (deathAnimClip)
+            yield return new WaitForSeconds(deathAnimClip.length);
+
+        SpawnEffect();
+
+        gameObject.SetActive(false);
     }
 }
