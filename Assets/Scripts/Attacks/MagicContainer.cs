@@ -11,6 +11,26 @@ public class MagicContainer : MonoBehaviour
     public float buttonHoldTime = 1.0f;
     private float buttonHeldTime = 0;
 
+    [Header("Fade Out")]
+    public SpriteRenderer[] fadeGraphics;
+    [Space()]
+    [Range(0, 1f)]
+    public float outOfRangeOpacity = 0.5f;
+    [Range(0, 1f)]
+    public float inRangeOpacity = 1.0f;
+    public float fadeTime = 0.5f;
+    private bool inRange = false;
+
+    [Header("Float Anim")]
+    public Transform[] toMove;
+    public AnimationCurve moveX;
+    public float magnitudeX = 0.5f;
+    public float animLengthX = 2.0f;
+    public AnimationCurve moveY;
+    public float magnitudeY = 0.5f;
+    public float animLengthY = 2.0f;
+    private float animTime = 0f;
+
     private PlayerActions playerActions;
 
     void Start()
@@ -23,11 +43,15 @@ public class MagicContainer : MonoBehaviour
         //Get all colliders in range
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, pickupRange);
 
+        inRange = false;
+
         foreach(Collider2D col in cols)
         {
             //If player is in range
             if (col.tag == "Player")
             {
+                inRange = true;
+
                 if (playerActions.AbsorbMagic.IsPressed)
                 {
                     //Count time button is held
@@ -40,6 +64,27 @@ public class MagicContainer : MonoBehaviour
                 else
                     buttonHeldTime = 0;
             }
+        }
+
+        foreach(SpriteRenderer r in fadeGraphics)
+        {
+            r.color = Color.Lerp(r.color,
+                new Color(
+                    r.color.r,
+                    r.color.g,
+                    r.color.b,
+                    inRange ? inRangeOpacity : outOfRangeOpacity),
+                (1/fadeTime) * Time.deltaTime);
+        }
+
+        animTime += Time.deltaTime;
+
+        foreach(Transform t in toMove)
+        {
+            t.position = new Vector3(
+                moveX.Evaluate(animTime / animLengthX) * magnitudeX,
+                moveY.Evaluate(animTime / animLengthY) * magnitudeY,
+                0) + transform.position;
         }
     }
 
