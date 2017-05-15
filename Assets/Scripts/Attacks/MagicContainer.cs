@@ -23,19 +23,31 @@ public class MagicContainer : MonoBehaviour
 
     [Header("Float Anim")]
     public Transform[] toMove;
+    private float animTime = 0f;
+    [Space()]
     public AnimationCurve moveX;
     public float magnitudeX = 0.5f;
     public float animLengthX = 2.0f;
+    [Space()]
     public AnimationCurve moveY;
     public float magnitudeY = 0.5f;
     public float animLengthY = 2.0f;
-    private float animTime = 0f;
+    [Space()]
+    public float buttonHeldSpeedMultiplier = 2.0f;
+    private float currentSpeedMultiplier = 1.0f;
 
     private PlayerActions playerActions;
 
     void Start()
     {
         playerActions = new PlayerActions();
+    }
+
+    private void OnEnable()
+    {
+        buttonHeldTime = 0;
+        currentSpeedMultiplier = 1.0f;
+        animTime = 0;
     }
 
     void Update()
@@ -54,15 +66,23 @@ public class MagicContainer : MonoBehaviour
 
                 if (playerActions.AbsorbMagic.IsPressed)
                 {
-                    //Count time button is held
-                    buttonHeldTime += Time.deltaTime;
-
                     //If button is held for long enough, absorb attack
                     if (buttonHeldTime >= buttonHoldTime)
                         Absorb(col.gameObject);
+                    else
+                    {
+                        //Count time button is held
+                        buttonHeldTime += Time.deltaTime;
+
+                        currentSpeedMultiplier = Mathf.Lerp(1.0f, buttonHeldSpeedMultiplier, buttonHeldTime / buttonHoldTime);
+                    }
                 }
                 else
+                {
                     buttonHeldTime = 0;
+
+                    currentSpeedMultiplier = 1.0f;
+                }
             }
         }
 
@@ -82,8 +102,8 @@ public class MagicContainer : MonoBehaviour
         foreach(Transform t in toMove)
         {
             t.position = new Vector3(
-                moveX.Evaluate(animTime / animLengthX) * magnitudeX,
-                moveY.Evaluate(animTime / animLengthY) * magnitudeY,
+                moveX.Evaluate((animTime * currentSpeedMultiplier) / animLengthX) * magnitudeX,
+                moveY.Evaluate((animTime * currentSpeedMultiplier) / animLengthY) * magnitudeY,
                 0) + transform.position;
         }
     }
