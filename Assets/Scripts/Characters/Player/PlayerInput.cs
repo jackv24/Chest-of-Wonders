@@ -11,6 +11,8 @@ public class PlayerInput : MonoBehaviour
     //private InputDevice device;
     private PlayerActions playerActions;
 
+    public Vector2 moveDeadZone = new Vector2(0.1f, 0.05f);
+
     //Character scripts
     private CharacterMove characterMove;
     private PlayerAttack playerAttack;
@@ -46,6 +48,12 @@ public class PlayerInput : MonoBehaviour
 
             //Get input from controllers and keyboard, clamped
             inputDirection = playerActions.Move;
+
+            //Apply deadzone
+            if (Mathf.Abs(inputDirection.x) <= moveDeadZone.x)
+                inputDirection.x = 0;
+            if (Mathf.Abs(inputDirection.y) <= moveDeadZone.y)
+                inputDirection.y = 0;
 
             //Move the player using the CharacterMove script
             characterMove.Move(inputDirection.x);

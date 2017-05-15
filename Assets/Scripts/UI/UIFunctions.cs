@@ -85,7 +85,15 @@ public class UIFunctions : MonoBehaviour
 
             //Select first button if pause menu is shown
             if (value)
-                EventSystem.current.SetSelectedGameObject(pauseMenu.transform.GetComponentInChildren<Button>().gameObject);
+            {
+                //Select first button
+                GameObject obj = pauseMenu.transform.GetComponentInChildren<Button>().gameObject;
+
+                if (obj)
+                    EventSystem.current.firstSelectedGameObject = obj;
+                else
+                    Debug.LogWarning("Could find a button to set selected!");
+            }
         }
     }
 

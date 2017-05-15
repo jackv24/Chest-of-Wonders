@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4383099445865444}
   - component: {fileID: 114843474253524348}
+  - component: {fileID: 114657537814613060}
   m_Layer: 0
   m_Name: InControl
   m_TagString: Untagged
@@ -40,6 +41,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114657537814613060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1868295094900218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20b91fe4ab84bb4c805cf72a21904ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114843474253524348
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,6 +21,7 @@ public class PlayerActions : PlayerActionSet
 
     public PlayerAction Interact;
     public PlayerAction Submit;
+    public PlayerAction Back;
     public PlayerAction Menu;
     public PlayerAction Pause;
 
@@ -43,6 +44,7 @@ public class PlayerActions : PlayerActionSet
 
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");
+        Back = CreatePlayerAction("Back");
         Menu = CreatePlayerAction("Menu");
         Pause = CreatePlayerAction("Pause");
 
@@ -96,6 +98,9 @@ public class PlayerActions : PlayerActionSet
         Submit.AddDefaultBinding(Key.Return);
         Submit.AddDefaultBinding(InputControlType.Action1);
         Submit.AddDefaultBinding(InputControlType.Action4);
+
+        Back.AddDefaultBinding(Key.Escape);
+        Back.AddDefaultBinding(InputControlType.Action2);
 
         Menu.AddDefaultBinding(Key.E);
         Menu.AddDefaultBinding(InputControlType.Action4);
