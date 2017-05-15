@@ -21,7 +21,7 @@ public class Rambush : AIAgent
 
         Sequence targetInRange = new Sequence();
         targetInRange.behaviours.Add(new GetTarget("Player"));
-        targetInRange.behaviours.Add(new CheckRange(aggroRange));
+        targetInRange.behaviours.Add(new CheckRange(aggroRange, true));
 
         Selector turnToPlayer = new Selector();
         turnToPlayer.behaviours.Add(new CheckFacingTarget());

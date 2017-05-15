@@ -391,6 +391,8 @@ MonoBehaviour:
   deathParticlePrefab: {fileID: 1903849825850296, guid: a5865d3b433ae5242a60299500527fb3,
     type: 2}
   deathParticleOffset: {x: 0, y: 0.75}
+  deathDrop: {fileID: 0}
+  dropOffset: {x: 0, y: 1}
 --- !u!114 &114872607700838032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -445,7 +447,7 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 512
-  amount: 20
+  amount: 30
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.25
   knockBackAmount: 10

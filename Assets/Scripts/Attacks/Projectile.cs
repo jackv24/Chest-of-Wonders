@@ -91,6 +91,9 @@ public class Projectile : MonoBehaviour
             {
                 //Apply damage
                 stats.RemoveHealth(damageAmount, element);
+
+                //Enemy aggro on hit
+                col.gameObject.SendMessage("SetAggro", true);
             }
         }
 

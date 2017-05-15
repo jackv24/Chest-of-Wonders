@@ -6,6 +6,7 @@ using BehaviourTree;
 public class AIAgent : MonoBehaviour
 {
     public Transform target;
+    public bool aggro = false;
     [HideInInspector]
     public int targetDirection = 0;
 
@@ -38,5 +39,10 @@ public class AIAgent : MonoBehaviour
         {
             behaviour.Execute(this);
         }
+    }
+
+    public void SetAggro(bool value)
+    {
+        aggro = value;
     }
 }
