@@ -54,7 +54,7 @@ public class DialogueBox : MonoBehaviour
 
     private void Start()
     {
-        playerActions = new PlayerActions();
+        playerActions = ControlManager.GetPlayerActions();
 
         InControl.InControlInputModule inputModule = GameObject.Find("EventSystem").GetComponent<InControl.InControlInputModule>();
         if (inputModule != null)

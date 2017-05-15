@@ -20,7 +20,7 @@ public class InputSpecificSprite : MonoBehaviour
 
     void Start()
     {
-        playerActions = new PlayerActions();
+        playerActions = ControlManager.GetPlayerActions();
 
         //Create event handler for when the input type changes
         playerActions.OnLastInputTypeChanged += delegate

@@ -40,7 +40,7 @@ public class MagicContainer : MonoBehaviour
 
     void Start()
     {
-        playerActions = new PlayerActions();
+        playerActions = ControlManager.GetPlayerActions();
     }
 
     private void OnEnable()

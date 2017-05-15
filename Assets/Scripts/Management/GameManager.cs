@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        playerActions = new PlayerActions();
+        playerActions = ControlManager.GetPlayerActions();
 
         if (!player)
             player = GameObject.FindWithTag("Player");

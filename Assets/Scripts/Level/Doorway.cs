@@ -25,7 +25,7 @@ public class Doorway : MonoBehaviour
 
     void Start()
     {
-        playerActions = new PlayerActions();
+        playerActions = ControlManager.GetPlayerActions();
 
         startTime = Time.time + startDelay;
     }

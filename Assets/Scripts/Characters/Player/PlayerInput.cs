@@ -26,7 +26,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
-        playerActions = new PlayerActions();
+        playerActions = ControlManager.GetPlayerActions();
     }
 
     private void Update()

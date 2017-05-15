@@ -63,7 +63,12 @@ public class UIFunctions : MonoBehaviour
             deathScreen.SetActive(true);
 
             //Select first button
-            EventSystem.current.SetSelectedGameObject(deathScreen.transform.GetComponentInChildren<Button>().gameObject);
+            GameObject obj = deathScreen.transform.GetComponentInChildren<Button>().gameObject;
+
+            if (obj)
+                EventSystem.current.firstSelectedGameObject = obj;
+            else
+                Debug.LogWarning("Could find a button to set selected!");
         }
     }
 

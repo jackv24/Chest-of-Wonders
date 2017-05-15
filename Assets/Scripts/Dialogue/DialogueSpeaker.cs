@@ -48,7 +48,7 @@ public class DialogueSpeaker : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
 
-        playerActions = new PlayerActions();
+        playerActions = ControlManager.GetPlayerActions();
     }
 
     private void Update()
