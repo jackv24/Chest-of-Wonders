@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 410a2e75204b79445a8d95f85c8dc45e
-timeCreated: 1494560241
+timeCreated: 1494837114
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -50,6 +50,26 @@ TextureImporter:
     21300086: player_magic_up_run_02
     21300088: player_magic_up_run_03
     21300090: player_magic_up_run_04
+    21300092: player_bat_idle_01
+    21300094: player_bat_idle_02
+    21300096: player_bat_idle_03
+    21300098: player_bat_idle_04
+    21300100: player_bat_land_01
+    21300102: player_bat_land_02
+    21300104: player_bat_land_03
+    21300106: player_bat_run_01
+    21300108: player_bat_run_02
+    21300110: player_bat_run_03
+    21300112: player_bat_run_04
+    21300114: player_bat_run_05
+    21300116: player_bat_run_06
+    21300118: player_bat_run_07
+    21300120: player_bat_run_08
+    21300122: player_bat_jump_01
+    21300124: player_bat_jump_02
+    21300126: player_bat_jump_03
+    21300128: player_bat_fall_01
+    21300130: player_bat_fall_02
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -731,6 +751,266 @@ TextureImporter:
         x: 460
         y: 523
         width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_idle_01
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 846
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_idle_02
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 846
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_idle_03
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 846
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_idle_04
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 846
+        width: 128
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_land_01
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 692
+        width: 74
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_land_02
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 692
+        width: 74
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_land_03
+      rect:
+        serializedVersion: 2
+        x: 941
+        y: 692
+        width: 74
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_run_01
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 766
+        width: 60
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_run_02
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 766
+        width: 60
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_run_03
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 766
+        width: 60
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_run_04
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 766
+        width: 60
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_run_05
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 766
+        width: 60
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_run_06
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 766
+        width: 60
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_run_07
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 691
+        width: 60
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_run_08
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 691
+        width: 60
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_jump_01
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 611
+        width: 66
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_jump_02
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 611
+        width: 66
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_jump_03
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 611
+        width: 66
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_fall_01
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 611
+        width: 66
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_fall_02
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 611
+        width: 66
         height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}

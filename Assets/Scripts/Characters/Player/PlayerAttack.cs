@@ -75,11 +75,11 @@ public class PlayerAttack : MonoBehaviour
             characterMove.OnChangedDirection += delegate (float newDir) { directionX = newDir; };
     }
 
-    public void UseMelee()
+    public void UseMelee(bool holding)
     {
         //Play melee animation
         if (characterAnimator && characterMove.canMove)
-            characterAnimator.MeleeAttack();
+            characterAnimator.MeleeAttack(holding);
     }
 
     public void SwitchMagic()
