@@ -8,11 +8,16 @@
                 "serializedVersion": "2",
                 "x": 14.0,
                 "y": 54.0,
-                "width": 300.0,
-                "height": 115.0
+                "width": 306.0,
+                "height": 150.0
             },
             "nextNode": 1,
-            "options": []
+            "options": [],
+            "events": {
+                "useEvent": false,
+                "saveGame": false,
+                "moveX": 0.0
+            }
         },
         {
             "id": 1,
@@ -22,7 +27,7 @@
                 "x": 256.0,
                 "y": 250.0,
                 "width": 300.0,
-                "height": 155.0
+                "height": 190.0
             },
             "nextNode": -1,
             "options": [
@@ -34,7 +39,12 @@
                     "text": "Stuff?",
                     "target": 3
                 }
-            ]
+            ],
+            "events": {
+                "useEvent": false,
+                "saveGame": false,
+                "moveX": 0.0
+            }
         },
         {
             "id": 2,
@@ -43,24 +53,34 @@
                 "serializedVersion": "2",
                 "x": 580.0,
                 "y": 26.0,
-                "width": 300.0,
-                "height": 115.0
+                "width": 306.0,
+                "height": 186.0
             },
             "nextNode": 4,
-            "options": []
+            "options": [],
+            "events": {
+                "useEvent": false,
+                "saveGame": false,
+                "moveX": 0.0
+            }
         },
         {
             "id": 3,
             "text": "Yeah?",
             "rect": {
                 "serializedVersion": "2",
-                "x": 666.0,
-                "y": 308.0,
-                "width": 300.0,
-                "height": 115.0
+                "x": 652.0,
+                "y": 290.0,
+                "width": 306.0,
+                "height": 150.0
             },
             "nextNode": 4,
-            "options": []
+            "options": [],
+            "events": {
+                "useEvent": false,
+                "saveGame": false,
+                "moveX": 0.0
+            }
         },
         {
             "id": 4,
@@ -69,11 +89,16 @@
                 "serializedVersion": "2",
                 "x": 1082.0,
                 "y": 132.0,
-                "width": 300.0,
-                "height": 115.0
+                "width": 306.0,
+                "height": 150.0
             },
             "nextNode": -1,
-            "options": []
+            "options": [],
+            "events": {
+                "useEvent": false,
+                "saveGame": false,
+                "moveX": 0.0
+            }
         }
     ]
 }

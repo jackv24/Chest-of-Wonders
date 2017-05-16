@@ -30,9 +30,9 @@ public class DialogueBox : MonoBehaviour
 
     public GameObject openIcon;
 
-    private Vector3 worldPos;
-
     private PlayerActions playerActions;
+    private GameObject speaker;
+    private Vector2 posOffset;
     private Animator speakerAnimator;
 
     //Keep track of next node for when there is no button to setup listeners
@@ -113,7 +113,7 @@ public class DialogueBox : MonoBehaviour
     private void LateUpdate()
     {
         //Keep world position
-        transform.position = Camera.main.WorldToScreenPoint(worldPos);
+        transform.position = Camera.main.WorldToScreenPoint(speaker.transform.position + (Vector3)posOffset);
     }
 
     public void ShowIcon(bool value)
@@ -138,12 +138,16 @@ public class DialogueBox : MonoBehaviour
         }
     }
 
-    public void ShowDialogue(DialogueGraph graph, Vector3 worldPos, Color color)
+    public void ShowDialogue(DialogueGraph graph, Vector3 posOffset, GameObject speaker, Color color)
     {
-        ShowIcon(false);
+        this.speaker = speaker;
+        this.posOffset = posOffset;
+        speakerAnimator = speaker.GetComponentInChildren<Animator>();
 
-        //Set world position
-        this.worldPos = worldPos;
+        if(speakerAnimator)
+            speakerAnimator.SetBool("isTalking", true);
+
+        ShowIcon(false);
 
         currentGraph = graph;
 
@@ -152,16 +156,6 @@ public class DialogueBox : MonoBehaviour
 
         //Start dialogue at first node
         UpdateDialogue(graph, 0);
-    }
-
-    public void ShowDialogue(DialogueGraph graph, Vector3 worldPos, Animator speakerAnimator, Color color)
-    {
-        this.speakerAnimator = speakerAnimator;
-
-        if(speakerAnimator)
-            speakerAnimator.SetBool("isTalking", true);
-
-        ShowDialogue(graph, worldPos, color);
     }
 
     public void UpdateDialogue(DialogueGraph graph, int nodeID)
@@ -226,12 +220,8 @@ public class DialogueBox : MonoBehaviour
 
         string text = node.text;
 
-        //Parse text for commands
-        if (text.Contains("<save>"))
-        {
-            SaveManager.instance.SaveGame(true);
-            text = text.Replace("<save>", "");
-        }
+        //Handle Events
+        DialogueEvents.instance.HandleEvents(node.events, speaker);
 
         //Start printing text one character at a time
         StartCoroutine("DisplayTextOverTime", text);

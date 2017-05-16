@@ -42,6 +42,25 @@ public class DialogueGraph
 
         public List<Option> options = new List<Option>();
 
+        [System.Serializable]
+        public class Events
+        {
+            public bool useEvent;
+
+            public bool saveGame;
+            public float moveX;
+
+            public Events()
+            {
+                useEvent = false;
+
+                saveGame = false;
+                moveX = 0;
+            }
+        }
+
+        public Events events = new Events();
+
         public DialogueGraphNode(int id, string text)
         {
             this.text = text;

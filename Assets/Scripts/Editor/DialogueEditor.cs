@@ -102,6 +102,8 @@ public class DialogueEditor : EditorWindow
             }
         }
         EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space();
+
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical();
@@ -271,6 +273,22 @@ public class DialogueEditor : EditorWindow
             tempNode = null;
             tempOption = null;
         }
+        EditorGUILayout.Space();
+
+        //Select events
+        node.events.useEvent = GUILayout.Toggle(node.events.useEvent, "Use Events");
+
+        if(node.events.useEvent)
+        {
+            EditorGUILayout.BeginVertical();
+
+            node.events.saveGame = EditorGUILayout.Toggle("Save Game", node.events.saveGame);
+            node.events.moveX = EditorGUILayout.FloatField("Move X", node.events.moveX);
+
+            EditorGUILayout.EndVertical();
+        }
+
+        EditorGUILayout.Space();
 
         if (GUILayout.Button("Delete Node"))
         {

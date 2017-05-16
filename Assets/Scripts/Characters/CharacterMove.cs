@@ -34,6 +34,7 @@ public class CharacterMove : MonoBehaviour
 
     //[HideInInspector]
     public bool canMove = true;
+    public bool ignoreCanMove = false;
 
     [Header("Jumping")]
     [Tooltip("Indirectly controls jump height (this force is applied every fram jump is held, but in smaller and smaller fractions.")]
@@ -251,7 +252,7 @@ public class CharacterMove : MonoBehaviour
         }
 
         //Horizontal movement
-        if(canMove)
+        if((canMove || ignoreCanMove))
             velocity.x = Mathf.Lerp(velocity.x, moveSpeed * slopeSpeedMultiplier * inputDirection, acceleration * Time.deltaTime);
 
         //Lateral collision detection
@@ -313,7 +314,7 @@ public class CharacterMove : MonoBehaviour
         oldDirection = inputDirection;
 
         //Update input direction
-        if (GameManager.instance.CanDoActions && canMove)
+        if ((GameManager.instance.CanDoActions || ignoreCanMove) && (canMove || ignoreCanMove))
             inputDirection = direction < 0 ? Mathf.Floor(direction) : Mathf.Ceil(direction);
         else
             inputDirection = 0;

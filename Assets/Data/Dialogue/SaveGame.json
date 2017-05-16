@@ -9,7 +9,7 @@
                 "x": 28.0,
                 "y": 228.0,
                 "width": 300.0,
-                "height": 155.0
+                "height": 190.0
             },
             "nextNode": -1,
             "options": [
@@ -21,7 +21,12 @@
                     "text": "Wait, nevermind",
                     "target": 2
                 }
-            ]
+            ],
+            "events": {
+                "useEvent": false,
+                "saveGame": false,
+                "moveX": 0.0
+            }
         },
         {
             "id": 2,
@@ -30,24 +35,34 @@
                 "serializedVersion": "2",
                 "x": 405.0,
                 "y": 368.0,
-                "width": 300.0,
-                "height": 115.0
+                "width": 306.0,
+                "height": 150.0
             },
             "nextNode": -1,
-            "options": []
+            "options": [],
+            "events": {
+                "useEvent": false,
+                "saveGame": false,
+                "moveX": 0.0
+            }
         },
         {
             "id": 3,
-            "text": "<save>Game saved!",
+            "text": "Game saved!",
             "rect": {
                 "serializedVersion": "2",
                 "x": 398.0,
                 "y": 135.0,
-                "width": 300.0,
-                "height": 115.0
+                "width": 306.0,
+                "height": 186.0
             },
             "nextNode": -1,
-            "options": []
+            "options": [],
+            "events": {
+                "useEvent": true,
+                "saveGame": true,
+                "moveX": 0.0
+            }
         }
     ]
 }

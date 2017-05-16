@@ -27,13 +27,7 @@ public class DialogueSpeaker : MonoBehaviour
 
     [Space()]
     public GameObject graphic;
-    private Animator animator;
     public bool facePlayer = true;
-
-    private void Awake()
-    {
-        animator = GetComponentInChildren<Animator>();
-    }
 
     private void Start()
     {
@@ -74,7 +68,7 @@ public class DialogueSpeaker : MonoBehaviour
             {
                 //Stop them moving and open dialogue
                 GameManager.instance.gameRunning = false;
-                DialogueBox.instance.ShowDialogue(graph, transform.position + (Vector3)boxOffset, animator, windowColor);
+                DialogueBox.instance.ShowDialogue(graph, boxOffset, gameObject, windowColor);
 
                 //If desired, face the player while speaking
                 if (facePlayer && graphic)
