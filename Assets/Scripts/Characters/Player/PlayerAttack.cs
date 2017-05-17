@@ -95,6 +95,12 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        if (characterMove && oldMoveSpeed != 0)
+            characterMove.moveSpeed = oldMoveSpeed;
+    }
+
     public void UseMelee(bool holding)
     {
         //If button was released update bat swing damage
