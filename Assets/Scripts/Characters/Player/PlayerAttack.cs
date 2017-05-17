@@ -15,6 +15,7 @@ public class PlayerAttack : MonoBehaviour
         public float nextFireTime;
     }
 
+    [Header("Magic")]
     public MagicSlot magicSlot1;
     public MagicSlot magicSlot2;
 
@@ -34,6 +35,21 @@ public class PlayerAttack : MonoBehaviour
 
     //Direction set by charactermove so that player doesnt have to hold x direction to fire
     private float directionX = 1;
+
+    [Header("Bat Swing")]
+    public DamageOnEnable batSwing;
+    public int damageAmount = 20;
+    [Space()]
+    [Tooltip("The minimum amount of time the bat needs to charge before a damage multiplier is applied.")]
+    public float minHoldTime = 0.5f;
+    [Tooltip("The time the bat needs to charge for the full damage multiplier to be applied.")]
+    public float maxHoldTime = 2.0f;
+    private float heldStartTime = 0;
+    [Space()]
+    public float heldDamageMultiplier = 1.5f;
+    [Space()]
+    public float moveSpeedMultiplier = 0.75f;
+    private float oldMoveSpeed = 0f;
 
     //Struct to pass projectile information into coroutine
     private struct FireProjectile
@@ -72,14 +88,42 @@ public class PlayerAttack : MonoBehaviour
 
         //Create event handler to update the players facing direction
         if (characterMove)
+        {
             characterMove.OnChangedDirection += delegate (float newDir) { directionX = newDir; };
+
+            oldMoveSpeed = characterMove.moveSpeed;
+        }
     }
 
     public void UseMelee(bool holding)
     {
+        //If button was released update bat swing damage
+        if(batSwing && !holding)
+        {
+            batSwing.amount = damageAmount;
+
+            //Calculate time held for lerp
+            float time = Mathf.Clamp(Time.time - heldStartTime, minHoldTime, maxHoldTime);
+            time -= minHoldTime;
+
+            //Calculate damage multiplier between max and min hold times
+            float multiplier = Mathf.Lerp(1.0f, heldDamageMultiplier, time / (maxHoldTime - minHoldTime));
+
+            //Set multiplier
+            batSwing.multiplier = multiplier;
+        }
+
         //Play melee animation
         if (characterAnimator && characterMove.canMove)
             characterAnimator.MeleeAttack(holding);
+
+        //Keep track of time held for damage multiplier
+        if (holding)
+            heldStartTime = Time.time;
+
+        //Reduce move speed while holding bat
+        if (characterMove)
+            characterMove.moveSpeed = holding ? oldMoveSpeed * moveSpeedMultiplier : oldMoveSpeed;
     }
 
     public void SwitchMagic()

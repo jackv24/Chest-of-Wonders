@@ -313,6 +313,7 @@ MonoBehaviour:
   slopeSpeedDampening: 1
   inputDirection: 0
   canMove: 1
+  ignoreCanMove: 0
   jumpForce: 10
   jumpTime: 0.5
   stopJumpDelay: 0.2
@@ -369,6 +370,9 @@ MonoBehaviour:
   upThreshold: 0.5
   failedCastEffect: {fileID: 1489579511910158, guid: 8128f907757e7fc4492ec77e06026530,
     type: 2}
+  minHoldTime: 0.5
+  maxHoldTime: 2
+  heldDamageMultiplier: 1.5
 --- !u!114 &114849662361689878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -448,7 +452,7 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 512
-  amount: 30
+  amount: 20
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.25
   knockBackAmount: 10

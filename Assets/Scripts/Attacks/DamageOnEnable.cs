@@ -8,6 +8,7 @@ public class DamageOnEnable : MonoBehaviour
 
     [Tooltip("How much damage to deal to everything this hits.")]
     public int amount = 10;
+    public float multiplier = 1.0f;
 
     [Header("Effects")]
     [Tooltip("The effect to show when something is hit.")]
@@ -61,7 +62,7 @@ public class DamageOnEnable : MonoBehaviour
 
                 //Remove health
                 if (stats)
-                    stats.RemoveHealth(amount);
+                    stats.RemoveHealth(Mathf.RoundToInt((float)amount * multiplier));
 
                 //Knockback if amount is more than 0
                 if (move && knockBackAmount > 0)
