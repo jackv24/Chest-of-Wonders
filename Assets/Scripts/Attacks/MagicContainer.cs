@@ -6,10 +6,10 @@ public class MagicContainer : MonoBehaviour
 {
     public MagicAttack attack;
 
-    [Space()]
-    public float pickupRange = 2.0f;
-    public float buttonHoldTime = 1.0f;
-    private float buttonHeldTime = 0;
+    private bool isAbsorbing = false;
+    private float buttonHoldTime;
+    private float buttonHeldTime;
+    private PlayerAttack playerAttack;
 
     [Header("Fade Out")]
     public SpriteRenderer[] fadeGraphics;
@@ -36,56 +36,31 @@ public class MagicContainer : MonoBehaviour
     public float buttonHeldSpeedMultiplier = 2.0f;
     private float currentSpeedMultiplier = 1.0f;
 
-    private PlayerActions playerActions;
-
-    void Start()
-    {
-        playerActions = ControlManager.GetPlayerActions();
-    }
-
     private void OnEnable()
     {
-        buttonHeldTime = 0;
+        isAbsorbing = false;
+
         currentSpeedMultiplier = 1.0f;
         animTime = 0;
     }
 
     void Update()
     {
-        //Get all colliders in range
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, pickupRange);
-
-        inRange = false;
-
-        foreach(Collider2D col in cols)
+        if (isAbsorbing)
         {
-            //If player is in range
-            if (col.tag == "Player")
+            //If button is held for long enough, absorb attack
+            if (buttonHeldTime >= buttonHoldTime)
+                Absorb();
+            else
             {
-                inRange = true;
+                //Count time button is held
+                buttonHeldTime += Time.deltaTime;
 
-                if (playerActions.AbsorbMagic.IsPressed)
-                {
-                    //If button is held for long enough, absorb attack
-                    if (buttonHeldTime >= buttonHoldTime)
-                        Absorb(col.gameObject);
-                    else
-                    {
-                        //Count time button is held
-                        buttonHeldTime += Time.deltaTime;
-
-                        currentSpeedMultiplier = Mathf.Lerp(1.0f, buttonHeldSpeedMultiplier, buttonHeldTime / buttonHoldTime);
-                    }
-                }
-                else
-                {
-                    buttonHeldTime = 0;
-
-                    currentSpeedMultiplier = 1.0f;
-                }
+                currentSpeedMultiplier = Mathf.Lerp(1.0f, buttonHeldSpeedMultiplier, buttonHeldTime / buttonHoldTime);
             }
         }
 
+        //Fade colours for in/out of range
         foreach(SpriteRenderer r in fadeGraphics)
         {
             r.color = Color.Lerp(r.color,
@@ -97,6 +72,7 @@ public class MagicContainer : MonoBehaviour
                 (1/fadeTime) * Time.deltaTime);
         }
 
+        //Animate position of graphic transforms using curves
         animTime += Time.deltaTime;
 
         foreach(Transform t in toMove)
@@ -108,11 +84,32 @@ public class MagicContainer : MonoBehaviour
         }
     }
 
-    void Absorb(GameObject player)
+    public void Highlight(bool value)
     {
-        PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
+        inRange = value;
+    }
 
-        if(playerAttack)
+    public void StartAbsorb(PlayerAttack playerAttack)
+    {
+        isAbsorbing = true;
+
+        this.playerAttack = playerAttack;
+
+        buttonHoldTime = playerAttack.buttonHoldTime;
+        buttonHeldTime = 0;
+    }
+
+    public void CancelAbsorb()
+    {
+        isAbsorbing = false;
+
+        buttonHeldTime = 0;
+        currentSpeedMultiplier = 1.0f;
+    }
+
+    void Absorb()
+    {
+        if (playerAttack)
         {
             //If slot 2 is empty move current attack into that slot to fit the new one
             if (playerAttack.magicSlot2.attack == null)
@@ -128,10 +125,5 @@ public class MagicContainer : MonoBehaviour
             //Destroy container
             gameObject.SetActive(false);
         }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(transform.position, pickupRange);
     }
 }

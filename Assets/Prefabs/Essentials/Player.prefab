@@ -564,6 +564,11 @@ MonoBehaviour:
   upThreshold: 0.5
   failedCastEffect: {fileID: 1489579511910158, guid: 8128f907757e7fc4492ec77e06026530,
     type: 2}
+  pickupLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  pickupRange: 2
+  buttonHoldTime: 0.5
   batSwing: {fileID: 114942654493615672}
   damageAmount: 20
   minHoldTime: 0.25

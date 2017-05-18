@@ -36,6 +36,14 @@ public class PlayerAttack : MonoBehaviour
     //Direction set by charactermove so that player doesnt have to hold x direction to fire
     private float directionX = 1;
 
+    [Header("Absorb Magic")]
+    public LayerMask pickupLayer;
+    public float pickupRange = 2.0f;
+
+    public float buttonHoldTime = 1.0f;
+
+    private MagicContainer container = null;
+
     [Header("Bat Swing")]
     public DamageOnEnable batSwing;
     public int damageAmount = 20;
@@ -64,6 +72,8 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    private PlayerActions playerActions;
+
     private CharacterAnimator characterAnimator;
     private CharacterMove characterMove;
     
@@ -75,6 +85,8 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+        playerActions = ControlManager.GetPlayerActions();
+
         //If there is an attack in the second slot, but not the first slot
         if (!magicSlot1.attack && magicSlot2.attack)
         {
@@ -99,6 +111,65 @@ public class PlayerAttack : MonoBehaviour
     {
         if (characterMove && oldMoveSpeed != 0)
             characterMove.moveSpeed = oldMoveSpeed;
+    }
+
+    void Update()
+    {
+        //Get all colliders in range
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, pickupRange, pickupLayer);
+
+        //Shortest distance starts at max
+        float shortestDistance = float.MaxValue;
+
+        //Deselect container if out of range
+        if(cols.Length < 1 && container)
+        {
+            container.Highlight(false);
+            container = null;
+        }
+
+        //Loop through all pickup colliders (only pickups should be on this layer)
+        foreach (Collider2D col in cols)
+        {
+            //Calculate distance between player and pickup
+            float distance = Vector3.Distance(col.transform.position, transform.position);
+
+            //If this pickup is closer than any others...
+            if (distance < shortestDistance)
+            {
+                //...make this pickup the new closest
+                shortestDistance = distance;
+
+                //Stop highlighting the old container
+                if (container)
+                    container.Highlight(false);
+
+                //Get the new container
+                container = col.GetComponent<MagicContainer>();
+
+                //Highlight the new container
+                if(container)
+                    container.Highlight(true);
+            }
+        }
+
+        //If the absorb button is pressed
+        if (playerActions.AbsorbMagic.WasPressed)
+        {
+            //If there is a container, start absorbing it
+            if (container)
+            {
+                container.StartAbsorb(this);
+            }
+        }
+        else if (playerActions.AbsorbMagic.WasReleased)
+        {
+            //If button was released, cancel absorption
+            if (container)
+                container.CancelAbsorb();
+
+            container = null;
+        }
     }
 
     public void UseMelee(bool holding)

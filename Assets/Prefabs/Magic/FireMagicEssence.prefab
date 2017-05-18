@@ -148,8 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
-  pickupRange: 2
-  buttonHoldTime: 1
   fadeGraphics:
   - {fileID: 212609810485323168}
   outOfRangeOpacity: 0
@@ -278,6 +276,6 @@ SpriteRenderer:
   m_SortingLayerID: 1651463339
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4307787640c2bbb4ba32a57a9d32431d, type: 3}
-  m_Color: {r: 0.50735295, g: 0.39003402, b: 0.28352076, a: 1}
+  m_Color: {r: 0.66176474, g: 0.4985384, b: 0.35034603, a: 1}
   m_FlipX: 0
   m_FlipY: 0
