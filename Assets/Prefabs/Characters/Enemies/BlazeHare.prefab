@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: 114823241359853506}
   - component: {fileID: 114071396508618678}
   - component: {fileID: 114164478770059898}
+  - component: {fileID: 82516058818075386}
+  - component: {fileID: 114470024710240338}
   m_Layer: 9
   m_Name: BlazeHare
   m_TagString: Enemy
@@ -111,6 +113,87 @@ BoxCollider2D:
   m_Offset: {x: -0, y: 0.5}
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1}
+--- !u!82 &82516058818075386
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570463987493718}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243518721062321126, guid: 279a8963d029f9e4cb5b3d0a2f8a5c0b,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95090968209211048
 Animator:
   serializedVersion: 3
@@ -140,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  aggro: 0
   targetDirection: 0
   characterMove: {fileID: 0}
   characterAnimator: {fileID: 0}
@@ -188,6 +272,7 @@ MonoBehaviour:
   slopeSpeedDampening: 1
   inputDirection: 0
   canMove: 1
+  ignoreCanMove: 0
   jumpForce: 10
   jumpTime: 0.5
   stopJumpDelay: 0.2
@@ -218,6 +303,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95090968209211048}
   defaultRight: 0
+--- !u!114 &114470024710240338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570463987493718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f9b048a7d860a24ab40c4593ac4f26b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpSound:
+    clip: {fileID: 8300000, guid: 080aa9812450b0449a22d3a08aa0fedd, type: 3}
+    volume: 1
+  hurtSound:
+    clip: {fileID: 8300000, guid: 6fd82b927a24b2b4cabcacbb73926dcd, type: 3}
+    volume: 1
 --- !u!114 &114823241359853506
 MonoBehaviour:
   m_ObjectHideFlags: 1

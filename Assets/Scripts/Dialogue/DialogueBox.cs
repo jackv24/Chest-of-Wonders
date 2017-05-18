@@ -201,6 +201,13 @@ public class DialogueBox : MonoBehaviour
                     obj.GetComponentInChildren<Text>().text = node.options[i].text;
                     //Add click listener to target
                     obj.GetComponent<Button>().onClick.AddListener(delegate { UpdateDialogue(graph, node.options[n].target); });
+
+                    ButtonEventWrapper origEvents = button.GetComponent<ButtonEventWrapper>();
+                    ButtonEventWrapper objEvents = obj.GetComponent<ButtonEventWrapper>();
+
+                    //Copy wrapped events (for sounds, etc)
+                    if(objEvents && origEvents)
+                        ButtonEventWrapper.CopyEvents(ref origEvents, ref objEvents);
                 }
             }
         }

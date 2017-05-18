@@ -38,11 +38,13 @@ public class CharacterStats : MonoBehaviour
 
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
+    private CharacterSound characterSound;
 
     void Awake()
     {
         characterMove = GetComponent<CharacterMove>();
         characterAnimator = GetComponent<CharacterAnimator>();
+        characterSound = GetComponent<CharacterSound>();
     }
 
     private void OnEnable()
@@ -77,6 +79,9 @@ public class CharacterStats : MonoBehaviour
             StopCoroutine("DamageFlash");
             StartCoroutine("DamageFlash", damageImmunityTime);
         }
+
+        if (characterSound)
+            characterSound.PlaySound(characterSound.hurtSound);
 
         //Health was removed, so return true
         return true;

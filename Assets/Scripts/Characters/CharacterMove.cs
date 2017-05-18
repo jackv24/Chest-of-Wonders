@@ -84,14 +84,15 @@ public class CharacterMove : MonoBehaviour
     [HideInInspector]
     public Rigidbody2D body;
 
-    private CharacterAnimator characterAnimator;
-    private CharacterStats characterStats;
-
     private Collider2D col;
     private Rect box;
 
     [HideInInspector]
     public Vector2 velocity;
+
+    private CharacterAnimator characterAnimator;
+    private CharacterStats characterStats;
+    private CharacterSound characterSound;
 
     private void Awake()
     {
@@ -101,6 +102,15 @@ public class CharacterMove : MonoBehaviour
 
         characterAnimator = GetComponent<CharacterAnimator>();
         characterStats = GetComponent<CharacterStats>();
+        characterSound = GetComponent<CharacterSound>();
+    }
+
+    void Start()
+    {
+        if(characterSound)
+        {
+            OnJump += delegate { characterSound.PlaySound(characterSound.jumpSound); };
+        }
     }
 
     private void OnEnable()
