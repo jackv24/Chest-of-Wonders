@@ -317,9 +317,19 @@ MonoBehaviour:
   jumpSound:
     clip: {fileID: 8300000, guid: 080aa9812450b0449a22d3a08aa0fedd, type: 3}
     volume: 1
+  landSound:
+    clip: {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
+    volume: 1
   hurtSound:
     clip: {fileID: 8300000, guid: 6fd82b927a24b2b4cabcacbb73926dcd, type: 3}
     volume: 1
+  footstepSource: {fileID: 0}
+  footsteps: []
+  footstepInterval: 0.1
+  minPitch: 0.9
+  maxPitch: 1.1
+  minVolume: 0.7
+  maxVolume: 1.1
 --- !u!114 &114823241359853506
 MonoBehaviour:
   m_ObjectHideFlags: 1

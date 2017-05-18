@@ -54,6 +54,7 @@ public class CharacterMove : MonoBehaviour
 
     [HideInInspector]
     public bool isGrounded = false;
+    private bool wasGrounded = false;
 
     private bool stickToSlope = false;
 
@@ -164,6 +165,8 @@ public class CharacterMove : MonoBehaviour
                     stickToSlope = false;
                     //Slope speed multiplier should be reset, since character is no longer on slope
                     slopeSpeedMultiplier = 1f;
+
+                    wasGrounded = false;
                 }
             }
 
@@ -262,8 +265,10 @@ public class CharacterMove : MonoBehaviour
         }
 
         //Horizontal movement
-        if((canMove || ignoreCanMove))
+        if ((canMove || ignoreCanMove))
+        {
             velocity.x = Mathf.Lerp(velocity.x, moveSpeed * slopeSpeedMultiplier * inputDirection, acceleration * Time.deltaTime);
+        }
 
         //Lateral collision detection
         {
@@ -311,6 +316,17 @@ public class CharacterMove : MonoBehaviour
                         break;
                     }
                 }
+            }
+        }
+
+        if (characterSound)
+        {
+            //Play sound when character lands on ground
+            if (!wasGrounded && isGrounded)
+            {
+                wasGrounded = true;
+
+                characterSound.PlaySound(characterSound.landSound);
             }
         }
 
