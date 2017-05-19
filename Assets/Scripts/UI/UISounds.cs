@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UISounds : SoundEffectBase
 {
     public SoundEffect buttonSelect;
+    public SoundEffect buttonSubmit;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class UISounds : SoundEffectBase
             ButtonEventWrapper events = b.gameObject.AddComponent<ButtonEventWrapper>();
 
             events.onSelect += delegate { PlaySound(buttonSelect); };
+            events.onSubmit += delegate { PlaySound(buttonSubmit); };
         }
     }
 }

@@ -7,10 +7,16 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Wraps buttons event methods into events handlers to be assigned by other scripts
 /// </summary>
-public class ButtonEventWrapper : MonoBehaviour, ISelectHandler
+public class ButtonEventWrapper : MonoBehaviour, ISelectHandler, ISubmitHandler, IPointerClickHandler
 {
     public delegate void NormalEvent();
     public event NormalEvent onSelect;
+    public event NormalEvent onSubmit;
+
+    public static void CopyEvents(ref ButtonEventWrapper original, ref ButtonEventWrapper source)
+    {
+        source.onSelect = original.onSelect;
+    }
 
     public void OnSelect(BaseEventData eventData)
     {
@@ -18,8 +24,15 @@ public class ButtonEventWrapper : MonoBehaviour, ISelectHandler
             onSelect();
     }
 
-    public static void CopyEvents(ref ButtonEventWrapper original, ref ButtonEventWrapper source)
+    public void OnSubmit(BaseEventData eventData)
     {
-        source.onSelect = original.onSelect;
+        if (onSubmit != null)
+            onSubmit();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (onSubmit != null)
+            onSubmit();
     }
 }

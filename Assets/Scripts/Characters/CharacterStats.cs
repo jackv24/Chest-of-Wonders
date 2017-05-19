@@ -135,6 +135,16 @@ public class CharacterStats : MonoBehaviour
             dropped.transform.position = (Vector2)gameObject.transform.position + dropOffset;
         }
 
+
+        if (characterSound && GameManager.instance)
+        {
+            //Play death sound effect through game manager so that it can still play after character dies
+            SoundEffectBase soundEffects = GameManager.instance.GetComponent<SoundEffectBase>();
+
+            if(soundEffects)
+                soundEffects.PlaySound(characterSound.deathSound);
+        }
+
         gameObject.SetActive(false);
     }
 

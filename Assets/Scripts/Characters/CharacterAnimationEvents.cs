@@ -6,7 +6,6 @@ public class CharacterAnimationEvents : MonoBehaviour
 {
     [Header("Character Scripts")]
     public CharacterMove characterMove;
-    public CharacterSound characterSound;
 
     [Header("Behaviour Values")]
     public float slideTime = 0.5f;
@@ -129,14 +128,6 @@ public class CharacterAnimationEvents : MonoBehaviour
         if(soundEffects && batSwingSound.clip)
         {
             soundEffects.PlaySound(batSwingSound);
-        }
-    }
-
-    public void PlayFootstep()
-    {
-        if(characterSound)
-        {
-            characterSound.PlayFootstep();
         }
     }
 }

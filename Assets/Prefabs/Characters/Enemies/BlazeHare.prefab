@@ -323,6 +323,9 @@ MonoBehaviour:
   hurtSound:
     clip: {fileID: 8300000, guid: 6fd82b927a24b2b4cabcacbb73926dcd, type: 3}
     volume: 1
+  deathSound:
+    clip: {fileID: 8300000, guid: e6f4d3dd6e13d15478009d4ac6a77dc4, type: 3}
+    volume: 0.5
   footstepSource: {fileID: 0}
   footsteps: []
   footstepInterval: 0.1

@@ -7,14 +7,12 @@ public class CharacterSound : SoundEffectBase
     public SoundEffect jumpSound;
     public SoundEffect landSound;
     public SoundEffect hurtSound;
+    public SoundEffect deathSound;
 
     [Header("Footsteps")]
     public AudioSource footstepSource;
     private bool playingFootsteps;
-    public SoundEffect[] footsteps;
-
-    [Space()]
-    public float footstepInterval = 0.1f;
+    public SoundEffect footsteps;
 
     [Space()]
     public float minPitch = 0.9f;
@@ -26,21 +24,14 @@ public class CharacterSound : SoundEffectBase
     {
         if (footstepSource)
         {
-            int index = 0;
+            footstepSource.clip = footsteps.clip;
+            footstepSource.volume = footsteps.volume;
 
-            //TODO: Get tile and sound to play
+            footstepSource.pitch = Random.Range(minPitch, maxPitch);
 
-            if (index >= 0 && index < footsteps.Length)
-            {
-                footstepSource.clip = footsteps[index].clip;
-                footstepSource.volume = footsteps[index].volume;
+            float volume = Random.Range(minVolume, maxVolume);
 
-                footstepSource.pitch = Random.Range(minPitch, maxPitch);
-
-                float volume = Random.Range(minVolume, maxVolume);
-
-                footstepSource.PlayOneShot(footsteps[index].clip, volume);
-            }
+            footstepSource.PlayOneShot(footsteps.clip, volume);
         }
     }
 }

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 95000013828001912}
   - component: {fileID: 114643147213042428}
   - component: {fileID: 82491122072503488}
+  - component: {fileID: 114148965292316800}
   m_Layer: 10
   m_Name: Graphic
   m_TagString: Untagged
@@ -621,6 +622,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95000013828001912}
   defaultRight: 1
+--- !u!114 &114148965292316800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010556696062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a92f74be3b5594eb856cbfbd9ca7a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterSound: {fileID: 114429180314876788}
 --- !u!114 &114303023035388868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -678,11 +691,13 @@ MonoBehaviour:
   hurtSound:
     clip: {fileID: 8300000, guid: ffa9bbf25cf08b74b989ffa22d522f3c, type: 3}
     volume: 1
+  deathSound:
+    clip: {fileID: 8300000, guid: 22081f76362ff9542a66eda91e20c832, type: 3}
+    volume: 1
   footstepSource: {fileID: 82599798563426320}
   footsteps:
-  - clip: {fileID: 8300000, guid: a542fd4449999454a9a5658748811cb5, type: 3}
-    volume: 1
-  footstepInterval: 0.1
+    clip: {fileID: 8300000, guid: a542fd4449999454a9a5658748811cb5, type: 3}
+    volume: 0.75
   minPitch: 0.9
   maxPitch: 1.1
   minVolume: 0.7
@@ -735,7 +750,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterMove: {fileID: 114000013110640092}
-  characterSound: {fileID: 114429180314876788}
   slideTime: 0.25
   slideCurve:
     serializedVersion: 2
