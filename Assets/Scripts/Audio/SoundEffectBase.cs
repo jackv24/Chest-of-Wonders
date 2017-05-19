@@ -8,7 +8,12 @@ public class SoundEffectBase : MonoBehaviour
     public class SoundEffect
     {
         public AudioClip clip;
-        public float volume = 1.0f;
+        public float volume;
+
+        public SoundEffect()
+        {
+            volume = 1.0f;
+        }
     }
 
     private AudioSource source;

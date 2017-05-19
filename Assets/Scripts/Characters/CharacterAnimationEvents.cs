@@ -18,6 +18,14 @@ public class CharacterAnimationEvents : MonoBehaviour
 
     [Header("Attacks")]
     public GameObject batSwingCollider;
+    public SoundEffectBase.SoundEffect batSwingSound;
+
+    private SoundEffectBase soundEffects;
+
+    void Awake()
+    {
+        soundEffects = GetComponent<SoundEffectBase>();
+    }
 
     private void Start()
     {
@@ -114,6 +122,14 @@ public class CharacterAnimationEvents : MonoBehaviour
     {
         if (batSwingCollider)
             batSwingCollider.SetActive(false);
+    }
+
+    public void PlayBatSwingSound()
+    {
+        if(soundEffects && batSwingSound.clip)
+        {
+            soundEffects.PlaySound(batSwingSound);
+        }
     }
 
     public void PlayFootstep()

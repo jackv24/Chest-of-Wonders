@@ -19,6 +19,7 @@ public class Projectile : MonoBehaviour
     public bool destroyOnCollision = true;
     public GameObject explosionPrefab;
     public AnimationClip deathAnimClip;
+    public SoundEffectBase.SoundEffect deathSound;
 
     //Hidden from inspector as value is set by script when fired
     [HideInInspector]
@@ -27,11 +28,13 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D body;
     private GameObject owner;
     private Animator animator;
+    private SoundEffectBase soundEffects;
 
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        soundEffects = GetComponent<SoundEffectBase>();
     }
 
     void OnEnable()
@@ -131,6 +134,11 @@ public class Projectile : MonoBehaviour
         if (animator)
         {
             animator.SetBool("isAlive", false);
+        }
+
+        if(soundEffects && deathSound.clip)
+        {
+            soundEffects.PlaySound(deathSound);
         }
 
         body.velocity = Vector2.zero;
