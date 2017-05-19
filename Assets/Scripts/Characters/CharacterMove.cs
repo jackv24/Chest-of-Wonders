@@ -54,7 +54,7 @@ public class CharacterMove : MonoBehaviour
 
     [HideInInspector]
     public bool isGrounded = false;
-    private bool wasGrounded = false;
+    private bool wasGrounded = true;
 
     private bool stickToSlope = false;
 
