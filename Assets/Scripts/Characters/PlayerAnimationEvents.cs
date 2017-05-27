@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAnimationEvents : MonoBehaviour
+public class PlayerAnimationEvents : MonoBehaviour
 {
     [Header("Character Scripts")]
     public CharacterMove characterMove;

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 410a2e75204b79445a8d95f85c8dc45e
-timeCreated: 1494837114
+timeCreated: 1495850340
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -70,6 +70,23 @@ TextureImporter:
     21300126: player_bat_jump_03
     21300128: player_bat_fall_01
     21300130: player_bat_fall_02
+    21300132: player_bat_power_01
+    21300134: player_bat_power_02
+    21300136: player_bat_power_03
+    21300138: player_bat_power_04
+    21300140: player_bat_power_05
+    21300142: player_bat_power_06
+    21300144: player_bat_power_07
+    21300146: player_bat_power_08
+    21300148: player_air_downstrike_01
+    21300150: player_air_downstrike_02
+    21300152: player_air_downstrike_fall_01
+    21300154: player_air_downstrike_fall_02
+    21300156: player_air_downstrike_land_01
+    21300158: player_air_downstrike_land_02
+    21300160: player_air_downstrike_land_03
+    21300162: player_air_downstrike_land_04
+    21300164: player_air_downstrike_land_05
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -1012,6 +1029,227 @@ TextureImporter:
         y: 611
         width: 66
         height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_power_01
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 434
+        width: 185
+        height: 65
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_power_02
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 434
+        width: 185
+        height: 65
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_power_03
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 434
+        width: 185
+        height: 65
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_power_04
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 434
+        width: 185
+        height: 65
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_power_05
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 434
+        width: 185
+        height: 65
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_power_06
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 364
+        width: 185
+        height: 65
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_power_07
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 364
+        width: 185
+        height: 65
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_bat_power_08
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 364
+        width: 185
+        height: 65
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_air_downstrike_01
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 257
+        width: 112
+        height: 86
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_air_downstrike_02
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 257
+        width: 112
+        height: 86
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_air_downstrike_fall_01
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 257
+        width: 112
+        height: 86
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_air_downstrike_fall_02
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 257
+        width: 112
+        height: 86
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_air_downstrike_land_01
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 346
+        width: 112
+        height: 81
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_air_downstrike_land_02
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 346
+        width: 112
+        height: 81
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_air_downstrike_land_03
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 346
+        width: 112
+        height: 81
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_air_downstrike_land_04
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 260
+        width: 112
+        height: 81
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_air_downstrike_land_05
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 260
+        width: 112
+        height: 81
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
