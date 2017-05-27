@@ -80,8 +80,7 @@ public class CharacterAnimator : MonoBehaviour
 
     public void SetCharged(bool value)
     {
-        if(value)
-            animator.SetTrigger("batCharged");
+        animator.SetBool("batCharged", value);
     }
 
     public void MagicAttack()
