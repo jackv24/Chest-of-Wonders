@@ -59,6 +59,11 @@ public class PlayerAttack : MonoBehaviour
     public float moveSpeedMultiplier = 0.75f;
     private float oldMoveSpeed = 0f;
 
+    [Space()]
+    public SpriteRenderer graphic;
+    public float flashAmount = 0.5f;
+    public float flashInterval = 0.1f;
+
     //Struct to pass projectile information into coroutine
     private struct FireProjectile
     {
@@ -188,6 +193,13 @@ public class PlayerAttack : MonoBehaviour
 
             //Set multiplier
             batSwing.multiplier = multiplier;
+
+            if (graphic)
+            {
+                //Stop flashing after bat swing
+                StopCoroutine("BatFlash");
+                graphic.material.SetFloat("_FlashAmount", 0);
+            }
         }
 
         //Play melee animation
@@ -196,7 +208,12 @@ public class PlayerAttack : MonoBehaviour
 
         //Keep track of time held for damage multiplier
         if (holding)
+        {
             heldStartTime = Time.time;
+
+            //Start bat flash after max hold time
+            StartCoroutine("BatFlash", maxHoldTime);
+        }
 
         //Reduce move speed while holding bat
         if (characterMove)
@@ -352,5 +369,27 @@ public class PlayerAttack : MonoBehaviour
             magicSlot1.currentMana = magicSlot1.attack.manaAmount;
         if(magicSlot2 != null)
             magicSlot2.currentMana = magicSlot2.attack.manaAmount;
+    }
+
+    IEnumerator BatFlash(float delay)
+    {
+        //Wait for max bat hold
+        yield return new WaitForSeconds(delay);
+
+        if (graphic)
+        {
+            Material mat = graphic.material;
+
+            while (true)
+            {
+                //Flash off
+                mat.SetFloat("_FlashAmount", 0);
+                yield return new WaitForSeconds(flashInterval);
+
+                //Flash on
+                mat.SetFloat("_FlashAmount", flashAmount);
+                yield return new WaitForSeconds(flashInterval);
+            }
+        }
     }
 }

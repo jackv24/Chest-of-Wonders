@@ -671,6 +671,9 @@ MonoBehaviour:
   maxHoldTime: 1
   heldDamageMultiplier: 1.5
   moveSpeedMultiplier: 0.75
+  graphic: {fileID: 212000014160401936}
+  flashAmount: 0.5
+  flashInterval: 0.1
 --- !u!114 &114429180314876788
 MonoBehaviour:
   m_ObjectHideFlags: 1
