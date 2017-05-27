@@ -204,7 +204,14 @@ public class PlayerAttack : MonoBehaviour
 
         //Play melee animation
         if (characterAnimator && characterMove.canMove)
+        {
+            //Play charged attack anim if fully charged
+            characterAnimator.SetCharged(Time.time >= heldStartTime + maxHoldTime && heldStartTime > 0);
+
             characterAnimator.MeleeAttack(holding);
+
+            heldStartTime = 0;
+        }
 
         //Keep track of time held for damage multiplier
         if (holding)

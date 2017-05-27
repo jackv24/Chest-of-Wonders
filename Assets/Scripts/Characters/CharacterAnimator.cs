@@ -78,6 +78,12 @@ public class CharacterAnimator : MonoBehaviour
         animator.SetBool("holdingBat", holding);
     }
 
+    public void SetCharged(bool value)
+    {
+        if(value)
+            animator.SetTrigger("batCharged");
+    }
+
     public void MagicAttack()
     {
         animator.SetTrigger("magic");
