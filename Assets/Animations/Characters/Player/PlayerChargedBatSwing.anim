@@ -98,21 +98,21 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.06666667
-    functionName: PlayBatSwingSound
+    functionName: PlayChargedBatSwingSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.13333334
-    functionName: EnableBatCollider
+    functionName: EnableChargedBatCollider
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.33333334
-    functionName: DisableBatCollider
+    functionName: DisableChargedBatCollider
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

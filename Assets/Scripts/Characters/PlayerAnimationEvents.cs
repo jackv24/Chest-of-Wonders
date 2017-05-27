@@ -18,6 +18,9 @@ public class PlayerAnimationEvents : MonoBehaviour
     [Header("Attacks")]
     public GameObject batSwingCollider;
     public SoundEffectBase.SoundEffect batSwingSound;
+    [Space()]
+    public GameObject chargedBatSwingCollider;
+    public SoundEffectBase.SoundEffect chargedBatSwingSound;
 
     private SoundEffectBase soundEffects;
 
@@ -30,6 +33,9 @@ public class PlayerAnimationEvents : MonoBehaviour
     {
         if (batSwingCollider)
             batSwingCollider.SetActive(false);
+
+        if (chargedBatSwingCollider)
+            chargedBatSwingCollider.SetActive(false);
     }
 
     public void AllowMovement()
@@ -128,6 +134,26 @@ public class PlayerAnimationEvents : MonoBehaviour
         if(soundEffects && batSwingSound.clip)
         {
             soundEffects.PlaySound(batSwingSound);
+        }
+    }
+
+    public void EnableChargedBatCollider()
+    {
+        if (chargedBatSwingCollider)
+            chargedBatSwingCollider.SetActive(true);
+    }
+
+    public void DisableChargedBatCollider()
+    {
+        if (chargedBatSwingCollider)
+            chargedBatSwingCollider.SetActive(false);
+    }
+
+    public void PlayChargedBatSwingSound()
+    {
+        if (soundEffects && chargedBatSwingSound.clip)
+        {
+            soundEffects.PlaySound(chargedBatSwingSound);
         }
     }
 }

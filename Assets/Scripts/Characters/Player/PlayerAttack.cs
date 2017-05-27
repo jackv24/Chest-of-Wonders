@@ -46,6 +46,7 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Bat Swing")]
     public DamageOnEnable batSwing;
+    public DamageOnEnable chargedBatSwing;
     public int damageAmount = 20;
     [Space()]
     [Tooltip("The minimum amount of time the bat needs to charge before a damage multiplier is applied.")]
@@ -179,10 +180,16 @@ public class PlayerAttack : MonoBehaviour
 
     public void UseMelee(bool holding)
     {
+        DamageOnEnable swing = batSwing;
+
         //If button was released update bat swing damage
-        if(batSwing && !holding)
+        if(swing && !holding)
         {
-            batSwing.amount = damageAmount;
+            //Used charged bat swing collider if held for max hold time
+            if (Time.time >= heldStartTime + maxHoldTime)
+                swing = chargedBatSwing;
+
+            swing.amount = damageAmount;
 
             //Calculate time held for lerp
             float time = Mathf.Clamp(Time.time - heldStartTime, minHoldTime, maxHoldTime);
@@ -192,7 +199,7 @@ public class PlayerAttack : MonoBehaviour
             float multiplier = Mathf.Lerp(1.0f, heldDamageMultiplier, time / (maxHoldTime - minHoldTime));
 
             //Set multiplier
-            batSwing.multiplier = multiplier;
+            swing.multiplier = multiplier;
 
             if (graphic)
             {
@@ -203,7 +210,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         //Play melee animation
-        if (characterAnimator && characterMove.canMove)
+        if (characterAnimator)
         {
             //Play charged attack anim if fully charged
             characterAnimator.SetCharged(Time.time >= heldStartTime + maxHoldTime && heldStartTime > 0);
