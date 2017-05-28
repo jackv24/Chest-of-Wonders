@@ -70,7 +70,8 @@ public class CharacterMove : MonoBehaviour
     [Tooltip("How many rays to cast left and right for collision detection.")]
     public int horizontalRays = 5;
     [Tooltip("How far inside the characters collider should the rays start from? (should be greater than 0)")]
-    public float skinWidth = 0.01f;
+    public float skinWidthX = 0.01f;
+    public float skinWidthY = 0.01f;
 
     [Space()]
     public LayerMask groundLayer;
@@ -186,11 +187,11 @@ public class CharacterMove : MonoBehaviour
         //Vertical collision detection
         {
             //Calculate start and end points that rays will be cast from between
-            Vector2 startPoint = new Vector2(box.xMin + skinWidth, box.center.y);
-            Vector2 endPoint = new Vector2(box.xMax - skinWidth, box.center.y);
+            Vector2 startPoint = new Vector2(box.xMin + skinWidthX, box.center.y);
+            Vector2 endPoint = new Vector2(box.xMax - skinWidthX, box.center.y);
 
             //Distance of rays should (when cast from centre) extend past the bottom by velocity amount (or skin width if grounded)
-            float distance = box.height / 2 + (isGrounded ? skinWidth : Mathf.Abs(velocity.y * Time.deltaTime));
+            float distance = box.height / 2 + (isGrounded ? skinWidthX : Mathf.Abs(velocity.y * Time.deltaTime));
 
             //Not grounded unless a ray connects
             isGrounded = false;
@@ -276,8 +277,8 @@ public class CharacterMove : MonoBehaviour
             if (velocity.x != 0)
             {
                 //Start and end points that ray origins will lay between
-                Vector2 startPoint = new Vector2(box.center.x, box.yMin + skinWidth);
-                Vector2 endPoint = new Vector2(box.center.x, box.yMax - skinWidth);
+                Vector2 startPoint = new Vector2(box.center.x, box.yMin + skinWidthY);
+                Vector2 endPoint = new Vector2(box.center.x, box.yMax - skinWidthY);
 
                 //Rays are cast out according to velocity, from the center
                 float distance = box.width / 2 + Mathf.Abs(velocity.x * Time.deltaTime);

@@ -65,7 +65,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4243805027198954}
   - component: {fileID: 61726453952576576}
-  - component: {fileID: 50846550779180142}
   - component: {fileID: 114806664853724274}
   m_Layer: 10
   m_Name: BatSwingCollider
@@ -99,7 +98,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4182279713850798}
   - component: {fileID: 61302511317327728}
-  - component: {fileID: 50878062445557774}
   - component: {fileID: 114061908791259452}
   m_Layer: 10
   m_Name: ChargedBatSwingCollider
@@ -147,7 +145,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4980708787995684}
   - component: {fileID: 61256214160878340}
-  - component: {fileID: 50874533667320112}
   - component: {fileID: 114942654493615672}
   m_Layer: 10
   m_Name: DownstrikeBatSwingCollider
@@ -211,13 +208,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1161178783357966}
-  m_LocalRotation: {x: 0, y: 0, z: 0.043619405, w: 0.9990483}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4243805027198954
 Transform:
   m_ObjectHideFlags: 1
@@ -289,13 +286,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1904300614673374}
-  m_LocalRotation: {x: 0, y: 0, z: -0.258819, w: 0.9659259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50735930063480252
 Rigidbody2D:
   serializedVersion: 4
@@ -316,66 +313,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!50 &50846550779180142
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1094960521439024}
-  m_BodyType: 1
-  m_Simulated: 0
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!50 &50874533667320112
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904300614673374}
-  m_BodyType: 1
-  m_Simulated: 0
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!50 &50878062445557774
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1161178783357966}
-  m_BodyType: 1
-  m_Simulated: 0
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &61081321016914136
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -401,9 +338,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0.3, y: 1.36}
+  m_Offset: {x: 0.75, y: 1}
   serializedVersion: 2
-  m_Size: {x: 2.18, y: 1.5}
+  m_Size: {x: 1.75, y: 1.5}
 --- !u!61 &61302511317327728
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -732,7 +669,8 @@ MonoBehaviour:
   maxFallSpeed: 20
   verticalRays: 5
   horizontalRays: 5
-  skinWidth: 0.01
+  skinWidthX: 0.01
+  skinWidthY: 0.01
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -914,6 +852,7 @@ MonoBehaviour:
   deathParticleOffset: {x: 0, y: 0.75}
   deathDrop: {fileID: 0}
   dropOffset: {x: 0, y: 1}
+  damageImmunity: 0
 --- !u!114 &114872607700838032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -926,6 +865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterMove: {fileID: 114000013110640092}
+  characterStats: {fileID: 114849662361689878}
   slideTime: 0.25
   slideCurve:
     serializedVersion: 2
@@ -965,6 +905,8 @@ MonoBehaviour:
   downstrikeSound:
     clip: {fileID: 8300000, guid: b6b4877f91af3ae4181f0579a44b9ab3, type: 3}
     volume: 1
+  downstrikeFallSpeed: 20
+  hitGroundScreenShake: 0.5
 --- !u!114 &114942654493615672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1016,7 +958,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1695847897
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
+  m_Sprite: {fileID: 21300154, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

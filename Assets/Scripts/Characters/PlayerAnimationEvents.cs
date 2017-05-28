@@ -6,6 +6,7 @@ public class PlayerAnimationEvents : MonoBehaviour
 {
     [Header("Character Scripts")]
     public CharacterMove characterMove;
+    public CharacterStats characterStats;
 
     [Header("Behaviour Values")]
     public float slideTime = 0.5f;
@@ -24,6 +25,8 @@ public class PlayerAnimationEvents : MonoBehaviour
     [Space()]
     public GameObject downstrikeCollider;
     public SoundEffectBase.SoundEffect downstrikeSound;
+    public float downstrikeFallSpeed = 10.0f;
+    public float hitGroundScreenShake = 1.0f;
 
     private SoundEffectBase soundEffects;
 
@@ -159,15 +162,9 @@ public class PlayerAnimationEvents : MonoBehaviour
         }
     }
 
-    public void EnableDownstrikeCollider()
+    public void StartDownStrike(float fallDelay)
     {
-        if (downstrikeCollider)
-            downstrikeCollider.SetActive(true);
-    }
-    public void DisableDownstrikeCollider()
-    {
-        if (downstrikeCollider)
-            downstrikeCollider.SetActive(false);
+        StartCoroutine("Downstrike", fallDelay);
     }
     public void PlayDownstrikeSound()
     {
@@ -175,5 +172,51 @@ public class PlayerAnimationEvents : MonoBehaviour
         {
             soundEffects.PlaySound(downstrikeSound);
         }
+    }
+
+    IEnumerator Downstrike(float fallDelay)
+    {
+        //Player can not control during downstrike
+        characterMove.canMove = false;
+
+        //Stop movement and cache gravity
+        float initialGravity = characterMove.gravity;
+        characterMove.gravity = 0;
+        characterMove.velocity = Vector2.zero;
+
+        //Can not be hurt during attack
+        characterStats.damageImmunity = true;
+
+        //Wait for swing animation
+        yield return new WaitForSeconds(fallDelay);
+
+        //Enable the bat collider
+        if (downstrikeCollider)
+            downstrikeCollider.SetActive(true);
+
+        while (!characterMove.isGrounded)
+        {
+            //Move downwards at constant speed until grounded
+            characterMove.velocity.y = -downstrikeFallSpeed;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        //Downwards screen shake
+        Vector2 camOffset = new Vector2(0, -hitGroundScreenShake);
+        Camera.main.transform.position += (Vector3)camOffset;
+
+        //Disable collider
+        if (downstrikeCollider)
+            downstrikeCollider.SetActive(false);
+
+        //Restore gravity and control
+        characterMove.gravity = initialGravity;
+        characterMove.canMove = true;
+
+        //Player can be hurt again
+        characterStats.damageImmunity = false;
     }
 }

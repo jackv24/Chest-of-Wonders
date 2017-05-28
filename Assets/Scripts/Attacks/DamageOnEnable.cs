@@ -29,17 +29,17 @@ public class DamageOnEnable : MonoBehaviour
         hitInSwing.Clear();
 
         col = GetComponent<Collider2D>();
+    }
 
+    private void Update()
+    {
         box = new Rect(
             col.bounds.min.x,
             col.bounds.min.y,
             col.bounds.size.x,
             col.bounds.size.y
             );
-    }
 
-    private void FixedUpdate()
-    {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(box.center, box.size, 0, damageLayer);
 
         foreach (Collider2D collider in colliders)

@@ -72,15 +72,15 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_IsEmpty: 0
   m_Events:
-  - time: 0.06666667
-    functionName: PlayDownstrikeSound
+  - time: 0
+    functionName: StartDownStrike
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
+    floatParameter: 0.15
     intParameter: 0
     messageOptions: 0
-  - time: 0.13333334
-    functionName: EnableDownstrikeCollider
+  - time: 0.06666667
+    functionName: PlayDownstrikeSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

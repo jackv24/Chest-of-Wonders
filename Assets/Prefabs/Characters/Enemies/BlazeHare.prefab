@@ -112,7 +112,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: -0, y: 0.5}
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 1}
+  m_Size: {x: 1.15, y: 1}
 --- !u!82 &82516058818075386
 AudioSource:
   m_ObjectHideFlags: 1
@@ -281,7 +281,8 @@ MonoBehaviour:
   maxFallSpeed: 20
   verticalRays: 3
   horizontalRays: 5
-  skinWidth: 0.01
+  skinWidthX: 0.3
+  skinWidthY: 0.01
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -327,8 +328,9 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e6f4d3dd6e13d15478009d4ac6a77dc4, type: 3}
     volume: 0.5
   footstepSource: {fileID: 0}
-  footsteps: []
-  footstepInterval: 0.1
+  footsteps:
+    clip: {fileID: 0}
+    volume: 1
   minPitch: 0.9
   maxPitch: 1.1
   minVolume: 0.7
@@ -358,6 +360,7 @@ MonoBehaviour:
   deathParticleOffset: {x: 0, y: 0.5}
   deathDrop: {fileID: 1950966513125510, guid: 4d978f51cc282e74b9b24cf25a58589b, type: 2}
   dropOffset: {x: 0, y: 1}
+  damageImmunity: 0
 --- !u!212 &212107043697564826
 SpriteRenderer:
   m_ObjectHideFlags: 1
