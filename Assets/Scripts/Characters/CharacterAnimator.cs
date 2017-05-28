@@ -73,8 +73,11 @@ public class CharacterAnimator : MonoBehaviour
         animator.SetBool("stunned", value);
     }
 
-    public void MeleeAttack(bool holding)
+    public void MeleeAttack(bool holding, float verticalDirection)
     {
+        if(!holding)
+            animator.SetFloat("vertical", verticalDirection);
+
         animator.SetBool("holdingBat", holding);
     }
 

@@ -33,7 +33,16 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if(characterStats && Debug.isDebugBuild)
+        //Get input from controllers and keyboard, clamped
+        inputDirection = playerActions.Move;
+
+        //Apply deadzone
+        if (Mathf.Abs(inputDirection.x) <= moveDeadZone.x)
+            inputDirection.x = 0;
+        if (Mathf.Abs(inputDirection.y) <= moveDeadZone.y)
+            inputDirection.y = 0;
+
+        if (characterStats && Debug.isDebugBuild)
         {
             if(Input.GetKeyDown(KeyCode.H))
             {
@@ -43,18 +52,6 @@ public class PlayerInput : MonoBehaviour
 
         if (characterMove)
         {
-            //Get active device at start of frame (always current)
-            //device = InputManager.ActiveDevice;
-
-            //Get input from controllers and keyboard, clamped
-            inputDirection = playerActions.Move;
-
-            //Apply deadzone
-            if (Mathf.Abs(inputDirection.x) <= moveDeadZone.x)
-                inputDirection.x = 0;
-            if (Mathf.Abs(inputDirection.y) <= moveDeadZone.y)
-                inputDirection.y = 0;
-
             //Move the player using the CharacterMove script
             characterMove.Move(inputDirection.x);
 
@@ -68,9 +65,9 @@ public class PlayerInput : MonoBehaviour
         if (playerAttack && GameManager.instance.CanDoActions)
         {
             if (playerActions.MeleeAttack.WasPressed)
-                playerAttack.UseMelee(true);
+                playerAttack.UseMelee(true, inputDirection.y);
             else if (playerActions.MeleeAttack.WasReleased)
-                playerAttack.UseMelee(false);
+                playerAttack.UseMelee(false, inputDirection.y);
             else if (playerActions.MagicAttack.IsPressed)
                 playerAttack.UseMagic(inputDirection);
             else if (playerActions.MagicSwitch.WasPressed)

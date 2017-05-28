@@ -21,6 +21,9 @@ public class PlayerAnimationEvents : MonoBehaviour
     [Space()]
     public GameObject chargedBatSwingCollider;
     public SoundEffectBase.SoundEffect chargedBatSwingSound;
+    [Space()]
+    public GameObject downstrikeCollider;
+    public SoundEffectBase.SoundEffect downstrikeSound;
 
     private SoundEffectBase soundEffects;
 
@@ -36,6 +39,9 @@ public class PlayerAnimationEvents : MonoBehaviour
 
         if (chargedBatSwingCollider)
             chargedBatSwingCollider.SetActive(false);
+
+        if (downstrikeCollider)
+            downstrikeCollider.SetActive(false);
     }
 
     public void AllowMovement()
@@ -122,13 +128,11 @@ public class PlayerAnimationEvents : MonoBehaviour
         if (batSwingCollider)
             batSwingCollider.SetActive(true);
     }
-
     public void DisableBatCollider()
     {
         if (batSwingCollider)
             batSwingCollider.SetActive(false);
     }
-
     public void PlayBatSwingSound()
     {
         if(soundEffects && batSwingSound.clip)
@@ -142,18 +146,34 @@ public class PlayerAnimationEvents : MonoBehaviour
         if (chargedBatSwingCollider)
             chargedBatSwingCollider.SetActive(true);
     }
-
     public void DisableChargedBatCollider()
     {
         if (chargedBatSwingCollider)
             chargedBatSwingCollider.SetActive(false);
     }
-
     public void PlayChargedBatSwingSound()
     {
         if (soundEffects && chargedBatSwingSound.clip)
         {
             soundEffects.PlaySound(chargedBatSwingSound);
+        }
+    }
+
+    public void EnableDownstrikeCollider()
+    {
+        if (downstrikeCollider)
+            downstrikeCollider.SetActive(true);
+    }
+    public void DisableDownstrikeCollider()
+    {
+        if (downstrikeCollider)
+            downstrikeCollider.SetActive(false);
+    }
+    public void PlayDownstrikeSound()
+    {
+        if (soundEffects && downstrikeSound.clip)
+        {
+            soundEffects.PlaySound(downstrikeSound);
         }
     }
 }

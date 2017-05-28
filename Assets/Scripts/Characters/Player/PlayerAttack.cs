@@ -178,7 +178,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    public void UseMelee(bool holding)
+    public void UseMelee(bool holding, float verticalDirection)
     {
         DamageOnEnable swing = batSwing;
 
@@ -215,7 +215,7 @@ public class PlayerAttack : MonoBehaviour
             //Play charged attack anim if fully charged
             characterAnimator.SetCharged(Time.time >= heldStartTime + maxHoldTime && heldStartTime > 0);
 
-            characterAnimator.MeleeAttack(holding);
+            characterAnimator.MeleeAttack(holding, verticalDirection);
 
             heldStartTime = 0;
         }

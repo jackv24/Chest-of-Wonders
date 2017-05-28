@@ -90,6 +90,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1161178783357966
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4182279713850798}
+  - component: {fileID: 61302511317327728}
+  - component: {fileID: 50878062445557774}
+  - component: {fileID: 114061908791259452}
+  m_Layer: 10
+  m_Name: ChargedBatSwingCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1876271065606266
 GameObject:
   m_ObjectHideFlags: 1
@@ -132,7 +150,7 @@ GameObject:
   - component: {fileID: 50874533667320112}
   - component: {fileID: 114942654493615672}
   m_Layer: 10
-  m_Name: ChargedBatSwingCollider
+  m_Name: DownstrikeBatSwingCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,6 +182,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4243805027198954}
+  - {fileID: 4182279713850798}
   - {fileID: 4980708787995684}
   - {fileID: 4265973003488688}
   - {fileID: 4894850495181718}
@@ -186,6 +205,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4182279713850798
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1161178783357966}
+  m_LocalRotation: {x: 0, y: 0, z: 0.043619405, w: 0.9990483}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4000010964507712}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5}
 --- !u!4 &4243805027198954
 Transform:
   m_ObjectHideFlags: 1
@@ -210,7 +242,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4657373482626076
 Transform:
@@ -236,7 +268,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4894850495181718
 Transform:
@@ -249,7 +281,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4980708787995684
 Transform:
@@ -257,13 +289,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1904300614673374}
-  m_LocalRotation: {x: 0, y: 0, z: 0.043619405, w: 0.9990483}
+  m_LocalRotation: {x: 0, y: 0, z: -0.258819, w: 0.9659259}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30}
 --- !u!50 &50735930063480252
 Rigidbody2D:
   serializedVersion: 4
@@ -324,6 +356,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!50 &50878062445557774
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1161178783357966}
+  m_BodyType: 1
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61081321016914136
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -344,6 +396,20 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1904300614673374}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.3, y: 1.36}
+  serializedVersion: 2
+  m_Size: {x: 2.18, y: 1.5}
+--- !u!61 &61302511317327728
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1161178783357966}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -688,6 +754,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95000013828001912}
   defaultRight: 1
+--- !u!114 &114061908791259452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1161178783357966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  amount: 20
+  multiplier: 1
+  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
+  screenShakeAmount: 0.25
+  knockBackAmount: 10
+  knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114148965292316800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -732,7 +818,7 @@ MonoBehaviour:
   pickupRange: 2
   buttonHoldTime: 0.5
   batSwing: {fileID: 114806664853724274}
-  chargedBatSwing: {fileID: 114942654493615672}
+  chargedBatSwing: {fileID: 114061908791259452}
   damageAmount: 20
   minHoldTime: 0.25
   maxHoldTime: 1
@@ -871,10 +957,14 @@ MonoBehaviour:
   batSwingSound:
     clip: {fileID: 8300000, guid: b6b4877f91af3ae4181f0579a44b9ab3, type: 3}
     volume: 1
-  chargedBatSwingCollider: {fileID: 1904300614673374}
+  chargedBatSwingCollider: {fileID: 1161178783357966}
   chargedBatSwingSound:
     clip: {fileID: 8300000, guid: 22081f76362ff9542a66eda91e20c832, type: 3}
     volume: 0.5
+  downstrikeCollider: {fileID: 1904300614673374}
+  downstrikeSound:
+    clip: {fileID: 8300000, guid: b6b4877f91af3ae4181f0579a44b9ab3, type: 3}
+    volume: 1
 --- !u!114 &114942654493615672
 MonoBehaviour:
   m_ObjectHideFlags: 1
