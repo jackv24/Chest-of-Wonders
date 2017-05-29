@@ -25,8 +25,24 @@ public class DamageOnTouch : MonoBehaviour
 
     private List<GameObject> onCoolDown = new List<GameObject>();
 
+    private CharacterStats characterStats;
+
+    private void Awake()
+    {
+        characterStats = GetComponent<CharacterStats>();
+    }
+
+    private void OnEnable()
+    {
+        onCoolDown.Clear();
+    }
+
     private void FixedUpdate()
     {
+        //Character can not cause damage if it can not take damage
+        if (characterStats && characterStats.damageImmunity)
+            return;
+
         Vector2 pos = (Vector2)transform.position + damageBoxPos;
 
         Collider2D[] cols = Physics2D.OverlapBoxAll(pos, damageBoxSize, 0, damageLayers);

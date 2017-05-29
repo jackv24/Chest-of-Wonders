@@ -27,6 +27,7 @@ public class PlayerAnimationEvents : MonoBehaviour
     public SoundEffectBase.SoundEffect downstrikeSound;
     public float downstrikeFallSpeed = 10.0f;
     public float hitGroundScreenShake = 1.0f;
+    public float downstrikeEndImmunity = 0.25f;
 
     private SoundEffectBase soundEffects;
 
@@ -215,6 +216,8 @@ public class PlayerAnimationEvents : MonoBehaviour
         //Restore gravity and control
         characterMove.gravity = initialGravity;
         characterMove.canMove = true;
+
+        yield return new WaitForSeconds(downstrikeEndImmunity);
 
         //Player can be hurt again
         characterStats.damageImmunity = false;
