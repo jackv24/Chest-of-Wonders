@@ -6,6 +6,7 @@ public class CharacterStats : MonoBehaviour
 {
     public delegate void NormalEvent();
     public NormalEvent OnDeath;
+    public NormalEvent OnDamaged;
 
     public int currentHealth = 100;
     public int maxHealth = 100;
@@ -82,6 +83,9 @@ public class CharacterStats : MonoBehaviour
 
         if (characterSound)
             characterSound.PlaySound(characterSound.hurtSound);
+
+        if (OnDamaged != null)
+            OnDamaged();
 
         //Health was removed, so return true
         return true;

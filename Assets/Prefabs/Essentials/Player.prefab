@@ -907,6 +907,7 @@ MonoBehaviour:
     volume: 1
   downstrikeFallSpeed: 20
   hitGroundScreenShake: 0.5
+  downstrikeEndImmunity: 0.25
 --- !u!114 &114942654493615672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -958,7 +959,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1695847897
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300154, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

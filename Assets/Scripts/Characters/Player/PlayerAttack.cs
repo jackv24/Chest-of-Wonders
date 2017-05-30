@@ -50,11 +50,8 @@ public class PlayerAttack : MonoBehaviour
     public int damageAmount = 20;
     [Space()]
     [Tooltip("The minimum amount of time the bat needs to charge before a damage multiplier is applied.")]
-    public float minHoldTime = 0.5f;
-    [Tooltip("The time the bat needs to charge for the full damage multiplier to be applied.")]
-    public float maxHoldTime = 2.0f;
+    public float chargeHoldTime = 1.0f;
     private float heldStartTime = 0;
-    [Space()]
     public float heldDamageMultiplier = 1.5f;
     [Space()]
     public float moveSpeedMultiplier = 0.75f;
@@ -186,17 +183,13 @@ public class PlayerAttack : MonoBehaviour
         if(swing && !holding)
         {
             //Used charged bat swing collider if held for max hold time
-            if (Time.time >= heldStartTime + maxHoldTime)
+            if (Time.time >= heldStartTime + chargeHoldTime)
                 swing = chargedBatSwing;
 
             swing.amount = damageAmount;
 
-            //Calculate time held for lerp
-            float time = Mathf.Clamp(Time.time - heldStartTime, minHoldTime, maxHoldTime);
-            time -= minHoldTime;
-
-            //Calculate damage multiplier between max and min hold times
-            float multiplier = Mathf.Lerp(1.0f, heldDamageMultiplier, time / (maxHoldTime - minHoldTime));
+            //If held for enough time, damage multiplier is used. Otherwise 1
+            float multiplier = Time.time >= heldStartTime + chargeHoldTime && heldStartTime > 0 ? heldDamageMultiplier : 1.0f;
 
             //Set multiplier
             swing.multiplier = multiplier;
@@ -213,7 +206,7 @@ public class PlayerAttack : MonoBehaviour
         if (characterAnimator)
         {
             //Play charged attack anim if fully charged
-            characterAnimator.SetCharged(Time.time >= heldStartTime + maxHoldTime && heldStartTime > 0);
+            characterAnimator.SetCharged(Time.time >= heldStartTime + chargeHoldTime && heldStartTime > 0);
 
             characterAnimator.MeleeAttack(holding, verticalDirection);
 
@@ -226,7 +219,7 @@ public class PlayerAttack : MonoBehaviour
             heldStartTime = Time.time;
 
             //Start bat flash after max hold time
-            StartCoroutine("BatFlash", maxHoldTime);
+            StartCoroutine("BatFlash", chargeHoldTime);
         }
 
         //Reduce move speed while holding bat

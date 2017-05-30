@@ -38,6 +38,14 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     private void Start()
     {
+        if (characterStats)
+            characterStats.OnDamaged += DisableColliders;
+
+        DisableColliders();
+    }
+
+    void DisableColliders()
+    {
         if (batSwingCollider)
             batSwingCollider.SetActive(false);
 
