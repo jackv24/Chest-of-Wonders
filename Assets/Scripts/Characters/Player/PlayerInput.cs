@@ -53,7 +53,8 @@ public class PlayerInput : MonoBehaviour
         if (characterMove)
         {
             //Move the player using the CharacterMove script
-            characterMove.Move(inputDirection.x);
+            if(GameManager.instance && GameManager.instance.CanDoActions)
+                characterMove.Move(inputDirection.x);
 
             if (playerActions.Jump.WasPressed)
                 characterMove.Jump(true);

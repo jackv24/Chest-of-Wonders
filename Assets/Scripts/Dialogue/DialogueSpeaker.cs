@@ -23,6 +23,7 @@ public class DialogueSpeaker : MonoBehaviour
     public bool rangeToggle = false;
 
     public float range = 2f;
+    public float talkRange = 1.0f;
     private GameObject player;
 
     [Space()]
@@ -78,6 +79,9 @@ public class DialogueSpeaker : MonoBehaviour
                     scale.x = Mathf.Sign(player.transform.position.x - transform.position.x);
                     graphic.transform.localScale = scale;
                 }
+
+                if (player)
+                    StartCoroutine("MovePlayer");
             }
         }
         else
@@ -89,8 +93,45 @@ public class DialogueSpeaker : MonoBehaviour
         }
     }
 
+    IEnumerator MovePlayer()
+    {
+        float sign = Mathf.Sign(player.transform.position.x - transform.position.x);
+        float targetPos = transform.position.x + sign * talkRange;
+
+        //Get character move and cache move speed
+        CharacterMove characterMove = player.GetComponent<CharacterMove>();
+        float moveSpeed = characterMove.moveSpeed;
+
+        //Allow movement at half speed
+        characterMove.ignoreCanMove = true;
+        characterMove.moveSpeed = moveSpeed * 0.5f;
+
+        //While player is not at target position (according to sign)
+        while ((sign < 0 && player.transform.position.x > targetPos) || (sign > 0 && player.transform.position.x < targetPos))
+        {
+            //Move player
+            characterMove.Move(sign);
+            yield return new WaitForEndOfFrame();
+        }
+
+        //Face back towards speaker
+        characterMove.Move(-sign);
+
+        yield return new WaitForEndOfFrame();
+
+        //Stop moving
+        characterMove.Move(0);
+
+        //Restore cached values
+        characterMove.ignoreCanMove = false;
+        characterMove.moveSpeed = moveSpeed;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, range);
+
+        Gizmos.DrawLine(new Vector3(-talkRange, 1.0f) + transform.position, new Vector3(-talkRange, 0) + transform.position);
+        Gizmos.DrawLine(new Vector3(talkRange, 1.0f) + transform.position, new Vector3(talkRange, 0) + transform.position);
     }
 }
