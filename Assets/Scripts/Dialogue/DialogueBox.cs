@@ -13,6 +13,8 @@ public class DialogueBox : MonoBehaviour
     public RectTransform optionPanel;
 
     [Space()]
+    public Text nameText;
+    public Image accent;
     public Text dialogueText;
     public Button initialButton;
     private List<Button> buttons = new List<Button>();
@@ -72,7 +74,10 @@ public class DialogueBox : MonoBehaviour
             dialogueText.text = "";
 
             //Remove newline from end of string
-            string text = currentStory.currentText.TrimEnd(System.Environment.NewLine.ToCharArray());
+            string text = currentStory.currentText;//.Replace("\n", "");
+
+            //Parse text for speaker (removing it in the process)
+            text = ParseSpeaker(text);
 
             while (index < text.Length)
             {
@@ -112,6 +117,12 @@ public class DialogueBox : MonoBehaviour
 
                     buttons[i].gameObject.SetActive(true);
                 }
+
+                EventSystem.current.firstSelectedGameObject = null;
+                EventSystem.current.SetSelectedGameObject(null);
+
+                EventSystem.current.firstSelectedGameObject = buttons[0].gameObject;
+                EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
             }
             else
             {
@@ -127,7 +138,7 @@ public class DialogueBox : MonoBehaviour
             {
                 yield return new WaitForEndOfFrame();
 
-                if (playerActions.Interact.WasPressed || playerActions.Submit.WasPressed)
+                if (playerActions.Interact.WasPressed || playerActions.Submit.WasPressed || playerActions.Jump.WasPressed || Input.GetMouseButton(0))
                     waitingForInput = false;
             }
 
@@ -153,14 +164,77 @@ public class DialogueBox : MonoBehaviour
             ButtonEventWrapper initialButtonEvents = initialButton.GetComponent<ButtonEventWrapper>();
 
             //Reset button events back to default
-            ButtonEventWrapper.CopyEvents(ref buttonEvents, ref initialButtonEvents);
+            ButtonEventWrapper.CopyEvents(ref initialButtonEvents, ref buttonEvents);
 
             buttonEvents.onSubmit += delegate
             {
                 waitingForChoice = false;
-
+                
                 currentStory.ChooseChoiceIndex(index);
             };
         }
+    }
+
+    string ParseSpeaker(string text)
+    {
+        char[] chars = text.ToCharArray();
+
+        string speakerName = "";
+        string outputString = "";
+        bool readingName = true;
+
+        //If sentence starts with '@' it should follow with a name
+        if (chars[0] == '@')
+        {
+            for(int i = 1; i < chars.Length; i++)
+            {
+                //Read name until ':' is reached (excluding any following space)
+                if (chars[i] == ':')
+                {
+                    i++;
+                    readingName = false;
+
+                    if (chars[i] == ' ')
+                        i++;
+                }
+
+                //Save name part of string into name string, and rest into output string
+                if (readingName)
+                    speakerName += chars[i];
+                else
+                    outputString += chars[i];
+            }
+
+            ///Update dialogue box with speaker details
+            //Update name text
+            if(nameText)
+                nameText.text = speakerName;
+
+            //Find all Dialogue Speakers in scene
+            DialogueSpeaker[] speakers = FindObjectsOfType<DialogueSpeaker>();
+
+            DialogueSpeaker speaker = null;
+
+            //Loop through all speakers to find one matching the speaker name
+            foreach(DialogueSpeaker s in speakers)
+            {
+                if (s.gameObject.name.ToLower() == speakerName.ToLower())
+                    speaker = s;
+            }
+
+            //If a matching speaker was found
+            if(speaker)
+            {
+                //Change window accent colour to match speaker
+                if(accent)
+                    accent.color = speaker.windowColor;
+
+                //TODO: Position dialogue box next to speaker
+            }
+
+            return outputString;
+        }
+        else
+            return text;
     }
 }

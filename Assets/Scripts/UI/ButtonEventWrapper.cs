@@ -15,7 +15,11 @@ public class ButtonEventWrapper : MonoBehaviour, ISelectHandler, ISubmitHandler,
 
     public static void CopyEvents(ref ButtonEventWrapper original, ref ButtonEventWrapper source)
     {
+        source.onSelect = null;
+        source.onSubmit = null;
+
         source.onSelect = original.onSelect;
+        source.onSubmit = original.onSubmit;
     }
 
     public void OnSelect(BaseEventData eventData)
