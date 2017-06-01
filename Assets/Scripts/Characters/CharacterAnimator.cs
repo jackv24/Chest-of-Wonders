@@ -10,6 +10,9 @@ public class CharacterAnimator : MonoBehaviour
     [Tooltip("Does the character look towards the right by default? (used to flip the character to face the right move direction)")]
     public bool defaultRight = true;
 
+    [Space()]
+    public AnimationClip deathAnimation;
+
     private CharacterMove characterMove;
 
     private void Awake()
@@ -94,5 +97,41 @@ public class CharacterAnimator : MonoBehaviour
     void Jump()
     {
         animator.SetTrigger("jump");
+    }
+
+    public bool Death()
+    {
+        if (ContainsParameter("isAlive"))
+        {
+            animator.SetBool("stunned", false);
+            animator.SetBool("isAlive", false);
+
+            StartCoroutine("DisableAfterDeathAnim");
+
+            return true;
+        }
+        else
+            return false;
+    }
+
+    IEnumerator DisableAfterDeathAnim()
+    {
+        if(deathAnimation)
+        {
+            yield return new WaitForSeconds(deathAnimation.length);
+
+            gameObject.SetActive(false);
+        }
+    }
+
+    bool ContainsParameter(string name)
+    {
+        foreach(AnimatorControllerParameter p in animator.parameters)
+        {
+            if (p.name == name)
+                return true;
+        }
+
+        return false;
     }
 }

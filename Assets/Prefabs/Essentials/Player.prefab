@@ -368,7 +368,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0.75, y: 0.65}
   serializedVersion: 2
-  m_Size: {x: 2.25, y: 0.6}
+  m_Size: {x: 1.65, y: 0.6}
 --- !u!82 &82491122072503488
 AudioSource:
   m_ObjectHideFlags: 1
@@ -692,6 +692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95000013828001912}
   defaultRight: 1
+  deathAnimation: {fileID: 0}
 --- !u!114 &114061908791259452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -758,9 +759,8 @@ MonoBehaviour:
   batSwing: {fileID: 114806664853724274}
   chargedBatSwing: {fileID: 114061908791259452}
   damageAmount: 20
-  minHoldTime: 0.25
-  maxHoldTime: 1
-  heldDamageMultiplier: 1.5
+  chargeHoldTime: 1
+  heldDamageMultiplier: 2
   moveSpeedMultiplier: 0.75
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.5

@@ -112,7 +112,10 @@ public class CharacterStats : MonoBehaviour
         StartCoroutine("DeathTimer", deathTime);
 
         if (characterMove)
+        {
             characterMove.canMove = false;
+            characterMove.velocity = Vector2.zero;
+        }
 
         if (characterAnimator)
             characterAnimator.SetStunned(true);
@@ -139,7 +142,6 @@ public class CharacterStats : MonoBehaviour
             dropped.transform.position = (Vector2)gameObject.transform.position + dropOffset;
         }
 
-
         if (characterSound && GameManager.instance)
         {
             //Play death sound effect through game manager so that it can still play after character dies
@@ -149,7 +151,8 @@ public class CharacterStats : MonoBehaviour
                 soundEffects.PlaySound(characterSound.deathSound);
         }
 
-        gameObject.SetActive(false);
+        if (characterAnimator && !characterAnimator.Death())
+            gameObject.SetActive(false);
     }
 
     IEnumerator DamageFlash(float duration)

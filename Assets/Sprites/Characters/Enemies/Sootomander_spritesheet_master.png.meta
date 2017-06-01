@@ -1,92 +1,88 @@
 fileFormatVersion: 2
-guid: 410a2e75204b79445a8d95f85c8dc45e
-timeCreated: 1495850340
+guid: 8764774088681d74a93f264b5251b8bc
+timeCreated: 1496275751
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: player_idle_01
-    21300002: player_idle_02
-    21300004: player_idle_03
-    21300006: player_idle_04
-    21300008: player_run_01
-    21300010: player_run_02
-    21300012: player_run_03
-    21300014: player_run_04
-    21300016: player_run_05
-    21300018: player_run_06
-    21300020: player_run_07
-    21300022: player_run_08
-    21300024: player_bat_01
-    21300026: player_bat_02
-    21300028: player_bat_03
-    21300030: player_bat_04
-    21300032: player_bat_05
-    21300034: player_bat_06
-    21300036: player_bat_07
-    21300038: player_bat_08
-    21300040: player_jump_01
-    21300042: player_jump_02
-    21300044: player_jump_03
-    21300046: player_fall_01
-    21300048: player_fall_02
-    21300050: player_land_01
-    21300052: player_land_02
-    21300054: player_land_03
-    21300056: player_magic_fwd_01
-    21300058: player_magic_fwd_02
-    21300060: player_magic_fwd_03
-    21300062: player_magic_fwd_04
-    21300064: player_magic_up_01
-    21300066: player_magic_up_02
-    21300068: player_magic_up_03
-    21300070: player_magic_up_04
-    21300072: player_stun_1
-    21300074: player_stun_2
-    21300076: player_magic_fwd_run_01
-    21300078: player_magic_fwd_run_02
-    21300080: player_magic_fwd_run_03
-    21300082: player_magic_fwd_run_04
-    21300084: player_magic_up_run_01
-    21300086: player_magic_up_run_02
-    21300088: player_magic_up_run_03
-    21300090: player_magic_up_run_04
-    21300092: player_bat_idle_01
-    21300094: player_bat_idle_02
-    21300096: player_bat_idle_03
-    21300098: player_bat_idle_04
-    21300100: player_bat_land_01
-    21300102: player_bat_land_02
-    21300104: player_bat_land_03
-    21300106: player_bat_run_01
-    21300108: player_bat_run_02
-    21300110: player_bat_run_03
-    21300112: player_bat_run_04
-    21300114: player_bat_run_05
-    21300116: player_bat_run_06
-    21300118: player_bat_run_07
-    21300120: player_bat_run_08
-    21300122: player_bat_jump_01
-    21300124: player_bat_jump_02
-    21300126: player_bat_jump_03
-    21300128: player_bat_fall_01
-    21300130: player_bat_fall_02
-    21300132: player_bat_power_01
-    21300134: player_bat_power_02
-    21300136: player_bat_power_03
-    21300138: player_bat_power_04
-    21300140: player_bat_power_05
-    21300142: player_bat_power_06
-    21300144: player_bat_power_07
-    21300146: player_bat_power_08
-    21300148: player_air_downstrike_01
-    21300150: player_air_downstrike_02
-    21300152: player_air_downstrike_fall_01
-    21300154: player_air_downstrike_fall_02
-    21300156: player_air_downstrike_land_01
-    21300158: player_air_downstrike_land_02
-    21300160: player_air_downstrike_land_03
-    21300162: player_air_downstrike_land_04
-    21300164: player_air_downstrike_land_05
+    21300000: Sootomander_idle_1
+    21300002: Sootomander_idle_2
+    21300004: Sootomander_idle_3
+    21300006: Sootomander_idle_4
+    21300008: Sootomander_idle_5
+    21300010: Sootomander_idle_6
+    21300012: Sootomander_idle_7
+    21300014: Sootomander_idle_8
+    21300016: Sootomander_walk_1
+    21300018: Sootomander_walk_2
+    21300020: Sootomander_walk_3
+    21300022: Sootomander_walk_4
+    21300024: Sootomander_walk_5
+    21300026: Sootomander_walk_6
+    21300028: Sootomander_walk_7
+    21300030: Sootomander_walk_8
+    21300032: Sootomander_turn_1
+    21300034: Sootomander_turn_2
+    21300036: Sootomander_turn_3
+    21300038: Sootomander_turn_4
+    21300040: Sootomander_turn_5
+    21300042: Sootomander_turn_6
+    21300044: Sootomander_turn_7
+    21300046: Sootomander_turn_8
+    21300048: Sootomander_attack1_1
+    21300050: Sootomander_attack1_2
+    21300052: Sootomander_attack1_3
+    21300054: Sootomander_attack1_4
+    21300056: Sootomander_attack1_5
+    21300058: Sootomander_attack1_6
+    21300060: Sootomander_attack1_7
+    21300062: Sootomander_attack1_8
+    21300064: Sootomander_attack1_9
+    21300066: Sootomander_attack2_1
+    21300068: Sootomander_attack2_2
+    21300070: Sootomander_attack2_3
+    21300072: Sootomander_attack2_4
+    21300074: Sootomander_attack2_5
+    21300076: Sootomander_attack2_6
+    21300078: Sootomander_attack2_7
+    21300080: Sootomander_attack2_8
+    21300082: Sootomander_attack2_9
+    21300084: Sootomander_pounce_1
+    21300086: Sootomander_pounce_2
+    21300088: Sootomander_pounce_3
+    21300090: Sootomander_pounce_4
+    21300092: Sootomander_pounce_5
+    21300094: Sootomander_pounce_6
+    21300096: Sootomander_pounce_7
+    21300098: Sootomander_pounce_8
+    21300100: Sootomander_pounce_9
+    21300102: Sootomander_pounce_10
+    21300104: Sootomander_pounce_11
+    21300106: Sootomander_pounce_12
+    21300108: Sootomander_sooties_1
+    21300110: Sootomander_sooties_2
+    21300112: Sootomander_sooties_3
+    21300114: Sootomander_sooties_4
+    21300116: Sootomander_stunned_1
+    21300118: Sootomander_stunned_2
+    21300120: Sootomander_death_1
+    21300122: Sootomander_death_2
+    21300124: Sootomander_death_3
+    21300126: Sootomander_death_4
+    21300128: Sootomander_death_5
+    21300130: Sootomander_ash_1
+    21300132: Sootomander_ash_2
+    21300134: Sootomander_ash_3
+    21300136: Sootomander_ash_4
+    21300138: Sootomander_ash_5
+    21300140: Sootomander_ash_6
+    21300142: Sootomander_ash_7
+    21300144: Sootomander_ash_8
+    21300146: Sootomander_ash_9
+    21300148: Sootomander_ash_10
+    21300150: Sootomander_ash_11
+    21300152: Sootomander_ash_12
+    21300154: Sootomander_ash_13
+    21300156: Sootomander_ash_14
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -136,7 +132,7 @@ TextureImporter:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -144,23 +140,7 @@ TextureImporter:
   - buildTarget: Standalone
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-  - buildTarget: Android
-    maxTextureSize: 2048
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-  - buildTarget: WebGL
-    maxTextureSize: 2048
-    textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -168,7 +148,23 @@ TextureImporter:
   - buildTarget: iPhone
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -177,1086 +173,1034 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_idle_01
+      name: Sootomander_idle_1
       rect:
         serializedVersion: 2
         x: 8
-        y: 929
-        width: 32
-        height: 64
+        y: 1534
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_idle_02
+      name: Sootomander_idle_2
       rect:
         serializedVersion: 2
-        x: 43
-        y: 929
-        width: 32
-        height: 64
+        x: 186
+        y: 1534
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_idle_03
+      name: Sootomander_idle_3
       rect:
         serializedVersion: 2
-        x: 78
-        y: 929
-        width: 32
-        height: 64
+        x: 362
+        y: 1534
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_idle_04
-      rect:
-        serializedVersion: 2
-        x: 113
-        y: 929
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_run_01
-      rect:
-        serializedVersion: 2
-        x: 9
-        y: 849
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_run_02
-      rect:
-        serializedVersion: 2
-        x: 45
-        y: 849
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_run_03
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 849
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_run_04
-      rect:
-        serializedVersion: 2
-        x: 115
-        y: 849
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_run_05
-      rect:
-        serializedVersion: 2
-        x: 153
-        y: 849
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_run_06
-      rect:
-        serializedVersion: 2
-        x: 188
-        y: 849
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_run_07
-      rect:
-        serializedVersion: 2
-        x: 223
-        y: 849
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_run_08
-      rect:
-        serializedVersion: 2
-        x: 258
-        y: 849
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_01
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 767
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_02
-      rect:
-        serializedVersion: 2
-        x: 138
-        y: 767
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_03
-      rect:
-        serializedVersion: 2
-        x: 269
-        y: 767
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_04
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 767
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_05
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 698
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_06
-      rect:
-        serializedVersion: 2
-        x: 138
-        y: 698
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_07
-      rect:
-        serializedVersion: 2
-        x: 269
-        y: 698
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_08
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 698
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_jump_01
-      rect:
-        serializedVersion: 2
-        x: 254
-        y: 943
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_jump_02
-      rect:
-        serializedVersion: 2
-        x: 292
-        y: 943
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_jump_03
-      rect:
-        serializedVersion: 2
-        x: 330
-        y: 943
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_fall_01
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 943
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_fall_02
-      rect:
-        serializedVersion: 2
-        x: 409
-        y: 943
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_land_01
-      rect:
-        serializedVersion: 2
-        x: 477
-        y: 948
-        width: 30
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_land_02
-      rect:
-        serializedVersion: 2
-        x: 517
-        y: 948
-        width: 30
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_land_03
-      rect:
-        serializedVersion: 2
-        x: 554
-        y: 948
-        width: 30
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_fwd_01
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 611
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_fwd_02
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 611
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_fwd_03
-      rect:
-        serializedVersion: 2
-        x: 126
-        y: 611
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_fwd_04
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 611
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_up_01
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 611
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_up_02
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 611
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_up_03
-      rect:
-        serializedVersion: 2
-        x: 399
-        y: 611
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_up_04
-      rect:
-        serializedVersion: 2
-        x: 460
-        y: 611
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_stun_1
-      rect:
-        serializedVersion: 2
-        x: 618
-        y: 948
-        width: 30
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_stun_2
-      rect:
-        serializedVersion: 2
-        x: 671
-        y: 948
-        width: 30
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_fwd_run_01
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 523
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_fwd_run_02
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 523
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_fwd_run_03
-      rect:
-        serializedVersion: 2
-        x: 126
-        y: 523
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_fwd_run_04
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 523
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_up_run_01
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 523
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_up_run_02
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 523
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_up_run_03
-      rect:
-        serializedVersion: 2
-        x: 399
-        y: 523
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_magic_up_run_04
-      rect:
-        serializedVersion: 2
-        x: 460
-        y: 523
-        width: 54
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_idle_01
-      rect:
-        serializedVersion: 2
-        x: 312
-        y: 846
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_idle_02
-      rect:
-        serializedVersion: 2
-        x: 444
-        y: 846
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_idle_03
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 846
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_idle_04
-      rect:
-        serializedVersion: 2
-        x: 708
-        y: 846
-        width: 128
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_land_01
-      rect:
-        serializedVersion: 2
-        x: 783
-        y: 692
-        width: 74
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_land_02
-      rect:
-        serializedVersion: 2
-        x: 862
-        y: 692
-        width: 74
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_land_03
-      rect:
-        serializedVersion: 2
-        x: 941
-        y: 692
-        width: 74
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_run_01
+      name: Sootomander_idle_4
       rect:
         serializedVersion: 2
         x: 541
-        y: 766
-        width: 60
-        height: 64
+        y: 1534
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_bat_run_02
+      name: Sootomander_idle_5
       rect:
         serializedVersion: 2
-        x: 611
-        y: 766
-        width: 60
-        height: 64
+        x: 8
+        y: 1420
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_bat_run_03
+      name: Sootomander_idle_6
       rect:
         serializedVersion: 2
-        x: 676
-        y: 766
-        width: 60
-        height: 64
+        x: 186
+        y: 1420
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_bat_run_04
+      name: Sootomander_idle_7
       rect:
         serializedVersion: 2
-        x: 743
-        y: 766
-        width: 60
-        height: 64
+        x: 362
+        y: 1420
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_bat_run_05
-      rect:
-        serializedVersion: 2
-        x: 810
-        y: 766
-        width: 60
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_run_06
-      rect:
-        serializedVersion: 2
-        x: 876
-        y: 766
-        width: 60
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_run_07
+      name: Sootomander_idle_8
       rect:
         serializedVersion: 2
         x: 541
-        y: 691
-        width: 60
-        height: 64
+        y: 1420
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_bat_run_08
+      name: Sootomander_walk_1
       rect:
         serializedVersion: 2
-        x: 609
-        y: 691
-        width: 60
-        height: 64
+        x: 14
+        y: 1288
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_bat_jump_01
+      name: Sootomander_walk_2
       rect:
         serializedVersion: 2
-        x: 543
-        y: 611
-        width: 66
-        height: 64
+        x: 198
+        y: 1288
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_bat_jump_02
+      name: Sootomander_walk_3
       rect:
         serializedVersion: 2
-        x: 615
-        y: 611
-        width: 66
-        height: 64
+        x: 383
+        y: 1288
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_bat_jump_03
+      name: Sootomander_walk_4
       rect:
         serializedVersion: 2
-        x: 687
-        y: 611
-        width: 66
-        height: 64
+        x: 564
+        y: 1288
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_bat_fall_01
-      rect:
-        serializedVersion: 2
-        x: 759
-        y: 611
-        width: 66
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_fall_02
-      rect:
-        serializedVersion: 2
-        x: 831
-        y: 611
-        width: 66
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_power_01
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 434
-        width: 185
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_power_02
-      rect:
-        serializedVersion: 2
-        x: 209
-        y: 434
-        width: 185
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_power_03
-      rect:
-        serializedVersion: 2
-        x: 401
-        y: 434
-        width: 185
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_power_04
-      rect:
-        serializedVersion: 2
-        x: 595
-        y: 434
-        width: 185
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_power_05
-      rect:
-        serializedVersion: 2
-        x: 786
-        y: 434
-        width: 185
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_power_06
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 364
-        width: 185
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_power_07
-      rect:
-        serializedVersion: 2
-        x: 209
-        y: 364
-        width: 185
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_bat_power_08
-      rect:
-        serializedVersion: 2
-        x: 401
-        y: 364
-        width: 185
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: player_air_downstrike_01
+      name: Sootomander_walk_5
       rect:
         serializedVersion: 2
         x: 12
-        y: 257
-        width: 112
-        height: 86
+        y: 1163
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_air_downstrike_02
+      name: Sootomander_walk_6
       rect:
         serializedVersion: 2
-        x: 136
-        y: 257
-        width: 112
-        height: 86
+        x: 198
+        y: 1163
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_air_downstrike_fall_01
+      name: Sootomander_walk_7
       rect:
         serializedVersion: 2
-        x: 254
-        y: 257
-        width: 112
-        height: 86
+        x: 383
+        y: 1163
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_air_downstrike_fall_02
+      name: Sootomander_walk_8
       rect:
         serializedVersion: 2
-        x: 377
-        y: 257
-        width: 112
-        height: 86
+        x: 564
+        y: 1163
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_air_downstrike_land_01
+      name: Sootomander_turn_1
       rect:
         serializedVersion: 2
-        x: 595
-        y: 346
-        width: 112
-        height: 81
+        x: 24
+        y: 1018
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_air_downstrike_land_02
+      name: Sootomander_turn_2
       rect:
         serializedVersion: 2
-        x: 717
-        y: 346
-        width: 112
-        height: 81
+        x: 215
+        y: 1018
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_air_downstrike_land_03
+      name: Sootomander_turn_3
       rect:
         serializedVersion: 2
-        x: 836
-        y: 346
-        width: 112
-        height: 81
+        x: 415
+        y: 1018
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_air_downstrike_land_04
+      name: Sootomander_turn_4
       rect:
         serializedVersion: 2
-        x: 717
-        y: 260
-        width: 112
-        height: 81
+        x: 603
+        y: 1018
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_air_downstrike_land_05
+      name: Sootomander_turn_5
       rect:
         serializedVersion: 2
-        x: 836
-        y: 260
-        width: 112
-        height: 81
+        x: 27
+        y: 898
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_turn_6
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 898
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_turn_7
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 898
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_turn_8
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 898
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack1_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 749
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack1_2
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 749
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack1_3
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 749
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack1_4
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 749
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack1_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 628
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack1_6
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 628
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack1_7
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 628
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack1_8
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 628
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack1_9
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 628
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 479
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_2
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 479
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_3
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 479
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_4
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 479
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_5
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 337
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_6
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 337
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_7
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 337
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_8
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 337
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_9
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 337
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 201
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_2
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 201
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_3
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 201
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_4
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 201
+        width: 145
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_5
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 201
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_6
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 201
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_7
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 201
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_8
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 62
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_9
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 62
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_10
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 62
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_11
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 62
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_pounce_12
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 62
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_sooties_1
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 104
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_sooties_2
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 104
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_sooties_3
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 104
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_sooties_4
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 104
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_stunned_1
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 1528
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_stunned_2
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 1528
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_death_1
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1394
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_death_2
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 1394
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_death_3
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1274
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_death_4
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 1274
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_death_5
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1153
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_1
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1524
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_2
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 1524
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_3
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1403
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_4
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 1403
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_5
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1274
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_6
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 1274
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_7
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1153
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_8
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 1148
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_9
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1030
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_10
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 1026
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_11
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 893
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_12
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 893
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_13
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 771
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_ash_14
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 771
+        width: 168
+        height: 107
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     outline: []
-  spritePackingTag: characters
+  spritePackingTag: enemies
   userData: 
   assetBundleName: 
   assetBundleVariant: 
