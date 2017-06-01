@@ -3,294 +3,164 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Ink.Runtime;
 
 public class DialogueBox : MonoBehaviour
 {
-    //Static instance for easy access
-    public static DialogueBox instance;
+    public static DialogueBox Instance;
 
-    public Text nameText;
-    public Text dialogueText;
-    public string textClearColour;
-
-    public Image[] accents;
+    public RectTransform speakerPanel;
+    public RectTransform optionPanel;
 
     [Space()]
-    public GameObject button;
-    private Button[] buttons;
-    private int selectedButton = 0;
+    public Text dialogueText;
+    public Button initialButton;
+    private List<Button> buttons = new List<Button>();
 
-    public RectTransform buttonsRect;
-    public AnimationCurve buttonsFoldoutCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
-    public float foldoutLength = 0.25f;
+    private bool dialogueOpen = false;
+    private bool waitingForChoice = false;
+    private bool waitingForInput = false;
 
-    public float textSpeed = 2f;
-    private bool textDonePrinting = false;
-    private string targetText;
-
-    public GameObject openIcon;
+    private Story currentStory;
 
     private PlayerActions playerActions;
-    private GameObject speaker;
-    private Vector2 posOffset;
-    private Animator speakerAnimator;
-
-    //Keep track of next node for when there is no button to setup listeners
-    private DialogueGraph currentGraph;
-    private int nextNode = -1;
 
     private void Awake()
     {
-        //There should only be one dialogue box present in the scene
-        if (!instance)
-            instance = this;
-        else
-        {
-            Debug.LogWarning("More than one Speech Dialog was found in the scene, and has been removed.");
-
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
 
     private void Start()
     {
         playerActions = ControlManager.GetPlayerActions();
 
-        InControl.InControlInputModule inputModule = GameObject.Find("EventSystem").GetComponent<InControl.InControlInputModule>();
-        if (inputModule != null)
-        {
-            inputModule.SubmitAction = playerActions.Submit;
-        }
+        //Initial button is used as reference and should not be displayed
+        initialButton.gameObject.SetActive(false);
 
-        //Hide by default
-        gameObject.SetActive(false);
+        speakerPanel.gameObject.SetActive(false);
+        optionPanel.gameObject.SetActive(false);
     }
 
-    private void Update()
+    public void OpenDialogue(TextAsset jsonText, string startSpeakerName)
     {
-        //Navigate buttons with actions
-        if ((playerActions.Left.WasPressed || playerActions.Up.WasPressed) && buttons.Length > 0 && textDonePrinting)
+        if (!dialogueOpen)
         {
-            selectedButton = selectedButton > 0 ? selectedButton - 1 : buttons.Length - 1;
-            EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
-        }
-        else if ((playerActions.Right.WasPressed || playerActions.Down.WasPressed) && buttons.Length > 0 && textDonePrinting)
-        {
-            selectedButton = selectedButton < buttons.Length - 1 ? selectedButton + 1 : 0;
-            EventSystem.current.SetSelectedGameObject(buttons[selectedButton].gameObject);
-        }
-        //Close dialogue if no buttons present, and action is pressed
-        else if (playerActions.Submit.WasPressed || playerActions.MeleeAttack.WasPressed || Input.GetMouseButtonDown(0))
-        {
-            //Only go to next node if text is done printing, and there are no buttons
-            if (textDonePrinting && buttons.Length <= 0)
-            {
-                //If there is no next node, dialogue has finished
-                if (nextNode < 0)
-                {
-                    GameManager.instance.gameRunning = true;
-                    ShowIcon(true);
-                    gameObject.SetActive(false);
+            currentStory = new Story(jsonText.text);
 
-                    if (speakerAnimator)
-                        speakerAnimator.SetBool("isTalking", false);
-                }
-                else
-                {
-                    UpdateDialogue(currentGraph, nextNode);
-                }
+            StartCoroutine("RunDialogue", string.Format("{0}_start", startSpeakerName));
+        }
+    }
+
+    IEnumerator RunDialogue(string skipToKnot)
+    {
+        dialogueOpen = true;
+
+        speakerPanel.gameObject.SetActive(true);
+        optionPanel.gameObject.SetActive(true);
+
+        //Go straight to speaker knot if there is one
+        try
+        {
+            currentStory.ChoosePathString(skipToKnot.ToLower());
+        }
+        catch { }
+
+        while(currentStory.canContinue)
+        {
+            currentStory.Continue();
+            int index = 0;
+            dialogueText.text = "";
+
+            //Remove newline from end of string
+            string text = currentStory.currentText.TrimEnd(System.Environment.NewLine.ToCharArray());
+
+            while (index < text.Length)
+            {
+                //Split text into shown and hidden text
+                string showText = text.Remove(index, text.Length - index);
+                string hideText = text.Remove(0, index);
+
+                //Set text with colour to hide
+                dialogueText.text = string.Format("{0}{1}{2}{3}", showText, "<color=#FFFFFF00>", hideText, "</color>");
+
+                index++;
+
+                yield return new WaitForSeconds(0.05f);
             }
-            //If text is not done, then skip to end
-            else
+
+            if(currentStory.currentChoices.Count > 0)
             {
-                StopCoroutine("DisplayTextOverTime");
-                dialogueText.text = targetText;
-                textDonePrinting = true;
-            }
-        }
-    }
+                waitingForChoice = true;
 
-    private void LateUpdate()
-    {
-        //Keep world position
-        transform.position = Camera.main.WorldToScreenPoint(speaker.transform.position + (Vector3)posOffset);
-    }
+                //Disable all buttons
+                for (int i = 0; i < buttons.Count; i++)
+                    buttons[i].gameObject.SetActive(false);
 
-    public void ShowIcon(bool value)
-    {
-        if (openIcon)
-        {
-            openIcon.GetComponent<Animator>().SetBool("isVisible", value);
-        }
-    }
+                //Add any new buttons that are needed
+                for(int i = buttons.Count; i < currentStory.currentChoices.Count; i++)
+                    buttons.Add(((GameObject)Instantiate(initialButton.gameObject, initialButton.transform.parent)).GetComponent<Button>());
 
-    public void ShowIcon(bool value, DialogueSpeaker speaker)
-    {
-        if (openIcon)
-        {
-            if (value)
-            {
-                openIcon.transform.position = (Vector2)speaker.transform.position + speaker.boxOffset;
-                openIcon.GetComponent<Animator>().SetBool("isVisible", true);
-            }
-            else
-                openIcon.GetComponent<Animator>().SetBool("isVisible", false);
-        }
-    }
-
-    public void ShowDialogue(DialogueGraph graph, Vector3 posOffset, GameObject speaker, Color color)
-    {
-        this.speaker = speaker;
-        this.posOffset = posOffset;
-        speakerAnimator = speaker.GetComponentInChildren<Animator>();
-
-        if(speakerAnimator)
-            speakerAnimator.SetBool("isTalking", true);
-
-        ShowIcon(false);
-
-        currentGraph = graph;
-
-        foreach (Image img in accents)
-            img.color = color;
-
-        //Start dialogue at first node
-        UpdateDialogue(graph, 0);
-    }
-
-    public void UpdateDialogue(DialogueGraph graph, int nodeID)
-    {
-        //Get node from graph based on index
-        DialogueGraph.DialogueGraphNode node = graph.GetNode(nodeID);
-
-        //Get all buttons in the dialogue
-        buttons = button.transform.parent.GetComponentsInChildren<Button>(true);
-        selectedButton = 0;
-
-        foreach (Button button in buttons)
-        {
-            //Disable end reset button listeners for re-use
-            button.gameObject.SetActive(false);
-            button.onClick.RemoveAllListeners();
-        }
-
-        //Set dialogue text
-        nameText.text = graph.speakerName;
-
-        //Loop through any options
-        for (int i = 0; i < node.options.Count; i++)
-        {
-            //Create copy of variable to fix "capturing" error with delegates
-            int n = i;
-
-            if (graph.GetNode(node.options[i].target) != null)
-            {
-                //if option is within already existing buttons, re-use buttons
-                if (i < buttons.Length)
+                //Update buttons
+                for(int i = 0; i < buttons.Count; i++)
                 {
+                    SetupButtonEvents(buttons[i], i);
+
+                    Text buttonText = buttons[i].GetComponentInChildren<Text>();
+
+                    if(buttonText)
+                        buttonText.text = currentStory.currentChoices[i].text;
+
                     buttons[i].gameObject.SetActive(true);
-                    buttons[i].GetComponentInChildren<Text>().text = node.options[i].text;
-                    //Add click listener to target
-                    buttons[i].onClick.AddListener(delegate { UpdateDialogue(graph, node.options[n].target); });
-                }
-                //If extra buttons are required, instantiate them
-                else
-                {
-                    GameObject obj = Instantiate(button, button.transform.parent);
-                    obj.SetActive(true);
-                    obj.GetComponentInChildren<Text>().text = node.options[i].text;
-                    //Add click listener to target
-                    obj.GetComponent<Button>().onClick.AddListener(delegate { UpdateDialogue(graph, node.options[n].target); });
-
-                    ButtonEventWrapper origEvents = button.GetComponent<ButtonEventWrapper>();
-                    ButtonEventWrapper objEvents = obj.GetComponent<ButtonEventWrapper>();
-
-                    //Copy wrapped events (for sounds, etc)
-                    if(objEvents && origEvents)
-                        ButtonEventWrapper.CopyEvents(ref origEvents, ref objEvents);
                 }
             }
-        }
+            else
+            {
+                waitingForInput = true;
+            }
 
-        if (node.options.Count <= 0 && node.nextNode >= 0)
-            nextNode = node.nextNode;
-        else
-            nextNode = -1;
+            while(waitingForChoice)
+            {
+                yield return new WaitForEndOfFrame();
+            }
 
-        //Get buttons for input
-        buttons = button.transform.parent.GetComponentsInChildren<Button>();
-
-        EventSystem.current.SetSelectedGameObject(null);
-
-        //Show the dialogue
-        gameObject.SetActive(true);
-
-        string text = node.text;
-
-        //Handle Events
-        DialogueEvents.instance.HandleEvents(node.events, speaker);
-
-        //Start printing text one character at a time
-        StartCoroutine("DisplayTextOverTime", text);
-
-        //If there are buttons, let them fold out
-        if (buttons.Length > 0)
-            StartCoroutine("FoldoutOptions");
-    }
-
-    IEnumerator DisplayTextOverTime(string text)
-    {
-        textDonePrinting = false;
-        targetText = text;
-
-        //char[] chars = (text).ToCharArray();
-
-        Transform buttonGroup = button.transform.parent;
-
-        string colourString = "<color=" + textClearColour + ">";
-        dialogueText.text = string.Format("{0}{1}{2}", colourString, dialogueText.text, "</color>");
-
-        for (int i = 0; i < text.Length; i++)
-        {
-            yield return new WaitForSeconds(1 / textSpeed);
-
-            //dialogueText.text += chars[i];
-
-            string showText = text.Remove(i, text.Length - i);
-            string hideText = text.Remove(0, i);
-
-            dialogueText.text = string.Format("{0}{1}{2}{3}", showText, colourString, hideText, "</color>");
-        }
-
-        dialogueText.text = text;
-
-        textDonePrinting = true;
-    }
-
-    IEnumerator FoldoutOptions()
-    {
-        float timeElapsed = 0;
-
-        while (timeElapsed < foldoutLength)
-        {
-            //Evaluate and set scale
-            Vector3 scale = buttonsRect.localScale;
-            scale.y = buttonsFoldoutCurve.Evaluate(timeElapsed / foldoutLength);
-            buttonsRect.localScale = scale;
-
-            //Do not fold out until text is done printing
-            while (!textDonePrinting)
+            while(waitingForInput)
+            {
                 yield return new WaitForEndOfFrame();
 
-            //Wait one frame and count time elapsed
-            yield return new WaitForEndOfFrame();
-            timeElapsed += Time.deltaTime;
+                if (playerActions.Interact.WasPressed || playerActions.Submit.WasPressed)
+                    waitingForInput = false;
+            }
+
+            //Disable all buttons
+            for (int i = 0; i < buttons.Count; i++)
+                buttons[i].gameObject.SetActive(false);
         }
 
-        //Set first selected button
-        if (buttons.Length > 0)
-            EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
-        else
-            EventSystem.current.SetSelectedGameObject(null);
+        yield return new WaitForEndOfFrame();
+
+        speakerPanel.gameObject.SetActive(false);
+        optionPanel.gameObject.SetActive(false);
+
+        dialogueOpen = false;
+    }
+
+    void SetupButtonEvents(Button button, int index)
+    {
+        ButtonEventWrapper buttonEvents = button.GetComponent<ButtonEventWrapper>();
+
+        if (buttonEvents)
+        {
+            ButtonEventWrapper initialButtonEvents = initialButton.GetComponent<ButtonEventWrapper>();
+
+            //Reset button events back to default
+            ButtonEventWrapper.CopyEvents(ref buttonEvents, ref initialButtonEvents);
+
+            buttonEvents.onSubmit += delegate
+            {
+                waitingForChoice = false;
+
+                currentStory.ChooseChoiceIndex(index);
+            };
+        }
     }
 }
