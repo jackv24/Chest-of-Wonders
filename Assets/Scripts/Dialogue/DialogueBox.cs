@@ -10,7 +10,12 @@ public class DialogueBox : MonoBehaviour
     public static DialogueBox Instance;
 
     public RectTransform speakerPanel;
+    public Vector2 speakerPanelOffset;
     public RectTransform optionPanel;
+    public Vector2 optionPanelOffset;
+
+    private KeepWorldPosOnCanvas dialoguePos;
+    private KeepWorldPosOnCanvas optionsPos;
 
     [Space()]
     public Text nameText;
@@ -24,12 +29,16 @@ public class DialogueBox : MonoBehaviour
     private bool waitingForInput = false;
 
     private Story currentStory;
+    private DialogueSpeaker currentSpeaker;
 
     private PlayerActions playerActions;
 
     private void Awake()
     {
         Instance = this;
+
+        dialoguePos = speakerPanel.GetComponent<KeepWorldPosOnCanvas>();
+        optionsPos = optionPanel.GetComponent<KeepWorldPosOnCanvas>();
     }
 
     private void Start()
@@ -41,6 +50,29 @@ public class DialogueBox : MonoBehaviour
 
         speakerPanel.gameObject.SetActive(false);
         optionPanel.gameObject.SetActive(false);
+
+        //Set up delegate functions for getting updated world position for dialogue box elements
+        if (dialoguePos)
+            dialoguePos.OnGetWorldPos += delegate
+            {
+                int multiplier = currentSpeaker.transform.position.x < GameManager.instance.player.transform.position.x ? -1 : 1;
+
+                Vector2 s = speakerPanelOffset;
+                s.x *= multiplier;
+
+                dialoguePos.worldPos = (Vector2)currentSpeaker.transform.position + currentSpeaker.boxOffset + s;
+            };
+
+        if (optionsPos)
+            optionsPos.OnGetWorldPos += delegate
+            {
+                int multiplier = currentSpeaker.transform.position.x < GameManager.instance.player.transform.position.x ? -1 : 1;
+
+                Vector2 o = optionPanelOffset;
+                o.x *= multiplier;
+
+                optionsPos.worldPos = (Vector2)GameManager.instance.player.transform.position + o;
+            };
     }
 
     public void OpenDialogue(TextAsset jsonText, string startSpeakerName)
@@ -60,7 +92,6 @@ public class DialogueBox : MonoBehaviour
         dialogueOpen = true;
 
         speakerPanel.gameObject.SetActive(true);
-        optionPanel.gameObject.SetActive(true);
 
         //Go straight to speaker knot if there is one
         try
@@ -98,6 +129,7 @@ public class DialogueBox : MonoBehaviour
             if(currentStory.currentChoices.Count > 0)
             {
                 waitingForChoice = true;
+                optionPanel.gameObject.SetActive(true);
 
                 //Disable all buttons
                 for (int i = 0; i < buttons.Count; i++)
@@ -129,6 +161,8 @@ public class DialogueBox : MonoBehaviour
             else
             {
                 waitingForInput = true;
+
+                optionPanel.gameObject.SetActive(false);
             }
 
             while(waitingForChoice)
@@ -233,7 +267,7 @@ public class DialogueBox : MonoBehaviour
                 if(accent)
                     accent.color = speaker.windowColor;
 
-                //TODO: Position dialogue box next to speaker
+                currentSpeaker = speaker;
             }
 
             return outputString;

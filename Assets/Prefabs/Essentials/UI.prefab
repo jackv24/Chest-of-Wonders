@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 224214287270738284}
   - component: {fileID: 114090243420108752}
   - component: {fileID: 114192564564905758}
+  - component: {fileID: 114881582643693448}
   m_Layer: 5
   m_Name: SpeakerPanel
   m_TagString: Untagged
@@ -213,6 +214,7 @@ GameObject:
   - component: {fileID: 114022783891277250}
   - component: {fileID: 222487627321047424}
   - component: {fileID: 114855322937411196}
+  - component: {fileID: 114149620952712292}
   m_Layer: 5
   m_Name: ButtonGroup
   m_TagString: Untagged
@@ -924,7 +926,7 @@ Animator:
   m_GameObject: {fileID: 1021855634009434}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5161badb1fadb6c409ad229bd3780bb3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1208,6 +1210,23 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114149620952712292
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1180728307607680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7794ee63b61175e42886ce901504ff9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldPos: {x: 0, y: 0}
+  keepInScreenBounds: 0
+  paddingTop: 0
+  paddingDown: 0
+  paddingLeft: 0
+  paddingRight: 0
 --- !u!114 &114150685789350976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2392,7 +2411,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speakerPanel: {fileID: 224214287270738284}
+  speakerPanelOffset: {x: 1.5, y: 0}
   optionPanel: {fileID: 224599788961721610}
+  optionPanelOffset: {x: 1, y: 1.25}
   nameText: {fileID: 114672478757717620}
   accent: {fileID: 114585533243702974}
   dialogueText: {fileID: 114259389276041410}
@@ -2720,6 +2741,23 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Options
+--- !u!114 &114881582643693448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1137984968495078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7794ee63b61175e42886ce901504ff9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldPos: {x: 0, y: 0}
+  keepInScreenBounds: 1
+  paddingTop: 3
+  paddingDown: 3
+  paddingLeft: 3
+  paddingRight: 3
 --- !u!114 &114911025119896848
 MonoBehaviour:
   m_ObjectHideFlags: 1

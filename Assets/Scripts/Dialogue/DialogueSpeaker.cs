@@ -116,6 +116,8 @@ public class DialogueSpeaker : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, range);
 
+        Gizmos.DrawWireSphere(transform.position + (Vector3)boxOffset, 0.5f);
+
         Gizmos.DrawLine(new Vector3(-talkRange, 1.0f) + transform.position, new Vector3(-talkRange, 0) + transform.position);
         Gizmos.DrawLine(new Vector3(talkRange, 1.0f) + transform.position, new Vector3(talkRange, 0) + transform.position);
     }
