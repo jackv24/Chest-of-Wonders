@@ -10,6 +10,8 @@ public class CharacterMove : MonoBehaviour
     private float oldDirection;
     public event GeneralEvent OnJump;
 
+    public float FacingDirection { get { return -oldDirection >= 0 ? 1 : -1; } }
+
     [Header("Movement")]
     [Tooltip("The horizontal move speed (m/s).")]
     public float moveSpeed = 2f;

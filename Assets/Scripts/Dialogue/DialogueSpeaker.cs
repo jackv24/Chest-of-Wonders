@@ -12,11 +12,6 @@ public class DialogueSpeaker : MonoBehaviour
     //How far offset from the gameobject should it be (in world space)
     public Vector2 boxOffset;
 
-    //string to store the json text
-    private string json;
-    //DialogueGraph to store the deserialised json
-    private DialogueGraph graph;
-
     private PlayerActions playerActions;
     private bool inRange = false;
     [HideInInspector]
@@ -32,15 +27,6 @@ public class DialogueSpeaker : MonoBehaviour
 
     private void Start()
     {
-        //Load json from text asset
-        if (dialogueFile)
-        {
-            json = dialogueFile.text;
-
-            //Deserialise json into DialogueGraph
-            graph = JsonUtility.FromJson<DialogueGraph>(json);
-        }
-
         player = GameObject.FindWithTag("Player");
 
         playerActions = ControlManager.GetPlayerActions();
@@ -60,16 +46,15 @@ public class DialogueSpeaker : MonoBehaviour
         if (inRange)
         {
             if (rangeToggle)
-                DialogueBox.instance.ShowIcon(true, this);
+                DialogueBox.Instance.ShowPromptIcon((Vector2)transform.position + boxOffset);
 
             rangeToggle = false;
 
             //If interact buttons is pressed in range...and the player "can move" (can perform actions outside of UI)
-            if (playerActions.Interact.WasPressed && graph != null && GameManager.instance.CanDoActions)
+            if (playerActions.Interact.WasPressed && dialogueFile != null && GameManager.instance.CanDoActions)
             {
                 //Stop them moving and open dialogue
-                GameManager.instance.gameRunning = false;
-                DialogueBox.instance.ShowDialogue(graph, boxOffset, gameObject, windowColor);
+                DialogueBox.Instance.OpenDialogue(dialogueFile, gameObject.name);
 
                 //If desired, face the player while speaking
                 if (facePlayer && graphic)
@@ -86,8 +71,8 @@ public class DialogueSpeaker : MonoBehaviour
         }
         else
         {
-            if(!rangeToggle)
-                DialogueBox.instance.ShowIcon(false);
+            if (!rangeToggle)
+                DialogueBox.Instance.HidePromptIcon();
 
             rangeToggle = true;
         }
@@ -130,6 +115,8 @@ public class DialogueSpeaker : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, range);
+
+        Gizmos.DrawWireSphere(transform.position + (Vector3)boxOffset, 0.5f);
 
         Gizmos.DrawLine(new Vector3(-talkRange, 1.0f) + transform.position, new Vector3(-talkRange, 0) + transform.position);
         Gizmos.DrawLine(new Vector3(talkRange, 1.0f) + transform.position, new Vector3(talkRange, 0) + transform.position);

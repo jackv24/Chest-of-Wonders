@@ -51,7 +51,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1068437205747888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: -1, z: 0}
+  m_LocalPosition: {x: 9.45, y: 9.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4387791407899404}
@@ -99,11 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee314be393e91064ab5754a84bec453a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueFile: {fileID: 4900000, guid: f867e8f15190f2b40bd511c62c6d65b3, type: 3}
+  dialogueFile: {fileID: 4900000, guid: ba9ff2c2ce8c8ee4397ff2d9e63f5ff6, type: 3}
   windowColor: {r: 1, g: 0.16470589, b: 0.2901961, a: 1}
   boxOffset: {x: 0, y: 1.75}
   rangeToggle: 0
-  range: 2
+  range: 2.5
+  talkRange: 1.75
   graphic: {fileID: 1627136707880434}
   facePlayer: 1
 --- !u!212 &212019925378070514
