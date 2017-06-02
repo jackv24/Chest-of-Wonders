@@ -14,6 +14,9 @@ public class DialogueBox : MonoBehaviour
     public RectTransform optionPanel;
     public Vector2 optionPanelOffset;
 
+    [Space()]
+    public GameObject interactIcon;
+
     private KeepWorldPosOnCanvas dialoguePos;
     private KeepWorldPosOnCanvas optionsPos;
 
@@ -56,6 +59,8 @@ public class DialogueBox : MonoBehaviour
 
         speakerPanel.gameObject.SetActive(false);
         optionPanel.gameObject.SetActive(false);
+
+        interactIcon.SetActive(false);
 
         //Set up delegate functions for getting updated world position for dialogue box elements
         if (dialoguePos)
@@ -101,6 +106,8 @@ public class DialogueBox : MonoBehaviour
         if (!dialogueOpen)
         {
             GameManager.instance.gameRunning = false;
+
+            HidePromptIcon();
 
             currentStory = new Story(jsonText.text);
 
@@ -326,5 +333,20 @@ public class DialogueBox : MonoBehaviour
             if (anim)
                 anim.SetBool("isTalking", value);
         }
+    }
+
+    public void ShowPromptIcon(Vector2 position)
+    {
+        if(interactIcon)
+        {
+            interactIcon.transform.position = position;
+            interactIcon.SetActive(true);
+        }
+    }
+
+    public void HidePromptIcon()
+    {
+        if (interactIcon)
+            interactIcon.SetActive(false);
     }
 }

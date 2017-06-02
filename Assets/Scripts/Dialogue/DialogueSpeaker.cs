@@ -45,8 +45,8 @@ public class DialogueSpeaker : MonoBehaviour
 
         if (inRange)
         {
-            //if (rangeToggle)
-            //    DialogueBox.instance.ShowIcon(true, this);
+            if (rangeToggle)
+                DialogueBox.Instance.ShowPromptIcon((Vector2)transform.position + boxOffset);
 
             rangeToggle = false;
 
@@ -71,8 +71,8 @@ public class DialogueSpeaker : MonoBehaviour
         }
         else
         {
-            //if(!rangeToggle)
-            //    DialogueBox.instance.ShowIcon(false);
+            if (!rangeToggle)
+                DialogueBox.Instance.HidePromptIcon();
 
             rangeToggle = true;
         }
