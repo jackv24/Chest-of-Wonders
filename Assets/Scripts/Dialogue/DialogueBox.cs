@@ -225,6 +225,8 @@ public class DialogueBox : MonoBehaviour
 
         dialogueOpen = false;
 
+        ShowSpeakerTalking(false);
+
         GameManager.instance.gameRunning = true;
     }
 
@@ -302,12 +304,27 @@ public class DialogueBox : MonoBehaviour
                 if(accent)
                     accent.color = speaker.windowColor;
 
+                ShowSpeakerTalking(false);
+
                 currentSpeaker = speaker;
+
+                ShowSpeakerTalking(true);
             }
 
             return outputString;
         }
         else
             return text;
+    }
+
+    void ShowSpeakerTalking(bool value)
+    {
+        if (currentSpeaker)
+        {
+            Animator anim = currentSpeaker.GetComponentInChildren<Animator>();
+
+            if (anim)
+                anim.SetBool("isTalking", value);
+        }
     }
 }
