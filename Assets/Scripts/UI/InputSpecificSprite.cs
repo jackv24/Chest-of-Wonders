@@ -25,23 +25,30 @@ public class InputSpecificSprite : MonoBehaviour
         //Create event handler for when the input type changes
         playerActions.OnLastInputTypeChanged += delegate
         {
-            //Get name of current input device
-            string device = InputManager.ActiveDevice.Name;
-
-            //Set correct sprite for device name
-            switch(device)
-            {
-                case "PlayStation 4 Controller":
-                case "PlayStation 3 Controller":
-                    rend.sprite = playstation;
-                    break;
-                case "XInput Controller":
-                    rend.sprite = xbox;
-                    break;
-                default:
-                    rend.sprite = keyboard;
-                    break;
-            }
+            UpdateSprite();
         };
+
+        UpdateSprite();
+    }
+
+    void UpdateSprite()
+    {
+        //Get name of current input device
+        string device = InputManager.ActiveDevice.Name;
+
+        //Set correct sprite for device name
+        switch (device)
+        {
+            case "PlayStation 4 Controller":
+            case "PlayStation 3 Controller":
+                rend.sprite = playstation;
+                break;
+            case "XInput Controller":
+                rend.sprite = xbox;
+                break;
+            default:
+                rend.sprite = keyboard;
+                break;
+        }
     }
 }
