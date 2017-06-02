@@ -28,6 +28,12 @@ public class DialogueBox : MonoBehaviour
     private bool waitingForChoice = false;
     private bool waitingForInput = false;
 
+    private bool buttonPressed = false;
+
+    [Space()]
+    public float textSpeed = 20;
+    public float fastTextSpeed = 50;
+
     private Story currentStory;
     private DialogueSpeaker currentSpeaker;
 
@@ -66,13 +72,28 @@ public class DialogueBox : MonoBehaviour
         if (optionsPos)
             optionsPos.OnGetWorldPos += delegate
             {
-                int multiplier = currentSpeaker.transform.position.x < GameManager.instance.player.transform.position.x ? -1 : 1;
+                int multiplier = 1;
+
+                CharacterMove move = GameManager.instance.player.GetComponent<CharacterMove>();
+
+                if (move)
+                {
+                    multiplier = move.FacingDirection > 0 ? -1 : 1;
+                    optionPanel.pivot = new Vector2(move.FacingDirection > 0 ? 0 : 1, optionPanel.pivot.y);
+                }
 
                 Vector2 o = optionPanelOffset;
                 o.x *= multiplier;
 
                 optionsPos.worldPos = (Vector2)GameManager.instance.player.transform.position + o;
             };
+    }
+
+    void Update()
+    {
+        //Get button press in update to sync with InControl
+        if (playerActions.Interact.WasPressed || playerActions.Submit.WasPressed || playerActions.Jump.WasPressed || Input.GetMouseButtonDown(0))
+            buttonPressed = true;
     }
 
     public void OpenDialogue(TextAsset jsonText, string startSpeakerName)
@@ -90,6 +111,8 @@ public class DialogueBox : MonoBehaviour
     IEnumerator RunDialogue(string skipToKnot)
     {
         dialogueOpen = true;
+
+        buttonPressed = false;
 
         speakerPanel.gameObject.SetActive(true);
 
@@ -112,6 +135,8 @@ public class DialogueBox : MonoBehaviour
             //Parse text for speaker (removing it in the process)
             text = ParseSpeaker(text);
 
+            bool speedPressed = false;
+
             while (index < text.Length)
             {
                 //Split text into shown and hidden text
@@ -123,7 +148,13 @@ public class DialogueBox : MonoBehaviour
 
                 index++;
 
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(!speedPressed ? 1/textSpeed : 1/fastTextSpeed);
+
+                if (!speedPressed && buttonPressed)
+                {
+                    buttonPressed = false;
+                    speedPressed = true;
+                }
             }
 
             if(currentStory.currentChoices.Count > 0)
@@ -169,13 +200,17 @@ public class DialogueBox : MonoBehaviour
             {
                 yield return new WaitForEndOfFrame();
             }
+            buttonPressed = false;
 
             while(waitingForInput)
             {
                 yield return new WaitForEndOfFrame();
 
-                if (playerActions.Interact.WasPressed || playerActions.Submit.WasPressed || playerActions.Jump.WasPressed || Input.GetMouseButton(0))
+                if (buttonPressed)
+                {
+                    buttonPressed = false;
                     waitingForInput = false;
+                }
             }
 
             //Disable all buttons
