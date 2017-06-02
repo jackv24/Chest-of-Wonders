@@ -6,7 +6,7 @@
 +   [Weapons?]
     @Belle: Yeah, I'm a Blacksmith.
 +   [Stuff?]
-    @Belle Yeah?
+    @Belle: Yeah?
 -   @Belle: Safe travels!
     @Bianca: Come say hi!
     -> END

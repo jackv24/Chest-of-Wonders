@@ -47,6 +47,8 @@ public class DialogueBox : MonoBehaviour
     {
         if (!dialogueOpen)
         {
+            GameManager.instance.gameRunning = false;
+
             currentStory = new Story(jsonText.text);
 
             StartCoroutine("RunDialogue", string.Format("{0}_start", startSpeakerName));
@@ -106,7 +108,7 @@ public class DialogueBox : MonoBehaviour
                     buttons.Add(((GameObject)Instantiate(initialButton.gameObject, initialButton.transform.parent)).GetComponent<Button>());
 
                 //Update buttons
-                for(int i = 0; i < buttons.Count; i++)
+                for(int i = 0; i < currentStory.currentChoices.Count; i++)
                 {
                     SetupButtonEvents(buttons[i], i);
 
@@ -153,6 +155,8 @@ public class DialogueBox : MonoBehaviour
         optionPanel.gameObject.SetActive(false);
 
         dialogueOpen = false;
+
+        GameManager.instance.gameRunning = true;
     }
 
     void SetupButtonEvents(Button button, int index)
