@@ -652,7 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c7ac02eb63664419f2556b87649a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 8
   acceleration: 10
   upSlopeLimit: 50
   downSlopeLimit: 50
@@ -761,7 +761,7 @@ MonoBehaviour:
   damageAmount: 20
   chargeHoldTime: 1
   heldDamageMultiplier: 2
-  moveSpeedMultiplier: 0.75
+  moveSpeedMultiplier: 0.85
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.5
   flashInterval: 0.1
