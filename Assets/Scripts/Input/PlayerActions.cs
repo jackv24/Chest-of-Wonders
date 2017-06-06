@@ -14,8 +14,10 @@ public class PlayerActions : PlayerActionSet
     public PlayerTwoAxisAction Move;
 
     public PlayerAction MeleeAttack;
+
     public PlayerAction MagicAttack;
     public PlayerAction MagicSwitch;
+    public PlayerAction MagicAimDiagonal;
 
     public PlayerAction AbsorbMagic;
 
@@ -37,8 +39,10 @@ public class PlayerActions : PlayerActionSet
         Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
 
         MeleeAttack = CreatePlayerAction("Melee Attack");
+
         MagicAttack = CreatePlayerAction("Magic Attack");
         MagicSwitch = CreatePlayerAction("Magic Switch");
+        MagicAimDiagonal = CreatePlayerAction("Magic Aim Diagonal");
 
         AbsorbMagic = CreatePlayerAction("Absorb Magic");
 
@@ -78,15 +82,17 @@ public class PlayerActions : PlayerActionSet
         MeleeAttack.AddDefaultBinding(InputControlType.Action3);
 
         MagicAttack.AddDefaultBinding(Key.K);
-        MagicAttack.AddDefaultBinding(InputControlType.RightTrigger);
         MagicAttack.AddDefaultBinding(InputControlType.Action2);
 
         MagicSwitch.AddDefaultBinding(Key.Tab);
         MagicSwitch.AddDefaultBinding(InputControlType.RightBumper);
 
-        AbsorbMagic.AddDefaultBinding(Key.Shift);
+        AbsorbMagic.AddDefaultBinding(Key.Q);
         AbsorbMagic.AddDefaultBinding(InputControlType.LeftTrigger);
         AbsorbMagic.AddDefaultBinding(InputControlType.LeftBumper);
+
+        MagicAimDiagonal.AddDefaultBinding(Key.LeftShift);
+        MagicAimDiagonal.AddDefaultBinding(InputControlType.RightTrigger);
 
         //Misc
         Interact.AddDefaultBinding(Key.E);

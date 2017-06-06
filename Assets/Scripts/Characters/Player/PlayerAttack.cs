@@ -20,18 +20,25 @@ public class PlayerAttack : MonoBehaviour
     public MagicSlot magicSlot2;
 
     [Space()]
-    public Transform forwardFirePoint;
     public Transform upFirePoint;
+    public Transform upForwardFirePoint;
+    public Transform forwardFirePoint;
+    public Transform downForwardFirePoint;
     public Transform downFirePoint;
 
     [Space()]
     public float fireDelay = 0.1f;
-    [Range(0, 1f)]
-    [Tooltip("How far the vertical axis needs to be to fire vertical (like a dead-zone).")]
-    public float upThreshold = 0.5f;
 
     [Space()]
     public GameObject failedCastEffect;
+
+    [Space()]
+    public float arrowDistance = 1.0f;
+    public float arrowHeight = 0.5f;
+    public Transform arrow;
+
+    private Vector2 aimDirection;
+    private int lastDiagonalDirection = 1;
 
     //Direction set by charactermove so that player doesnt have to hold x direction to fire
     private float directionX = 1;
@@ -61,19 +68,6 @@ public class PlayerAttack : MonoBehaviour
     public SpriteRenderer graphic;
     public float flashAmount = 0.5f;
     public float flashInterval = 0.1f;
-
-    //Struct to pass projectile information into coroutine
-    private struct FireProjectile
-    {
-        public MagicAttack attack;
-        public Vector2 direction;
-
-        public FireProjectile(MagicAttack attack, Vector2 direction)
-        {
-            this.attack = attack;
-            this.direction = direction;
-        }
-    }
 
     private PlayerActions playerActions;
 
@@ -227,6 +221,44 @@ public class PlayerAttack : MonoBehaviour
             characterMove.moveSpeed = holding ? oldMoveSpeed * moveSpeedMultiplier : oldMoveSpeed;
     }
 
+    public void UpdateAimDirection(Vector2 direction, bool lockDiagonal)
+    {
+        //If desired, only allow firing in diagonal directions
+        if (lockDiagonal)
+        {
+            if (direction.y == 0)
+                direction.y = lastDiagonalDirection;
+            else
+            {
+                direction.y = Mathf.Sign(direction.y);
+                lastDiagonalDirection = (int)direction.y;
+            }
+        }
+
+        //Make sure x direction is not zero unless firing straight up or down
+        if (direction.x == 0 && (lockDiagonal || direction.y == 0))
+            //Calculate facing direction based on forward fire point
+            direction.x = Mathf.Sign(forwardFirePoint.transform.position.x - transform.position.x);
+
+        //Snap direction to the nearest 45 degrees and normalize
+        direction = Helper.SnapTo(direction, 45.0f);
+        direction.Normalize();
+
+        //Display diagonal lock arrow
+        if (lockDiagonal)
+        {
+            arrow.gameObject.SetActive(true);
+
+            arrow.transform.localPosition = new Vector2(0, arrowHeight) + direction;
+            arrow.transform.localScale = new Vector3(Mathf.Sign(direction.x), Mathf.Sign(direction.y), 1);
+        }
+        else
+            arrow.gameObject.SetActive(false);
+
+        //Finally, set direction
+        aimDirection = direction;
+    }
+
     public void SwitchMagic()
     {
         MagicSlot temp = magicSlot1;
@@ -243,7 +275,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     //Function to use magic, wrapped by other magic use functions
-    public void UseMagic(Vector2 direction)
+    public void UseMagic()
     {
         MagicSlot slot = magicSlot1;
 
@@ -261,28 +293,24 @@ public class PlayerAttack : MonoBehaviour
                     slot.currentMana -= slot.attack.manaCost;
 
                     //Fire projectile after delay (timed to animation)
-                    StartCoroutine("FireWithDelay", new FireProjectile(slot.attack, direction));
+                    StartCoroutine(FireWithDelay(slot.attack, aimDirection));
                 }
                 else
                 {
-                    StartCoroutine("FireWithDelay", new FireProjectile(null, direction));
+                    StartCoroutine(FireWithDelay(null, aimDirection));
                 }
             }
             else
             {
                 slot.nextFireTime = Time.time + 0.5f;
 
-                StartCoroutine("FireWithDelay", new FireProjectile(null, direction));
+                StartCoroutine(FireWithDelay(null, aimDirection));
             }
 
             if (characterAnimator)
             {
-                //If y direction is within threshold, cancel it out
-                if (direction.y < upThreshold && direction.y > -upThreshold)
-                    direction.y = 0;
-
                 //Pass vertical axis into animator
-                characterAnimator.animator.SetFloat("vertical", direction.y);
+                characterAnimator.animator.SetFloat("vertical", aimDirection.y);
                 //Set trigger for magic animation
                 characterAnimator.animator.SetTrigger("magic");
             }
@@ -296,43 +324,40 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    IEnumerator FireWithDelay(FireProjectile fire)
+    IEnumerator FireWithDelay(MagicAttack attack, Vector2 direction)
     {
         yield return new WaitForSeconds(fireDelay);
 
         GameObject castEffect = failedCastEffect;
 
-        //Default values for a projectile fired RIGHT
-        Vector2 dir = Vector2.right;
-        Transform firePoint = forwardFirePoint;
-        float effectAngle = 0f;
+        //Projectile fire direction
+        float angle = direction.magnitude > 0 ? Vector2.Angle(Vector2.right, direction) : 0;
 
-        //Change values to suit projectiles fired in the other 3 directions
-        if (fire.direction.y >= upThreshold)
+        //Get fire point based on angle
+        Transform firePoint = forwardFirePoint;
+
+        if((int)angle == 45)
         {
-            dir = Vector2.up;
-            firePoint = upFirePoint;
-            effectAngle = 90f;
+            if (direction.y > 0)
+                firePoint = upForwardFirePoint;
+            else
+                firePoint = downForwardFirePoint;
         }
-        else if (fire.direction.y <= -upThreshold)
+        else if((int)angle == 90 || (int)angle == 135)
         {
-            dir = Vector2.down;
-            firePoint = downFirePoint;
-            effectAngle = 270f;
-        }
-        else if (directionX < 0)
-        {
-            dir = Vector2.left;
-            effectAngle = 180f;
+            if (direction.y > 0)
+                firePoint = upFirePoint;
+            else
+                firePoint = downFirePoint;
         }
 
         //Spawn projectile (if there is one)
-        if (fire.attack && fire.attack.projectilePrefab)
+        if (attack && attack.projectilePrefab)
         {
             //Get projectile from pool
-            GameObject obj = ObjectPooler.GetPooledObject(fire.attack.projectilePrefab);
+            GameObject obj = ObjectPooler.GetPooledObject(attack.projectilePrefab);
 
-            castEffect = fire.attack.castEffect;
+            castEffect = attack.castEffect;
 
             //Position projectile at fire point
             obj.transform.position = firePoint.position;
@@ -343,10 +368,11 @@ public class PlayerAttack : MonoBehaviour
             proj.SetOwner(gameObject);
 
             //Projectile should have the same element as the attack that fired it
-            proj.element = fire.attack.element;
+            proj.element = attack.element;
 
             //Get projectile moving
-            proj.Fire(dir);
+            if (direction.magnitude > 0)
+                proj.Fire(direction);
         }
 
         //If there is a cast effect
@@ -357,7 +383,7 @@ public class PlayerAttack : MonoBehaviour
 
             //Set position and rotation
             effect.transform.position = firePoint.position;
-            effect.transform.eulerAngles = new Vector3(0, 0, effectAngle);
+            effect.transform.eulerAngles = new Vector3(0, 0, angle);
 
             //Make particles move how the player was (so they aren't left behind when the player is moving)
             ParticleSystem system = effect.GetComponentInChildren<ParticleSystem>();
