@@ -454,6 +454,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 8192
   knockBackRecoveryTime: 0.25
   allowKnockback: 1
   scriptControl: 1

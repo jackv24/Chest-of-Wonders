@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4296625811126952}
   - component: {fileID: 212130082368449006}
   - component: {fileID: 95258887201087530}
-  - component: {fileID: 114813877731098868}
+  - component: {fileID: 114967050077825818}
   m_Layer: 9
   m_Name: Graphic
   m_TagString: Untagged
@@ -404,10 +404,14 @@ MonoBehaviour:
   maxFallSpeed: 20
   verticalRays: 8
   horizontalRays: 5
-  skinWidth: 0.01
+  skinWidthX: 0.01
+  skinWidthY: 0.01
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 8192
   knockBackRecoveryTime: 0.25
   allowKnockback: 1
   scriptControl: 1
@@ -426,6 +430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95258887201087530}
   defaultRight: 0
+  deathAnimation: {fileID: 0}
 --- !u!114 &114655695908773322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -451,49 +456,7 @@ MonoBehaviour:
   deathParticleOffset: {x: 0, y: 0.75}
   deathDrop: {fileID: 0}
   dropOffset: {x: 0, y: 1}
---- !u!114 &114813877731098868
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1917194432729150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6787b9dbd204de46805671554102af2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterMove: {fileID: 0}
-  characterSound: {fileID: 114382140812424998}
-  slideTime: 0.25
-  slideCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: -0.007932089
-      outSlope: -0.007932089
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.25
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0.25
-      inSlope: -1
-      outSlope: -1
-      tangentMode: 34
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  slideEffect: {fileID: 0}
-  batSwingCollider: {fileID: 0}
-  batSwingSound:
-    clip: {fileID: 8300000, guid: b6b4877f91af3ae4181f0579a44b9ab3, type: 3}
-    volume: 1
+  damageImmunity: 0
 --- !u!114 &114954935987558174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -515,6 +478,18 @@ MonoBehaviour:
   defaultRight: 0
   slideEffect: {fileID: 1016952710864680, guid: bfb861f6254ab9b459b5eb912f8569f3,
     type: 2}
+--- !u!114 &114967050077825818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1917194432729150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a92f74be3b5594eb856cbfbd9ca7a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterSound: {fileID: 114382140812424998}
 --- !u!212 &212130082368449006
 SpriteRenderer:
   m_ObjectHideFlags: 1

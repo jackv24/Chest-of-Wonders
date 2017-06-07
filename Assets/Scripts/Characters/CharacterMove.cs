@@ -58,6 +58,9 @@ public class CharacterMove : MonoBehaviour
     public bool isGrounded = false;
     private bool wasGrounded = true;
 
+    private bool jumped = false;
+    private bool shouldDetectPlatforms = false;
+
     private bool stickToSlope = false;
 
     [Header("Physics")]
@@ -77,6 +80,7 @@ public class CharacterMove : MonoBehaviour
 
     [Space()]
     public LayerMask groundLayer;
+    public LayerMask platformLayer;
 
     [Header("Miscellaneous")]
     public float knockBackRecoveryTime = 1f;
@@ -153,6 +157,9 @@ public class CharacterMove : MonoBehaviour
                 //Consume jump button flag
                 shouldJump = false;
 
+                jumped = true;
+                shouldDetectPlatforms = false;
+
                 //If jump button was pressed within a small amount of time after leaving the ground (or still on ground)
                 if (Time.time <= stopJumpTime)
                 {
@@ -206,6 +213,13 @@ public class CharacterMove : MonoBehaviour
             float minDistance = Mathf.Infinity;
             int index = 0;
 
+            //Detect platforms if falling after jumped
+            if(jumped && velocity.y < 0)
+            {
+                jumped = false;
+                shouldDetectPlatforms = true;
+            }
+
             //Loops through and cast rays
             for(int i = 0; i < verticalRays; i++)
             {
@@ -216,7 +230,18 @@ public class CharacterMove : MonoBehaviour
                 if (velocity.y > 0)
                     hits[i] = Physics2D.Raycast(origin, Vector2.up, distance, groundLayer);
                 else
-                    hits[i] = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer);
+                {
+                    if (shouldDetectPlatforms)
+                    {
+                        hits[i] = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer | platformLayer);
+
+                        //Stop detecting platforms when touched non platform layer
+                        if (hits[i].collider && ((1<<hits[i].collider.gameObject.layer) & platformLayer) == 0)
+                            shouldDetectPlatforms = false;
+                    }
+                    else
+                        hits[i] = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer);
+                }
 
                 Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(velocity.y) * (velocity.y > 0 ? distance : maxSlopeDistance)));
 
@@ -362,6 +387,11 @@ public class CharacterMove : MonoBehaviour
 
             heldJump = pressed;
         }
+    }
+
+    public void DropThroughPlatform()
+    {
+        shouldDetectPlatforms = false;
     }
 
     public void Knockback(Vector2 origin, float magnitude)

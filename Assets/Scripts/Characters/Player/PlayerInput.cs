@@ -57,7 +57,12 @@ public class PlayerInput : MonoBehaviour
                 characterMove.Move(inputDirection.x);
 
             if (playerActions.Jump.WasPressed)
-                characterMove.Jump(true);
+            {
+                if (inputDirection.y < 0 && characterMove.isGrounded)
+                    characterMove.DropThroughPlatform();
+                else
+                    characterMove.Jump(true);
+            }
             else if (playerActions.Jump.WasReleased)
                 characterMove.Jump(false);
         }
