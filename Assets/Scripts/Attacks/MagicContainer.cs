@@ -32,6 +32,7 @@ public class MagicContainer : MonoBehaviour
     public AnimationCurve moveY;
     public float magnitudeY = 0.5f;
     public float animLengthY = 2.0f;
+    private Vector2[] initialPos;
     [Space()]
     public float buttonHeldSpeedMultiplier = 2.0f;
     private float currentSpeedMultiplier = 1.0f;
@@ -42,6 +43,16 @@ public class MagicContainer : MonoBehaviour
 
         currentSpeedMultiplier = 1.0f;
         animTime = 0;
+    }
+
+    void Start()
+    {
+        initialPos = new Vector2[toMove.Length];
+
+        for(int i = 0; i < initialPos.Length; i++)
+        {
+            initialPos[i] = toMove[i].localPosition;
+        }
     }
 
     void Update()
@@ -75,12 +86,12 @@ public class MagicContainer : MonoBehaviour
         //Animate position of graphic transforms using curves
         animTime += Time.deltaTime;
 
-        foreach(Transform t in toMove)
+        for(int i = 0; i < toMove.Length; i++)
         {
-            t.position = new Vector3(
+            toMove[i].localPosition = new Vector3(
                 moveX.Evaluate((animTime * currentSpeedMultiplier) / animLengthX) * magnitudeX,
                 moveY.Evaluate((animTime * currentSpeedMultiplier) / animLengthY) * magnitudeY,
-                0) + transform.position;
+                0) + (Vector3)initialPos[i];
         }
     }
 
