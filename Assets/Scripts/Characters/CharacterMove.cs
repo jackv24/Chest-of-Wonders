@@ -21,6 +21,8 @@ public class CharacterMove : MonoBehaviour
     [Tooltip("The rate at which the character accelerates to reach the move speed (m/s^2).")]
     public float acceleration = 1f;
 
+    public Vector2 velocity;
+
     [Space()]
     [Tooltip("The maximum angle at which a slope is considered walkable upwards.")]
     public float upSlopeLimit = 50f;
@@ -94,9 +96,6 @@ public class CharacterMove : MonoBehaviour
 
     private Collider2D col;
     private Rect box;
-
-    [HideInInspector]
-    public Vector2 velocity;
 
     private CharacterAnimator characterAnimator;
     private CharacterStats characterStats;
@@ -284,7 +283,13 @@ public class CharacterMove : MonoBehaviour
                     velocity.y = 0;
 
                     //Move player flush to ground (using shortest ray)
-                    transform.Translate(Vector2.down * (hits[index].distance - box.height / 2));
+                    Vector2 delta = Vector2.down * (hits[index].distance - box.height / 2);
+
+                    //If delta magnitude is below a very low threshold, zero it out (prevents slowly sinking/floating due to inaccuracies)
+                    if (Mathf.Abs(delta.y) < 0.001f)
+                        delta.y = 0;
+
+                    transform.Translate(delta);
                 }
                 else
                     //Prevent character from snapping to ground when the slope was not within the limit
@@ -357,6 +362,12 @@ public class CharacterMove : MonoBehaviour
                 characterSound.PlaySound(characterSound.landSound);
             }
         }
+
+        if (isGrounded || Mathf.Abs(velocity.y) < 0.01f)
+            velocity.y = 0;
+
+        if (Mathf.Abs(velocity.x) < 0.01f)
+            velocity.x = 0;
 
         //Move character by velocity
         transform.Translate(velocity * Time.deltaTime);
