@@ -235,6 +235,7 @@ public class DialogueBox : MonoBehaviour
         ShowSpeakerTalking(false);
 
         GameManager.instance.gameRunning = true;
+        Cursor.visible = false;
     }
 
     void SetupButtonEvents(Button button, int index)

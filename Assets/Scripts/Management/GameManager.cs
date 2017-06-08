@@ -80,6 +80,8 @@ public class GameManager : MonoBehaviour
         }
         else
             Debug.LogWarning("Too many scenes open!");
+
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -87,6 +89,14 @@ public class GameManager : MonoBehaviour
         //Toggle pause menu on button press
         if (playerActions.Pause.WasPressed)
             TogglePaused();
+
+        if(!CanDoActions)
+        {
+            if (playerActions.Move.WasPressed)
+                Cursor.visible = false;
+            else if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                Cursor.visible = true;
+        }
     }
 
     public void LoadLevel(string sceneName, int doorwayID)
@@ -220,6 +230,8 @@ public class GameManager : MonoBehaviour
 
         //Timescale is 0 if game paused, 1 if game not paused
         Time.timeScale = gamePaused ? 0 : 1;
+
+        Cursor.visible = gamePaused;
 
         //Call pause state change events
         if (OnPausedChange != null)
