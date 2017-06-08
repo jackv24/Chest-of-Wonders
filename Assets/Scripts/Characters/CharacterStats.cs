@@ -31,10 +31,17 @@ public class CharacterStats : MonoBehaviour
     [Space()]
     public GameObject deathDrop;
     public Vector2 dropOffset = Vector2.up;
+    [Space()]
+    public GameObject healthDrop;
+    public int minHealthDrops = 0;
+    public int maxHealthDrops = 2;
+    public float healthDropArc = 45.0f;
+    public float healthDropForce = 10.0f;
 
     //If health is zero or below, character is dead
     public bool IsDead { get { return currentHealth <= 0; } }
 
+    [Space()]
     public bool damageImmunity = false;
 
     private CharacterMove characterMove;
@@ -104,6 +111,21 @@ public class CharacterStats : MonoBehaviour
         return RemoveHealth(newAmount, newAmount != amount ? (newAmount > amount ? 1 : -1) : 0);
     }
 
+    public bool AddHealth(int amount)
+    {
+        if (currentHealth < maxHealth)
+        {
+            currentHealth += amount;
+
+            if (currentHealth > maxHealth)
+                currentHealth = maxHealth;
+
+            return true;
+        }
+        else
+            return false;
+    }
+
     public void Die()
     {
         //Show stunned flashing character
@@ -140,6 +162,28 @@ public class CharacterStats : MonoBehaviour
         {
             GameObject dropped = ObjectPooler.GetPooledObject(deathDrop);
             dropped.transform.position = (Vector2)gameObject.transform.position + dropOffset;
+        }
+
+        if(healthDrop)
+        {
+            int dropAmount = Random.Range(minHealthDrops, maxHealthDrops + 1);
+
+            for(int i = 0; i < dropAmount; i++)
+            {
+                GameObject drop = ObjectPooler.GetPooledObject(healthDrop);
+                drop.transform.position = (Vector2)gameObject.transform.position + dropOffset;
+
+                Rigidbody2D body = drop.GetComponent<Rigidbody2D>();
+                body.velocity = Vector2.zero;
+                body.angularVelocity = 0;
+
+                float halfRad = (healthDropArc / 2) * Mathf.Deg2Rad;
+                float angle = Random.Range(-halfRad, halfRad);
+
+                Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Cos(angle));
+
+                body.AddForce(dir * healthDropForce, ForceMode2D.Impulse);
+            }
         }
 
         if (characterSound && GameManager.instance)

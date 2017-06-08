@@ -364,6 +364,11 @@ MonoBehaviour:
   deathParticleOffset: {x: 0, y: 0.5}
   deathDrop: {fileID: 1950966513125510, guid: 4d978f51cc282e74b9b24cf25a58589b, type: 2}
   dropOffset: {x: 0, y: 1}
+  healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
+  minHealthDrops: 0
+  maxHealthDrops: 2
+  healthDropArc: 15
+  healthDropForce: 5
   damageImmunity: 0
 --- !u!212 &212107043697564826
 SpriteRenderer:

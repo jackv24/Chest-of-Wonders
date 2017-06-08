@@ -238,7 +238,7 @@ public class PlayerAttack : MonoBehaviour
         //Make sure x direction is not zero unless firing straight up or down
         if (direction.x == 0 && (lockDiagonal || direction.y == 0))
             //Calculate facing direction based on forward fire point
-            direction.x = Mathf.Sign(forwardFirePoint.transform.position.x - transform.position.x);
+            direction.x = directionX;
 
         //Snap direction to the nearest 45 degrees and normalize
         direction = Helper.SnapTo(direction, 45.0f);

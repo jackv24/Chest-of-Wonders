@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 905d84b5299c5fd498a3e611f46de14c
-timeCreated: 1496816405
+timeCreated: 1496880771
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -16,6 +16,11 @@ TextureImporter:
     21300018: Soul_magic_fire_10
     21300020: Soul_magic_fire_11
     21300022: Soul_magic_fire_12
+    21300024: heart_1
+    21300026: heart_2
+    21300028: heart_3
+    21300030: heart_4
+    21300032: heart_5
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -256,6 +261,71 @@ TextureImporter:
         y: 375
         width: 30
         height: 43
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: heart_1
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 21
+        width: 24
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: heart_2
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 21
+        width: 24
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: heart_3
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 21
+        width: 24
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: heart_4
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 21
+        width: 24
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: heart_5
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 21
+        width: 24
+        height: 21
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
