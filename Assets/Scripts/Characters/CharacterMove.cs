@@ -128,7 +128,7 @@ public class CharacterMove : MonoBehaviour
             body.isKinematic = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         //Only run if script should control movement
         if (!scriptControl)
@@ -143,7 +143,7 @@ public class CharacterMove : MonoBehaviour
             );
 
         //Apply gravity, capping fall speed
-        velocity.y = Mathf.Max(velocity.y - gravity * Time.fixedDeltaTime, -maxFallSpeed);
+        velocity.y = Mathf.Max(velocity.y - gravity * Time.deltaTime, -maxFallSpeed);
 
         //Jumping
         {
@@ -186,7 +186,7 @@ public class CharacterMove : MonoBehaviour
                 velocity.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
 
                 //Count time jump is held
-                jumpHeldTime += Time.fixedDeltaTime;
+                jumpHeldTime += Time.deltaTime;
             }
             else //If jump has been released, at can not be held again until a new jump is started
                 jumpHeldTime = jumpTime;
@@ -199,7 +199,7 @@ public class CharacterMove : MonoBehaviour
             Vector2 endPoint = new Vector2(box.xMax - skinWidthX, box.center.y);
 
             //Distance of rays should (when cast from centre) extend past the bottom by velocity amount (or skin width if grounded)
-            float distance = box.height / 2 + (isGrounded ? skinWidthX : Mathf.Abs(velocity.y * Time.fixedDeltaTime));
+            float distance = box.height / 2 + (isGrounded ? skinWidthX : Mathf.Abs(velocity.y * Time.deltaTime));
 
             //Not grounded unless a ray connects
             isGrounded = false;
@@ -300,7 +300,7 @@ public class CharacterMove : MonoBehaviour
         //Horizontal movement
         if ((canMove || ignoreCanMove))
         {
-            velocity.x = Mathf.Lerp(velocity.x, moveSpeed * slopeSpeedMultiplier * inputDirection, acceleration * Time.fixedDeltaTime);
+            velocity.x = Mathf.Lerp(velocity.x, moveSpeed * slopeSpeedMultiplier * inputDirection, acceleration * Time.deltaTime);
         }
 
         //Lateral collision detection
@@ -313,7 +313,7 @@ public class CharacterMove : MonoBehaviour
                 Vector2 endPoint = new Vector2(box.center.x, box.yMax - skinWidthY);
 
                 //Rays are cast out according to velocity, from the center
-                float distance = box.width / 2 + Mathf.Abs(velocity.x * Time.fixedDeltaTime);
+                float distance = box.width / 2 + Mathf.Abs(velocity.x * Time.deltaTime);
 
                 //Rays are cast in the direction of movement
                 Vector2 direction = velocity.x > 0 ? Vector2.right : Vector2.left;
@@ -370,7 +370,7 @@ public class CharacterMove : MonoBehaviour
             velocity.x = 0;
 
         //Move character by velocity
-        transform.Translate(velocity * Time.fixedDeltaTime);
+        transform.Translate(velocity * Time.deltaTime);
     }
 
     public void Move(float direction)
