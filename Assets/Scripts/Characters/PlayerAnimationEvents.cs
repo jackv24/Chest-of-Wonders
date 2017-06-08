@@ -40,7 +40,12 @@ public class PlayerAnimationEvents : MonoBehaviour
     private void Start()
     {
         if (characterStats)
+        {
             characterStats.OnDamaged += DisableColliders;
+
+            if (playerAttack)
+                characterStats.OnDamaged += delegate { playerAttack.canAttack = true; };
+        }
 
         DisableColliders();
     }

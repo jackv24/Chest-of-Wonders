@@ -90,11 +90,11 @@ public class GameManager : MonoBehaviour
         if (playerActions.Pause.WasPressed)
             TogglePaused();
 
-        if(!CanDoActions)
+        if (playerActions.Move.WasPressed)
+            Cursor.visible = false;
+        else if (!CanDoActions)
         {
-            if (playerActions.Move.WasPressed)
-                Cursor.visible = false;
-            else if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
                 Cursor.visible = true;
         }
     }
@@ -218,6 +218,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        gameRunning = false;
+
         //Call game over events
         if (OnGameOver != null)
             OnGameOver();
@@ -247,6 +249,7 @@ public class GameManager : MonoBehaviour
     public void SpawnPlayer(bool reset)
     {
         player.SetActive(true);
+        gameRunning = true;
 
         if (SaveManager.instance)
         {
