@@ -13,6 +13,9 @@ public class HealthContainer : MonoBehaviour
     [Space()]
     public LayerMask pickupLayer;
 
+    [Space()]
+    public GameObject pickupEffect;
+
     void Update()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + (Vector3)pickupOffset, pickupRadius, pickupLayer);
@@ -26,7 +29,15 @@ public class HealthContainer : MonoBehaviour
                 if (stats)
                 {
                     if (stats.AddHealth(amount))
+                    {
+                        if (pickupEffect)
+                        {
+                            GameObject obj = ObjectPooler.GetPooledObject(pickupEffect);
+                            obj.transform.position = transform.position;
+                        }
+
                         gameObject.SetActive(false);
+                    }
                 }
             }
         }

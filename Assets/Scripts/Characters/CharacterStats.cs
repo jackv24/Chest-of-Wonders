@@ -35,7 +35,6 @@ public class CharacterStats : MonoBehaviour
     public GameObject healthDrop;
     public int minHealthDrops = 0;
     public int maxHealthDrops = 2;
-    public float healthDropArc = 45.0f;
     public float healthDropForce = 10.0f;
 
     //If health is zero or below, character is dead
@@ -177,10 +176,8 @@ public class CharacterStats : MonoBehaviour
                 body.velocity = Vector2.zero;
                 body.angularVelocity = 0;
 
-                float halfRad = (healthDropArc / 2) * Mathf.Deg2Rad;
-                float angle = Random.Range(-halfRad, halfRad);
-
-                Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Cos(angle));
+                Vector2 dir = new Vector2(Random.Range(-1f, 1f), Random.Range(0, 1f));
+                dir.Normalize();
 
                 body.AddForce(dir * healthDropForce, ForceMode2D.Impulse);
             }
