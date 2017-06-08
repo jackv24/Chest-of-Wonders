@@ -7,6 +7,7 @@ public class PlayerAnimationEvents : MonoBehaviour
     [Header("Character Scripts")]
     public CharacterMove characterMove;
     public CharacterStats characterStats;
+    public PlayerAttack playerAttack;
 
     [Header("Behaviour Values")]
     public float slideTime = 0.5f;
@@ -63,6 +64,9 @@ public class PlayerAnimationEvents : MonoBehaviour
             canSlide = false;
             characterMove.canMove = true;
         }
+
+        if(playerAttack)
+            playerAttack.canAttack = true;
     }
 
     public void DisallowMovement()
@@ -93,6 +97,7 @@ public class PlayerAnimationEvents : MonoBehaviour
         }
 
         characterMove.canMove = false;
+        playerAttack.canAttack = false;
 
         while (!characterMove.isGrounded)
             yield return new WaitForEndOfFrame();
@@ -187,6 +192,7 @@ public class PlayerAnimationEvents : MonoBehaviour
     {
         //Player can not control during downstrike
         characterMove.canMove = false;
+        playerAttack.canAttack = false;
 
         //Stop movement and cache gravity
         float initialGravity = characterMove.gravity;
@@ -224,6 +230,7 @@ public class PlayerAnimationEvents : MonoBehaviour
         //Restore gravity and control
         characterMove.gravity = initialGravity;
         characterMove.canMove = true;
+        playerAttack.canAttack = true;
 
         yield return new WaitForSeconds(downstrikeEndImmunity);
 

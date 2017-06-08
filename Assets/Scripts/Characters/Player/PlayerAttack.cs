@@ -7,6 +7,8 @@ public class PlayerAttack : MonoBehaviour
     public delegate void NormalEvent();
     public event NormalEvent OnUpdateMagic;
 
+    public bool canAttack = true;
+
     [System.Serializable]
     public class MagicSlot
     {
@@ -108,6 +110,8 @@ public class PlayerAttack : MonoBehaviour
     {
         if (characterMove && oldMoveSpeed != 0)
             characterMove.moveSpeed = oldMoveSpeed;
+
+        canAttack = true;
     }
 
     void Update()
@@ -171,6 +175,9 @@ public class PlayerAttack : MonoBehaviour
 
     public void UseMelee(bool holding, float verticalDirection)
     {
+        if (!canAttack)
+            return;
+
         DamageOnEnable swing = batSwing;
 
         //If button was released update bat swing damage
@@ -277,6 +284,9 @@ public class PlayerAttack : MonoBehaviour
     //Function to use magic, wrapped by other magic use functions
     public void UseMagic()
     {
+        if (!canAttack)
+            return;
+
         MagicSlot slot = magicSlot1;
 
         //If magic slot was chosen correctly, and there is an attack in the slot
