@@ -34,7 +34,11 @@ public class Projectile : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        soundEffects = GetComponent<SoundEffectBase>();
+    }
+
+    void Start()
+    {
+        soundEffects = GameManager.instance.GetComponent<SoundEffectBase>();
     }
 
     void OnEnable()

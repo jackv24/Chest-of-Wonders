@@ -40,7 +40,6 @@ GameObject:
   - component: {fileID: 50769298057512066}
   - component: {fileID: 58032376895041174}
   - component: {fileID: 82080488374217872}
-  - component: {fileID: 114409695938505002}
   m_Layer: 11
   m_Name: Fireball
   m_TagString: Untagged
@@ -148,7 +147,7 @@ AudioSource:
   m_GameObject: {fileID: 1151141745735722}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243557064103642996, guid: 279a8963d029f9e4cb5b3d0a2f8a5c0b,
+  OutputAudioMixerGroup: {fileID: 243858627733114696, guid: 279a8963d029f9e4cb5b3d0a2f8a5c0b,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 1e48f57b48c006346a5068b04b85cd0f, type: 3}
   m_PlayOnAwake: 1
@@ -238,17 +237,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114409695938505002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1151141745735722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c814ce4fb3b57d34eb0b8d2ed0728e2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114801452462288200
 MonoBehaviour:
   m_ObjectHideFlags: 1

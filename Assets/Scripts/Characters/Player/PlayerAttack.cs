@@ -33,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
 
     [Space()]
     public GameObject failedCastEffect;
+    public SoundEffectBase.SoundEffect failedCastSound;
 
     [Space()]
     public float arrowDistance = 1.0f;
@@ -76,11 +77,13 @@ public class PlayerAttack : MonoBehaviour
 
     private CharacterAnimator characterAnimator;
     private CharacterMove characterMove;
+    private CharacterSound characterSound;
     
     private void Awake()
     {
         characterAnimator = GetComponent<CharacterAnimator>();
         characterMove = GetComponent<CharacterMove>();
+        characterSound = GetComponent<CharacterSound>();
     }
 
     void Start()
@@ -345,6 +348,7 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(fireDelay);
 
         GameObject castEffect = failedCastEffect;
+        bool casted = false;
 
         //Projectile fire direction
         float angle = direction.magnitude > 0 ? Vector2.Angle(Vector2.right, direction) : 0;
@@ -374,6 +378,7 @@ public class PlayerAttack : MonoBehaviour
             GameObject obj = ObjectPooler.GetPooledObject(attack.projectilePrefab);
 
             castEffect = attack.castEffect;
+            casted = true;
 
             //Position projectile at fire point
             obj.transform.position = firePoint.position;
@@ -409,6 +414,11 @@ public class PlayerAttack : MonoBehaviour
 
             //Start the particle system (does not play on awake so values can be set through script beforehand)
             system.Play();
+        }
+
+        if(!casted && characterSound)
+        {
+            characterSound.PlaySound(failedCastSound);
         }
     }
 

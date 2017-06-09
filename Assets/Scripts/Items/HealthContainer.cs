@@ -15,6 +15,14 @@ public class HealthContainer : MonoBehaviour
 
     [Space()]
     public GameObject pickupEffect;
+    public SoundEffectBase.SoundEffect pickupSound;
+
+    private SoundEffectBase soundEffects;
+
+    void Start()
+    {
+        soundEffects = GameManager.instance.GetComponent<SoundEffectBase>();
+    }
 
     void Update()
     {
@@ -35,6 +43,9 @@ public class HealthContainer : MonoBehaviour
                             GameObject obj = ObjectPooler.GetPooledObject(pickupEffect);
                             obj.transform.position = transform.position;
                         }
+
+                        if (soundEffects)
+                            soundEffects.PlaySound(pickupSound);
 
                         gameObject.SetActive(false);
                     }

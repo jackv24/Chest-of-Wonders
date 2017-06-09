@@ -143,6 +143,9 @@ MonoBehaviour:
     m_Bits: 1024
   pickupEffect: {fileID: 1791529076817846, guid: bcdd14e3a26b45b40924f8edd0c2729b,
     type: 2}
+  pickupSound:
+    clip: {fileID: 8300000, guid: 8dc838a2deea8474d91de1f054795563, type: 3}
+    volume: 0.75
 --- !u!212 &212428137537795430
 SpriteRenderer:
   m_ObjectHideFlags: 1

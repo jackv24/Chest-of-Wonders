@@ -844,13 +844,16 @@ MonoBehaviour:
   fireDelay: 0.1
   failedCastEffect: {fileID: 1489579511910158, guid: 8128f907757e7fc4492ec77e06026530,
     type: 2}
+  failedCastSound:
+    clip: {fileID: 8300000, guid: 82bba1ebbff71e4448196683574dd895, type: 3}
+    volume: 0.5
   arrowDistance: 1
   arrowHeight: 0.5
   arrow: {fileID: 4234596124505930}
   pickupLayer:
     serializedVersion: 2
     m_Bits: 4096
-  pickupRange: 2
+  pickupRange: 3
   buttonHoldTime: 1
   magicAbsorbPoint: {fileID: 4265973003488688}
   batSwing: {fileID: 114806664853724274}
