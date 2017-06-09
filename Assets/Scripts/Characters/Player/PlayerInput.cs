@@ -18,6 +18,8 @@ public class PlayerInput : MonoBehaviour
     private PlayerAttack playerAttack;
     private CharacterStats characterStats;
 
+    private bool canMove = true;
+
     private void Awake()
     {
         //Get references
@@ -34,7 +36,7 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
         //Get input from controllers and keyboard, clamped
-        inputDirection = playerActions.Move;
+        inputDirection = canMove ? playerActions.Move : Vector2.zero;
 
         //Apply deadzone
         if (Mathf.Abs(inputDirection.x) <= moveDeadZone.x)
@@ -80,6 +82,17 @@ public class PlayerInput : MonoBehaviour
                 playerAttack.SwitchMagic();
 
             playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicAimDiagonal.IsPressed);
+
+            if (playerActions.AbsorbMagic.WasPressed)
+            {
+                playerAttack.AbsorbMagic(true);
+                canMove = false;
+            }
+            else if (playerActions.AbsorbMagic.WasReleased)
+            {
+                playerAttack.AbsorbMagic(false);
+                canMove = true;
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 410a2e75204b79445a8d95f85c8dc45e
-timeCreated: 1495850340
+timeCreated: 1496970840
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -87,6 +87,10 @@ TextureImporter:
     21300160: player_air_downstrike_land_03
     21300162: player_air_downstrike_land_04
     21300164: player_air_downstrike_land_05
+    21300166: player_magic_absorb_1
+    21300168: player_magic_absorb_2
+    21300170: player_magic_absorb_3
+    21300172: player_magic_absorb_4
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -1250,6 +1254,58 @@ TextureImporter:
         y: 260
         width: 112
         height: 81
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_magic_absorb_1
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 524
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_magic_absorb_2
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 524
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_magic_absorb_3
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 524
+        width: 54
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_magic_absorb_4
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 524
+        width: 54
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

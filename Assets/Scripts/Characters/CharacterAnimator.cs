@@ -86,7 +86,12 @@ public class CharacterAnimator : MonoBehaviour
 
     public void SetCharged(bool value)
     {
-        animator.SetBool("batCharged", value);
+        animator.SetBool("charged", value);
+    }
+
+    public void SetAbsorbing(bool value)
+    {
+        animator.SetBool("absorbing", value);
     }
 
     public void MagicAttack()

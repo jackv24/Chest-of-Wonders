@@ -81,8 +81,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1950966513125510}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.45, y: -0.405, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.93, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4608891060246220}
@@ -166,6 +166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
+  absorbTrail: {fileID: 1438616141435212, guid: cae32cd4f6521d34d9cc0c7026759bdc,
+    type: 2}
   fadeGraphics:
   - {fileID: 212609810485323168}
   outOfRangeOpacity: 0
@@ -226,7 +228,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   magnitudeY: 0.25
   animLengthY: 2
-  buttonHeldSpeedMultiplier: 5
+  buttonHeldSpeedMultiplier: 50
 --- !u!212 &212155921833751448
 SpriteRenderer:
   m_ObjectHideFlags: 1

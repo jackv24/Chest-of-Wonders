@@ -11,6 +11,8 @@ public class MagicContainer : MonoBehaviour
     private float buttonHeldTime;
     private PlayerAttack playerAttack;
 
+    public GameObject absorbTrail;
+
     [Header("Fade Out")]
     public SpriteRenderer[] fadeGraphics;
     [Space()]
@@ -84,13 +86,13 @@ public class MagicContainer : MonoBehaviour
         }
 
         //Animate position of graphic transforms using curves
-        animTime += Time.deltaTime;
+        animTime += Time.deltaTime * currentSpeedMultiplier;
 
         for(int i = 0; i < toMove.Length; i++)
         {
             toMove[i].localPosition = new Vector3(
-                moveX.Evaluate((animTime * currentSpeedMultiplier) / animLengthX) * magnitudeX,
-                moveY.Evaluate((animTime * currentSpeedMultiplier) / animLengthY) * magnitudeY,
+                moveX.Evaluate(animTime / animLengthX) * magnitudeX,
+                moveY.Evaluate(animTime / animLengthY) * magnitudeY,
                 0) + (Vector3)initialPos[i];
         }
     }
@@ -132,6 +134,17 @@ public class MagicContainer : MonoBehaviour
 
             //Make sure UI is updated
             playerAttack.UpdateMagic();
+
+            if(absorbTrail)
+            {
+                GameObject obj = ObjectPooler.GetPooledObject(absorbTrail);
+                obj.transform.position = transform.position;
+
+                TrailToDisable trail = obj.GetComponent<TrailToDisable>();
+
+                if(trail)
+                    trail.SetTarget(playerAttack.magicAbsorbPoint);
+            }
 
             //Destroy container
             gameObject.SetActive(false);

@@ -846,12 +846,13 @@ MonoBehaviour:
     type: 2}
   arrowDistance: 1
   arrowHeight: 0.5
-  arrow: {fileID: 212872014366766228}
+  arrow: {fileID: 4234596124505930}
   pickupLayer:
     serializedVersion: 2
     m_Bits: 4096
   pickupRange: 2
-  buttonHoldTime: 0.5
+  buttonHoldTime: 1
+  magicAbsorbPoint: {fileID: 4265973003488688}
   batSwing: {fileID: 114806664853724274}
   chargedBatSwing: {fileID: 114061908791259452}
   damageAmount: 20

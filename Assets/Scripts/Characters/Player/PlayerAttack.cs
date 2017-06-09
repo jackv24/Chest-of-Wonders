@@ -51,6 +51,9 @@ public class PlayerAttack : MonoBehaviour
 
     public float buttonHoldTime = 1.0f;
 
+    [Space]
+    public Transform magicAbsorbPoint;
+
     private MagicContainer container = null;
 
     [Header("Bat Swing")]
@@ -71,8 +74,6 @@ public class PlayerAttack : MonoBehaviour
     public float flashAmount = 0.5f;
     public float flashInterval = 0.1f;
 
-    private PlayerActions playerActions;
-
     private CharacterAnimator characterAnimator;
     private CharacterMove characterMove;
     
@@ -84,8 +85,6 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-        playerActions = ControlManager.GetPlayerActions();
-
         //If there is an attack in the second slot, but not the first slot
         if (!magicSlot1.attack && magicSlot2.attack)
         {
@@ -153,23 +152,30 @@ public class PlayerAttack : MonoBehaviour
                     container.Highlight(true);
             }
         }
+    }
 
+    public void AbsorbMagic(bool buttonDown)
+    {
         //If the absorb button is pressed
-        if (playerActions.AbsorbMagic.WasPressed)
+        if (buttonDown)
         {
             //If there is a container, start absorbing it
             if (container)
-            {
                 container.StartAbsorb(this);
-            }
+
+            if (characterAnimator)
+                characterAnimator.SetAbsorbing(true);
         }
-        else if (playerActions.AbsorbMagic.WasReleased)
+        else
         {
             //If button was released, cancel absorption
             if (container)
                 container.CancelAbsorb();
 
             container = null;
+
+            if (characterAnimator)
+                characterAnimator.SetAbsorbing(false);
         }
     }
 
