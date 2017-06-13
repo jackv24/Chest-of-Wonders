@@ -24,7 +24,7 @@ public class Rambush : AIAgent
         targetInRange.behaviours.Add(new CheckRange(aggroRange, true));
 
         Selector turnToPlayer = new Selector();
-        turnToPlayer.behaviours.Add(new CheckFacingTarget());
+        turnToPlayer.behaviours.Add(new CheckFacingTarget(defaultRight));
 
         Sequence turnAfterDistance = new Sequence();
         turnAfterDistance.behaviours.Add(new InvertResult(new CheckRange(turnStopRange)));

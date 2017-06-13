@@ -62,6 +62,9 @@ namespace BehaviourTree
                 else if (!isSticky)
                     inRange = false;
 
+                if (inRange && isSticky)
+                    agent.aggro = true;
+
                 return inRange || (isSticky && agent.aggro) ? Result.Success : Result.Failure;
             }
 

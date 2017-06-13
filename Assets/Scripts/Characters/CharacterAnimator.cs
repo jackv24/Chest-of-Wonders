@@ -66,6 +66,8 @@ public class CharacterAnimator : MonoBehaviour
 
         //Set new scale as current scale
         animator.transform.localScale = scale;
+
+        Debug.Log("Flipped");
     }
 
     public void SetStunned(bool value)

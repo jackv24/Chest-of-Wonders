@@ -17,38 +17,38 @@ public class Sootomander : AIAgent
     public float minMoveInterval = 1.0f;
     public float maxMoveInterval = 3.0f;
 
+    [Header("Animation")]
+    public AnimationClip turnAnim;
+
     private Vector2 startPos;
 
     public override void ConstructBehaviour()
     {
-        Sequence followTarget = new Sequence();
+        Sequence b = new Sequence();
 
-        Sequence targetInRange = new Sequence();
-        targetInRange.behaviours.Add(new GetTarget("Player"));
-        targetInRange.behaviours.Add(new Patrol(patrolRange, minPatrolDistance, transform.position.x, minMoveInterval, maxMoveInterval));
-        targetInRange.behaviours.Add(new CheckRange(aggroRange, true));
-
-        Selector turnToPlayer = new Selector();
-        turnToPlayer.behaviours.Add(new CheckFacingTarget());
+        b.behaviours.Add(new GetTarget("Player"));
+        b.behaviours.Add(new Patrol(patrolRange, minPatrolDistance, startPos.x, minMoveInterval, maxMoveInterval, turnAnim ? turnAnim.length : 0));
+        b.behaviours.Add(new CheckRange(aggroRange, true, true, true));
 
         Sequence turnAfterDistance = new Sequence();
         turnAfterDistance.behaviours.Add(new InvertResult(new CheckRange(turnStopRange)));
         turnAfterDistance.behaviours.Add(new StopFaceTarget());
 
+        Selector turnToPlayer = new Selector();
+        turnToPlayer.behaviours.Add(new CheckFacingTarget(defaultRight));
         turnToPlayer.behaviours.Add(turnAfterDistance);
 
-        followTarget.behaviours.Add(targetInRange);
-        followTarget.behaviours.Add(turnToPlayer);
-        followTarget.behaviours.Add(new WalkTowards());
+        b.behaviours.Add(turnToPlayer);
+        b.behaviours.Add(new WalkTowards());
 
-        behaviour = followTarget;
+        behaviour = b;
     }
 
     private void Start()
     {
-        ConstructBehaviour();
-
         startPos = transform.position;
+
+        ConstructBehaviour();
     }
 
     void OnDrawGizmosSelected()
