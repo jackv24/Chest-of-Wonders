@@ -17,9 +17,6 @@ public class Sootomander : AIAgent
     public float minMoveInterval = 1.0f;
     public float maxMoveInterval = 3.0f;
 
-    [Header("Animation")]
-    public AnimationClip turnAnim;
-
     private Vector2 startPos;
 
     public override void ConstructBehaviour()
@@ -27,18 +24,8 @@ public class Sootomander : AIAgent
         Sequence b = new Sequence();
 
         b.behaviours.Add(new GetTarget("Player"));
-        b.behaviours.Add(new Patrol(patrolRange, minPatrolDistance, startPos.x, minMoveInterval, maxMoveInterval, turnAnim ? turnAnim.length : 0));
+        b.behaviours.Add(new Patrol(patrolRange, minPatrolDistance, startPos.x, minMoveInterval, maxMoveInterval));
         b.behaviours.Add(new CheckRange(aggroRange, true, true, true));
-
-        Sequence turnAfterDistance = new Sequence();
-        turnAfterDistance.behaviours.Add(new InvertResult(new CheckRange(turnStopRange)));
-        turnAfterDistance.behaviours.Add(new StopFaceTarget());
-
-        Selector turnToPlayer = new Selector();
-        turnToPlayer.behaviours.Add(new CheckFacingTarget(defaultRight));
-        turnToPlayer.behaviours.Add(turnAfterDistance);
-
-        b.behaviours.Add(turnToPlayer);
         b.behaviours.Add(new WalkTowards());
 
         behaviour = b;

@@ -26,11 +26,7 @@ namespace BehaviourTree
 
         private bool moving = false;
 
-        private bool turning = false;
-        private float turnTime = 0;
-        private float turnDoneTime = 0;
-
-        public Patrol(float range, float minMoveDistance, float startPos, float minMoveInterval, float maxMoveInterval, float turnTime)
+        public Patrol(float range, float minMoveDistance, float startPos, float minMoveInterval, float maxMoveInterval)
         {
             this.range = range;
             this.minMoveDistance = minMoveDistance;
@@ -41,8 +37,6 @@ namespace BehaviourTree
 
             this.minMoveInterval = minMoveInterval;
             this.maxMoveInterval = maxMoveInterval;
-
-            this.turnTime = turnTime;
         }
 
         public Result Execute(AIAgent agent)
@@ -68,45 +62,24 @@ namespace BehaviourTree
                     moveDir = Mathf.Sign(targetX - agent.transform.position.x);
 
                     moving = true;
-
-                    if (turnTime > 0)
-                    {
-                        turning = true;
-                        turnDoneTime = Time.time + turnTime;
-                        agent.characterAnimator.animator.SetBool("turning", true);
-                    }
                 }
 
                 if (moving)
                 {
-                    if(turning)
+                    //If the agent is not close to it's target
+                    if (Mathf.Abs(targetX - agent.transform.position.x) > 0.1f)
                     {
-                        //Don't move while turning
-                        agent.characterMove.Move(0);
-
-                        if(Time.time >= turnDoneTime)
-                        {
-                            turning = false;
-                            agent.characterAnimator.animator.SetBool("turning", false);
-                        }
+                        //Move towards target
+                        agent.characterMove.Move(moveDir);
                     }
                     else
                     {
-                        //If the agent is not close to it's target
-                        if (Mathf.Abs(targetX - agent.transform.position.x) > 0.1f)
-                        {
-                            //Move towards target
-                            agent.characterMove.Move(moveDir);
-                        }
-                        else
-                        {
-                            //If agent has reached target, stop moving
-                            moving = false;
-                            agent.characterMove.Move(0);
+                        //If agent has reached target, stop moving
+                        moving = false;
+                        agent.characterMove.Move(0);
 
-                            //Calculate next move time
-                            nextMoveTime = Time.time + Random.Range(minMoveInterval, maxMoveInterval);
-                        }
+                        //Calculate next move time
+                        nextMoveTime = Time.time + Random.Range(minMoveInterval, maxMoveInterval);
                     }
                 }
             }

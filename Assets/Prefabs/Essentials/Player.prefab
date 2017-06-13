@@ -784,6 +784,7 @@ MonoBehaviour:
   animator: {fileID: 95000013828001912}
   defaultRight: 1
   deathAnimation: {fileID: 0}
+  flipAnimation: {fileID: 0}
 --- !u!114 &114061908791259452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -801,7 +802,7 @@ MonoBehaviour:
   amount: 20
   multiplier: 1
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.25
+  screenShakeAmount: 0.5
   knockBackAmount: 10
   knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114148965292316800

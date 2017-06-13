@@ -102,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: -0.4, z: 0}
+  m_LocalPosition: {x: -16, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4329466169138714}
@@ -373,6 +373,10 @@ MonoBehaviour:
   aggroRange: 5
   turnStopRange: 1
   defaultRight: 0
+  patrolRange: 5
+  minPatrolDistance: 2
+  minMoveInterval: 1
+  maxMoveInterval: 3
 --- !u!114 &114405671284040472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -421,6 +425,7 @@ MonoBehaviour:
   animator: {fileID: 95740427379029714}
   defaultRight: 0
   deathAnimation: {fileID: 7400000, guid: 0330ace8bf6a9594f9854483365bfe2e, type: 2}
+  flipAnimation: {fileID: 7400000, guid: d8271913e2c6c89439db3fb1c6a4d7db, type: 2}
 --- !u!114 &114959086213150190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,8 +437,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c7ac02eb63664419f2556b87649a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  acceleration: 5
+  moveSpeed: 5
+  acceleration: 8
+  velocity: {x: 0, y: 0}
   upSlopeLimit: 50
   downSlopeLimit: 50
   maxSlopeDistance: 1
@@ -461,7 +467,6 @@ MonoBehaviour:
   allowKnockback: 1
   scriptControl: 1
   body: {fileID: 0}
-  velocity: {x: 0, y: 0}
 --- !u!114 &114985464808033458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -489,7 +494,6 @@ MonoBehaviour:
   healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
   minHealthDrops: 2
   maxHealthDrops: 5
-  healthDropArc: 30
   healthDropForce: 10
   damageImmunity: 0
 --- !u!212 &212450966352744004

@@ -20,7 +20,6 @@ public class CharacterMove : MonoBehaviour
 
     [Tooltip("The rate at which the character accelerates to reach the move speed (m/s^2).")]
     public float acceleration = 1f;
-
     public Vector2 velocity;
 
     [Space()]
@@ -299,9 +298,9 @@ public class CharacterMove : MonoBehaviour
 
         //Horizontal movement
         if ((canMove || ignoreCanMove))
-        {
             velocity.x = Mathf.Lerp(velocity.x, moveSpeed * slopeSpeedMultiplier * inputDirection, acceleration * Time.deltaTime);
-        }
+        else
+            velocity.x = Mathf.Lerp(velocity.x, 0, acceleration * Time.deltaTime);
 
         //Lateral collision detection
         {

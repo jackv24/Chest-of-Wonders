@@ -12,6 +12,7 @@ public class CharacterAnimator : MonoBehaviour
 
     [Space()]
     public AnimationClip deathAnimation;
+    public AnimationClip flipAnimation;
 
     private CharacterMove characterMove;
 
@@ -54,6 +55,26 @@ public class CharacterAnimator : MonoBehaviour
 
     void FlipOnDirectionChange(float direction)
     {
+        StopCoroutine("FlipAfterTime");
+        StartCoroutine(FlipAfterTime(flipAnimation ? flipAnimation.length : 0, direction));
+    }
+
+    IEnumerator FlipAfterTime(float time, float direction)
+    {
+
+        if (flipAnimation)
+        {
+            animator.SetBool("turning", true);
+
+            characterMove.canMove = false;
+
+            yield return new WaitForSeconds(time);
+
+            characterMove.canMove = true;
+
+            animator.SetBool("turning", false);
+        }
+
         //Flip character to face the right direction
         //Get current scale
         Vector3 scale = animator.transform.localScale;
@@ -66,8 +87,6 @@ public class CharacterAnimator : MonoBehaviour
 
         //Set new scale as current scale
         animator.transform.localScale = scale;
-
-        Debug.Log("Flipped");
     }
 
     public void SetStunned(bool value)
