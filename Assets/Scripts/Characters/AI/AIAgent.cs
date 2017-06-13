@@ -7,8 +7,11 @@ public class AIAgent : MonoBehaviour
 {
     public Transform target;
     public bool aggro = false;
-    [HideInInspector]
-    public int targetDirection = 0;
+
+    [HideInInspector] public int targetDirection = 0;
+    [HideInInspector] public bool attacking = false;
+    [HideInInspector] public bool endAttack = false;
+    [HideInInspector] public int currentAttack = -1;
 
     [HideInInspector]
     public CharacterMove characterMove;
@@ -44,5 +47,13 @@ public class AIAgent : MonoBehaviour
     public void SetAggro(bool value)
     {
         aggro = value;
+    }
+
+    public virtual void Attack(int index)
+    {
+        //AIAgents that inherit from this class implement this function
+
+        attacking = true;
+        currentAttack = index;
     }
 }

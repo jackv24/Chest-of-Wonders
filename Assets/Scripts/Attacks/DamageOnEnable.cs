@@ -62,15 +62,19 @@ public class DamageOnEnable : MonoBehaviour
 
                 //Remove health
                 if (stats)
-                    stats.RemoveHealth(Mathf.RoundToInt((float)amount * multiplier));
+                {
+                    if (stats.RemoveHealth(Mathf.RoundToInt((float)amount * multiplier)))
+                    {
 
-                //Knockback if amount is more than 0
-                if (move && knockBackAmount > 0)
-                    move.Knockback((Vector2)transform.position + knockBackCentreOffset, knockBackAmount);
+                        //Knockback if amount is more than 0
+                        if (move && knockBackAmount > 0)
+                            move.Knockback((Vector2)transform.position + knockBackCentreOffset, knockBackAmount);
 
-                //Offset randomly (screen shake effect)
-                Vector2 camOffset = new Vector2(Random.Range(-1f, 1f) * screenShakeAmount, Random.Range(-1f, 1f) * screenShakeAmount);
-                Camera.main.transform.position += (Vector3)camOffset;
+                        //Offset randomly (screen shake effect)
+                        Vector2 camOffset = new Vector2(Random.Range(-1f, 1f) * screenShakeAmount, Random.Range(-1f, 1f) * screenShakeAmount);
+                        Camera.main.transform.position += (Vector3)camOffset;
+                    }
+                }
             }
         }
     }

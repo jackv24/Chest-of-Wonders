@@ -17,15 +17,26 @@ public class Sootomander : AIAgent
     public float minMoveInterval = 1.0f;
     public float maxMoveInterval = 3.0f;
 
+    [Header("Attacking")]
+    public float attack1Range = 2.0f;
+
     private Vector2 startPos;
 
     public override void ConstructBehaviour()
     {
         Sequence b = new Sequence();
 
-        b.behaviours.Add(new GetTarget("Player"));
-        b.behaviours.Add(new Patrol(patrolRange, minPatrolDistance, startPos.x, minMoveInterval, maxMoveInterval));
-        b.behaviours.Add(new CheckRange(aggroRange, true, true, true));
+        Sequence idle = new Sequence();
+        idle.behaviours.Add(new GetTarget("Player"));
+        idle.behaviours.Add(new Patrol(patrolRange, minPatrolDistance, startPos.x, minMoveInterval, maxMoveInterval));
+        idle.behaviours.Add(new CheckRange(aggroRange, true, true, true));
+
+        Sequence attack1 = new Sequence();
+        attack1.behaviours.Add(new CheckRange(attack1Range, true, true, false));
+        attack1.behaviours.Add(new Attack(1));
+
+        b.behaviours.Add(idle);
+        b.behaviours.Add(new InvertResult(attack1));
         b.behaviours.Add(new WalkTowards());
 
         behaviour = b;
@@ -38,14 +49,26 @@ public class Sootomander : AIAgent
         ConstructBehaviour();
     }
 
+    public override void Attack(int index)
+    {
+        base.Attack(index);
+
+        characterMove.Move(0);
+
+        characterAnimator.animator.SetTrigger("Attack " + index);
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(new Vector2(-turnStopRange, 1) + (Vector2)transform.position, new Vector2(-turnStopRange, -1) + (Vector2)transform.position);
         Gizmos.DrawLine(new Vector2(turnStopRange, 1) + (Vector2)transform.position, new Vector2(turnStopRange, -1) + (Vector2)transform.position);
 
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, aggroRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attack1Range);
 
         float patrol = patrolRange / 2;
         Vector2 pos = Application.isPlaying ? startPos : (Vector2)transform.position;

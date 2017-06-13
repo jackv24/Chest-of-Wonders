@@ -13,4 +13,10 @@ public class AnimationSoundEvents : MonoBehaviour
             characterSound.PlayFootstep();
         }
     }
+
+    public void PlayTurnSound()
+    {
+        if (characterSound)
+            characterSound.PlaySound(characterSound.turnSound);
+    }
 }

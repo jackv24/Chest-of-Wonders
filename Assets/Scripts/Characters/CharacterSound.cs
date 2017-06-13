@@ -20,6 +20,9 @@ public class CharacterSound : SoundEffectBase
     public float minVolume = 0.7f;
     public float maxVolume = 1.1f;
 
+    [Space()]
+    public SoundEffect turnSound;
+
     public void PlayFootstep()
     {
         if (footstepSource)
