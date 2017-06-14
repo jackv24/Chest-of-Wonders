@@ -350,7 +350,7 @@ MonoBehaviour:
   footstepSource: {fileID: 82233382188465340}
   footsteps:
     clip: {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
-    volume: 0.5
+    volume: 0.25
   minPitch: 0.9
   maxPitch: 1.1
   minVolume: 0.7
@@ -377,6 +377,7 @@ MonoBehaviour:
   currentAttack: -1
   characterMove: {fileID: 0}
   characterAnimator: {fileID: 0}
+  characterStats: {fileID: 0}
   aggroRange: 8
   turnStopRange: 1
   defaultRight: 0

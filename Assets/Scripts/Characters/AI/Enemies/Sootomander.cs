@@ -49,6 +49,22 @@ public class Sootomander : AIAgent
         ConstructBehaviour();
     }
 
+    void OnEnable()
+    {
+        BossInfoUI bossInfoUI = BossInfoUI.Instance;
+
+        if (bossInfoUI)
+            bossInfoUI.Show(characterStats);
+    }
+
+    void OnDisable()
+    {
+        BossInfoUI bossInfoUI = BossInfoUI.Instance;
+
+        if (bossInfoUI)
+            bossInfoUI.Hide();
+    }
+
     public override void Attack(int index)
     {
         base.Attack(index);

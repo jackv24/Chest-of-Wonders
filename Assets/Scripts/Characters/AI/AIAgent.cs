@@ -17,6 +17,8 @@ public class AIAgent : MonoBehaviour
     public CharacterMove characterMove;
     [HideInInspector]
     public CharacterAnimator characterAnimator;
+    [HideInInspector]
+    public CharacterStats characterStats;
 
     protected IBehaviour behaviour;
 
@@ -24,6 +26,7 @@ public class AIAgent : MonoBehaviour
     {
         characterMove = GetComponent<CharacterMove>();
         characterAnimator = GetComponent<CharacterAnimator>();
+        characterStats = GetComponent<CharacterStats>();
     }
 
     void Start()
