@@ -8,16 +8,27 @@ public class CharacterAnimationEvents : MonoBehaviour
 
     public CharacterStats characterStats;
 
+    [Header("Attacks")]
+    public GameObject[] attackColliders;
+
     private void Start()
     {
         if (characterStats)
             characterStats.OnDamaged += EndAttack;
+
+        //Disable all attack colliders
+        foreach (GameObject obj in attackColliders)
+            obj.SetActive(false);
     }
 
-    public void StartAttack()
+    public void StartAttack(int attackIndex)
     {
         if(characterStats)
             characterStats.damageImmunity = true;
+
+        //Enable attack collider if index is within range
+        if (attackIndex < attackColliders.Length)
+            attackColliders[attackIndex].SetActive(true);
     }
 
     public void EndAttack()
@@ -32,5 +43,9 @@ public class CharacterAnimationEvents : MonoBehaviour
 
         if (characterStats)
             characterStats.damageImmunity = false;
+
+        //Disable attack colliders
+        foreach (GameObject obj in attackColliders)
+            obj.SetActive(false);
     }
 }
