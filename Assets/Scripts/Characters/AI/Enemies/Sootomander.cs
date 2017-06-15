@@ -45,8 +45,6 @@ public class Sootomander : AIAgent
         attackOrMove.behaviours.Add(attack2);
 
         b.behaviours.Add(idle);
-        //b.behaviours.Add(new InvertResult(attack1));
-        //b.behaviours.Add(new InvertResult(attack2));
         b.behaviours.Add(attackOrMove);
         b.behaviours.Add(new WalkTowards());
 

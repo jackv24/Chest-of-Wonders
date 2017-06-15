@@ -634,8 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7667fb90041ce4f4ba97529315162bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 200
-  maxHealth: 200
+  currentHealth: 1000
+  maxHealth: 1000
   element: 1
   damageImmunityTime: 0.5
   damageTextOffset: {x: 0, y: 1}
