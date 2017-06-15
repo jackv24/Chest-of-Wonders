@@ -9,6 +9,7 @@ public class CharacterAnimator : MonoBehaviour
     [Space()]
     [Tooltip("Does the character look towards the right by default? (used to flip the character to face the right move direction)")]
     public bool defaultRight = true;
+    private float oldFaceDirection = 0;
 
     [Space()]
     public AnimationClip deathAnimation;
@@ -61,32 +62,36 @@ public class CharacterAnimator : MonoBehaviour
 
     IEnumerator FlipAfterTime(float time, float direction)
     {
-
-        if (flipAnimation)
+        if (direction != oldFaceDirection && direction != 0)
         {
-            animator.SetBool("turning", true);
+            oldFaceDirection = direction;
 
-            characterMove.canMove = false;
+            if (flipAnimation)
+            {
+                animator.SetBool("turning", true);
 
-            yield return new WaitForSeconds(time);
+                characterMove.canMove = false;
 
-            characterMove.canMove = true;
+                yield return new WaitForSeconds(time);
 
-            animator.SetBool("turning", false);
+                characterMove.canMove = true;
+
+                animator.SetBool("turning", false);
+            }
+
+            //Flip character to face the right direction
+            //Get current scale
+            Vector3 scale = animator.transform.localScale;
+
+            //Edit x scale to flip character
+            if (direction >= 0)
+                scale.x = defaultRight ? 1 : -1;
+            else
+                scale.x = defaultRight ? -1 : 1;
+
+            //Set new scale as current scale
+            animator.transform.localScale = scale;
         }
-
-        //Flip character to face the right direction
-        //Get current scale
-        Vector3 scale = animator.transform.localScale;
-
-        //Edit x scale to flip character
-        if (direction >= 0)
-            scale.x = defaultRight ? 1 : -1;
-        else
-            scale.x = defaultRight ? -1 : 1;
-
-        //Set new scale as current scale
-        animator.transform.localScale = scale;
     }
 
     public void SetStunned(bool value)
