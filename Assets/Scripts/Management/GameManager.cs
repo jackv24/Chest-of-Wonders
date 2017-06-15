@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         else
             Debug.LogWarning("Too many scenes open!");
 
-        Cursor.visible = false;
+        if (!Application.isEditor) Cursor.visible = false;
     }
 
     private void Update()
@@ -90,12 +90,15 @@ public class GameManager : MonoBehaviour
         if (playerActions.Pause.WasPressed)
             TogglePaused();
 
-        if (playerActions.Move.WasPressed)
-            Cursor.visible = false;
-        else if (!CanDoActions)
+        if (!Application.isEditor)
         {
-            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
-                Cursor.visible = true;
+            if (playerActions.Move.WasPressed)
+                Cursor.visible = false;
+            else if (!CanDoActions)
+            {
+                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                    Cursor.visible = true;
+            }
         }
     }
 
@@ -233,7 +236,8 @@ public class GameManager : MonoBehaviour
         //Timescale is 0 if game paused, 1 if game not paused
         Time.timeScale = gamePaused ? 0 : 1;
 
-        Cursor.visible = gamePaused;
+        if (!Application.isEditor)
+            Cursor.visible = gamePaused;
 
         //Call pause state change events
         if (OnPausedChange != null)

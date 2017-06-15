@@ -19,6 +19,7 @@ public class Sootomander : AIAgent
 
     [Header("Attacking")]
     public float attack1Range = 2.0f;
+    public float attack2Range = 2.5f;
 
     private Vector2 startPos;
 
@@ -35,8 +36,18 @@ public class Sootomander : AIAgent
         attack1.behaviours.Add(new CheckRange(attack1Range, true, true, false));
         attack1.behaviours.Add(new Attack(1));
 
+        Sequence attack2 = new Sequence();
+        attack1.behaviours.Add(new CheckRange(attack2Range, true, true, false));
+        attack1.behaviours.Add(new Attack(2));
+
+        Selector attackOrMove = new Selector();
+        attackOrMove.behaviours.Add(attack1);
+        attackOrMove.behaviours.Add(attack2);
+
         b.behaviours.Add(idle);
-        b.behaviours.Add(new InvertResult(attack1));
+        //b.behaviours.Add(new InvertResult(attack1));
+        //b.behaviours.Add(new InvertResult(attack2));
+        b.behaviours.Add(attackOrMove);
         b.behaviours.Add(new WalkTowards());
 
         behaviour = b;
@@ -85,6 +96,7 @@ public class Sootomander : AIAgent
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attack1Range);
+        Gizmos.DrawWireSphere(transform.position, attack2Range);
 
         float patrol = patrolRange / 2;
         Vector2 pos = Application.isPlaying ? startPos : (Vector2)transform.position;

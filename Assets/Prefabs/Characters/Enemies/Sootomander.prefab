@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61837320401146352}
   - component: {fileID: 114051145543724472}
   m_Layer: 9
-  m_Name: Attack1Collider
+  m_Name: Attack2Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,6 +58,23 @@ GameObject:
   - component: {fileID: 82233382188465340}
   m_Layer: 9
   m_Name: Footsteps
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1842018631121440
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4860697361460588}
+  - component: {fileID: 61011976617681500}
+  - component: {fileID: 114925967057376362}
+  m_Layer: 9
+  m_Name: Attack1Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +128,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4516809639187334}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4516809639187334
 Transform:
@@ -123,9 +140,23 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4860697361460588}
   - {fileID: 4512676611416354}
   m_Father: {fileID: 4896723702184276}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4860697361460588
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842018631121440}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4516809639187334}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4896723702184276
 Transform:
@@ -162,6 +193,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!61 &61011976617681500
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842018631121440}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -1.8, y: 1.2}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.3}
 --- !u!61 &61753068602035722
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -187,9 +232,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -1.8, y: 1.2}
+  m_Offset: {x: -2, y: 1.3}
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.3}
+  m_Size: {x: 1.75, y: 2.5}
 --- !u!82 &82233382188465340
 AudioSource:
   m_ObjectHideFlags: 1
@@ -431,6 +476,7 @@ MonoBehaviour:
   minMoveInterval: 1
   maxMoveInterval: 3
   attack1Range: 3
+  attack2Range: 3.5
 --- !u!114 &114051145543724472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -445,7 +491,7 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 1024
-  amount: 20
+  amount: 30
   multiplier: 1
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.5
@@ -477,6 +523,7 @@ MonoBehaviour:
   agent: {fileID: 114046735019415448}
   characterStats: {fileID: 114985464808033458}
   attackColliders:
+  - {fileID: 1842018631121440}
   - {fileID: 1251129305480146}
 --- !u!114 &114414467170502894
 MonoBehaviour:
@@ -515,6 +562,26 @@ MonoBehaviour:
   defaultRight: 0
   deathAnimation: {fileID: 7400000, guid: 0330ace8bf6a9594f9854483365bfe2e, type: 2}
   flipAnimation: {fileID: 7400000, guid: d8271913e2c6c89439db3fb1c6a4d7db, type: 2}
+--- !u!114 &114925967057376362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842018631121440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  amount: 20
+  multiplier: 1
+  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
+  screenShakeAmount: 0.5
+  knockBackAmount: 10
+  knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114959086213150190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -616,7 +683,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -291414749
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300060, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
+  m_Sprite: {fileID: 21300078, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
