@@ -137,7 +137,7 @@ public class DialogueBox : MonoBehaviour
             dialogueText.text = "";
 
             //Remove newline from end of string
-            string text = currentStory.currentText;//.Replace("\n", "");
+            string text = currentStory.currentText.Replace("\n", "");
 
             //Parse text for speaker (removing it in the process)
             text = ParseSpeaker(text);
