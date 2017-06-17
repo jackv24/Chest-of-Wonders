@@ -22,6 +22,23 @@ GameObject:
   - component: {fileID: 61837320401146352}
   - component: {fileID: 114051145543724472}
   m_Layer: 9
+  m_Name: PounceCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1401293157013738
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4083025214045174}
+  - component: {fileID: 61333905715438090}
+  - component: {fileID: 114508196575901406}
+  m_Layer: 9
   m_Name: Attack2Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,6 +121,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4083025214045174
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1401293157013738}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4516809639187334}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4329466169138714
 Transform:
   m_ObjectHideFlags: 1
@@ -128,7 +158,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4516809639187334}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4516809639187334
 Transform:
@@ -141,6 +171,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4860697361460588}
+  - {fileID: 4083025214045174}
   - {fileID: 4512676611416354}
   m_Father: {fileID: 4896723702184276}
   m_RootOrder: 1
@@ -207,6 +238,20 @@ BoxCollider2D:
   m_Offset: {x: -1.8, y: 1.2}
   serializedVersion: 2
   m_Size: {x: 1, y: 2.3}
+--- !u!61 &61333905715438090
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1401293157013738}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -2, y: 1.3}
+  serializedVersion: 2
+  m_Size: {x: 1.75, y: 2.5}
 --- !u!61 &61753068602035722
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -232,7 +277,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -2, y: 1.3}
+  m_Offset: {x: -1.8, y: 1.3}
   serializedVersion: 2
   m_Size: {x: 1.75, y: 2.5}
 --- !u!82 &82233382188465340
@@ -476,7 +521,13 @@ MonoBehaviour:
   minMoveInterval: 1
   maxMoveInterval: 3
   attack1Range: 3
+  attack1Cooldown: 1
   attack2Range: 3.5
+  attack2Cooldown: 2
+  pounceRange: 6
+  pounceReadyTime: 0.5
+  pounceSpeed: 8
+  pounceCooldown: 3
 --- !u!114 &114051145543724472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -491,7 +542,7 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 1024
-  amount: 30
+  amount: 20
   multiplier: 1
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.5
@@ -524,6 +575,7 @@ MonoBehaviour:
   characterStats: {fileID: 114985464808033458}
   attackColliders:
   - {fileID: 1842018631121440}
+  - {fileID: 1401293157013738}
   - {fileID: 1251129305480146}
 --- !u!114 &114414467170502894
 MonoBehaviour:
@@ -547,6 +599,26 @@ MonoBehaviour:
   screenShakeAmount: 0.5
   knockBackAmount: 10
   knockBackCentreOffset: {x: -0, y: -2}
+--- !u!114 &114508196575901406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1401293157013738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  amount: 30
+  multiplier: 1
+  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
+  screenShakeAmount: 0.5
+  knockBackAmount: 10
+  knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114581437587600448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -603,7 +675,7 @@ MonoBehaviour:
   inputDirection: 0
   canMove: 1
   ignoreCanMove: 0
-  jumpForce: 10
+  jumpForce: 2
   jumpTime: 0.5
   stopJumpDelay: 0.2
   isGrounded: 1
@@ -683,7 +755,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -291414749
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300078, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
+  m_Sprite: {fileID: 21300102, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

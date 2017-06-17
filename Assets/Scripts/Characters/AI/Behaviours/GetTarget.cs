@@ -18,7 +18,7 @@ namespace BehaviourTree
 
         public Result Execute(AIAgent agent)
         {
-            if(!agent.target)
+            if (!agent.target)
             {
                 GameObject t = GameObject.FindWithTag(targetTag);
 

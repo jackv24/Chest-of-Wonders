@@ -19,7 +19,16 @@ public class Sootomander : AIAgent
 
     [Header("Attacking")]
     public float attack1Range = 2.0f;
+    public float attack1Cooldown = 1.0f;
+    [Space()]
     public float attack2Range = 2.5f;
+    public float attack2Cooldown = 2.0f;
+    [Space()]
+    public float pounceRange = 5.0f;
+    public float pounceReadyTime = 1.0f;
+    public float pounceSpeed = 10.0f;
+    public float pounceCooldown = 5.0f;
+    private bool inPounce = false;
 
     private Vector2 startPos;
 
@@ -34,18 +43,23 @@ public class Sootomander : AIAgent
 
         Sequence attack1 = new Sequence();
         attack1.behaviours.Add(new CheckRange(attack1Range, true, true, false));
-        attack1.behaviours.Add(new Attack(1));
+        attack1.behaviours.Add(new Attack(1, attack1Cooldown));
 
         Sequence attack2 = new Sequence();
-        attack1.behaviours.Add(new CheckRange(attack2Range, true, true, false));
-        attack1.behaviours.Add(new Attack(2));
+        attack2.behaviours.Add(new CheckRange(attack2Range, true, true, false));
+        attack2.behaviours.Add(new Attack(2, attack2Cooldown));
+
+        Sequence attack3 = new Sequence();
+        //attack3.behaviours.Add(new CheckRange(pounceRange, true, true, false));
+        attack3.behaviours.Add(new Attack(3, pounceCooldown));
 
         Selector attackOrMove = new Selector();
         attackOrMove.behaviours.Add(attack1);
         attackOrMove.behaviours.Add(attack2);
+        attackOrMove.behaviours.Add(attack3);
 
         b.behaviours.Add(idle);
-        b.behaviours.Add(attackOrMove);
+        b.behaviours.Add(new InvertResult(attackOrMove));
         b.behaviours.Add(new WalkTowards());
 
         behaviour = b;
@@ -80,7 +94,65 @@ public class Sootomander : AIAgent
 
         characterMove.Move(0);
 
-        characterAnimator.animator.SetTrigger("Attack " + index);
+        switch (index)
+        {
+            case 1:
+            case 2:
+                characterAnimator.animator.SetTrigger("attack " + index);
+                break;
+            case 3:
+                //Only one coroutine should run
+                if(!inPounce)
+                    StartCoroutine("Pounce");
+                break;
+        }
+    }
+
+    IEnumerator Pounce()
+    {
+        inPounce = true;
+
+        //Debug.Log("Pounce Started!");
+
+        while (!characterMove.canMove)
+            yield return new WaitForEndOfFrame();
+
+        float direction = Mathf.Sign(target.position.x - transform.position.x);
+
+        characterAnimator.animator.SetBool("pounceReady", true);
+
+        yield return new WaitForSeconds(pounceReadyTime);
+
+        characterAnimator.animator.SetBool("pounceReady", false);
+
+        float moveSpeed = characterMove.moveSpeed;
+
+        characterMove.moveSpeed = pounceSpeed;
+        characterMove.Jump(true);
+
+        while(characterMove.velocity.y <= 0)
+        {
+            //Debug.Log("Waiting for jump");
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        while (!characterMove.isGrounded)
+        {
+            //Debug.Log("Waiting for ground...");
+            characterMove.Move(direction);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        //Debug.Log("Landed!");
+
+        characterMove.Jump(false);
+
+        characterMove.moveSpeed = moveSpeed;
+        characterMove.Move(0);
+
+        inPounce = false;
     }
 
     void OnDrawGizmosSelected()
@@ -95,6 +167,7 @@ public class Sootomander : AIAgent
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attack1Range);
         Gizmos.DrawWireSphere(transform.position, attack2Range);
+        Gizmos.DrawWireSphere(transform.position, pounceRange);
 
         float patrol = patrolRange / 2;
         Vector2 pos = Application.isPlaying ? startPos : (Vector2)transform.position;

@@ -11,6 +11,8 @@ namespace BehaviourTree
     {
         public Result Execute(AIAgent agent)
         {
+            Debug.Log("Stop movement");
+
             CharacterMove move = agent.characterMove;
 
             if (move)

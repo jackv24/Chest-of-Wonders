@@ -23,6 +23,8 @@ public class CharacterAnimationEvents : MonoBehaviour
 
     public void StartAttack(int attackIndex)
     {
+        EndAttack();
+
         if(characterStats)
             characterStats.damageImmunity = true;
 
