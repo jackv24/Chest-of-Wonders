@@ -526,7 +526,7 @@ MonoBehaviour:
   attack2Cooldown: 2
   pounceRange: 6
   pounceReadyTime: 0.5
-  pounceSpeed: 8
+  pounceSpeed: 10
   pounceCooldown: 3
 --- !u!114 &114051145543724472
 MonoBehaviour:
@@ -706,7 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7667fb90041ce4f4ba97529315162bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 1000
+  currentHealth: 10
   maxHealth: 1000
   element: 1
   damageImmunityTime: 0.5

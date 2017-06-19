@@ -23,7 +23,7 @@ TagManager:
   - Projectiles
   - Pickups
   - One-way Platforms
-  - 
+  - Characters Self_Collide
   - 
   - 
   - 
@@ -62,6 +62,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3794133429
+    locked: 0
+  - name: Characters_Foreground
+    uniqueID: 582625053
     locked: 0
   - name: Projectiles
     uniqueID: 3028551845

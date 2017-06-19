@@ -30,6 +30,13 @@ public class Sootomander : AIAgent
     public float pounceCooldown = 5.0f;
     private bool inPounce = false;
 
+    [Header("Death")]
+    public GameObject sootiePrefab;
+    public int sootieAmount = 5;
+    public float sootieSpawnHeight = 1.0f;
+    public float sootieUpForce = 5.0f;
+    public float sootieSpacing = 0.5f;
+
     private Vector2 startPos;
 
     public override void ConstructBehaviour()
@@ -70,6 +77,27 @@ public class Sootomander : AIAgent
         startPos = transform.position;
 
         ConstructBehaviour();
+
+        if (sootiePrefab)
+        {
+            characterStats.OnDeath += delegate
+            {
+                for(int i = 0; i < sootieAmount; i++)
+                {
+                    GameObject obj = ObjectPooler.GetPooledObject(sootiePrefab);
+                    obj.transform.position = transform.position + Vector3.up * sootieSpawnHeight + new Vector3((-sootieAmount / (float)2) + i * sootieSpacing, 0);
+
+                    Rigidbody2D body = obj.GetComponent<Rigidbody2D>();
+
+                    if(body)
+                    {
+                        float force = Random.Range(0, sootieUpForce);
+
+                        body.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+                    }
+                }
+            };
+        }
     }
 
     void OnEnable()
