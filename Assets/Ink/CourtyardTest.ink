@@ -1,15 +1,15 @@
 ->belle_start //Belle start by default, but speaker should jump to their start
 
 == belle_start == 
-@Belle: Yo whassup I'm a Blacksmith.
-+   [That's cool]
+@Belle: Hey there, I see you're surviving!
++   [What is this place?]
     @Belle: Yeah it's pretty rad.
     @Belle: You know what else is rad?
     @Belle: This totally rad place we're in.
     ->rad_place
-+   [Where are we?]
-    @Belle: Some weird courtyard castle thingo.
-    ->rad_place
++   [Yep]
+    @Belle: Carry on.
+    ->END
         
 == rad_place ==
 @Bianca: It's totally rad and stuff!

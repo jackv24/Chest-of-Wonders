@@ -14,7 +14,7 @@ MonoBehaviour:
   inkLibrary:
   - compileAutomatically: 0
     inkAsset: {fileID: 102900000, guid: c651319dc7cb48e47a1c7d389f8d5c32, type: 3}
-    jsonAsset: {fileID: 0}
+    jsonAsset: {fileID: 4900000, guid: ba9ff2c2ce8c8ee4397ff2d9e63f5ff6, type: 3}
   - compileAutomatically: 0
     inkAsset: {fileID: 102900000, guid: 3e5ed74be0cff49df988d051cb893be0, type: 3}
     jsonAsset: {fileID: 0}
@@ -30,43 +30,4 @@ MonoBehaviour:
   - compileAutomatically: 0
     inkAsset: {fileID: 102900000, guid: e6163a8360467481cb5a3fffed522ea5, type: 3}
     jsonAsset: {fileID: 0}
-  compilationStack:
-  - state: 2
-    inkFile:
-      compileAutomatically: 0
-      inkAsset: {fileID: 102900000, guid: f2d117f0c0de84db2bbaeb8b290cdb3f, type: 3}
-      jsonAsset: {fileID: 0}
-    inkAbsoluteFilePath: C:/Users/s171126/Documents/Projects/Chest-of-Dark-Wonder/Assets/Ink/Compile
-      Bug Test/Compile Bug Test.ink
-    jsonAbsoluteFilePath: C:/Users/s171126/Documents/Projects/Chest-of-Dark-Wonder/Assets/Ink/Compile
-      Bug Test/Compile Bug Test.json
-    output: "ERROR: 'Compile Bug Test.ink' line 4: Functions may not contain diverts,
-      but saw '-> <empty divert>'\r\n"
-    errorOutput: 
-  - state: 1
-    inkFile:
-      compileAutomatically: 0
-      inkAsset: {fileID: 102900000, guid: 5233dd6e01e0a4e92b7a73ce190d89ef, type: 3}
-      jsonAsset: {fileID: 0}
-    inkAbsoluteFilePath: C:/Users/s171126/Documents/Projects/Chest-of-Dark-Wonder/Assets/Ink/Includes/Master.ink
-    jsonAbsoluteFilePath: C:/Users/s171126/Documents/Projects/Chest-of-Dark-Wonder/Assets/Ink/Includes/Master.json
-    output: 
-    errorOutput: 
-  - state: 1
-    inkFile:
-      compileAutomatically: 0
-      inkAsset: {fileID: 102900000, guid: 3e5ed74be0cff49df988d051cb893be0, type: 3}
-      jsonAsset: {fileID: 0}
-    inkAbsoluteFilePath: C:/Users/s171126/Documents/Projects/Chest-of-Dark-Wonder/Assets/Ink/Basic/story.ink
-    jsonAbsoluteFilePath: C:/Users/s171126/Documents/Projects/Chest-of-Dark-Wonder/Assets/Ink/Basic/story.json
-    output: 
-    errorOutput: 
-  - state: 1
-    inkFile:
-      compileAutomatically: 0
-      inkAsset: {fileID: 102900000, guid: c651319dc7cb48e47a1c7d389f8d5c32, type: 3}
-      jsonAsset: {fileID: 0}
-    inkAbsoluteFilePath: C:/Users/s171126/Documents/Projects/Chest-of-Dark-Wonder/Assets/Ink/CourtyardTest.ink
-    jsonAbsoluteFilePath: C:/Users/s171126/Documents/Projects/Chest-of-Dark-Wonder/Assets/Ink/CourtyardTest.json
-    output: 
-    errorOutput: 
+  compilationStack: []
