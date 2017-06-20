@@ -13,14 +13,19 @@ public class Sootie : MonoBehaviour
     public float moveSpeed = 5.0f;
     public bool defaultRight = false;
 
+    public bool waitUntilOnScreen = true;
+    private CameraFollow cam;
+
     [Space()]
     public LayerMask deathCollisionLayer;
 
     private Rigidbody2D body;
+    private CharacterStats characterStats;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        characterStats = GetComponent<CharacterStats>();
     }
 
     private void Start()
@@ -37,6 +42,8 @@ public class Sootie : MonoBehaviour
             if (rend)
                 graphic = rend.gameObject;
         }
+
+        cam = Camera.main.GetComponent<CameraFollow>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -44,7 +51,10 @@ public class Sootie : MonoBehaviour
         //If collided with ground
         if(((1 << collision.collider.gameObject.layer) & deathCollisionLayer) > 0)
         {
-            gameObject.SetActive(false);
+            if (characterStats)
+                characterStats.Die();
+            else
+                gameObject.SetActive(false);
         }
     }
 
@@ -52,6 +62,16 @@ public class Sootie : MonoBehaviour
     {
         if(target)
         {
+            if (waitUntilOnScreen && !cam.IsInView(transform.position))
+            {
+                body.isKinematic = true;
+                body.velocity = Vector2.zero;
+
+                return;
+            }
+            else
+                body.isKinematic = false;
+
             Vector2 direction = (target.position - transform.position).normalized;
 
             Vector2 velocity = body.velocity;

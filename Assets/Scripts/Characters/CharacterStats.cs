@@ -56,7 +56,8 @@ public class CharacterStats : MonoBehaviour
 
     private void OnEnable()
     {
-        graphic.material.SetFloat("_FlashAmount", 0);
+        if(graphic)
+            graphic.material.SetFloat("_FlashAmount", 0);
 
         damageImmunity = false;
     }
@@ -128,7 +129,8 @@ public class CharacterStats : MonoBehaviour
     public void Die()
     {
         //Show stunned flashing character
-        StartCoroutine("DamageFlash", deathTime);
+        if(graphic)
+            StartCoroutine("DamageFlash", deathTime);
         //Count down to death
         StartCoroutine("DeathTimer", deathTime);
 
@@ -155,7 +157,8 @@ public class CharacterStats : MonoBehaviour
         if (OnDeath != null)
             OnDeath();
 
-        graphic.material.SetFloat("_FlashAmount", 0);
+        if(graphic)
+            graphic.material.SetFloat("_FlashAmount", 0);
 
         if (deathDrop)
         {
@@ -192,7 +195,7 @@ public class CharacterStats : MonoBehaviour
                 soundEffects.PlaySound(characterSound.deathSound);
         }
 
-        if (characterAnimator && !characterAnimator.Death())
+        if ((characterAnimator && !characterAnimator.Death()) || !characterAnimator)
             gameObject.SetActive(false);
     }
 

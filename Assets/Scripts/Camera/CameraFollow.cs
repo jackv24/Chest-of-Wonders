@@ -20,6 +20,9 @@ public class CameraFollow : MonoBehaviour
 
     private float minX, maxX, minY, maxY;
 
+    private Vector2 minCameraWorld;
+    private Vector2 maxCameraWorld;
+
     private void Start()
     {
         //If no target has been assigned, attempt to find and set the player as the target
@@ -64,6 +67,10 @@ public class CameraFollow : MonoBehaviour
             KeepInBounds();
 
             transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
+
+            //Calculate camera world bounds
+            minCameraWorld = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
+            maxCameraWorld = Camera.main.ViewportToWorldPoint(new Vector3(1, 1));
         }
     }
 
@@ -116,5 +123,16 @@ public class CameraFollow : MonoBehaviour
         KeepInBounds();
 
         transform.position = targetPos;
+    }
+
+    public bool IsInView(Vector2 worldPos)
+    {
+        if (worldPos.x > minCameraWorld.x && worldPos.y > minCameraWorld.y &&
+            worldPos.x < maxCameraWorld.x && worldPos.y < maxCameraWorld.y)
+        {
+            return true;
+        }
+        else
+            return false;
     }
 }

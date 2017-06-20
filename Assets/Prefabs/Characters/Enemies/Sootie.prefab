@@ -225,14 +225,14 @@ MonoBehaviour:
   element: 1
   damageImmunityTime: 0.5
   damageTextOffset: {x: 0, y: 1}
-  graphic: {fileID: 212214592049931808}
-  flashAmount: 0.75
+  graphic: {fileID: 0}
+  flashAmount: 0
   flashInterval: 0.1
-  deathTime: 1
-  deathParticlePrefab: {fileID: 1104381184592978, guid: 8ebb3aca29d9a0c42a88865fa9ee94c3,
+  deathTime: 0
+  deathParticlePrefab: {fileID: 1395494257038326, guid: 29e2a8c42f90d49428d39dd1775b6489,
     type: 2}
-  deathParticleOffset: {x: 0, y: 0.5}
-  deathDrop: {fileID: 1950966513125510, guid: 4d978f51cc282e74b9b24cf25a58589b, type: 2}
+  deathParticleOffset: {x: 0, y: 0}
+  deathDrop: {fileID: 0}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 0}
   minHealthDrops: 0
@@ -275,6 +275,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 5
   defaultRight: 0
+  waitUntilOnScreen: 1
   deathCollisionLayer:
     serializedVersion: 2
     m_Bits: 256
