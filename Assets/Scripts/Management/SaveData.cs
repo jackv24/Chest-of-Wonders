@@ -31,4 +31,9 @@ public class SaveData
 
     public MagicAttack attack2;
     public int mana2;
+
+    [System.Serializable]
+    public class DialogueDictionary : SerializableDictionary<string, string> { }
+
+    public DialogueDictionary savedDialogue;
 }

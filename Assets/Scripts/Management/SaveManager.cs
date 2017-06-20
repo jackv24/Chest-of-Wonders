@@ -138,4 +138,19 @@ public class SaveManager : MonoBehaviour
             Debug.Log("Save Files deleted: " + fileCount);
         }
     }
+
+    public string LoadDialogueJson(string dialogueName)
+    {
+        if (data.savedDialogue.ContainsKey(dialogueName))
+        {
+            return data.savedDialogue[dialogueName];
+        }
+        else
+            return "";
+    }
+
+    public void SaveDialogueJson(string name, string json)
+    {
+        data.savedDialogue[name] = json;
+    }
 }

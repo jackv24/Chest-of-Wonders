@@ -40,6 +40,7 @@ public class DialogueBox : MonoBehaviour
     public float fastTextSpeed = 50;
 
     private Story currentStory;
+    private TextAsset textAsset;
     private DialogueSpeaker currentSpeaker;
 
     private PlayerActions playerActions;
@@ -127,6 +128,13 @@ public class DialogueBox : MonoBehaviour
             HidePromptIcon();
 
             currentStory = new Story(jsonText.text);
+
+            string json = SaveManager.instance.LoadDialogueJson(jsonText.name);
+
+            if (json != "")
+                currentStory.state.LoadJson(json);
+
+            textAsset = jsonText;
 
             StartCoroutine("RunDialogue", string.Format("{0}_start", startSpeakerName));
         }
@@ -260,6 +268,8 @@ public class DialogueBox : MonoBehaviour
         if(!Application.isEditor) Cursor.visible = false;
 
         ShowPromptIcon((Vector2)currentSpeaker.transform.position + currentSpeaker.boxOffset);
+
+        SaveManager.instance.SaveDialogueJson(textAsset.name, currentStory.state.ToJson());
     }
 
     void SetupButtonEvents(Button button, int index)
