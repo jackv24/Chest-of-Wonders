@@ -1,11 +1,11 @@
 ->belle_start //Belle start by default, but speaker should jump to their start
 
 == belle_start == 
-@Belle: Hey there, I see you're surviving!
+{belle_start < 2: @Belle: Hey there, I see you're surviving!|@Belle: Gee, you like talking.}
 *   [Where am I?]
     @Belle: An abandoned courtyard or something.
     @Belle: I'm not sure.
-    @Belle: Eh it's probably fine.
+    @Belle: Eh, it's probably fine.
     ->rad_place
 +   [Yep]
     @Belle: Carry on.
