@@ -14,6 +14,7 @@ public class Sootie : MonoBehaviour
     public bool defaultRight = false;
 
     public bool waitUntilOnScreen = true;
+    private bool follow = false;
     private CameraFollow cam;
 
     [Space()]
@@ -62,7 +63,7 @@ public class Sootie : MonoBehaviour
     {
         if(target)
         {
-            if (waitUntilOnScreen && !cam.IsInView(transform.position))
+            if (waitUntilOnScreen && !cam.IsInView(transform.position) && !follow)
             {
                 body.isKinematic = true;
                 body.velocity = Vector2.zero;
@@ -70,7 +71,10 @@ public class Sootie : MonoBehaviour
                 return;
             }
             else
+            {
                 body.isKinematic = false;
+                follow = true;
+            }
 
             Vector2 direction = (target.position - transform.position).normalized;
 
