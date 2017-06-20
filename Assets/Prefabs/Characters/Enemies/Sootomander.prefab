@@ -528,6 +528,11 @@ MonoBehaviour:
   pounceReadyTime: 0.5
   pounceSpeed: 10
   pounceCooldown: 3
+  sootiePrefab: {fileID: 0}
+  sootieAmount: 5
+  sootieSpawnHeight: 1
+  sootieUpForce: 5
+  sootieSpacing: 0.5
 --- !u!114 &114051145543724472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -706,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7667fb90041ce4f4ba97529315162bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 10
+  currentHealth: 1000
   maxHealth: 1000
   element: 1
   damageImmunityTime: 0.5
