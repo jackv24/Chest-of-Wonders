@@ -24,6 +24,8 @@ public class DialogueBox : MonoBehaviour
     public Text nameText;
     public Image accent;
     public Text dialogueText;
+    public Image trail;
+    public int trailOffset = 10;
     public Button initialButton;
     private List<Button> buttons = new List<Button>();
 
@@ -64,6 +66,7 @@ public class DialogueBox : MonoBehaviour
 
         //Set up delegate functions for getting updated world position for dialogue box elements
         if (dialoguePos)
+        {
             dialoguePos.OnGetWorldPos += delegate
             {
                 int multiplier = currentSpeaker.transform.position.x < GameManager.instance.player.transform.position.x ? -1 : 1;
@@ -72,9 +75,22 @@ public class DialogueBox : MonoBehaviour
                 s.x *= multiplier;
 
                 dialoguePos.worldPos = (Vector2)currentSpeaker.transform.position + currentSpeaker.boxOffset + s;
+
+                if(trail)
+                {
+                    Vector3 pos = trail.rectTransform.localPosition;
+                    pos.x = trailOffset * multiplier;
+                    trail.rectTransform.localPosition = pos;
+
+                    Vector3 scale = trail.rectTransform.localScale;
+                    scale.x = multiplier;
+                    trail.rectTransform.localScale = scale;
+                }
             };
+        }
 
         if (optionsPos)
+        {
             optionsPos.OnGetWorldPos += delegate
             {
                 int multiplier = 1;
@@ -92,6 +108,7 @@ public class DialogueBox : MonoBehaviour
 
                 optionsPos.worldPos = (Vector2)GameManager.instance.player.transform.position + o;
             };
+        }
     }
 
     void Update()
@@ -137,10 +154,13 @@ public class DialogueBox : MonoBehaviour
             dialogueText.text = "";
 
             //Remove newline from end of string
-            string text = currentStory.currentText.Replace("\n", "");
+            string text = currentStory.currentText;
 
             //Parse text for speaker (removing it in the process)
             text = ParseSpeaker(text);
+
+            //Remove end line
+            text = text.Replace("\n", "");
 
             bool speedPressed = false;
 
@@ -164,7 +184,9 @@ public class DialogueBox : MonoBehaviour
                 }
             }
 
-            if(currentStory.currentChoices.Count > 0)
+            dialogueText.text = text;
+
+            if (currentStory.currentChoices.Count > 0)
             {
                 waitingForChoice = true;
                 optionPanel.gameObject.SetActive(true);
@@ -236,6 +258,8 @@ public class DialogueBox : MonoBehaviour
 
         GameManager.instance.gameRunning = true;
         if(!Application.isEditor) Cursor.visible = false;
+
+        ShowPromptIcon((Vector2)currentSpeaker.transform.position + currentSpeaker.boxOffset);
     }
 
     void SetupButtonEvents(Button button, int index)

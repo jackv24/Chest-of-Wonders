@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PixelPerfectCamera : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class PixelPerfectCamera : MonoBehaviour
     }
 
     public List<BreakPoint> breakPoints = new List<BreakPoint>();
+
+    [Space()]
+    public CanvasScaler canvasScaler;
 
     private float orthographicSize;
 
@@ -47,6 +51,9 @@ public class PixelPerfectCamera : MonoBehaviour
                 //Calculate and set orthographic size
                 orthographicSize = Screen.height / (spriteSize * scale) / 2f;
                 Camera.main.orthographicSize = orthographicSize;
+
+                if (canvasScaler)
+                    canvasScaler.scaleFactor = scale;
 
                 //If there is a follow script, recalculate the bounds
                 if (follow)

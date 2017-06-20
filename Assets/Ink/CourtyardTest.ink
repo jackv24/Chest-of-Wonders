@@ -2,19 +2,19 @@
 
 == belle_start == 
 @Belle: Hey there, I see you're surviving!
-+   [What is this place?]
-    @Belle: Yeah it's pretty rad.
-    @Belle: You know what else is rad?
-    @Belle: This totally rad place we're in.
+*   [Where am I?]
+    @Belle: An abandoned courtyard or something.
+    @Belle: I'm not sure.
+    @Belle: Eh it's probably fine.
     ->rad_place
 +   [Yep]
     @Belle: Carry on.
     ->END
         
 == rad_place ==
-@Bianca: It's totally rad and stuff!
-+   [Who is that?]
-    @Belle: Some random, idk.
+@Bianca: This place is pretty rad though!
+*   [Who is that?]
+    @Belle: Dunno, why don't you go say hi?
     ->END
 +   [Bye]
     @Belle: {~See you later!|Catch you around!|Don't die!}
