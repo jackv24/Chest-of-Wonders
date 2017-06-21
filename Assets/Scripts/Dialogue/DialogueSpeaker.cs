@@ -112,6 +112,36 @@ public class DialogueSpeaker : MonoBehaviour
         characterMove.moveSpeed = moveSpeed;
     }
 
+    public void MoveSpeaker(float x)
+    {
+        StartCoroutine("Move", x);
+    }
+
+    IEnumerator Move(float x)
+    {
+        float sign = Mathf.Sign(x);
+        float targetPos = transform.position.x + x;
+
+        //Get character move and cache move speed
+        CharacterMove characterMove = GetComponent<CharacterMove>();
+
+        //While player is not at target position (according to sign)
+        while ((sign < 0 && transform.position.x > targetPos) || (sign > 0 && transform.position.x < targetPos))
+        {
+            //Move player
+            characterMove.Move(sign);
+            yield return new WaitForEndOfFrame();
+        }
+
+        //Face back towards speaker
+        characterMove.Move(-sign);
+
+        yield return new WaitForEndOfFrame();
+
+        //Stop moving
+        characterMove.Move(0);
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, range);

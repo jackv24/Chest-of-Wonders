@@ -1,3 +1,5 @@
+EXTERNAL move(x)
+
 ->belle_start //Belle start by default, but speaker should jump to their start
 
 == belle_start == 
@@ -21,5 +23,5 @@
     ->END
 
 == bianca_start ==
-@Bianca: {bianca_start < 10:{This place is pretty rad, huh?|Not sure why I'm here...|This grass feels nice.|Okay, that's enough talking.}|{Oh my GOD, shut up!|Seriously man.|This is getting ridiculous.|...}}
+@Bianca: {bianca_start < 10:{This place is pretty rad, huh?|Not sure why I'm here...|This grass feels nice.{move(-1)}|Okay, that's enough talking.}|{Oh my GOD, shut up!|Seriously man.|This is getting ridiculous.|...}}
 ->END

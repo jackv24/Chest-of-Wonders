@@ -142,6 +142,8 @@ public class DialogueBox : MonoBehaviour
 
     IEnumerator RunDialogue(string skipToKnot)
     {
+        BindExternalFunctions();
+
         dialogueOpen = true;
 
         buttonPressed = false;
@@ -292,6 +294,14 @@ public class DialogueBox : MonoBehaviour
                 currentStory.ChooseChoiceIndex(index);
             };
         }
+    }
+
+    void BindExternalFunctions()
+    {
+        currentStory.BindExternalFunction("move", (float x) =>
+        {
+            currentSpeaker.MoveSpeaker(x);
+        });
     }
 
     string ParseSpeaker(string text)
