@@ -6,7 +6,7 @@ EXTERNAL move(x)
 {belle_start < 2: @Belle: Hey there, I see you're surviving!|@Belle: Gee, you like talking.}
 *   [Where am I?]
     @Belle: An abandoned courtyard or something.
-    @Belle: I'm not sure. #animation_shrug
+    @Belle: I'm not sure.
     @Belle: Eh, it's probably fine.
     ->rad_place
 +   [Yep]
@@ -23,5 +23,9 @@ EXTERNAL move(x)
     ->END
 
 == bianca_start ==
-@Bianca: {bianca_start < 10:{This place is pretty rad, huh?|Not sure why I'm here...|This grass feels nice.{move(-1)}|Okay, that's enough talking.}|{Oh my GOD, shut up!|Seriously man.|This is getting ridiculous.|...}}
+@Bianca: {bianca_start < 10:{This place is pretty rad, huh?|Not sure why I'm here...|This grass feels nice.{move(-1)}|Okay, that's enough talking.}|{Oh my GOD, shut up!|Seriously man.|This is getting ridiculous.|->character_done}}
+->END
+
+== character_done ==
+... #animation_idle
 ->END

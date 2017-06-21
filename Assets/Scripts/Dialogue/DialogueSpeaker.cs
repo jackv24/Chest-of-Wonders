@@ -91,6 +91,16 @@ public class DialogueSpeaker : MonoBehaviour
         characterMove.ignoreCanMove = true;
         characterMove.moveSpeed = moveSpeed * 0.5f;
 
+        //Stop camera jerkiness
+        CameraFollow cam = FindObjectOfType<CameraFollow>();
+        float camDist = 0;
+
+        if(cam)
+        {
+            camDist = cam.lookAhead;
+            cam.lookAhead = 0;
+        }
+
         //While player is not at target position (according to sign)
         while ((sign < 0 && player.transform.position.x > targetPos) || (sign > 0 && player.transform.position.x < targetPos))
         {
@@ -103,6 +113,10 @@ public class DialogueSpeaker : MonoBehaviour
         characterMove.Move(-sign);
 
         yield return new WaitForEndOfFrame();
+
+        //Restore camera distance
+        if (cam)
+            cam.lookAhead = camDist;
 
         //Stop moving
         characterMove.Move(0);

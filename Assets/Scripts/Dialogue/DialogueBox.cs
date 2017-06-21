@@ -42,6 +42,7 @@ public class DialogueBox : MonoBehaviour
     private Story currentStory;
     private TextAsset textAsset;
     private DialogueSpeaker currentSpeaker;
+    private List<string> animParams = new List<string>();
 
     private PlayerActions playerActions;
 
@@ -257,6 +258,9 @@ public class DialogueBox : MonoBehaviour
             //Disable all buttons
             for (int i = 0; i < buttons.Count; i++)
                 buttons[i].gameObject.SetActive(false);
+
+            //Make sure speaker params are cleared
+            ClearParams(currentSpeaker.GetComponentInChildren<Animator>());
         }
 
         yield return new WaitForEndOfFrame();
@@ -271,7 +275,7 @@ public class DialogueBox : MonoBehaviour
         GameManager.instance.gameRunning = true;
         if(!Application.isEditor) Cursor.visible = false;
 
-        ShowPromptIcon((Vector2)currentSpeaker.transform.position + currentSpeaker.boxOffset);
+        currentSpeaker.rangeToggle = true;
 
         SaveManager.instance.SaveDialogueJson(textAsset.name, currentStory.state.ToJson());
     }
@@ -371,16 +375,36 @@ public class DialogueBox : MonoBehaviour
             return text;
     }
 
+    public void ClearParams(Animator anim)
+    {
+        //Clear previous anim parameters
+        if (anim)
+        {
+            foreach (string param in animParams)
+            {
+                anim.SetBool(param, false);
+            }
+        }
+
+        animParams.Clear();
+    }
+
     public void HandleTags(List<string> tags)
     {
+        Animator anim = currentSpeaker.GetComponentInChildren<Animator>();
+
+        ClearParams(anim);
+
+        //Handle tags
         foreach(string tag in tags)
         {
             if(tag.Contains("animation_"))
             {
-                Animator anim = currentSpeaker.GetComponentInChildren<Animator>();
+                string parameter = tag.Replace("animation_", "");
+                animParams.Add(parameter);
 
                 if(anim)
-                    anim.SetTrigger(tag.Replace("animation_", ""));
+                    anim.SetBool(parameter, true);
             }
             else
             {
