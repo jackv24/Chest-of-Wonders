@@ -167,6 +167,8 @@ public class DialogueBox : MonoBehaviour
             //Parse text for speaker (removing it in the process)
             text = ParseSpeaker(text);
 
+            HandleTags(currentStory.currentTags);
+
             //Remove end line
             text = text.Replace("\n", "");
 
@@ -357,6 +359,24 @@ public class DialogueBox : MonoBehaviour
         }
         else
             return text;
+    }
+
+    public void HandleTags(List<string> tags)
+    {
+        foreach(string tag in tags)
+        {
+            if(tag.Contains("animation_"))
+            {
+                Animator anim = currentSpeaker.GetComponentInChildren<Animator>();
+
+                if(anim)
+                    anim.SetTrigger(tag.Replace("animation_", ""));
+            }
+            else
+            {
+                Debug.LogWarning("Encountered unknown tag in dialogue: " + tag);
+            }
+        }
     }
 
     void ShowSpeakerTalking(bool value)
