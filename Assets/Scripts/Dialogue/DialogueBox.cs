@@ -259,8 +259,6 @@ public class DialogueBox : MonoBehaviour
             for (int i = 0; i < buttons.Count; i++)
                 buttons[i].gameObject.SetActive(false);
 
-            //Make sure speaker params are cleared
-            ClearParams(currentSpeaker.GetComponentInChildren<Animator>());
         }
 
         yield return new WaitForEndOfFrame();
@@ -276,6 +274,9 @@ public class DialogueBox : MonoBehaviour
         if(!Application.isEditor) Cursor.visible = false;
 
         currentSpeaker.rangeToggle = true;
+
+        //Make sure speaker params are cleared
+        ClearParams(currentSpeaker.GetComponentInChildren<Animator>());
 
         SaveManager.instance.SaveDialogueJson(textAsset.name, currentStory.state.ToJson());
     }

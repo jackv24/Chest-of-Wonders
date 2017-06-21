@@ -1,6 +1,9 @@
 EXTERNAL move(x)
 
-->belle_start //Belle start by default, but speaker should jump to their start
+//For editor testing
+Where to start?
++ [Belle] -> belle_start
++ [Bianca] -> bianca_start
 
 == belle_start == 
 {belle_start < 2: @Belle: Hey there, I see you're surviving!|@Belle: Gee, you like talking.}
@@ -29,3 +32,7 @@ EXTERNAL move(x)
 == character_done ==
 ... #animation_idle
 ->END
+
+//Fallback move function to prevent editor errors - does nothing
+== function move(x) ==
+~ return
