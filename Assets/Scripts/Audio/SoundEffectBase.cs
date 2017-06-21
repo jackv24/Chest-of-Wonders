@@ -20,7 +20,8 @@ public class SoundEffectBase : MonoBehaviour
 
     void Awake()
     {
-        source = GetComponent<AudioSource>();
+        if(!source)
+            source = GetComponent<AudioSource>();
 
         if(!source)
             Debug.LogWarning("No AudioSource attached to " + gameObject.name);

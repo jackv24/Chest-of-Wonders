@@ -46,12 +46,15 @@ public class DialogueBox : MonoBehaviour
 
     private PlayerActions playerActions;
 
+    private DialogueSounds sounds;
+
     private void Awake()
     {
         Instance = this;
 
         dialoguePos = speakerPanel.GetComponent<KeepWorldPosOnCanvas>();
         optionsPos = optionPanel.GetComponent<KeepWorldPosOnCanvas>();
+        sounds = GetComponent<DialogueSounds>();
     }
 
     private void Start()
@@ -188,6 +191,10 @@ public class DialogueBox : MonoBehaviour
 
                 index++;
 
+                //Play one "blip" sound for every character printed
+                if (sounds)
+                    sounds.PlaySound("blip");
+
                 yield return new WaitForSeconds(!speedPressed ? 1/textSpeed : 1/fastTextSpeed);
 
                 if (!speedPressed && buttonPressed)
@@ -305,6 +312,7 @@ public class DialogueBox : MonoBehaviour
     {
         currentStory.BindExternalFunction("move", (float x) =>
         {
+            //Moves the speaker x number of metres horizontally
             currentSpeaker.MoveSpeaker(x);
         });
     }
@@ -406,6 +414,13 @@ public class DialogueBox : MonoBehaviour
 
                 if(anim)
                     anim.SetBool(parameter, true);
+            }
+            else if (tag.Contains("sound_"))
+            {
+                string parameter = tag.Replace("sound_", "");
+
+                if (sounds)
+                    sounds.PlaySound(parameter);
             }
             else
             {

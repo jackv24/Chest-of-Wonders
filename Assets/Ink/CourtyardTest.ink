@@ -26,11 +26,15 @@ Where to start?
     ->END
 
 == bianca_start ==
-@Bianca: {bianca_start < 10:{This place is pretty rad, huh?|Not sure why I'm here...|This grass feels nice.{move(-1)}|Okay, that's enough talking.}|{Oh my GOD, shut up!|Seriously man.|This is getting ridiculous.|->character_done}}
+@Bianca: {bianca_start < 10:{This place is pretty rad, huh?|Not sure why I'm here...|This grass feels nice.{move(-1)}|Okay, that's enough talking.|->character_done}|{Oh my GOD, shut up!|Seriously man.|This is getting ridiculous.|->character_shock|->character_done}}
 ->END
 
 == character_done ==
 ... #animation_idle
+->END
+
+== character_shock ==
+WHAT? #sound_shock
 ->END
 
 //Fallback move function to prevent editor errors - does nothing
