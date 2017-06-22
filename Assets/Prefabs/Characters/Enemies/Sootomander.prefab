@@ -196,7 +196,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16, y: -0.9, z: 0}
+  m_LocalPosition: {x: -16, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4329466169138714}
@@ -279,7 +279,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: -1.8, y: 1.3}
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 2.5}
+  m_Size: {x: 1.5, y: 2.25}
 --- !u!82 &82233382188465340
 AudioSource:
   m_ObjectHideFlags: 1
@@ -510,6 +510,7 @@ MonoBehaviour:
   attacking: 0
   endAttack: 0
   currentAttack: -1
+  attackCooldown: 0
   characterMove: {fileID: 0}
   characterAnimator: {fileID: 0}
   characterStats: {fileID: 0}
@@ -528,7 +529,8 @@ MonoBehaviour:
   pounceReadyTime: 0.5
   pounceSpeed: 10
   pounceCooldown: 3
-  sootiePrefab: {fileID: 0}
+  sootiePrefab: {fileID: 1186632841924686, guid: 43f21ecda183e804192eaa34de7967ec,
+    type: 2}
   sootieAmount: 5
   sootieSpawnHeight: 1
   sootieUpForce: 5
@@ -760,7 +762,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -291414749
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300102, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

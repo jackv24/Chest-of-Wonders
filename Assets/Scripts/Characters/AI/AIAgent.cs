@@ -12,6 +12,7 @@ public class AIAgent : MonoBehaviour
     [HideInInspector] public bool attacking = false;
     [HideInInspector] public bool endAttack = false;
     [HideInInspector] public int currentAttack = -1;
+    [HideInInspector] public float attackCooldown = 0;
 
     [HideInInspector]
     public CharacterMove characterMove;
@@ -45,6 +46,11 @@ public class AIAgent : MonoBehaviour
         {
             behaviour.Execute(this);
         }
+
+        if(attackCooldown > 0)
+            attackCooldown -= Time.deltaTime;
+        else
+            attackCooldown = 0;
     }
 
     public void SetAggro(bool value)

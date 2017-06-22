@@ -12,7 +12,6 @@ namespace BehaviourTree
         public int attackID;
 
         public float cooldown = 0;
-        private float nextAttackTime = 0;
 
         public Attack(int attackID)
         {
@@ -37,9 +36,9 @@ namespace BehaviourTree
                 return Result.Success;
             }
 
-            if (Time.time >= nextAttackTime && !agent.attacking && agent.currentAttack != attackID)
+            if (agent.attackCooldown <= 0 && !agent.attacking && agent.currentAttack != attackID)
             {
-                nextAttackTime += cooldown;
+                agent.attackCooldown = cooldown;
 
                 //Start attack
                 agent.Attack(attackID);

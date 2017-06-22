@@ -140,14 +140,16 @@ public class Sootomander : AIAgent
     {
         inPounce = true;
 
-        //Debug.Log("Pounce Started!");
+        Debug.Log("Pounce Started!");
 
-        while (!characterMove.canMove)
-            yield return new WaitForEndOfFrame();
+        //while (!characterMove.canMove)
+        //    yield return new WaitForEndOfFrame();
 
         float direction = Mathf.Sign(target.position.x - transform.position.x);
 
         characterAnimator.animator.SetBool("pounceReady", true);
+
+        characterMove.Move(0);
 
         yield return new WaitForSeconds(pounceReadyTime);
 
@@ -160,20 +162,20 @@ public class Sootomander : AIAgent
 
         while(characterMove.velocity.y <= 0)
         {
-            //Debug.Log("Waiting for jump");
+            Debug.Log("Waiting for jump");
 
             yield return new WaitForEndOfFrame();
         }
 
         while (!characterMove.isGrounded)
         {
-            //Debug.Log("Waiting for ground...");
+            Debug.Log("Waiting for ground...");
             characterMove.Move(direction);
 
             yield return new WaitForEndOfFrame();
         }
 
-        //Debug.Log("Landed!");
+        Debug.Log("Landed!");
 
         characterMove.Jump(false);
 
