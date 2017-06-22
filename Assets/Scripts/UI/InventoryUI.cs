@@ -7,9 +7,9 @@ public class InventoryUI : MonoBehaviour
 {
     public PlayerInventory inventory;
 
-    [Space()]
-    public Text inventoryText;
-    private string inventoryTextString;
+    public GameObject itemIconTemplate;
+
+    private List<GameObject> itemIcons = new List<GameObject>();
 
     void Start()
     {
@@ -19,34 +19,40 @@ public class InventoryUI : MonoBehaviour
         if (inventory)
             inventory.OnUpdateInventory += UpdateUI;
 
-        if (inventoryText)
-            inventoryTextString = inventoryText.text;
+        if (itemIconTemplate)
+            itemIconTemplate.SetActive(false);
 
         UpdateUI();
     }
 
     void UpdateUI()
     {
-        if(inventoryText && inventory)
+        if(itemIconTemplate && inventory)
         {
-            Dictionary<InventoryItem, int> itemStrings = new Dictionary<InventoryItem, int>();
-
-            foreach(InventoryItem item in inventory.items)
+            //Disable all icons
+            foreach(GameObject icon in itemIcons)
             {
-                if (itemStrings.ContainsKey(item))
-                    itemStrings[item]++;
+                icon.SetActive(false);
+            }
+
+            for(int i = 0; i < inventory.items.Count; i++)
+            {
+                GameObject itemIcon = null;
+
+                //Reuse any existing icons
+                if (i < itemIcons.Count)
+                    itemIcon = itemIcons[i];
                 else
-                    itemStrings.Add(item, 1);
+                {
+                    //If adequate icon does not exist, instantiate a new one and it it to the list for later reuse
+                    itemIcon = (GameObject)Instantiate(itemIconTemplate, itemIconTemplate.transform.parent);
+                    itemIcons.Add(itemIcon);
+                }
+
+                //Enable icon and set sprite
+                itemIcon.SetActive(true);
+                itemIcon.GetComponent<Image>().sprite = inventory.items[i].inventoryIcon;
             }
-
-            string inventoryString = "";
-
-            foreach (KeyValuePair<InventoryItem, int> item in itemStrings)
-            {
-                inventoryString += string.Format("{0}x{1}\n", item.Key.displayName, item.Value);
-            }
-
-            inventoryText.text = string.Format(inventoryTextString, inventoryString);
         }
     }
 }
