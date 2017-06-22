@@ -33,6 +33,7 @@ public class SaveData
     public int mana2;
 
     public List<InventoryItem> inventory;
+    public List<int> pickedUpItems;
 
     [System.Serializable]
     public class DialogueDictionary : SerializableDictionary<string, string> { }

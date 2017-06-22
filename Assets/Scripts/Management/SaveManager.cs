@@ -159,4 +159,17 @@ public class SaveManager : MonoBehaviour
     {
         data.savedDialogue[name] = json;
     }
+
+    public void SetPickedUpItem(int instanceID)
+    {
+        data.pickedUpItems.Add(instanceID);
+    }
+
+    public bool PickedUpItem(int instanceID)
+    {
+        if (data.pickedUpItems.Contains(instanceID))
+            return true;
+        else
+            return false;
+    }
 }

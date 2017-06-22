@@ -91,7 +91,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61302315902156628
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1493b118f42ac604b92a017a15d60317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 0
   itemData: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
   pickupRange: 0.4
   playerLayer:
