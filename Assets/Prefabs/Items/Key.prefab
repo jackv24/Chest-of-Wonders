@@ -122,6 +122,11 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
+  pickupEffect: {fileID: 1679684435938906, guid: b908b8648c963d34b8e1980fbbda8340,
+    type: 2}
+  pickupSound:
+    clip: {fileID: 8300000, guid: 332cc06843f03294d91539cfc21904c6, type: 3}
+    volume: 1
 --- !u!212 &212717586791824718
 SpriteRenderer:
   m_ObjectHideFlags: 1

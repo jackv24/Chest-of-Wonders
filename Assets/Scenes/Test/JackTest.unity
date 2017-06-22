@@ -2143,7 +2143,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3219,12 +3219,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 114239716493765974, guid: 420c30a485907c944871d0d5785b2e3d,
-        type: 2}
-      propertyPath: pickupEffect
-      value: 
-      objectReference: {fileID: 1679684435938906, guid: b908b8648c963d34b8e1980fbbda8340,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
   m_IsPrefabParent: 0

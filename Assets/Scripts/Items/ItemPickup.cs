@@ -11,6 +11,14 @@ public class ItemPickup : MonoBehaviour
     public LayerMask playerLayer;
 
     public GameObject pickupEffect;
+    public SoundEffectBase.SoundEffect pickupSound;
+
+    private SoundEffectBase soundEffects;
+
+    void Start()
+    {
+        soundEffects = GameManager.instance.GetComponent<SoundEffectBase>();
+    }
 
     //Only run on fixedupdate since this doesn't need to be run every frame
     void FixedUpdate()
@@ -34,6 +42,9 @@ public class ItemPickup : MonoBehaviour
                         GameObject effect = ObjectPooler.GetPooledObject(pickupEffect);
                         effect.transform.position = transform.position;
                     }
+
+                    if (soundEffects)
+                        soundEffects.PlaySound(pickupSound);
 
                     //Remove item from world
                     gameObject.SetActive(false);
