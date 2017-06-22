@@ -83,6 +83,10 @@ public class CharacterMove : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask platformLayer;
 
+    [Space()]
+    [Tooltip("When checked, prevents character from falling through ground on start.")]
+    public bool startOnGround = true;
+
     [Header("Miscellaneous")]
     public float knockBackRecoveryTime = 1f;
     public bool allowKnockback = true;
@@ -116,6 +120,15 @@ public class CharacterMove : MonoBehaviour
         if(characterSound)
         {
             OnJump += delegate { characterSound.PlaySound(characterSound.jumpSound); };
+        }
+
+        if(startOnGround)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1000f, groundLayer);
+
+            //Start on ground point from raycast
+            if(hit.collider != null)
+                transform.position = hit.point;
         }
     }
 
