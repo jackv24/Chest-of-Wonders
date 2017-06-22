@@ -138,20 +138,22 @@ public class Sootomander : AIAgent
 
     IEnumerator Pounce()
     {
+        CharacterAnimationEvents animationEvents = GetComponentInChildren<CharacterAnimationEvents>();
+
         inPounce = true;
 
-        Debug.Log("Pounce Started!");
-
-        //while (!characterMove.canMove)
-        //    yield return new WaitForEndOfFrame();
+        //Debug.Log("Pounce Started!");
 
         float direction = Mathf.Sign(target.position.x - transform.position.x);
 
         characterAnimator.animator.SetBool("pounceReady", true);
 
         characterMove.Move(0);
+        characterMove.canMove = false;
 
         yield return new WaitForSeconds(pounceReadyTime);
+
+        characterMove.canMove = true;
 
         characterAnimator.animator.SetBool("pounceReady", false);
 
@@ -162,20 +164,20 @@ public class Sootomander : AIAgent
 
         while(characterMove.velocity.y <= 0)
         {
-            Debug.Log("Waiting for jump");
+            //Debug.Log("Waiting for jump");
 
             yield return new WaitForEndOfFrame();
         }
 
         while (!characterMove.isGrounded)
         {
-            Debug.Log("Waiting for ground...");
+            //Debug.Log("Waiting for ground...");
             characterMove.Move(direction);
 
             yield return new WaitForEndOfFrame();
         }
 
-        Debug.Log("Landed!");
+        //Debug.Log("Landed!");
 
         characterMove.Jump(false);
 
@@ -183,6 +185,10 @@ public class Sootomander : AIAgent
         characterMove.Move(0);
 
         inPounce = false;
+
+        //Make sure attack is ended (may not have called end event because of interruptions)
+        if(endAttack == false)
+            animationEvents.EndAttack();
     }
 
     void OnDrawGizmosSelected()
