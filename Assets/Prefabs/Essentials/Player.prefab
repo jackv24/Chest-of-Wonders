@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 114849662361689878}
   - component: {fileID: 114429180314876788}
   - component: {fileID: 82899891716784434}
+  - component: {fileID: 114996482148005152}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -766,6 +767,7 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 8192
+  startOnGround: 1
   knockBackRecoveryTime: 0.1
   allowKnockback: 1
   scriptControl: 1
@@ -897,6 +899,9 @@ MonoBehaviour:
   maxPitch: 1.1
   minVolume: 0.7
   maxVolume: 1.1
+  turnSound:
+    clip: {fileID: 0}
+    volume: 1
 --- !u!114 &114643147213042428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1034,6 +1039,18 @@ MonoBehaviour:
   screenShakeAmount: 0.25
   knockBackAmount: 10
   knockBackCentreOffset: {x: -0, y: -1}
+--- !u!114 &114996482148005152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012949439504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34b741314670544f88c1c4538d462c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
 --- !u!212 &212000014160401936
 SpriteRenderer:
   m_ObjectHideFlags: 1

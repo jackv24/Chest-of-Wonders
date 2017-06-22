@@ -53,6 +53,7 @@ public class SaveManager : MonoBehaviour
 
             CharacterStats stats = player.GetComponent<CharacterStats>();
             PlayerAttack attack = player.GetComponent<PlayerAttack>();
+            PlayerInventory inventory = player.GetComponent<PlayerInventory>();
 
             if (stats)
             {
@@ -68,6 +69,11 @@ public class SaveManager : MonoBehaviour
 
                 data.attack2 = attack.magicSlot2.attack;
                 data.mana2 = attack.magicSlot2.currentMana;
+            }
+
+            if(inventory)
+            {
+                data.inventory = inventory.items;
             }
             
             //Serialise save data to JSON

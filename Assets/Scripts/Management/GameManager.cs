@@ -284,6 +284,7 @@ public class GameManager : MonoBehaviour
 
                 CharacterStats stats = player.GetComponent<CharacterStats>();
                 PlayerAttack attack = player.GetComponent<PlayerAttack>();
+                PlayerInventory inventory = player.GetComponent<PlayerInventory>();
 
                 if (stats)
                 {
@@ -303,6 +304,11 @@ public class GameManager : MonoBehaviour
 
                     if (attack.magicSlot2.attack)
                         attack.magicSlot2.currentMana = data.mana2 >= 0 ? data.mana2 : data.attack2.manaAmount;
+                }
+
+                if(inventory)
+                {
+                    inventory.items = data.inventory;
                 }
 
                 if (OnSaveLoaded != null)
