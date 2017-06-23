@@ -47,6 +47,12 @@ public class Doorway : MonoBehaviour
         {
             inDoor = true;
 
+			CharacterStats stats = other.GetComponent<CharacterStats>();
+
+			//Can't go through door if dead (prevents being knocked through door and canceling death)
+			if (stats && stats.currentHealth <= 0)
+				return;
+
             if (!useButton)
                 Use();
         }
