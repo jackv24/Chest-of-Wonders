@@ -83,8 +83,8 @@ public class DialogueSpeaker : MonoBehaviour
         float sign = Mathf.Sign(player.transform.position.x - transform.position.x);
         float targetPos = transform.position.x + sign * talkRange;
 
-        //Don't bother moving when the difference is not noticeable
-        if (Mathf.Abs(transform.position.x - targetPos) < 0.1f)
+		//Don't bother moving when the difference is not noticeable
+        if (Mathf.Abs(player.transform.position.x - targetPos) < 0.5f)
             yield return null;
 
         //Get character move and cache move speed
