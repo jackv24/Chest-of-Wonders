@@ -23,7 +23,7 @@ public class ItemPickup : MonoBehaviour
         soundEffects = GameManager.instance.GetComponent<SoundEffectBase>();
 
         //Check if this item has already been picked up
-        if (SaveManager.instance.PickedUpItem(uniqueID))
+        if (SaveManager.instance.IsItemPickedUp(uniqueID))
             gameObject.SetActive(false);
     }
 

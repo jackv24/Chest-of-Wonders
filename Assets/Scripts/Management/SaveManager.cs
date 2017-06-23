@@ -160,16 +160,29 @@ public class SaveManager : MonoBehaviour
         data.savedDialogue[name] = json;
     }
 
-    public void SetPickedUpItem(int instanceID)
+    public void SetPickedUpItem(int id)
     {
-        data.pickedUpItems.Add(instanceID);
+        data.pickedUpItems.Add(id);
     }
 
-    public bool PickedUpItem(int instanceID)
+    public bool IsItemPickedUp(int id)
     {
-        if (data.pickedUpItems.Contains(instanceID))
+        if (data.pickedUpItems.Contains(id))
             return true;
         else
             return false;
     }
+
+	public void SetOpenedDoor(int id)
+	{
+		data.openedDoors.Add(id);
+	}
+
+	public bool IsDoorOpened(int id)
+	{
+		if (data.openedDoors.Contains(id))
+			return true;
+		else
+			return false;
+	}
 }

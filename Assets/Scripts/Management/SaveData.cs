@@ -26,6 +26,7 @@ public class SaveData
     public int maxHealth;
     public int currentHealth;
 
+	//Attacks
     public MagicAttack attack1;
     public int mana1;
 
@@ -33,10 +34,14 @@ public class SaveData
     public int mana2;
 
     public List<InventoryItem> inventory;
-    public List<int> pickedUpItems;
 
-    [System.Serializable]
+	//Lists of unique IDs for keeping objects disabled
+    public List<int> pickedUpItems;
+	public List<int> openedDoors;
+
+	[System.Serializable]
     public class DialogueDictionary : SerializableDictionary<string, string> { }
 
+	//DIctionary of saved dialogue states
     public DialogueDictionary savedDialogue;
 }

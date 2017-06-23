@@ -16,4 +16,19 @@ public class PlayerInventory : MonoBehaviour
         if (OnUpdateInventory != null)
             OnUpdateInventory();
     }
+
+	public bool CheckItem(InventoryItem item, bool consume = false)
+	{
+		bool contains = items.Contains(item);
+
+		if(contains && consume)
+		{
+			items.Remove(item);
+
+			if (OnUpdateInventory != null)
+				OnUpdateInventory();
+		}
+
+		return contains;
+	}
 }
