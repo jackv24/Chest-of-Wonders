@@ -100,21 +100,6 @@ public class GameManager : MonoBehaviour
                     Cursor.visible = true;
             }
         }
-
-        //Temp behaviour for easy resetting when demoing at conventions
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Complete reset");
-
-            SaveManager.instance.ClearSave(false);
-            SpawnPlayer(false);
-        }
-        else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Reset to last save");
-
-            SpawnPlayer(false);
-        }
     }
 
     public void LoadLevel(string sceneName, int doorwayID)

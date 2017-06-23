@@ -166,4 +166,9 @@ public class UIFunctions : MonoBehaviour
             deathScreen.SetActive(false);
         }
     }
+
+	public void ClearSaves()
+	{
+		
+	}
 }
