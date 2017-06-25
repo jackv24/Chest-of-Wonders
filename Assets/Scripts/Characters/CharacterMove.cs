@@ -64,6 +64,7 @@ public class CharacterMove : MonoBehaviour
 
     public float platformDropDetectDelay = 0.2f;
     private float nonDetectPlatformsTime = 0;
+    private bool stickToPlatforms = false;
 
     private bool stickToSlope = false;
 
@@ -191,6 +192,8 @@ public class CharacterMove : MonoBehaviour
                     slopeSpeedMultiplier = 1f;
 
                     wasGrounded = false;
+
+                    stickToPlatforms = false;
                 }
             }
 
@@ -252,13 +255,20 @@ public class CharacterMove : MonoBehaviour
                         if(hit.collider)
                         {
                             //Only actually count the hit if the character landed from above (don't jump up since rays are cast from centre)
-                            if (hit.point.y < box.yMin - velocity.y * Time.deltaTime)
+                            if (hit.point.y < box.yMin - velocity.y * Time.deltaTime || stickToPlatforms)
+                            {
                                 hits[i] = hit;
+
+                                stickToPlatforms = true;
+                            }
                         }
 
                         //Stop detecting platforms when touched non platform layer
-                        if (hits[i].collider && ((1<<hits[i].collider.gameObject.layer) & platformLayer) == 0)
+                        if (hits[i].collider && ((1 << hits[i].collider.gameObject.layer) & platformLayer) == 0)
+                        {
                             shouldDetectPlatforms = false;
+                            stickToPlatforms = false;
+                        }
                     }
                     else
                         hits[i] = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer);
@@ -425,6 +435,8 @@ public class CharacterMove : MonoBehaviour
     public void DropThroughPlatform()
     {
         nonDetectPlatformsTime = Time.time + platformDropDetectDelay;
+
+        stickToPlatforms = false;
     }
 
     public void Knockback(Vector2 origin, float magnitude)
