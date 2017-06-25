@@ -62,6 +62,9 @@ public class CharacterMove : MonoBehaviour
     private bool jumped = false;
     private bool shouldDetectPlatforms = false;
 
+    public float platformDropDetectDelay = 0.2f;
+    private float nonDetectPlatformsTime = 0;
+
     private bool stickToSlope = false;
 
     [Header("Physics")]
@@ -242,9 +245,16 @@ public class CharacterMove : MonoBehaviour
                     hits[i] = Physics2D.Raycast(origin, Vector2.up, distance, groundLayer);
                 else
                 {
-                    if (shouldDetectPlatforms)
+                    if (shouldDetectPlatforms && Time.time > nonDetectPlatformsTime)
                     {
-                        hits[i] = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer | platformLayer);
+                        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer | platformLayer);
+
+                        if(hit.collider)
+                        {
+                            //Only actually count the hit if the character landed from above (don't jump up since rays are cast from centre)
+                            if (hit.point.y < box.yMin - velocity.y * Time.deltaTime)
+                                hits[i] = hit;
+                        }
 
                         //Stop detecting platforms when touched non platform layer
                         if (hits[i].collider && ((1<<hits[i].collider.gameObject.layer) & platformLayer) == 0)
@@ -414,7 +424,7 @@ public class CharacterMove : MonoBehaviour
 
     public void DropThroughPlatform()
     {
-        shouldDetectPlatforms = false;
+        nonDetectPlatformsTime = Time.time + platformDropDetectDelay;
     }
 
     public void Knockback(Vector2 origin, float magnitude)
