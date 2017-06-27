@@ -140,8 +140,8 @@ public class CharacterMove : MonoBehaviour
     {
         canMove = true;
 
-        if (body)
-            body.isKinematic = true;
+		if (body)
+			body.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     private void Update()
@@ -453,8 +453,8 @@ public class CharacterMove : MonoBehaviour
 
         //Disable script movement
         scriptControl = false;
-        //Enable rigidbody movement
-        body.bodyType = RigidbodyType2D.Dynamic;
+		//Enable rigidbody movement
+		body.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         //Apply force
         body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
@@ -478,8 +478,8 @@ public class CharacterMove : MonoBehaviour
         //After body has stopped moving, wait alotted recover time
         yield return new WaitForSeconds(knockBackRecoveryTime);
 
-        //Switch back to script control
-        body.bodyType = RigidbodyType2D.Kinematic;
+		//Switch back to script control
+		body.constraints = RigidbodyConstraints2D.FreezeAll;
         scriptControl = true;
 
         if (characterStats)
