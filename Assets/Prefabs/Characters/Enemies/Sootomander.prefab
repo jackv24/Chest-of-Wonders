@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1914621623221682}
   m_IsPrefabParent: 1
+--- !u!1 &1211249783460290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4521934052029854}
+  m_Layer: 0
+  m_Name: MoushTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1251129305480146
 GameObject:
   m_ObjectHideFlags: 1
@@ -176,6 +191,19 @@ Transform:
   m_Father: {fileID: 4896723702184276}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4521934052029854
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211249783460290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.5, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4896723702184276}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4860697361460588
 Transform:
   m_ObjectHideFlags: 1
@@ -196,11 +224,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16, y: -1, z: 0}
+  m_LocalPosition: {x: -16, y: 0.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4329466169138714}
   - {fileID: 4516809639187334}
+  - {fileID: 4521934052029854}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -525,10 +554,10 @@ MonoBehaviour:
   attack1Cooldown: 1
   attack2Range: 3.5
   attack2Cooldown: 2
-  pounceRange: 6
   pounceReadyTime: 0.5
-  pounceSpeed: 10
+  pounceSpeed: 12
   pounceCooldown: 3
+  ashCooldown: 2
   sootiePrefab: {fileID: 1186632841924686, guid: 43f21ecda183e804192eaa34de7967ec,
     type: 2}
   sootieAmount: 5
@@ -580,10 +609,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 114046735019415448}
   characterStats: {fileID: 114985464808033458}
+  characterMove: {fileID: 114959086213150190}
   attackColliders:
   - {fileID: 1842018631121440}
   - {fileID: 1401293157013738}
   - {fileID: 1251129305480146}
+  mouthTransform: {fileID: 4521934052029854}
+  ashBall: {fileID: 1151141745735722, guid: 3d20ce573c5805743a9152f1dff8fbb7, type: 2}
 --- !u!114 &114414467170502894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -672,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c7ac02eb63664419f2556b87649a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 6
   acceleration: 8
   velocity: {x: 0, y: 0}
   upSlopeLimit: 50
@@ -686,6 +718,7 @@ MonoBehaviour:
   jumpTime: 0.5
   stopJumpDelay: 0.2
   isGrounded: 1
+  platformDropDetectDelay: 0.2
   gravity: 30
   maxFallSpeed: 20
   verticalRays: 20
@@ -697,7 +730,8 @@ MonoBehaviour:
     m_Bits: 256
   platformLayer:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 0
+  startOnGround: 1
   knockBackRecoveryTime: 0.25
   allowKnockback: 1
   scriptControl: 1

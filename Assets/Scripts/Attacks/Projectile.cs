@@ -53,6 +53,13 @@ public class Projectile : MonoBehaviour
 
         //Disable after its lifetime
         StartCoroutine("DisableAfterTime", lifeTime);
+
+		ParticleSystem particles = GetComponentInChildren<ParticleSystem>();
+
+		if(particles)
+		{
+			particles.Clear(true);
+		}
     }
 
     IEnumerator DisableAfterTime(float time)
@@ -100,7 +107,8 @@ public class Projectile : MonoBehaviour
                 stats.RemoveHealth(damageAmount, element);
 
                 //Enemy aggro on hit
-                col.gameObject.SendMessage("SetAggro", true);
+				if(col.collider.tag == "Enemy")
+					col.gameObject.SendMessage("SetAggro", true);
             }
         }
 

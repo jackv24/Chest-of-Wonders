@@ -24,11 +24,12 @@ public class Sootomander : AIAgent
     public float attack2Range = 2.5f;
     public float attack2Cooldown = 2.0f;
     [Space()]
-    public float pounceRange = 5.0f;
     public float pounceReadyTime = 1.0f;
     public float pounceSpeed = 10.0f;
     public float pounceCooldown = 5.0f;
     private bool inPounce = false;
+    [Space()]
+    public float ashCooldown = 5.0f;
 
     [Header("Death")]
     public GameObject sootiePrefab;
@@ -56,14 +57,14 @@ public class Sootomander : AIAgent
         attack2.behaviours.Add(new CheckRange(attack2Range, true, true, false));
         attack2.behaviours.Add(new Attack(2, attack2Cooldown));
 
-        Sequence attack3 = new Sequence();
-        //attack3.behaviours.Add(new CheckRange(pounceRange, true, true, false));
-        attack3.behaviours.Add(new Attack(3, pounceCooldown));
+        Randomiser randomAttack = new Randomiser();
+        randomAttack.behaviours.Add(new Attack(3, pounceCooldown));
+        randomAttack.behaviours.Add(new Attack(4, ashCooldown));
 
         Selector attackOrMove = new Selector();
         attackOrMove.behaviours.Add(attack1);
         attackOrMove.behaviours.Add(attack2);
-        attackOrMove.behaviours.Add(attack3);
+        attackOrMove.behaviours.Add(randomAttack);
 
         b.behaviours.Add(idle);
         b.behaviours.Add(new InvertResult(attackOrMove));
@@ -126,12 +127,17 @@ public class Sootomander : AIAgent
         {
             case 1:
             case 2:
+                characterMove.canMove = false;
                 characterAnimator.animator.SetTrigger("attack " + index);
                 break;
             case 3:
                 //Only one coroutine should run
                 if(!inPounce)
                     StartCoroutine("Pounce");
+                break;
+            case 4:
+                characterMove.canMove = false;
+                characterAnimator.animator.SetTrigger("ashBreath");
                 break;
         }
     }
@@ -147,6 +153,7 @@ public class Sootomander : AIAgent
         float direction = Mathf.Sign(target.position.x - transform.position.x);
 
         characterAnimator.animator.SetBool("pounceReady", true);
+        characterAnimator.animator.SetBool("pouncing", true);
 
         characterMove.Move(0);
         characterMove.canMove = false;
@@ -186,8 +193,10 @@ public class Sootomander : AIAgent
 
         inPounce = false;
 
+        characterAnimator.animator.SetBool("pouncing", false);
+
         //Make sure attack is ended (may not have called end event because of interruptions)
-        if(endAttack == false)
+        if (endAttack == false)
             animationEvents.EndAttack();
     }
 
@@ -203,7 +212,6 @@ public class Sootomander : AIAgent
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attack1Range);
         Gizmos.DrawWireSphere(transform.position, attack2Range);
-        Gizmos.DrawWireSphere(transform.position, pounceRange);
 
         float patrol = patrolRange / 2;
         Vector2 pos = Application.isPlaying ? startPos : (Vector2)transform.position;
