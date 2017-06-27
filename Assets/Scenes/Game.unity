@@ -552,10 +552,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 50735930063480252, guid: 99f5c5565a8074f4eb8901db7fb4c979,
+    - target: {fileID: 114000013110640092, guid: 99f5c5565a8074f4eb8901db7fb4c979,
         type: 2}
-      propertyPath: m_BodyType
-      value: 0
+      propertyPath: jumpForce
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99f5c5565a8074f4eb8901db7fb4c979, type: 2}
