@@ -125,15 +125,6 @@ public class CharacterMove : MonoBehaviour
         {
             OnJump += delegate { characterSound.PlaySound(characterSound.jumpSound); };
         }
-
-        if(startOnGround)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1000f, groundLayer);
-
-            //Start on ground point from raycast
-            if(hit.collider != null)
-                transform.position = hit.point;
-        }
     }
 
     private void OnEnable()
@@ -142,7 +133,32 @@ public class CharacterMove : MonoBehaviour
 
         if (body)
             body.isKinematic = true;
-    }
+
+		if (startOnGround)
+		{
+			StartCoroutine("WaitForGround");
+		}
+	}
+
+	IEnumerator WaitForGround()
+	{
+		bool hasHit = false;
+
+		while (!hasHit)
+		{
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1000f, groundLayer);
+
+			//Start on ground point from raycast
+			if (hit.collider != null)
+			{
+				transform.position = hit.point;
+
+				hasHit = true;
+			}
+
+			yield return new WaitForEndOfFrame();
+		}
+	}
 
     private void Update()
     {
