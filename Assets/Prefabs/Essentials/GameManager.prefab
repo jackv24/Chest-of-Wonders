@@ -151,10 +151,10 @@ MonoBehaviour:
   defaultSaveData:
     autoSave:
       sceneName: JackTest
-      position: {x: -23.5, y: 9}
+      position: {x: 0, y: 0}
     npcSave:
-      sceneName: JackTest
-      position: {x: -23.5, y: 9}
+      sceneName: Jacktest
+      position: {x: 0, y: 0}
     maxHealth: 100
     currentHealth: 100
     attack1: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
@@ -162,6 +162,8 @@ MonoBehaviour:
     attack2: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
     mana2: -1
     inventory: []
+    pickedUpItems: 
+    openedDoors: 
     savedDialogue:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
@@ -192,6 +194,8 @@ MonoBehaviour:
     attack2: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
     mana2: 100
     inventory: []
+    pickedUpItems: 
+    openedDoors: 
     savedDialogue:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8764774088681d74a93f264b5251b8bc
-timeCreated: 1496275751
+timeCreated: 1499482888
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -41,11 +41,11 @@ TextureImporter:
     21300068: Sootomander_attack2_2
     21300070: Sootomander_attack2_3
     21300072: Sootomander_attack2_4
-    21300074: Sootomander_attack2_5
-    21300076: Sootomander_attack2_6
-    21300078: Sootomander_attack2_7
-    21300080: Sootomander_attack2_8
-    21300082: Sootomander_attack2_9
+    21300074: Sootomander_attack2_9
+    21300076: Sootomander_attack2_10
+    21300078: Sootomander_attack2_11
+    21300080: Sootomander_attack2_10
+    21300082: Sootomander_attack2_11
     21300084: Sootomander_pounce_1
     21300086: Sootomander_pounce_2
     21300088: Sootomander_pounce_3
@@ -64,11 +64,11 @@ TextureImporter:
     21300114: Sootomander_sooties_4
     21300116: Sootomander_stunned_1
     21300118: Sootomander_stunned_2
-    21300120: Sootomander_death_1
-    21300122: Sootomander_death_2
-    21300124: Sootomander_death_3
-    21300126: Sootomander_death_4
-    21300128: Sootomander_death_5
+    21300120: Sootomander_hurt
+    21300122: Sootomander_death_1
+    21300124: Sootomander_death_2
+    21300126: Sootomander_death_3
+    21300128: Sootomander_death_4
     21300130: Sootomander_ash_1
     21300132: Sootomander_ash_2
     21300134: Sootomander_ash_3
@@ -83,6 +83,12 @@ TextureImporter:
     21300152: Sootomander_ash_12
     21300154: Sootomander_ash_13
     21300156: Sootomander_ash_14
+    21300158: Sootomander_attack2_7
+    21300160: Sootomander_attack2_8
+    21300162: Sootomander_attack2_5
+    21300164: Sootomander_attack2_6
+    21300166: Sootomander_attack2_12
+    21300168: Sootomander_death_5
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -654,7 +660,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Sootomander_attack2_5
+      name: Sootomander_attack2_7
       rect:
         serializedVersion: 2
         x: 14
@@ -667,36 +673,10 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Sootomander_attack2_6
-      rect:
-        serializedVersion: 2
-        x: 214
-        y: 337
-        width: 168
-        height: 107
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Sootomander_attack2_7
-      rect:
-        serializedVersion: 2
-        x: 403
-        y: 337
-        width: 168
-        height: 107
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
       name: Sootomander_attack2_8
       rect:
         serializedVersion: 2
-        x: 588
+        x: 199
         y: 337
         width: 168
         height: 107
@@ -709,7 +689,33 @@ TextureImporter:
       name: Sootomander_attack2_9
       rect:
         serializedVersion: 2
-        x: 802
+        x: 413
+        y: 337
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_10
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 337
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_11
+      rect:
+        serializedVersion: 2
+        x: 813
         y: 337
         width: 168
         height: 107
@@ -953,11 +959,24 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Sootomander_death_1
+      name: Sootomander_hurt
       rect:
         serializedVersion: 2
         x: 780
         y: 1394
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_death_1
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 1373
         width: 168
         height: 107
       alignment: 7
@@ -969,8 +988,8 @@ TextureImporter:
       name: Sootomander_death_2
       rect:
         serializedVersion: 2
-        x: 972
-        y: 1394
+        x: 780
+        y: 1259
         width: 168
         height: 107
       alignment: 7
@@ -982,8 +1001,8 @@ TextureImporter:
       name: Sootomander_death_3
       rect:
         serializedVersion: 2
-        x: 780
-        y: 1274
+        x: 972
+        y: 1258
         width: 168
         height: 107
       alignment: 7
@@ -995,21 +1014,8 @@ TextureImporter:
       name: Sootomander_death_4
       rect:
         serializedVersion: 2
-        x: 972
-        y: 1274
-        width: 168
-        height: 107
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Sootomander_death_5
-      rect:
-        serializedVersion: 2
         x: 780
-        y: 1153
+        y: 1139
         width: 168
         height: 107
       alignment: 7
@@ -1192,6 +1198,58 @@ TextureImporter:
         serializedVersion: 2
         x: 1421
         y: 771
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_5
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 479
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_6
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 479
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_attack2_12
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 337
+        width: 168
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Sootomander_death_5
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 1137
         width: 168
         height: 107
       alignment: 7
