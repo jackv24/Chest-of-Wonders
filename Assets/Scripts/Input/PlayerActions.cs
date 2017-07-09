@@ -75,13 +75,14 @@ public class PlayerActions : PlayerActionSet
         Down.AddDefaultBinding(InputControlType.LeftStickDown);
 
         Jump.AddDefaultBinding(Key.Space);
-        Jump.AddDefaultBinding(InputControlType.Action1);
+		Jump.AddDefaultBinding(Key.C);
+		Jump.AddDefaultBinding(InputControlType.Action1);
 
         //Attacking
-        MeleeAttack.AddDefaultBinding(Key.J);
+        MeleeAttack.AddDefaultBinding(Key.Z);
         MeleeAttack.AddDefaultBinding(InputControlType.Action3);
 
-        MagicAttack.AddDefaultBinding(Key.K);
+        MagicAttack.AddDefaultBinding(Key.X);
         MagicAttack.AddDefaultBinding(InputControlType.Action2);
 
         MagicSwitch.AddDefaultBinding(Key.Tab);
