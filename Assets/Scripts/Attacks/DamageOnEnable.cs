@@ -49,13 +49,6 @@ public class DamageOnEnable : MonoBehaviour
                 //Keep track of what has already been hit (in case gameobject has multiple colliders)
                 hitInSwing.Add(collider.gameObject);
 
-                //Calculate centre point between colliders to show hit effect
-                Vector3 centre = (box.center + (Vector2)collider.bounds.center) / 2;
-
-                //Show hit effect at centre of colliders (with object pooling)
-                GameObject effect = ObjectPooler.GetPooledObject(hitEffect);
-                effect.transform.position = centre;
-
                 //Get character references
                 CharacterStats stats = collider.GetComponent<CharacterStats>();
                 CharacterMove move = collider.GetComponent<CharacterMove>();
@@ -65,9 +58,15 @@ public class DamageOnEnable : MonoBehaviour
                 {
                     if (stats.RemoveHealth(Mathf.RoundToInt((float)amount * multiplier)))
                     {
+						//Calculate centre point between colliders to show hit effect
+						Vector3 centre = (box.center + (Vector2)collider.bounds.center) / 2;
 
-                        //Knockback if amount is more than 0
-                        if (move && knockBackAmount > 0)
+						//Show hit effect at centre of colliders (with object pooling)
+						GameObject effect = ObjectPooler.GetPooledObject(hitEffect);
+						effect.transform.position = centre;
+
+						//Knockback if amount is more than 0
+						if (move && knockBackAmount > 0)
                             move.Knockback((Vector2)transform.position + knockBackCentreOffset, knockBackAmount);
 
                         //Offset randomly (screen shake effect)
