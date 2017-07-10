@@ -3130,6 +3130,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1211249783460290, guid: 4e504010f785cfc4e848e5a350db0473, type: 2}
+      propertyPath: m_Name
+      value: MouthTransform
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914621623221682, guid: 4e504010f785cfc4e848e5a350db0473, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4e504010f785cfc4e848e5a350db0473, type: 2}
   m_IsPrefabParent: 0
