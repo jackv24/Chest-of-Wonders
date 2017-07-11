@@ -24,7 +24,6 @@ public class PlayerActions : PlayerActionSet
     public PlayerAction Interact;
     public PlayerAction Submit;
     public PlayerAction Back;
-    public PlayerAction Menu;
     public PlayerAction Pause;
 
     public PlayerActions()
@@ -49,27 +48,22 @@ public class PlayerActions : PlayerActionSet
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");
         Back = CreatePlayerAction("Back");
-        Menu = CreatePlayerAction("Menu");
         Pause = CreatePlayerAction("Pause");
 
         //Bind actions
         //Movement
-        Left.AddDefaultBinding(Key.A);
         Left.AddDefaultBinding(Key.LeftArrow);
         Left.AddDefaultBinding(InputControlType.DPadLeft);
         Left.AddDefaultBinding(InputControlType.LeftStickLeft);
 
-        Right.AddDefaultBinding(Key.D);
         Right.AddDefaultBinding(Key.RightArrow);
         Right.AddDefaultBinding(InputControlType.DPadRight);
         Right.AddDefaultBinding(InputControlType.LeftStickRight);
 
-        Up.AddDefaultBinding(Key.W);
         Up.AddDefaultBinding(Key.UpArrow);
         Up.AddDefaultBinding(InputControlType.DPadUp);
         Up.AddDefaultBinding(InputControlType.LeftStickUp);
 
-        Down.AddDefaultBinding(Key.S);
         Down.AddDefaultBinding(Key.DownArrow);
         Down.AddDefaultBinding(InputControlType.DPadDown);
         Down.AddDefaultBinding(InputControlType.LeftStickDown);
@@ -85,10 +79,10 @@ public class PlayerActions : PlayerActionSet
         MagicAttack.AddDefaultBinding(Key.X);
         MagicAttack.AddDefaultBinding(InputControlType.Action2);
 
-        MagicSwitch.AddDefaultBinding(Key.Tab);
+        MagicSwitch.AddDefaultBinding(Key.S);
         MagicSwitch.AddDefaultBinding(InputControlType.RightBumper);
 
-        AbsorbMagic.AddDefaultBinding(Key.Q);
+        AbsorbMagic.AddDefaultBinding(Key.A);
         AbsorbMagic.AddDefaultBinding(InputControlType.LeftTrigger);
         AbsorbMagic.AddDefaultBinding(InputControlType.LeftBumper);
 
@@ -96,11 +90,11 @@ public class PlayerActions : PlayerActionSet
         MagicAimDiagonal.AddDefaultBinding(InputControlType.RightTrigger);
 
         //Misc
-        Interact.AddDefaultBinding(Key.E);
+        Interact.AddDefaultBinding(Key.UpArrow);
         Interact.AddDefaultBinding(InputControlType.Action4);
 
-        Submit.AddDefaultBinding(Key.J);
-        Submit.AddDefaultBinding(Key.E);
+        Submit.AddDefaultBinding(Key.Z);
+        Submit.AddDefaultBinding(Key.X);
         Submit.AddDefaultBinding(Key.Space);
         Submit.AddDefaultBinding(Key.Return);
         Submit.AddDefaultBinding(InputControlType.Action1);
@@ -108,9 +102,6 @@ public class PlayerActions : PlayerActionSet
 
         Back.AddDefaultBinding(Key.Escape);
         Back.AddDefaultBinding(InputControlType.Action2);
-
-        Menu.AddDefaultBinding(Key.E);
-        Menu.AddDefaultBinding(InputControlType.Action4);
 
         Pause.AddDefaultBinding(Key.Escape);
         Pause.AddDefaultBinding(InputControlType.Options);
