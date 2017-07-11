@@ -4,27 +4,26 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
+	public static MusicManager Instance;
+
 	public AudioSource primarySource;
 	public AudioSource secondarySource;
 
 	[Space()]
-	public List<AudioClip> music = new List<AudioClip>();
-
-	[Space()]
 	public float fadeDuration = 1.0f;
+
+	private void Awake()
+	{
+		Instance = this;
+	}
 
 	private void Start()
 	{
-		//Primary source should play one start
+		//Primary source should play on start
 		if (primarySource)
 		{
 			primarySource.volume = 1.0f;
-
-			if (music.Count > 0)
-			{
-				primarySource.clip = music[0];
-				primarySource.Play();
-			}
+			primarySource.enabled = true;
 		}
 
 		//Stop secondary source
@@ -35,23 +34,11 @@ public class MusicManager : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	public void SwitchTo(AudioClip clip)
 	{
-		//Temp code
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-			SwitchTo(0);
-		if (Input.GetKeyDown(KeyCode.Alpha2))
-			SwitchTo(1);
-	}
-
-	public void SwitchTo(int index)
-	{
-		if (music.Count > index)
-		{
-			//Only one fade coroutine should run at a time
-			StopCoroutine("FadeTo");
-			StartCoroutine(FadeTo(music[index], true));
-		}
+		//Only one fade coroutine should run at a time
+		StopCoroutine("FadeTo");
+		StartCoroutine(FadeTo(clip, true));
 	}
 
 	IEnumerator FadeTo(AudioClip newClip, bool keepTime)
