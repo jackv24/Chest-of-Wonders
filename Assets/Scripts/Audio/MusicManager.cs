@@ -58,7 +58,7 @@ public class MusicManager : MonoBehaviour
 		//Put new clip in primary source at min volume
 		primarySource.volume = 0.0f;
 		primarySource.clip = newClip;
-		if(keepTime)
+		if (keepTime)
 			primarySource.time = secondarySource.time;
 
 		primarySource.Play();
