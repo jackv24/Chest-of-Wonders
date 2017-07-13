@@ -8,12 +8,12 @@ public class HUDControl : MonoBehaviour
     public GameObject player;
 
     [Space()]
-    public Image healthBar;
+    public Slider healthBar;
     public Text healthText;
     private string healthTextString;
 
     [Space()]
-    public Image manaBar;
+    public Slider manaBar;
     public Text manaText;
     private string manaTextString;
 
@@ -70,7 +70,7 @@ public class HUDControl : MonoBehaviour
         {
             //Health bar
             if (healthBar)
-                healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, (float)playerStats.currentHealth / playerStats.maxHealth, barLerpSpeed * Time.deltaTime);
+                healthBar.value = Mathf.Lerp(healthBar.value, (float)playerStats.currentHealth / playerStats.maxHealth, barLerpSpeed * Time.deltaTime);
 
             if (healthText)
                 healthText.text = string.Format(healthTextString, playerStats.currentHealth, playerStats.maxHealth);
@@ -86,7 +86,7 @@ public class HUDControl : MonoBehaviour
 
             //Update slider
             if (manaBar)
-                manaBar.fillAmount = Mathf.Lerp(manaBar.fillAmount, value, barLerpSpeed * Time.deltaTime);
+                manaBar.value = Mathf.Lerp(manaBar.value, value, barLerpSpeed * Time.deltaTime);
 
             //Update slider text
             if (manaText)
@@ -138,15 +138,21 @@ public class HUDControl : MonoBehaviour
 
             if (playerAttack)
             {
-                if (playerAttack.magicSlot1.attack && primarySlot.cooldownImage)
-                    primarySlot.cooldownImage.fillAmount = (playerAttack.magicSlot1.nextFireTime - Time.time) / playerAttack.magicSlot1.attack.cooldownTime;
-                else
-                    primarySlot.cooldownImage.fillAmount = 0;
+				if (primarySlot.cooldownImage)
+				{
+					if (playerAttack.magicSlot1.attack)
+						primarySlot.cooldownImage.fillAmount = (playerAttack.magicSlot1.nextFireTime - Time.time) / playerAttack.magicSlot1.attack.cooldownTime;
+					else
+						primarySlot.cooldownImage.fillAmount = 0;
+				}
 
-                if (playerAttack.magicSlot2.attack && secondarySlot.cooldownImage)
-                    secondarySlot.cooldownImage.fillAmount = (playerAttack.magicSlot2.nextFireTime - Time.time) / playerAttack.magicSlot2.attack.cooldownTime;
-                else
-                    secondarySlot.cooldownImage.fillAmount = 0;
+				if (secondarySlot.cooldownImage)
+				{
+					if (playerAttack.magicSlot2.attack && secondarySlot.cooldownImage)
+						secondarySlot.cooldownImage.fillAmount = (playerAttack.magicSlot2.nextFireTime - Time.time) / playerAttack.magicSlot2.attack.cooldownTime;
+					else
+						secondarySlot.cooldownImage.fillAmount = 0;
+				}
             }
         }
     }
