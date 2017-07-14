@@ -486,7 +486,7 @@ public class CharacterMove : MonoBehaviour
             characterAnimator.SetStunned(true);
 
         //If body is still moving, cannot recover
-        while (body.velocity.magnitude > 0.01f)
+        while (body.velocity.magnitude > 0.05f)
         {
             yield return new WaitForEndOfFrame();
         }

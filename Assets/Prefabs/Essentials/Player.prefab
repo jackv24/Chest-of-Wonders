@@ -243,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.3, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -865,7 +865,7 @@ MonoBehaviour:
   damageAmount: 20
   chargeHoldTime: 1
   heldDamageMultiplier: 2
-  moveSpeedMultiplier: 0.85
+  moveSpeedMultiplier: 0.75
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.5
   flashInterval: 0.1
