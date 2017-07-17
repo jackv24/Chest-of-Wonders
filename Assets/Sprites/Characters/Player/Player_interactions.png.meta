@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 50edfd488e796524ca6a159e85415a6b
-timeCreated: 1500184870
+timeCreated: 1500278003
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -31,6 +31,15 @@ TextureImporter:
     21300048: Player_puff_5
     21300050: Player_puff_6
     21300052: Player_puff_7
+    21300054: Switch_box
+    21300056: Switch_rod
+    21300058: Switch_spark_1
+    21300060: Switch_spark_2
+    21300062: Switch_spark_3
+    21300064: Switch_spark_4
+    21300066: Switch_spark_5
+    21300068: Switch_spark_6
+    21300070: Switch_spark_7
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -460,6 +469,123 @@ TextureImporter:
         height: 24
       alignment: 8
       pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Switch_box
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 380
+        width: 34
+        height: 38
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Switch_rod
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 332
+        width: 22
+        height: 48
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Switch_spark_1
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 343
+        width: 93
+        height: 54
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Switch_spark_2
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 343
+        width: 93
+        height: 54
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Switch_spark_3
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 343
+        width: 93
+        height: 54
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Switch_spark_4
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 343
+        width: 93
+        height: 55
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Switch_spark_5
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 285
+        width: 93
+        height: 54
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Switch_spark_6
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 285
+        width: 93
+        height: 54
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Switch_spark_7
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 285
+        width: 93
+        height: 54
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
