@@ -185,4 +185,19 @@ public class SaveManager : MonoBehaviour
 		else
 			return false;
 	}
+
+	public void SetObjectPosition(int id, Vector2 position)
+	{
+		data.savedObjectPositions[id] = position;
+	}
+
+	public Vector2 GetObjectPosition(int id, Vector2 defaultPos)
+	{
+		if (data.savedObjectPositions.ContainsKey(id))
+		{
+			return data.savedObjectPositions[id];
+		}
+		else
+			return defaultPos;
+	}
 }

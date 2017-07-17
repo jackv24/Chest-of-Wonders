@@ -16,6 +16,7 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     [Space()]
     public GameObject slideEffect;
+	public GameObject pushblockPuff;
 
     [Header("Attacks")]
     public GameObject batSwingCollider;
@@ -242,4 +243,17 @@ public class PlayerAnimationEvents : MonoBehaviour
         //Player can be hurt again
         characterStats.damageImmunity = false;
     }
+
+	public void SpawnPuff()
+	{
+		if(pushblockPuff)
+		{
+			GameObject obj = ObjectPooler.GetPooledObject(pushblockPuff);
+			obj.transform.position = transform.position;
+
+			Vector3 scale = obj.transform.localScale;
+			scale.x = Mathf.Sign(characterMove.velocity.x);
+			obj.transform.localScale = scale;
+		}
+	}
 }

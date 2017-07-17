@@ -40,8 +40,14 @@ public class SaveData
 	public List<int> openedDoors;
 
 	[System.Serializable]
+	public class ObjectPositionDictionary : SerializableDictionary<int, Vector2> { }
+
+	//Dictionary of moved item positions
+	public ObjectPositionDictionary savedObjectPositions;
+
+	[System.Serializable]
     public class DialogueDictionary : SerializableDictionary<string, string> { }
 
-	//DIctionary of saved dialogue states
+	//Dictionary of saved dialogue states
     public DialogueDictionary savedDialogue;
 }

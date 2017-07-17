@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LockedDoor : MonoBehaviour
 {
-	[Tooltip("MUST BE UNIQUE")]
+	[Tooltip("MUST BE UNIQUE (unless another door should be unlocked as well)")]
 	public int uniqueID = 0;
 
 	[Tooltip("Item needed to open door.")]

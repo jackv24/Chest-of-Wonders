@@ -243,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 1, z: 0}
+  m_LocalPosition: {x: -11, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -1004,6 +1004,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   slideEffect: {fileID: 1016952710864680, guid: bfb861f6254ab9b459b5eb912f8569f3,
+    type: 2}
+  pushblockPuff: {fileID: 1327004953144078, guid: 8db3573e235015e43bcb270d8a5a6fc7,
     type: 2}
   batSwingCollider: {fileID: 1094960521439024}
   batSwingSound:

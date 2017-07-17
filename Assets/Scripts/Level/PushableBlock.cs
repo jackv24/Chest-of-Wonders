@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PushableBlock : MonoBehaviour
 {
+	[Tooltip("MUST BE UNIQUE")]
+	public int uniqueID = 0;
+	[Tooltip("Position will persist between level loads")]
+	public bool keepPosition = true;
+
 	private Transform player;
 
 	[Tooltip("How fast the block is pushed.")]
@@ -23,12 +28,22 @@ public class PushableBlock : MonoBehaviour
 	private CharacterMove characterMove;
 	private CharacterAnimator characterAnimator;
 
+	private Rigidbody2D body;
+
+	private void Awake()
+	{
+		body = GetComponent<Rigidbody2D>();
+	}
+
 	private void Start()
 	{
 		playerActions = ControlManager.GetPlayerActions();
 
 		//Make sure block starts on the grid
 		ReturnToGrid();
+
+		if(keepPosition)
+			transform.position = SaveManager.instance.GetObjectPosition(uniqueID, transform.position);
 	}
 
 	private void Update()
@@ -57,10 +72,6 @@ public class PushableBlock : MonoBehaviour
 
 	IEnumerator MoveBlock(float direction)
 	{
-		//Set layer to default temporarily to prevent player glitchiness
-		int layer = gameObject.layer;
-		gameObject.layer = 0;
-
 		//Prevent input
 		GameManager.instance.gameRunning = false;
 		characterMove.ignoreCanMove = true;
@@ -83,6 +94,8 @@ public class PushableBlock : MonoBehaviour
 			float pushTime = pushDistance*(1 / moveSpeed);
 			float elapsedTime = 0;
 
+			body.isKinematic = false;
+
 			//Push block until target X is reached
 			while (elapsedTime < pushTime)
 			{
@@ -93,6 +106,9 @@ public class PushableBlock : MonoBehaviour
 				yield return new WaitForEndOfFrame();
 				elapsedTime += Time.deltaTime;
 			}
+
+			body.isKinematic = true;
+			body.velocity = Vector2.zero;
 
 			characterMove.Move(0);
 
@@ -143,9 +159,6 @@ public class PushableBlock : MonoBehaviour
 		if (characterAnimator)
 			characterAnimator.animator.SetBool("pushBlock", false);
 
-		//Reset layer back to normal
-		gameObject.layer = layer;
-
 		ReturnToGrid();
 
 		//Resume input
@@ -156,6 +169,9 @@ public class PushableBlock : MonoBehaviour
 		characterMove.moveSpeed = m;
 
 		pushing = false;
+
+		if(keepPosition)
+			SaveManager.instance.SetObjectPosition(uniqueID, transform.position);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
