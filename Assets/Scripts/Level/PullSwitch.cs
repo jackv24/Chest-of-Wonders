@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PullSwitch : MonoBehaviour
 {
+	[Tooltip("MUST BE UNIQUE (unless another door should be unlocked as well)")]
+	public int uniqueID = 0;
+
 	public float pullDistance = 1.0f;
 
 	public float pullTime = 2.0f;
@@ -18,11 +21,24 @@ public class PullSwitch : MonoBehaviour
 
 	private bool pulled = false;
 
+	void Start()
+	{
+		//Check if this item has already been picked up
+		if (SaveManager.instance.IsSwitchPulled(uniqueID))
+		{
+			pulled = true;
+
+			transform.position += Vector3.down * pullDistance;
+		}
+	}
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if(collision.tag == "Player" && !pulled)
 		{
 			pulled = true;
+
+			SaveManager.instance.SetPulledSwitch(uniqueID);
 
 			StartCoroutine(PullOut(collision.gameObject));
 		}

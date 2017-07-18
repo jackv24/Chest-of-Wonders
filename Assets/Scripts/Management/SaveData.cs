@@ -38,6 +38,7 @@ public class SaveData
 	//Lists of unique IDs for keeping objects disabled
     public List<int> pickedUpItems;
 	public List<int> openedDoors;
+	public List<int> pulledSwitches;
 
 	[System.Serializable]
 	public class ObjectPositionDictionary : SerializableDictionary<int, Vector2> { }

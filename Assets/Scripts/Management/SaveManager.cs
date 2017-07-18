@@ -186,6 +186,19 @@ public class SaveManager : MonoBehaviour
 			return false;
 	}
 
+	public void SetPulledSwitch(int id)
+	{
+		data.pulledSwitches.Add(id);
+	}
+
+	public bool IsSwitchPulled(int id)
+	{
+		if (data.pulledSwitches.Contains(id))
+			return true;
+		else
+			return false;
+	}
+
 	public void SetObjectPosition(int id, Vector2 position)
 	{
 		data.savedObjectPositions[id] = position;

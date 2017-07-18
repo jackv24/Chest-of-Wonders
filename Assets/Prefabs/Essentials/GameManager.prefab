@@ -164,6 +164,20 @@ MonoBehaviour:
     inventory: []
     pickedUpItems: 
     openedDoors: 
+    pulledSwitches: 
+    savedObjectPositions:
+      _Buckets: ffffffffffffffffffffffff
+      _HashCodes: 000000000000000000000000
+      _Next: 000000000000000000000000
+      _Count: 0
+      _Version: 0
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys: 000000000000000000000000
+      _Values:
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
     savedDialogue:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
@@ -196,6 +210,20 @@ MonoBehaviour:
     inventory: []
     pickedUpItems: 
     openedDoors: 
+    pulledSwitches: 
+    savedObjectPositions:
+      _Buckets: ffffffffffffffffffffffff
+      _HashCodes: 000000000000000000000000
+      _Next: 000000000000000000000000
+      _Count: 0
+      _Version: 0
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys: 000000000000000000000000
+      _Values:
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
+      - {x: 0, y: 0}
     savedDialogue:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
@@ -233,7 +261,7 @@ MonoBehaviour:
   - 1.25
   - 1.5
   - 1
-  - 0.5
+  - 1.25
   - 1
   - 0.75
   - 1
