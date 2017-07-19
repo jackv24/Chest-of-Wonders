@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4521934052029854}
   m_Layer: 0
-  m_Name: MoushTransform
+  m_Name: MouthTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211249783460290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 1, z: 0}
+  m_LocalPosition: {x: -1.5, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4896723702184276}
@@ -224,8 +224,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.5, y: -1, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4329466169138714}
   - {fileID: 4516809639187334}
@@ -550,9 +550,9 @@ MonoBehaviour:
   minPatrolDistance: 2
   minMoveInterval: 1
   maxMoveInterval: 3
-  attack1Range: 3
+  attack1Range: 3.5
   attack1Cooldown: 1
-  attack2Range: 3.5
+  attack2Range: 5
   attack2Cooldown: 2
   pounceReadyTime: 0.5
   pounceSpeed: 12
@@ -560,9 +560,9 @@ MonoBehaviour:
   ashCooldown: 2
   sootiePrefab: {fileID: 1186632841924686, guid: 43f21ecda183e804192eaa34de7967ec,
     type: 2}
-  sootieAmount: 5
-  sootieSpawnHeight: 1
-  sootieUpForce: 5
+  sootieAmount: 10
+  sootieSpawnHeight: 3
+  sootieUpForce: 20
   sootieSpacing: 0.5
 --- !u!114 &114051145543724472
 MonoBehaviour:
@@ -704,12 +704,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c7ac02eb63664419f2556b87649a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
+  moveSpeed: 4
   acceleration: 8
   velocity: {x: 0, y: 0}
   upSlopeLimit: 50
   downSlopeLimit: 50
-  maxSlopeDistance: 1
+  maxSlopeDistance: 2
   slopeSpeedDampening: 1
   inputDirection: 0
   canMove: 1
@@ -747,7 +747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7667fb90041ce4f4ba97529315162bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 500
+  currentHealth: 10
   maxHealth: 500
   element: 1
   damageImmunityTime: 0.5

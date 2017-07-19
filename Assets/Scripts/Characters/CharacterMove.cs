@@ -166,13 +166,13 @@ public class CharacterMove : MonoBehaviour
         if (!scriptControl)
             return;
 
-        //Store collider rect for easy typing
-        box = new Rect(
-            col.bounds.min.x,
-            col.bounds.min.y,
-            col.bounds.size.x,
-            col.bounds.size.y
-            );
+		//Store collider rect for easy typing
+		box = Rect.MinMaxRect(
+			col.bounds.min.x,
+			col.bounds.min.y,
+			col.bounds.max.x,
+			col.bounds.max.y
+			);
 
         //Apply gravity, capping fall speed
         velocity.y = Mathf.Max(velocity.y - gravity * Time.deltaTime, -maxFallSpeed);

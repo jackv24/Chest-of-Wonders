@@ -38,15 +38,15 @@ AnimationClip:
       value: {fileID: 21300146, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
     - time: 0.6
       value: {fileID: 21300148, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
-    - time: 0.8333333
+    - time: 0.9166667
       value: {fileID: 21300150, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
-    - time: 0.9
+    - time: 0.98333335
       value: {fileID: 21300152, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
-    - time: 0.96666664
+    - time: 1.05
       value: {fileID: 21300154, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
-    - time: 1.0333333
+    - time: 1.1166667
       value: {fileID: 21300156, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
-    - time: 1.1
+    - time: 1.1833333
       value: {fileID: 21300156, guid: 8764774088681d74a93f264b5251b8bc, type: 3}
     attribute: m_Sprite
     path: 
@@ -86,7 +86,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.1166667
+    m_StopTime: 1.1999999
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -108,14 +108,14 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_IsEmpty: 0
   m_Events:
-  - time: 0.9
+  - time: 0.98333335
     functionName: AshBreath
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1
+  - time: 1.1833333
     functionName: EndAttack
     data: 
     objectReferenceParameter: {fileID: 0}
