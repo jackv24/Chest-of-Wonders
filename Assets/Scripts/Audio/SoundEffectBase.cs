@@ -16,6 +16,8 @@ public class SoundEffectBase : MonoBehaviour
         }
     }
 
+	private float initialVolume;
+
     private AudioSource source;
 
     void Awake()
@@ -27,7 +29,13 @@ public class SoundEffectBase : MonoBehaviour
             Debug.LogWarning("No AudioSource attached to " + gameObject.name);
     }
 
-    public void PlaySound(SoundEffect soundEffect)
+	private void Start()
+	{
+		if(source)
+			initialVolume = source.volume;
+	}
+
+	public void PlaySound(SoundEffect soundEffect)
     {
         if (source)
         {
@@ -37,4 +45,32 @@ public class SoundEffectBase : MonoBehaviour
             }
         }
     }
+
+	public void PlaySound(SoundEffect soundEffect, bool setLoop)
+	{
+		if (source)
+		{
+			if (soundEffect.clip)
+			{
+				if(!setLoop)
+					source.PlayOneShot(soundEffect.clip, soundEffect.volume);
+				else
+				{
+					source.clip = soundEffect.clip;
+					source.loop = true;
+					source.volume = soundEffect.volume;
+					source.Play();
+				}
+			}
+		}
+	}
+
+	public void ClearLoop()
+	{
+		if(source)
+		{
+			source.clip = null;
+			source.volume = initialVolume;
+		}
+	}
 }

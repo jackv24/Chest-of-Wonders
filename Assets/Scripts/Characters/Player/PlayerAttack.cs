@@ -55,7 +55,7 @@ public class PlayerAttack : MonoBehaviour
     [Space]
     public Transform magicAbsorbPoint;
 
-    private MagicContainer container = null;
+	private MagicContainer container = null;
 
     [Header("Bat Swing")]
     public DamageOnEnable batSwing;
@@ -179,7 +179,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (characterAnimator)
                 characterAnimator.SetAbsorbing(false);
-        }
+		}
     }
 
     public void UseMelee(bool holding, float verticalDirection)

@@ -12,6 +12,7 @@ public class MagicContainer : MonoBehaviour
     private PlayerAttack playerAttack;
 
     public GameObject absorbTrail;
+	public SoundEffectBase.SoundEffect absorbSound;
 
     [Header("Fade Out")]
     public SpriteRenderer[] fadeGraphics;
@@ -39,7 +40,9 @@ public class MagicContainer : MonoBehaviour
     public float buttonHeldSpeedMultiplier = 2.0f;
     private float currentSpeedMultiplier = 1.0f;
 
-    private void OnEnable()
+	private SoundEffectBase soundEffects;
+
+	private void OnEnable()
     {
         isAbsorbing = false;
 
@@ -55,6 +58,8 @@ public class MagicContainer : MonoBehaviour
         {
             initialPos[i] = toMove[i].localPosition;
         }
+
+		soundEffects = GameManager.instance.GetComponent<SoundEffectBase>();
     }
 
     void Update()
@@ -144,6 +149,9 @@ public class MagicContainer : MonoBehaviour
 
                 if(trail)
                     trail.SetTarget(playerAttack.magicAbsorbPoint);
+
+				if (soundEffects)
+					soundEffects.PlaySound(absorbSound);
             }
 
             //Destroy container
