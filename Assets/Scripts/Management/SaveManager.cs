@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
@@ -106,6 +107,14 @@ public class SaveManager : MonoBehaviour
             return true;
         }
     }
+
+	//Temporary function for demo
+	public void ResetAll()
+	{
+		ClearSave(true);
+
+		SceneManager.LoadScene(0);
+	}
 
     public void ClearSave(bool clearAll)
     {
