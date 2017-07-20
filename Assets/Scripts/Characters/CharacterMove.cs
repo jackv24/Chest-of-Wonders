@@ -61,6 +61,7 @@ public class CharacterMove : MonoBehaviour
 
     private bool jumped = false;
     private bool shouldDetectPlatforms = false;
+	private bool startDetectingPlatforms = false;
 
     public float platformDropDetectDelay = 0.2f;
     private float nonDetectPlatformsTime = 0;
@@ -179,8 +180,16 @@ public class CharacterMove : MonoBehaviour
 
         //Jumping
         {
-            if (isGrounded)
-                stopJumpTime = Time.time + stopJumpDelay;
+			if (isGrounded)
+			{
+				stopJumpTime = Time.time + stopJumpDelay;
+				startDetectingPlatforms = false;
+			}
+			else if (!startDetectingPlatforms)
+			{
+				startDetectingPlatforms = true;
+				shouldDetectPlatforms = true;
+			}
 
             //If jump button has been pressed
             if (shouldJump)
