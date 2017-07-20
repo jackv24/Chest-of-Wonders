@@ -28,6 +28,9 @@ public class DisableFinishedAnim : MonoBehaviour
 	{
 		yield return new WaitForSeconds(time);
 
+		if (enableClearSprite && sprite)
+			sprite.sprite = null;
+
 		gameObject.SetActive(false);
 	}
 }
