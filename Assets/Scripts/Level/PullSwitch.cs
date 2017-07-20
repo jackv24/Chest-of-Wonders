@@ -19,6 +19,10 @@ public class PullSwitch : MonoBehaviour
 	public GameObject sparkEffect;
 	public float sparkDelay = 0.0f;
 
+	[Space()]
+	public GameObject spawnObject;
+	public Transform spawnPoint;
+
 	private bool pulled = false;
 
 	void Start()
@@ -94,6 +98,14 @@ public class PullSwitch : MonoBehaviour
 		}
 
 		characterAnimator.animator.SetBool("pullSwitch", false);
+
+		if(spawnPoint && spawnObject)
+		{
+			GameObject obj = Instantiate(spawnObject, spawnPoint);
+			obj.transform.localPosition = Vector3.zero;
+
+			obj.transform.parent = null;
+		}
 
 		//Restore game state
 		GameManager.instance.gameRunning = true;

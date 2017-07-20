@@ -91,6 +91,7 @@ public class CharacterMove : MonoBehaviour
     [Space()]
     [Tooltip("When checked, prevents character from falling through ground on start.")]
     public bool startOnGround = true;
+	public float startGroundDistance = 5.0f;
 
     [Header("Miscellaneous")]
     public float knockBackRecoveryTime = 1f;
@@ -152,7 +153,8 @@ public class CharacterMove : MonoBehaviour
 			//Start on ground point from raycast
 			if (hit.collider != null)
 			{
-				transform.position = hit.point;
+				if(hit.distance <= startGroundDistance)
+					transform.position = hit.point;
 
 				hasHit = true;
 			}
