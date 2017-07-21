@@ -315,7 +315,19 @@ public class DialogueBox : MonoBehaviour
             //Moves the speaker x number of metres horizontally
             currentSpeaker.MoveSpeaker(x);
         });
-    }
+
+		currentStory.BindExternalFunction("hasItem", (string x) =>
+		{
+			PlayerInventory inventory = GameManager.instance.player.GetComponent<PlayerInventory>();
+
+			if (inventory)
+			{
+				return inventory.CheckItem(x);
+			}
+			else
+				return false;
+		});
+	}
 
     string ParseSpeaker(string text)
     {
