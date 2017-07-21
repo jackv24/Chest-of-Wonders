@@ -40,6 +40,11 @@ public class Doorway : MonoBehaviour
         }
     }
 
+	public void SetInDoor()
+	{
+		inDoor = true;
+	}
+
     void OnTriggerEnter2D(Collider2D other)
     {
         //If a player enters this doorway, either use the doorway, or wait for button input in update

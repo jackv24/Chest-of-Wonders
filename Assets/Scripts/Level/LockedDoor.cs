@@ -10,6 +10,12 @@ public class LockedDoor : MonoBehaviour
 	[Tooltip("Item needed to open door.")]
 	public InventoryItem requiredItem;
 	public bool consumeItem = true;
+	[Space()]
+	public GameObject enableObject;
+	[Space()]
+	public GameObject lockedPadlock;
+	public GameObject openPadlock;
+	public float openDoorTime = 0.5f;
 
 	[Space()]
 	public Vector2 centreOffset;
@@ -30,9 +36,23 @@ public class LockedDoor : MonoBehaviour
 		if (player)
 			inventory = player.GetComponent<PlayerInventory>();
 
+		if (enableObject)
+			enableObject.SetActive(false);
+
 		//Check if this item has already been picked up
 		if (SaveManager.instance.IsDoorOpened(uniqueID))
+		{
+			if (enableObject)
+				enableObject.SetActive(true);
+
+			if (lockedPadlock)
+				lockedPadlock.SetActive(false);
+
 			gameObject.SetActive(false);
+		}
+
+		if (openPadlock)
+			openPadlock.SetActive(false);
 	}
 
 	void Update()
@@ -42,7 +62,7 @@ public class LockedDoor : MonoBehaviour
 			if (Vector2.Distance(transform.position + (Vector3)centreOffset, player.position) <= openRange)
 			{
 				//If interact was pressed and if item is in inventory (consume if it is)
-				if (playerActions.Interact.WasPressed && inventory.CheckItem(requiredItem, true))
+				if ((playerActions.Interact.WasPressed || playerActions.Up.WasPressed) && inventory.CheckItem(requiredItem, true))
 					OpenDoor();
 			}
 		}
@@ -67,59 +87,78 @@ public class LockedDoor : MonoBehaviour
 
 	IEnumerator MovePlayerOpenDoor()
 	{
-		float sign = Mathf.Sign(player.transform.position.x - transform.position.x);
-		float targetPos = transform.position.x + sign * stepBackDistance;
-
-		//Don't bother moving when the difference is not noticeable
-		if (Mathf.Abs(player.transform.position.x - targetPos) < 0.5f)
-			yield return null;
-
-		//Enemy and player input is paused while door is opening
-		GameManager.instance.gameRunning = false;
-
-		//Get character move and cache move speed
-		CharacterMove characterMove = player.GetComponent<CharacterMove>();
-		float moveSpeed = characterMove.moveSpeed;
-
-		//Allow movement at half speed
-		characterMove.ignoreCanMove = true;
-		characterMove.moveSpeed = moveSpeed * moveSpeedMultiplier;
-
-		//Stop camera jerkiness
-		CameraFollow cam = FindObjectOfType<CameraFollow>();
-		float camDist = 0;
-
-		if (cam)
+		if (stepBackDistance > 0)
 		{
-			camDist = cam.lookAhead;
-			cam.lookAhead = 0;
-		}
+			float sign = Mathf.Sign(player.transform.position.x - transform.position.x);
+			float targetPos = transform.position.x + sign * stepBackDistance;
 
-		//While player is not at target position (according to sign)
-		while ((sign < 0 && player.transform.position.x > targetPos) || (sign > 0 && player.transform.position.x < targetPos))
-		{
-			//Move player
-			characterMove.Move(sign);
+			//Don't bother moving when the difference is not noticeable
+			if (Mathf.Abs(player.transform.position.x - targetPos) < 0.5f)
+				yield return null;
+
+			//Enemy and player input is paused while door is opening
+			GameManager.instance.gameRunning = false;
+
+			//Get character move and cache move speed
+			CharacterMove characterMove = player.GetComponent<CharacterMove>();
+			float moveSpeed = characterMove.moveSpeed;
+
+			//Allow movement at half speed
+			characterMove.ignoreCanMove = true;
+			characterMove.moveSpeed = moveSpeed * moveSpeedMultiplier;
+
+			//Stop camera jerkiness
+			CameraFollow cam = FindObjectOfType<CameraFollow>();
+			float camDist = 0;
+
+			if (cam)
+			{
+				camDist = cam.lookAhead;
+				cam.lookAhead = 0;
+			}
+
+			//While player is not at target position (according to sign)
+			while ((sign < 0 && player.transform.position.x > targetPos) || (sign > 0 && player.transform.position.x < targetPos))
+			{
+				//Move player
+				characterMove.Move(sign);
+				yield return new WaitForEndOfFrame();
+			}
+
+			//Face back towards speaker
+			characterMove.Move(-sign);
+
 			yield return new WaitForEndOfFrame();
+
+			//Restore camera distance
+			if (cam)
+				cam.lookAhead = camDist;
+
+			//Stop moving
+			characterMove.Move(0);
+
+			//Restore cached values
+			characterMove.ignoreCanMove = false;
+			characterMove.moveSpeed = moveSpeed;
+
+			GameManager.instance.gameRunning = true;
 		}
 
-		//Face back towards speaker
-		characterMove.Move(-sign);
+		if (enableObject)
+		{
+			enableObject.SetActive(true);
+			enableObject.SendMessage("SetInDoor");
+		}
 
-		yield return new WaitForEndOfFrame();
+		if (lockedPadlock)
+			lockedPadlock.SetActive(false);
 
-		//Restore camera distance
-		if (cam)
-			cam.lookAhead = camDist;
-
-		//Stop moving
-		characterMove.Move(0);
-
-		//Restore cached values
-		characterMove.ignoreCanMove = false;
-		characterMove.moveSpeed = moveSpeed;
-
-		GameManager.instance.gameRunning = true;
+		if(openPadlock)
+		{
+			openPadlock.SetActive(true);
+			yield return new WaitForSeconds(openDoorTime);
+			openPadlock.SetActive(false);
+		}
 
 		//Open door
 		gameObject.SetActive(false);
