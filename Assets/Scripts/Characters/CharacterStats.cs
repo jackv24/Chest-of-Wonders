@@ -39,6 +39,7 @@ public class CharacterStats : MonoBehaviour
 
     //If health is zero or below, character is dead
     public bool IsDead { get { return currentHealth <= 0; } }
+	private bool hasDied = false;
 
     [Space()]
     public bool damageImmunity = false;
@@ -60,6 +61,8 @@ public class CharacterStats : MonoBehaviour
             graphic.material.SetFloat("_FlashAmount", 0);
 
         damageImmunity = false;
+
+		hasDied = false;
     }
 
     //Removes the specified amount of health
@@ -77,10 +80,11 @@ public class CharacterStats : MonoBehaviour
         //Keep health above or equal to 0
         if (currentHealth <= 0)
         {
-            currentHealth = 0;
+			if(!hasDied)
+				Die();
 
-            Die();
-        }
+			currentHealth = 0;
+		}
         else if (graphic && gameObject.activeSelf)
         {
             //Run only one stunned coroutine
@@ -128,6 +132,8 @@ public class CharacterStats : MonoBehaviour
 
     public void Die()
     {
+		hasDied = true;
+
         //Show stunned flashing character
         if(graphic)
             StartCoroutine("DamageFlash", deathTime);
