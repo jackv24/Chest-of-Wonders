@@ -21,6 +21,8 @@ public class StartDemo : MonoBehaviour
 	private CharacterMove playerMove;
 	private bool asleep = false;
 
+	private PlayerActions playerActions;
+
 	void Start()
 	{
 		renderers = GetComponentsInChildren<CanvasRenderer>();
@@ -32,6 +34,8 @@ public class StartDemo : MonoBehaviour
 
 		playerAnim = GameManager.instance.player.GetComponent<CharacterAnimator>();
 		playerMove = GameManager.instance.player.GetComponent<CharacterMove>();
+
+		playerActions = ControlManager.GetPlayerActions();
 
 		SetAsleep();
 	}
@@ -73,7 +77,16 @@ public class StartDemo : MonoBehaviour
 			yield return new WaitForEndOfFrame();
 			elapsedTime += Time.deltaTime;
 		}
-		
+
+		while (true)
+		{
+			//Wait for button press to wake up
+			if (playerActions.Jump.WasPressed || playerActions.Move.WasPressed)
+				break;
+
+			yield return new WaitForEndOfFrame();
+		}
+
 		playerAnim.animator.SetBool("asleep", false);
 
 		if(asleep && awakeAnim)

@@ -1499,6 +1499,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
+      propertyPath: m_Name
+      value: Clover
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
   m_IsPrefabParent: 0
@@ -2550,6 +2554,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
+        type: 2}
+      propertyPath: dialogueFile
+      value: 
+      objectReference: {fileID: 4900000, guid: d59bab46ce15fc74f9896d7bd754b6ef, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
   m_IsPrefabParent: 0
