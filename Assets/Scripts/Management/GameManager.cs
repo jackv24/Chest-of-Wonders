@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+	[HideInInspector]
+	public EndDemo endDemo;
+
     //Events
     public delegate void NormalEvent();
     public delegate void BoolEvent(bool value);

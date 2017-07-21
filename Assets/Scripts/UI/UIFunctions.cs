@@ -89,10 +89,13 @@ public class UIFunctions : MonoBehaviour
                 //Select first button
                 GameObject obj = pauseMenu.transform.GetComponentInChildren<Button>().gameObject;
 
-                if (obj)
-                    EventSystem.current.firstSelectedGameObject = obj;
-                else
-                    Debug.LogWarning("Could find a button to set selected!");
+				if (obj)
+				{
+					EventSystem.current.firstSelectedGameObject = obj;
+					EventSystem.current.SetSelectedGameObject(obj);
+				}
+				else
+					Debug.LogWarning("Could find a button to set selected!");
             }
         }
     }

@@ -100,6 +100,8 @@ public class Sootomander : AIAgent
 
                         body.AddForce(Vector2.up * force, ForceMode2D.Impulse);
                     }
+
+					GameManager.instance.endDemo.End();
                 }
             };
         }
