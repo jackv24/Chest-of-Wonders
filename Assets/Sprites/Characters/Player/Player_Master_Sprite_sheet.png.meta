@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 410a2e75204b79445a8d95f85c8dc45e
-timeCreated: 1496970840
+timeCreated: 1500603166
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -91,6 +91,15 @@ TextureImporter:
     21300168: player_magic_absorb_2
     21300170: player_magic_absorb_3
     21300172: player_magic_absorb_4
+    21300174: Player_awake_1
+    21300176: Player_awake_2
+    21300178: Player_awake_3
+    21300180: Player_awake_4
+    21300182: Player_awake_5
+    21300184: Player_awake_6
+    21300186: Player_awake_7
+    21300188: Player_awake_8
+    21300190: Player_awake_9
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -1306,6 +1315,123 @@ TextureImporter:
         y: 524
         width: 54
         height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_awake_1
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 89
+        width: 96
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_awake_2
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 88
+        width: 96
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_awake_3
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 87
+        width: 96
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_awake_4
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 87
+        width: 96
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_awake_5
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 8
+        width: 96
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_awake_6
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 8
+        width: 96
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_awake_7
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 8
+        width: 96
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_awake_8
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 7
+        width: 96
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player_awake_9
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 9
+        width: 96
+        height: 60
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
