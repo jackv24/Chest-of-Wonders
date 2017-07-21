@@ -13,15 +13,17 @@ public class Sootie : MonoBehaviour
     public float moveSpeed = 5.0f;
     public bool defaultRight = false;
 
-    public bool waitUntilOnScreen = true;
+	public float followRange = 5.0f;
+	public bool mustBeBelow = true;
     private bool follow = false;
-    private CameraFollow cam;
 
     [Space()]
     public LayerMask deathCollisionLayer;
 
     private Rigidbody2D body;
     private CharacterStats characterStats;
+
+	private Transform player;
 
     private void Awake()
     {
@@ -44,7 +46,7 @@ public class Sootie : MonoBehaviour
                 graphic = rend.gameObject;
         }
 
-        cam = Camera.main.GetComponent<CameraFollow>();
+		player = GameManager.instance.player.transform;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -63,7 +65,7 @@ public class Sootie : MonoBehaviour
     {
         if(target)
         {
-            if (waitUntilOnScreen && !cam.IsInView(transform.position) && !follow)
+            if (!follow && (Vector3.Distance(transform.position, player.position) > followRange || (player.position.y > transform.position.y && mustBeBelow)))
             {
                 body.isKinematic = true;
                 body.velocity = Vector2.zero;
@@ -92,4 +94,9 @@ public class Sootie : MonoBehaviour
             }
         }
     }
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.DrawWireSphere(transform.position, followRange);
+	}
 }
