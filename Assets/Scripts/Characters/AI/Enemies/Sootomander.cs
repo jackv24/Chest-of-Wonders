@@ -88,6 +88,10 @@ public class Sootomander : AIAgent
                     GameObject obj = ObjectPooler.GetPooledObject(sootiePrefab);
                     obj.transform.position = transform.position + Vector3.up * sootieSpawnHeight + new Vector3((-sootieAmount / (float)2) + i * sootieSpacing, 0);
 
+					Sootie s = obj.GetComponent<Sootie>();
+					if (s)
+						s.followRange = float.MaxValue;
+
                     Rigidbody2D body = obj.GetComponent<Rigidbody2D>();
 
                     if(body)

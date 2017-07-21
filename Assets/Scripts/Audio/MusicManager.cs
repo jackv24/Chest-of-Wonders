@@ -34,11 +34,11 @@ public class MusicManager : MonoBehaviour
 		}
 	}
 
-	public void SwitchTo(AudioClip clip)
+	public void SwitchTo(AudioClip clip, bool keepTime)
 	{
 		//Only one fade coroutine should run at a time
 		StopCoroutine("FadeTo");
-		StartCoroutine(FadeTo(clip, true));
+		StartCoroutine(FadeTo(clip, keepTime));
 	}
 
 	IEnumerator FadeTo(AudioClip newClip, bool keepTime)

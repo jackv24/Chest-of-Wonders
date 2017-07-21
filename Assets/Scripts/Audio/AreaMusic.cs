@@ -7,6 +7,8 @@ public class AreaMusic : MonoBehaviour
 	public AudioClip clip;
 	private AudioClip oldClip;
 
+	public bool keepTime = true;
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		//When player enters area, switch music
@@ -19,7 +21,7 @@ public class AreaMusic : MonoBehaviour
 				//Cache current music clip to switch back on exit
 				oldClip = musicManager.primarySource.clip;
 
-				musicManager.SwitchTo(clip);
+				musicManager.SwitchTo(clip, keepTime);
 			}
 		}
 	}
@@ -33,7 +35,7 @@ public class AreaMusic : MonoBehaviour
 
 			if (musicManager)
 			{
-				musicManager.SwitchTo(oldClip);
+				musicManager.SwitchTo(oldClip, keepTime);
 			}
 		}
 	}
