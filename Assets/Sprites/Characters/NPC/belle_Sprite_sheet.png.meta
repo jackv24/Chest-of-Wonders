@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 6ad3f40b2cf3ddf47891723f6fb2f600
-timeCreated: 1481509894
+timeCreated: 1500619812
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,13 @@ TextureImporter:
     21300010: belle_idle_03
     21300012: belle_idle_04
     21300014: belle_idle_05
+    21300016: belle_cower_1
+    21300018: belle_cower_2
+    21300020: belle_cower_recover_1
+    21300022: belle_cower_recover_2
+    21300024: belle_cower_recover_3
+    21300026: belle_cower_recover_4
+    21300028: belle_cower_recover_5
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -198,6 +205,97 @@ TextureImporter:
         serializedVersion: 2
         x: 363
         y: 412
+        width: 40
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: belle_cower_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 316
+        width: 40
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: belle_cower_2
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 316
+        width: 40
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: belle_cower_recover_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 316
+        width: 40
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: belle_cower_recover_2
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 316
+        width: 40
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: belle_cower_recover_3
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 316
+        width: 40
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: belle_cower_recover_4
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 316
+        width: 40
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: belle_cower_recover_5
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 316
         width: 40
         height: 64
       alignment: 7

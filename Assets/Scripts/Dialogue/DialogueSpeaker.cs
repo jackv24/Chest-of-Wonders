@@ -25,15 +25,35 @@ public class DialogueSpeaker : MonoBehaviour
     public GameObject graphic;
     public bool facePlayer = true;
 
+	[Space()]
+	public bool cowerFromEnemies = false;
+	private bool cowering = false;
+
+	private Animator animator;
+
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
 
         playerActions = ControlManager.GetPlayerActions();
-    }
 
-    private void Update()
+		animator = GetComponentInChildren<Animator>();
+
+		if (cowerFromEnemies && animator)
+		{
+			cowering = true;
+			animator.SetBool("cowering", true);
+
+			StartCoroutine("Cower");
+		}
+
+	}
+
+	private void Update()
     {
+		if (cowering)
+			return;
+
         if (player)
         {
             if (Vector2.Distance(player.transform.position, transform.position) <= range)
@@ -41,7 +61,6 @@ public class DialogueSpeaker : MonoBehaviour
             else
                 inRange = false;
         }
-
 
         if (inRange)
         {
@@ -159,6 +178,23 @@ public class DialogueSpeaker : MonoBehaviour
         //Stop moving
         characterMove.Move(0);
     }
+
+	IEnumerator Cower()
+	{
+		while (cowering)
+		{
+			GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+			if (enemies.Length <= 0)
+			{
+				cowering = false;
+				animator.SetBool("cowering", false);
+			}
+
+			//Only need to check every now and then
+			yield return new WaitForSeconds(1.0f);
+		}
+	}
 
     private void OnDrawGizmosSelected()
     {
