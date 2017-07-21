@@ -5,7 +5,7 @@ Where to start?
 + [Clover] -> clover_start
 
 == clover_start ==
-@Clover: Get back! I'll have you know I can do karate
+@Clover: Get back! I'll have you know I can do karate.
 * [I'm here to help]
     @Clover: Oh are you here to rescue me? 
     @Clover: Oh goody! I’ve been trapped down here for so long I ate my arm just to survive
@@ -25,12 +25,12 @@ Where to start?
 ->END
 
 == CloverHasKey ==
-@Clover: Oh you found the key.
+@Clover: Oh, you found the key.
 * [How do you know that?]
-    @Clover: I can see your inventory, Duh?
+    @Clover: I can see your inventory, duh?
     -> CloverSister
 * [Yes, but where does it go?]
-    @Clover: Look for a locked door Dummy! 
+    @Clover: Look for a locked door, dummy! 
     @Clover: Then just keep on poking your key till it fits.
     -> CloverSister
 
