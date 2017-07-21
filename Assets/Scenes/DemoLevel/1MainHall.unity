@@ -1685,12 +1685,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1068437205747888, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
       propertyPath: m_Name
-      value: Belle_WithKey
+      value: Belle
       objectReference: {fileID: 0}
     - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
         type: 2}
       propertyPath: cowerFromEnemies
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
+        type: 2}
+      propertyPath: dialogueFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 5fa0a2ce76448794181eabb1539c1398, type: 3}
+    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
+        type: 2}
+      propertyPath: range
+      value: 1.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
@@ -1711,7 +1721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flag: 
+  flag: talkedBoss
   item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
   enableOnFlag: 1
 --- !u!1001 &1145302289
@@ -1782,7 +1792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flag: 
+  flag: talkedBoss
   item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
   enableOnFlag: 0
 --- !u!1 &1254046874
@@ -2136,6 +2146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 3b70795d42cc5d24abc0e36c8e989f08, type: 3}
+  keepTime: 1
 --- !u!1 &1514118451
 GameObject:
   m_ObjectHideFlags: 1
@@ -2613,7 +2624,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
       propertyPath: m_Name
-      value: Clover_WithKey
+      value: Clover
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356034344867348, guid: 6141007c1e8944b4cb6d24a723b327dd,
+        type: 2}
+      propertyPath: dialogueFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 5fa0a2ce76448794181eabb1539c1398, type: 3}
+    - target: {fileID: 114356034344867348, guid: 6141007c1e8944b4cb6d24a723b327dd,
+        type: 2}
+      propertyPath: range
+      value: 1.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
@@ -2634,7 +2655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flag: 
+  flag: talkedBoss
   item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
   enableOnFlag: 1
 --- !u!1001 &2082319346

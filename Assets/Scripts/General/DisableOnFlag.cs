@@ -6,24 +6,27 @@ public class DisableOnFlag : MonoBehaviour
 {
 	public string flag;
 
-	[Tooltip("If item is specified flag is ignored.")]
 	public InventoryItem item;
 
 	public bool enableOnFlag = false;
 
 	private void Start()
 	{
-		bool disable = false;
+		bool hasFlag = false;
+		bool hasItem = false;
 
 		if(item)
 		{
 			PlayerInventory inventory = GameManager.instance.player.GetComponent<PlayerInventory>();
 
 			if(inventory)
-				disable = inventory.CheckItem(item);
+				hasItem = inventory.CheckItem(item);
 		}
-		else
-			disable = SaveManager.instance.CheckFlag(flag);
+
+		if(flag != "")
+			hasFlag = SaveManager.instance.CheckFlag(flag);
+
+		bool disable = hasFlag || hasItem;
 
 		if (enableOnFlag)
 			disable = !disable;
