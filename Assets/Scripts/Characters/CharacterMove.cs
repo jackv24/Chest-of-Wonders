@@ -59,6 +59,8 @@ public class CharacterMove : MonoBehaviour
     public bool isGrounded = false;
     private bool wasGrounded = true;
 
+	public bool IsOnPlatform { get { return stickToPlatforms; } }
+
     private bool jumped = false;
     private bool shouldDetectPlatforms = false;
 	private bool startDetectingPlatforms = false;

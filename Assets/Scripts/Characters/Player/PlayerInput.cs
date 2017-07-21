@@ -60,7 +60,7 @@ public class PlayerInput : MonoBehaviour
 
             if (playerActions.Jump.WasPressed)
             {
-                if (inputDirection.y < 0 && characterMove.isGrounded)
+                if (inputDirection.y < 0 && characterMove.IsOnPlatform)
                     characterMove.DropThroughPlatform();
                 else
                     characterMove.Jump(true);
