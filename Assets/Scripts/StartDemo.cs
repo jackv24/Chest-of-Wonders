@@ -22,6 +22,7 @@ public class StartDemo : MonoBehaviour
 	private bool asleep = false;
 
 	private PlayerActions playerActions;
+	private bool closed = false;
 
 	void Start()
 	{
@@ -58,7 +59,11 @@ public class StartDemo : MonoBehaviour
 
 	public void FadeStart()
 	{
-		StartCoroutine("FadeOut");
+		if(!closed)
+		{
+			closed = true;
+			StartCoroutine("FadeOut");
+		}
 	}
 
 	IEnumerator FadeOut()
@@ -77,6 +82,11 @@ public class StartDemo : MonoBehaviour
 			yield return new WaitForEndOfFrame();
 			elapsedTime += Time.deltaTime;
 		}
+
+		Button[] buttons = GetComponentsInChildren<Button>();
+
+		foreach (Button b in buttons)
+			b.gameObject.SetActive(false);
 
 		while (true)
 		{

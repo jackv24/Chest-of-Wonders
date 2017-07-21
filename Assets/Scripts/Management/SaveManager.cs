@@ -223,4 +223,18 @@ public class SaveManager : MonoBehaviour
 		else
 			return defaultPos;
 	}
+
+	public bool CheckFlag(string flag)
+	{
+		if (data.flags.Contains(flag))
+			return true;
+		else
+			return false;
+	}
+
+	public void SetFlag(string flag)
+	{
+		if (!data.flags.Contains(flag))
+			data.flags.Add(flag);
+	}
 }

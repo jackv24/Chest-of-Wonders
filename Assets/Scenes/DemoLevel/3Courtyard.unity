@@ -361,7 +361,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4111260363184624, guid: c8d62949ade1f32448a0189dca72481c, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114813877731098868, guid: c8d62949ade1f32448a0189dca72481c, type: 2}
@@ -1497,12 +1497,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
       propertyPath: m_Name
       value: Clover
       objectReference: {fileID: 0}
+    - target: {fileID: 114356034344867348, guid: 6141007c1e8944b4cb6d24a723b327dd,
+        type: 2}
+      propertyPath: dialogueFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 8e51e588a05c827408774e4e85b600df, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
   m_IsPrefabParent: 0

@@ -51,4 +51,6 @@ public class SaveData
 
 	//Dictionary of saved dialogue states
     public DialogueDictionary savedDialogue;
+
+	public List<string> flags;
 }

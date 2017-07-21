@@ -13,7 +13,7 @@ Where to start?
     @Belle: Well uhh...I'm not sure. I think I'm as lost as you are.
     ->belle_howlong
 * [How did I get here]
-    @Belle: "I heard screaming and when I came to help, I found you.
+    @Belle: I heard screaming and when I came to help, I found you.
     ->belle_howlong
 
 == belle_howlong ==
@@ -28,7 +28,7 @@ Where to start?
 
 == belle_second ==
 @Belle: Back again, huh? 
-* [Ugh...Why can't I...remember..."]
+* [Ugh...Why can't I...remember...]
     @Belle: We should focus on escaping
 * [Who...who are you?] 
     @Belle: My name is Belle. We should try find a way out

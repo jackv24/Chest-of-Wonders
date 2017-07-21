@@ -327,6 +327,16 @@ public class DialogueBox : MonoBehaviour
 			else
 				return false;
 		});
+
+		currentStory.BindExternalFunction("setFlag", (string x) =>
+		{
+			SaveManager.instance.SetFlag(x);
+		});
+
+		currentStory.BindExternalFunction("checkFlag", (string x) =>
+		{
+			return SaveManager.instance.CheckFlag(x);
+		});
 	}
 
     string ParseSpeaker(string text)
