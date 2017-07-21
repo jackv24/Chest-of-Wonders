@@ -3800,6 +3800,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeTime: 1
   firstButton: {fileID: 114362072540899904}
+  awakeScene:
+    m_SceneAsset: {fileID: 102900000, guid: 9ac32d37cc2070f46a414e3b770f26ac, type: 3}
+    m_SceneName: 0Spawnroom
+  awakeAnim: {fileID: 7400000, guid: d012fefbfbc4aab4e81bccf86a7aa7e5, type: 2}
 --- !u!212 &212126519756692206
 SpriteRenderer:
   m_ObjectHideFlags: 1

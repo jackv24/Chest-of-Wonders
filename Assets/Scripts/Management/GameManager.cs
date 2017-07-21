@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour
     //Static instance for easy access
     public static GameManager instance;
 
-    public SceneField defaultLevel;
-
     private string firstSceneName = "";
     [HideInInspector]
     public string loadedSceneName = "";
@@ -176,8 +174,8 @@ public class GameManager : MonoBehaviour
         //Re-enable the player after level is loaded
         player.SetActive(true);
 
-        //Return all pooled objects to their pools (prevents things like projectiles persisting between levels)
-        ObjectPooler.ReturnAll();
+		//Return all pooled objects to their pools (prevents things like projectiles persisting between levels)
+		ObjectPooler.ReturnAll();
 
         //Call level loaded events
         if (OnLevelLoaded != null)
@@ -212,8 +210,13 @@ public class GameManager : MonoBehaviour
             input.enabled = true;
         }
 
-        //Save game after entering new room
-        yield return new WaitForSeconds(autoSaveDelay);
+		//Temporary code for demo
+		StartDemo start = FindObjectOfType<StartDemo>();
+		if(start)
+			start.SetAsleep();
+
+		//Save game after entering new room
+		yield return new WaitForSeconds(autoSaveDelay);
 
         if (SaveManager.instance)
             SaveManager.instance.SaveGame(false);
@@ -300,9 +303,6 @@ public class GameManager : MonoBehaviour
                     OnSaveLoaded();
             }
         }
-
-        if (firstSceneName == "")
-            firstSceneName = defaultLevel;
 
         //After player data is loaded, load the level
         LoadLevel(firstSceneName, -1);
