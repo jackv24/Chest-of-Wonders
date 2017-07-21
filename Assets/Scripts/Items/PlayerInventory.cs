@@ -9,7 +9,13 @@ public class PlayerInventory : MonoBehaviour
 
     public List<InventoryItem> items = new List<InventoryItem>();
 
-    public void AddItem(InventoryItem item)
+	public void UpdateInventory()
+	{
+		if (OnUpdateInventory != null)
+			OnUpdateInventory();
+	}
+
+	public void AddItem(InventoryItem item)
     {
         items.Add(item);
 

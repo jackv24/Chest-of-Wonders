@@ -75,6 +75,7 @@ public class SaveManager : MonoBehaviour
             if(inventory)
             {
                 data.inventory = inventory.items;
+				inventory.UpdateInventory();
             }
             
             //Serialise save data to JSON

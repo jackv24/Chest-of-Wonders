@@ -1316,7 +1316,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1633701151075064, guid: 5ee29fb96c748134898496d3ddaff5df, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ee29fb96c748134898496d3ddaff5df, type: 2}
@@ -1736,6 +1736,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   startOnGround: 1
+  startGroundDistance: 5
   knockBackRecoveryTime: 0.1
   allowKnockback: 1
   scriptControl: 1
@@ -1804,7 +1805,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1633701151075064, guid: 5ee29fb96c748134898496d3ddaff5df, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ee29fb96c748134898496d3ddaff5df, type: 2}
@@ -3323,7 +3324,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1633701151075064, guid: 5ee29fb96c748134898496d3ddaff5df, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ee29fb96c748134898496d3ddaff5df, type: 2}
@@ -3367,9 +3368,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 1914621623221682, guid: 4e504010f785cfc4e848e5a350db0473, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 114046735019415448, guid: 4e504010f785cfc4e848e5a350db0473,
+        type: 2}
+      propertyPath: pounceCooldown
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4e504010f785cfc4e848e5a350db0473, type: 2}

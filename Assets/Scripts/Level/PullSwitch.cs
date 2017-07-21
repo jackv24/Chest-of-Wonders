@@ -22,6 +22,7 @@ public class PullSwitch : MonoBehaviour
 	[Space()]
 	public GameObject spawnObject;
 	public Transform spawnPoint;
+	private GameObject spawnedObject;
 
 	private bool pulled = false;
 
@@ -42,9 +43,19 @@ public class PullSwitch : MonoBehaviour
 		{
 			pulled = true;
 
-			SaveManager.instance.SetPulledSwitch(uniqueID);
-
 			StartCoroutine(PullOut(collision.gameObject));
+		}
+	}
+
+	private void OnDisable()
+	{
+		//Make sure spawned object has been picked up
+		if (pulled)
+		{
+			if (!spawnedObject || !spawnedObject.activeSelf)
+			{
+				SaveManager.instance.SetPulledSwitch(uniqueID);
+			}
 		}
 	}
 
@@ -105,6 +116,8 @@ public class PullSwitch : MonoBehaviour
 			obj.transform.localPosition = Vector3.zero;
 
 			obj.transform.parent = null;
+
+			spawnedObject = obj;
 		}
 
 		//Restore game state
