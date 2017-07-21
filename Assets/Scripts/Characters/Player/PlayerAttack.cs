@@ -124,38 +124,47 @@ public class PlayerAttack : MonoBehaviour
         //Shortest distance starts at max
         float shortestDistance = float.MaxValue;
 
-        //Deselect container if out of range
-        if(cols.Length < 1 && container)
-        {
-            container.Highlight(false);
-            container = null;
-        }
+		bool found = false;
 
         //Loop through all pickup colliders (only pickups should be on this layer)
         foreach (Collider2D col in cols)
         {
-            //Calculate distance between player and pickup
-            float distance = Vector3.Distance(col.transform.position, transform.position);
+			MagicContainer cont = col.GetComponent<MagicContainer>();
 
-            //If this pickup is closer than any others...
-            if (distance < shortestDistance)
-            {
-                //...make this pickup the new closest
-                shortestDistance = distance;
+			if (cont)
+			{
+				//Calculate distance between player and pickup
+				float distance = Vector3.Distance(col.transform.position, transform.position);
 
-                //Stop highlighting the old container
-                if (container)
-                    container.Highlight(false);
+				//If this pickup is closer than any others...
+				if (distance < shortestDistance)
+				{
+					//...make this pickup the new closest
+					shortestDistance = distance;
 
-                //Get the new container
-                container = col.GetComponent<MagicContainer>();
+					//Stop highlighting the old container
+					if (container)
+						container.Highlight(false);
 
-                //Highlight the new container
-                if(container)
-                    container.Highlight(true);
-            }
+					//Get the new container
+					container = cont;
+
+					//Highlight the new container
+					if (container)
+						container.Highlight(true);
+
+					found = true;
+				}
+			}
         }
-    }
+
+		//Deselect container if out of range
+		if (!found && container)
+		{
+			container.Highlight(false);
+			container = null;
+		}
+	}
 
     public void AbsorbMagic(bool buttonDown)
     {
@@ -451,4 +460,10 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, pickupRange);
+	}
 }
