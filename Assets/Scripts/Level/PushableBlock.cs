@@ -25,6 +25,7 @@ public class PushableBlock : MonoBehaviour
 
 	private PlayerActions playerActions;
 
+	private PlayerAttack playerAttack;
 	private CharacterMove characterMove;
 	private CharacterAnimator characterAnimator;
 
@@ -180,8 +181,15 @@ public class PushableBlock : MonoBehaviour
 		{
 			player = collision.transform;
 
-			characterAnimator = player.GetComponent<CharacterAnimator>();
-			characterMove = player.GetComponent<CharacterMove>();
+			playerAttack = player.GetComponent<PlayerAttack>();
+
+			if (playerAttack.HoldingBat)
+				player = null;
+			else
+			{
+				characterAnimator = player.GetComponent<CharacterAnimator>();
+				characterMove = player.GetComponent<CharacterMove>();
+			}
 		}
 	}
 

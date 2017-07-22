@@ -622,7 +622,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 111b47b60ee8feb4d889a8c1622777cf, type: 3}
   m_Name: 
@@ -630,9 +630,9 @@ MonoBehaviour:
   damageLayers:
     serializedVersion: 2
     m_Bits: 1024
-  damageBoxPos: {x: 0, y: 1}
-  damageBoxSize: {x: 2.4, y: 1.3}
-  amount: 20
+  damageBoxPos: {x: 0, y: 1.25}
+  damageBoxSize: {x: 3.5, y: 2}
+  amount: 5
   damageCooldown: 1
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.5
@@ -759,8 +759,8 @@ MonoBehaviour:
   deathTime: 0.5
   deathParticlePrefab: {fileID: 0}
   deathParticleOffset: {x: 0, y: 0.75}
-  deathDrop: {fileID: 0}
-  dropOffset: {x: 0, y: 1}
+  deathDrop: {fileID: 1022593397258198, guid: 960fcd0a9b537e64ea77c3b1d5b062a2, type: 2}
+  dropOffset: {x: 0, y: 2.5}
   healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
   minHealthDrops: 2
   maxHealthDrops: 5

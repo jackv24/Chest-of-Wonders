@@ -376,6 +376,9 @@ MonoBehaviour:
   maxPitch: 1.1
   minVolume: 0.7
   maxVolume: 1.1
+  turnSound:
+    clip: {fileID: 0}
+    volume: 1
 --- !u!114 &114394643851387708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -389,6 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 11
   acceleration: 5
+  velocity: {x: 0, y: 0}
   upSlopeLimit: 50
   downSlopeLimit: 50
   maxSlopeDistance: 1
@@ -400,6 +404,7 @@ MonoBehaviour:
   jumpTime: 0.5
   stopJumpDelay: 0.2
   isGrounded: 1
+  platformDropDetectDelay: 0.2
   gravity: 30
   maxFallSpeed: 20
   verticalRays: 8
@@ -412,11 +417,12 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 8192
-  knockBackRecoveryTime: 0.25
+  startOnGround: 1
+  startGroundDistance: 5
+  knockBackRecoveryTime: 0.45
   allowKnockback: 1
   scriptControl: 1
   body: {fileID: 0}
-  velocity: {x: 0, y: 0}
 --- !u!114 &114423288041466042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -431,6 +437,7 @@ MonoBehaviour:
   animator: {fileID: 95258887201087530}
   defaultRight: 0
   deathAnimation: {fileID: 0}
+  flipAnimation: {fileID: 0}
 --- !u!114 &114655695908773322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -459,7 +466,6 @@ MonoBehaviour:
   healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
   minHealthDrops: 1
   maxHealthDrops: 2
-  healthDropArc: 15
   healthDropForce: 5
   damageImmunity: 0
 --- !u!114 &114954935987558174
@@ -476,8 +482,13 @@ MonoBehaviour:
   target: {fileID: 0}
   aggro: 0
   targetDirection: 0
+  attacking: 0
+  endAttack: 0
+  currentAttack: -1
+  attackCooldown: 0
   characterMove: {fileID: 0}
   characterAnimator: {fileID: 0}
+  characterStats: {fileID: 0}
   aggroRange: 5
   turnStopRange: 3
   defaultRight: 0

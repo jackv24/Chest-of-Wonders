@@ -250,7 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotForce: 25
   lifeTime: 0.75
-  damageAmount: 20
+  damageAmount: 10
   damageTag: Player
   destroyOnCollision: 1
   explosionPrefab: {fileID: 0}

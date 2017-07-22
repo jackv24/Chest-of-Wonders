@@ -61,6 +61,12 @@ public class Sootie : MonoBehaviour
         }
     }
 
+	public void SetAggro()
+	{
+		body.isKinematic = false;
+		follow = true;
+	}
+
     private void Update()
     {
         if(target)
@@ -74,9 +80,9 @@ public class Sootie : MonoBehaviour
             }
             else
             {
-                body.isKinematic = false;
-                follow = true;
-            }
+				body.isKinematic = false;
+				follow = true;
+			}
 
             Vector2 direction = (target.position - transform.position).normalized;
 

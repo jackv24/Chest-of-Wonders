@@ -14,7 +14,7 @@ public class Trampoline : MonoBehaviour
 		{
 			CharacterMove move = collision.gameObject.GetComponent<CharacterMove>();
 
-			if (move && move.velocity.y < 0)
+			if (move && collision.transform.position.y > transform.position.y)
 			{
 				initialJumpForce = move.jumpForce;
 

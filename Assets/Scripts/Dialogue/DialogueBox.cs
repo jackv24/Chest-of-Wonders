@@ -39,6 +39,9 @@ public class DialogueBox : MonoBehaviour
     public float textSpeed = 20;
     public float fastTextSpeed = 50;
 
+	[Space()]
+	public float optionSelectDelay = 0.5f;
+
     private Story currentStory;
     private TextAsset textAsset;
     private DialogueSpeaker currentSpeaker;
@@ -219,8 +222,11 @@ public class DialogueBox : MonoBehaviour
                 for(int i = buttons.Count; i < currentStory.currentChoices.Count; i++)
                     buttons.Add(((GameObject)Instantiate(initialButton.gameObject, initialButton.transform.parent)).GetComponent<Button>());
 
-                //Update buttons
-                for(int i = 0; i < currentStory.currentChoices.Count; i++)
+				foreach (Button b in buttons)
+					b.interactable = false;
+
+				//Update buttons
+				for (int i = 0; i < currentStory.currentChoices.Count; i++)
                 {
                     SetupButtonEvents(buttons[i], i);
 
@@ -235,14 +241,20 @@ public class DialogueBox : MonoBehaviour
                 EventSystem.current.firstSelectedGameObject = null;
                 EventSystem.current.SetSelectedGameObject(null);
 
-                EventSystem.current.firstSelectedGameObject = buttons[0].gameObject;
+				foreach (Button b in buttons)
+				{
+					yield return new WaitForSeconds(optionSelectDelay);
+					b.interactable = true;
+				}
+
+				EventSystem.current.firstSelectedGameObject = buttons[0].gameObject;
                 EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
             }
             else
             {
                 waitingForInput = true;
 
-                optionPanel.gameObject.SetActive(false);
+				optionPanel.gameObject.SetActive(false);
             }
 
             while(waitingForChoice)

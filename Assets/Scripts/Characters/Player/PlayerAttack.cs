@@ -66,6 +66,10 @@ public class PlayerAttack : MonoBehaviour
     public float chargeHoldTime = 1.0f;
     private float heldStartTime = 0;
     public float heldDamageMultiplier = 1.5f;
+
+	private bool holdingBat = false;
+	public bool HoldingBat { get { return holdingBat; } }
+
     [Space()]
     public float moveSpeedMultiplier = 0.75f;
     private float oldMoveSpeed = 0f;
@@ -197,6 +201,8 @@ public class PlayerAttack : MonoBehaviour
             return;
 
         DamageOnEnable swing = batSwing;
+
+		holdingBat = holding;
 
         //If button was released update bat swing damage
         if(swing && !holding)
