@@ -360,6 +360,13 @@ public class PlayerAttack : MonoBehaviour
                 UpdateMagic();
             }
         }
+
+		//If attack in slot 1 is used up and slot 2 still has an attack, switch
+		if (!magicSlot1.attack && magicSlot2.attack)
+		{
+			SwitchMagic();
+			magicSlot1.nextFireTime = magicSlot2.nextFireTime;
+		}
     }
 
     IEnumerator FireWithDelay(MagicAttack attack, Vector2 direction)
