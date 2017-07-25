@@ -172,6 +172,10 @@ public class PlayerAttack : MonoBehaviour
 
     public void AbsorbMagic(bool buttonDown)
     {
+		//Can't absorb while holding bat
+		if (HoldingBat)
+			return;
+
         //If the absorb button is pressed
         if (buttonDown)
         {
