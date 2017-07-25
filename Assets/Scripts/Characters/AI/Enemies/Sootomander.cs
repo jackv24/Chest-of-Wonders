@@ -90,7 +90,10 @@ public class Sootomander : AIAgent
 
 					Sootie s = obj.GetComponent<Sootie>();
 					if (s)
+					{
 						s.followRange = float.MaxValue;
+						s.mustBeBelow = false;
+					}
 
                     Rigidbody2D body = obj.GetComponent<Rigidbody2D>();
 
