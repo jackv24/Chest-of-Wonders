@@ -95,7 +95,8 @@ public class PlayerActions : PlayerActionSet
 
         Submit.AddDefaultBinding(Key.Z);
         Submit.AddDefaultBinding(Key.X);
-        Submit.AddDefaultBinding(Key.Space);
+		Submit.AddDefaultBinding(Key.C);
+		Submit.AddDefaultBinding(Key.Space);
         Submit.AddDefaultBinding(Key.Return);
         Submit.AddDefaultBinding(InputControlType.Action1);
         Submit.AddDefaultBinding(InputControlType.Action4);

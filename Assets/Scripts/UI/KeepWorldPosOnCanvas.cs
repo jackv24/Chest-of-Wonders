@@ -21,8 +21,7 @@ public class KeepWorldPosOnCanvas : MonoBehaviour
 
     private void Update()
     {
-        if (OnGetWorldPos != null)
-            OnGetWorldPos();
+		GetWorldPos();
 
         if(keepInScreenBounds)
         {
@@ -39,4 +38,10 @@ public class KeepWorldPosOnCanvas : MonoBehaviour
         else
             transform.position = Camera.main.WorldToScreenPoint(worldPos);
     }
+
+	public void GetWorldPos()
+	{
+		if (OnGetWorldPos != null)
+			OnGetWorldPos();
+	}
 }

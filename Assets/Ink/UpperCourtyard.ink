@@ -7,18 +7,16 @@ Where to start?
 == clover_start ==
 @Clover: Get back! I'll have you know I can do karate.
 * [I'm here to help]
-    @Clover: Oh are you here to rescue me? 
-    @Clover: Oh goody! I’ve been trapped down here for so long I ate my arm just to survive
-        -> CloverBothArms
+    -> CloverBothArms
 * [Quiet down before you get hurt] 
-    @Clover: Oh are you here to rescue me? 
-    @Clover: Oh goody! I’ve been trapped down here for so long I ate my arm just to survive
-        -> CloverBothArms
+    -> CloverBothArms
 + [Hello]
     @Clover: I saw something shiny in the other room
     {hasItem("key"):->CloverHasKey|->END}
     
 == CloverBothArms ==
+@Clover: Are you here to rescue me? 
+@Clover: Oh goody! I’ve been trapped down here for so long I ate my arm just to survive
 * [But...but you have both arms...]
     @Clover: Yes that's true, but I really did think about it!
     {hasItem("key"):->CloverHasKey|->END}
@@ -37,11 +35,11 @@ Where to start?
 == CloverSister ==
 @Clover: Wait, have you seen my sister? She's got blue hair and dark fur.
 * [Yes! She sent me to find you.]
-    @Clover: Yay! I bet she was worried sick teehee
+    @Clover: Yay! I bet she was worried sick
     -> END
 * [I think so. She's downstairs.]
-    @Clover: Yay! I bet she's worried sick teehee
+    @Clover: Yay! I bet she's worried sick
     -> END
-    
+
 == function hasItem(x) ==
 ~return true

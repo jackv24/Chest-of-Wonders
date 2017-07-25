@@ -12,7 +12,6 @@ Where to start
 {conversation<1:->conversation|@Clover: Don't die!}
         
 == conversation ==
-{setFlag("talkedBoss")}
 @Clover: Look sis! Its the guy who found me!
 @Belle: I must thank yo- Oh, it's you!
 @Clover: Oh you know this guy, Belle? 

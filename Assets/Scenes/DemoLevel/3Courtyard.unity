@@ -2542,6 +2542,25 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2003382810 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1068437205747888, guid: 836009ff8431c6c4b9e727978fe7ce36,
+    type: 2}
+  m_PrefabInternal: {fileID: 2003382809}
+--- !u!114 &2003382811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2003382810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flag: BossRoom
+  item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
+  enableOnFlag: 0
 --- !u!1 &2127669469
 GameObject:
   m_ObjectHideFlags: 1

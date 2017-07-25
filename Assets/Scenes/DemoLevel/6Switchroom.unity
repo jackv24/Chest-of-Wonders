@@ -157,7 +157,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -579,6 +579,11 @@ Prefab:
       propertyPath: uniqueID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114769459591741792, guid: 5ee29fb96c748134898496d3ddaff5df,
+        type: 2}
+      propertyPath: succeedFlag
+      value: BossRoom
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ee29fb96c748134898496d3ddaff5df, type: 2}
   m_IsPrefabParent: 0
@@ -892,7 +897,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1243,6 +1248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 3b70795d42cc5d24abc0e36c8e989f08, type: 3}
+  keepTime: 1
 --- !u!1 &1644217475
 GameObject:
   m_ObjectHideFlags: 1

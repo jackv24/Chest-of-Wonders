@@ -360,7 +360,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -711,7 +711,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1155,7 +1155,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1629,7 +1629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flag: talkedBoss
+  flag: BossRoom
   item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
   enableOnFlag: 1
 --- !u!1001 &1145302289
@@ -1700,7 +1700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flag: talkedBoss
+  flag: BossRoom
   item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
   enableOnFlag: 0
 --- !u!1 &1254046874
@@ -2025,7 +2025,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2461,7 +2461,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2595,7 +2595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flag: talkedBoss
+  flag: BossRoom
   item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
   enableOnFlag: 1
 --- !u!1001 &2082319346

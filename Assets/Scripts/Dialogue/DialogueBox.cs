@@ -212,6 +212,11 @@ public class DialogueBox : MonoBehaviour
             if (currentStory.currentChoices.Count > 0)
             {
                 waitingForChoice = true;
+
+				KeepWorldPosOnCanvas keepPos = optionsPos.GetComponent<KeepWorldPosOnCanvas>();
+				if (keepPos)
+					keepPos.GetWorldPos();
+
                 optionPanel.gameObject.SetActive(true);
 
                 //Disable all buttons

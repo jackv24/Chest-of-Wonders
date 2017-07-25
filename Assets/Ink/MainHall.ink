@@ -8,7 +8,7 @@ Where to start?
 
 == belle_first ==
 @Belle: !! 
-@Belle: Oh My Gosh! Are you alright?? I saw you Tumble in. 
+@Belle: Oh My Gosh! Are you alright?? I saw you tumble in. 
 * [Where am I?]
     @Belle: Well uhh...I'm not sure. I think I'm as lost as you are.
     ->belle_howlong
