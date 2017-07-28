@@ -7,10 +7,11 @@ public class Trampoline : MonoBehaviour
 	public float jumpMultiplier = 4.0f;
 
 	private float initialJumpForce = 0;
+	private bool jumped = false;
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.tag == "Player")
+		if (collision.tag == "Player" && jumped == false)
 		{
 			CharacterMove move = collision.gameObject.GetComponent<CharacterMove>();
 
@@ -19,13 +20,14 @@ public class Trampoline : MonoBehaviour
 				initialJumpForce = move.jumpForce;
 
 				move.jumpForce = initialJumpForce * jumpMultiplier;
+				jumped = true;
 			}
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (collision.tag == "Player")
+		if (collision.tag == "Player" && jumped == true)
 		{
 			CharacterMove move = collision.gameObject.GetComponent<CharacterMove>();
 
@@ -44,5 +46,6 @@ public class Trampoline : MonoBehaviour
 		}
 
 		move.jumpForce = initialJumpForce;
+		jumped = false;
 	}
 }
