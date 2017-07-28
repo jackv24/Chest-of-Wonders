@@ -14,12 +14,15 @@ public class PushableBlock : MonoBehaviour
 	[Tooltip("How fast the block is pushed.")]
 	public float moveSpeed = 2.0f;
 	public float pushDistance = 1.0f;
+	public float pushDelay = 0.1f;
+	private float nextPushTime;
 
 	[Space()]
 	public float gravity = -9.8f;
 
 	[Space()]
 	public float groundedRayDist = 2.0f;
+	public float pushHeightOffset = 0.5f;
 
 	private bool pushing = false;
 
@@ -50,7 +53,7 @@ public class PushableBlock : MonoBehaviour
 	private void Update()
 	{
 		//Make sure the player is on the ground and not currently pushing the block
-		if(!pushing && player && characterMove && characterMove.isGrounded && player.position.y < transform.position.y)
+		if(!pushing && player && characterMove && characterMove.isGrounded && player.position.y < transform.position.y + pushHeightOffset && Time.time >= nextPushTime)
 		{
 			float direction = 0;
 
@@ -190,6 +193,8 @@ public class PushableBlock : MonoBehaviour
 				characterAnimator = player.GetComponent<CharacterAnimator>();
 				characterMove = player.GetComponent<CharacterMove>();
 			}
+
+			nextPushTime = Time.time + pushDelay;
 		}
 	}
 
@@ -207,5 +212,10 @@ public class PushableBlock : MonoBehaviour
 		pos.x = Mathf.Round(pos.x);
 		pos.y = Mathf.Round(pos.y);
 		transform.position = pos;
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.DrawWireSphere(transform.position + Vector3.up * pushHeightOffset, 0.25f);
 	}
 }
