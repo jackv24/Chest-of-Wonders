@@ -7,6 +7,8 @@ public class CameraFollow : MonoBehaviour
 
     [Space()]
     public float followSpeed = 10f;
+	public float minMoveAmount = 0.01f;
+	private float moveDelta = 0;
     public float heightOffset = 1f;
 
     [Space()]
@@ -58,6 +60,8 @@ public class CameraFollow : MonoBehaviour
         {
             aheadDistance = Mathf.Lerp(aheadDistance, lookAhead * (lookRight ? 1 : -1), lookAheadSpeed * Time.deltaTime);
 
+			Vector3 oldPos = targetPos;
+
             targetPos = target.position;
             targetPos.y += heightOffset;
             targetPos.x += aheadDistance;
@@ -66,7 +70,8 @@ public class CameraFollow : MonoBehaviour
 
             KeepInBounds();
 
-            transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
+			if(Vector3.Distance(oldPos, targetPos) >= minMoveAmount)
+				transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
 
             //Calculate camera world bounds
             minCameraWorld = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
