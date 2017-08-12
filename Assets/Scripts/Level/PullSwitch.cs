@@ -30,6 +30,8 @@ public class PullSwitch : MonoBehaviour
 
 	private bool pulled = false;
 
+	private bool shouldSave = true;
+
 	void Start()
 	{
 		//Check if this item has already been picked up
@@ -39,6 +41,9 @@ public class PullSwitch : MonoBehaviour
 
 			transform.position += Vector3.down * pullDistance;
 		}
+
+		//Switch pull state should not be saved if level is unloaded because of death
+		GameManager.instance.OnGameOver += delegate { shouldSave = false; };
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -54,7 +59,7 @@ public class PullSwitch : MonoBehaviour
 	private void OnDisable()
 	{
 		//Make sure spawned object has been picked up
-		if (pulled)
+		if (pulled && shouldSave)
 		{
 			if (!spawnedObject || !spawnedObject.activeSelf)
 			{

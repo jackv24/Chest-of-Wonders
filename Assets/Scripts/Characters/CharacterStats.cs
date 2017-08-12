@@ -39,7 +39,8 @@ public class CharacterStats : MonoBehaviour
 
     //If health is zero or below, character is dead
     public bool IsDead { get { return currentHealth <= 0; } }
-	private bool hasDied = false;
+	[HideInInspector]
+	public bool hasDied = false;
 
     [Space()]
     public bool damageImmunity = false;
