@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	[HideInInspector]
-	public EndDemo endDemo;
-
     //Events
     public delegate void NormalEvent();
     public delegate void BoolEvent(bool value);
@@ -212,11 +209,6 @@ public class GameManager : MonoBehaviour
 
             input.enabled = true;
         }
-
-		//Temporary code for demo
-		StartDemo start = FindObjectOfType<StartDemo>();
-		if(start)
-			start.SetAsleep();
 
 		//Save game after entering new room
 		yield return new WaitForSeconds(autoSaveDelay);
