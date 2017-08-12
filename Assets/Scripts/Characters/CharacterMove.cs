@@ -509,6 +509,7 @@ public class CharacterMove : MonoBehaviour
 
         //Switch back to script control
         body.bodyType = RigidbodyType2D.Kinematic;
+		body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
         scriptControl = true;
 
         if (characterStats)
