@@ -35,7 +35,7 @@ public class Doorway : MonoBehaviour
         if(useButton && inDoor)
         {
             //If up button was pressed, use the door
-            if(playerActions.Up.WasPressed && Time.time > startTime)
+            if(playerActions.Up.WasPressed && Time.time > startTime && GameManager.instance.CanDoActions)
                 Use();
         }
     }
