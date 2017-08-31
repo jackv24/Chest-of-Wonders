@@ -79,4 +79,18 @@ public class Doorway : MonoBehaviour
     {
         Gizmos.DrawWireSphere((Vector2)transform.position + new Vector2(exitOffset, 0), 0.25f);
     }
+
+	private void OnDrawGizmos()
+	{
+		BoxCollider2D col = GetComponent<BoxCollider2D>();
+
+		Gizmos.color = new Color(0, 1, 0, 0.5f);
+		Gizmos.DrawCube((Vector2)transform.position + col.offset, col.size);
+
+		GUIStyle textStyle = new GUIStyle();
+		textStyle.normal.textColor = Color.white;
+		textStyle.fontSize = 18;
+
+		UnityEditor.Handles.Label((Vector2)transform.position + new Vector2(-col.size.x / 2, col.offset.y + col.size.y / 2 + 0.5f), targetLevel.SceneName + " - " + targetID, textStyle);
+	}
 }
