@@ -66,6 +66,29 @@ public class SceneLoaderEditor : EditorWindow
 
 	private void OnGUI()
 	{
+		Color backColor = GUI.backgroundColor;
+
+		EditorGUILayout.BeginHorizontal();
+		GUI.backgroundColor = Color.cyan;
+		if (GUILayout.Button("Open Game Scene", GUILayout.Height(30)))
+		{
+			Scene scene = EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(1), OpenSceneMode.Additive);
+			Scene beforeScene = EditorSceneManager.GetActiveScene();
+			EditorSceneManager.SetActiveScene(scene);
+
+			EditorSceneManager.MoveSceneBefore(scene, beforeScene);
+		}
+		GUI.backgroundColor = Color.yellow;
+		if (GUILayout.Button("Close Game Scene", GUILayout.Height(30)))
+		{
+			if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+				EditorSceneManager.CloseScene(EditorSceneManager.GetSceneByBuildIndex(1), true);
+		}
+		EditorGUILayout.EndHorizontal();
+
+		GUI.backgroundColor = backColor;
+
+		EditorGUILayout.Space();
 		EditorGUILayout.BeginHorizontal();
 		//Color picker for added scene
 		currentColor = EditorGUILayout.ColorField(currentColor);
@@ -103,8 +126,6 @@ public class SceneLoaderEditor : EditorWindow
 
 		EditorGUILayout.Space();
 		GUILayout.Label("Load Scene", EditorStyles.boldLabel);
-
-		Color backColor = GUI.backgroundColor;
 
 		scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
 
