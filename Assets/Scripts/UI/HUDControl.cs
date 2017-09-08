@@ -7,13 +7,21 @@ public class HUDControl : MonoBehaviour
 {
     public GameObject player;
 
-    [Space()]
+    [Header("Stat Bars")]
     public Slider healthBar;
     public Slider manaBar;
 
     public float barLerpSpeed = 1f;
 
+	[Header("Base Magic")]
+	public Image baseFireNotch;
+	public Image baseGrassNotch;
+	public Image baseIceNotch;
+	public Image baseWindNotch;
 	[Space()]
+	public Color baseNotchDisabledTint = Color.gray;
+
+	[Header("Mix Magic")]
 	public GameObject mixNotch;
 	public int mixNotchCount = 4;
 	private List<GameObject> mixNotches = new List<GameObject>();
@@ -68,9 +76,20 @@ public class HUDControl : MonoBehaviour
     //Loads display for mana bars
     void UpdateAttackSlots()
     {
-		Debug.LogWarning("Update attack slots UI not implemented!");
+		if (playerAttack)
+		{
+			//Tint base magic notches to reflect obtained state
+			if (baseFireNotch)
+				baseFireNotch.color = playerAttack.baseFireObtained ? Color.white : baseNotchDisabledTint;
+			if (baseGrassNotch)
+				baseGrassNotch.color = playerAttack.baseGrassObtained ? Color.white : baseNotchDisabledTint;
+			if (baseIceNotch)
+				baseIceNotch.color = playerAttack.baseIceObtained ? Color.white : baseNotchDisabledTint;
+			if (baseWindNotch)
+				baseWindNotch.color = playerAttack.baseWindObtained ? Color.white : baseNotchDisabledTint;
 
-		UpdateMixNotches();
+			UpdateMixNotches();
+		}
     }
 
 	void UpdateMixNotches()

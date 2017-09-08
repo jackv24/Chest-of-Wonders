@@ -157,10 +157,6 @@ MonoBehaviour:
       position: {x: 6, y: 17}
     maxHealth: 100
     currentHealth: 100
-    attack1: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
-    mana1: -1
-    attack2: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
-    mana2: -1
     inventory: []
     pickedUpItems: 
     openedDoors: 
@@ -194,6 +190,7 @@ MonoBehaviour:
       - 
       - 
       - 
+    flags: []
   data:
     autoSave:
       sceneName: JackTest
@@ -203,10 +200,6 @@ MonoBehaviour:
       position: {x: 0, y: 0}
     maxHealth: 100
     currentHealth: 100
-    attack1: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
-    mana1: 100
-    attack2: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
-    mana2: 100
     inventory: []
     pickedUpItems: 
     openedDoors: 
@@ -240,6 +233,7 @@ MonoBehaviour:
       - 
       - 
       - 
+    flags: []
 --- !u!114 &114658657317432228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,23 +245,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5409c616bd63524096b4364d854b13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageArray:
-  - 1
-  - 0.75
-  - 1
-  - 1.25
-  - 1.25
-  - 0.75
-  - 1.25
-  - 1.5
-  - 1
-  - 1.25
-  - 1
-  - 0.75
-  - 1
-  - 0.5
-  - 1.5
-  - 1
+  fireAttack: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
+  grassAttack: {fileID: 0}
+  iceAttack: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
+  windAttack: {fileID: 0}
+  attackArray:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  normalMultiplier: 1
+  ineffectiveMultiplier: 0.5
+  effectiveMultiplier: 1.25
+  damageArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &114777719817609730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -279,9 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cae71eb9bba0d448dd51127d51ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLevel:
-    m_SceneAsset: {fileID: 102900000, guid: 6e935b660a453ad4f93ec0ed0b25c614, type: 3}
-    m_SceneName: JackTest
   loadedSceneName: 
   player: {fileID: 0}
   playerRespawnDelay: 3

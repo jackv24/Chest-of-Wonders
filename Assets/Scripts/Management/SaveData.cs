@@ -26,13 +26,6 @@ public class SaveData
     public int maxHealth;
     public int currentHealth;
 
-	//Attacks
-    public MagicAttack attack1;
-    public int mana1;
-
-    public MagicAttack attack2;
-    public int mana2;
-
     public List<InventoryItem> inventory;
 
 	//Lists of unique IDs for keeping objects disabled

@@ -6,7 +6,6 @@ using UnityEngine;
 public class MagicAttack : ScriptableObject
 {
     public string displayName = "Basic Attack";
-    public Sprite icon;
 
     [Space()]
     public ElementManager.Element element;

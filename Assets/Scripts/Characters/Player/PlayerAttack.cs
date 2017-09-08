@@ -9,10 +9,17 @@ public class PlayerAttack : MonoBehaviour
 
     public bool canAttack = true;
 
-    [Header("Magic")]
-    //Magic slots
+	[Header("Magic")]
+	public ElementManager.Element baseMagicSelected;
+	[Space()]
+	public bool baseFireObtained;
+	public bool baseGrassObtained;
+	public bool baseIceObtained;
+	public bool baseWindObtained;
+	[Space()]
+	public ElementManager.Element mixMagicSelected; // TODO: Replace with soul absorbtion
 
-    [Space()]
+	[Space()]
     public Transform upFirePoint;
     public Transform upForwardFirePoint;
     public Transform forwardFirePoint;
@@ -20,7 +27,8 @@ public class PlayerAttack : MonoBehaviour
     public Transform downFirePoint;
 
     [Space()]
-    public float fireDelay = 0.1f;
+    public float fireDelay = 0.25f;
+	private float nextFireTime;
 
     [Space()]
     public GameObject failedCastEffect;
@@ -287,69 +295,39 @@ public class PlayerAttack : MonoBehaviour
     //Function to use magic, wrapped by other magic use functions
     public void UseMagic()
     {
-		Debug.LogWarning("Use magic not implemented!");
+		if (!canAttack)
+			return;
 
-  //      if (!canAttack)
-  //          return;
+		//If magic slot was chosen correctly, and there is an attack in the slot
+		if (Time.time >= nextFireTime)
+		{
+			MagicAttack attack = ElementManager.GetAttack(baseMagicSelected, mixMagicSelected);
 
-  //      MagicSlot slot = magicSlot1;
+			if (attack)
+			{
+				nextFireTime = Time.time + fireDelay;
 
-  //      //If magic slot was chosen correctly, and there is an attack in the slot
-  //      if (Time.time >= slot.nextFireTime)
-  //      {
-  //          if (slot != null && slot.attack)
-  //          {
-  //              slot.nextFireTime = Time.time + slot.attack.cooldownTime;
+				Fire(attack, aimDirection);
+			}
+			else
+			{
+				nextFireTime = Time.time + fireDelay;
 
-  //              //If there is enough mana to use this attack
-  //              if (slot.currentMana >= slot.attack.manaCost)
-  //              {
-  //                  //Subtract required mana
-  //                  slot.currentMana -= slot.attack.manaCost;
+				Fire(null, aimDirection);
+			}
 
-  //                  //Fire projectile after delay (timed to animation)
-  //                  StartCoroutine(FireWithDelay(slot.attack, aimDirection));
-  //              }
-  //              else
-  //              {
-  //                  StartCoroutine(FireWithDelay(null, aimDirection));
-  //              }
-  //          }
-  //          else
-  //          {
-  //              slot.nextFireTime = Time.time + 0.5f;
+			if (characterAnimator)
+			{
+				//Pass vertical axis into animator
+				characterAnimator.animator.SetFloat("vertical", aimDirection.y);
+				//Set trigger for magic animation
+				characterAnimator.animator.SetTrigger("magic");
+			}
+		}
+	}
 
-  //              StartCoroutine(FireWithDelay(null, aimDirection));
-  //          }
-
-  //          if (characterAnimator)
-  //          {
-  //              //Pass vertical axis into animator
-  //              characterAnimator.animator.SetFloat("vertical", aimDirection.y);
-  //              //Set trigger for magic animation
-  //              characterAnimator.animator.SetTrigger("magic");
-  //          }
-
-  //          //If attack runs out of mana, it is lost
-  //          if (slot.currentMana <= 0)
-  //          {
-  //              slot.attack = null;
-  //              UpdateMagic();
-  //          }
-  //      }
-
-		////If attack in slot 1 is used up and slot 2 still has an attack, switch
-		//if (!magicSlot1.attack && magicSlot2.attack)
-		//{
-		//	SwitchMagic();
-		//	magicSlot1.nextFireTime = magicSlot2.nextFireTime;
-		//}
-    }
-
-    IEnumerator FireWithDelay(MagicAttack attack, Vector2 direction)
+    void Fire(MagicAttack attack, Vector2 direction)
     {
-        yield return new WaitForSeconds(fireDelay);
-
         GameObject castEffect = failedCastEffect;
         bool casted = false;
 

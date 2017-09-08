@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Name: Icicle
   m_EditorClassIdentifier: 
   displayName: Icicle
-  icon: {fileID: 21300004, guid: 93165f1a047c4f44ea30feb94b3b0d52, type: 3}
   element: 2
   manaCost: 10
   manaAmount: 100
-  cooldownTime: 0.5
   castEffect: {fileID: 1958410816669968, guid: 8aaf62b7972b0da4caa968edd7e94ba5, type: 2}
   projectilePrefab: {fileID: 1151141745735722, guid: ed4973e2b26528c49971bca54e5cdb5b,
     type: 2}

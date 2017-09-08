@@ -1497,6 +1497,11 @@ MonoBehaviour:
   healthBar: {fileID: 114369849783897468}
   manaBar: {fileID: 114752168788870030}
   barLerpSpeed: 10
+  baseFireNotch: {fileID: 114577597412917780}
+  baseGrassNotch: {fileID: 114287537965384662}
+  baseIceNotch: {fileID: 114811782090962968}
+  baseWindNotch: {fileID: 114780041916280588}
+  baseNotchDisabledTint: {r: 0.20392159, g: 0.03529412, b: 0.20392159, a: 1}
   mixNotch: {fileID: 1271652764269710}
   mixNotchCount: 4
 --- !u!114 &114131284326500310

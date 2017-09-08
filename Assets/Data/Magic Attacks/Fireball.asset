@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   displayName: Fireball
-  icon: {fileID: 21300002, guid: 93165f1a047c4f44ea30feb94b3b0d52, type: 3}
   element: 1
   manaCost: 10
   manaAmount: 100
-  cooldownTime: 0.5
   castEffect: {fileID: 1222039313838572, guid: c211b6e44eeca3b4d8f0bd2bf097a1a3, type: 2}
   projectilePrefab: {fileID: 1151141745735722, guid: dbaa39ef4c4e37c44a8da4caac3b2861,
     type: 2}

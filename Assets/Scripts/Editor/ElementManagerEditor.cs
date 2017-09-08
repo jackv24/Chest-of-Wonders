@@ -11,50 +11,111 @@ public class ElementManagerEditor : Editor
 
     public override void OnInspectorGUI()
     {
+		serializedObject.Update();
+
         //Get selected SaveManager in inspector
         manager = (ElementManager)target;
 
-        EditorGUILayout.LabelField("Damage Matrix", EditorStyles.boldLabel);
+		//Element Attacks
+		{
+			EditorGUILayout.LabelField("Base Magic Attacks", EditorStyles.boldLabel);
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("fireAttack"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("grassAttack"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("iceAttack"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("windAttack"));
+			EditorGUILayout.Space();
 
-        EditorGUILayout.HelpBox("Matrix is Source vs. Target.\nAttack element is rows, defense element is columns", MessageType.Info);
+			EditorGUILayout.LabelField("Attack Mix Matrix", EditorStyles.boldLabel);
 
-        //Calculate rows and columns
-        float columns = System.Enum.GetNames(typeof(ElementManager.Element)).Length;
-        float rows = manager.damageArray.Length / columns;
+			//Calculate rows and columns
+			float columns = System.Enum.GetNames(typeof(ElementManager.Element)).Length;
+			float rows = manager.attackArray.Length / columns;
 
-        EditorGUILayout.BeginHorizontal();
-            //Draw blank space at start for indentation
-            EditorGUILayout.LabelField("", GUILayout.Width(50));
+			EditorGUILayout.BeginHorizontal();
+			//Draw blank space at start for indentation
+			EditorGUILayout.LabelField("", GUILayout.Width(50));
 
-            //Draw element labels across top
-            for (int i = 0; i < columns; i++)
-            {
-                EditorGUILayout.LabelField(System.Enum.GetName(typeof(ElementManager.Element), i), GUILayout.MinWidth(0));
-            }
-        EditorGUILayout.EndHorizontal();
+			//Draw element labels across top
+			for (int i = 0; i < columns; i++)
+			{
+				EditorGUILayout.LabelField(System.Enum.GetName(typeof(ElementManager.Element), i), GUILayout.MinWidth(0));
+			}
+			EditorGUILayout.EndHorizontal();
 
-        //Draw grid of float fields
-        for (int j = 0; j < columns; j++)
-        {
-            EditorGUILayout.BeginHorizontal();
+			//Draw grid of float fields
+			for (int j = 0; j < columns; j++)
+			{
+				EditorGUILayout.BeginHorizontal();
 
-            //Draw element labels across side
-            EditorGUILayout.LabelField(System.Enum.GetName(typeof(ElementManager.Element), j), GUILayout.Width(50));
+				//Draw element labels across side
+				EditorGUILayout.LabelField(System.Enum.GetName(typeof(ElementManager.Element), j), GUILayout.Width(50));
 
-            for(int i = 0; i < rows; i++)
-            {
-                EditorGUILayout.BeginVertical();
+				for (int i = 0; i < rows; i++)
+				{
+					EditorGUILayout.BeginVertical();
 
-                manager.SetDamageValue(i, j, EditorGUILayout.FloatField(manager.GetDamageValue(i, j)));
+					manager.SetAttack(i, j, (MagicAttack)EditorGUILayout.ObjectField(manager.GetAttack(i, j, true), typeof(MagicAttack), false));
 
-                EditorGUILayout.EndVertical();
-            }
+					EditorGUILayout.EndVertical();
+				}
 
-            EditorGUILayout.EndHorizontal();
-        }
+				EditorGUILayout.EndHorizontal();
+			}
+		}
 
-        //Make sure values are saved
-        if(GUI.changed)
+		EditorGUILayout.Space();
+		EditorGUILayout.Space();
+
+		// Damage Values
+		{
+			EditorGUILayout.LabelField("Damage Multipliers", EditorStyles.boldLabel);
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("normalMultiplier"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("ineffectiveMultiplier"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("effectiveMultiplier"));
+			EditorGUILayout.Space();
+
+			EditorGUILayout.LabelField("Damage Matrix", EditorStyles.boldLabel);
+
+			EditorGUILayout.HelpBox("Matrix is Source vs. Target.\nAttack element is rows, defense element is columns", MessageType.Info);
+
+			//Calculate rows and columns
+			float columns = System.Enum.GetNames(typeof(ElementManager.Element)).Length;
+			float rows = manager.damageArray.Length / columns;
+
+			EditorGUILayout.BeginHorizontal();
+			//Draw blank space at start for indentation
+			EditorGUILayout.LabelField("", GUILayout.Width(50));
+
+			//Draw element labels across top
+			for (int i = 0; i < columns; i++)
+			{
+				EditorGUILayout.LabelField(System.Enum.GetName(typeof(ElementManager.Element), i), GUILayout.MinWidth(0));
+			}
+			EditorGUILayout.EndHorizontal();
+
+			//Draw grid of float fields
+			for (int j = 0; j < columns; j++)
+			{
+				EditorGUILayout.BeginHorizontal();
+
+				//Draw element labels across side
+				EditorGUILayout.LabelField(System.Enum.GetName(typeof(ElementManager.Element), j), GUILayout.Width(50));
+
+				for (int i = 0; i < rows; i++)
+				{
+					EditorGUILayout.BeginVertical();
+
+					manager.SetEffectiveness(i, j, (ElementManager.Effectiveness)EditorGUILayout.EnumPopup(manager.GetEffectiveness(i, j)));
+
+					EditorGUILayout.EndVertical();
+				}
+
+				EditorGUILayout.EndHorizontal();
+			}
+		}
+
+		//Make sure values are saved
+		if(GUI.changed)
         {
             GameObject obj = ((ElementManager)target).gameObject;
 
@@ -64,5 +125,7 @@ public class ElementManagerEditor : Editor
 
             EditorSceneManager.MarkSceneDirty(obj.scene);
         }
+
+		serializedObject.ApplyModifiedProperties();
     }
 }

@@ -243,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 9.65, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -833,20 +833,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAttack: 1
-  magicSlot1:
-    attack: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
-    currentMana: 100
-    nextFireTime: 0
-  magicSlot2:
-    attack: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
-    currentMana: 100
-    nextFireTime: 0
+  baseMagicSelected: 0
+  baseFireObtained: 1
+  baseGrassObtained: 0
+  baseIceObtained: 0
+  baseWindObtained: 0
+  mixMagicSelected: 0
   upFirePoint: {fileID: 4989383454461484}
   upForwardFirePoint: {fileID: 4094561294958548}
   forwardFirePoint: {fileID: 4265973003488688}
   downForwardFirePoint: {fileID: 4894850495181718}
   downFirePoint: {fileID: 4807472343386172}
-  fireDelay: 0.1
+  fireDelay: 0.25
   failedCastEffect: {fileID: 1489579511910158, guid: 8128f907757e7fc4492ec77e06026530,
     type: 2}
   failedCastSound:
@@ -964,6 +962,7 @@ MonoBehaviour:
   minHealthDrops: 0
   maxHealthDrops: 2
   healthDropForce: 10
+  hasDied: 0
   damageImmunity: 0
 --- !u!114 &114872607700838032
 MonoBehaviour:
