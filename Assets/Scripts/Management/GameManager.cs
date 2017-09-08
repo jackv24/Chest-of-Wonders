@@ -278,15 +278,7 @@ public class GameManager : MonoBehaviour
 
                 if(attack)
                 {
-                    attack.magicSlot1.attack = data.attack1;
-
-                    if(attack.magicSlot1.attack)
-                        attack.magicSlot1.currentMana = data.mana1 >= 0 ? data.mana1 : data.attack1.manaAmount;
-
-                    attack.magicSlot2.attack = data.attack2;
-
-                    if (attack.magicSlot2.attack)
-                        attack.magicSlot2.currentMana = data.mana2 >= 0 ? data.mana2 : data.attack2.manaAmount;
+					Debug.LogWarning("Attack loading not implemented");
                 }
 
                 if(inventory)

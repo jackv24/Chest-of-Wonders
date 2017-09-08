@@ -16,7 +16,6 @@ public class PlayerActions : PlayerActionSet
     public PlayerAction MeleeAttack;
 
     public PlayerAction MagicAttack;
-    public PlayerAction MagicSwitch;
     public PlayerAction MagicAimDiagonal;
 
     public PlayerAction AbsorbMagic;
@@ -40,7 +39,6 @@ public class PlayerActions : PlayerActionSet
         MeleeAttack = CreatePlayerAction("Melee Attack");
 
         MagicAttack = CreatePlayerAction("Magic Attack");
-        MagicSwitch = CreatePlayerAction("Magic Switch");
         MagicAimDiagonal = CreatePlayerAction("Magic Aim Diagonal");
 
         AbsorbMagic = CreatePlayerAction("Absorb Magic");
@@ -78,9 +76,6 @@ public class PlayerActions : PlayerActionSet
 
         MagicAttack.AddDefaultBinding(Key.X);
         MagicAttack.AddDefaultBinding(InputControlType.Action2);
-
-        MagicSwitch.AddDefaultBinding(Key.S);
-        MagicSwitch.AddDefaultBinding(InputControlType.RightBumper);
 
         AbsorbMagic.AddDefaultBinding(Key.A);
         AbsorbMagic.AddDefaultBinding(InputControlType.LeftTrigger);

@@ -12,7 +12,6 @@ public class MagicAttack : ScriptableObject
     public ElementManager.Element element;
     public int manaCost = 10;
     public int manaAmount = 100;
-    public float cooldownTime = 1f;
 
     [Space()]
     public GameObject castEffect;

@@ -9,17 +9,8 @@ public class PlayerAttack : MonoBehaviour
 
     public bool canAttack = true;
 
-    [System.Serializable]
-    public class MagicSlot
-    {
-        public MagicAttack attack;
-        public int currentMana;
-        public float nextFireTime;
-    }
-
     [Header("Magic")]
-    public MagicSlot magicSlot1;
-    public MagicSlot magicSlot2;
+    //Magic slots
 
     [Space()]
     public Transform upFirePoint;
@@ -92,19 +83,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-        //If there is an attack in the second slot, but not the first slot
-        if (!magicSlot1.attack && magicSlot2.attack)
-        {
-            //Move second magic attack to first slot
-            magicSlot1.attack = magicSlot2.attack;
-            magicSlot2.attack = null;
+		//Update magic UI to start
+		if (OnUpdateMagic != null)
+			OnUpdateMagic();
 
-            if (OnUpdateMagic != null)
-                OnUpdateMagic();
-        }
-
-        //Create event handler to update the players facing direction
-        if (characterMove)
+		//Create event handler to update the players facing direction
+		if (characterMove)
         {
             characterMove.OnChangedDirection += delegate (float newDir) { directionX = newDir; };
 
@@ -294,15 +278,6 @@ public class PlayerAttack : MonoBehaviour
         aimDirection = direction;
     }
 
-    public void SwitchMagic()
-    {
-        MagicSlot temp = magicSlot1;
-        magicSlot1 = magicSlot2;
-        magicSlot2 = temp;
-
-        UpdateMagic();
-    }
-
     public void UpdateMagic()
     {
         if (OnUpdateMagic != null)
@@ -312,61 +287,63 @@ public class PlayerAttack : MonoBehaviour
     //Function to use magic, wrapped by other magic use functions
     public void UseMagic()
     {
-        if (!canAttack)
-            return;
+		Debug.LogWarning("Use magic not implemented!");
 
-        MagicSlot slot = magicSlot1;
+  //      if (!canAttack)
+  //          return;
 
-        //If magic slot was chosen correctly, and there is an attack in the slot
-        if (Time.time >= slot.nextFireTime)
-        {
-            if (slot != null && slot.attack)
-            {
-                slot.nextFireTime = Time.time + slot.attack.cooldownTime;
+  //      MagicSlot slot = magicSlot1;
 
-                //If there is enough mana to use this attack
-                if (slot.currentMana >= slot.attack.manaCost)
-                {
-                    //Subtract required mana
-                    slot.currentMana -= slot.attack.manaCost;
+  //      //If magic slot was chosen correctly, and there is an attack in the slot
+  //      if (Time.time >= slot.nextFireTime)
+  //      {
+  //          if (slot != null && slot.attack)
+  //          {
+  //              slot.nextFireTime = Time.time + slot.attack.cooldownTime;
 
-                    //Fire projectile after delay (timed to animation)
-                    StartCoroutine(FireWithDelay(slot.attack, aimDirection));
-                }
-                else
-                {
-                    StartCoroutine(FireWithDelay(null, aimDirection));
-                }
-            }
-            else
-            {
-                slot.nextFireTime = Time.time + 0.5f;
+  //              //If there is enough mana to use this attack
+  //              if (slot.currentMana >= slot.attack.manaCost)
+  //              {
+  //                  //Subtract required mana
+  //                  slot.currentMana -= slot.attack.manaCost;
 
-                StartCoroutine(FireWithDelay(null, aimDirection));
-            }
+  //                  //Fire projectile after delay (timed to animation)
+  //                  StartCoroutine(FireWithDelay(slot.attack, aimDirection));
+  //              }
+  //              else
+  //              {
+  //                  StartCoroutine(FireWithDelay(null, aimDirection));
+  //              }
+  //          }
+  //          else
+  //          {
+  //              slot.nextFireTime = Time.time + 0.5f;
 
-            if (characterAnimator)
-            {
-                //Pass vertical axis into animator
-                characterAnimator.animator.SetFloat("vertical", aimDirection.y);
-                //Set trigger for magic animation
-                characterAnimator.animator.SetTrigger("magic");
-            }
+  //              StartCoroutine(FireWithDelay(null, aimDirection));
+  //          }
 
-            //If attack runs out of mana, it is lost
-            if (slot.currentMana <= 0)
-            {
-                slot.attack = null;
-                UpdateMagic();
-            }
-        }
+  //          if (characterAnimator)
+  //          {
+  //              //Pass vertical axis into animator
+  //              characterAnimator.animator.SetFloat("vertical", aimDirection.y);
+  //              //Set trigger for magic animation
+  //              characterAnimator.animator.SetTrigger("magic");
+  //          }
 
-		//If attack in slot 1 is used up and slot 2 still has an attack, switch
-		if (!magicSlot1.attack && magicSlot2.attack)
-		{
-			SwitchMagic();
-			magicSlot1.nextFireTime = magicSlot2.nextFireTime;
-		}
+  //          //If attack runs out of mana, it is lost
+  //          if (slot.currentMana <= 0)
+  //          {
+  //              slot.attack = null;
+  //              UpdateMagic();
+  //          }
+  //      }
+
+		////If attack in slot 1 is used up and slot 2 still has an attack, switch
+		//if (!magicSlot1.attack && magicSlot2.attack)
+		//{
+		//	SwitchMagic();
+		//	magicSlot1.nextFireTime = magicSlot2.nextFireTime;
+		//}
     }
 
     IEnumerator FireWithDelay(MagicAttack attack, Vector2 direction)
@@ -450,10 +427,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void ResetMana()
     {
-        if(magicSlot1 != null)
-            magicSlot1.currentMana = magicSlot1.attack.manaAmount;
-        if(magicSlot2 != null)
-            magicSlot2.currentMana = magicSlot2.attack.manaAmount;
+		Debug.LogWarning("Reset mana not implemented!");
     }
 
     IEnumerator BatFlash(float delay)

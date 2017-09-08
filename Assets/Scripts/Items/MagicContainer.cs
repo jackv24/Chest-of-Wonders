@@ -129,13 +129,7 @@ public class MagicContainer : MonoBehaviour
     {
         if (playerAttack)
         {
-            //If slot 2 is empty move current attack into that slot to fit the new one
-            if (playerAttack.magicSlot2.attack == null)
-                playerAttack.SwitchMagic();
-
-            //Overwrite attack in slot 1
-            playerAttack.magicSlot1.attack = attack;
-            playerAttack.magicSlot1.currentMana = attack.manaAmount;
+            //ABSORB MAGIC
 
             //Make sure UI is updated
             playerAttack.UpdateMagic();

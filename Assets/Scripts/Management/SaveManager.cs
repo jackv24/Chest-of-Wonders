@@ -65,11 +65,7 @@ public class SaveManager : MonoBehaviour
 
             if(attack)
             {
-                data.attack1 = attack.magicSlot1.attack;
-                data.mana1 = attack.magicSlot1.currentMana;
-
-                data.attack2 = attack.magicSlot2.attack;
-                data.mana2 = attack.magicSlot2.currentMana;
+				Debug.LogWarning("Attack saving not implemented");
             }
 
             if(inventory)
