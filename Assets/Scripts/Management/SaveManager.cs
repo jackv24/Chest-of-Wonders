@@ -65,8 +65,15 @@ public class SaveManager : MonoBehaviour
 
             if(attack)
             {
-				Debug.LogWarning("Attack saving not implemented");
-            }
+				data.baseMagicSelected = attack.baseMagicSelected;
+
+				data.baseFireObtained = attack.baseFireObtained;
+				data.baseGrassObtained = attack.baseGrassObtained;
+				data.baseIceObtained = attack.baseIceObtained;
+				data.baseWindObtained = attack.baseWindObtained;
+
+				data.mixMagics = attack.mixMagics;
+			}
 
             if(inventory)
             {

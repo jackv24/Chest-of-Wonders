@@ -28,8 +28,19 @@ public class SaveData
 
     public List<InventoryItem> inventory;
 
+	public ElementManager.Element baseMagicSelected;
+
+	public bool baseFireObtained = false;
+	public bool baseGrassObtained = false;
+	public bool baseIceObtained = false;
+	public bool baseWindObtained = false;
+
+	public int maxMana = 100;
+
+	public List<PlayerAttack.MixMagic> mixMagics;
+
 	//Lists of unique IDs for keeping objects disabled
-    public List<int> pickedUpItems;
+	public List<int> pickedUpItems;
 	public List<int> openedDoors;
 	public List<int> pulledSwitches;
 

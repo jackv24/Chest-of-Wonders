@@ -278,8 +278,15 @@ public class GameManager : MonoBehaviour
 
                 if(attack)
                 {
-					Debug.LogWarning("Attack loading not implemented");
-                }
+					attack.baseMagicSelected = data.baseMagicSelected;
+
+					attack.baseFireObtained = data.baseFireObtained;
+					attack.baseGrassObtained = data.baseGrassObtained;
+					attack.baseIceObtained = data.baseIceObtained;
+					attack.baseWindObtained = data.baseWindObtained;
+
+					attack.mixMagics = data.mixMagics;
+				}
 
                 if(inventory)
                 {

@@ -67,9 +67,7 @@ public class ElementManager : MonoBehaviour
 					break;
 			}
 
-			if ((Element)y == Element.None)
-				Debug.LogWarning("Can not get attack for element NONE");
-			else if ((Element)x != Element.None)
+			if ((Element)y != Element.None && (Element)x != Element.None)
 				Debug.LogWarning(string.Format("No mix found for {0} and {1}, defaulting to {2}", (Element)y, (Element)x, (Element)y));
 		}
 

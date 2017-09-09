@@ -42,6 +42,8 @@ public class ElementManagerEditor : Editor
 			}
 			EditorGUILayout.EndHorizontal();
 
+			bool attackWrong = false;
+
 			//Draw grid of float fields
 			for (int j = 0; j < columns; j++)
 			{
@@ -60,8 +62,11 @@ public class ElementManagerEditor : Editor
 					if (i == 0 || j == 0)
 					{
 						//None element should be greyed out since they aren't needed, and red if full
-						if(attack)
+						if (attack)
+						{
 							GUI.backgroundColor = Color.red;
+							attackWrong = true;
+						}
 						else
 							GUI.backgroundColor = Color.grey;
 					}
@@ -84,6 +89,9 @@ public class ElementManagerEditor : Editor
 
 			//Reset background color for further elements
 			GUI.backgroundColor = Color.white;
+
+			if (attackWrong)
+				EditorGUILayout.HelpBox("Attack is assigned to a \"None\" column or row, please remove!", MessageType.Error);
 		}
 
 		EditorGUILayout.Space();
@@ -116,6 +124,8 @@ public class ElementManagerEditor : Editor
 			}
 			EditorGUILayout.EndHorizontal();
 
+			bool damageWrong = false;
+
 			//Draw grid of float fields
 			for (int j = 0; j < columns; j++)
 			{
@@ -133,9 +143,12 @@ public class ElementManagerEditor : Editor
 					if (i == 0 || j == 0)
 					{
 						if (effectiveness == ElementManager.Effectiveness.Normal)
-							GUI.color = Color.gray;
+							GUI.backgroundColor = Color.gray;
 						else
-							GUI.color = Color.red;
+						{
+							GUI.backgroundColor = Color.red;
+							damageWrong = true;
+						}
 					}
 					else
 					{
@@ -143,13 +156,13 @@ public class ElementManagerEditor : Editor
 						switch (effectiveness)
 						{
 							case ElementManager.Effectiveness.Normal:
-								GUI.color = Color.white;
+								GUI.backgroundColor = Color.white;
 								break;
 							case ElementManager.Effectiveness.Effective:
-								GUI.color = Color.green;
+								GUI.backgroundColor = Color.green;
 								break;
 							case ElementManager.Effectiveness.Ineffective:
-								GUI.color = Color.yellow;
+								GUI.backgroundColor = Color.yellow;
 								break;
 						}
 					}
@@ -159,11 +172,14 @@ public class ElementManagerEditor : Editor
 					EditorGUILayout.EndVertical();
 				}
 
-				//Reset background color for further elements
-				GUI.backgroundColor = Color.white;
-
 				EditorGUILayout.EndHorizontal();
 			}
+
+			//Reset background color for further elements
+			GUI.backgroundColor = Color.white;
+
+			if (damageWrong)
+				EditorGUILayout.HelpBox("Damage changed on \"None\" column or row, please set to Normal!", MessageType.Error);
 		}
 
 		//Make sure values are saved
