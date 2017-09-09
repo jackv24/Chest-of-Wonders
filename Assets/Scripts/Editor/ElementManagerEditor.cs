@@ -54,13 +54,36 @@ public class ElementManagerEditor : Editor
 				{
 					EditorGUILayout.BeginVertical();
 
-					manager.SetAttack(i, j, (MagicAttack)EditorGUILayout.ObjectField(manager.GetAttack(i, j, true), typeof(MagicAttack), false));
+					MagicAttack attack = manager.GetAttack(i, j, true);
+
+					//Set slot colours
+					if (i == 0 || j == 0)
+					{
+						//None element should be greyed out since they aren't needed, and red if full
+						if(attack)
+							GUI.backgroundColor = Color.red;
+						else
+							GUI.backgroundColor = Color.grey;
+					}
+					else
+					{
+						//All other slots should be yellow if empty since they should be filled, and green if filled
+						if(attack)
+							GUI.backgroundColor = Color.green;
+						else
+							GUI.backgroundColor = Color.yellow;
+					}
+
+					manager.SetAttack(i, j, (MagicAttack)EditorGUILayout.ObjectField(attack, typeof(MagicAttack), false));
 
 					EditorGUILayout.EndVertical();
 				}
 
 				EditorGUILayout.EndHorizontal();
 			}
+
+			//Reset background color for further elements
+			GUI.backgroundColor = Color.white;
 		}
 
 		EditorGUILayout.Space();
@@ -105,10 +128,39 @@ public class ElementManagerEditor : Editor
 				{
 					EditorGUILayout.BeginVertical();
 
-					manager.SetEffectiveness(i, j, (ElementManager.Effectiveness)EditorGUILayout.EnumPopup(manager.GetEffectiveness(i, j)));
+					ElementManager.Effectiveness effectiveness = manager.GetEffectiveness(i, j);
+
+					if (i == 0 || j == 0)
+					{
+						if (effectiveness == ElementManager.Effectiveness.Normal)
+							GUI.color = Color.gray;
+						else
+							GUI.color = Color.red;
+					}
+					else
+					{
+						//Set colour for effectiveness
+						switch (effectiveness)
+						{
+							case ElementManager.Effectiveness.Normal:
+								GUI.color = Color.white;
+								break;
+							case ElementManager.Effectiveness.Effective:
+								GUI.color = Color.green;
+								break;
+							case ElementManager.Effectiveness.Ineffective:
+								GUI.color = Color.yellow;
+								break;
+						}
+					}
+
+					manager.SetEffectiveness(i, j, (ElementManager.Effectiveness)EditorGUILayout.EnumPopup(effectiveness));
 
 					EditorGUILayout.EndVertical();
 				}
+
+				//Reset background color for further elements
+				GUI.backgroundColor = Color.white;
 
 				EditorGUILayout.EndHorizontal();
 			}
