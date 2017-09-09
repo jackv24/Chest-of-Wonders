@@ -72,6 +72,11 @@ public class SceneLoaderEditor : EditorWindow
 		GUI.backgroundColor = Color.cyan;
 		if (GUILayout.Button("Open Game Scene", GUILayout.Height(30)))
 		{
+			Scene scene = EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(1), OpenSceneMode.Single);
+		}
+		GUI.backgroundColor = Color.green;
+		if (GUILayout.Button("Add Game Scene", GUILayout.Height(30)))
+		{
 			Scene scene = EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(1), OpenSceneMode.Additive);
 			Scene beforeScene = EditorSceneManager.GetActiveScene();
 			EditorSceneManager.SetActiveScene(scene);
@@ -139,7 +144,7 @@ public class SceneLoaderEditor : EditorWindow
 			GUI.backgroundColor = scene.buttonColor;
 
 			//Buttons to load this scene
-			if(GUILayout.Button(scene.sceneName, GUILayout.Height(30), GUILayout.Width(position.width / 2 - 10)))
+			if(GUILayout.Button(scene.sceneName, GUILayout.Height(30), GUILayout.Width(position.width / 2 - 6)))
 			{
 				//Only load scene if user confirms edited scene
 				if(EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
