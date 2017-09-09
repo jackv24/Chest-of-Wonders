@@ -403,6 +403,35 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+	public void SwitchBaseMagic()
+	{
+		int maxEnumInt = System.Enum.GetNames(typeof(ElementManager.Element)).Length - 1;
+
+		//Get current magic as int and increment to next element
+		int selectedMagic = (int)baseMagicSelected;
+		selectedMagic++;
+
+		//If magic is not obtained, move to next element
+		if (selectedMagic == (int)ElementManager.Element.Fire && !baseFireObtained)
+			selectedMagic++;
+		if (selectedMagic == (int)ElementManager.Element.Grass && !baseGrassObtained)
+			selectedMagic++;
+		if (selectedMagic == (int)ElementManager.Element.Ice && !baseIceObtained)
+			selectedMagic++;
+		if (selectedMagic == (int)ElementManager.Element.Wind && !baseWindObtained)
+			selectedMagic++;
+
+		//Wrap back around to start
+		if (selectedMagic > maxEnumInt)
+			selectedMagic = 0;
+
+		//Cast int back to element enum
+		baseMagicSelected = (ElementManager.Element)selectedMagic;
+
+		//Update magic UI to reflect changes
+		UpdateMagic();
+	}
+
     public void ResetMana()
     {
 		Debug.LogWarning("Reset mana not implemented!");

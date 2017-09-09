@@ -19,7 +19,15 @@ public class HUDControl : MonoBehaviour
 	public Image baseIceNotch;
 	public Image baseWindNotch;
 	[Space()]
-	public Color baseNotchDisabledTint = Color.gray;
+	public Color baseNotchDisabledTint = Color.black;
+	public Color baseNotchDeselectedTint = Color.gray;
+	[Space()]
+	public Image currentBaseMagic;
+	[Space()]
+	public Sprite baseFireGraphic;
+	public Sprite baseGrassGraphic;
+	public Sprite baseIceGraphic;
+	public Sprite baseWindGraphic;
 
 	[Header("Mix Magic")]
 	public GameObject mixNotch;
@@ -80,13 +88,37 @@ public class HUDControl : MonoBehaviour
 		{
 			//Tint base magic notches to reflect obtained state
 			if (baseFireNotch)
-				baseFireNotch.color = playerAttack.baseFireObtained ? Color.white : baseNotchDisabledTint;
+				baseFireNotch.color = playerAttack.baseFireObtained ? baseNotchDeselectedTint : baseNotchDisabledTint;
 			if (baseGrassNotch)
-				baseGrassNotch.color = playerAttack.baseGrassObtained ? Color.white : baseNotchDisabledTint;
+				baseGrassNotch.color = playerAttack.baseGrassObtained ? baseNotchDeselectedTint : baseNotchDisabledTint;
 			if (baseIceNotch)
-				baseIceNotch.color = playerAttack.baseIceObtained ? Color.white : baseNotchDisabledTint;
+				baseIceNotch.color = playerAttack.baseIceObtained ? baseNotchDeselectedTint : baseNotchDisabledTint;
 			if (baseWindNotch)
-				baseWindNotch.color = playerAttack.baseWindObtained ? Color.white : baseNotchDisabledTint;
+				baseWindNotch.color = playerAttack.baseWindObtained ? baseNotchDeselectedTint : baseNotchDisabledTint;
+
+			//Show selected base magic
+			if(currentBaseMagic)
+			{
+				switch(playerAttack.baseMagicSelected)
+				{
+					case ElementManager.Element.Fire:
+						currentBaseMagic.sprite = baseFireGraphic;
+						baseFireNotch.color = Color.white;
+						break;
+					case ElementManager.Element.Grass:
+						currentBaseMagic.sprite = baseGrassGraphic;
+						baseGrassNotch.color = Color.white;
+						break;
+					case ElementManager.Element.Ice:
+						currentBaseMagic.sprite = baseIceGraphic;
+						baseIceNotch.color = Color.white;
+						break;
+					case ElementManager.Element.Wind:
+						currentBaseMagic.sprite = baseWindGraphic;
+						baseWindNotch.color = Color.white;
+						break;
+				}
+			}
 
 			UpdateMixNotches();
 		}
@@ -94,6 +126,7 @@ public class HUDControl : MonoBehaviour
 
 	void UpdateMixNotches()
 	{
+		///Make notch UI match amount of required notches
 		if (mixNotch)
 		{
 			//Enable template notch for instantiation
@@ -111,12 +144,16 @@ public class HUDControl : MonoBehaviour
 			//Disable template notch
 			mixNotch.SetActive(false);
 
-			//Disable unneeded notches
-			//for (int i = mixNotches.Count - 1; i >= notchesNeeded; i--)
-			//{
-			//	Destroy(mixNotches[i]);
-			//	mixNotches.RemoveAt(i);
-			//}
+			//Remove unneeded notches (should never happen in normal gameplay, but good to have anyway)
+			int notchesUnneeded = -notchesNeeded;
+			int currentCount = mixNotches.Count;
+			for(int i = 1; i <= notchesUnneeded; i++)
+			{
+				int index = currentCount - i;
+
+				Destroy(mixNotches[index]);
+				mixNotches.RemoveAt(index);
+			}
 		}
 	}
 }

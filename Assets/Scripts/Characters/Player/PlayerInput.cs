@@ -72,12 +72,14 @@ public class PlayerInput : MonoBehaviour
         //Can only attack while game is running
         if (playerAttack && GameManager.instance.CanDoActions)
         {
-            if (playerActions.MeleeAttack.WasPressed)
-                playerAttack.UseMelee(true, inputDirection.y);
-            else if (playerActions.MeleeAttack.WasReleased)
-                playerAttack.UseMelee(false, inputDirection.y);
-            else if (playerActions.MagicAttack.IsPressed)
-                playerAttack.UseMagic();
+			if (playerActions.MeleeAttack.WasPressed)
+				playerAttack.UseMelee(true, inputDirection.y);
+			else if (playerActions.MeleeAttack.WasReleased)
+				playerAttack.UseMelee(false, inputDirection.y);
+			else if (playerActions.MagicAttack.IsPressed)
+				playerAttack.UseMagic();
+			else if (playerActions.SwitchMagicBase.WasPressed)
+				playerAttack.SwitchBaseMagic();
 
             playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicAimDiagonal.IsPressed);
 

@@ -115,7 +115,7 @@ public class ElementManagerEditor : Editor
 		}
 
 		//Make sure values are saved
-		if(GUI.changed)
+		if(!Application.isPlaying && GUI.changed)
         {
             GameObject obj = ((ElementManager)target).gameObject;
 
