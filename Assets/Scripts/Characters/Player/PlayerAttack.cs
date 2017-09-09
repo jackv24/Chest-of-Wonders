@@ -16,8 +16,17 @@ public class PlayerAttack : MonoBehaviour
 	public bool baseGrassObtained;
 	public bool baseIceObtained;
 	public bool baseWindObtained;
+
+	[System.Serializable]
+	public class MixMagic
+	{
+		public ElementManager.Element element;
+		public int currentMana = 100;
+	}
+
 	[Space()]
-	public ElementManager.Element mixMagicSelected; // TODO: Replace with soul absorbtion
+	public int maxMana = 100;
+	public List<MixMagic> mixMagics = new List<MixMagic>();
 
 	[Space()]
     public Transform upFirePoint;
@@ -94,6 +103,10 @@ public class PlayerAttack : MonoBehaviour
 		//Update magic UI to start
 		if (OnUpdateMagic != null)
 			OnUpdateMagic();
+
+		//Should not have base magic selected unless there is no other magic unlocked
+		if (baseMagicSelected == ElementManager.Element.None)
+			SwitchBaseMagic();
 
 		//Create event handler to update the players facing direction
 		if (characterMove)
@@ -301,7 +314,44 @@ public class PlayerAttack : MonoBehaviour
 		//If magic slot was chosen correctly, and there is an attack in the slot
 		if (Time.time >= nextFireTime)
 		{
-			MagicAttack attack = ElementManager.GetAttack(baseMagicSelected, mixMagicSelected);
+			MagicAttack attack = null;
+
+			//Only try and mix magic if there is magic to mix
+			if (mixMagics.Count > 0)
+			{
+				//If this magic has enough mana then mix, otherwise default (should only be empty if there are no mix magics left)
+				if (mixMagics[0].currentMana > 0)
+				{
+					//Get mix magic
+					attack = ElementManager.GetAttack(baseMagicSelected, mixMagics[0].element);
+
+					if (attack)
+					{
+						//Remove mana cost
+						mixMagics[0].currentMana -= attack.manaCost;
+
+						//If out of mana, clear slot and cycle to next
+						if (mixMagics[0].currentMana <= 0)
+						{
+							mixMagics[0].currentMana = 0;
+							mixMagics[0].element = ElementManager.Element.None;
+
+							SwitchMixMagic();
+						}
+					}
+				}
+				else
+				{
+					mixMagics[0].currentMana = 0;
+					mixMagics[0].element = ElementManager.Element.None;
+
+					SwitchMixMagic();
+
+					attack = ElementManager.GetAttack(baseMagicSelected, ElementManager.Element.None);
+				}
+			}
+			else
+				attack = ElementManager.GetAttack(baseMagicSelected, ElementManager.Element.None);
 
 			if (attack)
 			{
@@ -405,28 +455,62 @@ public class PlayerAttack : MonoBehaviour
 
 	public void SwitchBaseMagic()
 	{
-		int maxEnumInt = System.Enum.GetNames(typeof(ElementManager.Element)).Length - 1;
+		//Can only switch magic if they are unlocked
+		if (baseFireObtained || baseGrassObtained || baseIceObtained || baseWindObtained)
+		{
+			int maxEnumInt = System.Enum.GetNames(typeof(ElementManager.Element)).Length - 1;
 
-		//Get current magic as int and increment to next element
-		int selectedMagic = (int)baseMagicSelected;
-		selectedMagic++;
-
-		//If magic is not obtained, move to next element
-		if (selectedMagic == (int)ElementManager.Element.Fire && !baseFireObtained)
-			selectedMagic++;
-		if (selectedMagic == (int)ElementManager.Element.Grass && !baseGrassObtained)
-			selectedMagic++;
-		if (selectedMagic == (int)ElementManager.Element.Ice && !baseIceObtained)
-			selectedMagic++;
-		if (selectedMagic == (int)ElementManager.Element.Wind && !baseWindObtained)
+			//Get current magic as int and increment to next element
+			int selectedMagic = (int)baseMagicSelected;
 			selectedMagic++;
 
-		//Wrap back around to start
-		if (selectedMagic > maxEnumInt)
-			selectedMagic = 0;
+			//If magic is not obtained, move to next element
+			if (selectedMagic == (int)ElementManager.Element.Fire && !baseFireObtained)
+				selectedMagic++;
+			if (selectedMagic == (int)ElementManager.Element.Grass && !baseGrassObtained)
+				selectedMagic++;
+			if (selectedMagic == (int)ElementManager.Element.Ice && !baseIceObtained)
+				selectedMagic++;
+			if (selectedMagic == (int)ElementManager.Element.Wind && !baseWindObtained)
+				selectedMagic++;
 
-		//Cast int back to element enum
-		baseMagicSelected = (ElementManager.Element)selectedMagic;
+			//Wrap back around to start
+			if (selectedMagic > maxEnumInt)
+				selectedMagic = 1; //1 is start since 0 is no element
+
+			//Cast int back to element enum
+			baseMagicSelected = (ElementManager.Element)selectedMagic;
+		}
+		else
+			baseMagicSelected = ElementManager.Element.None;
+
+		//Update magic UI to reflect changes
+		UpdateMagic();
+	}
+
+	public void SwitchMixMagic()
+	{
+		if(mixMagics.Count > 1)
+		{
+			//Move first element to last in list
+			MixMagic element = mixMagics[0];
+			mixMagics.RemoveAt(0);
+			mixMagics.Add(element);
+		}
+
+		///Move empty notches to back of list
+		//Remove empty notches from list
+		List<MixMagic> emptyNotches = new List<MixMagic>();
+		for(int i = mixMagics.Count - 1; i >= 0; i--)
+		{
+			if(mixMagics[i].element == ElementManager.Element.None)
+			{
+				emptyNotches.Add(mixMagics[i]);
+				mixMagics.RemoveAt(i);
+			}
+		}
+		//Add empty notches back to end of list
+		mixMagics.AddRange(emptyNotches);
 
 		//Update magic UI to reflect changes
 		UpdateMagic();

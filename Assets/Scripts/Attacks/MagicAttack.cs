@@ -10,7 +10,6 @@ public class MagicAttack : ScriptableObject
     [Space()]
     public ElementManager.Element element;
     public int manaCost = 10;
-    public int manaAmount = 100;
 
     [Space()]
     public GameObject castEffect;

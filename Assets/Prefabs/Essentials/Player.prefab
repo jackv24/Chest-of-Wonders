@@ -838,7 +838,16 @@ MonoBehaviour:
   baseGrassObtained: 0
   baseIceObtained: 1
   baseWindObtained: 0
-  mixMagicSelected: 0
+  maxMana: 100
+  mixMagics:
+  - element: 1
+    currentMana: 100
+  - element: 2
+    currentMana: 100
+  - element: 3
+    currentMana: 100
+  - element: 4
+    currentMana: 100
   upFirePoint: {fileID: 4989383454461484}
   upForwardFirePoint: {fileID: 4094561294958548}
   forwardFirePoint: {fileID: 4265973003488688}

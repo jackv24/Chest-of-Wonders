@@ -1509,7 +1509,16 @@ MonoBehaviour:
   baseIceGraphic: {fileID: 21300014, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   baseWindGraphic: {fileID: 0}
   mixNotch: {fileID: 1271652764269710}
-  mixNotchCount: 4
+  mixEmptyNotch: {fileID: 21300028, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
+  mixFireNotch: {fileID: 21300030, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
+  mixGrassNotch: {fileID: 21300032, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
+  mixIceNotch: {fileID: 21300034, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
+  mixWindNotch: {fileID: 21300036, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
+  currentMixMagic: {fileID: 114905798982869194}
+  mixFireGraphic: {fileID: 21300012, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
+  mixGrassGraphic: {fileID: 0}
+  mixIceGraphic: {fileID: 21300016, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
+  mixWindGraphic: {fileID: 0}
 --- !u!114 &114131284326500310
 MonoBehaviour:
   m_ObjectHideFlags: 1

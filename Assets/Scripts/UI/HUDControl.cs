@@ -31,10 +31,22 @@ public class HUDControl : MonoBehaviour
 
 	[Header("Mix Magic")]
 	public GameObject mixNotch;
-	public int mixNotchCount = 4;
 	private List<GameObject> mixNotches = new List<GameObject>();
+	[Space()]
+	public Sprite mixEmptyNotch;
+	public Sprite mixFireNotch;
+	public Sprite mixGrassNotch;
+	public Sprite mixIceNotch;
+	public Sprite mixWindNotch;
+	[Space()]
+	public Image currentMixMagic;
+	[Space()]
+	public Sprite mixFireGraphic;
+	public Sprite mixGrassGraphic;
+	public Sprite mixIceGraphic;
+	public Sprite mixWindGraphic;
 
-    private CharacterStats playerStats;
+	private CharacterStats playerStats;
     private PlayerAttack playerAttack;
 
     private void Start()
@@ -73,7 +85,9 @@ public class HUDControl : MonoBehaviour
         {
             float value = 0f;
 
-            //CURRENT MANA
+			//CURRENT MANA
+			if (playerAttack.mixMagics.Count > 0)
+				value = (float)playerAttack.mixMagics[0].currentMana / playerAttack.maxMana;
 
             //Update slider
             if (manaBar)
@@ -99,6 +113,8 @@ public class HUDControl : MonoBehaviour
 			//Show selected base magic
 			if(currentBaseMagic)
 			{
+				currentBaseMagic.color = Color.white;
+
 				switch(playerAttack.baseMagicSelected)
 				{
 					case ElementManager.Element.Fire:
@@ -117,6 +133,10 @@ public class HUDControl : MonoBehaviour
 						currentBaseMagic.sprite = baseWindGraphic;
 						baseWindNotch.color = Color.white;
 						break;
+					default:
+						currentBaseMagic.sprite = null;
+						currentBaseMagic.color = Color.clear;
+						break;
 				}
 			}
 
@@ -126,6 +146,11 @@ public class HUDControl : MonoBehaviour
 
 	void UpdateMixNotches()
 	{
+		int mixNotchCount = 1;
+
+		if(playerAttack)
+			mixNotchCount = playerAttack.mixMagics.Count;
+
 		///Make notch UI match amount of required notches
 		if (mixNotch)
 		{
@@ -153,6 +178,64 @@ public class HUDControl : MonoBehaviour
 
 				Destroy(mixNotches[index]);
 				mixNotches.RemoveAt(index);
+			}
+		}
+
+		if(playerAttack)
+		{
+			//Update mix notch display
+			for(int i = 0; i < mixNotchCount; i++)
+			{
+				Image image = mixNotches[i].GetComponent<Image>();
+
+				switch(playerAttack.mixMagics[i].element)
+				{
+					case ElementManager.Element.Fire:
+						image.sprite = mixFireNotch;
+						break;
+					case ElementManager.Element.Grass:
+						image.sprite = mixGrassNotch;
+						break;
+					case ElementManager.Element.Ice:
+						image.sprite = mixIceNotch;
+						break;
+					case ElementManager.Element.Wind:
+						image.sprite = mixWindNotch;
+						break;
+					default:
+						image.sprite = mixEmptyNotch;
+						break;
+				}
+			}
+
+			//Show currently selected mix magic
+			if (currentMixMagic)
+			{
+				if (playerAttack.mixMagics.Count > 0 && playerAttack.mixMagics[0].element != ElementManager.Element.None)
+				{
+					currentMixMagic.color = Color.white;
+
+					switch (playerAttack.mixMagics[0].element)
+					{
+						case ElementManager.Element.Fire:
+							currentMixMagic.sprite = mixFireGraphic;
+							break;
+						case ElementManager.Element.Grass:
+							currentMixMagic.sprite = mixGrassGraphic;
+							break;
+						case ElementManager.Element.Ice:
+							currentMixMagic.sprite = mixIceGraphic;
+							break;
+						case ElementManager.Element.Wind:
+							currentMixMagic.sprite = mixWindGraphic;
+							break;
+					}
+				}
+				else
+				{
+					currentMixMagic.sprite = null;
+					currentMixMagic.color = Color.clear;
+				}
 			}
 		}
 	}

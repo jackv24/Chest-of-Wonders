@@ -80,8 +80,10 @@ public class PlayerInput : MonoBehaviour
 				playerAttack.UseMagic();
 			else if (playerActions.SwitchMagicBase.WasPressed)
 				playerAttack.SwitchBaseMagic();
+			else if (playerActions.SwitchMagicMix.WasPressed)
+				playerAttack.SwitchMixMagic();
 
-            playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicAimDiagonal.IsPressed);
+			playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicAimDiagonal.IsPressed);
 
             if (playerActions.AbsorbMagic.WasPressed)
             {

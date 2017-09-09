@@ -31,7 +31,8 @@ public class ElementManager : MonoBehaviour
 
     public enum Element
     {
-        Fire = 0,
+		None = 0,
+        Fire,
         Grass,
         Ice,
         Wind
@@ -65,6 +66,11 @@ public class ElementManager : MonoBehaviour
 					attack = windAttack;
 					break;
 			}
+
+			if ((Element)y == Element.None)
+				Debug.LogWarning("Can not get attack for element NONE");
+			else if ((Element)x != Element.None)
+				Debug.LogWarning(string.Format("No mix found for {0} and {1}, defaulting to {2}", (Element)y, (Element)x, (Element)y));
 		}
 
 		return attack;
