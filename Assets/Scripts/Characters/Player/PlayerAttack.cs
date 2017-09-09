@@ -9,7 +9,16 @@ public class PlayerAttack : MonoBehaviour
 
     public bool canAttack = true;
 
+	public enum MagicProgression
+	{
+		Basic,
+		Half,
+		Full
+	}
+
 	[Header("Magic")]
+	public MagicProgression currentMagicProgression;
+	[Space()]
 	public ElementManager.Element baseMagicSelected;
 	[Space()]
 	public bool baseFireObtained;

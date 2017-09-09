@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b2192508bd220aa49bc56296a00baa17
-timeCreated: 1504860629
+timeCreated: 1504960447
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -23,6 +23,15 @@ TextureImporter:
     21300032: HUD_notch_mix_grass
     21300034: HUD_notch_mix_ice
     21300036: HUD_notch_mix_wind
+    21300038: HUD_open_1
+    21300040: HUD_open_3
+    21300042: HUD_open_2
+    21300044: HUD_open_4
+    21300046: HUD_open_5
+    21300048: HUD_open_6
+    21300050: HUD_open_7
+    21300052: HUD_open_8
+    21300054: HUD_open_9
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -346,6 +355,123 @@ TextureImporter:
         y: 317
         width: 8
         height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_open_1
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 398
+        width: 163
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_open_3
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 299
+        width: 163
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_open_2
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 398
+        width: 163
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_open_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 299
+        width: 163
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_open_5
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 200
+        width: 163
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_open_6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 200
+        width: 163
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_open_7
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 101
+        width: 163
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_open_8
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 101
+        width: 163
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_open_9
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 2
+        width: 163
+        height: 94
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

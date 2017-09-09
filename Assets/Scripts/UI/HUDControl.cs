@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HUDControl : MonoBehaviour
 {
+	public static HUDControl Instance;
+
     public GameObject player;
 
     [Header("Stat Bars")]
@@ -46,10 +48,36 @@ public class HUDControl : MonoBehaviour
 	public Sprite mixIceGraphic;
 	public Sprite mixWindGraphic;
 
+	[System.Serializable]
+	public class Progression
+	{
+		public GameObject[] enableObjects;
+		public GameObject[] disableObjects;
+
+		public void Evaluate()
+		{
+			foreach (GameObject obj in enableObjects)
+				obj.SetActive(true);
+
+			foreach (GameObject obj in disableObjects)
+				obj.SetActive(false);
+		}
+	}
+
+	[Header("Unlock Progression")]
+	public Progression basicProgression;
+	public Progression halfProgression;
+	public Progression fullProgression;
+
 	private CharacterStats playerStats;
     private PlayerAttack playerAttack;
 
-    private void Start()
+	private void Awake()
+	{
+		Instance = this;
+	}
+
+	private void Start()
     {
         if (!player)
             player = GameObject.FindWithTag("Player");
@@ -100,6 +128,19 @@ public class HUDControl : MonoBehaviour
     {
 		if (playerAttack)
 		{
+			switch(playerAttack.currentMagicProgression)
+			{
+				case PlayerAttack.MagicProgression.Basic:
+					basicProgression.Evaluate();
+					break;
+				case PlayerAttack.MagicProgression.Half:
+					halfProgression.Evaluate();
+					break;
+				case PlayerAttack.MagicProgression.Full:
+					fullProgression.Evaluate();
+					break;
+			}
+
 			//Tint base magic notches to reflect obtained state
 			if (baseFireNotch)
 				baseFireNotch.color = playerAttack.baseFireObtained ? baseNotchDeselectedTint : baseNotchDisabledTint;

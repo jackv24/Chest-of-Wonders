@@ -278,6 +278,8 @@ public class GameManager : MonoBehaviour
 
                 if(attack)
                 {
+					attack.currentMagicProgression = data.currentMagicProgression;
+
 					attack.baseMagicSelected = data.baseMagicSelected;
 
 					attack.baseFireObtained = data.baseFireObtained;

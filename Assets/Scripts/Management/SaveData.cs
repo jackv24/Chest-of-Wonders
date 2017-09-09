@@ -28,6 +28,8 @@ public class SaveData
 
     public List<InventoryItem> inventory;
 
+	public PlayerAttack.MagicProgression currentMagicProgression;
+
 	public ElementManager.Element baseMagicSelected;
 
 	public bool baseFireObtained = false;

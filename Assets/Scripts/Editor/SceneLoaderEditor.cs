@@ -72,7 +72,7 @@ public class SceneLoaderEditor : EditorWindow
 		GUI.backgroundColor = Color.cyan;
 		if (GUILayout.Button("Open Game Scene", GUILayout.Height(30)))
 		{
-			Scene scene = EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(1), OpenSceneMode.Single);
+			EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(1), OpenSceneMode.Single);
 		}
 		GUI.backgroundColor = Color.green;
 		if (GUILayout.Button("Add Game Scene", GUILayout.Height(30)))

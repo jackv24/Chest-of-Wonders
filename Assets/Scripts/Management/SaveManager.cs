@@ -65,6 +65,8 @@ public class SaveManager : MonoBehaviour
 
             if(attack)
             {
+				data.currentMagicProgression = attack.currentMagicProgression;
+
 				data.baseMagicSelected = attack.baseMagicSelected;
 
 				data.baseFireObtained = attack.baseFireObtained;
