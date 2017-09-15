@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   displayName: Fireball
-  element: 0
+  element: 1
   manaCost: 10
-  manaAmount: 100
   castEffect: {fileID: 1222039313838572, guid: c211b6e44eeca3b4d8f0bd2bf097a1a3, type: 2}
   projectilePrefab: {fileID: 1151141745735722, guid: dbaa39ef4c4e37c44a8da4caac3b2861,
     type: 2}
