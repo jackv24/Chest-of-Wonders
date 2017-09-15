@@ -364,23 +364,44 @@ public class PlayerAttack : MonoBehaviour
 
 			if (attack)
 			{
-				nextFireTime = Time.time + fireDelay;
+				switch(attack.type)
+				{
+					case MagicAttack.Type.Projectile:
+						nextFireTime = Time.time + fireDelay;
 
-				Fire(attack, aimDirection);
+						Fire(attack, aimDirection);
+
+						if (characterAnimator)
+						{
+							//Pass vertical axis into animator
+							characterAnimator.animator.SetFloat("vertical", aimDirection.y);
+							//Set trigger for magic animation
+							characterAnimator.animator.SetTrigger("magic");
+						}
+						break;
+					case MagicAttack.Type.Animation:
+						nextFireTime = Time.time + attack.animation.length + fireDelay;
+
+						if(characterAnimator)
+						{
+							characterAnimator.animator.Play(attack.animation.name);
+						}
+						break;
+				}
 			}
 			else
 			{
 				nextFireTime = Time.time + fireDelay;
 
 				Fire(null, aimDirection);
-			}
 
-			if (characterAnimator)
-			{
-				//Pass vertical axis into animator
-				characterAnimator.animator.SetFloat("vertical", aimDirection.y);
-				//Set trigger for magic animation
-				characterAnimator.animator.SetTrigger("magic");
+				if (characterAnimator)
+				{
+					//Pass vertical axis into animator
+					characterAnimator.animator.SetFloat("vertical", aimDirection.y);
+					//Set trigger for magic animation
+					characterAnimator.animator.SetTrigger("magic");
+				}
 			}
 		}
 	}

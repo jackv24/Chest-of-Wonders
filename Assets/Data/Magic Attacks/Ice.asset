@@ -9,11 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9146121630e705649b854440d1a4885b, type: 3}
-  m_Name: Fireball
+  m_Name: Ice
   m_EditorClassIdentifier: 
-  displayName: Fireball
-  element: 1
-  manaCost: 10
-  castEffect: {fileID: 1222039313838572, guid: c211b6e44eeca3b4d8f0bd2bf097a1a3, type: 2}
-  projectilePrefab: {fileID: 1151141745735722, guid: dbaa39ef4c4e37c44a8da4caac3b2861,
+  displayName: Icicle
+  element: 3
+  manaCost: 0
+  type: 0
+  castEffect: {fileID: 1958410816669968, guid: 8aaf62b7972b0da4caa968edd7e94ba5, type: 2}
+  projectilePrefab: {fileID: 1151141745735722, guid: ed4973e2b26528c49971bca54e5cdb5b,
     type: 2}
+  animation: {fileID: 0}

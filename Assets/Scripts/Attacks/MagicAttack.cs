@@ -7,13 +7,18 @@ public class MagicAttack : ScriptableObject
 {
     public string displayName = "Basic Attack";
 
-    [Space()]
     public ElementManager.Element element;
     public int manaCost = 10;
 
-    [Space()]
-    public GameObject castEffect;
+	public enum Type
+	{
+		Projectile,
+		Animation
+	}
+	public Type type;
 
-    [Space()]
+    public GameObject castEffect;
     public GameObject projectilePrefab;
+
+	public AnimationClip animation;
 }

@@ -158,6 +158,14 @@ MonoBehaviour:
     maxHealth: 100
     currentHealth: 100
     inventory: []
+    currentMagicProgression: 0
+    baseMagicSelected: 0
+    baseFireObtained: 0
+    baseGrassObtained: 0
+    baseIceObtained: 0
+    baseWindObtained: 0
+    maxMana: 100
+    mixMagics: []
     pickedUpItems: 
     openedDoors: 
     pulledSwitches: 
@@ -201,6 +209,14 @@ MonoBehaviour:
     maxHealth: 100
     currentHealth: 100
     inventory: []
+    currentMagicProgression: 0
+    baseMagicSelected: 0
+    baseFireObtained: 0
+    baseGrassObtained: 0
+    baseIceObtained: 0
+    baseWindObtained: 0
+    maxMana: 100
+    mixMagics: []
     pickedUpItems: 
     openedDoors: 
     pulledSwitches: 
@@ -257,7 +273,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4859d3559b137514a92d1e6118599f39, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -278,7 +294,7 @@ MonoBehaviour:
   normalMultiplier: 1
   ineffectiveMultiplier: 0.5
   effectiveMultiplier: 1.25
-  damageArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  damageArray: 00000000000000000000000000000000000000000000000000000000020000000100000002000000000000000100000000000000020000000100000000000000020000000100000000000000000000000000000001000000020000000000000001000000
 --- !u!114 &114777719817609730
 MonoBehaviour:
   m_ObjectHideFlags: 1
