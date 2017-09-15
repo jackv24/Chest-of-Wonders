@@ -67,13 +67,13 @@ GameObject:
   - component: {fileID: 4243805027198954}
   - component: {fileID: 61726453952576576}
   - component: {fileID: 114806664853724274}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: BatSwingCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1158427886003914
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,13 +100,13 @@ GameObject:
   - component: {fileID: 4182279713850798}
   - component: {fileID: 61302511317327728}
   - component: {fileID: 114061908791259452}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: ChargedBatSwingCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1183963205681176
 GameObject:
   m_ObjectHideFlags: 1
@@ -122,6 +122,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1357742713667528
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4681256939954800}
+  - component: {fileID: 61256214160878340}
+  - component: {fileID: 114159478973773784}
+  m_Layer: 15
+  m_Name: DownstrikeBatSwingCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1504532349023518
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,15 +208,15 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4980708787995684}
-  - component: {fileID: 61256214160878340}
   - component: {fileID: 114942654493615672}
-  m_Layer: 10
-  m_Name: DownstrikeBatSwingCollider
+  - component: {fileID: 60953170401547782}
+  m_Layer: 15
+  m_Name: FireXGrassCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1905793282419424
 GameObject:
   m_ObjectHideFlags: 1
@@ -227,6 +244,7 @@ Transform:
   m_Children:
   - {fileID: 4243805027198954}
   - {fileID: 4182279713850798}
+  - {fileID: 4681256939954800}
   - {fileID: 4980708787995684}
   - {fileID: 4989383454461484}
   - {fileID: 4094561294958548}
@@ -243,7 +261,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 19, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -263,7 +281,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4182279713850798
 Transform:
@@ -315,7 +333,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4657373482626076
 Transform:
@@ -330,6 +348,19 @@ Transform:
   m_Father: {fileID: 4000013017421258}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4681256939954800
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1357742713667528}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4000010964507712}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4807472343386172
 Transform:
   m_ObjectHideFlags: 1
@@ -341,7 +372,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4894850495181718
 Transform:
@@ -354,7 +385,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4980708787995684
 Transform:
@@ -362,12 +393,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1904300614673374}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4989383454461484
 Transform:
@@ -380,7 +411,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50735930063480252
 Rigidbody2D:
@@ -402,6 +433,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!60 &60953170401547782
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1904300614673374}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 2.5949593, y: 1.9398384}
+      - {x: 4.2186346, y: 1.4137154}
+      - {x: 3.273943, y: -0.006658554}
+      - {x: 1.2903013, y: -0.51136017}
+      - {x: 0.6331959, y: -0.2741108}
+      - {x: 0.14492226, y: 0.87314034}
+      - {x: 0.5606346, y: 1.9021072}
 --- !u!61 &61081321016914136
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -421,7 +473,7 @@ BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904300614673374}
+  m_GameObject: {fileID: 1357742713667528}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -804,7 +856,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   amount: 20
-  multiplier: 1
+  element: 0
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.5
   knockBackAmount: 10
@@ -821,6 +873,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSound: {fileID: 114429180314876788}
+--- !u!114 &114159478973773784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1357742713667528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  amount: 20
+  element: 0
+  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
+  screenShakeAmount: 0.25
+  knockBackAmount: 10
+  knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114303023035388868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -833,7 +905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAttack: 1
-  currentMagicProgression: 0
+  currentMagicProgression: 2
   baseMagicSelected: 0
   baseFireObtained: 1
   baseGrassObtained: 0
@@ -938,7 +1010,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   amount: 20
-  multiplier: 1
+  element: 0
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.25
   knockBackAmount: 10
@@ -1025,13 +1097,15 @@ MonoBehaviour:
   chargedBatSwingSound:
     clip: {fileID: 8300000, guid: 22081f76362ff9542a66eda91e20c832, type: 3}
     volume: 0.5
-  downstrikeCollider: {fileID: 1904300614673374}
+  downstrikeCollider: {fileID: 1357742713667528}
   downstrikeSound:
     clip: {fileID: 8300000, guid: b6b4877f91af3ae4181f0579a44b9ab3, type: 3}
     volume: 1
   downstrikeFallSpeed: 20
   hitGroundScreenShake: 0.5
   downstrikeEndImmunity: 0.25
+  magicAttackColliders:
+  - {fileID: 1904300614673374}
 --- !u!114 &114942654493615672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1047,7 +1121,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   amount: 20
-  multiplier: 1
+  element: 0
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.25
   knockBackAmount: 10

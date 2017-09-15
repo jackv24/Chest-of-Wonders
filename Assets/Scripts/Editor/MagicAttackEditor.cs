@@ -11,7 +11,6 @@ public class MagicAttackEditor : Editor
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("displayName"));
 
 		EditorGUILayout.Space();
-		EditorGUILayout.PropertyField(serializedObject.FindProperty("element"));
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("manaCost"));
 
 		EditorGUILayout.Space();

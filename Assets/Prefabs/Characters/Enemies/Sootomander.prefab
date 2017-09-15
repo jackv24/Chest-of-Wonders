@@ -242,7 +242,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1914621623221682}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -579,7 +579,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   amount: 20
-  multiplier: 1
+  element: 0
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.5
   knockBackAmount: 10
@@ -653,7 +653,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   amount: 30
-  multiplier: 1
+  element: 0
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.5
   knockBackAmount: 10
@@ -688,7 +688,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   amount: 20
-  multiplier: 1
+  element: 0
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.5
   knockBackAmount: 10

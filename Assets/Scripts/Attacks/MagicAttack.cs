@@ -6,8 +6,6 @@ using UnityEngine;
 public class MagicAttack : ScriptableObject
 {
     public string displayName = "Basic Attack";
-
-    public ElementManager.Element element;
     public int manaCost = 10;
 
 	public enum Type

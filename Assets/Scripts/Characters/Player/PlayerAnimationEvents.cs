@@ -30,6 +30,8 @@ public class PlayerAnimationEvents : MonoBehaviour
     public float downstrikeFallSpeed = 10.0f;
     public float hitGroundScreenShake = 1.0f;
     public float downstrikeEndImmunity = 0.25f;
+	[Space()]
+	public GameObject[] magicAttackColliders;
 
     private SoundEffectBase soundEffects;
 
@@ -61,6 +63,11 @@ public class PlayerAnimationEvents : MonoBehaviour
 
         if (downstrikeCollider)
             downstrikeCollider.SetActive(false);
+
+		foreach(GameObject obj in magicAttackColliders)
+		{
+			obj.SetActive(false);
+		}
     }
 
     public void AllowMovement()
@@ -194,7 +201,28 @@ public class PlayerAnimationEvents : MonoBehaviour
         }
     }
 
-    IEnumerator Downstrike(float fallDelay)
+	public void EnableMagicAttackCollider(int index)
+	{
+		if(index < magicAttackColliders.Length)
+		{
+			if(magicAttackColliders[index])
+			{
+				magicAttackColliders[index].SetActive(true);
+			}
+		}
+	}
+	public void DisableMagicAttackCollider(int index)
+	{
+		if (index < magicAttackColliders.Length)
+		{
+			if (magicAttackColliders[index])
+			{
+				magicAttackColliders[index].SetActive(false);
+			}
+		}
+	}
+
+	IEnumerator Downstrike(float fallDelay)
     {
         //Player can not control during downstrike
         characterMove.canMove = false;

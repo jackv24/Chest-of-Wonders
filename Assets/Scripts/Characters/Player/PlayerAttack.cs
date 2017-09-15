@@ -231,12 +231,6 @@ public class PlayerAttack : MonoBehaviour
 
             swing.amount = damageAmount;
 
-            //If held for enough time, damage multiplier is used. Otherwise 1
-            float multiplier = Time.time >= heldStartTime + chargeHoldTime && heldStartTime > 0 ? heldDamageMultiplier : 1.0f;
-
-            //Set multiplier
-            swing.multiplier = multiplier;
-
             if (graphic)
             {
                 //Stop flashing after bat swing
@@ -448,9 +442,6 @@ public class PlayerAttack : MonoBehaviour
             Projectile proj = obj.GetComponent<Projectile>();
             //Set as owner of projectile
             proj.SetOwner(gameObject);
-
-            //Projectile should have the same element as the attack that fired it
-            proj.element = attack.element;
 
             //Get projectile moving
             if (direction.magnitude > 0)
