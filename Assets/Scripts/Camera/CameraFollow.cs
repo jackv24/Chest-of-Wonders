@@ -33,6 +33,11 @@ public class CameraFollow : MonoBehaviour
                 target = player.transform;
         }
 
+		PixelPerfectCamera pixelPerfect = Camera.main.GetComponent<PixelPerfectCamera>();
+
+		if (pixelPerfect)
+			pixelPerfect.OnChangeSize += CalculateBounds;
+
         CalculateBounds();
         
         if (target)
