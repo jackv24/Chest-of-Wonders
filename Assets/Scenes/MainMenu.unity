@@ -392,7 +392,17 @@ Prefab:
     - target: {fileID: 20000012058651594, guid: 544cb3ef0c1a38744a6d174b9deb8202,
         type: 2}
       propertyPath: orthographic size
-      value: 4.984375
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000012058651594, guid: 544cb3ef0c1a38744a6d174b9deb8202,
+        type: 2}
+      propertyPath: near clip plane
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000012058651594, guid: 544cb3ef0c1a38744a6d174b9deb8202,
+        type: 2}
+      propertyPath: far clip plane
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000010702937752, guid: 544cb3ef0c1a38744a6d174b9deb8202, type: 2}
@@ -547,7 +557,7 @@ Canvas:
   serializedVersion: 2
   m_RenderMode: 1
   m_Camera: {fileID: 915268651}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 5
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

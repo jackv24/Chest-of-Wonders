@@ -27,15 +27,21 @@ public class CanvasScreenSpaceScaler : MonoBehaviour {
 #endif
         _canvas = GetComponent<Canvas> ();
 
-		if (_canvas.renderMode != RenderMode.ScreenSpaceCamera)
+		if (!(_canvas.renderMode == RenderMode.ScreenSpaceCamera || _canvas.renderMode == RenderMode.ScreenSpaceOverlay))
         {
             if (warn) Debug.Log("Render mode: " + _canvas.renderMode + " is not supported by CanvasScreenSpaceScaler");
 			return;
 		}
-			
-		Camera uiCamera = GetComponent<Canvas> ().worldCamera;
 
-		_pixelPerfectCamera = uiCamera.GetComponent<PixelPerfectCamera> ();
+		if (_canvas.renderMode == RenderMode.ScreenSpaceCamera)
+		{
+			Camera uiCamera = GetComponent<Canvas>().worldCamera;
+			_pixelPerfectCamera = uiCamera.GetComponent<PixelPerfectCamera>();
+		}
+		else if (_canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+		{
+			_pixelPerfectCamera = Camera.main.GetComponent<PixelPerfectCamera>();
+		}
 
         if (_pixelPerfectCamera == null)
         {
@@ -68,7 +74,7 @@ public class CanvasScreenSpaceScaler : MonoBehaviour {
         // Initialized? Try to initialize
         if (!_isInitialized)
             Initialize(false);
-        if (!_isInitialized || _canvas.renderMode != RenderMode.ScreenSpaceCamera)
+        if (!_isInitialized || !(_canvas.renderMode == RenderMode.ScreenSpaceCamera || _canvas.renderMode == RenderMode.ScreenSpaceOverlay))
             return;
 
         // Detect changes in ratio
