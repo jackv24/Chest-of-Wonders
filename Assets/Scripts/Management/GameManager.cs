@@ -16,9 +16,9 @@ public class GameManager : MonoBehaviour
     //Static instance for easy access
     public static GameManager instance;
 
-    private string firstSceneName = "";
-    [HideInInspector]
-    public string loadedSceneName = "";
+    private int firstSceneIndex;
+	[HideInInspector]
+	public int loadedSceneIndex = -1;
 
     [Space()]
     public GameObject player;
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         //If level is already open in the editor, use that instead
         else if (SceneManager.sceneCount == 2)
         {
-            loadedSceneName = SceneManager.GetSceneAt(1).name;
+            loadedSceneIndex = SceneManager.GetSceneAt(1).buildIndex;
         }
         else
             Debug.LogWarning("Too many scenes open!");
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LoadLevel(string sceneName, int doorwayID)
+    public void LoadLevel(int sceneIndex, int doorwayID)
     {
         //Disable and set player position
         CharacterMove move = player.GetComponent<CharacterMove>();
@@ -109,29 +109,29 @@ public class GameManager : MonoBehaviour
             move.scriptControl = false;
 
         //Start the unload of old level and load of new level
-        StartCoroutine(ChangeLevel(sceneName, doorwayID));
+        StartCoroutine(ChangeLevel(sceneIndex, doorwayID));
     }
 
-    IEnumerator ChangeLevel(string sceneName, int doorwayID)
+    IEnumerator ChangeLevel(int sceneIndex, int doorwayID)
     {
         float fadeTime = levelTransitionTime / 2;
 
         //If a level is already loaded, unload it
-        if (loadedSceneName != "")
+        if (loadedSceneIndex >= 0)
         {
             //Fade out
             UIFunctions.instance.ShowLoadingScreen(true, fadeTime);
             yield return new WaitForSeconds(fadeTime);
 
-            AsyncOperation a = SceneManager.UnloadSceneAsync(loadedSceneName);
+            AsyncOperation a = SceneManager.UnloadSceneAsync(loadedSceneIndex);
 
             //Wait until level has finished unloading
             yield return a;
         }
 
         //Load new level additively, and keep track of it as loaded
-        AsyncOperation async = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        loadedSceneName = sceneName;
+        AsyncOperation async = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+        loadedSceneIndex = sceneIndex;
 
         yield return async;
 
@@ -262,7 +262,7 @@ public class GameManager : MonoBehaviour
                 SaveData.Location location = reset ? data.npcSave : data.autoSave;
 
                 //Set first level to be loaded
-                firstSceneName = location.sceneName;
+                firstSceneIndex = location.sceneIndex;
                 player.transform.position = location.position;
 
                 CharacterStats stats = player.GetComponent<CharacterStats>();
@@ -301,6 +301,6 @@ public class GameManager : MonoBehaviour
         }
 
         //After player data is loaded, load the level
-        LoadLevel(firstSceneName, -1);
+        LoadLevel(firstSceneIndex, -1);
     }
 }

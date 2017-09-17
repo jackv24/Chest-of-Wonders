@@ -9,9 +9,10 @@ public class Doorway : MonoBehaviour
 
     public float exitOffset = 1.5f;
 
-    [Space()]
-    public SceneField targetLevel;
-    public int targetID = 0;
+	[Space()]
+	[Scene]
+	public int targetScene = -1;
+    public int targetID = -1;
 
     [Space()]
     public float startDelay = 0.5f;
@@ -72,7 +73,7 @@ public class Doorway : MonoBehaviour
     void Use()
     {
         //Load level with player at position
-        GameManager.instance.LoadLevel(targetLevel, targetID);
+        GameManager.instance.LoadLevel(targetScene, targetID);
     }
 
     private void OnDrawGizmosSelected()
@@ -91,6 +92,9 @@ public class Doorway : MonoBehaviour
 		textStyle.normal.textColor = Color.white;
 		textStyle.fontSize = 18;
 
-		UnityEditor.Handles.Label((Vector2)transform.position + new Vector2(-col.size.x / 2, col.offset.y + col.size.y / 2 + 0.5f), targetLevel.SceneName + " - " + targetID, textStyle);
+		UnityEditor.Handles.Label(
+			(Vector2)transform.position + new Vector2(-col.size.x / 2, col.offset.y + col.size.y / 2 + 0.5f),
+			System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(targetScene)) + " - " + targetID,
+			textStyle);
 	}
 }
