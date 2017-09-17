@@ -30,6 +30,10 @@ public class HUDControl : MonoBehaviour
 	public Sprite baseGrassGraphic;
 	public Sprite baseIceGraphic;
 	public Sprite baseWindGraphic;
+	[Space()]
+	public GameObject baseSwitchAnim;
+	public GameObject baseNotchSwitchAnim;
+	private Vector2 baseNotchSwitchAnimOffset;
 
 	[Header("Mix Magic")]
 	public GameObject mixNotch;
@@ -47,6 +51,9 @@ public class HUDControl : MonoBehaviour
 	public Sprite mixGrassGraphic;
 	public Sprite mixIceGraphic;
 	public Sprite mixWindGraphic;
+	[Space()]
+	public GameObject mixSwitchAnim;
+	public GameObject mixNotchSwitchAnim;
 
 	[System.Serializable]
 	public class Progression
@@ -90,8 +97,13 @@ public class HUDControl : MonoBehaviour
             if (playerAttack)
             {
                 playerAttack.OnUpdateMagic += UpdateAttackSlots;
-
                 UpdateAttackSlots();
+
+				//Get base notch switch offset from fire notch (first notch is reference)
+				baseNotchSwitchAnimOffset = baseNotchSwitchAnim.transform.position - baseFireNotch.transform.position;
+
+				playerAttack.OnSwitchBaseMagic += PlayBaseSwitchAnim;
+				playerAttack.OnSwitchMixMagic += PlayMixSwitchAnim;
 
                 //Reload magic UI display when attacks are loaded from save
                 if (GameManager.instance)
@@ -278,6 +290,59 @@ public class HUDControl : MonoBehaviour
 					currentMixMagic.color = Color.clear;
 				}
 			}
+		}
+	}
+
+	void PlayBaseSwitchAnim()
+	{
+		if (baseSwitchAnim)
+		{
+			//Disable before enabling to reset anim state when pressed too quickly
+			baseSwitchAnim.SetActive(false);
+			baseSwitchAnim.SetActive(true);
+		}
+
+		if (baseNotchSwitchAnim)
+		{
+			Vector3 pos = baseNotchSwitchAnim.transform.position;
+
+			//Position switch anim on top of notch
+			switch(playerAttack.baseMagicSelected)
+			{
+				case ElementManager.Element.Fire:
+					pos = baseFireNotch.transform.position;
+					break;
+				case ElementManager.Element.Grass:
+					pos = baseGrassNotch.transform.position;
+					break;
+				case ElementManager.Element.Ice:
+					pos = baseIceNotch.transform.position;
+					break;
+				case ElementManager.Element.Wind:
+					pos = baseWindNotch.transform.position;
+					break;
+			}
+
+			baseNotchSwitchAnim.transform.position = pos + (Vector3)baseNotchSwitchAnimOffset;
+
+			baseNotchSwitchAnim.SetActive(false);
+			baseNotchSwitchAnim.SetActive(true);
+		}
+	}
+
+	void PlayMixSwitchAnim()
+	{
+		if (mixSwitchAnim)
+		{
+			//Disable before enabling to reset anim state when pressed too quickly
+			mixSwitchAnim.SetActive(false);
+			mixSwitchAnim.SetActive(true);
+		}
+
+		if (mixNotchSwitchAnim)
+		{
+			mixNotchSwitchAnim.SetActive(false);
+			mixNotchSwitchAnim.SetActive(true);
 		}
 	}
 }

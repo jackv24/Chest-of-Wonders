@@ -6,8 +6,10 @@ public class PlayerAttack : MonoBehaviour
 {
     public delegate void NormalEvent();
     public event NormalEvent OnUpdateMagic;
+	public event NormalEvent OnSwitchBaseMagic;
+	public event NormalEvent OnSwitchMixMagic;
 
-    public bool canAttack = true;
+	public bool canAttack = true;
 
 	public enum MagicProgression
 	{
@@ -507,6 +509,9 @@ public class PlayerAttack : MonoBehaviour
 
 		//Update magic UI to reflect changes
 		UpdateMagic();
+
+		if (OnSwitchBaseMagic != null)
+			OnSwitchBaseMagic();
 	}
 
 	public void SwitchMixMagic()
@@ -535,6 +540,9 @@ public class PlayerAttack : MonoBehaviour
 
 		//Update magic UI to reflect changes
 		UpdateMagic();
+
+		if (OnSwitchMixMagic != null)
+			OnSwitchMixMagic();
 	}
 
     public void ResetMana()
