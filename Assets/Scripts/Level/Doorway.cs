@@ -76,7 +76,8 @@ public class Doorway : MonoBehaviour
         GameManager.instance.LoadLevel(targetScene, targetID);
     }
 
-    private void OnDrawGizmosSelected()
+#if UNITY_EDITOR
+	private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere((Vector2)transform.position + new Vector2(exitOffset, 0), 0.25f);
     }
@@ -97,4 +98,5 @@ public class Doorway : MonoBehaviour
 			System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(targetScene)) + " - " + targetID,
 			textStyle);
 	}
+#endif
 }

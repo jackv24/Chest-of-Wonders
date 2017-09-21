@@ -171,6 +171,11 @@ public class CharacterStats : MonoBehaviour
         {
             GameObject dropped = ObjectPooler.GetPooledObject(deathDrop);
             dropped.transform.position = (Vector2)gameObject.transform.position + dropOffset;
+
+			//If a soul was dropped, set it's element to this character's element
+			SoulContainer soul = dropped.GetComponent<SoulContainer>();
+			if (soul)
+				soul.element = element;
         }
 
         if(healthDrop)

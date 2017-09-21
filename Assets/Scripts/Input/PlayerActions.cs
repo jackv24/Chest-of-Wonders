@@ -104,6 +104,6 @@ public class PlayerActions : PlayerActionSet
         Back.AddDefaultBinding(InputControlType.Action2);
 
         Pause.AddDefaultBinding(Key.Escape);
-        Pause.AddDefaultBinding(InputControlType.Options);
+        Pause.AddDefaultBinding(InputControlType.Command);
     }
 }
