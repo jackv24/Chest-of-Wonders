@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 114429180314876788}
   - component: {fileID: 82899891716784434}
   - component: {fileID: 114996482148005152}
+  - component: {fileID: 114349844512411816}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -261,7 +262,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19, y: 1, z: 0}
+  m_LocalPosition: {x: 6, y: 19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -950,6 +951,22 @@ MonoBehaviour:
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.5
   flashInterval: 0.1
+--- !u!114 &114349844512411816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012949439504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a8ac91dedacc040b6026021495ebf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSouls: 3
+  currentFireSouls: 0
+  currentGrassSouls: 0
+  currentIceSouls: 0
+  currentWindSouls: 0
 --- !u!114 &114429180314876788
 MonoBehaviour:
   m_ObjectHideFlags: 1

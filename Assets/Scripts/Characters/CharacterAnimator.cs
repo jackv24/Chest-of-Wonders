@@ -115,11 +115,6 @@ public class CharacterAnimator : MonoBehaviour
         animator.SetBool("charged", value);
     }
 
-    public void SetAbsorbing(bool value)
-    {
-        animator.SetBool("absorbing", value);
-    }
-
     public void MagicAttack()
     {
         animator.SetTrigger("magic");

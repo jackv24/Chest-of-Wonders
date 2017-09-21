@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b2192508bd220aa49bc56296a00baa17
-timeCreated: 1505634936
+timeCreated: 1505982693
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -41,6 +41,12 @@ TextureImporter:
     21300068: HUD_magic_notch_switch_1
     21300070: HUD_magic_notch_switch_2
     21300072: HUD_magic_notch_switch_3
+    21300074: HUD_bank_frame
+    21300076: HUD_bank_frame_paused
+    21300078: HUD_bank_fill_fire
+    21300080: HUD_bank_fill_grass
+    21300082: HUD_bank_fill_ice
+    21300084: HUD_bank_fill_wind
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -601,6 +607,84 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_bank_frame
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 464
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_bank_frame_paused
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 462
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_bank_fill_fire
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 498
+        width: 9
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 1}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_bank_fill_grass
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 498
+        width: 9
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 1}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_bank_fill_ice
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 498
+        width: 9
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 1}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD_bank_fill_wind
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 498
+        width: 9
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 1}
       outline: []
       tessellationDetail: 0
     outline: []

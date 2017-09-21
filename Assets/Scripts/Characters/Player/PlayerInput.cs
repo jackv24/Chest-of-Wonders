@@ -84,17 +84,6 @@ public class PlayerInput : MonoBehaviour
 				playerAttack.SwitchMixMagic();
 
 			playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicAimDiagonal.IsPressed);
-
-            if (playerActions.AbsorbMagic.WasPressed)
-            {
-                playerAttack.AbsorbMagic(true);
-                canMove = false;
-            }
-            else if (playerActions.AbsorbMagic.WasReleased)
-            {
-                playerAttack.AbsorbMagic(false);
-                canMove = true;
-            }
         }
     }
 }

@@ -21,8 +21,6 @@ public class PlayerActions : PlayerActionSet
 	public PlayerAction SwitchMagicBase;
 	public PlayerAction SwitchMagicMix;
 
-	public PlayerAction AbsorbMagic;
-
     public PlayerAction Interact;
     public PlayerAction Submit;
     public PlayerAction Back;
@@ -46,8 +44,6 @@ public class PlayerActions : PlayerActionSet
 
 		SwitchMagicBase = CreatePlayerAction("Switch Base Magic");
 		SwitchMagicMix = CreatePlayerAction("Switch Mix Magic");
-
-		AbsorbMagic = CreatePlayerAction("Absorb Magic");
 
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");
@@ -88,9 +84,6 @@ public class PlayerActions : PlayerActionSet
 
 		SwitchMagicMix.AddDefaultBinding(Key.D);
 		SwitchMagicMix.AddDefaultBinding(InputControlType.RightBumper);
-
-		AbsorbMagic.AddDefaultBinding(Key.A);
-        AbsorbMagic.AddDefaultBinding(InputControlType.RightTrigger);
 
         MagicAimDiagonal.AddDefaultBinding(Key.LeftShift);
         MagicAimDiagonal.AddDefaultBinding(InputControlType.RightTrigger);

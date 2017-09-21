@@ -74,8 +74,6 @@ public class PlayerAttack : MonoBehaviour
     [Space]
     public Transform magicAbsorbPoint;
 
-	private MagicContainer container = null;
-
     [Header("Bat Swing")]
     public DamageOnEnable batSwing;
     public DamageOnEnable chargedBatSwing;
@@ -134,85 +132,6 @@ public class PlayerAttack : MonoBehaviour
             characterMove.moveSpeed = oldMoveSpeed;
 
         canAttack = true;
-    }
-
-    void Update()
-    {
-        //Get all colliders in range
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, pickupRange, pickupLayer);
-
-        //Shortest distance starts at max
-        float shortestDistance = float.MaxValue;
-
-		bool found = false;
-
-        //Loop through all pickup colliders (only pickups should be on this layer)
-        foreach (Collider2D col in cols)
-        {
-			MagicContainer cont = col.GetComponent<MagicContainer>();
-
-			if (cont)
-			{
-				//Calculate distance between player and pickup
-				float distance = Vector3.Distance(col.transform.position, transform.position);
-
-				//If this pickup is closer than any others...
-				if (distance < shortestDistance)
-				{
-					//...make this pickup the new closest
-					shortestDistance = distance;
-
-					//Stop highlighting the old container
-					if (container)
-						container.Highlight(false);
-
-					//Get the new container
-					container = cont;
-
-					//Highlight the new container
-					if (container)
-						container.Highlight(true);
-
-					found = true;
-				}
-			}
-        }
-
-		//Deselect container if out of range
-		if (!found && container)
-		{
-			container.Highlight(false);
-			container = null;
-		}
-	}
-
-    public void AbsorbMagic(bool buttonDown)
-    {
-		//Can't absorb while holding bat
-		if (HoldingBat)
-			return;
-
-        //If the absorb button is pressed
-        if (buttonDown)
-        {
-            //If there is a container, start absorbing it
-            if (container)
-                container.StartAbsorb(this);
-
-            if (characterAnimator)
-                characterAnimator.SetAbsorbing(true);
-        }
-        else
-        {
-            //If button was released, cancel absorption
-            if (container)
-                container.CancelAbsorb();
-
-            container = null;
-
-            if (characterAnimator)
-                characterAnimator.SetAbsorbing(false);
-		}
     }
 
     public void UseMelee(bool holding, float verticalDirection)
