@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b2192508bd220aa49bc56296a00baa17
-timeCreated: 1505982693
+timeCreated: 1506073365
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -79,7 +79,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -171,9 +171,9 @@ TextureImporter:
       name: HUD_health
       rect:
         serializedVersion: 2
-        x: 145
+        x: 146
         y: 720
-        width: 3
+        width: 2
         height: 14
       alignment: 4
       pivot: {x: 0, y: 0.5}
@@ -184,9 +184,9 @@ TextureImporter:
       name: HUD_mana
       rect:
         serializedVersion: 2
-        x: 145
+        x: 146
         y: 705
-        width: 3
+        width: 2
         height: 12
       alignment: 4
       pivot: {x: 0, y: 0.5}
@@ -688,7 +688,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     outline: []
-  spritePackingTag: ui
+  spritePackingTag: 
   userData: 
   assetBundleName: 
   assetBundleVariant: 
