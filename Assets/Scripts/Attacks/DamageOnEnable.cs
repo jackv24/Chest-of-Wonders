@@ -41,8 +41,8 @@ public class DamageOnEnable : MonoBehaviour
 			hitInSwing.Add(collider.gameObject);
 
 			//Get character references
-			CharacterStats stats = collider.GetComponent<CharacterStats>();
-			CharacterMove move = collider.GetComponent<CharacterMove>();
+			CharacterStats stats = collider.GetComponentInParent<CharacterStats>();
+			CharacterMove move = collider.GetComponentInParent<CharacterMove>();
 
 			//Remove health
 			if (stats)

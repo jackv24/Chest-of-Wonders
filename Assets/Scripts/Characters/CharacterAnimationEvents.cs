@@ -4,68 +4,32 @@ using UnityEngine;
 
 public class CharacterAnimationEvents : MonoBehaviour
 {
-    public AIAgent agent;
-
-    public CharacterStats characterStats;
-    public CharacterMove characterMove;
-
     [Header("Attacks")]
     public GameObject[] attackColliders;
 
-    [Space()]
-    public Transform mouthTransform;
-    public GameObject ashBall;
+	public void EnableAttackColliders(int index)
+	{
+		if (index < attackColliders.Length)
+			attackColliders[index].SetActive(true);
+	}
 
-    private void Start()
-    {
-        if (characterStats)
-            characterStats.OnDamaged += EndAttack;
+	public void DisableAttackColliders(int index)
+	{
+		if (index < attackColliders.Length)
+			attackColliders[index].SetActive(false);
+	}
 
-        //Disable all attack colliders
-        foreach (GameObject obj in attackColliders)
-            obj.SetActive(false);
-    }
+	public void ShakeScreen(float amount)
+	{
+		//Offset randomly (screen shake effect)
+		Vector2 camOffset = new Vector2(Random.Range(-1f, 1f) * amount, Random.Range(-1f, 1f) * amount);
+		Camera.main.transform.position += (Vector3)camOffset;
+	}
 
-    public void StartAttack(int attackIndex)
-    {
-        EndAttack();
-
-        if(characterStats)
-            characterStats.damageImmunity = true;
-
-        //Enable attack collider if index is within range
-        if (attackIndex < attackColliders.Length)
-            attackColliders[attackIndex].SetActive(true);
-    }
-
-    public void AshBreath()
-    {
-        GameObject obj = ObjectPooler.GetPooledObject(ashBall);
-        obj.transform.position = mouthTransform.position;
-
-        Projectile proj = obj.GetComponent<Projectile>();
-		proj.SetOwner(transform.parent.gameObject);
-		proj.Fire(new Vector2(-transform.localScale.x, 0));
-
-    }
-
-    public void EndAttack()
-    {
-        if (agent)
-        {
-            agent.attacking = false;
-            agent.currentAttack = -1;
-
-            agent.endAttack = true;
-        }
-
-        if (characterStats)
-            characterStats.damageImmunity = false;
-
-        //Disable attack colliders
-        foreach (GameObject obj in attackColliders)
-            obj.SetActive(false);
-
-        characterMove.canMove = true;
-    }
+	public void GroundImpact(float amount)
+	{
+		//Offset randomly (screen shake effect)
+		Vector2 camOffset = Vector2.down * amount;
+		Camera.main.transform.position += (Vector3)camOffset;
+	}
 }

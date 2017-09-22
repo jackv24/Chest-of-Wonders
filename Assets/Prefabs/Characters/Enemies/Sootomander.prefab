@@ -128,7 +128,6 @@ GameObject:
   - component: {fileID: 114414467170502894}
   - component: {fileID: 82420822904482614}
   - component: {fileID: 114021963699122168}
-  - component: {fileID: 114046735019415448}
   m_Layer: 9
   m_Name: Sootomander
   m_TagString: Enemy
@@ -522,48 +521,6 @@ MonoBehaviour:
   turnSound:
     clip: {fileID: 8300000, guid: b6b4877f91af3ae4181f0579a44b9ab3, type: 3}
     volume: 1
---- !u!114 &114046735019415448
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914621623221682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57757f00561c17a42b64c3533c7e117c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  aggro: 0
-  targetDirection: 0
-  attacking: 0
-  endAttack: 0
-  currentAttack: -1
-  attackCooldown: 0
-  characterMove: {fileID: 0}
-  characterAnimator: {fileID: 0}
-  characterStats: {fileID: 0}
-  aggroRange: 8
-  turnStopRange: 1
-  defaultRight: 0
-  patrolRange: 5
-  minPatrolDistance: 2
-  minMoveInterval: 1
-  maxMoveInterval: 3
-  attack1Range: 3.5
-  attack1Cooldown: 1
-  attack2Range: 5
-  attack2Cooldown: 2
-  pounceReadyTime: 0.5
-  pounceSpeed: 12
-  pounceCooldown: 3
-  ashCooldown: 2
-  sootiePrefab: {fileID: 1186632841924686, guid: 43f21ecda183e804192eaa34de7967ec,
-    type: 2}
-  sootieAmount: 10
-  sootieSpawnHeight: 3
-  sootieUpForce: 20
-  sootieSpacing: 0.5
 --- !u!114 &114051145543724472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -607,15 +564,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feed1267e53efaa45978167f9032a02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 114046735019415448}
-  characterStats: {fileID: 114985464808033458}
-  characterMove: {fileID: 114959086213150190}
   attackColliders:
   - {fileID: 1842018631121440}
   - {fileID: 1401293157013738}
   - {fileID: 1251129305480146}
-  mouthTransform: {fileID: 4521934052029854}
-  ashBall: {fileID: 1151141745735722, guid: 3d20ce573c5805743a9152f1dff8fbb7, type: 2}
 --- !u!114 &114414467170502894
 MonoBehaviour:
   m_ObjectHideFlags: 1
