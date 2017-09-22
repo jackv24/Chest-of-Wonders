@@ -6,7 +6,8 @@ using UnityEditor;
 public class Slambeak : MonoBehaviour
 {
 	public float attackRange = 4.0f;
-	public bool facingRight = false;
+
+	public bool FacingRight { get { return transform.localScale.x < 0 ? true : false; } }
 
 	[Space()]
 	public float stunTime = 2.0f;
@@ -57,7 +58,7 @@ public class Slambeak : MonoBehaviour
 			Vector2 offset = player.transform.position - transform.position;
 
 			//Only attack if in range and in facing direction
-			if(offset.magnitude <= attackRange && ((facingRight && offset.x > 0) || (!facingRight && offset.x < 0)))
+			if(offset.magnitude <= attackRange && ((FacingRight && offset.x > 0) || (!FacingRight && offset.x < 0)))
 			{
 				//Attack is it's own routine
 				yield return StartCoroutine(Attack());
@@ -93,12 +94,12 @@ public class Slambeak : MonoBehaviour
 		Gizmos.color = Color.red;
 
 		Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + Vector3.up * attackRange);
-		Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + (facingRight ? Vector3.right : Vector3.left) * attackRange);
+		Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + (FacingRight ? Vector3.right : Vector3.left) * attackRange);
 
 		Handles.color = Color.red;
-		Handles.DrawWireArc(transform.position, -Vector3.forward, (facingRight ? Vector3.right : Vector3.left), (facingRight ? -90 : 90), attackRange);
+		Handles.DrawWireArc(transform.position, -Vector3.forward, (FacingRight ? Vector3.right : Vector3.left), (FacingRight ? -90 : 90), attackRange);
 		Handles.color = new Color(1, 0, 0, 0.1f);
-		Handles.DrawSolidArc(transform.position, -Vector3.forward, (facingRight ? Vector3.right : Vector3.left), (facingRight ? -90 : 90), attackRange);
+		Handles.DrawSolidArc(transform.position, -Vector3.forward, (FacingRight ? Vector3.right : Vector3.left), (FacingRight ? -90 : 90), attackRange);
 	}
 #endif
 }
