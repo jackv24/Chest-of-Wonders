@@ -58,7 +58,7 @@ public class Slambeak : MonoBehaviour
 			Vector2 offset = player.transform.position - transform.position;
 
 			//Only attack if in range and in facing direction
-			if(offset.magnitude <= attackRange && ((FacingRight && offset.x > 0) || (!FacingRight && offset.x < 0)))
+			if(offset.magnitude <= attackRange && ((FacingRight && offset.x > 0) || (!FacingRight && offset.x < 0)) && offset.y > 0)
 			{
 				//Attack is it's own routine
 				yield return StartCoroutine(Attack());
