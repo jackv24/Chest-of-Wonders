@@ -28,6 +28,14 @@ public class WaterPhysics : MonoBehaviour
 	[Space()]
 	public GameObject splashEffect;
 
+	private float defaultParticleSpeed;
+	private float defaultParticleEmission;
+
+	public float particleHeight = -0.35f;
+
+	public float baseSpeed = 1.0f;
+	public float baseEmission = 5.0f;
+
 	private Vector2[] positions;
 	private float[] velocities;
 	private float[] accelerations;
@@ -149,6 +157,21 @@ public class WaterPhysics : MonoBehaviour
 			colliders[i].transform.localScale = new Vector3((width / edgeCount)/transform.localScale.x, 0.1f/transform.localScale.y, 1);
 			colliders[i].AddComponent<WaterDetector>();
 		}
+
+		//Cache default particle values
+		if (splashEffect)
+		{
+			ParticleSystem system = splashEffect.GetComponent<ParticleSystem>();
+
+			if (system)
+			{
+				ParticleSystem.MainModule main = system.main;
+				defaultParticleSpeed = main.startSpeedMultiplier;
+
+				ParticleSystem.EmissionModule em = system.emission;
+				defaultParticleEmission = em.rateOverTimeMultiplier;
+			}
+		}
 	}
 
 	void UpdateMesh()
@@ -213,6 +236,13 @@ public class WaterPhysics : MonoBehaviour
 				positions[i + 1].y += rightDeltas[i];
 		}
 
+		//Clamp positions to bottom
+		for(int i = 0; i < positions.Length; i++)
+		{
+			if (positions[i].y < bottom)
+				positions[i].y = bottom;
+		}
+
 		UpdateMesh();
 	}
 
@@ -229,6 +259,28 @@ public class WaterPhysics : MonoBehaviour
 
 			//Set velocity of node
 			velocities[index] = velocity * (velocity > 0 ? velocityUpMultiplier : velocityDownMultiplier) + (splashType == SplashType.Push ? pushVelocity : pullVelocity);
+
+			if (splashEffect)
+			{
+				//Splash particle effect
+				GameObject obj = ObjectPooler.GetPooledObject(splashEffect);
+				obj.transform.position = new Vector3(positions[index].x, positions[index].y + particleHeight, transform.position.z);
+
+				ParticleSystem system = obj.GetComponent<ParticleSystem>();
+
+				if(system)
+				{
+					float multiplier = 2 * Mathf.Pow(Mathf.Abs(velocity), 0.5f);
+
+					ParticleSystem.MainModule main = system.main;
+					main.startSpeedMultiplier = defaultParticleSpeed * multiplier + baseSpeed;
+
+					ParticleSystem.EmissionModule em = system.emission;
+					em.rateOverTimeMultiplier = defaultParticleEmission * multiplier + baseEmission;
+
+					system.Play();
+				}
+			}
 		}
 	}
 }
