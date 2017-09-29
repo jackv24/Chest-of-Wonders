@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 120918605486903556}
   - component: {fileID: 114289793033450886}
   - component: {fileID: 114147713368391296}
-  - component: {fileID: 61178030435863728}
+  - component: {fileID: 61078037179197894}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -83,7 +83,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1262053438768386}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!61 &61178030435863728
+--- !u!61 &61078037179197894
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -130,7 +130,8 @@ MonoBehaviour:
   resolution: 5
   splashEffect: {fileID: 1940686815883404, guid: 72c27304b9f96d54fa8481f94798c79d,
     type: 2}
-  particleHeight: -0.1
+  waterLayer: 4
+  particleHeight: 0.1
   baseSpeed: 2
   baseEmission: 8
 --- !u!120 &120918605486903556

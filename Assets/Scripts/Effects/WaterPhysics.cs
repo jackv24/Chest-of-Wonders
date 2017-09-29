@@ -27,6 +27,8 @@ public class WaterPhysics : MonoBehaviour
 
 	[Space()]
 	public GameObject splashEffect;
+	[Layer]
+	public int waterLayer;
 
 	private float defaultParticleSpeed;
 	private float defaultParticleEmission;
@@ -85,6 +87,8 @@ public class WaterPhysics : MonoBehaviour
 		meshObject = new GameObject("Mesh");
 		meshObject.transform.SetParent(transform);
 		meshObject.transform.localPosition = Vector3.zero;
+		meshObject.layer = waterLayer;
+		meshObject.AddComponent<BoxCollider2D>().size = transform.localScale;
 
 		//Cache material for new mesh
 		Material material = GetComponent<MeshRenderer>().sharedMaterial;
