@@ -268,6 +268,7 @@ public class GameManager : MonoBehaviour
                 CharacterStats stats = player.GetComponent<CharacterStats>();
                 PlayerAttack attack = player.GetComponent<PlayerAttack>();
                 PlayerInventory inventory = player.GetComponent<PlayerInventory>();
+				PlayerMagicBank bank = player.GetComponent<PlayerMagicBank>();
 
                 if (stats)
                 {
@@ -295,7 +296,17 @@ public class GameManager : MonoBehaviour
                     inventory.items = data.inventory;
                 }
 
-                if (OnSaveLoaded != null)
+				if (bank)
+				{
+					bank.maxSouls = data.maxSouls;
+
+					bank.currentFireSouls = data.currentFireSouls;
+					bank.currentGrassSouls = data.currentGrassSouls;
+					bank.currentIceSouls = data.currentIceSouls;
+					bank.currentWindSouls = data.currentWindSouls;
+				}
+
+				if (OnSaveLoaded != null)
                     OnSaveLoaded();
             }
         }

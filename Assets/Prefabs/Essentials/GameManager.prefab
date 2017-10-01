@@ -150,10 +150,10 @@ MonoBehaviour:
   saveSlot: 0
   defaultSaveData:
     autoSave:
-      sceneName: 0SpawnRoom
+      sceneIndex: 2
       position: {x: 6, y: 17}
     npcSave:
-      sceneName: 0SpawnRoom
+      sceneIndex: 2
       position: {x: 6, y: 17}
     maxHealth: 100
     currentHealth: 100
@@ -166,6 +166,11 @@ MonoBehaviour:
     baseWindObtained: 0
     maxMana: 100
     mixMagics: []
+    maxSouls: 3
+    currentFireSouls: 0
+    currentGrassSouls: 0
+    currentIceSouls: 0
+    currentWindSouls: 0
     pickedUpItems: 
     openedDoors: 
     pulledSwitches: 
@@ -201,10 +206,10 @@ MonoBehaviour:
     flags: []
   data:
     autoSave:
-      sceneName: JackTest
+      sceneIndex: 0
       position: {x: -23.5, y: 9}
     npcSave:
-      sceneName: 
+      sceneIndex: 0
       position: {x: 0, y: 0}
     maxHealth: 100
     currentHealth: 100
@@ -217,6 +222,11 @@ MonoBehaviour:
     baseWindObtained: 0
     maxMana: 100
     mixMagics: []
+    maxSouls: 0
+    currentFireSouls: 0
+    currentGrassSouls: 0
+    currentIceSouls: 0
+    currentWindSouls: 0
     pickedUpItems: 
     openedDoors: 
     pulledSwitches: 
@@ -306,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cae71eb9bba0d448dd51127d51ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadedSceneName: 
+  loadedSceneIndex: -1
   player: {fileID: 0}
   playerRespawnDelay: 3
   levelTransitionTime: 0.25

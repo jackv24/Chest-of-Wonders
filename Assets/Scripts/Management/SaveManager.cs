@@ -55,6 +55,7 @@ public class SaveManager : MonoBehaviour
             CharacterStats stats = player.GetComponent<CharacterStats>();
             PlayerAttack attack = player.GetComponent<PlayerAttack>();
             PlayerInventory inventory = player.GetComponent<PlayerInventory>();
+			PlayerMagicBank bank = player.GetComponent<PlayerMagicBank>();
 
             if (stats)
             {
@@ -83,6 +84,16 @@ public class SaveManager : MonoBehaviour
 				inventory.UpdateInventory();
             }
             
+			if(bank)
+			{
+				data.maxSouls = bank.maxSouls;
+
+				data.currentFireSouls = bank.currentFireSouls;
+				data.currentGrassSouls = bank.currentGrassSouls;
+				data.currentIceSouls = bank.currentIceSouls;
+				data.currentWindSouls = bank.currentWindSouls;
+			}
+
             //Serialise save data to JSON
             string saveString = JsonUtility.ToJson(data, true);
 

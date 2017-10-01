@@ -14,6 +14,9 @@ public class MagicBankUI : MonoBehaviour
 
 		public Slider slider;
 		public Text amountText;
+
+		[HideInInspector]
+		public int currentSouls;
 	}
 
 	public MagicVial fireVial;
@@ -45,50 +48,88 @@ public class MagicBankUI : MonoBehaviour
 			}
 		}
 
+		if(GameManager.instance)
+		{
+			//Update UI after loading game
+			GameManager.instance.OnSaveLoaded += UpdateAll;
+
+			//Subscribe to game pause events
+			GameManager.instance.OnPausedChange += (bool paused) =>
+			{
+				List<MagicVial> vials = new List<MagicVial>();
+
+				vials.Add(fireVial);
+				vials.Add(grassVial);
+				vials.Add(iceVial);
+				vials.Add(windVial);
+
+				//If game paused, show vials, else hide
+				if (paused)
+				{
+					for (int i = 0; i < vials.Count; i++)
+						StartCoroutine(ShowVial(vials[i], false));
+				}
+				else
+				{
+					for (int i = 0; i < vials.Count; i++)
+						StartCoroutine(HideVial(vials[i]));
+				}
+			};
+		}
+
 		//Start with vials hidden
 		fireVial.gameObject.SetActive(false);
 		grassVial.gameObject.SetActive(false);
 		iceVial.gameObject.SetActive(false);
 		windVial.gameObject.SetActive(false);
+
+		UpdateAll();
+	}
+
+	void UpdateAll()
+	{
+		for (int i = 0; i < System.Enum.GetNames(typeof(ElementManager.Element)).Length; i++)
+			UpdateUI((ElementManager.Element)i);
 	}
 
 	void UpdateUI(ElementManager.Element element)
 	{
 		MagicVial vial = null;
-		int currentSouls = 0;
 
 		//Get values for correct element
 		switch(element)
 		{
 			case ElementManager.Element.Fire:
 				vial = fireVial;
-				currentSouls = bank.currentFireSouls;
+				vial.currentSouls = bank.currentFireSouls;
 				break;
 			case ElementManager.Element.Grass:
 				vial = grassVial;
-				currentSouls = bank.currentGrassSouls;
+				vial.currentSouls = bank.currentGrassSouls;
 				break;
 			case ElementManager.Element.Ice:
 				vial = iceVial;
-				currentSouls = bank.currentIceSouls;
+				vial.currentSouls = bank.currentIceSouls;
 				break;
 			case ElementManager.Element.Wind:
 				vial = windVial;
-				currentSouls = bank.currentWindSouls;
+				vial.currentSouls = bank.currentWindSouls;
 				break;
 			default:
-				Debug.LogWarning("Magic Bank UI updating nonexistent element! Please make sure code is updated to reflect any new elements.");
+				if(element != ElementManager.Element.None)
+					Debug.LogWarning("Magic Bank UI updating nonexistent element! Please make sure code is updated to reflect any new elements.");
 				break;
 		}
 
 		//Will only fail if a new element is encountered
 		if(vial != null)
 		{
-			StartCoroutine(UpdateVial(vial, currentSouls));
+			//Show magic vial, and auto hide
+			StartCoroutine(ShowVial(vial, true));
 		}
 	}
 
-	IEnumerator UpdateVial(MagicVial vial, int currentSouls)
+	IEnumerator ShowVial(MagicVial vial, bool autoHide)
 	{
 		//Get animator if this vial hasn't already gotten it
 		if (!vial.animator)
@@ -97,26 +138,27 @@ public class MagicBankUI : MonoBehaviour
 		//Enable vial, automatically playing it's open animation
 		vial.gameObject.SetActive(true);
 
-		yield return new WaitForSeconds(openAnim.length);
+		yield return new WaitForSecondsRealtime(openAnim.length);
 
-		//Update with new values
+		//Update with new values (if above zero)
 		if (vial.slider)
-			vial.slider.value = (float)currentSouls / bank.maxSouls;
+			vial.slider.value = (float)vial.currentSouls / bank.maxSouls;
 
 		if (vial.amountText)
-			vial.amountText.text = string.Format(amountText, currentSouls, bank.maxSouls);
+			vial.amountText.text = string.Format(amountText, vial.currentSouls, bank.maxSouls);
 
 		//Pause, then play hid animation
-		yield return new WaitForSeconds(waitTime);
+		yield return new WaitForSecondsRealtime(waitTime);
 
-		StartCoroutine(HideVial(vial));
+		if(autoHide)
+			StartCoroutine(HideVial(vial));
 	}
 
 	IEnumerator HideVial(MagicVial vial)
 	{
 		vial.animator.Play(closeAnim.name);
 
-		yield return new WaitForSeconds(closeAnim.length);
+		yield return new WaitForSecondsRealtime(closeAnim.length);
 
 		vial.gameObject.SetActive(false);
 	}

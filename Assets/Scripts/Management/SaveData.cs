@@ -41,6 +41,14 @@ public class SaveData
 
 	public List<PlayerAttack.MixMagic> mixMagics;
 
+	//Magic bank
+	public int maxSouls;
+
+	public int currentFireSouls;
+	public int currentGrassSouls;
+	public int currentIceSouls;
+	public int currentWindSouls;
+
 	//Lists of unique IDs for keeping objects disabled
 	public List<int> pickedUpItems;
 	public List<int> openedDoors;
