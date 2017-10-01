@@ -17,7 +17,7 @@ public class SaveManager : MonoBehaviour
     private string saveLocation;
 
     //Assembled save location with slot number and editor extension
-    public string SaveLocation { get { return string.Format("{0}/Save{1}.cow", Application.persistentDataPath, saveSlot); } }
+    public string SaveLocation { get { return string.Format("{0}/Save{1}.dat", Application.persistentDataPath, saveSlot); } }
 
     private GameObject player;
 
