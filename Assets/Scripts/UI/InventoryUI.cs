@@ -33,10 +33,10 @@ public class InventoryUI : MonoBehaviour
 				{
 					InventoryItem item = inventory.items[i];
 
-					slots[i].SetIcon(item.inventoryIcon);
+					slots[i].SetItem(item);
 				}
 				else
-					slots[i].SetIcon(null);
+					slots[i].SetItem(null);
 			}
         }
     }

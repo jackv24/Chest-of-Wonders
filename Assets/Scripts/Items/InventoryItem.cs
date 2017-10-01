@@ -8,4 +8,7 @@ public class InventoryItem : ScriptableObject
     public string displayName;
 
     public Sprite inventoryIcon;
+
+	[Multiline()]
+	public string description;
 }
