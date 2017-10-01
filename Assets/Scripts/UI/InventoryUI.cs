@@ -7,52 +7,37 @@ public class InventoryUI : MonoBehaviour
 {
     public PlayerInventory inventory;
 
-    public GameObject itemIconTemplate;
+	private InventoryUISlot[] slots;
 
-    private List<GameObject> itemIcons = new List<GameObject>();
-
-    void Start()
+	void Start()
     {
         if(!inventory)
             inventory = GameManager.instance.player.GetComponent<PlayerInventory>();
 
-        if (inventory)
-            inventory.OnUpdateInventory += UpdateUI;
+		slots = GetComponentsInChildren<InventoryUISlot>();
 
-        if (itemIconTemplate)
-            itemIconTemplate.SetActive(false);
-
-        UpdateUI();
+		//Update inventory UI when game is paused, and UI is shown
+		if (GameManager.instance)
+			GameManager.instance.OnPausedChange += (bool value) => { if (value) UpdateUI(); };
     }
 
     void UpdateUI()
     {
-        if(itemIconTemplate && inventory)
+        if(inventory)
         {
-            //Disable all icons
-            foreach(GameObject icon in itemIcons)
-            {
-                icon.SetActive(false);
-            }
+			int itemCount = inventory.items.Count;
 
-            for(int i = 0; i < inventory.items.Count; i++)
-            {
-                GameObject itemIcon = null;
+            for(int i = 0; i < slots.Length; i++)
+			{
+				if (i < itemCount)
+				{
+					InventoryItem item = inventory.items[i];
 
-                //Reuse any existing icons
-                if (i < itemIcons.Count)
-                    itemIcon = itemIcons[i];
-                else
-                {
-                    //If adequate icon does not exist, instantiate a new one and it it to the list for later reuse
-                    itemIcon = (GameObject)Instantiate(itemIconTemplate, itemIconTemplate.transform.parent);
-                    itemIcons.Add(itemIcon);
-                }
-
-                //Enable icon and set sprite
-                itemIcon.SetActive(true);
-                itemIcon.GetComponent<Image>().sprite = inventory.items[i].inventoryIcon;
-            }
+					slots[i].SetIcon(item.inventoryIcon);
+				}
+				else
+					slots[i].SetIcon(null);
+			}
         }
     }
 }
