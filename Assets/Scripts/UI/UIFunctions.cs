@@ -12,6 +12,7 @@ public class UIFunctions : MonoBehaviour
     //The UI gameobject to enable to show the death screen
     public GameObject deathScreen;
     public GameObject pauseMenu;
+	public float pauseFadeTime = 0.25f;
 
     public GameObject loadingScreen;
     private bool loadingScreenActive = false;
@@ -65,10 +66,13 @@ public class UIFunctions : MonoBehaviour
             //Select first button
             GameObject obj = deathScreen.transform.GetComponentInChildren<Button>().gameObject;
 
-            if (obj)
-                EventSystem.current.firstSelectedGameObject = obj;
-            else
-                Debug.LogWarning("Could find a button to set selected!");
+			if (obj)
+			{
+				EventSystem.current.SetSelectedGameObject(null);
+				EventSystem.current.SetSelectedGameObject(obj);
+			}
+			else
+				Debug.LogWarning("Could find a button to set selected!");
         }
     }
 
@@ -81,24 +85,60 @@ public class UIFunctions : MonoBehaviour
     {
         if (pauseMenu)
         {
-            pauseMenu.SetActive(value);
+			GameObject selectObject = null;
 
-            //Select first button if pause menu is shown
-            if (value)
+			//Select first button if pause menu is shown
+			if (value)
             {
                 //Select first button
-                GameObject obj = pauseMenu.transform.GetComponentInChildren<Button>().gameObject;
+                selectObject = pauseMenu.transform.GetComponentInChildren<Button>().gameObject;
 
-				if (obj)
-				{
-					EventSystem.current.firstSelectedGameObject = obj;
-					EventSystem.current.SetSelectedGameObject(obj);
-				}
-				else
+				if(!selectObject)
 					Debug.LogWarning("Could find a button to set selected!");
-            }
-        }
+			}
+
+			//If there is a canvas group, fade it's alpha, otehrwise just disable
+			CanvasGroup screen = pauseMenu.GetComponent<CanvasGroup>();
+			if (screen)
+				StartCoroutine(FadeScreen(screen, pauseFadeTime, value ? 0 : 1, value ? 1 : 0, value, selectObject));
+			else
+				pauseMenu.SetActive(value);
+		}
     }
+
+	IEnumerator FadeScreen(CanvasGroup screen, float duration, float from, float to, bool setActive, GameObject selectObject)
+	{
+		float elapsed = 0;
+
+		screen.alpha = from;
+
+		if(setActive)
+			screen.gameObject.SetActive(true);
+
+		//Fade over time (realtime)
+		while(elapsed < duration)
+		{
+			screen.alpha = Mathf.Lerp(from, to, elapsed / duration);
+
+			yield return new WaitForEndOfFrame();
+			elapsed += Time.unscaledDeltaTime;
+		}
+
+		screen.alpha = to;
+
+		if (!setActive)
+			screen.gameObject.SetActive(false);
+
+		//Select desired object after fade in
+		if(selectObject)
+		{
+			//If all buttons are deselected for some reason (such as if clicked in blank space), this allows navigating back
+			EventSystem.current.firstSelectedGameObject = selectObject;
+
+			EventSystem.current.SetSelectedGameObject(null);
+			EventSystem.current.SetSelectedGameObject(selectObject);
+		}
+	}
 
     public void ShowLoadingScreen(bool value, float fadeDuration)
     {
