@@ -159,7 +159,7 @@ public class SaveManager : MonoBehaviour
             foreach (string file in files)
             {
                 //Delete all .cow files in persistent storage
-                if (System.IO.Path.GetExtension(file) == ".cow")
+                if (System.IO.Path.GetExtension(file) == ".dat")
                 {
                     System.IO.File.Delete(file);
 
