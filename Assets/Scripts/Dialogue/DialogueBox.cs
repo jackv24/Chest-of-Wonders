@@ -14,6 +14,10 @@ public class DialogueBox : MonoBehaviour
     public RectTransform optionPanel;
     public Vector2 optionPanelOffset;
 
+	[Space()]
+	public Animator speakerPanelAnimator;
+	public AnimationClip speakerCloseAnim;
+
     [Space()]
     public GameObject interactIcon;
 
@@ -287,7 +291,7 @@ public class DialogueBox : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        speakerPanel.gameObject.SetActive(false);
+        //speakerPanel.gameObject.SetActive(false);
         optionPanel.gameObject.SetActive(false);
 
         dialogueOpen = false;
@@ -303,6 +307,16 @@ public class DialogueBox : MonoBehaviour
         ClearParams(currentSpeaker.GetComponentInChildren<Animator>());
 
         SaveManager.instance.SaveDialogueJson(textAsset.name, currentStory.state.ToJson());
+
+		//Close speaker panel at end to avoid hanging up other things
+		if (speakerPanelAnimator && speakerCloseAnim)
+		{
+			speakerPanelAnimator.Play(speakerCloseAnim.name);
+			yield return new WaitForSeconds(speakerCloseAnim.length);
+			speakerPanel.gameObject.SetActive(false);
+		}
+		else
+			speakerPanel.gameObject.SetActive(false);
     }
 
     void SetupButtonEvents(Button button, int index)
@@ -321,6 +335,8 @@ public class DialogueBox : MonoBehaviour
                 waitingForChoice = false;
                 
                 currentStory.ChooseChoiceIndex(index);
+
+				optionPanel.gameObject.SetActive(false);
             };
         }
     }
