@@ -16,6 +16,7 @@ public class DialogueBox : MonoBehaviour
 
 	[Space()]
 	public Animator speakerPanelAnimator;
+	public AnimationClip speakerOpenAnim;
 	public AnimationClip speakerCloseAnim;
 
     [Space()]
@@ -38,6 +39,8 @@ public class DialogueBox : MonoBehaviour
     private bool waitingForInput = false;
 
     private bool buttonPressed = false;
+	private bool autoContinue = false;
+	private float pauseTime = 0;
 
     [Space()]
     public float textSpeed = 20;
@@ -54,6 +57,8 @@ public class DialogueBox : MonoBehaviour
     private PlayerActions playerActions;
 
     private DialogueSounds sounds;
+
+	private bool hidden = false;
 
     private void Awake()
     {
@@ -170,7 +175,18 @@ public class DialogueBox : MonoBehaviour
 
         while(currentStory.canContinue)
         {
-            currentStory.Continue();
+			if (hidden)
+			{
+				if (speakerPanelAnimator && speakerOpenAnim)
+				{
+					speakerPanelAnimator.Play(speakerOpenAnim.name);
+					yield return new WaitForSeconds(speakerOpenAnim.length);
+				}
+
+				hidden = false;
+			}
+
+			currentStory.Continue();
             int index = 0;
             dialogueText.text = "";
 
@@ -187,29 +203,45 @@ public class DialogueBox : MonoBehaviour
 
             bool speedPressed = false;
 
-            while (index < text.Length)
-            {
-                //Split text into shown and hidden text
-                string showText = text.Remove(index, text.Length - index);
-                string hideText = text.Remove(0, index);
+			if (text.Replace(" ", "").Length > 0)
+			{
+				while (index < text.Length)
+				{
+					//Split text into shown and hidden text
+					string showText = text.Remove(index, text.Length - index);
+					string hideText = text.Remove(0, index);
 
-                //Set text with colour to hide
-                dialogueText.text = string.Format("{0}{1}{2}{3}", showText, "<color=#FFFFFF00>", hideText, "</color>");
+					//Set text with colour to hide
+					dialogueText.text = string.Format("{0}{1}{2}{3}", showText, "<color=#FFFFFF00>", hideText, "</color>");
 
-                index++;
+					index++;
 
-                //Play one "blip" sound for every character printed
-                if (sounds)
-                    sounds.PlaySound("blip");
+					//Play one "blip" sound for every character printed
+					if (sounds)
+						sounds.PlaySound("blip");
 
-                yield return new WaitForSeconds(!speedPressed ? 1/textSpeed : 1/fastTextSpeed);
+					yield return new WaitForSeconds(!speedPressed ? 1 / textSpeed : 1 / fastTextSpeed);
 
-                if (!speedPressed && buttonPressed)
-                {
-                    buttonPressed = false;
-                    speedPressed = true;
-                }
-            }
+					if (!speedPressed && buttonPressed)
+					{
+						buttonPressed = false;
+						speedPressed = true;
+					}
+				}
+			}
+			else
+			{
+				if (!hidden)
+				{
+					hidden = true;
+
+					if (speakerPanelAnimator && speakerCloseAnim)
+					{
+						speakerPanelAnimator.Play(speakerCloseAnim.name);
+						yield return new WaitForSeconds(speakerCloseAnim.length);
+					}
+				}
+			}
 
             dialogueText.text = text;
 
@@ -287,7 +319,8 @@ public class DialogueBox : MonoBehaviour
             for (int i = 0; i < buttons.Count; i++)
                 buttons[i].gameObject.SetActive(false);
 
-        }
+			yield return new WaitForSeconds(pauseTime);
+		}
 
         yield return new WaitForEndOfFrame();
 
@@ -459,8 +492,12 @@ public class DialogueBox : MonoBehaviour
 
         ClearParams(anim);
 
-        //Handle tags
-        foreach(string tag in tags)
+		//Reset values that may have been set in previous tags
+		autoContinue = false;
+		pauseTime = 0;
+
+		//Handle tags
+		foreach (string tag in tags)
         {
             if(tag.Contains("animation_"))
             {
@@ -477,6 +514,21 @@ public class DialogueBox : MonoBehaviour
                 if (sounds)
                     sounds.PlaySound(parameter);
             }
+			else if(tag == "auto continue")
+			{
+				autoContinue = true;
+			}
+			else if(tag.Contains("pause"))
+			{
+				string text = tag.Replace("pause ", "");
+
+				float time = 0;
+
+				if (!float.TryParse(text, out time))
+					Debug.LogError(text + " is not a valid float value to pause for!");
+
+				pauseTime = time;
+			}
             else
             {
                 Debug.LogWarning("Encountered unknown tag in dialogue: " + tag);
@@ -509,4 +561,10 @@ public class DialogueBox : MonoBehaviour
         if (interactIcon)
             interactIcon.SetActive(false);
     }
+
+	public void AutoContinue()
+	{
+		if (autoContinue)
+			waitingForInput = false;
+	}
 }

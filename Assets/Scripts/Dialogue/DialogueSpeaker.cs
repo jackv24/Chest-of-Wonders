@@ -162,21 +162,29 @@ public class DialogueSpeaker : MonoBehaviour
         //Get character move and cache move speed
         CharacterMove characterMove = GetComponent<CharacterMove>();
 
-        //While player is not at target position (according to sign)
-        while ((sign < 0 && transform.position.x > targetPos) || (sign > 0 && transform.position.x < targetPos))
-        {
-            //Move player
-            characterMove.Move(sign);
-            yield return new WaitForEndOfFrame();
-        }
+		if (characterMove)
+		{
+			//While player is not at target position (according to sign)
+			while ((sign < 0 && transform.position.x > targetPos) || (sign > 0 && transform.position.x < targetPos))
+			{
+				//Move player
+				characterMove.Move(sign);
+				yield return new WaitForEndOfFrame();
+			}
 
-        //Face back towards speaker
-        characterMove.Move(-sign);
+			//Face back towards speaker
+			characterMove.Move(-sign);
+		}
+		else
+			Debug.LogWarning(string.Format("No CharacterMove assigned to {0}, can not move {1}", gameObject.name, x));
 
         yield return new WaitForEndOfFrame();
 
         //Stop moving
-        characterMove.Move(0);
+		if(characterMove)
+			characterMove.Move(0);
+
+		DialogueBox.Instance.AutoContinue();
     }
 
 	IEnumerator Cower()
