@@ -630,6 +630,7 @@ GameObject:
   - component: {fileID: 224204794454012540}
   - component: {fileID: 222804696391997574}
   - component: {fileID: 114121490369984570}
+  - component: {fileID: 114607173069141100}
   m_Layer: 5
   m_Name: TextPanel
   m_TagString: Untagged
@@ -1955,6 +1956,7 @@ GameObject:
   - component: {fileID: 114585533243702974}
   - component: {fileID: 114757884613072146}
   - component: {fileID: 114948060765451868}
+  - component: {fileID: 114924231109511880}
   m_Layer: 5
   m_Name: NamePanel
   m_TagString: Untagged
@@ -4503,7 +4505,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 5
     m_Right: 5
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
@@ -5035,8 +5037,8 @@ MonoBehaviour:
   m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 2
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!114 &114193648586663428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7428,6 +7430,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 7400000, guid: 34c36f4bb0d8b894c825dc5458228804, type: 2}
   enableClearSprite: 1
+--- !u!114 &114607173069141100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207282218130990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 50.31
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
 --- !u!114 &114609325644734440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7823,7 +7843,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Character Name
+  m_Text: Name
 --- !u!114 &114672907543899842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8355,7 +8375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speakerPanel: {fileID: 224214287270738284}
-  speakerPanelOffset: {x: 1.5, y: 0}
+  speakerPanelOffset: {x: -0.25, y: 0}
   optionPanel: {fileID: 224599788961721610}
   optionPanelOffset: {x: -0.5, y: 1.5}
   speakerPanelAnimator: {fileID: 95978907968437046}
@@ -8366,7 +8386,7 @@ MonoBehaviour:
   accent: {fileID: 114732608815967382}
   dialogueText: {fileID: 114259389276041410}
   trail: {fileID: 114205321538063800}
-  trailOffset: -78
+  trailOffset: -10
   initialButton: {fileID: 114131284326500310}
   textSpeed: 30
   fastTextSpeed: 100
@@ -9660,6 +9680,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114924231109511880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1655470002275466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!114 &114929645294477772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9684,7 +9717,7 @@ MonoBehaviour:
   m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
+  m_IgnoreLayout: 1
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
@@ -11399,8 +11432,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -4}
-  m_SizeDelta: {x: 0, y: -8}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224170865862300482
 RectTransform:
@@ -11701,7 +11734,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 0}
+  m_SizeDelta: {x: 0, y: 28}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!224 &224216117263021622
 RectTransform:
@@ -12282,10 +12315,10 @@ RectTransform:
   m_Father: {fileID: 224214287270738284}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -8}
+  m_SizeDelta: {x: 0, y: 18}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224496342837571168
 RectTransform:

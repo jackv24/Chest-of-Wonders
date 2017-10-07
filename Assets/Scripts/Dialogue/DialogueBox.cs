@@ -175,17 +175,6 @@ public class DialogueBox : MonoBehaviour
 
         while(currentStory.canContinue)
         {
-			if (hidden)
-			{
-				if (speakerPanelAnimator && speakerOpenAnim)
-				{
-					speakerPanelAnimator.Play(speakerOpenAnim.name);
-					yield return new WaitForSeconds(speakerOpenAnim.length);
-				}
-
-				hidden = false;
-			}
-
 			currentStory.Continue();
             int index = 0;
             dialogueText.text = "";
@@ -201,7 +190,22 @@ public class DialogueBox : MonoBehaviour
             //Remove end line
             text = text.Replace("\n", "");
 
-            bool speedPressed = false;
+			//Before opening, set new text and as invisible for sizing box correctly
+			dialogueText.text = string.Format("{0}{1}{2}", "<color=#FFFFFF00>", text, "</color>");
+
+			//Play open animation
+			if (hidden)
+			{
+				if (speakerPanelAnimator && speakerOpenAnim)
+				{
+					speakerPanelAnimator.Play(speakerOpenAnim.name);
+					yield return new WaitForSeconds(speakerOpenAnim.length);
+				}
+
+				hidden = false;
+			}
+
+			bool speedPressed = false;
 
 			if (text.Replace(" ", "").Length > 0)
 			{
