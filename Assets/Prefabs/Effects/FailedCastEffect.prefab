@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4796715769828448}
   - component: {fileID: 198624201139231650}
   - component: {fileID: 199723025729533998}
+  - component: {fileID: 114925533542551848}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -37,6 +38,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4794778827973464}
   - component: {fileID: 114720160539960172}
+  - component: {fileID: 114721262686539474}
+  - component: {fileID: 114069847245879852}
   m_Layer: 0
   m_Name: FailedCastEffect
   m_TagString: Untagged
@@ -71,6 +74,18 @@ Transform:
   m_Father: {fileID: 4794778827973464}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -40}
+--- !u!114 &114069847245879852
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489579511910158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: d6c459c4-5abb-4053-9c93-088ccfa43d52
 --- !u!114 &114720160539960172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,6 +97,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c1eb91a1f6374f9809f4ad93ed818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitType: 0
+  checkDelay: 0
+--- !u!114 &114721262686539474
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489579511910158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1489579511910158}
+    - {fileID: 1338938037719110}
+  _assetGuid: 8128f907757e7fc4492ec77e06026530
+--- !u!114 &114925533542551848
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1338938037719110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 47a3a19d-02f1-45d0-80ed-aa9e58a6a42d
 --- !u!198 &198624201139231650
 ParticleSystem:
   m_ObjectHideFlags: 1

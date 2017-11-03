@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4805691661428230}
   - component: {fileID: 212428137537795430}
   - component: {fileID: 95689461651411496}
+  - component: {fileID: 114175434709904078}
   m_Layer: 12
   m_Name: Graphic
   m_TagString: Untagged
@@ -39,6 +40,8 @@ GameObject:
   - component: {fileID: 58737017157093130}
   - component: {fileID: 50239496834377340}
   - component: {fileID: 114260202573915018}
+  - component: {fileID: 114770357770782464}
+  - component: {fileID: 114442557014206170}
   m_Layer: 12
   m_Name: HealthContainer
   m_TagString: Untagged
@@ -124,6 +127,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114175434709904078
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1469731349414682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 4f69ceb0-1c8b-41fc-b5ae-31ea055bb9ec
 --- !u!114 &114260202573915018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,6 +161,36 @@ MonoBehaviour:
   pickupSound:
     clip: {fileID: 8300000, guid: 8dc838a2deea8474d91de1f054795563, type: 3}
     volume: 0.75
+--- !u!114 &114442557014206170
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1534400475479588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 13339247-acb9-4634-aa88-31bb15c15c28
+--- !u!114 &114770357770782464
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1534400475479588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1534400475479588}
+    - {fileID: 1469731349414682}
+  _assetGuid: dd033582c814a03409c8e976b6360e19
 --- !u!212 &212428137537795430
 SpriteRenderer:
   m_ObjectHideFlags: 1

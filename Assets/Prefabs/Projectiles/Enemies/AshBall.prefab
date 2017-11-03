@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4604505990331058}
   - component: {fileID: 212430489305860608}
   - component: {fileID: 95383003469931344}
+  - component: {fileID: 114827315309389584}
   m_Layer: 0
   m_Name: Graphic
   m_TagString: Untagged
@@ -40,6 +41,8 @@ GameObject:
   - component: {fileID: 50769298057512066}
   - component: {fileID: 58032376895041174}
   - component: {fileID: 82080488374217872}
+  - component: {fileID: 114611986486216706}
+  - component: {fileID: 114911314548938630}
   m_Layer: 11
   m_Name: AshBall
   m_TagString: Untagged
@@ -57,6 +60,7 @@ GameObject:
   - component: {fileID: 4203212152782358}
   - component: {fileID: 198659099093839778}
   - component: {fileID: 199452712061868318}
+  - component: {fileID: 114061268240170200}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -237,6 +241,37 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114061268240170200
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1647510647481114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 5fb12eca-ac98-4ea4-8867-a22eaf49b77d
+--- !u!114 &114611986486216706
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151141745735722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1151141745735722}
+    - {fileID: 1647510647481114}
+    - {fileID: 1010277132573648}
+  _assetGuid: 3d20ce573c5805743a9152f1dff8fbb7
 --- !u!114 &114801452462288200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,6 +294,30 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 06438e1e5e1fbee4486f6c353f53acd7, type: 3}
     volume: 0.25
   element: 0
+--- !u!114 &114827315309389584
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1010277132573648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 4e84b01e-f4b8-433c-b75c-279c50660bd5
+--- !u!114 &114911314548938630
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151141745735722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 34673ac8-5c22-48e2-ba71-620ad7760ef7
 --- !u!198 &198659099093839778
 ParticleSystem:
   m_ObjectHideFlags: 1

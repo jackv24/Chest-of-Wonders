@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4896829573703824}
   - component: {fileID: 212214592049931808}
   - component: {fileID: 95185524855794016}
+  - component: {fileID: 114671909597868612}
   m_Layer: 14
   m_Name: Graphic
   m_TagString: Untagged
@@ -43,6 +44,8 @@ GameObject:
   - component: {fileID: 114361726919820766}
   - component: {fileID: 50270106803801894}
   - component: {fileID: 58953327103004430}
+  - component: {fileID: 114357286844744142}
+  - component: {fileID: 114128878449541174}
   m_Layer: 14
   m_Name: Sootie
   m_TagString: Enemy
@@ -240,6 +243,18 @@ MonoBehaviour:
   healthDropForce: 5
   hasDied: 0
   damageImmunity: 0
+--- !u!114 &114128878449541174
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186632841924686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 6ba42a23-867b-4361-8576-882db62c74ca
 --- !u!114 &114211805847487764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,6 +277,24 @@ MonoBehaviour:
   screenShakeAmount: 0.5
   knockBackAmount: 10
   knockBackCentreOffset: {x: -0, y: -2}
+--- !u!114 &114357286844744142
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186632841924686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1186632841924686}
+    - {fileID: 1038996923405694}
+  _assetGuid: 43f21ecda183e804192eaa34de7967ec
 --- !u!114 &114361726919820766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -315,6 +348,18 @@ MonoBehaviour:
   turnSound:
     clip: {fileID: 0}
     volume: 1
+--- !u!114 &114671909597868612
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1038996923405694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 4d443c59-16d2-45fd-9852-756a4dc5935e
 --- !u!212 &212214592049931808
 SpriteRenderer:
   m_ObjectHideFlags: 1

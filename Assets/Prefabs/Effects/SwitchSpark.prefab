@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212663884510079716}
   - component: {fileID: 95073422762739560}
   - component: {fileID: 114945565703767918}
+  - component: {fileID: 114890377505850930}
+  - component: {fileID: 114997139825808596}
   m_Layer: 0
   m_Name: SwitchSpark
   m_TagString: Untagged
@@ -59,6 +61,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114890377505850930
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242292917224960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1242292917224960}
+  _assetGuid: 8f3817831ee53614686a83f86e68932d
 --- !u!114 &114945565703767918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,6 +91,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 7400000, guid: f4f741d768589ce4499568565adc0d5f, type: 2}
   enableClearSprite: 1
+--- !u!114 &114997139825808596
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1242292917224960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 82835d5e-e8ce-4a40-8463-fbf698ae311b
 --- !u!212 &212663884510079716
 SpriteRenderer:
   m_ObjectHideFlags: 1

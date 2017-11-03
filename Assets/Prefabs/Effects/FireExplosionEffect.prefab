@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 198868061426669382}
   - component: {fileID: 199540552606894534}
   - component: {fileID: 114030969521784950}
+  - component: {fileID: 114182379350413828}
+  - component: {fileID: 114346649848791704}
   m_Layer: 0
   m_Name: FireExplosionEffect
   m_TagString: Untagged
@@ -53,6 +55,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c1eb91a1f6374f9809f4ad93ed818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitType: 0
+  checkDelay: 0
+--- !u!114 &114182379350413828
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1110034029969842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1110034029969842}
+  _assetGuid: fa1755586a68e164186463d734275cff
+--- !u!114 &114346649848791704
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1110034029969842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 0e87b75b-baf7-43f2-8734-d0b29e6e5812
 --- !u!198 &198868061426669382
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -61,7 +94,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1110034029969842}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 0
   prewarm: 0
   playOnAwake: 1

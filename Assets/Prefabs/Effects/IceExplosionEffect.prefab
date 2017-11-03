@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 198377896014052744}
   - component: {fileID: 199333137055087272}
   - component: {fileID: 114626028066037872}
+  - component: {fileID: 114055849504055628}
+  - component: {fileID: 114945951636864486}
   m_Layer: 0
   m_Name: IceExplosionEffect
   m_TagString: Untagged
@@ -42,6 +44,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -40}
+--- !u!114 &114055849504055628
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1356928710795736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1356928710795736}
+  _assetGuid: 481d091e93f0cc14e9b98ea9bf759ce4
 --- !u!114 &114626028066037872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,6 +72,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c1eb91a1f6374f9809f4ad93ed818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitType: 0
+  checkDelay: 0
+--- !u!114 &114945951636864486
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1356928710795736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 216037cd-14d3-4b2e-85fa-0fb88305ef88
 --- !u!198 &198377896014052744
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -61,7 +94,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1356928710795736}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 0
   prewarm: 0
   playOnAwake: 1

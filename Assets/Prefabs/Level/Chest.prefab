@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212925417743967622}
   - component: {fileID: 95392538135018012}
   - component: {fileID: 114057963971254440}
+  - component: {fileID: 114672144928493304}
+  - component: {fileID: 114707203130902206}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -40,6 +42,7 @@ GameObject:
   - component: {fileID: 198590399741105610}
   - component: {fileID: 199635078969698534}
   - component: {fileID: 114635773520074982}
+  - component: {fileID: 114758974486335276}
   m_Layer: 0
   m_Name: DeathParticles
   m_TagString: Untagged
@@ -167,6 +170,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c1eb91a1f6374f9809f4ad93ed818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitType: 0
+  checkDelay: 0
+--- !u!114 &114672144928493304
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1022593397258198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1022593397258198}
+    - {fileID: 1673656579188944}
+  _assetGuid: 960fcd0a9b537e64ea77c3b1d5b062a2
+--- !u!114 &114707203130902206
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1022593397258198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 55012b01-e5e3-4887-9462-84ca005ed35a
+--- !u!114 &114758974486335276
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1673656579188944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 762900af-a832-4613-a5ec-fc2416eebead
 --- !u!198 &198590399741105610
 ParticleSystem:
   m_ObjectHideFlags: 1

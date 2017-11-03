@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4701692280732816}
   - component: {fileID: 198234673108638290}
   - component: {fileID: 199646516193369106}
+  - component: {fileID: 114501128175927460}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -37,6 +38,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4209230865902622}
   - component: {fileID: 114074213158858460}
+  - component: {fileID: 114551883112088192}
+  - component: {fileID: 114830921502785706}
   m_Layer: 0
   m_Name: IceCastEffect
   m_TagString: Untagged
@@ -82,6 +85,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c1eb91a1f6374f9809f4ad93ed818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitType: 0
+  checkDelay: 0
+--- !u!114 &114501128175927460
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445508050277732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 9acfce99-9cce-427e-a97e-ed3956c92230
+--- !u!114 &114551883112088192
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958410816669968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1958410816669968}
+    - {fileID: 1445508050277732}
+  _assetGuid: 8aaf62b7972b0da4caa968edd7e94ba5
+--- !u!114 &114830921502785706
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958410816669968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: dfc43db3-8af4-425f-84f0-e9651f5a6efd
 --- !u!198 &198234673108638290
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4604505990331058}
   - component: {fileID: 212430489305860608}
   - component: {fileID: 95383003469931344}
+  - component: {fileID: 114917813629412680}
   m_Layer: 0
   m_Name: Graphic
   m_TagString: Untagged
@@ -40,6 +41,8 @@ GameObject:
   - component: {fileID: 50769298057512066}
   - component: {fileID: 58032376895041174}
   - component: {fileID: 82080488374217872}
+  - component: {fileID: 114652968951069850}
+  - component: {fileID: 114444866896906602}
   m_Layer: 11
   m_Name: Fireball
   m_TagString: Untagged
@@ -57,6 +60,7 @@ GameObject:
   - component: {fileID: 4203212152782358}
   - component: {fileID: 198659099093839778}
   - component: {fileID: 199452712061868318}
+  - component: {fileID: 114106962029655120}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -237,6 +241,49 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114106962029655120
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1647510647481114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 5a9aa507-6685-42ec-9c1f-0d6f66403d7c
+--- !u!114 &114444866896906602
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151141745735722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 81d28f02-0daf-43e3-b6d8-b1fb8238d208
+--- !u!114 &114652968951069850
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151141745735722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1151141745735722}
+    - {fileID: 1647510647481114}
+    - {fileID: 1010277132573648}
+  _assetGuid: dbaa39ef4c4e37c44a8da4caac3b2861
 --- !u!114 &114801452462288200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,6 +306,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 06438e1e5e1fbee4486f6c353f53acd7, type: 3}
     volume: 0.25
   element: 0
+--- !u!114 &114917813629412680
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1010277132573648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 479fa2a6-42ae-4550-a724-499f10cb1a66
 --- !u!198 &198659099093839778
 ParticleSystem:
   m_ObjectHideFlags: 1

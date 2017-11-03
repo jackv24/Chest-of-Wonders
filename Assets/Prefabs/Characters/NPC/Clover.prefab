@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4686897722187918}
   - component: {fileID: 212834954427692168}
   - component: {fileID: 95895513045433578}
+  - component: {fileID: 114523618475261668}
   m_Layer: 9
   m_Name: Graphic
   m_TagString: Untagged
@@ -37,6 +38,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4301113669869222}
   - component: {fileID: 114356034344867348}
+  - component: {fileID: 114757379913078342}
+  - component: {fileID: 114814902776836204}
   m_Layer: 9
   m_Name: Clover
   m_TagString: Untagged
@@ -108,6 +111,48 @@ MonoBehaviour:
   graphic: {fileID: 1735326383130286}
   facePlayer: 1
   cowerFromEnemies: 0
+--- !u!114 &114523618475261668
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735326383130286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: c1d028e1-bed4-4478-839e-db078b3d8cfd
+--- !u!114 &114757379913078342
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771161378661522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1771161378661522}
+    - {fileID: 1735326383130286}
+  _assetGuid: 6141007c1e8944b4cb6d24a723b327dd
+--- !u!114 &114814902776836204
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771161378661522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: bf0321eb-f86e-4fc8-bca6-8819515f3875
 --- !u!212 &212834954427692168
 SpriteRenderer:
   m_ObjectHideFlags: 1

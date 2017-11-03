@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212637434082745766}
   - component: {fileID: 95880760979887484}
   - component: {fileID: 114160229345955558}
+  - component: {fileID: 114308039924742850}
+  - component: {fileID: 114040500405266096}
   m_Layer: 0
   m_Name: PushBlockPuff
   m_TagString: Untagged
@@ -59,6 +61,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114040500405266096
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327004953144078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 3d679a94-bd47-40f0-9f16-1915e021d2f1
 --- !u!114 &114160229345955558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,6 +86,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 7400000, guid: f94bbfeb041e5d647a7b9184975cd976, type: 2}
   enableClearSprite: 1
+--- !u!114 &114308039924742850
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327004953144078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1327004953144078}
+  _assetGuid: 8db3573e235015e43bcb270d8a5a6fc7
 --- !u!212 &212637434082745766
 SpriteRenderer:
   m_ObjectHideFlags: 1

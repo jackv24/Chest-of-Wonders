@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4383099445865444}
   - component: {fileID: 114843474253524348}
   - component: {fileID: 114657537814613060}
+  - component: {fileID: 114703178228724484}
+  - component: {fileID: 114957443336607132}
   m_Layer: 0
   m_Name: InControl
   m_TagString: Untagged
@@ -52,6 +54,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d20b91fe4ab84bb4c805cf72a21904ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114703178228724484
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1868295094900218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1868295094900218}
+  _assetGuid: e67f416d8074af349ac699383fb9c5b6
 --- !u!114 &114843474253524348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80,3 +99,15 @@ MonoBehaviour:
   nativeInputOverrideUpdateRate: 0
   nativeInputUpdateRate: 0
   customProfiles: []
+--- !u!114 &114957443336607132
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1868295094900218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: ffac019f-8bbd-4800-a433-f88e3d6de94d

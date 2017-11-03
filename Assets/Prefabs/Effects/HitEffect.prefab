@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4462573588371426}
   - component: {fileID: 212753531050110970}
   - component: {fileID: 114470039962631870}
+  - component: {fileID: 114456212118383316}
+  - component: {fileID: 114827888914449744}
   m_Layer: 0
   m_Name: HitEffect
   m_TagString: Untagged
@@ -41,6 +43,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114456212118383316
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088265295667660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1088265295667660}
+  _assetGuid: 762fc713577a92143b74ec8a30cc2e3a
 --- !u!114 &114470039962631870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,6 +72,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0.25
+--- !u!114 &114827888914449744
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088265295667660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 3987e1f5-f2ac-4175-a8e6-a46737fb957e
 --- !u!212 &212753531050110970
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4326787208339544}
   - component: {fileID: 114566747536238746}
+  - component: {fileID: 114472697784422236}
+  - component: {fileID: 114088428646213348}
   m_Layer: 0
   m_Name: RambushExplosionEffect
   m_TagString: Untagged
@@ -37,6 +39,7 @@ GameObject:
   - component: {fileID: 4280343405471900}
   - component: {fileID: 198783492272394754}
   - component: {fileID: 199974340243832780}
+  - component: {fileID: 114778239338188250}
   m_Layer: 0
   m_Name: RoseParticles
   m_TagString: Untagged
@@ -54,6 +57,7 @@ GameObject:
   - component: {fileID: 4661083108945256}
   - component: {fileID: 198260717536434420}
   - component: {fileID: 199523090055557264}
+  - component: {fileID: 114358878307979780}
   m_Layer: 0
   m_Name: BushParticles
   m_TagString: Untagged
@@ -102,6 +106,49 @@ Transform:
   m_Father: {fileID: 4326787208339544}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114088428646213348
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340143815941872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 7e531eac-62a9-4a7e-9e7a-73e57fe53ac0
+--- !u!114 &114358878307979780
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1799716305170354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 3672cde0-f4d1-454b-967b-ab9aa3ac3922
+--- !u!114 &114472697784422236
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340143815941872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1340143815941872}
+    - {fileID: 1799716305170354}
+    - {fileID: 1561293141153684}
+  _assetGuid: d78ed4a9948b7804ea89c147e194ded0
 --- !u!114 &114566747536238746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,6 +161,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 5
+--- !u!114 &114778239338188250
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1561293141153684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 06bde309-be1f-4852-86a5-b8a7371fc42d
 --- !u!198 &198260717536434420
 ParticleSystem:
   m_ObjectHideFlags: 1

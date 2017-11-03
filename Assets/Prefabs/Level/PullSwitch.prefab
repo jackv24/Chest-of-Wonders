@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4834978136165132}
   - component: {fileID: 212708191454769622}
   - component: {fileID: 61187834153973300}
+  - component: {fileID: 114377640630191276}
   m_Layer: 8
   m_Name: SwitchBox
   m_TagString: Untagged
@@ -36,6 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4893974022671040}
+  - component: {fileID: 114010192004637490}
   m_Layer: 0
   m_Name: PlayerAttach
   m_TagString: Untagged
@@ -51,6 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4151515941964348}
+  - component: {fileID: 114319896481294818}
   m_Layer: 8
   m_Name: SparkSpawn
   m_TagString: Untagged
@@ -66,6 +69,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4576395056834812}
+  - component: {fileID: 114995982324914858}
+  - component: {fileID: 114489884359456732}
   m_Layer: 8
   m_Name: PullSwitch
   m_TagString: Untagged
@@ -85,6 +90,7 @@ GameObject:
   - component: {fileID: 50783472027843922}
   - component: {fileID: 61318677348212256}
   - component: {fileID: 114769459591741792}
+  - component: {fileID: 114524032314379322}
   m_Layer: 0
   m_Name: SwitchRod
   m_TagString: Untagged
@@ -209,6 +215,66 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -1.25}
   serializedVersion: 2
   m_Size: {x: 0.85, y: 0.75}
+--- !u!114 &114010192004637490
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430174798639818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 2c8c097d-9a64-482c-baec-b233f0e47547
+--- !u!114 &114319896481294818
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1457918978147584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: a03a3e24-d9d0-43d5-8362-7e3af731e037
+--- !u!114 &114377640630191276
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1413630753207800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: c7b5f163-1a6c-48f0-bd05-d8cd8cb00ae2
+--- !u!114 &114489884359456732
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1633701151075064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: e033f9be-3cb9-429f-ac08-ad9af73f877c
+--- !u!114 &114524032314379322
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1799876884405568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 28c72346-812c-43cb-8c9f-4c4fe1549676
 --- !u!114 &114769459591741792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -220,6 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3915d616b123646be5db63fafa1cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 0
   pullDistance: 0.91
   pullTime: 0.92
   pullCurve:
@@ -257,6 +324,30 @@ MonoBehaviour:
   sparkEffect: {fileID: 1242292917224960, guid: 8f3817831ee53614686a83f86e68932d,
     type: 2}
   sparkDelay: 0.4
+  spawnObject: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  succeedFlag: 
+--- !u!114 &114995982324914858
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1633701151075064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1633701151075064}
+    - {fileID: 1413630753207800}
+    - {fileID: 1799876884405568}
+    - {fileID: 1430174798639818}
+    - {fileID: 1457918978147584}
+  _assetGuid: 5ee29fb96c748134898496d3ddaff5df
 --- !u!212 &212239571044700714
 SpriteRenderer:
   m_ObjectHideFlags: 1

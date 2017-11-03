@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 198514664150114960}
   - component: {fileID: 199100660425525764}
   - component: {fileID: 114159284215268642}
+  - component: {fileID: 114193102688739582}
+  - component: {fileID: 114482372774816644}
   m_Layer: 0
   m_Name: SootieDeathEffect
   m_TagString: Untagged
@@ -53,6 +55,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c1eb91a1f6374f9809f4ad93ed818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitType: 0
+  checkDelay: 0
+--- !u!114 &114193102688739582
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395494257038326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1395494257038326}
+  _assetGuid: 29e2a8c42f90d49428d39dd1775b6489
+--- !u!114 &114482372774816644
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395494257038326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 3b7ca37d-9fa7-4581-abb4-22fc9cc24914
 --- !u!198 &198514664150114960
 ParticleSystem:
   m_ObjectHideFlags: 1

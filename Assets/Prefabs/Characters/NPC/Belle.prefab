@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4198061183610684}
   - component: {fileID: 114512495726707682}
+  - component: {fileID: 114389753680356430}
+  - component: {fileID: 114382672150539328}
   m_Layer: 9
   m_Name: Belle
   m_TagString: Untagged
@@ -37,6 +39,7 @@ GameObject:
   - component: {fileID: 4387791407899404}
   - component: {fileID: 212019925378070514}
   - component: {fileID: 95393219126460876}
+  - component: {fileID: 114834258861391194}
   m_Layer: 9
   m_Name: Graphic
   m_TagString: Untagged
@@ -88,6 +91,36 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114382672150539328
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1068437205747888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: a8d12b27-4e38-41bf-b78d-2710ae646c8f
+--- !u!114 &114389753680356430
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1068437205747888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1068437205747888}
+    - {fileID: 1627136707880434}
+  _assetGuid: 836009ff8431c6c4b9e727978fe7ce36
 --- !u!114 &114512495726707682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,6 +141,18 @@ MonoBehaviour:
   graphic: {fileID: 1627136707880434}
   facePlayer: 1
   cowerFromEnemies: 1
+--- !u!114 &114834258861391194
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1627136707880434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 4b96fc98-3a7c-42cf-94c4-0960be5b9ac8
 --- !u!212 &212019925378070514
 SpriteRenderer:
   m_ObjectHideFlags: 1
