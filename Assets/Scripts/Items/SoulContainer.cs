@@ -8,10 +8,16 @@ public class SoulContainer : MonoBehaviour
 
 	[Space()]
 	public float restTime = 2.0f;
-	public float moveSpeed = 10.0f;
-	public float absorbedRange = 0.25f;
+    public float moveSpeed = 5.0f;
+    public float turnSpeed = 2.0f;
+	public float turnAcceleration = 10.0f;
+    public float absorbedRange = 0.25f;
 
-	private static PlayerMagicBank bank;
+    [Space()]
+    public GameObject graphic;
+    public GameObject absorbTrail;
+
+    private static PlayerMagicBank bank;
 	private static Transform absorbPoint;
 
 	private Rigidbody2D body;
@@ -26,8 +32,16 @@ public class SoulContainer : MonoBehaviour
 		//Make sure rigidbody is enabled after object pooling
 		body.isKinematic = false;
 
-		//First instance will find and set static value for bank
-		if (!bank)
+        transform.SetRotationZ(0);
+
+        if(graphic)
+            graphic.SetActive(true);
+
+		if(absorbTrail)
+            absorbTrail.SetActive(false);
+
+        //First instance will find and set static value for bank
+        if (!bank)
 		{
 			GameObject obj = GameObject.FindWithTag("Player");
 
@@ -60,20 +74,36 @@ public class SoulContainer : MonoBehaviour
 			//Disable physics
 			body.isKinematic = true;
 
-			//Loop until close enough to absorb point
-			float distance = float.MaxValue;
+			if (graphic)
+                graphic.SetActive(false);
+
+            if (absorbTrail)
+                absorbTrail.SetActive(true);
+
+			//Set initial rotation to either -90
+            transform.SetRotationZ(90);
+
+            float currentTurnSpeed = turnSpeed;
+
+            //Loop until close enough to absorb point
+            float distance = float.MaxValue;
 			while (distance > absorbedRange)
 			{
-				//Lerp towards absorb point
-				Vector3 pos = transform.position;
-				pos = Vector3.Lerp(pos, absorbPoint.position, moveSpeed * Time.deltaTime);
-				pos.z = transform.position.z;
-				transform.position = pos;
+                //Lerp towards absorb point
+                transform.Translate(Vector3.right * moveSpeed * Time.deltaTime, Space.Self);
 
-				//Calculate distance for looping check
-				distance = Vector2.Distance(transform.position, absorbPoint.position);
+                Vector3 toTarget = absorbPoint.position - transform.position;
+                float angle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-				yield return new WaitForEndOfFrame();
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, currentTurnSpeed * Time.deltaTime);
+
+                //Calculate distance for looping check
+                distance = Vector2.Distance(transform.position, absorbPoint.position);
+
+                currentTurnSpeed += turnAcceleration * Time.deltaTime;
+
+                yield return new WaitForEndOfFrame();
 			}
 		}
 		else
