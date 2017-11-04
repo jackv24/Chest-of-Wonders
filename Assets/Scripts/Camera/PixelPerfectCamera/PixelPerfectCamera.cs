@@ -14,7 +14,6 @@ using UnityEditor;
  *  For example if your sprites have a center pivot and the screen has a non-multiple of 2 dimension or if you translate your sprites
  *  in sub-pixel values. Using point-sampling solves all these issues.
  */
-[ExecuteInEditMode]
 [RequireComponent(typeof(Camera))]
 public class PixelPerfectCamera : MonoBehaviour {
 
@@ -58,6 +57,8 @@ public class PixelPerfectCamera : MonoBehaviour {
     // Internal
     Resolution res;
     Camera cam;
+
+    public Camera targetCamera;
 
     //void testMethod()
     //{
@@ -144,12 +145,13 @@ public class PixelPerfectCamera : MonoBehaviour {
     public void adjustCameraFOV()
     {
         if (cam == null)
-        {
             cam = GetComponent<Camera>();
-        }
+        if (targetCamera == null)
+            targetCamera = cam;
+
         res = new Resolution();
-        res.width = cam.pixelWidth;
-        res.height = cam.pixelHeight;
+        res.width = targetCamera.pixelWidth;
+        res.height = targetCamera.pixelHeight;
         res.refreshRate = Screen.currentResolution.refreshRate;
 
         if (res.width == 0 || res.height == 0)
@@ -161,7 +163,8 @@ public class PixelPerfectCamera : MonoBehaviour {
         float maxCameraHalfHeightReq = (maxCameraHalfHeightEnabled) ? maxCameraHalfHeight : -1;
         float cameraSize = calculatePixelPerfectCameraSize(pixelPerfect, res, assetsPixelsPerUnit, maxCameraHalfWidthReq, maxCameraHalfHeightReq, targetCameraHalfWidth, targetCameraHalfHeight, targetDimension);
 
-        cam.orthographicSize = cameraSize;
+        if(Application.isPlaying)
+            cam.orthographicSize = cameraSize;
 
 		if (OnChangeSize != null)
 			OnChangeSize();
@@ -248,6 +251,7 @@ public class PixelPerfectCameraEditor : Editor
     SerializedProperty retroSnap;
     SerializedProperty assetsPixelsPerUnit;
     SerializedProperty showHUD;
+    SerializedProperty targetCamera;
 
     void OnEnable()
     {
@@ -262,11 +266,14 @@ public class PixelPerfectCameraEditor : Editor
         retroSnap = serializedObject.FindProperty("retroSnap");
         assetsPixelsPerUnit = serializedObject.FindProperty("assetsPixelsPerUnit");
         showHUD = serializedObject.FindProperty("showHUD");
+        targetCamera = serializedObject.FindProperty("targetCamera");
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+
+        EditorGUILayout.PropertyField(targetCamera, new GUIContent("Target Camera"));
 
         // Targeted Size
         PixelPerfectCamera.Dimension dimensionType = (PixelPerfectCamera.Dimension)Enum.GetValues(typeof(PixelPerfectCamera.Dimension)).GetValue(targetDimension.enumValueIndex);
