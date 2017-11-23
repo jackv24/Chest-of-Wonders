@@ -1,13 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NodeCanvas.DialogueTrees;
 
 public class DialogueSpeaker : MonoBehaviour
 {
-    //Where to load the dialog json file
-    public TextAsset dialogueFile;
-    public Color windowColor = Color.grey;
-
     [Space()]
     //How far offset from the gameobject should it be (in world space)
     public Vector2 boxOffset;
@@ -31,7 +28,16 @@ public class DialogueSpeaker : MonoBehaviour
 
 	private Animator animator;
 
-    private void Start()
+	[Space()]
+	public DialogueTreeController dialogueTree;
+	private DialogueActor actor;
+
+	private void Awake()
+	{
+		actor = GetComponent<DialogueActor>();
+	}
+
+	private void Start()
     {
         player = GameObject.FindWithTag("Player");
 
@@ -70,10 +76,9 @@ public class DialogueSpeaker : MonoBehaviour
             rangeToggle = false;
 
             //If interact buttons is pressed in range...and the player "can move" (can perform actions outside of UI)
-            if (playerActions.Interact.WasPressed && dialogueFile != null && GameManager.instance.CanDoActions)
+            if (playerActions.Interact.WasPressed && dialogueTree && GameManager.instance.CanDoActions)
             {
-                //Stop them moving and open dialogue
-                DialogueBox.Instance.OpenDialogue(dialogueFile, gameObject.name);
+				dialogueTree.StartDialogue(actor);
 
                 //If desired, face the player while speaking
                 if (facePlayer && graphic)

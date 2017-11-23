@@ -219,7 +219,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -365,7 +365,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -390,6 +390,60 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 140890731}
   m_Mesh: {fileID: 0}
+--- !u!1 &149110494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 149110496}
+  - component: {fileID: 149110495}
+  m_Layer: 0
+  m_Name: DialogueTree
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &149110495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 149110494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32e4b851ebd8fa4ea0645b99be1cf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundGraphSerialization: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4832.0,"y":-5090.0},"nodes":[{"statement":{"_text":"This
+    is a dialogue text"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5432.0,"y":5229.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5443.0,"y":5323.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"4"},{"availableChoices":[{"statement":{"_text":"Yes"}},{"statement":{"_text":"No"}}],"_actorName":"Player","_actorParameterID":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_position":{"x":5455.0,"y":5417.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Quite."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5275.0,"y":5571.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"We''ve
+    talked [timesTalked] times now!"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5410.0,"y":5687.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"},{"statement":{"_text":"Well
+    okay then."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5603.0,"y":5555.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":1},{"_keyName":"Player","_id":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  boundGraphObjectReferences:
+  - {fileID: 0}
+  - {fileID: 1145302292}
+  - {fileID: 0}
+  enableAction: 1
+  disableAction: 2
+  _graph: {fileID: 1313089184}
+  _blackboard: {fileID: 0}
+--- !u!4 &149110496
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 149110494}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &169656094
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +629,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -721,7 +775,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1010,7 +1064,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -1170,7 +1224,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1209,13 +1263,12 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
   - {x: 0, y: 59.46875}
-  - {x: 0.1875, y: 59.4375}
+  - {x: 0.1875, y: 59.46875}
   - {x: 0.71875, y: 59.09375}
   - {x: 1, y: 59}
   - {x: 13, y: 59}
   - {x: 13.28125, y: 59.09375}
-  - {x: 13.8125, y: 59.4375}
-  - {x: 14, y: 59.46875}
+  - {x: 13.8125, y: 59.46875}
   - {x: 17, y: 59.46875}
 --- !u!68 &620218104
 EdgeCollider2D:
@@ -1567,86 +1620,6 @@ EdgeCollider2D:
   - {x: 41, y: 6}
   - {x: 41, y: 5}
   - {x: 39, y: 5}
---- !u!1001 &1061317363
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -12.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1068437205747888, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_Name
-      value: Belle
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
-        type: 2}
-      propertyPath: cowerFromEnemies
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
-        type: 2}
-      propertyPath: dialogueFile
-      value: 
-      objectReference: {fileID: 4900000, guid: 5fa0a2ce76448794181eabb1539c1398, type: 3}
-    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
-        type: 2}
-      propertyPath: range
-      value: 1.8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-  m_IsPrefabParent: 0
---- !u!1 &1061317364 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1068437205747888, guid: 836009ff8431c6c4b9e727978fe7ce36,
-    type: 2}
-  m_PrefabInternal: {fileID: 1061317363}
---- !u!114 &1061317365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1061317364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flag: BossRoom
-  item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
-  enableOnFlag: 1
 --- !u!1001 &1145302289
 Prefab:
   m_ObjectHideFlags: 0
@@ -1684,7 +1657,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
         type: 2}
@@ -1696,6 +1669,16 @@ Prefab:
       propertyPath: dialogueFile
       value: 
       objectReference: {fileID: 4900000, guid: 70e64f78ccc54d54dae001e90666500a, type: 3}
+    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
+        type: 2}
+      propertyPath: dialogueTree
+      value: 
+      objectReference: {fileID: 149110495}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
   m_IsPrefabParent: 0
@@ -1718,6 +1701,21 @@ MonoBehaviour:
   flag: BossRoom
   item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
   enableOnFlag: 0
+--- !u!114 &1145302292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1145302290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d71fb7c52372e244baf2e69a9d0d116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Belle
+  _portrait: {fileID: 0}
+  _dialogueColor: {r: 1, g: 0.16470589, b: 0.2901961, a: 1}
+  _dialogueOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1254046874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,7 +1856,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2040,7 +2038,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2065,6 +2063,35 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1292987906}
   m_Mesh: {fileID: 0}
+--- !u!114 &1313089184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: DialogueTree DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4832.0,"y":-5090.0},"nodes":[{"statement":{"_text":"This
+    is a dialogue text"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5432.0,"y":5229.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5443.0,"y":5323.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"4"},{"availableChoices":[{"statement":{"_text":"Yes"}},{"statement":{"_text":"No"}}],"_actorName":"Player","_actorParameterID":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_position":{"x":5455.0,"y":5417.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Quite."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5275.0,"y":5571.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"We''ve
+    talked [timesTalked] times now!"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5410.0,"y":5687.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"},{"statement":{"_text":"Well
+    okay then."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5603.0,"y":5555.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":1},{"_keyName":"Player","_id":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 1145302292}
+  - {fileID: 0}
+  _deserializationFailed: 0
+  _actorParameters:
+  - _keyName: Belle
+    _id: 86bd00df-6856-4ec9-8c99-aae04bdd70cb
+    _actorObject: {fileID: 1145302292}
+  - _keyName: Player
+    _id: 737ba00d-9e33-49e5-a97b-e7c7ab641195
+    _actorObject: {fileID: 0}
 --- !u!1 &1442324605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,7 +2323,7 @@ EdgeCollider2D:
   - {x: 6.1875, y: 6.0625}
   - {x: 6.78125, y: 6.4375}
   - {x: 7, y: 6.46875}
-  - {x: 7.1875, y: 6.4375}
+  - {x: 7.1875, y: 6.46875}
   - {x: 7.71875, y: 6.09375}
   - {x: 8, y: 6}
   - {x: 15, y: 6}
@@ -2344,7 +2371,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -2481,7 +2508,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2543,81 +2570,6 @@ EdgeCollider2D:
   - {x: 59.21875, y: 59.65625}
   - {x: 59.34375, y: 59.5}
   - {x: 60, y: 59.46875}
---- !u!1001 &1883158901
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -18
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_Name
-      value: Clover
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356034344867348, guid: 6141007c1e8944b4cb6d24a723b327dd,
-        type: 2}
-      propertyPath: dialogueFile
-      value: 
-      objectReference: {fileID: 4900000, guid: 5fa0a2ce76448794181eabb1539c1398, type: 3}
-    - target: {fileID: 114356034344867348, guid: 6141007c1e8944b4cb6d24a723b327dd,
-        type: 2}
-      propertyPath: range
-      value: 1.8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-  m_IsPrefabParent: 0
---- !u!1 &1883158902 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd,
-    type: 2}
-  m_PrefabInternal: {fileID: 1883158901}
---- !u!114 &1883158903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1883158902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flag: BossRoom
-  item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
-  enableOnFlag: 1
 --- !u!1001 &2082319346
 Prefab:
   m_ObjectHideFlags: 0
@@ -2655,7 +2607,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4312709077415286, guid: bc3a2be72b0cf344e906fa7d1444a874, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114492617712832946, guid: bc3a2be72b0cf344e906fa7d1444a874,
         type: 2}
