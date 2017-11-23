@@ -238,4 +238,23 @@ public class SaveManager : MonoBehaviour
 		if (!data.flags.Contains(flag))
 			data.flags.Add(flag);
 	}
+
+	public bool GetBlackboardJson(string key, out string json)
+	{
+		if (data.blackboardDictionary.ContainsKey(key))
+		{
+			json = data.blackboardDictionary[key];
+			return true;
+		}
+		else
+		{
+			json = "";
+			return false;
+		}
+	}
+
+	public void SaveBlackBoardJson(string key, string json)
+	{
+		data.blackboardDictionary[key] = json;
+	}
 }

@@ -91,6 +91,35 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &90832617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: TestDialogue DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4832.0,"y":-5090.0},"nodes":[{"statement":{"_text":"This
+    is a dialogue text"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5432.0,"y":5229.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5443.0,"y":5323.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"4"},{"availableChoices":[{"statement":{"_text":"Yes"}},{"statement":{"_text":"No"}}],"_actorName":"Player","_actorParameterID":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_position":{"x":5465.0,"y":5425.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Quite."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5293.0,"y":5581.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"We''ve
+    talked [timesTalked] times now!"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5428.0,"y":5697.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"},{"statement":{"_text":"Well
+    okay then."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5621.0,"y":5565.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":1},{"_keyName":"Player","_id":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 1145302292}
+  - {fileID: 0}
+  _deserializationFailed: 0
+  _actorParameters:
+  - _keyName: Belle
+    _id: 86bd00df-6856-4ec9-8c99-aae04bdd70cb
+    _actorObject: {fileID: 1145302292}
+  - _keyName: Player
+    _id: 737ba00d-9e33-49e5-a97b-e7c7ab641195
+    _actorObject: {fileID: 0}
 --- !u!1 &92344664
 GameObject:
   m_ObjectHideFlags: 1
@@ -400,7 +429,7 @@ GameObject:
   - component: {fileID: 149110496}
   - component: {fileID: 149110495}
   m_Layer: 0
-  m_Name: DialogueTree
+  m_Name: TestDialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,9 +447,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boundGraphSerialization: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4832.0,"y":-5090.0},"nodes":[{"statement":{"_text":"This
-    is a dialogue text"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5432.0,"y":5229.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5443.0,"y":5323.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"4"},{"availableChoices":[{"statement":{"_text":"Yes"}},{"statement":{"_text":"No"}}],"_actorName":"Player","_actorParameterID":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_position":{"x":5455.0,"y":5417.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Quite."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5275.0,"y":5571.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"We''ve
-    talked [timesTalked] times now!"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5410.0,"y":5687.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"},{"statement":{"_text":"Well
-    okay then."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5603.0,"y":5555.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    is a dialogue text"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5432.0,"y":5229.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5443.0,"y":5323.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"4"},{"availableChoices":[{"statement":{"_text":"Yes"}},{"statement":{"_text":"No"}}],"_actorName":"Player","_actorParameterID":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_position":{"x":5465.0,"y":5425.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Quite."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5293.0,"y":5581.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"We''ve
+    talked [timesTalked] times now!"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5428.0,"y":5697.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"},{"statement":{"_text":"Well
+    okay then."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5621.0,"y":5565.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
     Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
     mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":1},{"_keyName":"Player","_id":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
   boundGraphObjectReferences:
@@ -429,7 +458,7 @@ MonoBehaviour:
   - {fileID: 0}
   enableAction: 1
   disableAction: 2
-  _graph: {fileID: 1313089184}
+  _graph: {fileID: 90832617}
   _blackboard: {fileID: 0}
 --- !u!4 &149110496
 Transform:
@@ -2063,35 +2092,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1292987906}
   m_Mesh: {fileID: 0}
---- !u!114 &1313089184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: DialogueTree DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4832.0,"y":-5090.0},"nodes":[{"statement":{"_text":"This
-    is a dialogue text"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5432.0,"y":5229.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5443.0,"y":5323.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"4"},{"availableChoices":[{"statement":{"_text":"Yes"}},{"statement":{"_text":"No"}}],"_actorName":"Player","_actorParameterID":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_position":{"x":5455.0,"y":5417.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Quite."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5275.0,"y":5571.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"We''ve
-    talked [timesTalked] times now!"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5410.0,"y":5687.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"},{"statement":{"_text":"Well
-    okay then."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5603.0,"y":5555.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
-    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":1},{"_keyName":"Player","_id":"737ba00d-9e33-49e5-a97b-e7c7ab641195","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 1145302292}
-  - {fileID: 0}
-  _deserializationFailed: 0
-  _actorParameters:
-  - _keyName: Belle
-    _id: 86bd00df-6856-4ec9-8c99-aae04bdd70cb
-    _actorObject: {fileID: 1145302292}
-  - _keyName: Player
-    _id: 737ba00d-9e33-49e5-a97b-e7c7ab641195
-    _actorObject: {fileID: 0}
 --- !u!1 &1442324605
 GameObject:
   m_ObjectHideFlags: 0

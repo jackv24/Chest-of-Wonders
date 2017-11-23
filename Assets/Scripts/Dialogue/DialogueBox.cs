@@ -150,6 +150,16 @@ public class DialogueBox : MonoBehaviour
 
 			if (speakerPanelAnimator && speakerOpenAnim)
 				speakerPanelAnimator.Play(speakerOpenAnim.name);
+
+			//Load blackboard variables
+			string key = GameManager.instance.loadedSceneIndex + "_" + dialogueTree.name.Replace(" DialogueTree", "");
+			string json;
+
+			if (SaveManager.instance.GetBlackboardJson(key, out json))
+			{
+				dialogueTree.DeserializeLocalBlackboard(json);
+				Debug.Log("Loaded blackboard: " + key);
+			}
 		}
     }
 
@@ -165,6 +175,15 @@ public class DialogueBox : MonoBehaviour
 
 			if (speakerPanelAnimator && speakerCloseAnim)
 				speakerPanelAnimator.Play(speakerCloseAnim.name);
+
+			//Save blackboard variables
+			if(dialogueTree.blackboard.variables.Count > 0)
+			{
+				string key = GameManager.instance.loadedSceneIndex + "_" + dialogueTree.name.Replace(" DialogueTree", "");
+				string json = dialogueTree.SerializeLocalBlackboard();
+
+				SaveManager.instance.SaveBlackBoardJson(key, json);
+			}
 		}
 	}
 
