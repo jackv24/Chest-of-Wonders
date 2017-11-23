@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Ink.Runtime;
 
 public class DialogueBox : MonoBehaviour
 {
@@ -49,8 +48,8 @@ public class DialogueBox : MonoBehaviour
 	[Space()]
 	public float optionSelectDelay = 0.5f;
 
-    private Story currentStory;
-    private TextAsset textAsset;
+    //private Story currentStory;
+    //private TextAsset textAsset;
     private DialogueSpeaker currentSpeaker;
     private List<string> animParams = new List<string>();
 
@@ -143,14 +142,14 @@ public class DialogueBox : MonoBehaviour
 
             HidePromptIcon();
 
-            currentStory = new Story(jsonText.text);
+            //currentStory = new Story(jsonText.text);
 
-            string json = SaveManager.instance.LoadDialogueJson(jsonText.name);
+            //string json = SaveManager.instance.LoadDialogueJson(jsonText.name);
 
-            if (json != "")
-                currentStory.state.LoadJson(json);
+            //if (json != "")
+                //currentStory.state.LoadJson(json);
 
-            textAsset = jsonText;
+            //textAsset = jsonText;
 
             StartCoroutine("RunDialogue", string.Format("{0}_start", startSpeakerName));
         }
@@ -158,37 +157,20 @@ public class DialogueBox : MonoBehaviour
 
     IEnumerator RunDialogue(string skipToKnot)
     {
-        BindExternalFunctions();
-
         dialogueOpen = true;
 
         buttonPressed = false;
 
         speakerPanel.gameObject.SetActive(true);
 
-        //Go straight to speaker knot if there is one
-        try
+        //while(currentStory.canContinue)
         {
-            currentStory.ChoosePathString(skipToKnot.ToLower());
-        }
-        catch { }
-
-        while(currentStory.canContinue)
-        {
-			currentStory.Continue();
+			//currentStory.Continue();
             int index = 0;
             dialogueText.text = "";
 
-            //Remove newline from end of string
-            string text = currentStory.currentText;
-
-            //Parse text for speaker (removing it in the process)
-            text = ParseSpeaker(text);
-
-            HandleTags(currentStory.currentTags);
-
-            //Remove end line
-            text = text.Replace("\n", "");
+			//Remove newline from end of string
+			string text = "";// currentStory.currentText;
 
 			//Before opening, set new text and as invisible for sizing box correctly
 			dialogueText.text = string.Format("{0}{1}{2}", "<color=#FFFFFF00>", text, "</color>");
@@ -249,7 +231,7 @@ public class DialogueBox : MonoBehaviour
 
             dialogueText.text = text;
 
-            if (currentStory.currentChoices.Count > 0)
+            //if (currentStory.currentChoices.Count > 0)
             {
                 waitingForChoice = true;
 
@@ -264,24 +246,24 @@ public class DialogueBox : MonoBehaviour
                     buttons[i].gameObject.SetActive(false);
 
                 //Add any new buttons that are needed
-                for(int i = buttons.Count; i < currentStory.currentChoices.Count; i++)
-                    buttons.Add(((GameObject)Instantiate(initialButton.gameObject, initialButton.transform.parent)).GetComponent<Button>());
+                //for(int i = buttons.Count; i < currentStory.currentChoices.Count; i++)
+                    //buttons.Add(((GameObject)Instantiate(initialButton.gameObject, initialButton.transform.parent)).GetComponent<Button>());
 
 				foreach (Button b in buttons)
 					b.interactable = false;
 
 				//Update buttons
-				for (int i = 0; i < currentStory.currentChoices.Count; i++)
-                {
-                    SetupButtonEvents(buttons[i], i);
+				//for (int i = 0; i < currentStory.currentChoices.Count; i++)
+    //            {
+    //                SetupButtonEvents(buttons[i], i);
 
-                    Text buttonText = buttons[i].GetComponentInChildren<Text>();
+    //                Text buttonText = buttons[i].GetComponentInChildren<Text>();
 
-                    if(buttonText)
-                        buttonText.text = currentStory.currentChoices[i].text;
+    //                if(buttonText)
+    //                    buttonText.text = currentStory.currentChoices[i].text;
 
-                    buttons[i].gameObject.SetActive(true);
-                }
+    //                buttons[i].gameObject.SetActive(true);
+    //            }
 
                 EventSystem.current.firstSelectedGameObject = null;
                 EventSystem.current.SetSelectedGameObject(null);
@@ -295,12 +277,12 @@ public class DialogueBox : MonoBehaviour
 				EventSystem.current.firstSelectedGameObject = buttons[0].gameObject;
                 EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
             }
-            else
-            {
-                waitingForInput = true;
+    //        else
+    //        {
+    //            waitingForInput = true;
 
-				optionPanel.gameObject.SetActive(false);
-            }
+				//optionPanel.gameObject.SetActive(false);
+    //        }
 
             while(waitingForChoice)
             {
@@ -340,11 +322,6 @@ public class DialogueBox : MonoBehaviour
 
         currentSpeaker.rangeToggle = true;
 
-        //Make sure speaker params are cleared
-        ClearParams(currentSpeaker.GetComponentInChildren<Animator>());
-
-        SaveManager.instance.SaveDialogueJson(textAsset.name, currentStory.state.ToJson());
-
 		//Close speaker panel at end to avoid hanging up other things
 		if (speakerPanelAnimator && speakerCloseAnim)
 		{
@@ -371,172 +348,10 @@ public class DialogueBox : MonoBehaviour
             {
                 waitingForChoice = false;
                 
-                currentStory.ChooseChoiceIndex(index);
+                //currentStory.ChooseChoiceIndex(index);
 
 				optionPanel.gameObject.SetActive(false);
             };
-        }
-    }
-
-    void BindExternalFunctions()
-    {
-        currentStory.BindExternalFunction("move", (float x) =>
-        {
-            //Moves the speaker x number of metres horizontally
-            currentSpeaker.MoveSpeaker(x);
-        });
-
-		currentStory.BindExternalFunction("hasItem", (string x) =>
-		{
-			PlayerInventory inventory = GameManager.instance.player.GetComponent<PlayerInventory>();
-
-			if (inventory)
-			{
-				return inventory.CheckItem(x);
-			}
-			else
-				return false;
-		});
-
-		currentStory.BindExternalFunction("setFlag", (string x) =>
-		{
-			SaveManager.instance.SetFlag(x);
-		});
-
-		currentStory.BindExternalFunction("checkFlag", (string x) =>
-		{
-			return SaveManager.instance.CheckFlag(x);
-		});
-	}
-
-    string ParseSpeaker(string text)
-    {
-        char[] chars = text.ToCharArray();
-
-        string speakerName = "";
-        string outputString = "";
-        bool readingName = true;
-
-        //If sentence starts with '@' it should follow with a name
-        if (chars[0] == '@')
-        {
-            for(int i = 1; i < chars.Length; i++)
-            {
-                //Read name until ':' is reached (excluding any following space)
-                if (chars[i] == ':')
-                {
-                    i++;
-                    readingName = false;
-
-                    if (chars[i] == ' ')
-                        i++;
-                }
-
-                //Save name part of string into name string, and rest into output string
-                if (readingName)
-                    speakerName += chars[i];
-                else
-                    outputString += chars[i];
-            }
-
-            ///Update dialogue box with speaker details
-            //Update name text
-            if(nameText)
-                nameText.text = speakerName;
-
-            //Find all Dialogue Speakers in scene
-            DialogueSpeaker[] speakers = FindObjectsOfType<DialogueSpeaker>();
-
-            DialogueSpeaker speaker = null;
-
-            //Loop through all speakers to find one matching the speaker name
-            foreach(DialogueSpeaker s in speakers)
-            {
-                if (s.gameObject.name.ToLower() == speakerName.ToLower())
-                    speaker = s;
-            }
-
-            //If a matching speaker was found
-            if(speaker)
-            {
-                //Change window accent colour to match speaker
-                if(accent)
-                    accent.color = speaker.windowColor;
-
-                ShowSpeakerTalking(false);
-
-                currentSpeaker = speaker;
-
-                ShowSpeakerTalking(true);
-            }
-
-            return outputString;
-        }
-        else
-            return text;
-    }
-
-    public void ClearParams(Animator anim)
-    {
-        //Clear previous anim parameters
-        if (anim)
-        {
-            foreach (string param in animParams)
-            {
-                anim.SetBool(param, false);
-            }
-        }
-
-        animParams.Clear();
-    }
-
-    public void HandleTags(List<string> tags)
-    {
-        Animator anim = currentSpeaker.GetComponentInChildren<Animator>();
-
-        ClearParams(anim);
-
-		//Reset values that may have been set in previous tags
-		autoContinue = false;
-		pauseTime = 0;
-
-		//Handle tags
-		foreach (string tag in tags)
-        {
-            if(tag.Contains("animation_"))
-            {
-                string parameter = tag.Replace("animation_", "");
-                animParams.Add(parameter);
-
-                if(anim)
-                    anim.SetBool(parameter, true);
-            }
-            else if (tag.Contains("sound_"))
-            {
-                string parameter = tag.Replace("sound_", "");
-
-                if (sounds)
-                    sounds.PlaySound(parameter);
-            }
-			else if(tag == "auto continue")
-			{
-				autoContinue = true;
-			}
-			else if(tag.Contains("pause"))
-			{
-				string text = tag.Replace("pause ", "");
-
-				float time = 0;
-
-				if (!float.TryParse(text, out time))
-					Debug.LogError(text + " is not a valid float value to pause for!");
-
-				pauseTime = time;
-			}
-            else
-            {
-                Debug.LogWarning("Encountered unknown tag in dialogue: " + tag);
-            }
         }
     }
 
