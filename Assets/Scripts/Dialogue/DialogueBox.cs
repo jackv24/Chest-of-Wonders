@@ -35,6 +35,7 @@ public class DialogueBox : MonoBehaviour
     private List<Button> buttons = new List<Button>();
 
     private bool dialogueOpen = false;
+	private bool optionsOpen = false;
     private bool waitingForInput = false;
 
     private bool buttonPressed = false;
@@ -49,6 +50,7 @@ public class DialogueBox : MonoBehaviour
 	public float optionSelectDelay = 0.5f;
 
 	private DialogueSpeaker currentSpeaker;
+	private Vector3 lastPromptLocation;
 
     private PlayerActions playerActions;
 
@@ -129,12 +131,20 @@ public class DialogueBox : MonoBehaviour
 
     void Update()
     {
-		//Get button press in update to sync with InControl
-		if (playerActions.Interact.WasPressed || playerActions.Submit.WasPressed || playerActions.Jump.WasPressed || Input.GetMouseButtonDown(0))
-			buttonPressed = true;
-		else
-			waitingForInput = true;
-    }
+		if (waitingForInput && !buttonPressed)
+		{
+			if (playerActions.Interact.WasPressed || playerActions.Submit.WasPressed || playerActions.Jump.WasPressed || Input.GetMouseButtonDown(0))
+			{
+				waitingForInput = false;
+				buttonPressed = true;
+			}
+		}
+		else if (playerActions.Interact.WasReleased || playerActions.Submit.WasReleased || playerActions.Jump.WasReleased || Input.GetMouseButtonUp(0))
+		{
+			buttonPressed = false;
+		}
+
+	}
 
     public void OnDialogueStarted(DialogueTree dialogueTree)
     {
@@ -144,7 +154,7 @@ public class DialogueBox : MonoBehaviour
 
             GameManager.instance.gameRunning = false;
 
-            HidePromptIcon();
+			lastPromptLocation = HidePromptIcon();
 
 			speakerPanel.gameObject.SetActive(true);
 
@@ -167,15 +177,6 @@ public class DialogueBox : MonoBehaviour
 	{
 		if (dialogueOpen)
 		{
-			dialogueOpen = false;
-
-			GameManager.instance.gameRunning = true;
-
-			speakerPanel.gameObject.SetActive(false);
-
-			if (speakerPanelAnimator && speakerCloseAnim)
-				speakerPanelAnimator.Play(speakerCloseAnim.name);
-
 			//Save blackboard variables
 			if(dialogueTree.blackboard.variables.Count > 0)
 			{
@@ -184,11 +185,42 @@ public class DialogueBox : MonoBehaviour
 
 				SaveManager.instance.SaveBlackBoardJson(key, json);
 			}
+
+			StartCoroutine(EndDialogue());
 		}
+	}
+
+	IEnumerator EndDialogue()
+	{
+		//Close panel (wait for anim to finish before disabling)
+		if (speakerPanelAnimator && speakerCloseAnim)
+			speakerPanelAnimator.Play(speakerCloseAnim.name);
+
+		yield return new WaitForSeconds(speakerCloseAnim.length);
+
+		speakerPanel.gameObject.SetActive(false);
+
+		//Return control
+		GameManager.instance.gameRunning = true;
+
+		dialogueOpen = false;
+
+		ShowPromptIcon(lastPromptLocation);
 	}
 
 	void OnMultipleChoiceRequest(MultipleChoiceRequestInfo info)
 	{
+		StartCoroutine(SetupOptions(info));
+	}
+
+	IEnumerator SetupOptions(MultipleChoiceRequestInfo info)
+	{
+		optionsOpen = true;
+
+		Debug.Log("Waiting for choice...");
+
+		yield return null;
+
 		KeepWorldPosOnCanvas keepPos = optionsPos.GetComponent<KeepWorldPosOnCanvas>();
 		if (keepPos)
 			keepPos.GetWorldPos();
@@ -207,7 +239,7 @@ public class DialogueBox : MonoBehaviour
 			b.interactable = false;
 
 		//Update buttons
-		foreach(KeyValuePair<IStatement, int> pair in info.options)
+		foreach (KeyValuePair<IStatement, int> pair in info.options)
 		{
 			SetupButtonEvents(buttons[pair.Value], info, pair.Value);
 
@@ -225,7 +257,7 @@ public class DialogueBox : MonoBehaviour
 		foreach (Button b in buttons)
 		{
 			//TODO: Add delay
-			//yield return new WaitForSeconds(optionSelectDelay);
+			yield return new WaitForSeconds(optionSelectDelay);
 			b.interactable = true;
 		}
 
@@ -243,29 +275,37 @@ public class DialogueBox : MonoBehaviour
 		string text = info.statement.text;
 		IDialogueActor actor = info.actor;
 
+		if (actor.transform)
+			currentSpeaker = actor.transform.GetComponent<DialogueSpeaker>();
+
+		yield return null;
+
+		Debug.Log("StartingCoroutine: " + info.statement.text);
+
 		if (accent)
 			accent.color = actor.dialogueColor;
 
 		if (nameText)
 			nameText.text = actor.name;
 
-		if(actor.transform)
-			currentSpeaker = actor.transform.GetComponent<DialogueSpeaker>();
-
 		if(dialogueText)
 		{
 			dialogueText.text = text;
 		}
 
-		while(waitingForInput)
+		//MultipleChoiceRequest handles continuing if there are options
+		if (!optionsOpen)
 		{
-			if (buttonPressed)
-				waitingForInput = false;
+			waitingForInput = true;
+			while (waitingForInput)
+			{
+				yield return null;
+			}
 
-			yield return null;
+			info.Continue();
 		}
 
-		info.Continue();
+		Debug.Log("EndingCoroutine: " + info.statement.text);
 	}
 
     void SetupButtonEvents(Button button, MultipleChoiceRequestInfo info, int index)
@@ -281,10 +321,14 @@ public class DialogueBox : MonoBehaviour
 
             buttonEvents.onSubmit += delegate
             {
+				optionsOpen = false;
+
 				info.SelectOption(index);
 
 				optionPanel.gameObject.SetActive(false);
-            };
+
+				Debug.Log("Selected: " + index);
+			};
         }
     }
 
@@ -308,10 +352,15 @@ public class DialogueBox : MonoBehaviour
         }
     }
 
-    public void HidePromptIcon()
+    public Vector3 HidePromptIcon()
     {
-        if (interactIcon)
-            interactIcon.SetActive(false);
+		if (interactIcon)
+		{
+			interactIcon.SetActive(false);
+			return interactIcon.transform.position;
+		}
+
+		return Vector3.zero;
     }
 
 	public void AutoContinue()
