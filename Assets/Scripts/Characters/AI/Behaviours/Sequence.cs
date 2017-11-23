@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTreeCustom
 {
     /// <summary>
     /// Executes a list of behaviours in order until one of them fails, returning failure. Returns success if none fail.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTreeCustom
 {
     /// <summary>
     /// Executes a random behaviour

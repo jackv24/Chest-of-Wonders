@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTreeCustom
 {
     /// <summary>
     /// Returns success if the target is within the specified range

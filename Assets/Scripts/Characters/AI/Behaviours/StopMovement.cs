@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTreeCustom
 {
     /// <summary>
     /// Calling Move on CharacterMove sets the velocity rather than moving it when called, so this behaviour exists to set the velocity back to zero

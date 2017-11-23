@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTreeCustom
 {
     /// <summary>
     /// Using the CharacterMove script attached to the Agent, moves the agent by jumping and only moving laterally once in the air
