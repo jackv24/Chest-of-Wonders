@@ -19,9 +19,20 @@ public class KeepWorldPosOnCanvas : MonoBehaviour
     private Vector2 screenMax;
     private Vector2 screenMin;
 
-    private void Update()
+	private Camera screenCam;
+
+	private void Start()
+	{
+		GameObject cam = GameObject.FindWithTag("ScreenCamera");
+		if (cam)
+			screenCam = cam.GetComponent<Camera>();
+	}
+
+	private void Update()
     {
 		GetWorldPos();
+
+		Vector3 position;
 
         if(keepInScreenBounds)
         {
@@ -33,10 +44,18 @@ public class KeepWorldPosOnCanvas : MonoBehaviour
             pos.x = Mathf.Clamp(pos.x, screenMin.x + paddingLeft, screenMax.x - paddingRight);
             pos.y = Mathf.Clamp(pos.y, screenMin.y + paddingDown, screenMax.y - paddingTop);
 
-            transform.position = Camera.main.WorldToScreenPoint(pos);
+            position = pos;
         }
         else
-            transform.position = Camera.main.WorldToScreenPoint(worldPos);
+            position = worldPos;
+
+		///Convert to screen coordinates (since we're using a second camera to render the game)
+		//First get viewport position for the main camera...
+		Vector3 mainPos = Camera.main.WorldToViewportPoint(position);
+		//...then convert this viewport point to screen point on the screen camera (since their viewports should be the same)
+		Vector3 screenPos = screenCam.ViewportToScreenPoint(mainPos);
+
+		transform.position = screenPos;
     }
 
 	public void GetWorldPos()

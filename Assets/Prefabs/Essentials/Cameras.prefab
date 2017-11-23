@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 114338880559125182}
   m_Layer: 0
   m_Name: Screen Camera
-  m_TagString: Untagged
+  m_TagString: ScreenCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
   targetCameraHalfWidth: 2
   targetCameraHalfHeight: 5
   pixelPerfect: 1
-  retroSnap: 0
+  retroSnap: 1
   assetsPixelsPerUnit: 32
   showHUD: 0
   targetCamera: {fileID: 20360420666364762}
