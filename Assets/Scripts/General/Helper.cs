@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public static class Helper
 {
@@ -29,3 +32,40 @@ public static class Helper
         transform.eulerAngles = eulerAngles;
     }
 }
+
+[System.Serializable]
+public struct MinMaxFloat
+{
+	public float min;
+	public float max;
+
+	public float RandomValue { get { return Random.Range(min, max); } }
+
+	public MinMaxFloat(float min, float max)
+	{
+		this.min = min;
+		this.max = max;
+	}
+}
+
+#if UNITY_EDITOR
+[CustomPropertyDrawer(typeof(MinMaxFloat))]
+public class MinMaxFloatDrawer : PropertyDrawer
+{
+	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+	{
+		EditorGUI.BeginProperty(position, label, property);
+
+		position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+
+		float width = position.width / 2;
+		Rect minRect = new Rect(position.x, position.y, width, position.height);
+		Rect maxRect = new Rect(position.x + width, position.y, width, position.height);
+
+		EditorGUI.PropertyField(minRect, property.FindPropertyRelative("min"), GUIContent.none);
+		EditorGUI.PropertyField(maxRect, property.FindPropertyRelative("max"), GUIContent.none);
+
+		EditorGUI.EndProperty();
+	}
+}
+#endif

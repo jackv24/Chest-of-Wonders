@@ -219,7 +219,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -365,7 +365,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -390,6 +390,60 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 140890731}
   m_Mesh: {fileID: 0}
+--- !u!1 &149110494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 149110496}
+  - component: {fileID: 149110495}
+  m_Layer: 0
+  m_Name: TestDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &149110495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 149110494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32e4b851ebd8fa4ea0645b99be1cf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundGraphSerialization: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4870.0,"y":-5135.0},"nodes":[{"statement":{"_text":"This
+    is a dialogue text"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5430.0,"y":5235.0},"_UID":"5b746fad-a67d-42cf-b996-7f11e5c02fa7","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5445.0,"y":5325.0},"_UID":"9fe49263-1609-4b2f-ab84-c9d2f272abc6","$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"4"},{"availableChoices":[{"statement":{"_text":"Yes"}},{"statement":{"_text":"No"}}],"_position":{"x":5460.0,"y":5430.0},"_UID":"b133ddc7-a302-43a1-a31e-6f0bfe601649","$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Quite."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5295.0,"y":5580.0},"_UID":"bbbf9ed1-a99b-4530-9527-d20d28b70224","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"We''ve
+    talked [timesTalked] times now!"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5430.0,"y":5700.0},"_UID":"4b31b03a-5e68-4a72-a401-fcdda1d9d7e4","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"},{"_condition":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"GreaterOrEqualTo","valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":5460.0,"y":5790.0},"_UID":"a9b19375-9e44-4f3e-9f0e-4fc2350f2991","$type":"NodeCanvas.DialogueTrees.ConditionNode","$id":"18"},{"statement":{"_text":"Okay
+    now go away."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5460.0,"y":5970.0},"_UID":"4a7ca3e0-66b9-44a7-aee7-10d28916971b","_name":"","_tag":"","_comment":"","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"22"},{"statement":{"_text":"Well
+    okay then."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5625.0,"y":5565.0},"_UID":"20de79d8-71b3-4097-8490-00efc745f5ae","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"24"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":1}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  boundGraphObjectReferences:
+  - {fileID: 0}
+  - {fileID: 1145302292}
+  enableAction: 1
+  disableAction: 2
+  _graph: {fileID: 1886260920}
+  _blackboard: {fileID: 0}
+--- !u!4 &149110496
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 149110494}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &169656094
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +629,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -721,7 +775,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1010,7 +1064,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -1170,7 +1224,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1209,13 +1263,12 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
   - {x: 0, y: 59.46875}
-  - {x: 0.1875, y: 59.4375}
+  - {x: 0.1875, y: 59.46875}
   - {x: 0.71875, y: 59.09375}
   - {x: 1, y: 59}
   - {x: 13, y: 59}
   - {x: 13.28125, y: 59.09375}
-  - {x: 13.8125, y: 59.4375}
-  - {x: 14, y: 59.46875}
+  - {x: 13.8125, y: 59.46875}
   - {x: 17, y: 59.46875}
 --- !u!68 &620218104
 EdgeCollider2D:
@@ -1567,86 +1620,6 @@ EdgeCollider2D:
   - {x: 41, y: 6}
   - {x: 41, y: 5}
   - {x: 39, y: 5}
---- !u!1001 &1061317363
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -12.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1068437205747888, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-      propertyPath: m_Name
-      value: Belle
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
-        type: 2}
-      propertyPath: cowerFromEnemies
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
-        type: 2}
-      propertyPath: dialogueFile
-      value: 
-      objectReference: {fileID: 4900000, guid: 5fa0a2ce76448794181eabb1539c1398, type: 3}
-    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
-        type: 2}
-      propertyPath: range
-      value: 1.8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
-  m_IsPrefabParent: 0
---- !u!1 &1061317364 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1068437205747888, guid: 836009ff8431c6c4b9e727978fe7ce36,
-    type: 2}
-  m_PrefabInternal: {fileID: 1061317363}
---- !u!114 &1061317365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1061317364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flag: BossRoom
-  item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
-  enableOnFlag: 1
 --- !u!1001 &1145302289
 Prefab:
   m_ObjectHideFlags: 0
@@ -1684,40 +1657,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
         type: 2}
-      propertyPath: cowerFromEnemies
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
-        type: 2}
-      propertyPath: dialogueFile
+      propertyPath: dialogueTree
       value: 
-      objectReference: {fileID: 4900000, guid: 70e64f78ccc54d54dae001e90666500a, type: 3}
+      objectReference: {fileID: 149110495}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1145302290 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1068437205747888, guid: 836009ff8431c6c4b9e727978fe7ce36,
+--- !u!114 &1145302292 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114606769703249106, guid: 836009ff8431c6c4b9e727978fe7ce36,
     type: 2}
   m_PrefabInternal: {fileID: 1145302289}
---- !u!114 &1145302291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1145302290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flag: BossRoom
-  item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
-  enableOnFlag: 0
+  m_Script: {fileID: 11500000, guid: 3d71fb7c52372e244baf2e69a9d0d116, type: 3}
 --- !u!1 &1254046874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,7 +1813,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2040,7 +1995,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2296,7 +2251,7 @@ EdgeCollider2D:
   - {x: 6.1875, y: 6.0625}
   - {x: 6.78125, y: 6.4375}
   - {x: 7, y: 6.46875}
-  - {x: 7.1875, y: 6.4375}
+  - {x: 7.1875, y: 6.46875}
   - {x: 7.71875, y: 6.09375}
   - {x: 8, y: 6}
   - {x: 15, y: 6}
@@ -2344,7 +2299,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -2481,7 +2436,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2543,81 +2498,32 @@ EdgeCollider2D:
   - {x: 59.21875, y: 59.65625}
   - {x: 59.34375, y: 59.5}
   - {x: 60, y: 59.46875}
---- !u!1001 &1883158901
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -18
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_Name
-      value: Clover
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356034344867348, guid: 6141007c1e8944b4cb6d24a723b327dd,
-        type: 2}
-      propertyPath: dialogueFile
-      value: 
-      objectReference: {fileID: 4900000, guid: 5fa0a2ce76448794181eabb1539c1398, type: 3}
-    - target: {fileID: 114356034344867348, guid: 6141007c1e8944b4cb6d24a723b327dd,
-        type: 2}
-      propertyPath: range
-      value: 1.8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-  m_IsPrefabParent: 0
---- !u!1 &1883158902 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd,
-    type: 2}
-  m_PrefabInternal: {fileID: 1883158901}
---- !u!114 &1883158903
+--- !u!114 &1886260920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1883158902}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
-  m_Name: 
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: TestDialogue DialogueTree
   m_EditorClassIdentifier: 
-  flag: BossRoom
-  item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
-  enableOnFlag: 1
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4870.0,"y":-5135.0},"nodes":[{"statement":{"_text":"This
+    is a dialogue text"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5430.0,"y":5235.0},"_UID":"5b746fad-a67d-42cf-b996-7f11e5c02fa7","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5445.0,"y":5325.0},"_UID":"9fe49263-1609-4b2f-ab84-c9d2f272abc6","$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"4"},{"availableChoices":[{"statement":{"_text":"Yes"}},{"statement":{"_text":"No"}}],"_position":{"x":5460.0,"y":5430.0},"_UID":"b133ddc7-a302-43a1-a31e-6f0bfe601649","$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Quite."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5295.0,"y":5580.0},"_UID":"bbbf9ed1-a99b-4530-9527-d20d28b70224","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"We''ve
+    talked [timesTalked] times now!"},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5430.0,"y":5700.0},"_UID":"4b31b03a-5e68-4a72-a401-fcdda1d9d7e4","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"},{"_condition":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"GreaterOrEqualTo","valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_position":{"x":5460.0,"y":5790.0},"_UID":"a9b19375-9e44-4f3e-9f0e-4fc2350f2991","$type":"NodeCanvas.DialogueTrees.ConditionNode","$id":"18"},{"statement":{"_text":"Okay
+    now go away."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5460.0,"y":5970.0},"_UID":"4a7ca3e0-66b9-44a7-aee7-10d28916971b","_name":"","_tag":"","_comment":"","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"22"},{"statement":{"_text":"Well
+    okay then."},"_actorName":"Belle","_actorParameterID":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_position":{"x":5625.0,"y":5565.0},"_UID":"20de79d8-71b3-4097-8490-00efc745f5ae","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"24"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"14"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"16"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":1}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 1145302292}
+  _deserializationFailed: 0
+  _actorParameters:
+  - _keyName: Belle
+    _id: 86bd00df-6856-4ec9-8c99-aae04bdd70cb
+    _actorObject: {fileID: 1145302292}
 --- !u!1001 &2082319346
 Prefab:
   m_ObjectHideFlags: 0
@@ -2655,7 +2561,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4312709077415286, guid: bc3a2be72b0cf344e906fa7d1444a874, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114492617712832946, guid: bc3a2be72b0cf344e906fa7d1444a874,
         type: 2}

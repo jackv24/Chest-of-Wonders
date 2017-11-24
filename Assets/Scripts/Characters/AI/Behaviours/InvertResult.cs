@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourTree
+namespace BehaviourTreeCustom
 {
     /// <summary>
     /// An effective NOT logic gate - inverts the result

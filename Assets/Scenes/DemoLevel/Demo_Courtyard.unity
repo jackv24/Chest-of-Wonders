@@ -219,7 +219,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1570463987493718, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
       propertyPath: m_Name
@@ -273,7 +273,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -370,7 +370,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4111260363184624, guid: c8d62949ade1f32448a0189dca72481c, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1953207987183754, guid: c8d62949ade1f32448a0189dca72481c, type: 2}
       propertyPath: m_IsActive
@@ -1095,6 +1095,56 @@ Transform:
   m_Father: {fileID: 1442324607}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &359242271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 359242273}
+  - component: {fileID: 359242272}
+  m_Layer: 0
+  m_Name: Hello_R
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &359242272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 359242271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32e4b851ebd8fa4ea0645b99be1cf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundGraphSerialization: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4600.0,"y":-4824.0},"nodes":[{"statement":{"_text":"Hello
+    there, how do you do?"},"_position":{"x":5161.0,"y":5116.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"availableChoices":[{"statement":{"_text":"Swell!"}},{"statement":{"_text":"Not
+    so swell..."}}],"_position":{"x":5178.0,"y":5231.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"4"},{"statement":{"_text":"Awesome!"},"_position":{"x":5070.0,"y":5443.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"10"},{"statement":{"_text":"Oh,
+    that''s a shame..."},"_position":{"x":5348.0,"y":5443.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"12"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  boundGraphObjectReferences: []
+  enableAction: 1
+  disableAction: 2
+  _graph: {fileID: 1256832920}
+  _blackboard: {fileID: 0}
+--- !u!4 &359242273
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 359242271}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &378791857 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1917194432729150, guid: c8d62949ade1f32448a0189dca72481c,
@@ -1239,7 +1289,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1330,7 +1380,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1392,7 +1442,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -1489,21 +1539,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4301113669869222, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
       propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_Name
-      value: Clover
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114356034344867348, guid: 6141007c1e8944b4cb6d24a723b327dd,
         type: 2}
-      propertyPath: dialogueFile
+      propertyPath: dialogueTree
       value: 
-      objectReference: {fileID: 4900000, guid: 4635eb5f93c3fbc47871e9ca39da8d84, type: 3}
-    - target: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 359242272}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6141007c1e8944b4cb6d24a723b327dd, type: 2}
   m_IsPrefabParent: 0
@@ -1672,6 +1714,25 @@ Transform:
   m_Father: {fileID: 1442324607}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1256832920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: Hello_R DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4600.0,"y":-4824.0},"nodes":[{"statement":{"_text":"Hello
+    there, how do you do?"},"_position":{"x":5161.0,"y":5116.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"availableChoices":[{"statement":{"_text":"Swell!"}},{"statement":{"_text":"Not
+    so swell..."}}],"_position":{"x":5178.0,"y":5231.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"4"},{"statement":{"_text":"Awesome!"},"_position":{"x":5070.0,"y":5443.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"10"},{"statement":{"_text":"Oh,
+    that''s a shame..."},"_position":{"x":5348.0,"y":5443.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"12"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  _actorParameters: []
 --- !u!1 &1259136820
 GameObject:
   m_ObjectHideFlags: 1
@@ -1829,7 +1890,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1957,7 +2018,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2108,69 +2169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 29bbc9478d819ca44bc1d3ee345c116b, type: 3}
   keepTime: 1
---- !u!1 &1558522698 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1771161378661522, guid: 6141007c1e8944b4cb6d24a723b327dd,
-    type: 2}
-  m_PrefabInternal: {fileID: 797526893}
---- !u!61 &1558522701
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1558522698}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0.6}
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.15}
---- !u!114 &1558522702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1558522698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3c7ac02eb63664419f2556b87649a87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 8
-  acceleration: 10
-  velocity: {x: 0, y: 0}
-  upSlopeLimit: 50
-  downSlopeLimit: 50
-  maxSlopeDistance: 1
-  slopeSpeedDampening: 1
-  inputDirection: 0
-  canMove: 1
-  ignoreCanMove: 1
-  jumpForce: 10
-  jumpTime: 0.6
-  stopJumpDelay: 0.2
-  isGrounded: 1
-  platformDropDetectDelay: 0.2
-  gravity: 40
-  maxFallSpeed: 20
-  verticalRays: 5
-  horizontalRays: 10
-  skinWidthX: 0.01
-  skinWidthY: 0.01
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  platformLayer:
-    serializedVersion: 2
-    m_Bits: 8192
-  startOnGround: 1
-  startGroundDistance: 5
-  knockBackRecoveryTime: 0.1
-  allowKnockback: 1
-  scriptControl: 1
-  body: {fileID: 0}
 --- !u!1001 &1579055041
 Prefab:
   m_ObjectHideFlags: 0
@@ -2208,7 +2206,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -2334,7 +2332,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2396,7 +2394,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4317446426811868, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114308401184017958, guid: 0a6c97d59abf4e94796962d5b0d7433e,
         type: 2}
@@ -2522,7 +2520,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2584,7 +2582,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1570463987493718, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
       propertyPath: m_IsActive
@@ -2630,7 +2628,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4198061183610684, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
         type: 2}
@@ -2641,28 +2639,19 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
+        type: 2}
+      propertyPath: dialogueTree
+      value: 
+      objectReference: {fileID: 359242272}
+    - target: {fileID: 114512495726707682, guid: 836009ff8431c6c4b9e727978fe7ce36,
+        type: 2}
+      propertyPath: cowerFromEnemies
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 836009ff8431c6c4b9e727978fe7ce36, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &2003382810 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1068437205747888, guid: 836009ff8431c6c4b9e727978fe7ce36,
-    type: 2}
-  m_PrefabInternal: {fileID: 2003382809}
---- !u!114 &2003382811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2003382810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95025433139e76a4d8b170ee48ddaf98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flag: BossRoom
-  item: {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
-  enableOnFlag: 0
 --- !u!1 &2127669469
 GameObject:
   m_ObjectHideFlags: 1

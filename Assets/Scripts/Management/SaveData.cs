@@ -63,8 +63,7 @@ public class SaveData
 	[System.Serializable]
     public class DialogueDictionary : SerializableDictionary<string, string> { }
 
-	//Dictionary of saved dialogue states
-    public DialogueDictionary savedDialogue;
+	public DialogueDictionary blackboardDictionary;
 
 	public List<string> flags;
 }
