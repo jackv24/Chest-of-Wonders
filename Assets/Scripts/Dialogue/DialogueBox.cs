@@ -175,7 +175,6 @@ public class DialogueBox : MonoBehaviour
 			if (SaveManager.instance.GetBlackboardJson(key, out json))
 			{
 				dialogueTree.DeserializeLocalBlackboard(json);
-				Debug.Log("Loaded blackboard: " + key);
 			}
 		}
     }
@@ -223,8 +222,6 @@ public class DialogueBox : MonoBehaviour
 	IEnumerator SetupOptions(MultipleChoiceRequestInfo info)
 	{
 		optionsOpen = true;
-
-		Debug.Log("Waiting for choice...");
 
 		yield return null;
 
@@ -286,8 +283,6 @@ public class DialogueBox : MonoBehaviour
 
 		yield return null;
 
-		Debug.Log("StartingCoroutine: " + info.statement.text);
-
 		if (accent)
 			accent.color = actor.dialogueColor;
 
@@ -310,17 +305,20 @@ public class DialogueBox : MonoBehaviour
 
 			info.Continue();
 		}
-
-		Debug.Log("EndingCoroutine: " + info.statement.text);
 	}
 
 	IEnumerator PrintOverTime(Text textObj, string text)
 	{
 		Coroutine soundRoutine = StartCoroutine(PlayTextSounds());
 
+		waitingForInput = true;
+
 		int charCount = text.Length;
 		for(int i = 0; i < charCount; i++)
 		{
+			if (!waitingForInput)
+				break;
+
 			string showTex = text.Remove(i, charCount - i);
 			string hideText = text.Remove(0, i);
 
@@ -368,8 +366,6 @@ public class DialogueBox : MonoBehaviour
 				info.SelectOption(index);
 
 				optionPanel.gameObject.SetActive(false);
-
-				Debug.Log("Selected: " + index);
 			};
         }
     }
