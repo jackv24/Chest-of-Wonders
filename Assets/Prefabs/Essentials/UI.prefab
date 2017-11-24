@@ -2666,9 +2666,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224872208143108472}
-  - component: {fileID: 114752099942594846}
   - component: {fileID: 82754648745625258}
   - component: {fileID: 114113399665534322}
+  - component: {fileID: 114372244004464434}
   m_Layer: 5
   m_Name: DialogueBoxPanel
   m_TagString: Untagged
@@ -7019,6 +7019,40 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114372244004464434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887585444841238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa41feae9d1c904e81b3d5cf822f34b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speakerPanel: {fileID: 224214287270738284}
+  speakerPanelOffset: {x: -0.25, y: 0}
+  optionPanel: {fileID: 224599788961721610}
+  optionPanelOffset: {x: -0.5, y: 1.5}
+  speakerPanelAnimator: {fileID: 95978907968437046}
+  speakerOpenAnim: {fileID: 7400000, guid: 664feb929dbfe0a4186e575e14c352d8, type: 2}
+  speakerCloseAnim: {fileID: 7400000, guid: e0080c6bed991ac4ab3d6645ac68398c, type: 2}
+  interactIcon: {fileID: 1021855634009434}
+  nameText: {fileID: 114672478757717620}
+  accent: {fileID: 114732608815967382}
+  dialogueText: {fileID: 114259389276041410}
+  trail: {fileID: 114205321538063800}
+  trailOffset: -10
+  initialButton: {fileID: 114131284326500310}
+  textSpeed: 30
+  textPrintSound: {fileID: 8300000, guid: 82bba1ebbff71e4448196683574dd895, type: 3}
+  pitchVariance:
+    min: 0.85
+    max: 1.15
+  textSoundDelay:
+    min: 0.05
+    max: 0.15
+  optionSelectDelay: 0.25
 --- !u!114 &114376038847855678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10478,34 +10512,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: a66c933a-8efd-4275-a2f5-43ec6dd56cbb
---- !u!114 &114752099942594846
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1887585444841238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa41feae9d1c904e81b3d5cf822f34b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speakerPanel: {fileID: 224214287270738284}
-  speakerPanelOffset: {x: -0.25, y: 0}
-  optionPanel: {fileID: 224599788961721610}
-  optionPanelOffset: {x: -0.5, y: 1.5}
-  speakerPanelAnimator: {fileID: 95978907968437046}
-  speakerOpenAnim: {fileID: 7400000, guid: 664feb929dbfe0a4186e575e14c352d8, type: 2}
-  speakerCloseAnim: {fileID: 7400000, guid: e0080c6bed991ac4ab3d6645ac68398c, type: 2}
-  interactIcon: {fileID: 1021855634009434}
-  nameText: {fileID: 114672478757717620}
-  accent: {fileID: 114732608815967382}
-  dialogueText: {fileID: 114259389276041410}
-  trail: {fileID: 114205321538063800}
-  trailOffset: -10
-  initialButton: {fileID: 114131284326500310}
-  textSpeed: 30
-  textPrintSound: {fileID: 8300000, guid: e50a4f2650b736447aa85c04d7143406, type: 3}
-  optionSelectDelay: 0.25
 --- !u!114 &114752168788870030
 MonoBehaviour:
   m_ObjectHideFlags: 1

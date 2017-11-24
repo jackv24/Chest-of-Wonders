@@ -44,7 +44,11 @@ public class DialogueBox : MonoBehaviour
 
     [Space()]
     public float textSpeed = 20;
+
+	[Space()]
 	public AudioClip textPrintSound;
+	public MinMaxFloat pitchVariance = new MinMaxFloat(0.85f, 1.15f);
+	public MinMaxFloat textSoundDelay = new MinMaxFloat(0.2f, 0.3f);
 	private AudioSource audioSource;
 
 	[Space()]
@@ -312,8 +316,9 @@ public class DialogueBox : MonoBehaviour
 
 	IEnumerator PrintOverTime(Text textObj, string text)
 	{
-		int charCount = text.Length;
+		Coroutine soundRoutine = StartCoroutine(PlayTextSounds());
 
+		int charCount = text.Length;
 		for(int i = 0; i < charCount; i++)
 		{
 			string showTex = text.Remove(i, charCount - i);
@@ -321,13 +326,28 @@ public class DialogueBox : MonoBehaviour
 
 			textObj.text = string.Format("{0}<color=#FFFFFF00>{1}</color>", showTex, hideText);
 
-			if (audioSource && textPrintSound)
-				audioSource.PlayOneShot(textPrintSound);
-
 			yield return new WaitForSeconds(1 / textSpeed);
 		}
 
 		textObj.text = text;
+
+		StopCoroutine(soundRoutine);
+	}
+
+	IEnumerator PlayTextSounds()
+	{
+		if(audioSource && textPrintSound)
+		{
+			audioSource.clip = textPrintSound;
+
+			while(true)
+			{
+				audioSource.pitch = pitchVariance.RandomValue;
+				audioSource.Play();
+
+				yield return new WaitForSeconds(textSoundDelay.RandomValue);
+			}
+		}
 	}
 
     void SetupButtonEvents(Button button, MultipleChoiceRequestInfo info, int index)
