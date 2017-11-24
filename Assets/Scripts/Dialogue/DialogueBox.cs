@@ -44,7 +44,8 @@ public class DialogueBox : MonoBehaviour
 
     [Space()]
     public float textSpeed = 20;
-    public float fastTextSpeed = 50;
+	public AudioClip textPrintSound;
+	private AudioSource audioSource;
 
 	[Space()]
 	public float optionSelectDelay = 0.5f;
@@ -59,6 +60,8 @@ public class DialogueBox : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+		audioSource = GetComponent<AudioSource>();
 
         dialoguePos = speakerPanel.GetComponent<KeepWorldPosOnCanvas>();
         optionsPos = optionPanel.GetComponent<KeepWorldPosOnCanvas>();
@@ -272,7 +275,6 @@ public class DialogueBox : MonoBehaviour
 
 	IEnumerator RunSubtitleRequest(SubtitlesRequestInfo info)
 	{
-		string text = info.statement.text;
 		IDialogueActor actor = info.actor;
 
 		if (actor.transform)
@@ -290,7 +292,7 @@ public class DialogueBox : MonoBehaviour
 
 		if(dialogueText)
 		{
-			dialogueText.text = text;
+			yield return StartCoroutine(PrintOverTime(dialogueText, info.statement.text));
 		}
 
 		//MultipleChoiceRequest handles continuing if there are options
@@ -306,6 +308,26 @@ public class DialogueBox : MonoBehaviour
 		}
 
 		Debug.Log("EndingCoroutine: " + info.statement.text);
+	}
+
+	IEnumerator PrintOverTime(Text textObj, string text)
+	{
+		int charCount = text.Length;
+
+		for(int i = 0; i < charCount; i++)
+		{
+			string showTex = text.Remove(i, charCount - i);
+			string hideText = text.Remove(0, i);
+
+			textObj.text = string.Format("{0}<color=#FFFFFF00>{1}</color>", showTex, hideText);
+
+			if (audioSource && textPrintSound)
+				audioSource.PlayOneShot(textPrintSound);
+
+			yield return new WaitForSeconds(1 / textSpeed);
+		}
+
+		textObj.text = text;
 	}
 
     void SetupButtonEvents(Button button, MultipleChoiceRequestInfo info, int index)

@@ -2667,7 +2667,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224872208143108472}
   - component: {fileID: 114752099942594846}
-  - component: {fileID: 114894024637741572}
   - component: {fileID: 82754648745625258}
   - component: {fileID: 114113399665534322}
   m_Layer: 5
@@ -10505,8 +10504,8 @@ MonoBehaviour:
   trailOffset: -10
   initialButton: {fileID: 114131284326500310}
   textSpeed: 30
-  fastTextSpeed: 100
-  optionSelectDelay: 0.1
+  textPrintSound: {fileID: 8300000, guid: e50a4f2650b736447aa85c04d7143406, type: 3}
+  optionSelectDelay: 0.25
 --- !u!114 &114752168788870030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11998,26 +11997,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: 83b54c77-8326-4df3-a307-6c3828403bfd
---- !u!114 &114894024637741572
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1887585444841238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f71725241bf98654d91596c6c1a3df4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blip:
-    clip: {fileID: 8300000, guid: e50a4f2650b736447aa85c04d7143406, type: 3}
-    volume: 0.25
-  shock:
-    clip: {fileID: 8300000, guid: f6f97b3a785a9ab47bad3ddeb7a2063e, type: 3}
-    volume: 1
-  nothing:
-    clip: {fileID: 0}
-    volume: 1
 --- !u!114 &114896694528407310
 MonoBehaviour:
   m_ObjectHideFlags: 1
