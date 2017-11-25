@@ -12,6 +12,7 @@ public class UIFunctions : MonoBehaviour
     //The UI gameobject to enable to show the death screen
     public GameObject deathScreen;
     public GameObject pauseMenu;
+	public GameObject optionsMenu;
 	public float pauseFadeTime = 0.25f;
 
     public GameObject loadingScreen;
@@ -83,6 +84,9 @@ public class UIFunctions : MonoBehaviour
 
     public void ShowPauseMenu(bool value)
     {
+		if (optionsMenu && !value)
+			optionsMenu.SetActive(false);
+
         if (pauseMenu)
         {
 			GameObject selectObject = null;
@@ -97,7 +101,7 @@ public class UIFunctions : MonoBehaviour
 					Debug.LogWarning("Could find a button to set selected!");
 			}
 
-			//If there is a canvas group, fade it's alpha, otehrwise just disable
+			//If there is a canvas group, fade it's alpha, otherwise just disable
 			CanvasGroup screen = pauseMenu.GetComponent<CanvasGroup>();
 			if (screen)
 				StartCoroutine(FadeScreen(screen, pauseFadeTime, value ? 0 : 1, value ? 1 : 0, value, selectObject));
