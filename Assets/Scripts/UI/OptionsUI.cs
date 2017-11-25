@@ -10,6 +10,9 @@ public class OptionsUI : MonoBehaviour
 	public GameObject firstSelected;
 	private GameObject previousSelected;
 
+	public bool skipFirstTime = true;
+	private bool firstTime = true;
+
 	[Space()]
 	public Dropdown resolutionDropdown;
 	public Toggle fullscreenToggle;
@@ -118,6 +121,12 @@ public class OptionsUI : MonoBehaviour
 
 	private void OnEnable()
 	{
+		if (skipFirstTime && firstTime)
+		{
+			firstTime = false;
+			return;
+		}
+
 		if(firstSelected)
 		{
 			previousSelected = EventSystem.current.currentSelectedGameObject;
