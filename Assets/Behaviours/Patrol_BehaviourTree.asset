@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Patrol_BehaviourTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5130.0,"y":-5204.0},"nodes":[{"_position":{"x":5558.0,"y":5359.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"_action":{"actions":[{"minValue":{"_value":2.0},"maxValue":{"_value":4.0},"floatVariable":{"_name":"waitTime"},"$type":"NodeCanvas.Tasks.Actions.SetFloatRandom"},{"waitTime":{"_value":1.0,"_name":"waitTime"},"$type":"NodeCanvas.Tasks.Actions.Wait"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5404.0,"y":5540.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"actions":[{"minValue":{"_value":1.0},"maxValue":{"_value":3.0},"floatVariable":{"_name":"distance"},"$type":"NodeCanvas.Tasks.Actions.SetFloatRandom"},{"minValue":{"_value":-1},"maxValue":{"_value":1},"intVariable":{"_name":"direction"},"$type":"NodeCanvas.Tasks.Actions.SetIntRandom"},{"distance":{"_value":1.0,"_name":"distance"},"direction":{"_value":1,"_name":"direction"},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5659.0,"y":5535.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"12"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

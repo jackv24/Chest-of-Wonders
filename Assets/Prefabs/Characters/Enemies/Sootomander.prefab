@@ -232,7 +232,7 @@ Transform:
   m_GameObject: {fileID: 1914621623221682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: -1, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4329466169138714}
   - {fileID: 4516809639187334}
@@ -551,7 +551,7 @@ MonoBehaviour:
   knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114082818067691806
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
@@ -563,7 +563,7 @@ MonoBehaviour:
   _guid: 70467e70-d2dd-46cd-8e12-4be73b334f7b
 --- !u!114 &114165649321327300
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1497928268968886}
@@ -575,7 +575,7 @@ MonoBehaviour:
   _guid: 53286361-539e-418f-947a-ef0fd4187110
 --- !u!114 &114211091687221562
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
@@ -598,7 +598,7 @@ MonoBehaviour:
   _assetGuid: 4e504010f785cfc4e848e5a350db0473
 --- !u!114 &114358987451813380
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1842018631121440}
@@ -649,8 +649,8 @@ MonoBehaviour:
   damageLayers:
     serializedVersion: 2
     m_Bits: 1024
-  damageBoxPos: {x: 0, y: 1.25}
-  damageBoxSize: {x: 3.5, y: 2}
+  damageBoxPos: {x: 0, y: 1}
+  damageBoxSize: {x: 3, y: 1.5}
   amount: 5
   damageCooldown: 1
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
@@ -694,7 +694,7 @@ MonoBehaviour:
   flipAnimation: {fileID: 7400000, guid: d8271913e2c6c89439db3fb1c6a4d7db, type: 2}
 --- !u!114 &114725449248741850
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1401293157013738}
@@ -706,7 +706,7 @@ MonoBehaviour:
   _guid: 319cde45-3c96-4e15-83b5-20ae6b889e7d
 --- !u!114 &114735666694105410
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430549831077228}
@@ -718,7 +718,7 @@ MonoBehaviour:
   _guid: d9c622e8-2324-4259-8f28-2212c5594337
 --- !u!114 &114842616292959170
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211249783460290}
@@ -824,7 +824,7 @@ MonoBehaviour:
   damageImmunity: 0
 --- !u!114 &114992757463457280
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251129305480146}
