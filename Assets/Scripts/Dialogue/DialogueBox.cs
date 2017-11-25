@@ -132,6 +132,7 @@ public class DialogueBox : MonoBehaviour
 		//Subscribe to DialogueTree events
 		DialogueTree.OnDialogueStarted += OnDialogueStarted;
 		DialogueTree.OnDialogueFinished += OnDialogueFinished;
+		DialogueTree.OnDialoguePaused += OnDialoguePaused;
 		DialogueTree.OnSubtitlesRequest += OnSubtitlesRequest;
 		DialogueTree.OnMultipleChoiceRequest += OnMultipleChoiceRequest;
     }
@@ -214,6 +215,14 @@ public class DialogueBox : MonoBehaviour
 		ShowPromptIcon(lastPromptLocation);
 	}
 
+	void OnDialoguePaused(DialogueTree dialogueTree)
+	{
+		if (speakerPanelAnimator && speakerCloseAnim)
+			speakerPanelAnimator.Play(speakerCloseAnim.name);
+
+		dialogueOpen = false;
+	}
+
 	void OnMultipleChoiceRequest(MultipleChoiceRequestInfo info)
 	{
 		StartCoroutine(SetupOptions(info));
@@ -276,6 +285,16 @@ public class DialogueBox : MonoBehaviour
 
 	IEnumerator RunSubtitleRequest(SubtitlesRequestInfo info)
 	{
+		if(!dialogueOpen)
+		{
+			dialogueOpen = true;
+
+			if (speakerPanelAnimator && speakerOpenAnim)
+				speakerPanelAnimator.Play(speakerOpenAnim.name);
+
+			yield return new WaitForSeconds(speakerOpenAnim.length);
+		}
+
 		IDialogueActor actor = info.actor;
 
 		if (actor.transform)
@@ -291,7 +310,9 @@ public class DialogueBox : MonoBehaviour
 
 		if(dialogueText)
 		{
-			yield return StartCoroutine(PrintOverTime(dialogueText, info.statement.text));
+			bool withSound = !info.statement.meta.ToLower().Contains("nosound");
+
+			yield return StartCoroutine(PrintOverTime(dialogueText, info.statement.text, withSound));
 		}
 
 		//MultipleChoiceRequest handles continuing if there are options
@@ -307,9 +328,12 @@ public class DialogueBox : MonoBehaviour
 		}
 	}
 
-	IEnumerator PrintOverTime(Text textObj, string text)
+	IEnumerator PrintOverTime(Text textObj, string text, bool withSound)
 	{
-		Coroutine soundRoutine = StartCoroutine(PlayTextSounds());
+		Coroutine soundRoutine = null;
+
+		if (withSound)
+			soundRoutine = StartCoroutine(PlayTextSounds());
 
 		waitingForInput = true;
 
@@ -329,7 +353,8 @@ public class DialogueBox : MonoBehaviour
 
 		textObj.text = text;
 
-		StopCoroutine(soundRoutine);
+		if(soundRoutine != null)
+			StopCoroutine(soundRoutine);
 	}
 
 	IEnumerator PlayTextSounds()
