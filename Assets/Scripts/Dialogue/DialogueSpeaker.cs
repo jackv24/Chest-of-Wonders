@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.DialogueTrees;
 
+[RequireComponent(typeof(DialogueActor))]
 public class DialogueSpeaker : MonoBehaviour
 {
     [Space()]
     //How far offset from the gameobject should it be (in world space)
-    public Vector2 boxOffset;
+    public Vector2 boxOffset = new Vector2(0, 1.75f);
 
     private PlayerActions playerActions;
     private bool inRange = false;
     [HideInInspector]
     public bool rangeToggle = false;
 
-    public float range = 2f;
-    public float talkRange = 1.0f;
+    public float range = 2.5f;
+    public float talkRange = 1.75f;
     private GameObject player;
 
     [Space()]
