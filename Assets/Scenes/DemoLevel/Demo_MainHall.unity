@@ -91,6 +91,48 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &23679506
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4367712555486172, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 12.77018
+      objectReference: {fileID: 0}
+    - target: {fileID: 4367712555486172, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.37745476
+      objectReference: {fileID: 0}
+    - target: {fileID: 4367712555486172, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4367712555486172, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4367712555486172, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4367712555486172, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4367712555486172, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4367712555486172, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 420c30a485907c944871d0d5785b2e3d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &92344664
 GameObject:
   m_ObjectHideFlags: 1
@@ -365,7 +407,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -417,19 +459,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32e4b851ebd8fa4ea0645b99be1cf97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundGraphSerialization: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4872.0,"y":-5051.0},"nodes":[{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5440.0,"y":5347.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"conditions":[{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":2},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":4},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},null],"_position":{"x":5428.0,"y":5451.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"6"},{"statement":{"_text":"Hello
-    there!"},"_position":{"x":5212.0,"y":5627.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"20"},{"statement":{"_text":"Hello
-    again!"},"_position":{"x":5334.0,"y":5661.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"22"},{"statement":{"_text":"Hello
-    again."},"_position":{"x":5452.0,"y":5625.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"24"},{"statement":{"_text":"Okay
-    this is getting tiring."},"_position":{"x":5572.0,"y":5665.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"26"},{"statement":{"_text":"..."},"_position":{"x":5770.0,"y":5605.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"28"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+  boundGraphSerialization: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-3609.0,"y":-3971.0},"zoomFactor":0.7500068,"nodes":[{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5406.0,"y":5277.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"conditions":[{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":2},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":4},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},null],"_position":{"x":5428.0,"y":5451.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"6"},{"statement":{"_text":"Hello
+    there!"},"_position":{"x":5212.0,"y":5627.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"20"},{"conditions":[{"conditions":[{"itemToCheck":1,"$type":"NodeCanvas.Tasks.Conditions.CheckInventoryItem"},{"valueA":{"_name":"mentionedKey","_targetVariableID":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},{"valueA":{"_name":"mentionedKey","_targetVariableID":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"_position":{"x":5455.0,"y":5801.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"22"},{"statement":{"_text":"Oh,
+    you have a key!"},"_position":{"x":5325.0,"y":5971.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"33"},{"_action":{"boolVariable":{"_name":"mentionedKey","_targetVariableID":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5296.0,"y":6066.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"35"},{"statement":{"_text":"You
+    can use your key on that door over there."},"_position":{"x":5603.0,"y":6169.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"38"},{"statement":{"_text":"Hello
+    again!"},"_position":{"x":5334.0,"y":5661.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"40"},{"statement":{"_text":"Hello
+    again."},"_position":{"x":5452.0,"y":5625.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"42"},{"statement":{"_text":"Okay
+    this is getting tiring."},"_position":{"x":5572.0,"y":5665.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"44"},{"statement":{"_text":"...","_meta":"nosound"},"_position":{"x":5770.0,"y":5605.0},"_tag":"","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"46"},{"conditions":[{"conditions":[{"itemToCheck":1,"$type":"NodeCanvas.Tasks.Conditions.CheckInventoryItem"},{"valueA":{"_name":"mentionedKey","_targetVariableID":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},null],"_position":{"x":5635.0,"y":5846.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"48"},{"statement":{"_text":"Okay
+    now go away."},"_position":{"x":5831.0,"y":5951.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"56"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"42"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"44"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"46"},"_targetNode":{"$ref":"48"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"48"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"48"},"_targetNode":{"$ref":"56"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
     Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
-    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":1}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"mentionedKey":{"_name":"mentionedKey","_id":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
   boundGraphObjectReferences:
   - {fileID: 0}
+  - {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
   - {fileID: 1145302292}
   enableAction: 1
   disableAction: 2
-  _graph: {fileID: 1739360114}
+  _graph: {fileID: 946893701}
   _blackboard: {fileID: 0}
 --- !u!4 &149110496
 Transform:
@@ -775,7 +822,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1224,7 +1271,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1430,6 +1477,37 @@ EdgeCollider2D:
   - {x: 1, y: 3}
   - {x: 0.71875, y: 2.75}
   - {x: 0, y: 2}
+--- !u!114 &946893701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: TestDialogue DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-3609.0,"y":-3971.0},"zoomFactor":0.7500068,"nodes":[{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5406.0,"y":5277.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"conditions":[{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":2},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":4},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},null],"_position":{"x":5428.0,"y":5451.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"6"},{"statement":{"_text":"Hello
+    there!"},"_position":{"x":5212.0,"y":5627.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"20"},{"conditions":[{"conditions":[{"itemToCheck":1,"$type":"NodeCanvas.Tasks.Conditions.CheckInventoryItem"},{"valueA":{"_name":"mentionedKey","_targetVariableID":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},{"valueA":{"_name":"mentionedKey","_targetVariableID":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"_position":{"x":5455.0,"y":5801.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"22"},{"statement":{"_text":"Oh,
+    you have a key!"},"_position":{"x":5325.0,"y":5971.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"33"},{"_action":{"boolVariable":{"_name":"mentionedKey","_targetVariableID":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5296.0,"y":6066.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"35"},{"statement":{"_text":"You
+    can use your key on that door over there."},"_position":{"x":5603.0,"y":6169.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"38"},{"statement":{"_text":"Hello
+    again!"},"_position":{"x":5334.0,"y":5661.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"40"},{"statement":{"_text":"Hello
+    again."},"_position":{"x":5452.0,"y":5625.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"42"},{"statement":{"_text":"Okay
+    this is getting tiring."},"_position":{"x":5572.0,"y":5665.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"44"},{"statement":{"_text":"...","_meta":"nosound"},"_position":{"x":5770.0,"y":5605.0},"_tag":"","$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"46"},{"conditions":[{"conditions":[{"itemToCheck":1,"$type":"NodeCanvas.Tasks.Conditions.CheckInventoryItem"},{"valueA":{"_name":"mentionedKey","_targetVariableID":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},null],"_position":{"x":5635.0,"y":5846.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"48"},{"statement":{"_text":"Okay
+    now go away."},"_position":{"x":5831.0,"y":5951.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"56"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"42"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"44"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"20"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"35"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"35"},"_targetNode":{"$ref":"38"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"42"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"44"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"46"},"_targetNode":{"$ref":"48"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"48"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"48"},"_targetNode":{"$ref":"56"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"mentionedKey":{"_name":"mentionedKey","_id":"f3ce33ec-2709-498d-a2e5-2c2c8e6a1027","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f7d11ea32acf1e14c86168e88ca593eb, type: 2}
+  - {fileID: 1145302292}
+  _deserializationFailed: 0
+  _actorParameters:
+  - _keyName: Belle
+    _id: 86bd00df-6856-4ec9-8c99-aae04bdd70cb
+    _actorObject: {fileID: 1145302292}
 --- !u!1 &1056986547
 GameObject:
   m_ObjectHideFlags: 1
@@ -1995,7 +2073,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2262,32 +2340,6 @@ EdgeCollider2D:
   - {x: 17, y: 5}
   - {x: 18, y: 5}
   - {x: 18, y: 0}
---- !u!114 &1739360114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: TestDialogue DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4872.0,"y":-5051.0},"nodes":[{"_action":{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"Operation":"Add","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"},"_position":{"x":5440.0,"y":5347.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"conditions":[{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":2},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":3},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},{"valueA":{"_name":"timesTalked","_targetVariableID":"9c5f0a42-b3a0-422d-b03e-104617f8d6af"},"checkType":"LessOrEqualTo","valueB":{"_value":4},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},null],"_position":{"x":5428.0,"y":5451.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"6"},{"statement":{"_text":"Hello
-    there!"},"_position":{"x":5212.0,"y":5627.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"20"},{"statement":{"_text":"Hello
-    again!"},"_position":{"x":5334.0,"y":5661.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"22"},{"statement":{"_text":"Hello
-    again."},"_position":{"x":5452.0,"y":5625.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"24"},{"statement":{"_text":"Okay
-    this is getting tiring."},"_position":{"x":5572.0,"y":5665.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"26"},{"statement":{"_text":"..."},"_position":{"x":5770.0,"y":5605.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"28"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"28"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{"timesTalked":{"_name":"timesTalked","_id":"9c5f0a42-b3a0-422d-b03e-104617f8d6af","$type":"NodeCanvas.Framework.Variable`1[[System.Int32,
-    mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"86bd00df-6856-4ec9-8c99-aae04bdd70cb","_actorObject":1}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 1145302292}
-  _deserializationFailed: 0
-  _actorParameters:
-  - _keyName: Belle
-    _id: 86bd00df-6856-4ec9-8c99-aae04bdd70cb
-    _actorObject: {fileID: 1145302292}
 --- !u!1001 &1747621254
 Prefab:
   m_ObjectHideFlags: 0
@@ -2462,7 +2514,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
