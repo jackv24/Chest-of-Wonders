@@ -5,7 +5,7 @@ using NodeCanvas.Framework;
 
 namespace NodeCanvas.Tasks.Actions
 {
-	public class GetGameObjectDirection : ActionTask
+	public class GetGameObjectDirection : ActionTask<Transform>
 	{
 		public BBParameter<GameObject> gameObject;
 
@@ -15,7 +15,7 @@ namespace NodeCanvas.Tasks.Actions
 		{
 			if(gameObject.value)
 			{
-				float offsetX = gameObject.value.transform.position.x - agent.transform.position.x;
+				float offsetX = gameObject.value.transform.position.x - agent.position.x;
 
 				directionVar.value = Mathf.Sign(offsetX);
 			}

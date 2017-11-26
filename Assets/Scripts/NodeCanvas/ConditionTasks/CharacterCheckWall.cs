@@ -2,27 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
+using ParadoxNotion.Design;
 
 namespace NodeCanvas.Tasks.Conditions
 {
-	public class CharacterCheckWall : ConditionTask
+	[Description("Returns success if character is walking into a wall")]
+	public class CharacterCheckWall : ConditionTask<CharacterMove>
 	{
-		public BBParameter<CharacterMove> character;
-
 		public BBParameter<float> direction;
 
 		protected override bool OnCheck()
 		{
-			if(character.value)
-			{
-				//If hitting a wall but not moving in that direction, then not considered hitting
-				if (character.value.HittingWall && Mathf.Sign(character.value.inputDirection) != Mathf.Sign(direction.value))
-					return false;
-
-				return character.value.HittingWall;
-			}
-			else
+			//If hitting a wall but not moving in that direction, then not considered hitting
+			if (agent.HittingWall && Mathf.Sign(agent.inputDirection) != Mathf.Sign(direction.value))
 				return false;
+
+			return agent.HittingWall;
 		}
 	}
 }

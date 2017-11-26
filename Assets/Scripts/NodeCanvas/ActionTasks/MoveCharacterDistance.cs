@@ -2,42 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
+using ParadoxNotion.Design;
 
 namespace NodeCanvas.Tasks.Actions
 {
-	public class MoveCharacterDistance : ActionTask
+	[Description("Moves the character a specified distance in a specified direction")]
+	public class MoveCharacterDistance : ActionTask<CharacterMove>
 	{
 		public BBParameter<float> distance = 1.0f;
 		public BBParameter<int> direction = 1;
 
-		private CharacterMove character;
 		private float initialPosX;
 		private float targetPosX;
 
 		protected override void OnExecute()
 		{
-			character = agent.GetComponent<CharacterMove>();
-
-			if (character)
-			{
-				initialPosX = character.transform.position.x;
-				targetPosX = character.transform.position.x + Mathf.Abs(distance.value) * Mathf.Sign(direction.value);
-			}
-			else
-				EndAction(false);
+			initialPosX = agent.transform.position.x;
+			targetPosX = agent.transform.position.x + Mathf.Abs(distance.value) * Mathf.Sign(direction.value);
 		}
 
 		protected override void OnUpdate()
 		{
-			if(character)
-			{
-				character.Move(Mathf.Sign(direction.value));
+			agent.Move(Mathf.Sign(direction.value));
 
-				if(Mathf.Abs(character.transform.position.x - initialPosX) >= Mathf.Abs(distance.value))
-				{
-					character.Move(0);
-					EndAction(true);
-				}
+			if(Mathf.Abs(agent.transform.position.x - initialPosX) >= Mathf.Abs(distance.value))
+			{
+				agent.Move(0);
+				EndAction(true);
 			}
 		}
 	}

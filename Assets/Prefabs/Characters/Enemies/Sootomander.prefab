@@ -553,7 +553,7 @@ MonoBehaviour:
   knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114082818067691806
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
@@ -565,7 +565,7 @@ MonoBehaviour:
   _guid: 70467e70-d2dd-46cd-8e12-4be73b334f7b
 --- !u!114 &114165649321327300
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1497928268968886}
@@ -600,7 +600,7 @@ MonoBehaviour:
   _blackboard: {fileID: 114763726739086558}
 --- !u!114 &114211091687221562
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
@@ -638,7 +638,7 @@ MonoBehaviour:
   - {fileID: 1251129305480146}
 --- !u!114 &114358987451813380
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1842018631121440}
@@ -741,7 +741,7 @@ MonoBehaviour:
   deathAnimation: {fileID: 7400000, guid: 0330ace8bf6a9594f9854483365bfe2e, type: 2}
 --- !u!114 &114725449248741850
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1401293157013738}
@@ -753,7 +753,7 @@ MonoBehaviour:
   _guid: 319cde45-3c96-4e15-83b5-20ae6b889e7d
 --- !u!114 &114735666694105410
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430549831077228}
@@ -787,7 +787,7 @@ MonoBehaviour:
   - {fileID: 114959086213150190}
 --- !u!114 &114842616292959170
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211249783460290}
@@ -893,7 +893,7 @@ MonoBehaviour:
   damageImmunity: 0
 --- !u!114 &114992757463457280
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251129305480146}
