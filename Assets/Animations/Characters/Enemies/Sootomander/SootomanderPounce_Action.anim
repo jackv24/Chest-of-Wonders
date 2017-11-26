@@ -79,7 +79,7 @@ AnimationClip:
   m_IsEmpty: 0
   m_Events:
   - time: 0.16666667
-    functionName: StartAttack
+    functionName: EnableAttackColliders
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

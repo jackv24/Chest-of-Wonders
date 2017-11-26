@@ -100,16 +100,16 @@ AnimationClip:
   m_IsEmpty: 0
   m_Events:
   - time: 0.5
-    functionName: StartAttack
+    functionName: EnableAttackColliders
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
   - time: 0.75
-    functionName: EndAttack
+    functionName: DisableAttackColliders
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
