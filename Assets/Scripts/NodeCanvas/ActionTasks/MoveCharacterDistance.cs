@@ -5,7 +5,7 @@ using NodeCanvas.Framework;
 
 namespace NodeCanvas.Tasks.Actions
 {
-	public class MoveCharacter : ActionTask
+	public class MoveCharacterDistance : ActionTask
 	{
 		public BBParameter<float> distance = 1.0f;
 		public BBParameter<int> direction = 1;

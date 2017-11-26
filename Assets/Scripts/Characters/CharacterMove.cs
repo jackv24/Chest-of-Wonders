@@ -12,6 +12,9 @@ public class CharacterMove : MonoBehaviour
 
     public float FacingDirection { get { return -oldDirection >= 0 ? 1 : -1; } }
 
+	public bool HittingWall { get { return hittingWall; } }
+	private bool hittingWall = false;
+
     [Header("Movement")]
     [Tooltip("The horizontal move speed (m/s).")]
     public float moveSpeed = 2f;
@@ -379,6 +382,8 @@ public class CharacterMove : MonoBehaviour
                 //Rays are cast in the direction of movement
                 Vector2 direction = velocity.x > 0 ? Vector2.right : Vector2.left;
 
+				bool hitWall = false;
+
                 //Cast required amount of rays
                 for (int i = 0; i < horizontalRays; i++)
                 {
@@ -404,12 +409,16 @@ public class CharacterMove : MonoBehaviour
 
                             //Cease any lateral movement
                             velocity.x = 0;
+
+							hitWall = true;
                         }
 
                         //If one ray has connected, no more rays should be cast
                         break;
                     }
                 }
+
+				hittingWall = hitWall;
             }
         }
 

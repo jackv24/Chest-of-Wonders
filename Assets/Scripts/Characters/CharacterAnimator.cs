@@ -11,9 +11,10 @@ public class CharacterAnimator : MonoBehaviour
     public bool defaultRight = true;
     private float oldFaceDirection = 0;
 
+	public bool handleFlip = true;
+
     [Space()]
     public AnimationClip deathAnimation;
-    public AnimationClip flipAnimation;
 
     private CharacterMove characterMove;
 
@@ -31,7 +32,9 @@ public class CharacterAnimator : MonoBehaviour
     {
         if (characterMove)
         {
-            characterMove.OnChangedDirection += FlipOnDirectionChange;
+			if(handleFlip)
+				characterMove.OnChangedDirection += FlipOnDirectionChange;
+
             characterMove.OnJump += Jump;
         }
     }
@@ -56,43 +59,24 @@ public class CharacterAnimator : MonoBehaviour
 
     void FlipOnDirectionChange(float direction)
     {
-        StopCoroutine("FlipAfterTime");
-        StartCoroutine(FlipAfterTime(flipAnimation ? flipAnimation.length : 0, direction));
-    }
+		if (direction != oldFaceDirection && direction != 0)
+		{
+			oldFaceDirection = direction;
 
-    IEnumerator FlipAfterTime(float time, float direction)
-    {
-        if (direction != oldFaceDirection && direction != 0)
-        {
-            oldFaceDirection = direction;
+			//Flip character to face the right direction
+			//Get current scale
+			Vector3 scale = animator.transform.localScale;
 
-            if (flipAnimation)
-            {
-                animator.SetBool("turning", true);
+			//Edit x scale to flip character
+			if (direction >= 0)
+				scale.x = defaultRight ? 1 : -1;
+			else
+				scale.x = defaultRight ? -1 : 1;
 
-                characterMove.canMove = false;
-
-                yield return new WaitForSeconds(time);
-
-                characterMove.canMove = true;
-
-                animator.SetBool("turning", false);
-            }
-
-            //Flip character to face the right direction
-            //Get current scale
-            Vector3 scale = animator.transform.localScale;
-
-            //Edit x scale to flip character
-            if (direction >= 0)
-                scale.x = defaultRight ? 1 : -1;
-            else
-                scale.x = defaultRight ? -1 : 1;
-
-            //Set new scale as current scale
-            animator.transform.localScale = scale;
-        }
-    }
+			//Set new scale as current scale
+			animator.transform.localScale = scale;
+		}
+	}
 
     public void SetStunned(bool value)
     {
