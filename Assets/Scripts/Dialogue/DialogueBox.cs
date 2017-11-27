@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using NodeCanvas.DialogueTrees;
+using TMPro;
 
 public class DialogueBox : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class DialogueBox : MonoBehaviour
     [Space()]
     public Text nameText;
     public Image accent;
-    public Text dialogueText;
+    public TextMeshProUGUI dialogueText;
     public Image trail;
     public int trailOffset = 10;
     public Button initialButton;
@@ -43,8 +44,10 @@ public class DialogueBox : MonoBehaviour
 	private float pauseTime = 0;
 
 	[Space()]
-	public int maxCharactersPerLine = 30;
     public float textSpeed = 20;
+	public int maxCharsBeforeWrap = 30;
+	public LayoutElement textPanel;
+	private float textPreferredWidth;
 
 	[Space()]
 	public AudioClip textPrintSound;
@@ -136,6 +139,9 @@ public class DialogueBox : MonoBehaviour
 		DialogueTree.OnDialoguePaused += OnDialoguePaused;
 		DialogueTree.OnSubtitlesRequest += OnSubtitlesRequest;
 		DialogueTree.OnMultipleChoiceRequest += OnMultipleChoiceRequest;
+
+		if (textPanel)
+			textPreferredWidth = textPanel.preferredWidth;
     }
 
     void Update()
@@ -313,35 +319,17 @@ public class DialogueBox : MonoBehaviour
 		{
 			bool withSound = !info.statement.meta.ToLower().Contains("nosound");
 
-			string text = info.statement.text;
-
-			//Split text if it exceeds max characters per line
-			if (text.Length > maxCharactersPerLine)
+			if (textPanel)
 			{
-				char[] textArray = text.ToCharArray();
-
-				string runningText = "";
-
-				int runningCounter = 0;
-				for(int i = 0; i < textArray.Length; i++)
+				if (info.statement.text.Length > maxCharsBeforeWrap)
 				{
-					runningCounter++;
-
-					//Split text onto new line after max characters, and when a space is found
-					if(runningCounter > maxCharactersPerLine && textArray[i] == ' ')
-					{
-						runningText += "\n";
-
-						runningCounter = 0;
-					}
-					else //If this is not a new line, add character to text
-						runningText += textArray[i];
+					textPanel.preferredWidth = textPreferredWidth;
 				}
-
-				text = runningText;
+				else
+					textPanel.preferredWidth = -1;
 			}
 
-			yield return StartCoroutine(PrintOverTime(dialogueText, text, withSound));
+			yield return StartCoroutine(PrintOverTime(dialogueText, info.statement.text, withSound));
 		}
 
 		//MultipleChoiceRequest handles continuing if there are options
@@ -357,7 +345,7 @@ public class DialogueBox : MonoBehaviour
 		}
 	}
 
-	IEnumerator PrintOverTime(Text textObj, string text, bool withSound)
+	IEnumerator PrintOverTime(TextMeshProUGUI textObj, string text, bool withSound)
 	{
 		Coroutine soundRoutine = null;
 
