@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 114412642717555962}
   - component: {fileID: 114610874517870672}
   - component: {fileID: 114015784685274138}
+  - component: {fileID: 114509477419989162}
   m_Layer: 5
   m_Name: Template
   m_TagString: Untagged
@@ -1542,6 +1543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 1124215283168394}
+  skipFirstTime: 1
   resolutionDropdown: {fileID: 114947250846313434}
   fullscreenToggle: {fileID: 114884622051385518}
   postFXToggle: {fileID: 114664992740127292}
@@ -2024,6 +2026,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: f60befda-811e-4e1c-988b-41711b04eab3
+--- !u!114 &114509477419989162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445695482579608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e1659e4cbb4154a85ae49e07d0df22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114565846189853830
 MonoBehaviour:
   m_ObjectHideFlags: 1

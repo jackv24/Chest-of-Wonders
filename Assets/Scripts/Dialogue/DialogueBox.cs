@@ -42,7 +42,8 @@ public class DialogueBox : MonoBehaviour
 	private bool autoContinue = false;
 	private float pauseTime = 0;
 
-    [Space()]
+	[Space()]
+	public int maxCharactersPerLine = 30;
     public float textSpeed = 20;
 
 	[Space()]
@@ -312,7 +313,35 @@ public class DialogueBox : MonoBehaviour
 		{
 			bool withSound = !info.statement.meta.ToLower().Contains("nosound");
 
-			yield return StartCoroutine(PrintOverTime(dialogueText, info.statement.text, withSound));
+			string text = info.statement.text;
+
+			//Split text if it exceeds max characters per line
+			if (text.Length > maxCharactersPerLine)
+			{
+				char[] textArray = text.ToCharArray();
+
+				string runningText = "";
+
+				int runningCounter = 0;
+				for(int i = 0; i < textArray.Length; i++)
+				{
+					runningCounter++;
+
+					//Split text onto new line after max characters, and when a space is found
+					if(runningCounter > maxCharactersPerLine && textArray[i] == ' ')
+					{
+						runningText += "\n";
+
+						runningCounter = 0;
+					}
+					else //If this is not a new line, add character to text
+						runningText += textArray[i];
+				}
+
+				text = runningText;
+			}
+
+			yield return StartCoroutine(PrintOverTime(dialogueText, text, withSound));
 		}
 
 		//MultipleChoiceRequest handles continuing if there are options
