@@ -7012,8 +7012,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Oh wow that is so awesome. Holy crap you have no idea how awesome that is.
-    Good for you!
+  m_text: Dialogue Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 423fe26930997454e97a899f905e0cf3, type: 2}
   m_sharedMaterial: {fileID: 21223194812989686, guid: 423fe26930997454e97a899f905e0cf3,
@@ -7081,12 +7080,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 114196118760527160}
-    characterCount: 88
+    characterCount: 13
     spriteCount: 0
-    spaceCount: 18
-    wordCount: 19
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
-    lineCount: 3
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 1
@@ -18857,10 +18856,10 @@ RectTransform:
   - {fileID: 224682527459467310}
   - {fileID: 224872208143108472}
   - {fileID: 224692801687117450}
-  - {fileID: 224363259396160128}
   - {fileID: 224750994859792116}
   - {fileID: 224619502997822708}
   - {fileID: 224739341413536202}
+  - {fileID: 224363259396160128}
   - {fileID: 224005991071605222}
   m_Father: {fileID: 4203912328114912}
   m_RootOrder: 0
@@ -18976,7 +18975,7 @@ RectTransform:
   - {fileID: 224829645934204750}
   - {fileID: 224695825308849392}
   m_Father: {fileID: 224310025303084160}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -20130,7 +20129,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224310025303084160}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -20559,7 +20558,7 @@ RectTransform:
   - {fileID: 224604228905429076}
   - {fileID: 224227882426608824}
   m_Father: {fileID: 224310025303084160}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -20597,7 +20596,7 @@ RectTransform:
   - {fileID: 224939789213306308}
   - {fileID: 224498068129644630}
   m_Father: {fileID: 224310025303084160}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

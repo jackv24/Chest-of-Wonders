@@ -9,11 +9,12 @@ namespace NodeCanvas.Tasks.Actions
     {
         public BBParameter<GameObject> storeValue;
 
-        private GameObject player;
+        //Player only needs to be found once
+        private static GameObject player;
 
         protected override string OnInit()
         {
-            if(!player)
+            if (!player)
             {
                 player = GameObject.FindWithTag("Player");
             }

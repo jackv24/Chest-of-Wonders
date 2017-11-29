@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NodeCanvas.Framework;
 
 public class CharacterStats : MonoBehaviour
 {
@@ -48,12 +49,14 @@ public class CharacterStats : MonoBehaviour
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
     private CharacterSound characterSound;
+    private Blackboard blackboard;
 
     void Awake()
     {
         characterMove = GetComponent<CharacterMove>();
         characterAnimator = GetComponent<CharacterAnimator>();
         characterSound = GetComponent<CharacterSound>();
+        blackboard = GetComponent<Blackboard>();
     }
 
     private void OnEnable()
@@ -235,5 +238,13 @@ public class CharacterStats : MonoBehaviour
         mat.SetFloat("_FlashAmount", 0);
 
         damageImmunity = false;
+    }
+
+    public void SetAggro(bool value)
+    {
+        if(blackboard)
+        {
+            blackboard.SetValue("aggro", true);
+        }
     }
 }
