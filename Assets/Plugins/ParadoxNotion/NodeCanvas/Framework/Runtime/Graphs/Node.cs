@@ -503,13 +503,13 @@ namespace NodeCanvas.Framework{
 			return string.Format("{0} ({1})", name, tag);
 		}
 
-		public void OnDrawGizmos(){
+		public virtual void OnDrawGizmos(){
 			if (this is ITaskAssignable && (this as ITaskAssignable).task != null ){
 				(this as ITaskAssignable).task.OnDrawGizmos();
 			}
 		}
 
-		public void OnDrawGizmosSelected(){
+		public virtual void OnDrawGizmosSelected(){
 			if (this is ITaskAssignable && (this as ITaskAssignable).task != null){
 				(this as ITaskAssignable).task.OnDrawGizmosSelected();
 			}
