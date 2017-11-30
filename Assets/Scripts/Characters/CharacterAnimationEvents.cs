@@ -7,6 +7,23 @@ public class CharacterAnimationEvents : MonoBehaviour
     [Header("Attacks")]
     public GameObject[] attackColliders;
 
+    [System.Serializable]
+    public class ProjectileAttack
+    {
+        public Transform spawnPoint;
+        public Projectile projectilePrefab;
+    }
+
+    [Header("Projectile Attacks")]
+    public ProjectileAttack[] projectileAttacks;
+
+    private CharacterMove characterMove;
+
+    void Awake()
+    {
+        characterMove = GetComponentInParent<CharacterMove>();
+    }
+
 	public void EnableAttackColliders(int index)
 	{
 		if (index < attackColliders.Length)
@@ -32,4 +49,22 @@ public class CharacterAnimationEvents : MonoBehaviour
 		Vector2 camOffset = Vector2.down * amount;
 		Camera.main.transform.position += (Vector3)camOffset;
 	}
+
+    public void FireProjectileHorizontal(int index)
+    {
+        if(index < projectileAttacks.Length)
+        {
+            ProjectileAttack attack = projectileAttacks[index];
+
+            if(attack.spawnPoint && attack.projectilePrefab)
+            {
+                GameObject obj = ObjectPooler.GetPooledObject(attack.projectilePrefab.gameObject);
+                obj.transform.position = attack.spawnPoint.position;
+
+                Projectile proj = obj.GetComponent<Projectile>();
+                proj.SetOwner(characterMove.gameObject);
+                proj.Fire(attack.spawnPoint.forward);
+            }
+        }
+    }
 }
