@@ -35,7 +35,7 @@ public class ParallaxBackground : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	private void LateUpdate()
 	{
 		if (mainCam)
 		{
