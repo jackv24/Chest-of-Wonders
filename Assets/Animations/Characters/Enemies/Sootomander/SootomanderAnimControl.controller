@@ -143,6 +143,27 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &1101437453837762374
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102738610026733474}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 1
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &1101792424771014060
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -191,10 +212,11 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: SootomanderPounce_Land
+  m_Name: Pounce_Land
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: []
+  m_Transitions:
+  - {fileID: 1101437453837762374}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -285,7 +307,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: SootomanderPounce_Ready
+  m_Name: Pounce_Ready
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -378,7 +400,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: SootomanderPounce_Action
+  m_Name: Pounce_Action
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -449,13 +471,13 @@ AnimatorStateMachine:
     m_Position: {x: 0, y: 72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102657293096243798}
-    m_Position: {x: -228, y: 72, z: 0}
+    m_Position: {x: 600, y: -216, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102955069262175278}
-    m_Position: {x: -228, y: 120, z: 0}
+    m_Position: {x: 600, y: -168, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102524162745861136}
-    m_Position: {x: -228, y: 168, z: 0}
+    m_Position: {x: 600, y: -120, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
