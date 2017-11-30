@@ -9,6 +9,8 @@ public class SceneLoaderEditor : EditorWindow
 {
 	private Vector2 scrollPos = Vector2.zero;
 
+    private bool autoAddGameScene = true;
+
 	[MenuItem("Overgrowth Tools/Scene Loader")]
 	static void Init()
 	{
@@ -32,11 +34,7 @@ public class SceneLoaderEditor : EditorWindow
 		GUI.backgroundColor = Color.green;
 		if (GUILayout.Button("Add Game Scene", GUILayout.Height(30)))
 		{
-			Scene scene = EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(1), OpenSceneMode.Additive);
-			Scene beforeScene = EditorSceneManager.GetActiveScene();
-			EditorSceneManager.SetActiveScene(scene);
-
-			EditorSceneManager.MoveSceneBefore(scene, beforeScene);
+            AddGameScene();
 		}
 		GUI.backgroundColor = Color.yellow;
 		if (GUILayout.Button("Close Game Scene", GUILayout.Height(30)))
@@ -47,6 +45,9 @@ public class SceneLoaderEditor : EditorWindow
 		EditorGUILayout.EndHorizontal();
 
 		GUI.backgroundColor = backColor;
+
+        EditorGUILayout.Space();
+        autoAddGameScene = EditorGUILayout.Toggle("Auto-add Game scene", autoAddGameScene);
 
 		EditorGUILayout.Space();
 		GUILayout.Label("Scenes in build", EditorStyles.boldLabel);
@@ -69,9 +70,14 @@ public class SceneLoaderEditor : EditorWindow
 			//Buttons to load this scene
 			if(GUILayout.Button(sceneName, GUILayout.Height(30), GUILayout.Width(position.width / 2 - 13)))
 			{
-				//Only load scene if user confirms edited scene
-				if(EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
-					EditorSceneManager.OpenScene(scenePath);
+                //Only load scene if user confirms edited scene
+                if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                {
+                    EditorSceneManager.OpenScene(scenePath);
+
+                    if (autoAddGameScene)
+                        AddGameScene();
+                }
 			}
 
 			//Reset columns once target reached
@@ -90,6 +96,16 @@ public class SceneLoaderEditor : EditorWindow
 
 		GUI.backgroundColor = backColor;
 	}
+
+    void AddGameScene()
+    {
+        Scene scene = EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(1), OpenSceneMode.Additive);
+        Scene beforeScene = EditorSceneManager.GetActiveScene();
+
+        EditorSceneManager.SetActiveScene(beforeScene);
+
+        EditorSceneManager.MoveSceneBefore(scene, beforeScene);
+    }
 
 	Color GetColorForSceneName(string sceneName)
 	{
