@@ -23,6 +23,8 @@ public class CameraFollow : MonoBehaviour
     private Vector2 minCameraWorld;
     private Vector2 maxCameraWorld;
 
+    private PixelCamera2D camera;
+
     private void Start()
     {
         //If no target has been assigned, attempt to find and set the player as the target
@@ -33,10 +35,10 @@ public class CameraFollow : MonoBehaviour
                 target = player.transform;
         }
 
-		//PixelPerfectCamera pixelPerfect = Camera.main.GetComponent<PixelPerfectCamera>();
+        camera = FindObjectOfType<PixelCamera2D>();
 
-		//if (pixelPerfect)
-		//	pixelPerfect.OnChangeSize += CalculateBounds;
+        if (camera)
+            camera.OnResize += CalculateBounds;
 
         CalculateBounds();
         
@@ -84,15 +86,15 @@ public class CameraFollow : MonoBehaviour
         if (bounds)
         {
             //Keep camera inside of level (or centred on x if level does not exceed camera width)
-            if (Camera.main.orthographicSize * 2 * (Screen.width / Screen.height) > bounds.width)
-                targetPos.x = bounds.centre.x;
-            else
+            //if (Camera.main.orthographicSize * 2 * (Screen.width / Screen.height) > bounds.width)
+                //targetPos.x = bounds.centre.x;
+            //else
                 targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
 
             //Keep camera inside of level (or centred on y if level does not exceed camera height)
-            if (Camera.main.orthographicSize * 2 > bounds.height)
-                targetPos.y = bounds.centre.y;
-            else
+            //if (Camera.main.orthographicSize * 2 > bounds.height)
+                //targetPos.y = bounds.centre.y;
+            //else
                 targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
         }
     }
@@ -102,7 +104,7 @@ public class CameraFollow : MonoBehaviour
         if (bounds)
         {
             float vertExtent = Camera.main.orthographicSize;
-            float horzExtent = vertExtent * Screen.width / Screen.height;
+            float horzExtent = vertExtent * ((float)camera.Width / camera.Height);
 
             //Calculate area in which camera can move inside the level
             minX = horzExtent - bounds.width / 2.0f + bounds.centre.x;

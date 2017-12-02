@@ -2,11 +2,17 @@
 
 public class PixelCamera2D : MonoBehaviour
 {
-    [SerializeField]
-    private int baseWidth = 400;
+    public delegate void NormalEvent();
+    public event NormalEvent OnResize;
+
+    public int Width { get { return baseWidth; } }
+    public int Height { get { return baseHeight; } }
 
     [SerializeField]
-    private int baseHeight = 240;
+    private int baseWidth = 640;
+
+    [SerializeField]
+    private int baseHeight = 360;
 
     [SerializeField]
     private PixelCamera2DBehaviour behaviour;
@@ -50,6 +56,9 @@ public class PixelCamera2D : MonoBehaviour
         {
             ScaleBehaviour();
         }
+
+        if (OnResize != null)
+            OnResize();
     }
 
     private void BestFitBehaviour()
