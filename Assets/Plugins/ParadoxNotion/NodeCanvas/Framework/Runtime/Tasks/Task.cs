@@ -309,7 +309,7 @@ namespace NodeCanvas.Framework{
 		static Component TransformAgent(Component currentAgent, Type type){
 			if (currentAgent != null && type != null && !type.RTIsAssignableFrom(currentAgent.GetType()) ){
 				if ( type.RTIsSubclassOf(typeof(Component)) || type.RTIsInterface() ){
-					currentAgent = currentAgent.GetComponent(type);
+					currentAgent = currentAgent.GetComponentInChildren(type);
 				}
 			}
 			return currentAgent;

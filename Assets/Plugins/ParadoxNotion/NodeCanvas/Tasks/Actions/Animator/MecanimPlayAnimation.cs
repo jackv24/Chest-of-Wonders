@@ -24,8 +24,8 @@ namespace NodeCanvas.Tasks.Actions{
         }
      
         protected override void OnExecute(){
-            if (string.IsNullOrEmpty(stateName.value)){
-                EndAction();
+            if (string.IsNullOrEmpty(stateName.value) || !agent.HasState(layerIndex.value, Animator.StringToHash(stateName.value))){
+                EndAction(false);
                 return;
             }
             played = false;
