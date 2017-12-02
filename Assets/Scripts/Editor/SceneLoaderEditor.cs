@@ -76,7 +76,7 @@ public class SceneLoaderEditor : EditorWindow
                     EditorSceneManager.OpenScene(scenePath);
 
                     if (autoAddGameScene)
-                        AddGameScene();
+                        AddGameScene(scenePath);
                 }
 			}
 
@@ -97,8 +97,11 @@ public class SceneLoaderEditor : EditorWindow
 		GUI.backgroundColor = backColor;
 	}
 
-    void AddGameScene()
+    void AddGameScene(string firstScene = "")
     {
+        if (firstScene.Contains("Game") || firstScene.Contains("MainMenu"))
+            return;
+
         Scene scene = EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(1), OpenSceneMode.Additive);
         Scene beforeScene = EditorSceneManager.GetActiveScene();
 
