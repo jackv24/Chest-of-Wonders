@@ -91,6 +91,33 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &99962124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: DialogueTree DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"Hello!"},"_position":{"x":5611.0,"y":5111.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"Rad
+    forest, huh?"},"_actorName":"Belle","_actorParameterID":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_position":{"x":5429.0,"y":5177.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"},{"statement":{"_text":"It
+    looks a bit blocky though."},"_actorName":"Clover","_actorParameterID":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_position":{"x":5492.0,"y":5279.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"6"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_actorObject":1},{"_keyName":"Clover","_id":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 665712254}
+  - {fileID: 1121971938}
+  _deserializationFailed: 0
+  _actorParameters:
+  - _keyName: Belle
+    _id: dc3d57ab-aa1e-4bce-94e1-88406ae21ce9
+    _actorObject: {fileID: 665712254}
+  - _keyName: Clover
+    _id: 8977ad4f-0f32-4f1c-a2f4-3dae76e6b664
+    _actorObject: {fileID: 1121971938}
 --- !u!1 &131959899
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,33 +201,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 131959899}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &153008393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: DialogueTree DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"Hello!"},"_position":{"x":5611.0,"y":5111.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"Rad
-    forest, huh?"},"_actorName":"Belle","_actorParameterID":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_position":{"x":5429.0,"y":5177.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"},{"statement":{"_text":"It
-    looks a bit blocky though."},"_actorName":"Clover","_actorParameterID":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_position":{"x":5492.0,"y":5279.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"6"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_actorObject":1},{"_keyName":"Clover","_id":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 665712254}
-  - {fileID: 1121971938}
-  _deserializationFailed: 0
-  _actorParameters:
-  - _keyName: Belle
-    _id: dc3d57ab-aa1e-4bce-94e1-88406ae21ce9
-    _actorObject: {fileID: 665712254}
-  - _keyName: Clover
-    _id: 8977ad4f-0f32-4f1c-a2f4-3dae76e6b664
-    _actorObject: {fileID: 1121971938}
 --- !u!1 &243060162
 GameObject:
   m_ObjectHideFlags: 1
@@ -1154,7 +1154,7 @@ MonoBehaviour:
   - {fileID: 1121971938}
   enableAction: 1
   disableAction: 2
-  _graph: {fileID: 153008393}
+  _graph: {fileID: 99962124}
   _blackboard: {fileID: 0}
 --- !u!4 &1964824465
 Transform:
