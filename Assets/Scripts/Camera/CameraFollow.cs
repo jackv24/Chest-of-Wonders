@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
     private Vector2 minCameraWorld;
     private Vector2 maxCameraWorld;
 
-    private PixelCamera2D camera;
+    private new PixelCamera2D camera;
 
     private void Start()
     {
@@ -101,7 +101,7 @@ public class CameraFollow : MonoBehaviour
 
     public void CalculateBounds()
     {
-        if (bounds)
+        if (bounds && camera)
         {
             float vertExtent = Camera.main.orthographicSize;
             float horzExtent = vertExtent * ((float)camera.Width / camera.Height);
@@ -121,15 +121,19 @@ public class CameraFollow : MonoBehaviour
         CalculateBounds();
 
         //Set initial position to prevent weird lerping
-        targetPos = target.position;
-        targetPos.y += heightOffset;
-        targetPos.x += lookAhead * (lookRight ? 1 : -1);
+        if (target)
+        {
+            targetPos = target.position;
+            targetPos.y += heightOffset;
+            targetPos.x += lookAhead * (lookRight ? 1 : -1);
 
-        targetPos.z = transform.position.z;
+            targetPos.z = transform.position.z;
+        }
 
         KeepInBounds();
 
-        transform.position = targetPos;
+        if(target)
+            transform.position = targetPos;
     }
 
     public bool IsInView(Vector2 worldPos)

@@ -13,12 +13,10 @@ namespace NodeCanvas.Tasks.Actions
 		public BBParameter<int> direction = 1;
 
 		private float initialPosX;
-		private float targetPosX;
 
 		protected override void OnExecute()
 		{
 			initialPosX = agent.transform.position.x;
-			targetPosX = agent.transform.position.x + Mathf.Abs(distance.value) * Mathf.Sign(direction.value);
 		}
 
 		protected override void OnUpdate()

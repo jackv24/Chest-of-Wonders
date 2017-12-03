@@ -41,7 +41,6 @@ public class DialogueBox : MonoBehaviour
 
     private bool buttonPressed = false;
 	private bool autoContinue = false;
-	private float pauseTime = 0;
 
 	[Space()]
     public float textSpeed = 20;
@@ -62,8 +61,6 @@ public class DialogueBox : MonoBehaviour
 	private Vector3 lastPromptLocation;
 
     private PlayerActions playerActions;
-
-	private bool hidden = false;
 
     private void Awake()
     {
