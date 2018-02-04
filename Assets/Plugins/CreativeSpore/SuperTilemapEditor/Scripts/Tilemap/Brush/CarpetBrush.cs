@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace CreativeSpore.SuperTilemapEditor
 {
@@ -22,7 +23,7 @@ namespace CreativeSpore.SuperTilemapEditor
         static bool[] s_showDiagonal = new bool[4];
         static bool s_needsSubTiles;
 
-        private void CalculateNeighbourData(Tilemap tilemap, int gridX, int gridY, uint tileData)
+        private void CalculateNeighbourData(STETilemap tilemap, int gridX, int gridY, uint tileData)
         {
             s_needsSubTiles = false;
             s_brushId = (int)((tileData & Tileset.k_TileDataMask_BrushId) >> 16);
@@ -69,15 +70,12 @@ namespace CreativeSpore.SuperTilemapEditor
             }
         }
 
-        public override uint Refresh(Tilemap tilemap, int gridX, int gridY, uint tileData)
+        public override uint Refresh(STETilemap tilemap, int gridX, int gridY, uint tileData)
         {
             CalculateNeighbourData(tilemap, gridX, gridY, tileData);
 
 
             uint brushTileData = RefreshLinkedBrush(tilemap, gridX, gridY, s_tileData);
-            // overwrite flags
-            brushTileData &= ~Tileset.k_TileDataMask_Flags;
-            brushTileData |= s_tileData & Tileset.k_TileDataMask_Flags;
             // overwrite brush id
             brushTileData &= ~Tileset.k_TileDataMask_BrushId;
             brushTileData |= tileData & Tileset.k_TileDataMask_BrushId;   
@@ -88,7 +86,7 @@ namespace CreativeSpore.SuperTilemapEditor
         // '┬', '╔', '╦', '╗', | 4, 6, 14, 12,
         // '║', '╠', '╬', '╣', | 5, 7, 15, 13,
         // '┴', '╚', '╩', '╝', | 1, 3, 11, 9,
-        public override uint[] GetSubtiles(Tilemap tilemap, int gridX, int gridY, uint tileData)
+        public override uint[] GetSubtiles(STETilemap tilemap, int gridX, int gridY, uint tileData)
         {
             CalculateNeighbourData(tilemap, gridX, gridY, tileData);
             // tiles that need subtile division
@@ -138,6 +136,7 @@ namespace CreativeSpore.SuperTilemapEditor
 
                 for (int i = 0; i < s_showDiagonal.Length; ++i)
                 {
+                    aSubTileData[i] = RefreshLinkedBrush(tilemap, gridX, gridY, aSubTileData[i]);
                     if (s_showDiagonal[i])
                     {
                         aSubTileData[i] = InteriorCornerTileIds[3 - i];
@@ -162,6 +161,116 @@ namespace CreativeSpore.SuperTilemapEditor
                 {
                     TilemapChunk.RegisterAnimatedBrush(brush);
                 }
+            }
+            return null;
+        }
+
+        //TODO: add cache for each subTile combination?
+        static List<Vector2> s_mergedColliderVertexList = new List<Vector2>();
+        public override Vector2[] GetMergedSubtileColliderVertices(STETilemap tilemap, int gridX, int gridY, uint tileData)
+        {
+            uint[] subTiles = GetSubtiles(tilemap, gridX, gridY, tileData);
+            if (subTiles != null)
+            {
+                s_mergedColliderVertexList.Clear();
+                for(int i = 0; i < subTiles.Length; ++i)
+                {
+                    uint subTileData = subTiles[i];
+                    Tile tile = tilemap.Tileset.GetTile(Tileset.GetTileIdFromTileData(subTiles[i]));
+                    if(tile != null && tile.collData.type != eTileCollider.None)
+                    {
+                        TileColliderData tileCollData = tile.collData;
+                        if ((subTileData & (Tileset.k_TileFlag_FlipH | Tileset.k_TileFlag_FlipV | Tileset.k_TileFlag_Rot90)) != 0)
+                        {
+                            tileCollData = tileCollData.Clone();
+                            tileCollData.ApplyFlippingFlags(subTileData);
+                        }
+                        Vector2[] vertices = tile.collData.GetVertices();
+                        if (vertices != null)
+                        {
+                            for (int v = 0; v < vertices.Length; ++v)
+                            {
+                                Vector2 v0, v1;
+                                if (v < vertices.Length - 1)
+                                {
+                                    v0 = vertices[v];
+                                    v1 = vertices[v + 1];
+                                }
+                                else
+                                {
+                                    v0 = vertices[v];
+                                    v1 = vertices[0];
+                                }
+
+                                if(i == 0 || i == 2) //left side
+                                {
+                                    if (v0.x >= .5f && v1.x >= .5f) continue;
+                                    float newY = v0.y + (.5f - v0.x) * (v1.y - v0.y) / (v1.x - v0.x);
+                                    if (v0.x > .5f)
+                                    {
+                                        v0.y = newY;
+                                        v0.x = .5f;
+                                    }
+                                    else if(v1.x > .5f)
+                                    {
+                                        v1.y = newY;
+                                        v1.x = .5f;
+                                    }
+                                }
+                                else // right side
+                                {
+                                    if (v0.x <= .5f && v1.x <= .5f) continue;
+                                    float newY = v0.y + (.5f - v0.x) * (v1.y - v0.y) / (v1.x - v0.x);
+                                    if (v0.x < .5f)
+                                    {
+                                        v0.y = newY;
+                                        v0.x = .5f;
+                                    }
+                                    else if (v1.x < .5f)
+                                    {
+                                        v1.y = newY;
+                                        v1.x = .5f;
+                                    }
+                                }
+
+                                if (i == 0 || i == 1) //bottom side
+                                {
+                                    if (v0.y >= .5f && v1.y >= .5f) continue;
+                                    float newX = v0.x + (.5f - v0.y) * (v1.x - v0.x) / (v1.y - v0.y);
+                                    if (v0.y > .5f)
+                                    {
+                                        v0.x = newX;
+                                        v0.y = .5f;
+                                    }
+                                    else if (v1.y > .5f)
+                                    {
+                                        v1.x = newX;
+                                        v1.y = .5f;
+                                    }
+                                }
+                                else // top side
+                                {
+                                    if (v0.y <= .5f && v1.y <= .5f) continue;
+                                    float newX = v0.x + (.5f - v0.y) * (v1.x - v0.x) / (v1.y - v0.y);
+                                    if (v0.y < .5f)
+                                    {
+                                        v0.x = newX;
+                                        v0.y = .5f;
+                                    }
+                                    else if (v1.y < .5f)
+                                    {
+                                        v1.x = newX;
+                                        v1.y = .5f;
+                                    }
+                                }
+                                
+                                s_mergedColliderVertexList.Add(v0);
+                                s_mergedColliderVertexList.Add(v1);
+                            }
+                        }
+                    }
+                }
+                return s_mergedColliderVertexList.ToArray();
             }
             return null;
         }

@@ -9,7 +9,7 @@ namespace CreativeSpore.SuperTilemapEditor
     [CustomEditor(typeof(RoadBrush))]
     public class RoadBrushEditor : TilesetBrushEditor
     {
-        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/RoadBrush")]
+        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/RoadBrush", priority = 50)]
         public static RoadBrush CreateAsset()
         {
             RoadBrush brush = EditorUtils.CreateAssetInSelectedDirectory<RoadBrush>();

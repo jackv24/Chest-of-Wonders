@@ -29,6 +29,23 @@ namespace CreativeSpore.SuperTilemapEditor
             };
             brushToolbar = new ToolbarControl(guiContentList);
             brushToolbar.OnToolSelected += OnToolSelected_BrushToolbar;
+
+            guiContentList = new List<GUIContent>()
+            {
+                new GUIContent(ToolIcons.GetToolTexture(ToolIcons.ePaintModeIcon.Pencil), "Paint ("+ShortcutKeys.k_PencilTool+")"),
+                new GUIContent(ToolIcons.GetToolTexture(ToolIcons.ePaintModeIcon.Line), "Line ("+ShortcutKeys.k_LineTool+")"),
+                new GUIContent(ToolIcons.GetToolTexture(ToolIcons.ePaintModeIcon.Rect), "Rectangle ("+ShortcutKeys.k_RectTool+")"),
+                new GUIContent(ToolIcons.GetToolTexture(ToolIcons.ePaintModeIcon.FilledRect), "Filled Rectangle ("+ShortcutKeys.k_RectTool+")"),
+                new GUIContent(ToolIcons.GetToolTexture(ToolIcons.ePaintModeIcon.Ellipse), "Ellipse ("+ShortcutKeys.k_EllipseTool+")"),
+                new GUIContent(ToolIcons.GetToolTexture(ToolIcons.ePaintModeIcon.FilledEllipse), "Filled Ellipse ("+ShortcutKeys.k_EllipseTool+")"),
+            };
+            brushPaintToolbar = new ToolbarControl(guiContentList);
+            brushPaintToolbar.OnToolSelected += OnToolSelected_BrushPaintToolbar;
+        }
+
+        private void OnToolSelected_BrushPaintToolbar(ToolbarControl source, int selectedToolIdx, int prevSelectedToolIdx)
+        {
+            BrushBehaviour.Instance.PaintMode = (BrushBehaviour.eBrushPaintMode)selectedToolIdx;
         }
 
         private void OnToolSelected_BrushToolbar(ToolbarControl source, int selectedToolIdx, int prevSelectedToolIdx)
@@ -42,10 +59,12 @@ namespace CreativeSpore.SuperTilemapEditor
                     break;
                 case ToolIcons.eToolIcon.Erase:
                     TilemapEditor.s_brushMode = TilemapEditor.eBrushMode.Erase;
+                    brushPaintToolbar.TriggerButton(0);
                     Tools.current = Tool.None;
                     break;
                 case ToolIcons.eToolIcon.Fill:
                     TilemapEditor.s_brushMode = TilemapEditor.eBrushMode.Fill;
+                    brushPaintToolbar.TriggerButton(0);
                     Tools.current = Tool.None;
                     break;
                 case ToolIcons.eToolIcon.FlipV:
@@ -73,14 +92,14 @@ namespace CreativeSpore.SuperTilemapEditor
                     TilemapGroup tilemapGroup = Selection.activeGameObject.GetComponent<TilemapGroup>();
                     if (tilemapGroup)
                     {
-                        foreach (Tilemap tilemap in tilemapGroup.Tilemaps)
+                        foreach (STETilemap tilemap in tilemapGroup.Tilemaps)
                         {
                             tilemap.Refresh(true, true, true, true);
                         }
                     }
                     else
                     {
-                        Tilemap tilemap = Selection.activeGameObject.GetComponent<Tilemap>();
+                        STETilemap tilemap = Selection.activeGameObject.GetComponent<STETilemap>();
                         if (tilemap) tilemap.Refresh(true, true, true, true);
                     }
                     Tools.current = Tool.None;

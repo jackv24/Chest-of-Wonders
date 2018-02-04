@@ -22,8 +22,12 @@ namespace CreativeSpore.SuperTilemapEditor
             m_showInPalette = serializedObject.FindProperty("m_showInPalette");
         }
 
-
         public override void OnInspectorGUI()
+        {
+            DoInspectorGUI();
+        }
+
+        public void DoInspectorGUI()
         {
             serializedObject.Update();
             TilesetBrush brush = (TilesetBrush)target;

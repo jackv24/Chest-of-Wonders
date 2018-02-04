@@ -1,6 +1,4 @@
-﻿#pragma warning disable 0618
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +8,6 @@ using UnityEditor;
 
 namespace CreativeSpore.SuperTilemapEditor
 {
-
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(MeshFilter))]
     [AddComponentMenu("")] // Disable attaching it to a gameobject
@@ -23,7 +20,7 @@ namespace CreativeSpore.SuperTilemapEditor
             get { return ParentTilemap.Tileset; }
         }
 
-        public Tilemap ParentTilemap;
+        public STETilemap ParentTilemap;
         /// <summary>
         /// The x position inside the parent tilemap
         /// </summary>
@@ -72,12 +69,13 @@ namespace CreativeSpore.SuperTilemapEditor
         private int m_height = -1;
         [SerializeField, HideInInspector]
         private List<uint> m_tileDataList = new List<uint>();        
+        [SerializeField, HideInInspector]
+        private List<TileColor32> m_tileColorList = null;
 
-        private List<Vector3> m_vertices;
-        private List<Vector2> m_uv;
-        private List<int> m_triangles;
-        private Vector2[] m_uvArray;
-        // private List<Color32> m_colors; TODO: add color vertex support
+        private static List<Vector3> s_vertices;
+        private List<Vector2> m_uv; //NOTE: this is the only one not static because it's needed to update the animated tiles
+        private static List<int> s_triangles;
+        private static List<Color32> s_colors32 = null;        
 
         struct AnimTileData
         {
@@ -90,7 +88,6 @@ namespace CreativeSpore.SuperTilemapEditor
 
         #region Monobehaviour Methods
 
-        [SerializeField]
         private MaterialPropertyBlock m_matPropBlock;
         void UpdateMaterialPropertyBlock()
         {
@@ -123,8 +120,8 @@ namespace CreativeSpore.SuperTilemapEditor
             }
             if (Tileset && Tileset.AtlasTexture != null)
                 m_matPropBlock.SetTexture("_MainTex", Tileset.AtlasTexture);
-            else
-                m_matPropBlock.SetTexture("_MainTex", default(Texture));
+            //else //TODO: find a way to set a null texture or pink texture
+              //  m_matPropBlock.SetTexture("_MainTex", default(Texture));
             m_meshRenderer.SetPropertyBlock(m_matPropBlock);
         }
 
@@ -134,6 +131,14 @@ namespace CreativeSpore.SuperTilemapEditor
         {
             if (!ParentTilemap.Tileset)
                 return;
+
+            //Fix strange case where two materials were being used, breaking lighting
+            if (m_meshRenderer.sharedMaterials.Length > 1)
+            {
+                Debug.LogWarning("Fixing TileChunk with multiple materials!");
+                m_meshRenderer.sharedMaterials = new Material[] { m_meshRenderer.sharedMaterials [0]};
+            }
+            //
 
             if (ParentTilemap.PixelSnap && ParentTilemap.Material.HasProperty("PixelSnap"))
             {
@@ -167,20 +172,25 @@ namespace CreativeSpore.SuperTilemapEditor
                         for (int j = 0; j < 4; ++j)
                         {
                             if (j == animTileData.SubTileIdx)
-                                m_uvArray[animTileData.VertexIdx + j] = uvs[j];
+                                m_uv[animTileData.VertexIdx + j] = uvs[j];
                             else
-                                m_uvArray[animTileData.VertexIdx + j] = (uvs[j] + uvs[animTileData.SubTileIdx]) / 2f;
+                                m_uv[animTileData.VertexIdx + j] = (uvs[j] + uvs[animTileData.SubTileIdx]) / 2f;
                         }
                     }
                     else
                     {
-                        m_uvArray[animTileData.VertexIdx + 0] = uvs[0];
-                        m_uvArray[animTileData.VertexIdx + 1] = uvs[1];
-                        m_uvArray[animTileData.VertexIdx + 2] = uvs[2];
-                        m_uvArray[animTileData.VertexIdx + 3] = uvs[3];
+                        m_uv[animTileData.VertexIdx + 0] = uvs[0];
+                        m_uv[animTileData.VertexIdx + 1] = uvs[1];
+                        m_uv[animTileData.VertexIdx + 2] = uvs[2];
+                        m_uv[animTileData.VertexIdx + 3] = uvs[3];
                     }
                 }
-                m_meshFilter.sharedMesh.uv = m_uvArray;
+                if (m_meshFilter.sharedMesh) 
+#if UNITY_5_0 || UNITY_5_1
+                    m_meshFilter.sharedMesh.uv = m_uv.ToArray();
+#else
+                    m_meshFilter.sharedMesh.SetUVs(0, m_uv);
+#endif
             }
         }
 
@@ -213,7 +223,8 @@ namespace CreativeSpore.SuperTilemapEditor
             {
                 m_needsRebuildMesh = true;
                 m_needsRebuildColliders = true;
-                ParentTilemap.UpdateMesh();
+                if(ParentTilemap) //NOTE: this is null sometimes in Unity 2017.2.0b4. It happens when the brush is changed, so maybe it's related with the brush but transform.parent is null.
+                    ParentTilemap.UpdateMesh();
             }
         }
 
@@ -236,20 +247,32 @@ namespace CreativeSpore.SuperTilemapEditor
             //---
         }
 
+        void Awake()
+        {
+            //+++ fix when a tilemap is instantiated from a prefab, the Mesh is shared between all instances
+            if (m_meshFilter) m_meshFilter.sharedMesh = null;
+            if (m_meshCollider) m_meshCollider.sharedMesh = null;
+            //---
+        }
+
         void OnEnable()
         {
             if (ParentTilemap == null)
             {
-                ParentTilemap = GetComponentInParent<Tilemap>();
+                ParentTilemap = GetComponentInParent<STETilemap>();
             }
 
 #if UNITY_EDITOR
             if (m_meshRenderer != null)
             {
+#if UNITY_5_5_OR_NEWER
+                EditorUtility.SetSelectedRenderState(m_meshRenderer, EditorSelectedRenderState.Hidden);
+#else
                 EditorUtility.SetSelectedWireframeHidden(m_meshRenderer, true);
+#endif
             }
 #endif
-            m_meshRenderer = GetComponent<MeshRenderer>();
+                m_meshRenderer = GetComponent<MeshRenderer>();
             m_meshFilter = GetComponent<MeshFilter>();
             m_meshCollider = GetComponent<MeshCollider>();
 
@@ -281,13 +304,13 @@ namespace CreativeSpore.SuperTilemapEditor
 #if UNITY_EDITOR
             if (m_meshRenderer != null)
             {
+#if UNITY_5_5_OR_NEWER
+                EditorUtility.SetSelectedRenderState(m_meshRenderer, EditorSelectedRenderState.Hidden);
+#else
                 EditorUtility.SetSelectedWireframeHidden(m_meshRenderer, true);
-            }
 #endif
-
-            m_meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            m_meshRenderer.receiveShadows = false;
-
+            }
+#endif            
             m_needsRebuildMesh = true;
             m_needsRebuildColliders = true;
         }
@@ -303,6 +326,19 @@ namespace CreativeSpore.SuperTilemapEditor
         public void ApplyContactsEmptyFix()
         {
             if (m_meshCollider) m_meshCollider.convex = m_meshCollider.convex;
+        }
+
+        public void UpdateRendererProperties()
+        {
+            m_meshRenderer.shadowCastingMode = ParentTilemap.ChunkRendererProperties.castShadows;
+            m_meshRenderer.receiveShadows = ParentTilemap.ChunkRendererProperties.receiveShadows;
+#if UNITY_5_4_OR_NEWER
+            m_meshRenderer.lightProbeUsage = ParentTilemap.ChunkRendererProperties.useLightProbes;
+#else
+            m_meshRenderer.useLightProbes = ParentTilemap.ChunkRendererProperties.useLightProbes;
+#endif
+            m_meshRenderer.reflectionProbeUsage = ParentTilemap.ChunkRendererProperties.reflectionProbeUsage;
+            m_meshRenderer.probeAnchor = ParentTilemap.ChunkRendererProperties.anchorOverride;
         }
 
         public void DrawColliders()
@@ -401,53 +437,45 @@ namespace CreativeSpore.SuperTilemapEditor
                 int brushId = Tileset.GetBrushIdFromTileData(tileData);
                 int prevBrushId = Tileset.GetBrushIdFromTileData(m_tileDataList[tileIdx]);
 
-                if (brushId != prevBrushId)
+                if (brushId != prevBrushId
+                    || brushId == 0) //NOTE: because of the autotiling mode, neighbour tiles could be affected by this change, even if the tile is not a brush
                 {
-                    TilesetBrush brush = ParentTilemap.Tileset.FindBrush(brushId);
-                    TilesetBrush prevBrush = ParentTilemap.Tileset.FindBrush(prevBrushId);
-                    if (prevBrush != null)
-                    {
-                        prevBrush.OnErase(this, locGridX, locGridY, tileData);
-                    }
-                    if (brush != null)
-                    {
-                        tileData = brush.OnPaint(this, locGridX, locGridY, tileData);
-                    }
-
-                    // Refresh Neighbors ( and itself if needed )
-                    for (int yf = -1; yf <= 1; ++yf)
-                    {
-                        for (int xf = -1; xf <= 1; ++xf)
+                    if (!s_currUpdatedTilechunk) // avoid this is chunks is being Updated from FillMeshData
+                    { 
+                        // Refresh Neighbors ( and itself if needed )
+                        for (int yf = -1; yf <= 1; ++yf)
                         {
-                            if ((xf | yf) == 0 )
+                            for (int xf = -1; xf <= 1; ++xf)
                             {
-                                if (brushId > 0)
+                                if ((xf | yf) == 0)
                                 {
-                                    // Refresh itself
-                                    tileData = (tileData & ~Tileset.k_TileFlag_Updated);
-                                }
-                            }
-                            else
-                            {
-                                int gx = (locGridX + xf);
-                                int gy = (locGridY + yf);
-                                int idx = gy * m_width + gx;
-                                bool isInsideChunk = (gx >= 0 && gx < m_width && gy >= 0 && gy < m_height);
-                                uint neighborTileData = isInsideChunk ? m_tileDataList[idx] : ParentTilemap.GetTileData(GridPosX + locGridX + xf, GridPosY + locGridY + yf);
-                                int neighborBrushId = (int)((neighborTileData & Tileset.k_TileDataMask_BrushId) >> 16);
-                                TilesetBrush neighborBrush = ParentTilemap.Tileset.FindBrush(neighborBrushId);
-                                //if (brush != null && brush.AutotileWith(brushId, neighborBrushId) || prevBrush != null && prevBrush.AutotileWith(prevBrushId, neighborBrushId))
-                                if (neighborBrush != null && 
-                                    (neighborBrush.AutotileWith(neighborBrushId, brushId) || neighborBrush.AutotileWith(neighborBrushId, prevBrushId)))
-                                {
-                                    neighborTileData = (neighborTileData & ~Tileset.k_TileFlag_Updated); // force a refresh
-                                    if (isInsideChunk)
+                                    if (brushId > 0)
                                     {
-                                        m_tileDataList[idx] = neighborTileData;
+                                        // Refresh itself
+                                        tileData = (tileData & ~Tileset.k_TileFlag_Updated);
                                     }
-                                    else
+                                }
+                                else
+                                {
+                                    int gx = (locGridX + xf);
+                                    int gy = (locGridY + yf);
+                                    int idx = gy * m_width + gx;
+                                    bool isInsideChunk = (gx >= 0 && gx < m_width && gy >= 0 && gy < m_height);
+                                    uint neighborTileData = isInsideChunk ? m_tileDataList[idx] : ParentTilemap.GetTileData(GridPosX + locGridX + xf, GridPosY + locGridY + yf);
+                                    int neighborBrushId = (int)((neighborTileData & Tileset.k_TileDataMask_BrushId) >> 16);
+                                    TilesetBrush neighborBrush = ParentTilemap.Tileset.FindBrush(neighborBrushId);
+                                    if (neighborBrush != null &&
+                                        (neighborBrush.AutotileWith(ParentTilemap.Tileset, neighborBrushId, tileData) || neighborBrush.AutotileWith(ParentTilemap.Tileset, neighborBrushId, m_tileDataList[tileIdx])))
                                     {
-                                        ParentTilemap.SetTileData(GridPosX + gx, GridPosY + gy, neighborTileData);
+                                        neighborTileData = (neighborTileData & ~Tileset.k_TileFlag_Updated); // force a refresh
+                                        if (isInsideChunk)
+                                        {
+                                            m_tileDataList[idx] = neighborTileData;
+                                        }
+                                        else
+                                        {
+                                            ParentTilemap.SetTileData(GridPosX + gx, GridPosY + gy, neighborTileData);
+                                        }
                                     }
                                 }
                             }
@@ -492,13 +520,27 @@ namespace CreativeSpore.SuperTilemapEditor
                 // Update tile data
                 m_tileDataList[tileIdx] = tileData;
 
-                if (!Tilemap.DisableTilePrefabCreation)
+                if (!STETilemap.DisableTilePrefabCreation)
                 {
                     // Create tile Objects
                     if (tile != null && tile.prefabData.prefab != null)
                         CreateTileObject(tileIdx, tile.prefabData);
                     else
                         DestroyTileObject(tileIdx);
+                }
+
+                TilesetBrush brush = ParentTilemap.Tileset.FindBrush(brushId);
+                if (brushId != prevBrushId)
+                {
+                    TilesetBrush prevBrush = ParentTilemap.Tileset.FindBrush(prevBrushId);
+                    if (prevBrush != null)
+                    {
+                        prevBrush.OnErase(this, locGridX, locGridY, tileData, prevBrushId);
+                    }
+                }
+                if (brush != null)
+                {
+                    tileData = brush.OnPaint(this, locGridX, locGridY, tileData);
                 }
             }
         }
@@ -520,6 +562,112 @@ namespace CreativeSpore.SuperTilemapEditor
                 return Tileset.k_TileData_Empty;
             }
         }
-        #endregion
+#endregion
+    }
+
+    [System.Serializable]
+    public struct TileColor32
+    {
+        public Color32 c0;
+        public Color32 c1;
+        public Color32 c2;
+        public Color32 c3;
+        public bool singleColor;
+        public static bool isValidColor(Color32 c) { return (c.r | c.g | c.b | c.a) == 0; }
+        public static TileColor32 white { get { return s_white; } }
+        public static TileColor32 invalid { get { return s_white; } }
+        private static TileColor32 s_white = new TileColor32(Color.white, Color.white, Color.white, Color.white);
+        public TileColor32(Color32 color)
+        {
+            this.c0 = this.c1 = this.c2 = this.c3 = color;
+            singleColor = true;
+        }
+        public TileColor32(Color32 c0, Color32 c1, Color32 c2, Color32 c3)
+        {
+            this.c0 = c0;
+            this.c1 = c1;
+            this.c2 = c2;
+            this.c3 = c3;
+            singleColor = false;
+        }
+
+        public override string ToString()
+        {
+            return singleColor? this.c0.ToString() : string.Format("{{c0:{0}, c1:{1}, c2:{2}, c3:{3}}}", c0, c1, c2, c3);
+        }
+
+        public static TileColor32 BlendColors(TileColor32 tileColorA, TileColor32 tileColorB, eBlendMode blendMode)
+        {
+            if (tileColorA.singleColor && tileColorB.singleColor)
+                return new TileColor32(BlendColor(tileColorA.c0, tileColorB.c0, blendMode));
+            else
+                return new TileColor32(BlendColor(tileColorA.c0, tileColorB.c0, blendMode), BlendColor(tileColorA.c1, tileColorB.c1, blendMode), BlendColor(tileColorA.c2, tileColorB.c2, blendMode), BlendColor(tileColorA.c3, tileColorB.c3, blendMode));
+        }
+
+        public static Color32 BlendColor(Color32 colorA, Color32 colorB, eBlendMode blendMode)
+        {
+            if ((colorB.r | colorB.g | colorB.b | colorB.a) == 0) //NOTE: if all the values are 0, this color blend is skipped
+                return colorA;
+            switch (blendMode)
+            {
+                case eBlendMode.AlphaBlending:
+                    {
+                        if (colorB.a == 255)
+                            return colorB;
+                        /*Ref: https://en.wikipedia.org/wiki/Alpha_compositing
+                         * Not working properly if ColorA.a is not 255
+                        int outA = (colorB.a + (colorA.a * (255 - colorB.a)) / 255);
+                        int invAlpha = 255 - colorB.a;
+                        if (outA > 0f)
+                        {
+                            colorA.r = (byte)((colorB.r * colorB.a + colorA.r * colorA.a * invAlpha / 255) / outA);
+                            colorA.g = (byte)((colorB.g * colorB.a + colorA.g * colorA.a * invAlpha / 255) / outA);
+                            colorA.b = (byte)((colorB.b * colorB.a + colorA.b * colorA.a * invAlpha / 255) / outA);
+                            if(colorA.r + colorA.g + colorA.b == 0)
+                                Debug.Log("outA: " + outA + " cA " + colorA + " cB " + colorB);
+                        }
+                        colorA.a = (byte)outA;
+                        return colorA;
+                        */
+                        int invAlpha = 255 - colorB.a;
+                        byte r = (byte)((colorA.r * invAlpha + colorB.r * colorB.a) / 255);
+                        byte g = (byte)((colorA.g * invAlpha + colorB.g * colorB.a) / 255);
+                        byte b = (byte)((colorA.b * invAlpha + colorB.b * colorB.a) / 255);
+                        return new Color32(r, g, b, colorA.a);
+                    }
+                case eBlendMode.Additive:
+                    {
+                        byte r = (byte)Mathf.Min(255, colorA.r + colorB.r * colorB.a / 255);
+                        byte g = (byte)Mathf.Min(255, colorA.g + colorB.g * colorB.a / 255);
+                        byte b = (byte)Mathf.Min(255, colorA.b + colorB.b * colorB.a / 255);
+                        return new Color32(r, g, b, colorA.a);
+                    }
+                case eBlendMode.Subtractive:
+                    {
+                        byte r = (byte)Mathf.Max(0, colorA.r - colorB.r * colorB.a / 255);
+                        byte g = (byte)Mathf.Max(0, colorA.g - colorB.g * colorB.a / 255);
+                        byte b = (byte)Mathf.Max(0, colorA.b - colorB.b * colorB.a / 255);
+                        return new Color32(r, g, b, colorA.a);
+                    }
+                case eBlendMode.Multiply:
+                    {
+                        int invAlpha = 255 - colorB.a;
+                        byte r = (byte)(colorA.r * invAlpha / 255 + colorA.r * colorB.r * colorB.a / 65025); //65025 = 255 * 255
+                        byte g = (byte)(colorA.g * invAlpha / 255 + colorA.g * colorB.g * colorB.a / 65025); //65025 = 255 * 255
+                        byte b = (byte)(colorA.b * invAlpha / 255 + colorA.b * colorB.b * colorB.a / 65025); //65025 = 255 * 255
+                        return new Color32(r, g, b, colorA.a);
+                    }
+                case eBlendMode.Divide:
+                    {
+                        int invAlpha = 255 - colorB.a;
+                        byte r = (byte)(colorA.r * invAlpha / 255 + (colorA.r > colorB.r? colorB.a : colorA.r * colorB.a / (colorB.r + 1)));
+                        byte g = (byte)(colorA.g * invAlpha / 255 + (colorA.g > colorB.g ? colorB.a : colorA.g * colorB.a / (colorB.g + 1)));
+                        byte b = (byte)(colorA.b * invAlpha / 255 + (colorA.b > colorB.b ? colorB.a : colorA.b * colorB.a / (colorB.b + 1)));
+                        return new Color32(r, g, b, colorA.a);
+                    }
+                default:
+                    return colorB;
+            }
+        }
     }
 }

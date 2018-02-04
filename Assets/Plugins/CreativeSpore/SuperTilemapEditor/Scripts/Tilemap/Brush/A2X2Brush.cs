@@ -25,14 +25,14 @@ namespace CreativeSpore.SuperTilemapEditor
             return TileIds[0];
         }
 
-        public override uint Refresh(Tilemap tilemap, int gridX, int gridY, uint tileData)
+        public override uint Refresh(STETilemap tilemap, int gridX, int gridY, uint tileData)
         {
             int brushId = (int)((tileData & Tileset.k_TileDataMask_BrushId) >> 16);
             //NOTE: Now, taking TileIds[0] by default, it means the tile collider will be taken from TileIds[0]
             return (tileData & Tileset.k_TileDataMask_Flags) | ((uint)(brushId << 16) | (TileIds[0] & Tileset.k_TileDataMask_TileId));
         }
 
-        public override uint[] GetSubtiles(Tilemap tilemap, int gridX, int gridY, uint tileData)
+        public override uint[] GetSubtiles(STETilemap tilemap, int gridX, int gridY, uint tileData)
         {
             if (System.Array.IndexOf(TileIds, Tileset.k_TileData_Empty) >= 0)
             {

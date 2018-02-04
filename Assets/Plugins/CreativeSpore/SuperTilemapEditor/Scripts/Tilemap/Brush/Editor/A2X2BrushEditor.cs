@@ -9,7 +9,7 @@ namespace CreativeSpore.SuperTilemapEditor
     [CustomEditor(typeof(A2X2Brush))]
     public class A2X2BrushEditor : TilesetBrushEditor
     {
-        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/A2X2Brush")]
+        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/A2X2Brush", priority = 50)]
         public static A2X2Brush CreateAsset()
         {
             return EditorUtils.CreateAssetInSelectedDirectory<A2X2Brush>();

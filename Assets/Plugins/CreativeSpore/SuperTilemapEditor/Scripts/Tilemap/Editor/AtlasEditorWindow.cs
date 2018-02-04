@@ -105,8 +105,8 @@ namespace CreativeSpore.SuperTilemapEditor
                         Debug.Log("Saving atlas texture: " + atlasTexturePath);
                         if (m_tileset)
                         {
-                            m_sliceOffset = new Vector2(m_padding, m_padding);
-                            m_slicePadding = m_sliceOffset;
+                            m_sliceOffset = new Vector2(m_extrude, m_extrude);
+                            m_slicePadding = new Vector2(m_padding, m_padding);
                             sliceTileset = true;
                         }
                     }
@@ -133,7 +133,7 @@ namespace CreativeSpore.SuperTilemapEditor
                 if (sliceTileset)
                 {
                     m_tileset.Slice();
-                    foreach (Tilemap tilemap in FindObjectsOfType<Tilemap>())
+                    foreach (STETilemap tilemap in FindObjectsOfType<STETilemap>())
                     {
                         if (tilemap.Tileset == m_tileset) tilemap.Refresh(true, false);
                     }
@@ -146,7 +146,7 @@ namespace CreativeSpore.SuperTilemapEditor
             }
         }
 
-        static Texture2D BuildAtlas(Texture2D atlasTexture, int tilePadding, int tileExtrude, Vector2 tileSize, Vector2 sliceOffset, Vector2 slicePadding)
+        public static Texture2D BuildAtlas(Texture2D atlasTexture, int tilePadding, int tileExtrude, Vector2 tileSize, Vector2 sliceOffset, Vector2 slicePadding)
         {
             int widthInTiles = Mathf.FloorToInt((atlasTexture.width - sliceOffset.x + slicePadding.x) / (tileSize.x + slicePadding.x)); //NOTE: "+ slicePadding.x" makes sure to count the last tile even if no padding pixels are added to the right
             int heightInTiles = Mathf.FloorToInt((atlasTexture.height - sliceOffset.y + +slicePadding.y) / (tileSize.y + slicePadding.y));
@@ -157,18 +157,21 @@ namespace CreativeSpore.SuperTilemapEditor
             int height = heightInTiles * padTileHeight + tilePadding;
             Texture2D output = new Texture2D(width, height, TextureFormat.ARGB32, false, false);
             output.filterMode = FilterMode.Point;
+            output.SetPixels32(new Color32[width * height]);
+            output.Apply();
             List<Rect> rects = GenerateGridSpriteRectangles(atlasTexture, sliceOffset, tileSize, slicePadding);
 
-            MakeTextureReadable(atlasTexture);
+            TilemapUtilsEditor.MakeTextureReadable(atlasTexture);
+            int offset = tilePadding - tileExtrude;
             for (int ty = 0, idx = 0; ty < heightInTiles; ++ty)
             {
                 for (int tx = 0; tx < widthInTiles; ++tx, ++idx)
                 {
                     Rect rect = rects[idx];
                     Color[] srcTileColors = atlasTexture.GetPixels((int)rect.x, (int)rect.y, (int)rect.width, (int)rect.height);
-                        
-                    int dstX = tx * padTileWidth + tilePadding;
-                    int dstY = output.height - (ty + 1) * padTileHeight;//- tilePadding;
+
+                    int dstX = tx * padTileWidth + tilePadding - offset;
+                    int dstY = output.height - (ty + 1) * padTileHeight + offset;//- tilePadding;
                     output.SetPixels(dstX, dstY, (int)rect.width, (int)rect.height, srcTileColors);
                     //Extend border color to fill the padding area
                     Color[] paddingColors;
@@ -225,27 +228,7 @@ namespace CreativeSpore.SuperTilemapEditor
                 }
             }
             return rects;
-        }
-
-        public static void MakeTextureReadable(Texture2D texture2D)
-        {
-            if (texture2D != null)
-            {
-                string assetPath = AssetDatabase.GetAssetPath(texture2D);
-                if (!string.IsNullOrEmpty(assetPath))
-                {
-                    TextureImporter textureImporter = AssetImporter.GetAtPath(assetPath) as UnityEditor.TextureImporter;
-                    if (textureImporter != null)
-                    {
-                        if (!textureImporter.isReadable)
-                        {
-                            textureImporter.isReadable = true;
-                            AssetDatabase.ImportAsset(assetPath);
-                        }
-                    }
-                }
-            }
-        }
+        }        
     }
 
     public class AtlasPreviewWindow : EditorWindow
@@ -285,10 +268,10 @@ namespace CreativeSpore.SuperTilemapEditor
                 }
                 GUILayoutUtility.GetRect(Texture.width * m_zoom, Texture.height * m_zoom);
                 GUI.DrawTexture(new Rect(0, 0, Texture.width * m_zoom, Texture.height * m_zoom), Texture);
-                Rect tileRect = new Rect(new Vector2(Padding, Padding), TileSize);
+                Rect tileRect = new Rect(new Vector2(Extrude, Extrude), TileSize);
                 for (; tileRect.yMax <= Texture.height; tileRect.y += TileSize.y + Padding)
                 {
-                    tileRect.x = Padding;
+                    tileRect.x = Extrude;
                     for (; tileRect.xMax <= Texture.width; tileRect.x += TileSize.x + Padding)
                     {
                         Rect scaledRect = tileRect; scaledRect.position *= m_zoom; scaledRect.size *= m_zoom;

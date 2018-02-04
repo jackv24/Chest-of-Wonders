@@ -9,7 +9,7 @@ namespace CreativeSpore.SuperTilemapEditor
     [CustomEditor(typeof(CarpetBrush))]
     public class CarpetBrushEditor : TilesetBrushEditor
     {
-        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/CarpetBrush")]
+        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/CarpetBrush", priority = 50)]
         public static CarpetBrush CreateAsset()
         {
             CarpetBrush brush = EditorUtils.CreateAssetInSelectedDirectory<CarpetBrush>();
@@ -73,6 +73,11 @@ namespace CreativeSpore.SuperTilemapEditor
                 // Fill unused positions with the center tile [15] ╬ because this brush derived from roads but use only some combinations
                 m_brush.TileIds[0] = m_brush.TileIds[2] = m_brush.TileIds[10] = m_brush.TileIds[8] 
                     = m_brush.TileIds[4] = m_brush.TileIds[5] = m_brush.TileIds[1] = m_brush.TileIds[15];
+                /*NOTE: this will allow creating prefabs on top attached to the top tiles when drawing a horizontal line
+                m_brush.TileIds[2] = m_brush.TileIds[6];
+                m_brush.TileIds[10] = m_brush.TileIds[14];
+                m_brush.TileIds[8] = m_brush.TileIds[12];
+                */
                 EditorUtility.SetDirty(target);
             }
             EditorGUILayout.Space();

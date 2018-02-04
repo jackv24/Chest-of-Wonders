@@ -1,6 +1,4 @@
-﻿#pragma warning disable 0618
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +17,7 @@ namespace CreativeSpore.TiledImporter
         const uint k_FLIPPED_VERTICALLY_FLAG = 0x40000000;
         const uint k_FLIPPED_DIAGONALLY_FLAG = 0x20000000;
 
-        [MenuItem("Assets/Create/SuperTilemapEditor/Tiled/Tileset (from TMX File)")]
+        [MenuItem("Assets/Create/SuperTilemapEditor/Tiled/Tileset (from TMX File)", priority = 50)]
         public static void CreateTilesetFromTmx()
         {
             string path = PlayerPrefs.GetString(k_keyLastOpenFilePanelPath);
@@ -34,7 +32,7 @@ namespace CreativeSpore.TiledImporter
                     return;
                 }
 
-                CreateTilesetFromTmx(tmxFilePath, EditorUtils.GetAssetSelectedPath());
+                CreateTilesetFromTmx(tmxFilePath, SuperTilemapEditor.EditorUtils.GetAssetSelectedPath());
             }
         }
 
@@ -49,39 +47,58 @@ namespace CreativeSpore.TiledImporter
 
             //NOTE: calling this after PackTextures will make the atlasTexture to be null sometimes
             Tileset tilesetAsset = ScriptableObject.CreateInstance<Tileset>();
-            AssetDatabase.CreateAsset(tilesetAsset, Path.Combine(dstPath, tmxFileName + "Tileset.asset"));
+            string tilesetAssetPath = Path.Combine(dstPath, tmxFileName + "Tileset.asset");
+            AssetDatabase.CreateAsset(tilesetAsset, tilesetAssetPath);
             Texture2D atlasTexture;
             Rect[] tilesetRects;
             if (tilemap.DicTilesetTex2D.Values.Count == 1)
             {
-                atlasTexture = tilemap.DicTilesetTex2D.Values.ToArray()[0];
+                atlasTexture = tilemap.DicTilesetTex2D.Values.ToArray()[0].tilesetTexture;
                 tilesetRects = new Rect[] { new Rect(0, 0, atlasTexture.width, atlasTexture.height) };
             }
             else
             {
                 atlasTexture = new Texture2D(8192, 8192, TextureFormat.ARGB32, false, false);
-                tilesetRects = atlasTexture.PackTextures(tilemap.DicTilesetTex2D.Values.ToArray(), 0);
+                tilesetRects = atlasTexture.PackTextures(tilemap.DicTilesetTex2D.Values.Select(x => x.tilesetTexture).ToArray(), 0, 8192);
             }
             string atlasPath = Path.GetDirectoryName(AssetDatabase.GetAssetPath(tilesetAsset)) + "/" + tmxFileName + "Atlas.png";
+            atlasTexture.hideFlags = HideFlags.None;
             AssetDatabase.CreateAsset(atlasTexture, atlasPath);
-            File.WriteAllBytes(atlasPath, atlasTexture.EncodeToPNG());            
+            atlasTexture.hideFlags = HideFlags.DontSave;
+            File.WriteAllBytes(atlasPath, atlasTexture.EncodeToPNG());
             ImportTexture(atlasPath);
-            AssetDatabase.Refresh();            
-
+            AssetDatabase.Refresh();
+            
+            //NOTE: tilesetAsset is sometimes nulled after calling Refresh
+            tilesetAsset = AssetDatabase.LoadAssetAtPath<Tileset>(tilesetAssetPath);
             // Link Atlas with asset to be able to save it in the prefab
             tilesetAsset.AtlasTexture = (Texture2D)AssetDatabase.LoadAssetAtPath(atlasPath, typeof(Texture2D));
 
             tilesetAsset.TilePxSize = new Vector2(tilemap.Map.Tilesets[0].TileWidth, tilemap.Map.Tilesets[0].TileHeight);
             int tilesetIdx = 0;
             List<Tile> tileList = new List<Tile>();
-            foreach (Texture2D tilesetTexture in tilemap.DicTilesetTex2D.Values)
+            foreach (TmxTilemap.TilesetTextureData tilesetTextureData in tilemap.DicTilesetTex2D.Values)
             {
                 TmxTileset tmxTileset = tilemap.Map.Tilesets[tilesetIdx];
                 Vector2 tileSize = new Vector2(tilemap.Map.Tilesets[tilesetIdx].TileWidth, tilemap.Map.Tilesets[tilesetIdx].TileHeight);
-                Rect[] tileRects = GenerateGridSpriteRectangles(tilesetTexture, new Vector2(tmxTileset.Margin, tmxTileset.Margin), tileSize, new Vector2(tmxTileset.Spacing, tmxTileset.Spacing));
-                TileSelection tilesetSelection = new TileSelection(Enumerable.Range(tileList.Count, tileRects.Length).Select(i => (uint)i).ToList(), tmxTileset.Columns);
-                foreach (Rect tileRect in tileRects)
+                Rect[] tileRects = tilesetTextureData.isCollectionOfSprites? 
+                    tilesetTextureData.tileRects 
+                    : 
+                    GenerateGridSpriteRectangles(tilesetTextureData.tilesetTexture, new Vector2(tmxTileset.Margin, tmxTileset.Margin), tileSize, new Vector2(tmxTileset.Spacing, tmxTileset.Spacing));
+                TileSelection tilesetSelection = tilesetTextureData.isCollectionOfSprites?
+                    new TileSelection(tilesetTextureData.tileIds.Select(i => (uint)i).ToList(), tmxTileset.Columns)
+                    :
+                    new TileSelection(Enumerable.Range(tileList.Count, tileRects.Length).Select(i => (uint)i).ToList(), tmxTileset.Columns);
+                for (int i = 0; i < tileRects.Length; ++i )
                 {
+                    // fill with padding tiles the spaces between tiles. In tiled you can remove and add tiles to sprite collections tileset, so the ids could not be consecutive.
+                    if(tilesetTextureData.isCollectionOfSprites)
+                    {
+                        int paddingTiles = i == 0? tilesetTextureData.tileIds[i] : (tilesetTextureData.tileIds[i] - tilesetTextureData.tileIds[i - 1]) - 1;
+                        if(paddingTiles > 0)
+                            tileList.AddRange( Enumerable.Repeat( default(Tile), paddingTiles ) );
+                    }
+                    Rect tileRect = tileRects[i];
                     Rect uv = tileRect;
                     uv.xMin /= tilesetAsset.AtlasTexture.width;
                     uv.xMax /= tilesetAsset.AtlasTexture.width;
@@ -91,11 +108,13 @@ namespace CreativeSpore.TiledImporter
                     tileList.Add(new Tile() { uv = uv });
                 }
                 tilesetIdx++;
-                tilesetAsset.TileViews.Add(new TileView(tilesetTexture.name, tilesetSelection));
+                tilesetAsset.TileViews.Add(new TileView(tilesetTextureData.tilesetTexture.name, tilesetSelection));
             }
             tilesetAsset.SetTiles(tileList);
+            //NOTE: sometimes, the asset is not saved, this makes sure tilesetAsset is saved with the new data
+            TilemapUtilsEditor.CreateOrReplaceAsset<Tileset>(tilesetAsset, tilesetAssetPath);
             return tilesetAsset;
-        }
+        }        
 
         public static void ImportTmxIntoTheScene(Tileset tileset)
         {
@@ -124,7 +143,7 @@ namespace CreativeSpore.TiledImporter
             {
                 GameObject tilemapObj = new GameObject(layer.Name);
                 tilemapObj.transform.SetParent(tilemapGroupObj.transform);
-                Tilemap tilemapBhv = tilemapObj.AddComponent<Tilemap>();
+                STETilemap tilemapBhv = tilemapObj.AddComponent<STETilemap>();
                 tilemapBhv.Tileset = tileset;
                 tilemapBhv.OrderInLayer = orderInLayer++;
                 tilemapBhv.IsVisible =layer.Visible;
@@ -227,10 +246,14 @@ namespace CreativeSpore.TiledImporter
 					textureImporter.spriteImportMode = SpriteImportMode.Single;
 					textureImporter.wrapMode = TextureWrapMode.Clamp;
 					textureImporter.filterMode = FilterMode.Point;
-					textureImporter.textureFormat = TextureImporterFormat.ARGB32;
+#if UNITY_5_5_OR_NEWER
+                    textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
+#else
+                    textureImporter.textureFormat = TextureImporterFormat.AutomaticTruecolor;
+#endif
                     textureImporter.textureType = TextureImporterType.Sprite;
 					textureImporter.maxTextureSize = 8192;                    
-					AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate); 
+					AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport); 
 				}
 				return true;
 			}

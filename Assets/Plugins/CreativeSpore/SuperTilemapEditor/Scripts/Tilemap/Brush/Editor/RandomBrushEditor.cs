@@ -11,7 +11,7 @@ namespace CreativeSpore.SuperTilemapEditor
     [CustomEditor(typeof(RandomBrush))]
     public class RandomBrushEditor : TilesetBrushEditor
     {
-        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/RandomBrush")]
+        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/RandomBrush", priority = 50)]
         public static RandomBrush CreateAsset()
         {
             return EditorUtils.CreateAssetInSelectedDirectory<RandomBrush>();
@@ -29,6 +29,7 @@ namespace CreativeSpore.SuperTilemapEditor
             if (m_brush.Tileset != null)
             {
                 m_brush.Tileset.OnTileSelected += OnTileSelected;
+                m_brush.Tileset.OnBrushSelected += OnBrushSelected;
             }
 
             m_randTileList = new ReorderableList(serializedObject, serializedObject.FindProperty("RandomTileList"), true, true, true, true);
@@ -41,7 +42,14 @@ namespace CreativeSpore.SuperTilemapEditor
                 Rect rTile = rect; rTile.width = rTile.height = m_brush.Tileset.VisualTileSize.y;
                 uint tileData = m_brush.RandomTileList[index].tileData;
                 int tileId = (int)(tileData & Tileset.k_TileDataMask_TileId);
-                if (tileId != Tileset.k_TileId_Empty)
+                int brushId = Tileset.GetBrushIdFromTileData(tileData);
+                TilesetBrush brush = m_brush.Tileset.FindBrush(brushId);
+                if (brush)
+                {
+                    GUI.Box(new Rect(rTile.position - Vector2.one, rTile.size + 2 * Vector2.one), "");
+                    TilesetEditor.DoGUIDrawTileFromTileData(rTile, tileData, m_brush.Tileset, brush.GetAnimUV());
+                }
+                else if (tileId != Tileset.k_TileId_Empty)
                 {
                     GUI.Box(new Rect(rTile.position - Vector2.one, rTile.size + 2 * Vector2.one), "");
                     TilesetEditor.DoGUIDrawTileFromTileData(rTile, tileData, m_brush.Tileset);
@@ -50,7 +58,10 @@ namespace CreativeSpore.SuperTilemapEditor
                 Rect rTileId = rect;
                 rTileId.x += rTile.width + 10; rTileId.width -= rTile.width + 20;
                 rTileId.height = rect.height / 2;
-                GUI.Label(rTileId, "Id(" + tileId + ")");
+                if (brush)
+                    GUI.Label(rTileId, "Brush Id(" + brushId + ")");
+                else
+                    GUI.Label(rTileId, "Id(" + tileId + ")");
 
                 SerializedProperty randomTileDataProperty = m_randTileList.serializedProperty.GetArrayElementAtIndex(index);
                 SerializedProperty probabilityFactorProperty = randomTileDataProperty.FindPropertyRelative("probabilityFactor");
@@ -102,6 +113,7 @@ namespace CreativeSpore.SuperTilemapEditor
             if (m_brush.Tileset != null)
             {
                 m_brush.Tileset.OnTileSelected -= OnTileSelected;
+                m_brush.Tileset.OnBrushSelected -= OnBrushSelected;
             }
         }
 
@@ -114,16 +126,36 @@ namespace CreativeSpore.SuperTilemapEditor
                     m_brush.RandomTileList[m_randTileList.index].tileData = 0u;// reset flags and everything
                 }
                 m_brush.RandomTileList[m_randTileList.index].tileData &= ~Tileset.k_TileDataMask_TileId;
+                m_brush.RandomTileList[m_randTileList.index].tileData &= ~Tileset.k_TileDataMask_BrushId;
                 m_brush.RandomTileList[m_randTileList.index].tileData |= (uint)(newTileId & Tileset.k_TileDataMask_TileId);
             }
             EditorUtility.SetDirty(target);
+            m_brush.InvalidateSortedList();
+        }
+
+        private void OnBrushSelected(Tileset source, int prevBrushId, int newBrushId)
+        {
+            if (m_randTileListHasFocus && m_randTileList.index >= 0 && m_randTileList.index < m_brush.RandomTileList.Count)
+            {
+                if (m_brush.RandomTileList[m_randTileList.index].tileData == Tileset.k_TileData_Empty)
+                {
+                    m_brush.RandomTileList[m_randTileList.index].tileData = 0u;// reset flags and everything
+                }
+                m_brush.RandomTileList[m_randTileList.index].tileData &= ~Tileset.k_TileDataMask_TileId;
+                m_brush.RandomTileList[m_randTileList.index].tileData &= ~Tileset.k_TileDataMask_BrushId;
+                m_brush.RandomTileList[m_randTileList.index].tileData |= (uint)(newBrushId << 16);
+                TilesetBrush brush = m_brush.Tileset.FindBrush(newBrushId);
+                m_brush.RandomTileList[m_randTileList.index].tileData |= (uint)(brush.PreviewTileData() & Tileset.k_TileDataMask_TileId);
+            }
+            EditorUtility.SetDirty(target);
+            m_brush.InvalidateSortedList();
         }
 
         enum eRandomFlags
         {
             Rot90,
-            FlipVertical,
             FlipHorizontal,
+            FlipVertical,
         }
 
         public override void OnInspectorGUI()
@@ -132,6 +164,11 @@ namespace CreativeSpore.SuperTilemapEditor
 
             if (m_prevTileset != m_brush.Tileset)
             {
+                if (m_prevTileset)
+                {
+                    m_prevTileset.OnBrushSelected -= OnBrushSelected;
+                    m_prevTileset.OnTileSelected -= OnTileSelected;
+                }
                 OnDisable();
                 OnEnable();
             }
@@ -167,6 +204,8 @@ namespace CreativeSpore.SuperTilemapEditor
                 m_brush.RandomTileList[m_randTileList.index].tileData = brushTileData;
             }
             EditorGUILayout.Space();
+            EditorGUILayout.HelpBox("Activate this to use animated brushes as random tiles", MessageType.Info);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("RemoveBrushIdAfterRefresh"));
 
             // Draw List
             m_randTileList.elementHeight = visualTileSize.y + 35f;

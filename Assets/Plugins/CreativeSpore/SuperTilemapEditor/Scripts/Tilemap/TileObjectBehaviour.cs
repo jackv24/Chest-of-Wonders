@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace CreativeSpore.SuperTilemapEditor
 {
@@ -10,19 +11,48 @@ namespace CreativeSpore.SuperTilemapEditor
     [ExecuteInEditMode] //fix ShouldRunBehaviour warning when using OnTilePrefabCreation
     public class TileObjectBehaviour : MonoBehaviour 
     {
-        void OnTilePrefabCreation(TilemapChunk.OnTilePrefabCreationData data)
+        [Tooltip("If true, the sorting layer and sorting order won't be changed with the values of the tilemap.")]
+        public bool ChangeSpriteOnly = false;
+
+        protected virtual void OnTilePrefabCreation(TilemapChunk.OnTilePrefabCreationData data)
         {
-            Tile tile = data.ParentTilemap.GetTile(data.GridX, data.GridY);
+            DoOnTilePrefabCreation(data, GetComponent<SpriteRenderer>(), ChangeSpriteOnly);
+        }
+
+        public static void DoOnTilePrefabCreation(TilemapChunk.OnTilePrefabCreationData data, SpriteRenderer spriteRenderer, bool changeSpriteOnly)
+        {
+            Sprite tileSprite = GetOrCreateSprite(data);
+            if (tileSprite)
+            {                
+                spriteRenderer.sprite = tileSprite;
+                if (!changeSpriteOnly)
+                {
+                    spriteRenderer.sortingLayerID = data.ParentTilemap.SortingLayerID;
+                    spriteRenderer.sortingOrder = data.ParentTilemap.OrderInLayer;
+                }
+            }
+        }
+
+        private static Dictionary<string, Sprite> s_spriteCache = new Dictionary<string, Sprite>();
+        public static Sprite GetOrCreateSprite(TilemapChunk.OnTilePrefabCreationData data)
+        {
+            Sprite sprite = null;
+            int tileId = Tileset.GetTileIdFromTileData(data.ParentTilemap.GetTileData(data.GridX, data.GridY));
+            Tile tile = data.ParentTilemap.Tileset.GetTile(tileId);
             if (tile != null)
             {
                 float pixelsPerUnit = data.ParentTilemap.Tileset.TilePxSize.x / data.ParentTilemap.CellSize.x;
                 Vector2 atlasSize = new Vector2(data.ParentTilemap.Tileset.AtlasTexture.width, data.ParentTilemap.Tileset.AtlasTexture.height);
-                Rect spriteUV = new Rect( Vector2.Scale(tile.uv.position, atlasSize), Vector2.Scale(tile.uv.size, atlasSize));
-                SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = Sprite.Create(data.ParentTilemap.Tileset.AtlasTexture, spriteUV, new Vector2(.5f, .5f), pixelsPerUnit);
-                spriteRenderer.sortingLayerID = data.ParentTilemap.SortingLayerID;
-                spriteRenderer.sortingOrder = data.ParentTilemap.OrderInLayer;
+                Rect spriteUV = new Rect(Vector2.Scale(tile.uv.position, atlasSize), Vector2.Scale(tile.uv.size, atlasSize));
+                string spriteName = data.ParentTilemap.Tileset.name + "_" + tileId + "_" + pixelsPerUnit;
+                if (!s_spriteCache.TryGetValue(spriteName, out sprite) || !sprite)
+                {
+                    sprite = Sprite.Create(data.ParentTilemap.Tileset.AtlasTexture, spriteUV, new Vector2(.5f, .5f), pixelsPerUnit);
+                    sprite.name = spriteName;
+                    s_spriteCache[spriteName] = sprite;
+                }
             }
+            return sprite;
         }
     }
 }

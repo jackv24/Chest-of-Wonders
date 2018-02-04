@@ -12,10 +12,20 @@ namespace CreativeSpore.SuperTilemapEditor
     [CustomEditor(typeof(Tileset))]
     public class TilesetEditor : Editor
     {
-        [MenuItem("Assets/Create/SuperTilemapEditor/Tileset")]
+        [MenuItem("Assets/Create/SuperTilemapEditor/Tileset", priority = 50)]
         public static Tileset CreateTileset()
         {
-            return EditorUtils.CreateAssetInSelectedDirectory<Tileset>();
+            Texture2D selectedAtlas = Selection.activeObject as Texture2D;
+            if (selectedAtlas)
+            {
+                Tileset newTileset = EditorUtils.CreateAssetInSelectedDirectory<Tileset>(selectedAtlas.name);
+                newTileset.AtlasTexture = selectedAtlas;                
+                return newTileset;
+            }
+            else
+            {
+                return EditorUtils.CreateAssetInSelectedDirectory<Tileset>();
+            }
         }
 
         private TilesetControl m_tilesetCtrl = new TilesetControl();
@@ -76,6 +86,10 @@ namespace CreativeSpore.SuperTilemapEditor
             else
             {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("m_pixelsPerUnit"));
+                if (GUILayout.Button(new GUIContent("Optimize Atlas Texture Settings", "Change the import settings for an optimum result")))
+                {
+                    OptimizeTextureImportSettings(tileset.AtlasTexture);
+                }
                 s_atlasSettingsFoldout = EditorGUILayout.Foldout(s_atlasSettingsFoldout, "Atlas Settings");
                 if (s_atlasSettingsFoldout)
                 {
@@ -98,23 +112,27 @@ namespace CreativeSpore.SuperTilemapEditor
                 EditorGUILayout.Separator();
                 string[] modeNames = System.Enum.GetNames(typeof(eMode));
                 s_mode = (eMode)GUILayout.Toolbar((int)s_mode, modeNames);
-                switch(s_mode)
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.MinHeight(s_mode == eMode.Tiles ? Screen.height * 0.8f : 0f));
                 {
-                    case eMode.Tiles:
-                        m_tilesetCtrl.Tileset = tileset;
-                        m_tilesetCtrl.Display();
-                        Repaint();
-                        break;
-                    case eMode.BrushGroups:
-                        s_brushGroupsFoldout = EditorGUILayout.Foldout(s_brushGroupsFoldout, "Groups");
-                        if (s_brushGroupsFoldout)
-                        {
-                            m_groupsList.DoLayoutList();
-                        }
-                        GroupMatrixGUI.DoGUI("Group Autotiling Mask", tileset.BrushGroupNames, ref s_brushAutotilingMaskFoldout, ref s_brushGroupMatrixScrollPos, GetAutotiling, SetAutotiling);
-                        EditorGUILayout.HelpBox("Check the group that should autotile between them when Autotiling Mode Group is enabled in a brush", MessageType.Info);
-                        break;
+                    switch (s_mode)
+                    {
+                        case eMode.Tiles:
+                            m_tilesetCtrl.Tileset = tileset;
+                            m_tilesetCtrl.Display();
+                            Repaint();
+                            break;
+                        case eMode.BrushGroups:
+                            s_brushGroupsFoldout = EditorGUILayout.Foldout(s_brushGroupsFoldout, "Groups");
+                            if (s_brushGroupsFoldout)
+                            {
+                                m_groupsList.DoLayoutList();
+                            }
+                            GroupMatrixGUI.DoGUI("Group Autotiling Mask", tileset.BrushGroupNames, ref s_brushAutotilingMaskFoldout, ref s_brushGroupMatrixScrollPos, GetAutotiling, SetAutotiling);
+                            EditorGUILayout.HelpBox("Check the group that should autotile between them when Autotiling Mode Group is enabled in a brush", MessageType.Info);
+                            break;
+                    }
                 }
+                EditorGUILayout.EndVertical();
             }
 
             if (GUI.changed)
@@ -152,7 +170,7 @@ namespace CreativeSpore.SuperTilemapEditor
             }
             else if (Selection.activeObject is GameObject)
             {
-                Tilemap tilemap = (Selection.activeObject as GameObject).GetComponent<Tilemap>();
+                STETilemap tilemap = (Selection.activeObject as GameObject).GetComponent<STETilemap>();
                 if (tilemap == null)
                 {
                     TilemapGroup tilemapGroup = (Selection.activeObject as GameObject).GetComponent<TilemapGroup>();
@@ -297,21 +315,28 @@ namespace CreativeSpore.SuperTilemapEditor
             brushRList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
             {
                 Tileset.BrushContainer brushContainer = tileset.Brushes[index];
-                Rect rToggle = new Rect(rect.x, rect.y, 16f, EditorGUIUtility.singleLineHeight);
-                Rect rTile = new Rect(rect.x + 16f, rect.y, tileset.VisualTileSize.x, tileset.VisualTileSize.y);
-                Rect rTileId = rTile;
-                rTileId.x += rTile.width + 20; rTileId.width = rect.width - rTileId.x;
-                rTileId.height = rect.height / 2;
-
-                Rect tileUV = brushContainer.BrushAsset.GetAnimUV();
-                if (tileUV != default(Rect))
+                if (brushContainer.BrushAsset)
                 {
-                    GUI.Box(new Rect(rTile.position - Vector2.one, rTile.size + 2 * Vector2.one), "");
-                    GUI.DrawTextureWithTexCoords(rTile, tileset.AtlasTexture, tileUV, true);
-                }
+                    Rect rToggle = new Rect(rect.x, rect.y, 16f, EditorGUIUtility.singleLineHeight);
+                    Rect rTile = new Rect(rect.x + 16f, rect.y, tileset.VisualTileSize.x, tileset.VisualTileSize.y);
+                    Rect rTileId = rTile;
+                    rTileId.x += rTile.width + 20; rTileId.width = rect.width - rTileId.x;
+                    rTileId.height = rect.height / 2;
 
-                brushContainer.BrushAsset.ShowInPalette = EditorGUI.Toggle(rToggle, GUIContent.none, brushContainer.BrushAsset.ShowInPalette, STEditorStyles.Instance.visibleToggleStyle);
-                GUI.Label(rTileId, "Id(" + brushContainer.Id + ") " + brushContainer.BrushAsset.name);
+                    Rect tileUV = brushContainer.BrushAsset.GetAnimUV();
+                    if (tileUV != default(Rect))
+                    {
+                        GUI.Box(new Rect(rTile.position - Vector2.one, rTile.size + 2 * Vector2.one), "");
+                        GUI.DrawTextureWithTexCoords(rTile, tileset.AtlasTexture, tileUV, true);
+                    }
+
+                    brushContainer.BrushAsset.ShowInPalette = EditorGUI.Toggle(rToggle, GUIContent.none, brushContainer.BrushAsset.ShowInPalette, STEditorStyles.Instance.visibleToggleStyle);
+                    GUI.Label(rTileId, "Id(" + brushContainer.Id + ") " + brushContainer.BrushAsset.name);
+                }
+                else
+                {
+                    tileset.RemoveInvalidBrushes();
+                }
             };
 
             return brushRList;
@@ -321,14 +346,120 @@ namespace CreativeSpore.SuperTilemapEditor
         {
             int tileId = (int)(tileData & Tileset.k_TileDataMask_TileId);
             Tile tile = tileset.GetTile(tileId);
-            if (tileId != Tileset.k_TileId_Empty)
+            if (tileId != Tileset.k_TileId_Empty && tileset.AtlasTexture)
             {
                 if ((tileData & Tileset.k_TileFlag_FlipV) != 0) GUIUtility.ScaleAroundPivot(new Vector2(1f, -1f), dstRect.center);
                 if ((tileData & Tileset.k_TileFlag_FlipH) != 0) GUIUtility.ScaleAroundPivot(new Vector2(-1f, 1f), dstRect.center);
                 if ((tileData & Tileset.k_TileFlag_Rot90) != 0) GUIUtility.RotateAroundPivot(90f, dstRect.center);
-                GUI.DrawTextureWithTexCoords(dstRect, tileset.AtlasTexture, customUV == default(Rect) && tile != null ? tile.uv : customUV, true);
+                if (tile != null && tile.prefabData.prefab && tile.prefabData.showPrefabPreviewInTilePalette)
+                {
+                    Texture2D assetPreview = AssetPreview.GetAssetPreview(tile.prefabData.prefab);
+                    if (assetPreview)
+                        GUI.DrawTexture(dstRect, assetPreview, ScaleMode.ScaleToFit);                        
+                    else
+                        GUI.DrawTextureWithTexCoords(dstRect, tileset.AtlasTexture, customUV == default(Rect) && tile != null ? tile.uv : customUV, true);
+                }
+                else
+                {
+                    GUI.DrawTextureWithTexCoords(dstRect, tileset.AtlasTexture, customUV == default(Rect) && tile != null ? tile.uv : customUV, true);
+                }
                 GUI.matrix = Matrix4x4.identity;
             }
+        }        
+
+        public static void OptimizeTextureImportSettings(Texture2D texture2D)
+        {
+            if (texture2D != null)
+            {
+                string assetPath = AssetDatabase.GetAssetPath(texture2D);
+                if (!string.IsNullOrEmpty(assetPath))
+                {
+                    TextureImporter textureImporter = AssetImporter.GetAtPath(assetPath) as UnityEditor.TextureImporter;
+                    textureImporter.textureType = TextureImporterType.Sprite;
+                    if (textureImporter.spriteImportMode == SpriteImportMode.None)
+                        textureImporter.spriteImportMode = SpriteImportMode.Single;
+                    textureImporter.mipmapEnabled = false;
+                    textureImporter.filterMode = FilterMode.Point;
+#if UNITY_5_5_OR_NEWER
+                    textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
+#else
+                    textureImporter.textureFormat = TextureImporterFormat.AutomaticTruecolor;
+#endif
+                    FixTextureSize(texture2D, textureImporter);
+                    AssetDatabase.ImportAsset(assetPath);
+                }
+            }
+        }
+
+        static int[] textureSizes = new int[] 
+        {
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            int.MaxValue,
+        };
+
+        //ref:https://forum.unity3d.com/threads/getting-original-size-of-texture-asset-in-pixels.165295/
+        public static void FixTextureSize(Texture2D tex, TextureImporter importer)
+        {
+            int width = 0, height = 0, max;
+            GetOriginalTextureSize(importer, ref width, ref height);
+            max = Mathf.Max(width, height);
+            int size = 1024; //Default size
+            for (int i = 0; i < textureSizes.Length; i++)
+            {
+                if (textureSizes[i] >= max)
+                {
+                    size = textureSizes[i];
+                    break;
+                }
+            }
+            if (size == int.MaxValue)
+            {
+                EditorUtility.DisplayDialog("Texture is too big", "The texture " + tex.name + " is too big. The width and height should be less or equal to " + textureSizes[textureSizes.Length - 2], "Ok");
+            }
+            else
+            {
+                importer.maxTextureSize = size;
+            }
+        }
+
+        //ref:https://forum.unity3d.com/threads/getting-original-size-of-texture-asset-in-pixels.165295/
+        public static void GetOriginalTextureSize(Texture2D texture, ref int width, ref int height)
+        {
+            if (texture == null)
+                throw new NullReferenceException();
+
+            var path = AssetDatabase.GetAssetPath(texture);
+            if (string.IsNullOrEmpty(path))
+                throw new Exception("Texture2D is not an asset texture.");
+
+            var importer = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (importer == null)
+                throw new Exception("Failed to get Texture importer for " + path);
+
+            GetOriginalTextureSize(importer, ref width, ref height);
+        }
+
+        private delegate void GetWidthAndHeight(TextureImporter importer, ref int width, ref int height);
+        private static GetWidthAndHeight getWidthAndHeightDelegate;
+
+        //ref: https://forum.unity3d.com/threads/getting-original-size-of-texture-asset-in-pixels.165295/
+        public static void GetOriginalTextureSize(TextureImporter importer, ref int width, ref int height)
+        {
+            if (getWidthAndHeightDelegate == null)
+            {
+                var method = typeof(TextureImporter).GetMethod("GetWidthAndHeight", BindingFlags.NonPublic | BindingFlags.Instance);
+                getWidthAndHeightDelegate = Delegate.CreateDelegate(typeof(GetWidthAndHeight), null, method) as GetWidthAndHeight;
+            }
+
+            getWidthAndHeightDelegate(importer, ref width, ref height);
         }
     }
 

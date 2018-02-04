@@ -12,6 +12,7 @@ namespace CreativeSpore.SuperTilemapEditor
         private const string k_warning_msg_paramNotFound = "Parameter with name {0} not found!";
 
         public List<Parameter> ParameterList { get { return m_paramList; } }
+        public Parameter this[string name] { get { return FindParam(name); } }
 
         [SerializeField]
         private List<Parameter> m_paramList = new List<Parameter>();

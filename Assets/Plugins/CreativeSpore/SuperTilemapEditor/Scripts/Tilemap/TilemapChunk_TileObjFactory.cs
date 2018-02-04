@@ -10,9 +10,12 @@ namespace CreativeSpore.SuperTilemapEditor
 
         public struct OnTilePrefabCreationData
         {
-            public Tilemap ParentTilemap;
+            public STETilemap ParentTilemap;
             public int GridX;
             public int GridY;
+            public ParameterContainer Parameters{ get { return TilemapUtils.GetParamsFromTileData(ParentTilemap, ParentTilemap.GetTileData(GridX, GridY)); } }
+            public Tile Tile { get { return ParentTilemap.GetTile(GridX, GridY); }  }
+            public TilesetBrush Brush { get { return ParentTilemap.GetBrush(GridX, GridY); } }
         }
 
         [System.Serializable]
@@ -60,6 +63,16 @@ namespace CreativeSpore.SuperTilemapEditor
             }
         }
 
+        private TileObjData FindTileObjDataByTileIdx(int tileIdx)
+        {
+            for(int i = 0; i < m_tileObjList.Count; ++i)
+            {
+                TileObjData data = m_tileObjList[i];
+                if( data.tilePos == tileIdx ) return data;
+            }
+            return null;
+        }
+
         private GameObject CreateTileObject(int locGridX, int locGridY, TilePrefabData tilePrefabData)
         {
             if (locGridX >= 0 && locGridX < m_width && locGridY >= 0 && locGridY < m_height)
@@ -77,7 +90,7 @@ namespace CreativeSpore.SuperTilemapEditor
         {
             if (tilePrefabData.prefab != null)
             {
-                TileObjData tileObjData = m_tileObjList.Find(x => x.tilePos == tileIdx);
+                TileObjData tileObjData = FindTileObjDataByTileIdx(tileIdx);
                 GameObject tileObj = null;
                 int gx = tileIdx % m_width;
                 int gy = tileIdx / m_width;
@@ -88,7 +101,7 @@ namespace CreativeSpore.SuperTilemapEditor
                     // allow destroy the object with undo operations
                     if (ParentTilemap.IsUndoEnabled)
                     {
-                        UnityEditor.Undo.RegisterCreatedObjectUndo(tileObj, Tilemap.k_UndoOpName + ParentTilemap.name);
+                        UnityEditor.Undo.RegisterCreatedObjectUndo(tileObj, STETilemap.k_UndoOpName + ParentTilemap.name);
                     }
 #else
                     tileObj = (GameObject)Instantiate(tilePrefabData.prefab, Vector3.zero, transform.rotation);
@@ -140,7 +153,7 @@ namespace CreativeSpore.SuperTilemapEditor
 
         private void _SetTileObjTransform(GameObject tileObj, int gx, int gy, TilePrefabData tilePrefabData, uint tileData)
         {
-            Vector3 chunkLocPos = new Vector3((gx + .5f) * CellSize.x, (gy + .5f) * CellSize.y);
+            Vector3 chunkLocPos = new Vector3((gx + .5f) * CellSize.x, (gy + .5f) * CellSize.y, tilePrefabData.prefab.transform.position.z);
             if (tilePrefabData.offsetMode == TilePrefabData.eOffsetMode.Pixels)
             {
                 float ppu = Tileset.TilePxSize.x / CellSize.x;
@@ -186,7 +199,7 @@ namespace CreativeSpore.SuperTilemapEditor
 
         private void DestroyTileObject(int tileIdx)
         {
-            TileObjData tileObjData = m_tileObjList.Find(x => x.tilePos == tileIdx);
+            TileObjData tileObjData = FindTileObjDataByTileIdx(tileIdx);
             if (tileObjData != null)
             {
                 m_tileObjToBeRemoved.Add(tileObjData.obj);

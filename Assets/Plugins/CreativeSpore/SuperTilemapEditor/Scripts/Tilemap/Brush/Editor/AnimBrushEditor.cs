@@ -11,7 +11,7 @@ namespace CreativeSpore.SuperTilemapEditor
     [CustomEditor(typeof(AnimBrush))]
     public class AnimBrushEditor : TilesetBrushEditor
     {
-        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/AnimBrush")]
+        [MenuItem("Assets/Create/SuperTilemapEditor/Brush/AnimBrush", priority = 50)]
         public static AnimBrush CreateAsset()
         {
             return EditorUtils.CreateAssetInSelectedDirectory<AnimBrush>();
@@ -112,6 +112,10 @@ namespace CreativeSpore.SuperTilemapEditor
 
             if (m_prevTileset != m_brush.Tileset)
             {
+                if (m_prevTileset)
+                {
+                    m_prevTileset.OnTileSelected -= OnTileSelected;
+                }
                 OnDisable();
                 OnEnable();
             }

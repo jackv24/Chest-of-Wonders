@@ -21,7 +21,7 @@ namespace CreativeSpore.SuperTilemapEditor
             return TileIds[0];
         }
 
-        public override uint Refresh(Tilemap tilemap, int gridX, int gridY, uint tileData)
+        public override uint Refresh(STETilemap tilemap, int gridX, int gridY, uint tileData)
         {
             int brushId = (int)((tileData & Tileset.k_TileDataMask_BrushId) >> 16);
             bool autotiling_N = AutotileWith(tilemap, brushId, gridX, gridY + 1);
@@ -36,16 +36,13 @@ namespace CreativeSpore.SuperTilemapEditor
             if (autotiling_W) idx |= 8;
 
             uint brushTileData = RefreshLinkedBrush(tilemap, gridX, gridY, TileIds[idx]);
-            // overwrite flags
-            brushTileData &= ~Tileset.k_TileDataMask_Flags;
-            brushTileData |= TileIds[idx] & Tileset.k_TileDataMask_Flags;
             // overwrite brush id
             brushTileData &= ~Tileset.k_TileDataMask_BrushId;
             brushTileData |= tileData & Tileset.k_TileDataMask_BrushId;
             return brushTileData;
         }
 
-        public override uint[] GetSubtiles(Tilemap tilemap, int gridX, int gridY, uint tileData)
+        public override uint[] GetSubtiles(STETilemap tilemap, int gridX, int gridY, uint tileData)
         {
             // Add animated tiles
             {

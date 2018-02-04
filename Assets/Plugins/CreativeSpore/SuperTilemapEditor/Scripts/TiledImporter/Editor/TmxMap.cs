@@ -45,18 +45,27 @@ namespace CreativeSpore.TiledImporter
             XMLSerializer objSerializer = new XMLSerializer();
             for(int i = 0; i < Tilesets.Count; ++i)
             {
-                if(!string.IsNullOrEmpty(Tilesets[i].Source))
+                TmxTileset tmxTileset = Tilesets[i];
+                if(!string.IsNullOrEmpty(tmxTileset.Source))
                 {
-                    int firstGid = Tilesets[i].FirstGId;
-                    Tilesets[i] = objSerializer.LoadFromXMLFile<TmxTileset>( Path.Combine( relativePath, Tilesets[i].Source));
-                    Tilesets[i].FirstGId = firstGid;
+                    int firstGid = tmxTileset.FirstGId;
+                    Tilesets[i] = tmxTileset = objSerializer.LoadFromXMLFile<TmxTileset>( Path.Combine( relativePath, tmxTileset.Source));
+                    tmxTileset.FirstGId = firstGid;
+                    if (tmxTileset.TileCount == 0)
+                    {
+                        int horTiles = System.Convert.ToInt32(Math.Round((float)(tmxTileset.Image.Width - 2 * tmxTileset.Margin) / (tmxTileset.TileWidth + tmxTileset.Spacing)));
+                        int verTiles = System.Convert.ToInt32(Math.Round((float)(tmxTileset.Image.Height - 2 * tmxTileset.Margin) / (tmxTileset.TileHeight + tmxTileset.Spacing)));
+                        tmxTileset.Columns = horTiles;
+                        tmxTileset.TileCount = horTiles * verTiles;
+                    }                    
                 }
-                if (Tilesets[i].TileCount == 0)
+                
+                //if tileset is made of a collection of sprites, tile count needs to include padding tiles (tiles that were removed)
+                if(tmxTileset.Image == null)
                 {
-                    int horTiles = System.Convert.ToInt32(Math.Round((float)(Tilesets[i].Image.Width - 2 * Tilesets[i].Margin) / (Tilesets[i].TileWidth + Tilesets[i].Spacing)));
-                    int verTiles = System.Convert.ToInt32(Math.Round((float)(Tilesets[i].Image.Height - 2 * Tilesets[i].Margin) / (Tilesets[i].TileHeight + Tilesets[i].Spacing)));
-                    Tilesets[i].Columns = horTiles;
-                    Tilesets[i].TileCount = horTiles * verTiles;
+                    TmxTile tmxTile = tmxTileset.TilesWithProperties[tmxTileset.TilesWithProperties.Count - 1];
+                    if (tmxTile.Image != null)
+                        tmxTileset.TileCount = tmxTile.Id + 1;
                 }
             }
         }

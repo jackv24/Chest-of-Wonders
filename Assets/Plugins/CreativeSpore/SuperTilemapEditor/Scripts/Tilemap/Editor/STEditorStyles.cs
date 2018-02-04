@@ -18,4 +18,16 @@ public class STEditorStyles
         onFocused = { background = EditorGUIUtility.FindTexture("animationvisibilitytoggleon") },
         onHover = { background = EditorGUIUtility.FindTexture("animationvisibilitytoggleon") },
     };
+
+    public GUIStyle headerStyle = new GUIStyle(EditorStyles.helpBox)
+    {
+        fontStyle = FontStyle.Bold,
+        fontSize = 18,
+        normal = { textColor = Color.blue },
+    };
+    
+    public GUIStyle richHelpBox = new GUIStyle("HelpBox")
+    {
+        richText = true,
+    };
 }

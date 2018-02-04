@@ -83,6 +83,7 @@ namespace CreativeSpore.SuperTilemapEditor
         private MouseDblClick m_dblClick = new MouseDblClick();
         public void Display()
         {
+            AssetPreview.SetPreviewTextureCacheSize(256); //FIX clickeing issues when displaying multiple prefab previews (when a tile has a prefab attached
             Event e = Event.current;
             m_dblClick.Update();
 
@@ -137,7 +138,15 @@ namespace CreativeSpore.SuperTilemapEditor
                 m_sharedData.tileViewList = TilesetEditor.CreateTileViewReorderableList(Tileset);
                 m_sharedData.tileViewList.onSelectCallback += (ReorderableList list) =>
                 {
-                    RemoveTileSelection();
+                    /* NOTE: this will select the tileview for the painting brush. Commented just in case.
+                    if(list.index >= 0)
+                    {
+                        TileSelection tileSelection = Tileset.TileViews[list.index].tileSelection.Clone();
+                        tileSelection.FlipVertical();
+                        Tileset.TileSelection = tileSelection;
+                    }
+                    else*/
+                        RemoveTileSelection();
                 };
                 m_sharedData.tileViewList.onRemoveCallback += (ReorderableList list) =>
                 {
@@ -194,7 +203,7 @@ namespace CreativeSpore.SuperTilemapEditor
             GUILayout.Label(EditorGUIUtility.FindTexture("ViewToolZoom"), GUILayout.Width(35f));
             float visualTileZoom = EditorGUILayout.Slider(Tileset.VisualTileSize.x / Tileset.TilePxSize.x, 0.25f, 4f);
             Tileset.VisualTileSize = visualTileZoom * Tileset.TilePxSize;
-            if (GUILayout.Button("Reset", GUILayout.Width(50f))) Tileset.VisualTileSize = new Vector2(32f, 32f);
+            if (GUILayout.Button("Reset", GUILayout.Width(50f))) Tileset.VisualTileSize = new Vector2(32f * Tileset.TilePxSize.x / Tileset.TilePxSize.y, 32f);
             EditorGUILayout.EndHorizontal();
             //---
 
@@ -234,16 +243,23 @@ namespace CreativeSpore.SuperTilemapEditor
                     int tileViewWidth = tileView != null ? tileView.tileSelection.rowLength : Tileset.Width;
                     int tileViewHeight = tileView != null ? ((tileView.tileSelection.selectionData.Count - 1) / tileView.tileSelection.rowLength) + 1 : Tileset.Height;
                     int totalCount = ((((tileViewWidth - 1) / m_sharedData.tileViewRowLength) + 1) * m_sharedData.tileViewRowLength) * tileViewHeight;
+                    int tileIdOffset = 0;
                     for (int i = 0; i < totalCount; ++i)
                     {
-                        int tileId = GetTileIdFromIdx(i, m_sharedData.tileViewRowLength, tileViewWidth, tileViewHeight);
+                        int tileId = GetTileIdFromIdx(i, m_sharedData.tileViewRowLength, tileViewWidth, tileViewHeight) + tileIdOffset;
                         uint tileData = (uint)tileId;
                         if (tileView != null && tileId != Tileset.k_TileId_Empty)
                         {
-                            tileData = tileView.tileSelection.selectionData[tileId];
+                            tileData = tileView.tileSelection.selectionData[tileId - tileIdOffset];
                             tileId = (int)(tileData & Tileset.k_TileDataMask_TileId);
                         }
                         Tile tile = Tileset.GetTile(tileId);
+                        while (tile != null && tile.uv == default(Rect)) // skip invalid tiles
+                        {
+                            tile = Tileset.GetTile(++tileId);
+                            tileData = (uint)tileId;
+                            tileIdOffset = tileId;
+                        }
                         visibleTileList.Add(tileData);
 
                         int tx = m_visibleTileCount % m_sharedData.tileViewRowLength;
@@ -338,7 +354,10 @@ namespace CreativeSpore.SuperTilemapEditor
             EditorGUILayout.LabelField("Brush Palette" + sBrushIdLabel, EditorStyles.boldLabel);
             m_displayBrushReordList = EditorUtils.DoToggleButton("Display List", m_displayBrushReordList);
             EditorGUILayout.EndHorizontal();
-            Tileset.BrushTypeMask = EditorGUILayout.MaskField("Brush Mask", Tileset.BrushTypeMask, Tileset.GetBrushTypeArray());
+
+            string[] brushTypeArray = Tileset.GetBrushTypeArray();
+            if (brushTypeArray != null && brushTypeArray.Length > 0)
+                Tileset.BrushTypeMask = EditorGUILayout.MaskField("Brush Mask", Tileset.BrushTypeMask, brushTypeArray);
 
             int tileRowLength = (int)(m_rTileScrollSize.width / (Tileset.VisualTileSize.x + visualTilePadding));
             if (tileRowLength <= 0) tileRowLength = 1;

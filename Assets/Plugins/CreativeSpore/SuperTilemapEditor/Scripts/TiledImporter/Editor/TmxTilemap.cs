@@ -11,12 +11,19 @@ namespace CreativeSpore.TiledImporter
     {
 
         public string FilePathDirectory { get; protected set; }
-        public Dictionary<int, Texture2D> DicTilesetTex2D { get { return m_dicTilesetTex2d; } }
+        public Dictionary<int, TilesetTextureData> DicTilesetTex2D { get { return m_dicTilesetTex2d; } }
         public TmxMap Map { get { return m_map; } }
 
         TmxMap m_map;
 
-        Dictionary<int, Texture2D> m_dicTilesetTex2d = new Dictionary<int,Texture2D>();
+        public class TilesetTextureData
+        {
+            public Texture2D tilesetTexture;
+            public Rect[] tileRects; //NOTE: this is only used in collection of sprites
+            public int[] tileIds;//NOTE: this is only used in collection of sprites
+            public bool isCollectionOfSprites { get{ return tileRects != null && tileRects.Length > 0; }}
+        }
+        Dictionary<int, TilesetTextureData> m_dicTilesetTex2d = new Dictionary<int, TilesetTextureData>();
 
       
         private TmxTilemap( TmxMap map )
@@ -30,22 +37,60 @@ namespace CreativeSpore.TiledImporter
             {
                 if (tileset.Image == null)
                 {
-                    Debug.LogWarning("No texture found for tileset " + tileset.Name);
+                    //Try to create a tileset from tile images
+                    if (tileset.TilesWithProperties.Count > 0)
+                    {
+                        List<Texture2D> tileImages = new List<Texture2D>();
+                        foreach(TmxTile tmxTile in tileset.TilesWithProperties)
+                        {
+                            if(tmxTile.Image != null)
+                                tileImages.Add( LoadTexture(tmxTile.Image.Width, tmxTile.Image.Height, tmxTile.Image.Source, tmxTile.Id.ToString()) );
+                        }
+                        Texture2D atlasTexture = new Texture2D(8192, 8192, TextureFormat.ARGB32, false, false);
+                        Rect[] tileRects = atlasTexture.PackTextures(tileImages.ToArray(), 0, 8192);
+                        //convert rect to pixel units
+                        Vector2 textureSize = new Vector2( atlasTexture.width, atlasTexture.height );
+                        for (int i = 0; i < tileRects.Length; ++i )
+                        {
+                            Rect rect = tileRects[i];
+                            rect.position = Vector2.Scale(rect.position, textureSize);
+                            rect.size = Vector2.Scale(rect.size, textureSize);
+                            tileRects[i] = rect;
+                        }
+                        m_dicTilesetTex2d.Add(
+                            tileset.FirstGId,
+                            new TilesetTextureData() { tilesetTexture = atlasTexture, tileRects = tileRects, tileIds = tileset.TilesWithProperties.Select(x => x.Id).ToArray() }
+                        );
+                    }
+                    else
+                    {
+                        Debug.LogWarning("No texture found for tileset " + tileset.Name);
+                    }
                 }
                 else
                 {
-                    Texture2D texture = new Texture2D(tileset.Image.Width, tileset.Image.Height, TextureFormat.ARGB32, false, false);
-                    texture.filterMode = FilterMode.Point;
-                    texture.name = tileset.Name;
-                    texture.LoadImage(File.ReadAllBytes(Path.Combine(FilePathDirectory, tileset.Image.Source)));
-                    texture.hideFlags = HideFlags.DontSave;
+                    Texture2D texture = LoadTexture(tileset.Image.Width, tileset.Image.Height, tileset.Image.Source, tileset.Name);
                     m_dicTilesetTex2d.Add(
                         tileset.FirstGId,
-                        texture
+                        new TilesetTextureData() { tilesetTexture = texture}
                     );
                 }
             }
         }        
+
+        Texture2D LoadTexture(int width, int height, string source, string name = "")
+        {
+            Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false, false);
+            texture.filterMode = FilterMode.Point;
+            texture.name = name;
+            string texturePath = Path.Combine(FilePathDirectory, source);
+            if (File.Exists(texturePath))
+                texture.LoadImage(File.ReadAllBytes(texturePath));
+            else
+                Debug.LogError("Texture file not found: " + texturePath);
+            texture.hideFlags = HideFlags.DontSave;
+            return texture;
+        }
 
         public TmxTileset FindTileset( TmxLayerTile tile )
         {
@@ -132,7 +177,7 @@ namespace CreativeSpore.TiledImporter
                     TmxTileset objTileset = FindTileset(tile);
 
                     // Draw Tile
-                    Texture2D texTileset = m_dicTilesetTex2d[objTileset.FirstGId];
+                    Texture2D texTileset = m_dicTilesetTex2d[objTileset.FirstGId].tilesetTexture;
                     Rect dstRect = new Rect(tile_x * objTileset.TileWidth, (layer.Height - 1 - tile_y) * objTileset.TileHeight, objTileset.TileWidth, objTileset.TileHeight);
 
                     int tileBaseIdx = tileGlobalId - objTileset.FirstGId;

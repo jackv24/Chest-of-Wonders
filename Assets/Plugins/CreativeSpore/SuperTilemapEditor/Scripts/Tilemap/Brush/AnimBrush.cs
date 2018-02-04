@@ -37,7 +37,7 @@ namespace CreativeSpore.SuperTilemapEditor
             return Tileset.k_TileId_Empty;
         }
 
-        public override uint Refresh(Tilemap tilemap, int gridX, int gridY, uint tileData)
+        public override uint Refresh(STETilemap tilemap, int gridX, int gridY, uint tileData)
         {
             if (m_animTileIdx < AnimFrames.Count)
             {

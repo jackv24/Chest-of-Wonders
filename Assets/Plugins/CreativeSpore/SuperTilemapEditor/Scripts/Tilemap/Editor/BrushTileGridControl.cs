@@ -109,7 +109,7 @@ namespace CreativeSpore.SuperTilemapEditor
                     tex.Apply();
                 }
             }
-            return s_tileSymbolTextures[tileNeighboursFlags];
+            return s_tileSymbolTextures[tileNeighboursFlags % s_tileSymbolTextures.Length];
         }
 
         ~BrushTileGridControl()
@@ -228,13 +228,18 @@ namespace CreativeSpore.SuperTilemapEditor
                 int gy = i / gridWidth;
                 int tileIdx = tileIdxMap[i];
                 Rect rVisualTile = new Rect(gx * visualTileSize.x, gy * visualTileSize.y, visualTileSize.x, visualTileSize.y);
-
-                int tileId = (int)(m_aBrushTileData[tileIdx] & Tileset.k_TileDataMask_TileId);
+                uint tileData = m_aBrushTileData[tileIdx];
+                TilesetBrush brush = Tileset.FindBrush(Tileset.GetBrushIdFromTileData(tileData));
+                if (brush)
+                {
+                    tileData = TilesetBrush.ApplyAndMergeTileFlags(brush.PreviewTileData(), tileData);
+                }
+                int tileId = (int)(tileData & Tileset.k_TileDataMask_TileId);
                 if (tileId != Tileset.k_TileId_Empty)
                 {
                     //Rect tileUV = Tileset.Tiles[tileId].uv;
                     //GUI.DrawTextureWithTexCoords(rVisualTile, Tileset.AtlasTexture, tileUV, true);
-                    TilesetEditor.DoGUIDrawTileFromTileData(rVisualTile, m_aBrushTileData[tileIdx], Tileset);
+                    TilesetEditor.DoGUIDrawTileFromTileData(rVisualTile, tileData, Tileset);
                 }
                 else if (symbolIdxMap != null)
                 {

@@ -57,6 +57,13 @@ namespace CreativeSpore.SuperTilemapEditor
             GUI.color = savedColor;
         }
 
+        public void TriggerButton(int idx)
+        {
+            int prevIdx = m_selectedIdx;
+            m_selectedIdx = idx;
+            if (OnToolSelected != null) OnToolSelected(this, m_selectedIdx, prevIdx);
+        }
+
         private void _DoToolbarButton(Rect rToolBtn, int idx)
         {
             int iconPadding = 6;
@@ -70,9 +77,7 @@ namespace CreativeSpore.SuperTilemapEditor
                 GUI.color = m_selectedIdx == idx ? activeColor : disableColor;
             if (GUI.Button(rToolBtn, m_buttonGuiContentList[idx]))
             {
-                int prevIdx = m_selectedIdx;
-                m_selectedIdx = idx;
-                if (OnToolSelected != null) OnToolSelected(this, m_selectedIdx, prevIdx);
+                TriggerButton(idx);
             }
             GUI.color = Color.white;
             if (m_buttonGuiContentList[idx].image)

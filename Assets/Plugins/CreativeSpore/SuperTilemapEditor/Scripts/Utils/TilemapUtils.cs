@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 namespace CreativeSpore.SuperTilemapEditor
 {
@@ -64,13 +65,22 @@ namespace CreativeSpore.SuperTilemapEditor
 
     public static class TilemapUtils
     {
+        public static Material FindDefaultSpriteMaterial()
+        {
+#if UNITY_EDITOR && (UNITY_5_4 || UNITY_5_5_OR_NEWER)
+            return UnityEditor.AssetDatabase.GetBuiltinExtraResource<Material>("Sprites-Default.mat"); //fix: Unity 5.4.0f3 is not finding the material using Resources
+#else
+            return Resources.GetBuiltinResource<Material>("Sprites-Default.mat");
+#endif
+        }
+
         /// <summary>
         /// Get the world position for the center of a given grid cell position.
         /// </summary>
         /// <param name="gridX"></param>
         /// <param name="gridY"></param>
         /// <returns></returns>
-        static public Vector3 GetGridWorldPos( Tilemap tilemap, int gridX, int gridY)
+        static public Vector3 GetGridWorldPos( STETilemap tilemap, int gridX, int gridY)
         {
             return tilemap.transform.TransformPoint(new Vector2((gridX + .5f) * tilemap.CellSize.x, (gridY + .5f) * tilemap.CellSize.y));
         }
@@ -81,13 +91,38 @@ namespace CreativeSpore.SuperTilemapEditor
         }
 
         /// <summary>
+        /// Get the local position of the center of a tile given the grid position
+        /// </summary>
+        /// <param name="tilemap"></param>
+        /// <param name="gridX"></param>
+        /// <param name="gridY"></param>
+        /// <returns></returns>
+        static public Vector2 GetTileCenterPosition(STETilemap tilemap, int gridX, int gridY)
+        {
+            return new Vector2((gridX + .5f) * tilemap.CellSize.x, (gridY + .5f) * tilemap.CellSize.y);
+        }
+
+        /// <summary>
+        /// Get the local position of the center of a tile given the local tilemap position
+        /// </summary>
+        /// <param name="tilemap"></param>
+        /// <param name="locPosition"></param>
+        /// <returns></returns>
+        static public Vector2 GetTileCenterPosition(STETilemap tilemap, Vector2 locPosition)
+        {
+            int gridX = GetGridX(tilemap, locPosition);
+            int gridY = GetGridY(tilemap, locPosition);
+            return GetTileCenterPosition(tilemap, gridX, gridY);
+        }
+
+        /// <summary>
         /// Gets the grid X position for a given tilemap and local position. To convert from world to local position use tilemap.transform.InverseTransformPoint(worldPosition).
         /// Avoid using positions multiple of cellSize like 0.32f if cellSize = 0.16f because due float imprecisions the return value could be wrong.
         /// </summary>
         /// <param name="tilemap"></param>
         /// <param name="locPosition"></param>
         /// <returns></returns>
-        static public int GetGridX( Tilemap tilemap, Vector2 locPosition)
+        static public int GetGridX( STETilemap tilemap, Vector2 locPosition)
         {
             return BrushUtil.GetGridX(locPosition, tilemap.CellSize);
         }
@@ -99,7 +134,7 @@ namespace CreativeSpore.SuperTilemapEditor
         /// <param name="tilemap"></param>
         /// <param name="locPosition"></param>
         /// <returns></returns>
-        static public int GetGridY(Tilemap tilemap, Vector2 locPosition)
+        static public int GetGridY(STETilemap tilemap, Vector2 locPosition)
         {
             return BrushUtil.GetGridY(locPosition, tilemap.CellSize);
         }
@@ -110,7 +145,7 @@ namespace CreativeSpore.SuperTilemapEditor
         /// <param name="tilemap"></param>
         /// <param name="camera"></param>
         /// <returns></returns>
-        static public int GetMouseGridX(Tilemap tilemap, Camera camera)
+        static public int GetMouseGridX(STETilemap tilemap, Camera camera)
         {
             Vector2 locPos = camera.ScreenToWorldPoint(Input.mousePosition);
             return GetGridX(tilemap, tilemap.transform.InverseTransformPoint(locPos));
@@ -122,11 +157,93 @@ namespace CreativeSpore.SuperTilemapEditor
         /// <param name="tilemap"></param>
         /// <param name="camera"></param>
         /// <returns></returns>
-        static public int GetMouseGridY(Tilemap tilemap, Camera camera)
+        static public int GetMouseGridY(STETilemap tilemap, Camera camera)
         {
             Vector2 locPos = camera.ScreenToWorldPoint(Input.mousePosition);
             return GetGridY(tilemap, tilemap.transform.InverseTransformPoint(locPos));
         }
 
+        /// <summary>
+        /// Get the parameter container from tileData if tileData contains a tile with parameters or Null in other case
+        /// </summary>
+        /// <param name="tilemap"></param>
+        /// <param name="tileData"></param>
+        /// <returns></returns>
+        static public ParameterContainer GetParamsFromTileData(STETilemap tilemap, uint tileData)
+        {
+            int brushId = Tileset.GetBrushIdFromTileData(tileData);
+            TilesetBrush brush = tilemap.Tileset.FindBrush(brushId);
+            if(brush)
+            {
+                return brush.Params;
+            }
+            else
+            {
+                int tileId = Tileset.GetTileIdFromTileData(tileData);
+                Tile tile = tilemap.Tileset.GetTile(tileId);
+                if(tile != null)
+                {
+                    return tile.paramContainer;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Iterate through all the tilemap cells and calls an action for each cell
+        /// </summary>
+        /// <param name="tilemap"></param>
+        /// <param name="action"></param>
+        static public void IterateTilemapWithAction( STETilemap tilemap, System.Action<STETilemap, int, int> action )
+        {
+            if (tilemap)
+            for(int gy = tilemap.MinGridY; gy <= tilemap.MaxGridY; ++gy)
+                for(int gx = tilemap.MinGridX; gx <= tilemap.MaxGridX; ++gx)
+                    if (action != null) action(tilemap, gx, gy);
+        }
+
+        /// <summary>
+        /// Iterate through all the tilemap cells and calls an action for each cell.
+        /// Ex:
+        /// void EraseTilesFromTilemap(Tilemap tilemap)
+        /// {
+        ///    IterateTilemapWithAction(tilemap, EraseTilesAction);
+        /// }
+        /// void EraseTilesAction(Tilemap tilemap, int gx, int gy)
+        /// {
+        ///    tilemap.Erase(gx, gy);
+        /// }
+        /// </summary>
+        /// <param name="tilemap"></param>
+        /// <param name="action"></param>
+        static public void IterateTilemapWithAction(STETilemap tilemap, System.Action<STETilemap, int, int, uint> action)
+        {
+            if (tilemap)
+                for (int gy = tilemap.MinGridY; gy <= tilemap.MaxGridY; ++gy)
+                    for (int gx = tilemap.MinGridX; gx <= tilemap.MaxGridX; ++gx)
+                        if (action != null) action(tilemap, gx, gy, tilemap.GetTileData(gx, gy));
+        }
+
+        /// <summary>
+        /// Checks if a rect overlaps any tile with colliders
+        /// </summary>
+        /// <returns></returns>
+        static public bool OverlapRect(STETilemap tilemap, Rect rect)
+        {
+            int gridX0 = GetGridX(tilemap, rect.min);
+            int gridY0 = GetGridY(tilemap, rect.min);
+            int gridX1 = GetGridX(tilemap, rect.max);
+            int gridY1 = GetGridY(tilemap, rect.max);
+            for(int x = gridX0; x <= gridX1; ++x)
+            {
+                for(int y = gridY0; y <= gridY1; ++y)
+                {
+                    Tile tile = tilemap.GetTile(x, y);
+                    if (tile != null && tile.collData.type != eTileCollider.None)
+                        return true;
+                }
+            }
+            return false;
+        }
     }
 }

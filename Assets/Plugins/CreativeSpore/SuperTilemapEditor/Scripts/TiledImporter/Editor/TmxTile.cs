@@ -16,6 +16,9 @@ namespace CreativeSpore.TiledImporter
         [XmlArrayItem("property")]
         public List<TmxTileProperty> Properties { get; set; }
 
+        [XmlElement(Order = 1, ElementName = "image")]
+        public TmxImage Image { get; set; }
+
         public TmxTile()
         {
             Properties = new List<TmxTileProperty>();

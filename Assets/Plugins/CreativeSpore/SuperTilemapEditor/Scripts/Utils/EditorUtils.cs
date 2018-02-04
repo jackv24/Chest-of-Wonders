@@ -14,7 +14,7 @@ namespace CreativeSpore.SuperTilemapEditor
         public static T CreateAssetInSelectedDirectory<T>(string name = null) where T : ScriptableObject
         {
             var asset = ScriptableObject.CreateInstance<T>();
-            ProjectWindowUtil.CreateAsset(asset, "New " + typeof(T).Name + ".asset");
+            ProjectWindowUtil.CreateAsset(asset, (string.IsNullOrEmpty(name) ? "New " + typeof(T).Name : name) + ".asset");
             return asset;
             /*
             T asset = ScriptableObject.CreateInstance<T>();

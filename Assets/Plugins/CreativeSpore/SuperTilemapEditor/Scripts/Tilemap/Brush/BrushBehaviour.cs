@@ -8,13 +8,13 @@ using UnityEditor;
 namespace CreativeSpore.SuperTilemapEditor
 {
 
-    [RequireComponent(typeof(Tilemap))]
+    [RequireComponent(typeof(STETilemap))]
     [ExecuteInEditMode]
     public class BrushBehaviour : MonoBehaviour
     {
         #region Singleton
         static BrushBehaviour s_instance;
-        private static BrushBehaviour Instance
+        public static BrushBehaviour Instance
         {
             get
             {
@@ -25,6 +25,7 @@ namespace CreativeSpore.SuperTilemapEditor
                     {
                         GameObject obj = new GameObject("Brush");
                         s_instance = obj.AddComponent<BrushBehaviour>();
+                        obj.hideFlags = HideFlags.HideInHierarchy;
                     }
                     else
                     {
@@ -56,7 +57,7 @@ namespace CreativeSpore.SuperTilemapEditor
                 brushTilemap.transform.position = s_instance.transform.position;
                 brushTilemap.transform.rotation = s_instance.transform.rotation;
                 brushTilemap.transform.localScale = s_instance.transform.localScale;
-                Tilemap tilemapBhv = brushTilemap.AddComponent<Tilemap>();
+                STETilemap tilemapBhv = brushTilemap.AddComponent<STETilemap>();
                 tilemapBhv.Tileset = s_instance.BrushTilemap.Tileset;
                 tilemapBhv.Material = s_instance.BrushTilemap.Material;
                 s_instance.Paint(tilemapBhv, Vector2.zero);
@@ -87,12 +88,26 @@ namespace CreativeSpore.SuperTilemapEditor
 #endif
         #endregion
 
-        public Tilemap BrushTilemap { get { return m_brushTilemap; } }
+        public enum eBrushPaintMode
+        {
+            Pencil,
+            Line,
+            Rect,
+            FilledRect,
+            Ellipse,
+            FilledEllipse,
+        }
+
+        public STETilemap BrushTilemap { get { return m_brushTilemap; } }
         public Vector2 Offset;
         public bool IsUndoEnabled = true;
+        public eBrushPaintMode PaintMode { get { return m_paintMode; } set { m_paintMode = value; } }
+        public bool IsDragging { get { return m_isDragging; } }
 
         [SerializeField]
-        Tilemap m_brushTilemap;
+        STETilemap m_brushTilemap;
+
+        private eBrushPaintMode m_paintMode = eBrushPaintMode.Pencil;
 
         #region MonoBehaviour Methods
         void Start()
@@ -112,12 +127,12 @@ namespace CreativeSpore.SuperTilemapEditor
         }
         #endregion
 
-        public static BrushBehaviour GetOrCreateBrush(Tilemap tilemap)
+        public static BrushBehaviour GetOrCreateBrush(STETilemap tilemap)
         {
             BrushBehaviour brush = Instance;
             if (brush.m_brushTilemap == null)
             {
-                brush.m_brushTilemap = brush.GetComponent<Tilemap>();
+                brush.m_brushTilemap = brush.GetComponent<STETilemap>();
             }
             brush.IsUndoEnabled = tilemap.EnableUndoWhilePainting;
             brush.m_brushTilemap.ColliderType = eColliderType.None;
@@ -150,7 +165,7 @@ namespace CreativeSpore.SuperTilemapEditor
 
         public static void SetVisible(bool isVisible)
         {
-            if (s_instance != null)
+            if (s_instance && s_instance.BrushTilemap)
             {
                 s_instance.BrushTilemap.IsVisible = isVisible;
                 for (int i = 0; i < s_instance.transform.childCount; ++i)
@@ -232,24 +247,24 @@ namespace CreativeSpore.SuperTilemapEditor
             m_brushTilemap.UpdateMeshImmediate();
         }
 
-        public void FloodFill(Tilemap tilemap, Vector2 localPos, uint tileData)
+        public void FloodFill(STETilemap tilemap, Vector2 localPos)
         {
             if (IsUndoEnabled)
             {
 #if UNITY_EDITOR
-                Undo.RecordObject(tilemap, Tilemap.k_UndoOpName + tilemap.name);
-                Undo.RecordObjects(tilemap.GetComponentsInChildren<TilemapChunk>(), Tilemap.k_UndoOpName + tilemap.name);
+                Undo.RecordObject(tilemap, STETilemap.k_UndoOpName + tilemap.name);
+                Undo.RecordObjects(tilemap.GetComponentsInChildren<TilemapChunk>(), STETilemap.k_UndoOpName + tilemap.name);
 #endif
             }
             tilemap.IsUndoEnabled = IsUndoEnabled;
 
-            TilemapDrawingUtils.FloodFill(tilemap, localPos, tileData);
+            TilemapDrawingUtils.FloodFill(tilemap, localPos, GetBrushPattern());
             tilemap.UpdateMeshImmediate();
 
             tilemap.IsUndoEnabled = false;
         }
 
-        public void CopyRect(Tilemap tilemap, int startGridX, int startGridY, int endGridX, int endGridY)
+        public void CopyRect(STETilemap tilemap, int startGridX, int startGridY, int endGridX, int endGridY)
         {
             for (int gridY = startGridY; gridY <= endGridY; ++gridY)
             {
@@ -261,13 +276,13 @@ namespace CreativeSpore.SuperTilemapEditor
             BrushTilemap.UpdateMeshImmediate();
         }
 
-        public void CutRect(Tilemap tilemap, int startGridX, int startGridY, int endGridX, int endGridY)
+        public void CutRect(STETilemap tilemap, int startGridX, int startGridY, int endGridX, int endGridY)
         {
             if (IsUndoEnabled)
             {
 #if UNITY_EDITOR
-                Undo.RecordObject(tilemap, Tilemap.k_UndoOpName + tilemap.name);
-                Undo.RecordObjects(tilemap.GetComponentsInChildren<TilemapChunk>(), Tilemap.k_UndoOpName + tilemap.name);
+                Undo.RecordObject(tilemap, STETilemap.k_UndoOpName + tilemap.name);
+                Undo.RecordObjects(tilemap.GetComponentsInChildren<TilemapChunk>(), STETilemap.k_UndoOpName + tilemap.name);
 #endif
             }
             tilemap.IsUndoEnabled = IsUndoEnabled;
@@ -286,7 +301,119 @@ namespace CreativeSpore.SuperTilemapEditor
             tilemap.IsUndoEnabled = false;
         }
 
-        public void Paint(Tilemap tilemap, Vector2 localPos)
+        private Vector2 m_pressedPosition;
+        private uint[,] m_brushPattern;
+        private bool m_isDragging;
+
+        public uint[,] GetBrushPattern()
+        {
+            uint[,] brushPattern = new uint[BrushTilemap.GridWidth, BrushTilemap.GridHeight];
+            for (int y = BrushTilemap.MinGridY; y <= BrushTilemap.MaxGridY; ++y)
+                for (int x = BrushTilemap.MinGridX; x <= BrushTilemap.MaxGridX; ++x)
+                {
+                    brushPattern[x - BrushTilemap.MinGridX, y - BrushTilemap.MinGridY] = BrushTilemap.GetTileData(x, y);
+                }
+            return brushPattern;
+        }
+
+        public void DoPaintPressed(STETilemap tilemap, Vector2 localPos, EventModifiers modifiers = default(EventModifiers))
+        {
+            //Debug.Log("DoPaintPressed (" + TilemapUtils.GetGridX(tilemap, localPos) + "," + TilemapUtils.GetGridY(tilemap, localPos) + ")");            
+            if(m_paintMode == eBrushPaintMode.Pencil) Paint(tilemap, localPos);
+            else
+            {
+                m_pressedPosition = localPos;
+                m_isDragging = true;
+                Offset = Vector2.zero;
+                m_brushPattern = GetBrushPattern();
+            }
+        }
+
+        public void DoPaintDragged(STETilemap tilemap, Vector2 localPos, EventModifiers modifiers = default(EventModifiers))
+        {
+            //Debug.Log("DoPaintDragged (" + TilemapUtils.GetGridX(tilemap, localPos) + "," + TilemapUtils.GetGridY(tilemap, localPos) + ")");
+            if(m_paintMode == eBrushPaintMode.Pencil) Paint(tilemap, localPos);
+            else
+            {
+                if (m_isDragging)
+                {
+                    BrushTilemap.ClearMap();
+                    Vector2 brushLocPos = tilemap.transform.InverseTransformPoint(transform.position);
+                    Vector2 startPos = BrushUtil.GetSnappedPosition(m_pressedPosition, BrushTilemap.CellSize) + BrushTilemap.CellSize / 2f - brushLocPos;
+                    Vector2 endPos = BrushUtil.GetSnappedPosition(localPos, BrushTilemap.CellSize) + BrushTilemap.CellSize / 2f - brushLocPos;
+                    bool isCtrl = (modifiers & EventModifiers.Control) != 0;
+                    bool isShift = (modifiers & EventModifiers.Shift) != 0;
+                    switch(m_paintMode)
+                    {
+                        case eBrushPaintMode.Line:
+                            if (isCtrl) TilemapDrawingUtils.DrawLineMirrored(BrushTilemap, startPos, endPos, m_brushPattern);
+                            else TilemapDrawingUtils.DrawLine(BrushTilemap, startPos, endPos, m_brushPattern);
+                            break;
+                        case eBrushPaintMode.Rect:
+                        case eBrushPaintMode.FilledRect:
+                        case eBrushPaintMode.Ellipse:
+                        case eBrushPaintMode.FilledEllipse:    
+                            if (isShift)
+                            {
+                                Vector2 vTemp = endPos - startPos;
+                                float absX = Mathf.Abs(vTemp.x);
+                                float absY = Mathf.Abs(vTemp.y);
+                                vTemp.x = (absX > absY) ? vTemp.x : Mathf.Sign(vTemp.x) * absY;
+                                vTemp.y = Mathf.Sign(vTemp.y) * Mathf.Abs(vTemp.x);
+                                endPos = startPos + vTemp;
+                            }
+                            if (isCtrl) startPos = 2f * startPos - endPos;
+                            if(m_paintMode == eBrushPaintMode.Rect || m_paintMode == eBrushPaintMode.FilledRect)
+                                TilemapDrawingUtils.DrawRect(BrushTilemap, startPos, endPos, m_brushPattern, m_paintMode == eBrushPaintMode.FilledRect, (modifiers & EventModifiers.Alt) != 0);
+                            else if (m_paintMode == eBrushPaintMode.Ellipse || m_paintMode == eBrushPaintMode.FilledEllipse)
+                                TilemapDrawingUtils.DrawEllipse(BrushTilemap, startPos, endPos, m_brushPattern, m_paintMode == eBrushPaintMode.FilledEllipse);
+                            break;
+
+                    }                    
+                    BrushTilemap.UpdateMeshImmediate();
+                }
+            }
+        }
+
+        public void DoPaintReleased(STETilemap tilemap, Vector2 localPos, EventModifiers modifiers = default(EventModifiers))
+        {
+            //Debug.Log("DoPaintReleased (" + TilemapUtils.GetGridX(tilemap, localPos) + "," + TilemapUtils.GetGridY(tilemap, localPos) + ")");
+            if (m_paintMode != eBrushPaintMode.Pencil)
+            {
+                Vector2 pressedPos = BrushUtil.GetSnappedPosition(m_pressedPosition, BrushTilemap.CellSize) + BrushTilemap.CellSize / 2f;
+                Paint(tilemap, pressedPos + (Vector2)BrushTilemap.MapBounds.min, true);
+                m_pressedPosition = localPos;
+                BrushTilemap.ClearMap();
+                for (int y = 0; y < m_brushPattern.GetLength(1); ++y)
+                    for (int x = 0; x < m_brushPattern.GetLength(0); ++x)
+                    {
+                        BrushTilemap.SetTileData( x, y, m_brushPattern[x, y]);
+                    }
+                BrushTilemap.UpdateMesh();
+                m_isDragging = false;
+            }
+        }
+
+        public void DoPaintCancel()
+        {
+            if (m_isDragging)
+            {
+                m_isDragging = false;
+                if (m_paintMode != eBrushPaintMode.Pencil)
+                {
+                    BrushTilemap.ClearMap();
+                    for (int y = 0; y < m_brushPattern.GetLength(1); ++y)
+                        for (int x = 0; x < m_brushPattern.GetLength(0); ++x)
+                        {
+                            BrushTilemap.SetTileData(x, y, m_brushPattern[x, y]);
+                        }
+                    BrushTilemap.UpdateMesh();
+                }
+            }
+        }
+
+
+        public void Paint(STETilemap tilemap, Vector2 localPos, bool skipEmptyTiles = false)
         {
             int minGridX = m_brushTilemap.MinGridX;
             int minGridY = m_brushTilemap.MinGridY;
@@ -296,12 +423,15 @@ namespace CreativeSpore.SuperTilemapEditor
             if (IsUndoEnabled)
             {
 #if UNITY_EDITOR
-                Undo.RecordObject(tilemap, Tilemap.k_UndoOpName + tilemap.name);
-                Undo.RecordObjects(tilemap.GetComponentsInChildren<TilemapChunk>(), Tilemap.k_UndoOpName + tilemap.name);
+                Undo.RecordObject(tilemap, STETilemap.k_UndoOpName + tilemap.name);
+                Undo.RecordObjects(tilemap.GetComponentsInChildren<TilemapChunk>(), STETilemap.k_UndoOpName + tilemap.name);
 #endif
             }
             tilemap.IsUndoEnabled = IsUndoEnabled;
             int dstGy = BrushUtil.GetGridY(localPos, tilemap.CellSize);
+            bool doPaintEmpty = m_brushTilemap.GridWidth == 1 && m_brushTilemap.GridHeight == 1 // don't copy empty tiles
+                        || m_brushPattern != null && m_brushPattern.GetLength(0) == 1 && m_brushPattern.GetLength(1) == 1;// unless the brush size is one
+            doPaintEmpty &= !skipEmptyTiles;
             for (int gridY = minGridY; gridY <= maxGridY; ++gridY, ++dstGy)
             {
                 int dstGx = BrushUtil.GetGridX(localPos, tilemap.CellSize);
@@ -309,8 +439,8 @@ namespace CreativeSpore.SuperTilemapEditor
                 {
                     uint tileData = m_brushTilemap.GetTileData(gridX, gridY);
                     if (
-                        tileData != Tileset.k_TileData_Empty // don't copy empty tiles
-                        || m_brushTilemap.GridWidth == 1 && m_brushTilemap.GridHeight == 1 // unless the brush size is one
+                        doPaintEmpty ||
+                        tileData != Tileset.k_TileData_Empty
                         )
                     {
                         tilemap.SetTileData(dstGx, dstGy, tileData);
@@ -321,7 +451,7 @@ namespace CreativeSpore.SuperTilemapEditor
             tilemap.IsUndoEnabled = false;
         }
 
-        public void Erase(Tilemap tilemap, Vector2 localPos)
+        public void Erase(STETilemap tilemap, Vector2 localPos)
         {
             int minGridX = m_brushTilemap.MinGridX;
             int minGridY = m_brushTilemap.MinGridY;
@@ -331,8 +461,8 @@ namespace CreativeSpore.SuperTilemapEditor
             if (IsUndoEnabled)
             {
 #if UNITY_EDITOR
-                Undo.RecordObject(tilemap, Tilemap.k_UndoOpName + tilemap.name);
-                Undo.RecordObjects(tilemap.GetComponentsInChildren<TilemapChunk>(), Tilemap.k_UndoOpName + tilemap.name);
+                Undo.RecordObject(tilemap, STETilemap.k_UndoOpName + tilemap.name);
+                Undo.RecordObjects(tilemap.GetComponentsInChildren<TilemapChunk>(), STETilemap.k_UndoOpName + tilemap.name);
 #endif
             }
             tilemap.IsUndoEnabled = IsUndoEnabled;
@@ -349,6 +479,6 @@ namespace CreativeSpore.SuperTilemapEditor
             tilemap.IsUndoEnabled = false;
         }
 
-        #endregion
+        #endregion        
     }
 }
