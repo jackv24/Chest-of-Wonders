@@ -9,6 +9,9 @@
 			Name = "Logitech F310 Controller";
 			Meta = "Logitech F310 Controller on Windows (DirectInput Mode)";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

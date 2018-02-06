@@ -9,6 +9,9 @@
 			Name = "Amazon Fire TV Remote";
 			Meta = "Amazon Fire TV Remote on Amazon Fire TV";
 
+			DeviceClass = InputDeviceClass.Remote;
+			DeviceStyle = InputDeviceStyle.AmazonFireTV;
+
 			IncludePlatforms = new[] {
 				"Amazon AFT",
 			};

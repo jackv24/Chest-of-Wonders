@@ -7,6 +7,12 @@ namespace InControl
 		public string Handle { get; protected set; }
 		public InputControlType Target { get; protected set; }
 
+		/// <summary>
+		/// When a control is passive, it will not cause a device to be considered active.
+        /// This is useful for certain controls that spam data, like gyro or
+        /// accelerometer input.
+		/// Defaults to <code>false</code>.
+		/// </summary>
 		public bool Passive;
 
 		// TODO: This meaningless distinction should probably be removed entirely.

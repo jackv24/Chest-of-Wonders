@@ -10,6 +10,9 @@ namespace InControl.NativeProfile
 			Meta = "Logitech F510 Mode D Controller on Windows";
 			// Link = "http://www.amazon.com/Logitech-940-000106-Rumble-Gamepad-F510/dp/B003VAM392";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

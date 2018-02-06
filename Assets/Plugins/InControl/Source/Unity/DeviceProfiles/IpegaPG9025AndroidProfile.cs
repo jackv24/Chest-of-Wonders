@@ -9,6 +9,8 @@
 			Name = "IPEGA PG-9025";
 			Meta = "IPEGA PG-9025 on Android";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Android"
 			};

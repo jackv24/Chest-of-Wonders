@@ -342,36 +342,36 @@ public class DialogueBox : MonoBehaviour
 		}
 	}
 
-	IEnumerator PrintOverTime(TextMeshProUGUI textObj, string text, bool withSound)
-	{
-		Coroutine soundRoutine = null;
+    IEnumerator PrintOverTime(TextMeshProUGUI textObj, string text, bool withSound)
+    {
+        Coroutine soundRoutine = null;
 
-		if (withSound)
-			soundRoutine = StartCoroutine(PlayTextSounds());
+        if (withSound)
+            soundRoutine = StartCoroutine(PlayTextSounds());
 
-		waitingForInput = true;
+        waitingForInput = true;
 
-		int charCount = text.Length;
-		for(int i = 0; i < charCount; i++)
-		{
-			if (!waitingForInput)
-				break;
+        int charCount = text.Length;
+        for (int i = 0; i < charCount; i++)
+        {
+            if (!waitingForInput)
+                break;
 
-			string showTex = text.Remove(i, charCount - i);
-			string hideText = text.Remove(0, i);
+            string showTex = text.Remove(i, charCount - i);
+            string hideText = text.Remove(0, i);
 
-			textObj.text = string.Format("{0}<color=#FFFFFF00>{1}</color>", showTex, hideText);
+            textObj.text = string.Format("{0}<color=#FFFFFF00>{1}</color>", showTex, hideText);
 
-			yield return new WaitForSeconds(1 / textSpeed);
-		}
+            yield return new WaitForSeconds(1 / textSpeed);
+        }
 
-		textObj.text = text;
+        textObj.text = text;
 
-		if(soundRoutine != null)
-			StopCoroutine(soundRoutine);
-	}
+        if (soundRoutine != null)
+            StopCoroutine(soundRoutine);
+    }
 
-	IEnumerator PlayTextSounds()
+    IEnumerator PlayTextSounds()
 	{
 		if(audioSource && textPrintSound)
 		{

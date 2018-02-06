@@ -8,6 +8,9 @@
 			Name = "Logitech F510 Controller";
 			Meta = "Logitech F510 Controller on Mac";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"OS X"
 			};

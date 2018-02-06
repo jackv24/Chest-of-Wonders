@@ -6,10 +6,13 @@ namespace InControl
 	{
 		public PlayStation4Profile()
 		{
-			string Registered = "\u00AE";  // Needed because unity doesn't compile the symbol nicely from code.
+			string RegistrationMark = "\u00AE";
 
-			Name = "DUALSHOCK" + Registered + "4 wireless controller";
-			Meta = "DUALSHOCK" + Registered + "4 wireless controller on PlayStation" + Registered + "4 system";
+			Name = "DUALSHOCK" + RegistrationMark + "4 wireless controller";
+			Meta = "DUALSHOCK" + RegistrationMark + "4 wireless controller on PlayStation" + RegistrationMark + "4 system";
+
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.PlayStation4;
 
 			IncludePlatforms = new[] {
 				"PS4"

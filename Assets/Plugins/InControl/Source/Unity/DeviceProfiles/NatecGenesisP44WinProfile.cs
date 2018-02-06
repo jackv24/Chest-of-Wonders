@@ -9,6 +9,8 @@
 			Name = "Natec Genesis P44 Controller";
 			Meta = "Natec Genesis P44 Controller on Windows";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

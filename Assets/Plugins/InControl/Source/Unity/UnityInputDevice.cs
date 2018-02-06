@@ -49,6 +49,9 @@ namespace InControl
 				Name = profile.Name;
 				Meta = profile.Meta;
 
+				DeviceClass = profile.DeviceClass;
+				DeviceStyle = profile.DeviceStyle;
+
 				var analogMappingCount = profile.AnalogCount;
 				for (var i = 0; i < analogMappingCount; i++)
 				{
@@ -147,7 +150,7 @@ namespace InControl
 		{
 			if (analogQueries == null)
 			{
-				analogQueries = new string[ MaxDevices, MaxAnalogs ];
+				analogQueries = new string[MaxDevices, MaxAnalogs];
 
 				for (var joystickId = 1; joystickId <= MaxDevices; joystickId++)
 				{
@@ -164,7 +167,7 @@ namespace InControl
 		{
 			if (buttonQueries == null)
 			{
-				buttonQueries = new string[ MaxDevices, MaxButtons ];
+				buttonQueries = new string[MaxDevices, MaxButtons];
 
 				for (var joystickId = 1; joystickId <= MaxDevices; joystickId++)
 				{

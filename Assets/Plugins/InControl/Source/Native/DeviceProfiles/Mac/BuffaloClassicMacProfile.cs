@@ -8,6 +8,8 @@
 			Name = "iBuffalo Classic Controller";
 			Meta = "iBuffalo Classic Controller on Mac";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"OS X"
 			};

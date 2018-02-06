@@ -30,7 +30,7 @@ namespace InControl
 
 		SerializedProperty enableNativeInput;
 		SerializedProperty nativeInputEnableXInput;
-		//SerializedProperty nativeInputPreventSleep;
+		SerializedProperty nativeInputPreventSleep;
 		SerializedProperty nativeInputOverrideUpdateRate;
 		SerializedProperty nativeInputUpdateRate;
 
@@ -57,7 +57,7 @@ namespace InControl
 
 			enableNativeInput = serializedObject.FindProperty( "enableNativeInput" );
 			nativeInputEnableXInput = serializedObject.FindProperty( "nativeInputEnableXInput" );
-			//nativeInputPreventSleep = serializedObject.FindProperty( "nativeInputPreventSleep" );
+			nativeInputPreventSleep = serializedObject.FindProperty( "nativeInputPreventSleep" );
 			nativeInputOverrideUpdateRate = serializedObject.FindProperty( "nativeInputOverrideUpdateRate" );
 			nativeInputUpdateRate = serializedObject.FindProperty( "nativeInputUpdateRate" );
 
@@ -132,7 +132,7 @@ namespace InControl
 				EditorUtility.PopTintColor();
 
 				nativeInputEnableXInput.boolValue = EditorGUILayout.ToggleLeft( "Enable XInput Support (Windows only)", nativeInputEnableXInput.boolValue, EditorUtility.labelStyle );
-				//nativeInputPreventSleep.boolValue = EditorGUILayout.ToggleLeft( "Prevent Screensaver/Sleep (currently Mac only)", nativeInputPreventSleep.boolValue, EditorUtility.labelStyle );
+				nativeInputPreventSleep.boolValue = EditorGUILayout.ToggleLeft( "Prevent Screensaver / Sleep", nativeInputPreventSleep.boolValue, EditorUtility.labelStyle );
 
 				//var text2 = "" +
 				//			"<b>Warning: <color=#cc0000>Advanced Settings</color></b>\n" +
@@ -163,3 +163,4 @@ namespace InControl
 	}
 }
 #endif
+

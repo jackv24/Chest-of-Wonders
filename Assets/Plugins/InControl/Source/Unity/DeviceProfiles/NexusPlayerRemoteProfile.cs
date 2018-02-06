@@ -9,6 +9,8 @@
 			Name = "Nexus Player Remote";
 			Meta = "Nexus Player Remote";
 
+			DeviceClass = InputDeviceClass.Remote;
+
 			IncludePlatforms = new[] {
 				"Android"
 			};

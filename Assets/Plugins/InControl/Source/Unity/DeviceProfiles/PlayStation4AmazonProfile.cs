@@ -9,6 +9,9 @@ namespace InControl
 			Name = "PlayStation 4 Controller";
 			Meta = "PlayStation 4 Controller on Amazon Fire TV";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.PlayStation4;
+
 			IncludePlatforms = new[] {
 				"Amazon AFT"
 			};

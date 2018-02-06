@@ -12,6 +12,9 @@
 			Name = null;
 			Meta = null;
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"OS X"
 			};

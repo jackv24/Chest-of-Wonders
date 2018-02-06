@@ -9,6 +9,9 @@
 			Name = "PlayStation Mobile";
 			Meta = "PlayStation Mobile on Vita";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.PlayStationVita;
+
 			IncludePlatforms = new[] {
 				"PSM UNITY FOR PSM",
 				"PSM ON PS VITA",

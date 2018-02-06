@@ -10,6 +10,8 @@ namespace InControl.NativeProfile
 			Meta = "iBuffalo Classic Controller on Windows";
 			// Link = "http://www.amazon.com/Buffalo-Classic-USB-Gamepad-PC/dp/B002B9XB0E";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

@@ -8,6 +8,9 @@ namespace InControl.NativeProfile
 			Name = "XInput Controller";
 			Meta = "XInput Controller on Windows";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.XboxOne;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

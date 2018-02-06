@@ -10,6 +10,9 @@ namespace InControl.NativeProfile
 			Meta = "NVIDIA SHIELD Controller on Windows";
 			// Link = "http://www.amazon.com/NVIDIA-945-12570-2500-000-SHIELD-Controller";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.NVIDIAShield;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

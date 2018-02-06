@@ -265,7 +265,7 @@ namespace InControl
 				Application.platform != RuntimePlatform.WindowsPlayer &&
 				Application.platform != RuntimePlatform.WindowsEditor)
 			{
-				errors.Add( "Native input is currently only supported on Windows and Mac." );
+				// Don't add errors here. Just fail silently on unsupported platforms.
 				return false;
 			}
 

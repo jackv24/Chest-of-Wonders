@@ -1,15 +1,20 @@
-﻿//#define UNITY_XBOXONE
+﻿// Don't uncomment the line below; it's for development/testing only.
+//#define UNITY_XBOXONE
 
 
 #if UNITY_XBOXONE
 // If you're getting a compilation error about the type or namespace 'Gamepad' being missing,
-// you need to install gamepad.dll which can be found in the Unity Xbox Forums:
+// you need to install the Xbox One native plugin which can be found in the Unity Xbox Forums:
 // > Build Downloads (Sticky Topic)
 // > Latest Builds
 // > Unity's Xbox One Native Plugins
 // Gamepad.dll can be found in Binaries\Native\Variations\Durango_Release
-// Put it in Assets/Plugins/XboxOne. Use the plugin inspector (when you click on the gamepad.dll) 
-// to make sure it is set to only be activated on Xbox One.
+// GamepadImport.dll can be found in Binaries\Managed\Variations\AnyCPU_Release
+// Put both in Assets/Plugins/XboxOne.
+// Use Unity's Plugin Inspector (when you click on the plugin files in the Unity editor)
+// to make sure Gamepad.dll is set to only be activated on Xbox One and
+// that GamepadImport.dll is enabled for all platforms, or at least for
+// the Unity editor on the platform you're developing.
 using Gamepad;
 #endif
 
@@ -44,6 +49,11 @@ namespace InControl
 			JoystickId = joystickId;
 			SortOrder = (int) joystickId;
 			Meta = "Xbox One Device #" + joystickId;
+
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.XboxOne;
+
+			CacheAnalogAxisNames();
 
 #if UNITY_XBOXONE
 			ControllerId = XboxOneInput.GetControllerId( joystickId );
@@ -85,6 +95,8 @@ namespace InControl
 		public override void Update( ulong updateTick, float deltaTime )
 		{
 #if UNITY_XBOXONE
+			ControllerId = XboxOneInput.GetControllerId( JoystickId );
+
 			var lsv = new Vector2( GetAnalogValue( AnalogLeftStickX ), -GetAnalogValue( AnalogLeftStickY ) );
 			UpdateLeftStickWithValue( lsv, updateTick, deltaTime );
 
@@ -134,7 +146,7 @@ namespace InControl
 
 		float GetAnalogValue( uint analogId )
 		{
-			return Input.GetAxisRaw( "joystick " + JoystickId + " analog " + analogId );
+			return Input.GetAxisRaw( AnalogAxisNameForId( analogId ) );
 		}
 #endif
 
@@ -165,6 +177,31 @@ namespace InControl
 #if UNITY_XBOXONE
 			GamepadPlugin.SetGamepadVibration( ControllerId, leftMotor, rightMotor, leftTrigger, rightTrigger );
 #endif
+		}
+
+
+		string[] analogAxisNameForId;
+		string AnalogAxisNameForId( uint analogId )
+		{
+			return analogAxisNameForId[analogId];
+		}
+
+
+		void CacheAnalogAxisNameForId( uint analogId )
+		{
+			analogAxisNameForId[analogId] = "joystick " + JoystickId + " analog " + analogId;
+		}
+
+
+		void CacheAnalogAxisNames()
+		{
+			analogAxisNameForId = new string[16];
+			CacheAnalogAxisNameForId( AnalogLeftStickX );
+			CacheAnalogAxisNameForId( AnalogLeftStickY );
+			CacheAnalogAxisNameForId( AnalogRightStickX );
+			CacheAnalogAxisNameForId( AnalogRightStickY );
+			CacheAnalogAxisNameForId( AnalogLeftTrigger );
+			CacheAnalogAxisNameForId( AnalogRightTrigger );
 		}
 	}
 }

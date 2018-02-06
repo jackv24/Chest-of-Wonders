@@ -9,6 +9,9 @@ namespace InControl
 			Name = "Logitech F710 Controller";
 			Meta = "Logitech F710 Controller on Linux";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"Linux"
 			};

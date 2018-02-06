@@ -12,15 +12,21 @@ namespace InControl
 	{
 		public PlayStation4WinProfile()
 		{
+			string RegistrationMark = "\u00AE";
+
 			Name = "PlayStation 4 Controller";
 			Meta = "PlayStation 4 Controller on Windows";
+
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.PlayStation4;
 
 			IncludePlatforms = new[] {
 				"Windows"
 			};
 
 			JoystickNames = new[] {
-				"Wireless Controller"
+				"Wireless Controller",
+				"DUALSHOCK" + RegistrationMark + "4 USB Wireless Adaptor"
 			};
 
 			ButtonMappings = new[] {

@@ -9,6 +9,8 @@ namespace InControl
 			Name = "Moga Hero Power";
 			Meta = "Moga Hero Power on Android";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Android"
 			};

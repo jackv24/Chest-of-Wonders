@@ -1,6 +1,4 @@
-﻿#pragma warning disable 0219
-
-namespace InControl
+﻿namespace InControl
 {
 	using System;
 	using System.Collections.Generic;
@@ -41,12 +39,12 @@ namespace InControl
 		public BindingListenOptions ListenOptions = null;
 
 		/// <summary>
-		/// The binding source type that last provided input to this action set.
+		/// The binding source type that last provided input to this action.
 		/// </summary>
 		public BindingSourceType LastInputType = BindingSourceType.None;
 
 		/// <summary>
-		/// Occurs when the binding source type that last provided input to this action set changes.
+		/// Occurs when the binding source type that last provided input to this action changes.
 		/// </summary>
 		public event Action<BindingSourceType> OnLastInputTypeChanged;
 
@@ -54,6 +52,16 @@ namespace InControl
 		/// Updated when <see cref="LastInputType"/> changes.
 		/// </summary>
 		public ulong LastInputTypeChangedTick;
+
+		/// <summary>
+		/// The <see cref="InputDeviceClass"/> of the binding source that last provided input to this action.
+		/// </summary>
+		public InputDeviceClass LastDeviceClass = InputDeviceClass.Unknown;
+
+		/// <summary>
+		/// The <see cref="InputDeviceStyle"/> of the binding source that last provided input to this action.
+		/// </summary>
+		public InputDeviceStyle LastDeviceStyle = InputDeviceStyle.Unknown;
 
 		/// <summary>
 		/// This property can be used to store whatever arbitrary game data you want on this action.
@@ -65,6 +73,7 @@ namespace InControl
 		List<BindingSource> visibleBindings = new List<BindingSource>();
 
 		readonly ReadOnlyCollection<BindingSource> bindings;
+		readonly ReadOnlyCollection<BindingSource> unfilteredBindings;
 
 		readonly static BindingSourceListener[] bindingSourceListeners = new BindingSourceListener[] {
 			new DeviceBindingSourceListener(),
@@ -85,6 +94,7 @@ namespace InControl
 			Name = name;
 			Owner = owner;
 			bindings = new ReadOnlyCollection<BindingSource>( visibleBindings );
+			unfilteredBindings = new ReadOnlyCollection<BindingSource>( regularBindings );
 			owner.AddPlayerAction( this );
 		}
 
@@ -131,6 +141,16 @@ namespace InControl
 		public void AddDefaultBinding( params Key[] keys )
 		{
 			AddDefaultBinding( new KeyBindingSource( keys ) );
+		}
+
+
+		/// <summary>
+		/// A convenience method for adding a KeyBindingSource to the default bindings.
+		/// </summary>
+		/// <param name="keyCombo">A KeyCombo for the binding source.</param>
+		public void AddDefaultBinding( KeyCombo keyCombo )
+		{
+			AddDefaultBinding( new KeyBindingSource( keyCombo ) );
 		}
 
 
@@ -281,7 +301,14 @@ namespace InControl
 		}
 
 
-		internal bool HasBinding( BindingSource binding )
+		/// <summary>
+		/// Searches all the bindings on this action to see if any that match
+		/// the provided binding object.
+		/// </summary>
+		/// <returns><c>true</c>, if a matching binding is found on this action, 
+		/// <c>false</c> otherwise.</returns>
+		/// <param name="binding">The BindingSource template to search for.</param>
+		public bool HasBinding( BindingSource binding )
 		{
 			if (binding == null)
 			{
@@ -298,7 +325,12 @@ namespace InControl
 		}
 
 
-		internal BindingSource FindBinding( BindingSource binding )
+		/// <summary>
+		/// Searches all the bindings on this action to see if any that match
+		/// the provided binding object and, if found, returns it.
+		/// </summary>
+		/// <param name="binding">The BindingSource template to search for.</param>
+		public BindingSource FindBinding( BindingSource binding )
 		{
 			if (binding == null)
 			{
@@ -315,7 +347,16 @@ namespace InControl
 		}
 
 
-		internal void FindAndRemoveBinding( BindingSource binding )
+		/// <summary>
+		/// Searches all the bindings on this action to see if any that match
+		/// the provided binding object and, if found, removes it.
+		/// Unlike RemoveBinding, this immediately removes it from the Bindings 
+		/// collection and updates the visible set.
+		/// WARNING: This is unsafe to call unless absolutely sure it won't be 
+		/// called while anything is iterating over the Bindings collection.
+		/// </summary>
+		/// <param name="binding">The BindingSource template to search for.</param>
+		void HardRemoveBinding( BindingSource binding )
 		{
 			if (binding == null)
 			{
@@ -336,7 +377,46 @@ namespace InControl
 		}
 
 
-		internal int CountBindingsOfType( BindingSourceType bindingSourceType )
+		/// <summary>
+		/// Searches all the bindings on this action to see if any that match
+		/// the provided binding object and, if found, removes it.
+		/// NOTE: the action is only marked for removal, and is not immediately 
+		/// removed. This is to allow for safe removal during iteration over the 
+		/// Bindings collection.
+		/// </summary>
+		/// <param name="binding">The BindingSource template to search for.</param>
+		public void RemoveBinding( BindingSource binding )
+		{
+			var foundBinding = FindBinding( binding );
+			if (foundBinding != null)
+			{
+				if (foundBinding.BoundTo == this)
+				{
+					foundBinding.BoundTo = null;
+				}
+			}
+		}
+
+
+		/// <summary>
+		/// Removes the binding at the specified index from the action.
+		/// Note: the action is only marked for removal, and is not immediately 
+		/// removed. This is to allow for safe removal during iteration over the 
+		/// Bindings collection.
+		/// </summary>
+		/// <param name="index">The index of the BindingSource in the Bindings collection to remove.</param>
+		public void RemoveBindingAt( int index )
+		{
+			if (index < 0 || index >= regularBindings.Count)
+			{
+				throw new InControlException( "Index is out of range for bindings on this action." );
+			}
+
+			regularBindings[index].BoundTo = null;
+		}
+
+
+		int CountBindingsOfType( BindingSourceType bindingSourceType )
 		{
 			var count = 0;
 			var bindingCount = regularBindings.Count;
@@ -352,7 +432,7 @@ namespace InControl
 		}
 
 
-		internal void RemoveFirstBindingOfType( BindingSourceType bindingSourceType )
+		void RemoveFirstBindingOfType( BindingSourceType bindingSourceType )
 		{
 			var bindingCount = regularBindings.Count;
 			for (var i = 0; i < bindingCount; i++)
@@ -368,7 +448,7 @@ namespace InControl
 		}
 
 
-		internal int IndexOfFirstInvalidBinding()
+		int IndexOfFirstInvalidBinding()
 		{
 			var bindingCount = regularBindings.Count;
 			for (var i = 0; i < bindingCount; i++)
@@ -380,45 +460,6 @@ namespace InControl
 			}
 
 			return -1;
-		}
-
-
-		/// <summary>
-		/// Removes the binding from the action.
-		/// Note: the action is only marked for removal, and is not immediately removed. This is
-		/// to allow for safe removal during iteration over the Bindings collection.
-		/// </summary>
-		/// <param name="binding">The BindingSource to remove.</param>
-		public void RemoveBinding( BindingSource binding )
-		{
-			if (binding == null)
-			{
-				return;
-			}
-
-			if (binding.BoundTo != this)
-			{
-				throw new InControlException( "Cannot remove a binding source not bound to this action." );
-			}
-
-			binding.BoundTo = null;
-		}
-
-
-		/// <summary>
-		/// Removes the binding at the specified index from the action.
-		/// Note: the action is only marked for removal, and is not immediately removed. This is
-		/// to allow for safe removal during iteration over the Bindings collection.
-		/// </summary>
-		/// <param name="index">The index of the BindingSource in the Bindings collection to remove.</param>
-		public void RemoveBindingAt( int index )
-		{
-			if (index < 0 || index >= regularBindings.Count)
-			{
-				throw new InControlException( "Index is out of range for bindings on this action." );
-			}
-
-			regularBindings[index].BoundTo = null;
 		}
 
 
@@ -518,13 +559,28 @@ namespace InControl
 
 
 		/// <summary>
-		/// Gets the current bindings for this action as a readonly collection.
+		/// Gets the valid (in context of the current device) bindings for this action as a readonly collection.
+		/// What this means is, if your current active controller is an Xbox One controller and you have InputControlType.Options
+		/// bound, it will not be included. This is generally the bindings you should display unless you are doing something custom.
 		/// </summary>
 		public ReadOnlyCollection<BindingSource> Bindings
 		{
 			get
 			{
 				return bindings;
+			}
+		}
+
+
+		/// <summary>
+		/// Gets ALL bindings for this action (including ones that don't make sense for the current device) as a readonly collection.
+		/// Use of this collection is not recommended unless you really need unfettered access to all the bindings on an action.
+		/// </summary>
+		public ReadOnlyCollection<BindingSource> UnfilteredBindings
+		{
+			get
+			{
+				return unfilteredBindings;
 			}
 		}
 
@@ -552,8 +608,13 @@ namespace InControl
 
 		void UpdateBindings( ulong updateTick, float deltaTime )
 		{
+			var preventInput = IsListeningForBinding || (Owner.IsListeningForBinding && Owner.PreventInputWhileListeningForBinding);
+
 			var lastInputType = LastInputType;
 			var lastInputTypeChangedTick = LastInputTypeChangedTick;
+			var lastUpdateTick = UpdateTick;
+			var lastDeviceClass = LastDeviceClass;
+			var lastDeviceStyle = LastDeviceStyle;
 
 			var bindingCount = regularBindings.Count;
 			for (var i = bindingCount - 1; i >= 0; i--)
@@ -567,19 +628,28 @@ namespace InControl
 				}
 				else
 				{
-					var value = binding.GetValue( Device );
-					if (UpdateWithValue( value, updateTick, deltaTime ))
+					if (!preventInput)
 					{
-						lastInputType = binding.BindingSourceType;
-						lastInputTypeChangedTick = updateTick;
+						var value = binding.GetValue( Device );
+						if (UpdateWithValue( value, updateTick, deltaTime ))
+						{
+							lastInputType = binding.BindingSourceType;
+							lastInputTypeChangedTick = updateTick;
+							lastDeviceClass = binding.DeviceClass;
+							lastDeviceStyle = binding.DeviceStyle;
+						}
 					}
 				}
+			}
+
+			if (preventInput || bindingCount == 0)
+			{
+				UpdateWithValue( 0.0f, updateTick, deltaTime );
 			}
 
 			Commit();
 
 			Enabled = Owner.Enabled;
-
 
 			if (lastInputTypeChangedTick > LastInputTypeChangedTick)
 			{
@@ -590,12 +660,19 @@ namespace InControl
 
 					LastInputType = lastInputType;
 					LastInputTypeChangedTick = lastInputTypeChangedTick;
+					LastDeviceClass = lastDeviceClass;
+					LastDeviceStyle = lastDeviceStyle;
 
 					if (OnLastInputTypeChanged != null && triggerEvent)
 					{
 						OnLastInputTypeChanged.Invoke( lastInputType );
 					}
 				}
+			}
+
+			if (UpdateTick > lastUpdateTick)
+			{
+				activeDevice = LastInputTypeIsDevice ? Device : null;
 			}
 		}
 
@@ -623,8 +700,7 @@ namespace InControl
 					return;
 				}
 
-				var onBindingFound = listenOptions.OnBindingFound;
-				if (onBindingFound != null && !onBindingFound( this, binding ))
+				if (!listenOptions.CallOnBindingFound( this, binding ))
 				{
 					// Binding rejected by user.
 					return;
@@ -632,26 +708,30 @@ namespace InControl
 
 				if (HasBinding( binding ))
 				{
-					var onBindingRejected = listenOptions.OnBindingRejected;
-					if (onBindingRejected != null)
+					if (listenOptions.RejectRedundantBindings)
 					{
-						onBindingRejected( this, binding, BindingSourceRejectionType.DuplicateBindingOnAction );
+						listenOptions.CallOnBindingRejected( this, binding, BindingSourceRejectionType.DuplicateBindingOnActionSet );
+						return;
 					}
+
+					// By default, we just accept a reduntant binding, do nothing, and move on.
+					StopListeningForBinding();
+					listenOptions.CallOnBindingAdded( this, binding );
 					return;
 				}
 
 				if (listenOptions.UnsetDuplicateBindingsOnSet)
 				{
-					Owner.RemoveBinding( binding );
+					var actionsCount = Owner.Actions.Count;
+					for (var i = 0; i < actionsCount; i++)
+					{
+						Owner.Actions[i].HardRemoveBinding( binding );
+					}
 				}
 
 				if (!listenOptions.AllowDuplicateBindingsPerSet && Owner.HasBinding( binding ))
 				{
-					var onBindingRejected = listenOptions.OnBindingRejected;
-					if (onBindingRejected != null)
-					{
-						onBindingRejected( this, binding, BindingSourceRejectionType.DuplicateBindingOnActionSet );
-					}
+					listenOptions.CallOnBindingRejected( this, binding, BindingSourceRejectionType.DuplicateBindingOnActionSet );
 					return;
 				}
 
@@ -687,11 +767,7 @@ namespace InControl
 
 				UpdateVisibleBindings();
 
-				var onBindingAdded = listenOptions.OnBindingAdded;
-				if (onBindingAdded != null)
-				{
-					onBindingAdded( this, binding );
-				}
+				listenOptions.CallOnBindingAdded( this, binding );
 			}
 		}
 
@@ -736,6 +812,31 @@ namespace InControl
 		}
 
 
+		InputDevice activeDevice;
+		/// <summary>
+		/// Gets the currently active device (controller) if present, otherwise returns a null device which does nothing.
+		/// The currently active device is defined as the last device that provided input to this action.
+		/// When LastInputType is not a device (controller), this will return the null device.
+		/// </summary>
+		public InputDevice ActiveDevice
+		{
+			get
+			{
+				return (activeDevice == null) ? InputDevice.Null : activeDevice;
+			}
+		}
+
+
+		bool LastInputTypeIsDevice
+		{
+			get
+			{
+				return LastInputType == BindingSourceType.DeviceBindingSource ||
+					   LastInputType == BindingSourceType.UnknownDeviceBindingSource;
+			}
+		}
+
+
 		[Obsolete( "Please set this property on device controls directly. It does nothing here." )]
 		public new float LowerDeadZone
 		{
@@ -746,9 +847,9 @@ namespace InControl
 
 			set
 			{
-#pragma warning disable 0168
+#pragma warning disable 0168, 0219
 				var dummy = value;
-#pragma warning restore 0168
+#pragma warning restore 0168, 0219
 			}
 		}
 
@@ -763,14 +864,14 @@ namespace InControl
 
 			set
 			{
-#pragma warning disable 0168
+#pragma warning disable 0168, 0219
 				var dummy = value;
-#pragma warning restore 0168
+#pragma warning restore 0168, 0219
 			}
 		}
 
 
-		internal void Load( BinaryReader reader )
+		internal void Load( BinaryReader reader, UInt16 dataFormatVersion )
 		{
 			ClearBindings();
 
@@ -805,7 +906,7 @@ namespace InControl
 					throw new InControlException( "Don't know how to load BindingSourceType: " + bindingSourceType );
 				}
 
-				bindingSource.Load( reader );
+				bindingSource.Load( reader, dataFormatVersion );
 				AddBinding( bindingSource );
 			}
 		}

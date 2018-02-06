@@ -9,6 +9,8 @@ namespace InControl
 			Name = "Logitech WingMan Controller";
 			Meta = "Logitech WingMan Controller on Windows";
 
+			DeviceClass = InputDeviceClass.FlightStick;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

@@ -9,6 +9,8 @@ namespace InControl
 			Name = "Level Up Black Hawk Controller";
 			Meta = "Level Up Black Hawk Controller on Windows";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

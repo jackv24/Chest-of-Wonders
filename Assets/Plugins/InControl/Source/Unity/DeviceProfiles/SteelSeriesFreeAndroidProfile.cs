@@ -9,6 +9,8 @@ namespace InControl
 			Name = "SteelSeries Free";
 			Meta = "SteelSeries Free on Android";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Android",
 			};

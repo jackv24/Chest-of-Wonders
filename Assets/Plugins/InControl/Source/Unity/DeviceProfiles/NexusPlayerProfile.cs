@@ -9,6 +9,8 @@ namespace InControl
 			Name = "Nexus Player Controller";
 			Meta = "Nexus Player Controller on Android";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Android",
 			};

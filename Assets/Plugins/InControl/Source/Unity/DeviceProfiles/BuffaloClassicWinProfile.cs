@@ -9,6 +9,8 @@
 			Name = "Buffalo Class Gamepad";
 			Meta = "Buffalo Class Gamepad on Windows";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Windows",
 			};

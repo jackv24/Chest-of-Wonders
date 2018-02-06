@@ -31,6 +31,12 @@ namespace InControl
 		[SerializeField]
 		public int MinSystemBuildNumber { get; protected set; }
 
+		[SerializeField]
+		public InputDeviceClass DeviceClass { get; protected set; }
+
+		[SerializeField]
+		public InputDeviceStyle DeviceStyle { get; protected set; }
+
 		static HashSet<Type> hideList = new HashSet<Type>();
 
 		float sensitivity = 1.0f;
@@ -51,12 +57,15 @@ namespace InControl
 
 			MinSystemBuildNumber = 0;
 			MaxSystemBuildNumber = 0;
+
+			DeviceClass = InputDeviceClass.Unknown;
+			DeviceStyle = InputDeviceStyle.Unknown;
 		}
 
 
 		[SerializeField]
 		public float Sensitivity
-		{ 
+		{
 			get { return sensitivity; }
 			protected set { sensitivity = Mathf.Clamp01( value ); }
 		}
@@ -64,7 +73,7 @@ namespace InControl
 
 		[SerializeField]
 		public float LowerDeadZone
-		{ 
+		{
 			get { return lowerDeadZone; }
 			protected set { lowerDeadZone = Mathf.Clamp01( value ); }
 		}
@@ -72,7 +81,7 @@ namespace InControl
 
 		[SerializeField]
 		public float UpperDeadZone
-		{ 
+		{
 			get { return upperDeadZone; }
 			protected set { upperDeadZone = Mathf.Clamp01( value ); }
 		}

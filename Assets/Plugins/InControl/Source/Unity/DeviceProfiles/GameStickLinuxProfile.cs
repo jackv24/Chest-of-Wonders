@@ -9,6 +9,8 @@ namespace InControl
 			Name = "GameStick Controller";
 			Meta = "GameStick Controller on Linux";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Linux"
 			};

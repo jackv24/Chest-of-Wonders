@@ -70,7 +70,7 @@ public class WaterPhysics : MonoBehaviour
 		edgeCount = Mathf.RoundToInt(width) * resolution;
 		nodeCount = edgeCount + 1;
 
-		lineRenderer.numPositions = nodeCount;
+		lineRenderer.positionCount = nodeCount;
 		lineRenderer.useWorldSpace = true;
 
 		top = transform.position.y + height / 2;

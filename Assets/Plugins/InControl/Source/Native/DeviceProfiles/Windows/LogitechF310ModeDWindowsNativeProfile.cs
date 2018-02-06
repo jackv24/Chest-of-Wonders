@@ -10,6 +10,9 @@ namespace InControl.NativeProfile
 			Meta = "Logitech F310 Mode D Controller on Windows";
 			// Link = "http://www.amazon.com/Logitech-940-000110-Gamepad-F310/dp/B003VAHYQY";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

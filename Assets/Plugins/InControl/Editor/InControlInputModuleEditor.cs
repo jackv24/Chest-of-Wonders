@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR && (UNITY_4_6 || UNITY_4_7 || UNITY_5)
+﻿#if UNITY_EDITOR && (UNITY_4_6 || UNITY_4_7 || UNITY_5 || UNITY_2017_1_OR_NEWER)
 namespace InControl
 {
 	using UnityEditor;
@@ -13,7 +13,7 @@ namespace InControl
 		SerializedProperty analogMoveThreshold;
 		SerializedProperty moveRepeatFirstDuration;
 		SerializedProperty moveRepeatDelayDuration;
-		SerializedProperty allowMobileDevice;
+		SerializedProperty forceModuleActive;
 		SerializedProperty allowMouseInput;
 		SerializedProperty focusOnMouseHover;
 
@@ -25,7 +25,7 @@ namespace InControl
 			analogMoveThreshold = serializedObject.FindProperty( "analogMoveThreshold" );
 			moveRepeatFirstDuration = serializedObject.FindProperty( "moveRepeatFirstDuration" );
 			moveRepeatDelayDuration = serializedObject.FindProperty( "moveRepeatDelayDuration" );
-			allowMobileDevice = serializedObject.FindProperty( "allowMobileDevice" );
+			forceModuleActive = serializedObject.FindProperty( "forceModuleActive" );
 			allowMouseInput = serializedObject.FindProperty( "allowMouseInput" );
 			focusOnMouseHover = serializedObject.FindProperty( "focusOnMouseHover" );
 		}
@@ -51,7 +51,7 @@ namespace InControl
 			GUILayout.Space( 10.0f );
 			EditorGUILayout.LabelField( "Options", EditorStyles.boldLabel );
 
-			allowMobileDevice.boolValue = EditorGUILayout.Toggle( "Allow Mobile Device", allowMobileDevice.boolValue );
+			forceModuleActive.boolValue = EditorGUILayout.Toggle( "Force Module Active", forceModuleActive.boolValue );
 			allowMouseInput.boolValue = EditorGUILayout.Toggle( "Allow Mouse Input", allowMouseInput.boolValue );
 			focusOnMouseHover.boolValue = EditorGUILayout.Toggle( "Focus Mouse On Hover", focusOnMouseHover.boolValue );
 
@@ -60,3 +60,4 @@ namespace InControl
 	}
 }
 #endif
+

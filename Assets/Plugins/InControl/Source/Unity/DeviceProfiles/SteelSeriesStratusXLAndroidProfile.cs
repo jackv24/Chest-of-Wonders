@@ -4,12 +4,14 @@ namespace InControl
 	[AutoDiscover]
 	public class SteelSeriesStratusXLAndroidProfile : UnityInputDeviceProfile
 	{
-		// WARNING: Couldn't find the back button
+		// NOTE: Back button is not supported.
 		//
 		public SteelSeriesStratusXLAndroidProfile()
 		{
 			Name = "SteelSeries Stratus XL";
 			Meta = "SteelSeries Stratus XL on Android";
+
+			DeviceClass = InputDeviceClass.Controller;
 
 			IncludePlatforms = new[] {
 				"Android",
@@ -84,12 +86,12 @@ namespace InControl
 				DPadDownMapping( Analog5 ),
 
 				new InputControlMapping {
-					Handle = "Left Trigger",
+					Handle = "L2",
 					Target = InputControlType.LeftTrigger,
 					Source = Analog12
 				},
 				new InputControlMapping {
-					Handle = "Right Trigger",
+					Handle = "R2",
 					Target = InputControlType.RightTrigger,
 					Source = Analog11
 				}

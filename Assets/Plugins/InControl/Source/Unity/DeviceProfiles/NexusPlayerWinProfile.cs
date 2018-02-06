@@ -12,6 +12,8 @@ namespace InControl
 			Name = "Nexus Player Controller";
 			Meta = "Nexus Player Controller on Windows";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Windows",
 			};

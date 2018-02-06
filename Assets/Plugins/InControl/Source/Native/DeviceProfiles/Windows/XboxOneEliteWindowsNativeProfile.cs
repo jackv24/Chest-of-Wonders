@@ -10,6 +10,9 @@ namespace InControl.NativeProfile
 			Meta = "Xbox One Elite Controller on Windows";
 			// Link = "https://www.amazon.com/Xbox-One-Elite-Wireless-Controller/dp/B00ZDNNRB8";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.XboxOne;
+
 			IncludePlatforms = new[] {
 				"Windows 7",
 				"Windows 8"

@@ -10,6 +10,8 @@ namespace InControl.NativeProfile
 			Meta = "Razer Serval Controller on Windows";
 			// Link = "http://www.amazon.com/Razer-Serval-Bluetooth-Gaming-Controller-Android/dp/B00UOYQ5DS";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

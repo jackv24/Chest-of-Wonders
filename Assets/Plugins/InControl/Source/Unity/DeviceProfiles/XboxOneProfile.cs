@@ -6,8 +6,11 @@ namespace InControl
 	{
 		public XboxOneProfile()
 		{
-			Name = "XBox One Controller";
-			Meta = "XBox One Controller on XBox One";
+			Name = "Xbox One Controller";
+			Meta = "Xbox One Controller on Xbox One";
+
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.XboxOne;
 
 			IncludePlatforms = new[] {
 				"XBOXONE",

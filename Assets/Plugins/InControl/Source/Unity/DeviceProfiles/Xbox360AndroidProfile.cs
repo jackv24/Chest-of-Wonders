@@ -9,6 +9,9 @@
 			Name = "XBox 360 Controller";
 			Meta = "XBox 360 Controller on Android";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"Android"
 			};

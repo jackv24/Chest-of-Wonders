@@ -9,6 +9,9 @@ namespace InControl
 			Name = "OUYA Controller";
 			Meta = "OUYA Controller on Linux";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Ouya;
+
 			IncludePlatforms = new[] {
 				"Linux"
 			};

@@ -1,6 +1,6 @@
 namespace InControl
 {
-	public class NativeInputDeviceProfile : InputDeviceProfile
+	public abstract class NativeInputDeviceProfile : InputDeviceProfile
 	{
 		public NativeInputDeviceMatcher[] Matchers;
 		public NativeInputDeviceMatcher[] LastResortMatchers;
@@ -106,8 +106,7 @@ namespace InControl
 
 		protected static InputControlMapping LeftStickUpMapping2( int analog )
 		{
-			return new InputControlMapping
-			{
+			return new InputControlMapping {
 				Handle = "Left Stick Up",
 				Target = InputControlType.LeftStickUp,
 				Source = Analog( analog ),
@@ -118,8 +117,7 @@ namespace InControl
 
 		protected static InputControlMapping LeftStickDownMapping2( int analog )
 		{
-			return new InputControlMapping
-			{
+			return new InputControlMapping {
 				Handle = "Left Stick Down",
 				Target = InputControlType.LeftStickDown,
 				Source = Analog( analog ),
@@ -174,8 +172,7 @@ namespace InControl
 
 		protected static InputControlMapping RightStickUpMapping2( int analog )
 		{
-			return new InputControlMapping
-			{
+			return new InputControlMapping {
 				Handle = "Right Stick Up",
 				Target = InputControlType.RightStickUp,
 				Source = Analog( analog ),
@@ -186,8 +183,7 @@ namespace InControl
 
 		protected static InputControlMapping RightStickDownMapping2( int analog )
 		{
-			return new InputControlMapping
-			{
+			return new InputControlMapping {
 				Handle = "Right Stick Down",
 				Target = InputControlType.RightStickDown,
 				Source = Analog( analog ),

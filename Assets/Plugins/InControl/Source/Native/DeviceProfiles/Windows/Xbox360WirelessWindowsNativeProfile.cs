@@ -10,6 +10,9 @@ namespace InControl.NativeProfile
 			Meta = "Xbox 360 Wireless Controller on Windows";
 			// Link = "http://www.amazon.com/Microsoft-Wireless-Controller-Windows-Console/dp/B004QRKWKQ";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

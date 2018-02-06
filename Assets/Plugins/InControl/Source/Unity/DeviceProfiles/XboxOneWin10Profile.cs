@@ -10,6 +10,9 @@ namespace InControl
 			Meta = "XBox One Controller on Windows";
 			// Link = ""
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.XboxOne;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

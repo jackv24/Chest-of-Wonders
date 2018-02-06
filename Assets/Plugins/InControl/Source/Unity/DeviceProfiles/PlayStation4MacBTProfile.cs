@@ -6,15 +6,21 @@ namespace InControl
 	{
 		public PlayStation4MacBTProfile()
 		{
+			string RegistrationMark = "\u00AE";
+
 			Name = "PlayStation 4 Controller";
 			Meta = "PlayStation 4 Controller on Mac";
+
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.PlayStation4;
 
 			IncludePlatforms = new[] {
 				"OS X"
 			};
 
 			JoystickNames = new[] {
-				"Unknown Wireless Controller" // Sigh.
+				"Unknown Wireless Controller", // Sigh.
+				"Sony Interactive Entertainment DUALSHOCK" + RegistrationMark + "4 USB Wireless Adaptor"
 			};
 
 			ButtonMappings = new[] {

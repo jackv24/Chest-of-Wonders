@@ -9,6 +9,8 @@ namespace InControl
 			Name = "Executioner X Controller";
 			Meta = "Executioner X Controller";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Windows",
 				"OS X"

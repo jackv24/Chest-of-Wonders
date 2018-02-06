@@ -9,6 +9,8 @@ namespace InControl
 			Name = "Speedlink Strike Controller";
 			Meta = "Speedlink Strike Controller on Mac (Analog Mode)";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"OS X"
 			};

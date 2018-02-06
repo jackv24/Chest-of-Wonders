@@ -9,8 +9,12 @@ namespace InControl
 			Name = "Apple MFi Controller";
 			Meta = "Apple MFi Controller on iOS";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.AppleMFi;
+
 			IncludePlatforms = new[] {
-				"iPhone"
+				"iPhone",
+				"iPad"
 			};
 
 			LastResortRegex = ""; // Match anything.
@@ -74,6 +78,7 @@ namespace InControl
 					Target = InputControlType.Pause,
 					Source = Button0
 				},
+#if !UNITY_5_3_OR_NEWER
 				new InputControlMapping {
 					Handle = "Left Trigger",
 					Target = InputControlType.LeftTrigger,
@@ -84,6 +89,7 @@ namespace InControl
 					Target = InputControlType.RightTrigger,
 					Source = Button11
 				}
+#endif
 			};
 
 			AnalogMappings = new[] {
@@ -96,6 +102,19 @@ namespace InControl
 				RightStickRightMapping( Analog2 ),
 				RightStickUpMapping( Analog3 ),
 				RightStickDownMapping( Analog3 ),
+
+#if UNITY_5_3_OR_NEWER
+				new InputControlMapping {
+					Handle = "Left Trigger",
+					Target = InputControlType.LeftTrigger,
+					Source = Analog10
+				},
+				new InputControlMapping {
+					Handle = "Right Trigger",
+					Target = InputControlType.RightTrigger,
+					Source = Analog11
+				}
+#endif
 			};
 		}
 	}

@@ -10,6 +10,9 @@ namespace InControl.NativeProfile
 			Meta = "Afterglow Xbox 360 Controller on Windows";
 			// Link = "http://www.amazon.com/Afterglow-Wired-Controller-Xbox-360-Red/dp/B00EZKNT5O";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

@@ -8,6 +8,9 @@
 			Name = "PlayStation 4 Controller";
 			Meta = "PlayStation 4 Controller on Mac";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.PlayStation4;
+
 			IncludePlatforms = new[] {
 				"OS X"
 			};
@@ -20,6 +23,10 @@
 				new NativeInputDeviceMatcher {
 					VendorID = 0x54c,
 					ProductID = 0x9cc,
+				},
+				new NativeInputDeviceMatcher {
+					VendorID = 0x54c,
+					ProductID = 0xba0,
 				},
 			};
 

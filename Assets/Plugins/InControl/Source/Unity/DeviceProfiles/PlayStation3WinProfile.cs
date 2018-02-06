@@ -9,6 +9,9 @@ namespace InControl
 			Name = "PlayStation 3 Controller";
 			Meta = "PlayStation 3 Controller on Windows (via MotioninJoy Gamepad Tool)";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.PlayStation3;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

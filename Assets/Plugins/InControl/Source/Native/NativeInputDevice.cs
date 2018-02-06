@@ -8,6 +8,9 @@ namespace InControl
 
 	public class NativeInputDevice : InputDevice
 	{
+		const int maxUnknownButtons = 20;
+		const int maxUnknownAnalogs = 20;
+
 		internal DeviceHandle Handle { get; private set; }
 		internal NativeDeviceInfo Info { get; private set; }
 
@@ -16,6 +19,9 @@ namespace InControl
 		NativeInputDeviceProfile profile;
 
 		int skipUpdateFrames = 0;
+
+		int numUnknownButtons;
+		int numUnknownAnalogs;
 
 
 		internal NativeInputDevice()
@@ -31,6 +37,9 @@ namespace InControl
 
 			SortOrder = 1000 + (int) Handle;
 
+			numUnknownButtons = Math.Min( (int) Info.numButtons, maxUnknownButtons );
+			numUnknownAnalogs = Math.Min( (int) Info.numAnalogs, maxUnknownAnalogs );
+
 			buttons = new Int16[Info.numButtons];
 			analogs = new Int16[Info.numAnalogs];
 
@@ -43,6 +52,9 @@ namespace InControl
 			{
 				Name = profile.Name ?? Info.name;
 				Meta = profile.Meta ?? Info.name;
+
+				DeviceClass = profile.DeviceClass;
+				DeviceStyle = profile.DeviceStyle;
 
 				var analogMappingCount = profile.AnalogCount;
 				for (var i = 0; i < analogMappingCount; i++)
@@ -102,7 +114,7 @@ namespace InControl
 			if (Native.GetDeviceState( Handle, out data ))
 			{
 				Marshal.Copy( data, buttons, 0, buttons.Length );
-				data = new IntPtr( data.ToInt64() + (buttons.Length * sizeof(Int16)) );
+				data = new IntPtr( data.ToInt64() + (buttons.Length * sizeof( Int16 )) );
 				Marshal.Copy( data, analogs, 0, analogs.Length );
 			}
 
@@ -134,12 +146,12 @@ namespace InControl
 			}
 			else
 			{
-				for (var i = 0; i < Info.numButtons; i++)
+				for (var i = 0; i < NumUnknownButtons; i++)
 				{
 					UpdateWithState( InputControlType.Button0 + i, ReadRawButtonState( i ), updateTick, deltaTime );
 				}
 
-				for (var i = 0; i < Info.numAnalogs; i++)
+				for (var i = 0; i < NumUnknownAnalogs; i++)
 				{
 					UpdateWithValue( InputControlType.Analog0 + i, ReadRawAnalogValue( i ), updateTick, deltaTime );
 				}
@@ -224,8 +236,8 @@ namespace InControl
 		public override bool IsSupportedOnThisPlatform
 		{
 			get
-			{ 
-				return profile == null || profile.IsSupportedOnThisPlatform; 
+			{
+				return profile == null || profile.IsSupportedOnThisPlatform;
 			}
 		}
 
@@ -233,7 +245,7 @@ namespace InControl
 		public override bool IsKnown
 		{
 			get
-			{ 
+			{
 				return profile != null;
 			}
 		}
@@ -243,7 +255,7 @@ namespace InControl
 		{
 			get
 			{
-				return (int) Info.numButtons;
+				return numUnknownButtons;
 			}
 		}
 
@@ -252,7 +264,7 @@ namespace InControl
 		{
 			get
 			{
-				return (int) Info.numAnalogs;
+				return numUnknownAnalogs;
 			}
 		}
 	}

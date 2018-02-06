@@ -9,6 +9,8 @@
 			Name = "Mad Catz C.T.R.L.R Controller";
 			Meta = "Mad Catz C.T.R.L.R Controller on Amazon Fire TV";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Amazon AFT"
 			};

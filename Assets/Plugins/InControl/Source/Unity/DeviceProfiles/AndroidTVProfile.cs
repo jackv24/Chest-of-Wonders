@@ -9,6 +9,8 @@
 			Name = "Android TV Controller";
 			Meta = "Android TV Controller on Android TV";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Android"
 			};

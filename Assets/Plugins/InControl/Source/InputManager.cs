@@ -102,7 +102,7 @@ namespace InControl
 			}
 
 #if !NETFX_CORE && !UNITY_WEBPLAYER && !UNITY_EDITOR_OSX && (UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN)
-			Platform = (Utility.GetWindowsVersion() + " " + SystemInfo.deviceModel).ToUpper();
+			Platform = Utility.GetWindowsVersion().ToUpper();
 #else
 			Platform = (SystemInfo.operatingSystem + " " + SystemInfo.deviceModel).ToUpper();
 #endif
@@ -150,6 +150,13 @@ namespace InControl
 
 #if UNITY_XBOXONE
 			if (XboxOneInputDeviceManager.Enable())
+			{
+				enableUnityInput = false;
+			}
+#endif
+
+#if UNITY_SWITCH
+			if (NintendoSwitchInputDeviceManager.Enable())
 			{
 				enableUnityInput = false;
 			}
@@ -517,7 +524,7 @@ namespace InControl
 			for (var i = 0; i < deviceCount; i++)
 			{
 				var inputDevice = devices[i];
-				if (inputDevice.LastChangedAfter( ActiveDevice ))
+				if (inputDevice.LastChangedAfter( ActiveDevice ) && !inputDevice.Passive)
 				{
 					ActiveDevice = inputDevice;
 				}
@@ -649,7 +656,7 @@ namespace InControl
 		{
 			get
 			{
-				return KeyCombo.Detect( true ).Count > 0;
+				return KeyCombo.Detect( true ).IncludeCount > 0;
 			}
 		}
 

@@ -9,6 +9,9 @@ namespace InControl
 			Name = "XBox One Controller";
 			Meta = "XBox One Controller on Windows";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.XboxOne;
+
 			IncludePlatforms = new[] {
 				"Windows 7",
 				"Windows 8"

@@ -7,7 +7,9 @@
 		public AndroidTVAmazonProfile()
 		{
 			Name = "Android TV Controller";
-			Meta = "Android TV Controller on Android TV";
+			Meta = "Android TV Controller on Amazon Fire TV";
+
+			DeviceClass = InputDeviceClass.Controller;
 
 			IncludePlatforms = new[] {
 				"Amazon AFT"

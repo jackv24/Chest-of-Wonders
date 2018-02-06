@@ -9,6 +9,8 @@ namespace InControl
 			Name = "Hama Black Force Controller";
 			Meta = "Hama Black Force Controller on Windows";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};

@@ -9,6 +9,9 @@
 			Name = "Air Flo Wired PS3 Controller";
 			Meta = "Air Flo Wired PS3 Controller on Mac";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.PlayStation3;
+
 			IncludePlatforms = new[] {
 				"OS X"
 			};

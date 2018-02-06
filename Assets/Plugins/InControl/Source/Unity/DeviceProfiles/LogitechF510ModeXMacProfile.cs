@@ -9,6 +9,9 @@ namespace InControl
 			Name = "Logitech F510 Controller";
 			Meta = "Logitech F510 Controller on Mac (Mode X)";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.Xbox360;
+
 			IncludePlatforms = new[] {
 				"OS X"
 			};

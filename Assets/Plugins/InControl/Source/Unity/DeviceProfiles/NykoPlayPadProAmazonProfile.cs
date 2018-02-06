@@ -11,6 +11,8 @@
 			Name = "Nyko PlayPad Pro";
 			Meta = "Nyko PlayPad Pro on Amazon Fire TV";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Amazon AFT"
 			};
