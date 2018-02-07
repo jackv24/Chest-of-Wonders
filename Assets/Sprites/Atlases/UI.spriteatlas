@@ -68,6 +68,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8781ab182901c074384367c58774cb78, type: 3}
   - {fileID: 21300000, guid: 08209deaf68514b4088bcd89abab8847, type: 3}
   - {fileID: 21300000, guid: 3057327c3197d7945bedc75c861fb4c5, type: 3}
+  - {fileID: 21300006, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
+  - {fileID: 21300008, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300000, guid: 1117669ca73806a42a9a91e27eaceeac, type: 3}
   - {fileID: 21300000, guid: 56c88c9d577f90b448aa9aa4695c87cf, type: 3}
   - {fileID: 21300032, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
@@ -75,8 +77,6 @@ SpriteAtlas:
   - {fileID: 21300036, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300034, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300028, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
-  - {fileID: 21300006, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
-  - {fileID: 21300008, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300022, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300020, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300026, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
@@ -123,6 +123,8 @@ SpriteAtlas:
   - Buttons_Triangle
   - SpeakerTrail
   - Arrow_45
+  - HUD_health
+  - HUD_mana
   - Outline_2px
   - Outline_1px
   - HUD_notch_mix_grass
@@ -130,8 +132,6 @@ SpriteAtlas:
   - HUD_notch_mix_wind
   - HUD_notch_mix_ice
   - HUD_notch_mix_empty
-  - HUD_health
-  - HUD_mana
   - HUD_notch_base_grass
   - HUD_notch_base_fire
   - HUD_notch_base_wind
