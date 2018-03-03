@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
+	public static CameraFollow Instance;
+
     public Transform target;
 
     [Space()]
@@ -25,7 +27,12 @@ public class CameraFollow : MonoBehaviour
 
     private new PixelCamera2D camera;
 
-    private void Start()
+	private void Awake()
+	{
+		Instance = this;
+	}
+
+	private void Start()
     {
         //If no target has been assigned, attempt to find and set the player as the target
         if (!target)
