@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class CameraFollow : MonoBehaviour
     private LevelBounds bounds;
 
     private float minX, maxX, minY, maxY;
+
+	private List<CameraLockArea> cameraLockAreas = new List<CameraLockArea>();
+	private bool usingCameraLock = false;
+	private Rect camLockRect;
 
     private Vector2 minCameraWorld;
     private Vector2 maxCameraWorld;
@@ -48,7 +53,7 @@ public class CameraFollow : MonoBehaviour
             camera.OnResize += CalculateBounds;
 
         CalculateBounds();
-        
+
         if (target)
         {
             CharacterMove move = target.GetComponent<CharacterMove>();
@@ -78,7 +83,10 @@ public class CameraFollow : MonoBehaviour
 
             targetPos.z = transform.position.z;
 
-            KeepInBounds();
+			KeepInBounds();
+
+			if (usingCameraLock)
+				KeepInCameraLock();
 
 			transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
 
@@ -153,4 +161,66 @@ public class CameraFollow : MonoBehaviour
         else
             return false;
     }
+
+	public void AddCameraLock(CameraLockArea camLock)
+	{
+		if(!cameraLockAreas.Contains(camLock))
+		{
+			cameraLockAreas.Add(camLock);
+
+			SetCameraLock(camLock);
+		}
+	}
+
+	public void RemoveCameraLock(CameraLockArea camLock)
+	{
+		if (cameraLockAreas.Contains(camLock))
+		{
+			cameraLockAreas.Remove(camLock);
+
+			//If there are still cam locks in the list, use the last one
+			if (cameraLockAreas.Count > 0)
+				SetCameraLock(cameraLockAreas[cameraLockAreas.Count - 1]);
+			else
+			{
+				usingCameraLock = false;
+			}
+		}
+	}
+
+	void SetCameraLock(CameraLockArea camLock)
+	{
+		if (camLock && camera)
+		{
+			//Calculate area in which camera can move inside the level
+			camLockRect = camLock.Rect;
+
+			usingCameraLock = true;
+		}
+	}
+
+	void KeepInCameraLock()
+	{
+		if (camera)
+		{
+			float vertExtent = Camera.main.orthographicSize;
+			float horzExtent = vertExtent * ((float)camera.Width / camera.Height);
+
+			Rect newRect = camLockRect;
+			newRect.width -= horzExtent * 2;
+			newRect.height -= vertExtent * 2;
+			newRect.x += horzExtent;
+			newRect.y += vertExtent;
+
+			if (newRect.width <= 0)
+				targetPos.x = camLockRect.center.x;
+			else
+				targetPos.x = Mathf.Clamp(targetPos.x, newRect.xMin, newRect.xMax);
+
+			if (newRect.height <= 0)
+				targetPos.y = camLockRect.center.y;
+			else
+				targetPos.y = Mathf.Clamp(targetPos.y, newRect.yMin, newRect.yMax);
+		}
+	}
 }
