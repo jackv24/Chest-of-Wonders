@@ -23,9 +23,13 @@ public class CameraFollow : MonoBehaviour
 
     private float minX, maxX, minY, maxY;
 
+	[Space()]
+	public float cameraLockLerpSpeed = 2.0f;
+
 	private List<CameraLockArea> cameraLockAreas = new List<CameraLockArea>();
 	private bool usingCameraLock = false;
-	private Rect camLockRect;
+	private Rect targetLockRect;
+	private Rect currentLockRect;
 
     private Vector2 minCameraWorld;
     private Vector2 maxCameraWorld;
@@ -83,10 +87,10 @@ public class CameraFollow : MonoBehaviour
 
             targetPos.z = transform.position.z;
 
-			KeepInBounds();
-
-			if (usingCameraLock)
+			if(usingCameraLock)
 				KeepInCameraLock();
+
+			KeepInBounds();
 
 			transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
 
@@ -193,7 +197,13 @@ public class CameraFollow : MonoBehaviour
 		if (camLock && camera)
 		{
 			//Calculate area in which camera can move inside the level
-			camLockRect = camLock.Rect;
+			targetLockRect = camLock.Rect;
+
+			//If not coming from a previous camera lock, use screen bounds for lerping
+			if(!usingCameraLock)
+			{
+				currentLockRect = GetCameraRect();
+			}
 
 			usingCameraLock = true;
 		}
@@ -201,26 +211,41 @@ public class CameraFollow : MonoBehaviour
 
 	void KeepInCameraLock()
 	{
+		currentLockRect = currentLockRect.LerpTo(targetLockRect, cameraLockLerpSpeed * Time.deltaTime);
+
 		if (camera)
 		{
 			float vertExtent = Camera.main.orthographicSize;
 			float horzExtent = vertExtent * ((float)camera.Width / camera.Height);
 
-			Rect newRect = camLockRect;
+			Rect newRect = currentLockRect;
 			newRect.width -= horzExtent * 2;
 			newRect.height -= vertExtent * 2;
 			newRect.x += horzExtent;
 			newRect.y += vertExtent;
 
 			if (newRect.width <= 0)
-				targetPos.x = camLockRect.center.x;
+				targetPos.x = currentLockRect.center.x;
 			else
 				targetPos.x = Mathf.Clamp(targetPos.x, newRect.xMin, newRect.xMax);
 
 			if (newRect.height <= 0)
-				targetPos.y = camLockRect.center.y;
+				targetPos.y = currentLockRect.center.y;
 			else
 				targetPos.y = Mathf.Clamp(targetPos.y, newRect.yMin, newRect.yMax);
 		}
+	}
+
+	Rect GetCameraRect()
+	{
+		Rect rect = new Rect();
+
+		//Rect starts at top left, and positive Y is down
+		rect.xMin = minCameraWorld.x;
+		rect.yMin = maxCameraWorld.y;
+		rect.xMax = maxCameraWorld.x;
+		rect.yMax = minCameraWorld.y;
+
+		return rect;
 	}
 }
