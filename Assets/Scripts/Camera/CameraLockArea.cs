@@ -5,25 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class CameraLockArea : MonoBehaviour
 {
-	public Rect Rect { get; private set; }
-
 	public float paddingX = 2.0f;
 	public float paddingY = 2.0f;
+
+	public Bounds Bounds { get{ return box.bounds; } }
 
 	private BoxCollider2D box;
 
 	private void Awake()
 	{
 		box = GetComponent<BoxCollider2D>();
-	}
-
-	private void Start()
-	{
-		Rect rect = new Rect();
-		rect.size = box.size + new Vector2(paddingX * 2, paddingY * 2);
-		rect.center = (Vector2)transform.position + box.offset;
-
-		Rect = rect;
 	}
 
 	private void OnDrawGizmosSelected()

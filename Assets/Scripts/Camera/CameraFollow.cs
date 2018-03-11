@@ -28,8 +28,8 @@ public class CameraFollow : MonoBehaviour
 
 	private List<CameraLockArea> cameraLockAreas = new List<CameraLockArea>();
 	private bool usingCameraLock = false;
-	private Rect targetLockRect;
-	private Rect currentLockRect;
+	private Bounds targetLockBounds;
+	private Bounds currentLockBounds;
 
     private Vector2 minCameraWorld;
     private Vector2 maxCameraWorld;
@@ -197,12 +197,12 @@ public class CameraFollow : MonoBehaviour
 		if (camLock && camera)
 		{
 			//Calculate area in which camera can move inside the level
-			targetLockRect = camLock.Rect;
+			targetLockBounds = camLock.Bounds;
 
 			//If not coming from a previous camera lock, use screen bounds for lerping
 			if(!usingCameraLock)
 			{
-				currentLockRect = GetCameraRect();
+				currentLockBounds = GetCameraBounds();
 			}
 
 			usingCameraLock = true;
@@ -211,41 +211,39 @@ public class CameraFollow : MonoBehaviour
 
 	void KeepInCameraLock()
 	{
-		currentLockRect = currentLockRect.LerpTo(targetLockRect, cameraLockLerpSpeed * Time.deltaTime);
+		currentLockBounds = currentLockBounds.LerpTo(targetLockBounds, cameraLockLerpSpeed * Time.deltaTime);
 
 		if (camera)
 		{
 			float vertExtent = Camera.main.orthographicSize;
 			float horzExtent = vertExtent * ((float)camera.Width / camera.Height);
 
-			Rect newRect = currentLockRect;
-			newRect.width -= horzExtent * 2;
-			newRect.height -= vertExtent * 2;
-			newRect.x += horzExtent;
-			newRect.y += vertExtent;
+			Vector3 screenExtents = new Vector3(horzExtent, vertExtent, 0);
 
-			if (newRect.width <= 0)
-				targetPos.x = currentLockRect.center.x;
-			else
-				targetPos.x = Mathf.Clamp(targetPos.x, newRect.xMin, newRect.xMax);
+			Bounds bounds = new Bounds();
+			bounds.min = currentLockBounds.min + screenExtents;
+			bounds.max = currentLockBounds.max - screenExtents;
 
-			if (newRect.height <= 0)
-				targetPos.y = currentLockRect.center.y;
+			if (bounds.size.x <= 0)
+				targetPos.x = currentLockBounds.center.x;
 			else
-				targetPos.y = Mathf.Clamp(targetPos.y, newRect.yMin, newRect.yMax);
+				targetPos.x = Mathf.Clamp(targetPos.x, bounds.min.x, bounds.max.x);
+
+			if (bounds.size.y <= 0)
+				targetPos.y = currentLockBounds.center.y;
+			else
+				targetPos.y = Mathf.Clamp(targetPos.y, bounds.min.y, bounds.max.y);
 		}
 	}
 
-	Rect GetCameraRect()
+	Bounds GetCameraBounds()
 	{
-		Rect rect = new Rect();
+		Bounds bounds = new Bounds();
 
 		//Rect starts at top left, and positive Y is down
-		rect.xMin = minCameraWorld.x;
-		rect.yMin = maxCameraWorld.y;
-		rect.xMax = maxCameraWorld.x;
-		rect.yMax = minCameraWorld.y;
+		bounds.min = minCameraWorld;
+		bounds.max = maxCameraWorld;
 
-		return rect;
+		return bounds;
 	}
 }

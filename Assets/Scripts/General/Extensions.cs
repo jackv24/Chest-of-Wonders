@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Generic class containing useful extension methods
+/// </summary>
 public static class Extensions
 {
-	public static Rect LerpTo(this Rect rect, Rect target, float t)
+	public static Bounds LerpTo(this Bounds self, Bounds target, float t)
 	{
-		return new Rect(Vector2.Lerp(rect.position, target.position, t), Vector2.Lerp(rect.size, target.size, t));
+		Bounds bounds = new Bounds();
+
+		bounds.min = Vector3.Lerp(self.min, target.min, t);
+		bounds.max = Vector3.Lerp(self.max, target.max, t);
+
+		return bounds;
 	}
 }
