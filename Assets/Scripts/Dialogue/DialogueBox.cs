@@ -35,7 +35,8 @@ public class DialogueBox : MonoBehaviour
     public Button initialButton;
     private List<Button> buttons = new List<Button>();
 
-    private bool dialogueOpen = false;
+	public bool IsDialogueOpen { get; private set; } = false;
+
 	private bool optionsOpen = false;
     private bool waitingForInput = false;
 
@@ -160,9 +161,9 @@ public class DialogueBox : MonoBehaviour
 
     public void OnDialogueStarted(DialogueTree dialogueTree)
     {
-        if (!dialogueOpen)
+        if (!IsDialogueOpen)
         {
-			dialogueOpen = true;
+			IsDialogueOpen = true;
 
             GameManager.instance.gameRunning = false;
 
@@ -181,12 +182,16 @@ public class DialogueBox : MonoBehaviour
 			{
 				dialogueTree.DeserializeLocalBlackboard(json);
 			}
+
+			//Set camera target
+			if (CameraControl.Instance)
+				CameraControl.Instance.AddFocusTarget(new CameraControl.FocusTarget(dialogueTree.agent.transform, Vector2.zero));
 		}
     }
 
 	public void OnDialogueFinished(DialogueTree dialogueTree)
 	{
-		if (dialogueOpen)
+		if (IsDialogueOpen)
 		{
 			//Save blackboard variables
 			if(dialogueTree.blackboard.variables.Count > 0)
@@ -195,6 +200,15 @@ public class DialogueBox : MonoBehaviour
 				string json = dialogueTree.SerializeLocalBlackboard();
 
 				SaveManager.instance.SaveBlackBoardJson(key, json);
+			}
+
+			//Clear camera target
+			CameraControl camera = CameraControl.Instance;
+			if (camera)
+			{
+				CameraControl.FocusTarget focusTarget = camera.GetFocusTargetByTransform(dialogueTree.agent.transform);
+				if (focusTarget != null)
+					camera.RemoveFocusTarget(focusTarget);
 			}
 
 			StartCoroutine(EndDialogue());
@@ -214,17 +228,22 @@ public class DialogueBox : MonoBehaviour
 		//Return control
 		GameManager.instance.gameRunning = true;
 
-		dialogueOpen = false;
+		IsDialogueOpen = false;
 
 		ShowPromptIcon(lastPromptLocation);
 	}
 
 	void OnDialoguePaused(DialogueTree dialogueTree)
 	{
+		HideDialogueBox();
+	}
+
+	public void HideDialogueBox()
+	{
 		if (speakerPanelAnimator && speakerCloseAnim)
 			speakerPanelAnimator.Play(speakerCloseAnim.name);
 
-		dialogueOpen = false;
+		IsDialogueOpen = false;
 	}
 
 	void OnMultipleChoiceRequest(MultipleChoiceRequestInfo info)
@@ -289,16 +308,6 @@ public class DialogueBox : MonoBehaviour
 
 	IEnumerator RunSubtitleRequest(SubtitlesRequestInfo info)
 	{
-		if(!dialogueOpen)
-		{
-			dialogueOpen = true;
-
-			if (speakerPanelAnimator && speakerOpenAnim)
-				speakerPanelAnimator.Play(speakerOpenAnim.name);
-
-			yield return new WaitForSeconds(speakerOpenAnim.length);
-		}
-
 		IDialogueActor actor = info.actor;
 
 		if (actor.transform)
@@ -324,6 +333,20 @@ public class DialogueBox : MonoBehaviour
 				}
 				else
 					textPanel.preferredWidth = -1;
+			}
+
+			//Open dialogue box with animation if it is closed
+			if (!IsDialogueOpen)
+			{
+				IsDialogueOpen = true;
+
+				//Set dialogue text and as invisible to get correct box size
+				dialogueText.text = $"<color=#FFFFFF00>{info.statement.text}</color>";
+
+				if (speakerPanelAnimator && speakerOpenAnim)
+					speakerPanelAnimator.Play(speakerOpenAnim.name);
+
+				yield return new WaitForSeconds(speakerOpenAnim.length);
 			}
 
 			yield return StartCoroutine(PrintOverTime(dialogueText, info.statement.text, withSound));

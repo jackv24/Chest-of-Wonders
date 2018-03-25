@@ -8,7 +8,33 @@ public class CameraControl : MonoBehaviour
 
     public Transform target;
 
-    [Space()]
+	#region Camera Target Variables
+	public class FocusTarget
+	{
+		public Transform target;
+		public Vector2 offset;
+
+		public Vector2 Position { get { return target ? (Vector2)target.position + offset : Vector2.zero; } }
+
+		public float weight;
+
+		public FocusTarget(Transform target, Vector2 offset, float weight = 1.0f)
+		{
+			if (!target)
+				Debug.LogError("Camera Focus Target cannot be null!", target);
+
+			this.target = target;
+			this.offset = offset;
+			this.weight = weight;
+		}
+	}
+	private List<FocusTarget> focusTargets = new List<FocusTarget>();
+
+	public float focusTargetLerpSpeed = 2.0f;
+	#endregion
+
+	#region Camera Follow Variables
+	[Space()]
     public float followSpeed = 10f;
     public float heightOffset = 1f;
 
@@ -18,11 +44,16 @@ public class CameraControl : MonoBehaviour
     private float aheadDistance;
     private bool lookRight = true;
 
+	private bool skipLerpAhead = false;
+	private float skippedAheadDistance;
+
     private Vector3 targetPos;
     private LevelBounds bounds;
 
     private float minX, maxX, minY, maxY;
+	#endregion
 
+	#region Camera Lock Variables
 	[Space()]
 	public float cameraLockLerpSpeed = 2.0f;
 
@@ -33,8 +64,9 @@ public class CameraControl : MonoBehaviour
 
     private Vector2 minCameraWorld;
     private Vector2 maxCameraWorld;
+	#endregion
 
-    private new PixelCamera2D camera;
+	private new PixelCamera2D camera;
 
 	private void Awake()
 	{
@@ -79,19 +111,55 @@ public class CameraControl : MonoBehaviour
     {
         if (target && target.gameObject.activeSelf)
         {
-            aheadDistance = Mathf.Lerp(aheadDistance, lookAhead * (lookRight ? 1 : -1), lookAheadSpeed * Time.deltaTime);
+			float lerpSpeed = 1.0f;
 
-            targetPos = target.position;
-            targetPos.y += heightOffset;
-            targetPos.x += aheadDistance;
+			//Only follow player if there are no other focus targets
+			if (focusTargets.Count <= 0)
+			{
+				//Don't lerp if flag is set (used when coming out of focus targets)
+				if (skipLerpAhead)
+				{
+					aheadDistance = skippedAheadDistance;
 
-            targetPos.z = transform.position.z;
+					skipLerpAhead = false;
+				}
+				else
+				{
+					aheadDistance = Mathf.Lerp(aheadDistance, lookAhead * (lookRight ? 1 : -1), lookAheadSpeed * Time.deltaTime);
+				}
+
+				targetPos = target.position;
+				targetPos.y += heightOffset;
+				targetPos.x += aheadDistance;
+
+				targetPos.z = transform.position.z;
+
+				lerpSpeed = followSpeed;
+			}
+			else //Get average position (weighted) between all follow targets
+			{
+				float division = 0;
+				Vector2 sum = Vector2.zero;
+
+				foreach(FocusTarget focusTarget in focusTargets)
+				{
+					//Multiply position by weight and include weight in division for a weighted average
+					sum += focusTarget.Position * focusTarget.weight;
+					division += focusTarget.weight;
+				}
+
+				Vector2 pos = sum / division;
+
+				targetPos = new Vector3(pos.x, pos.y, transform.position.z);
+
+				lerpSpeed = focusTargetLerpSpeed;
+			}
 
 			KeepInCameraLock();
 
 			KeepInBounds();
 
-			transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, targetPos, lerpSpeed * Time.deltaTime);
 
             //Calculate camera world bounds
             minCameraWorld = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
@@ -165,6 +233,7 @@ public class CameraControl : MonoBehaviour
             return false;
     }
 
+	#region Camera Lock Methods
 	public void AddCameraLock(CameraLockArea camLock)
 	{
 		if(!cameraLockAreas.Contains(camLock))
@@ -252,6 +321,60 @@ public class CameraControl : MonoBehaviour
 
 		return bounds;
 	}
+	#endregion
+
+	#region Camera Target Methods
+	public void AddFocusTarget(FocusTarget focusTarget)
+	{
+		if (!focusTargets.Contains(focusTarget))
+		{
+			focusTargets.Add(focusTarget);
+
+			//Clear flag in case targets were cleared previously in this frame
+			skipLerpAhead = false;
+		}
+	}
+
+	public void RemoveFocusTarget(FocusTarget focusTarget)
+	{
+		if (focusTargets.Contains(focusTarget))
+			focusTargets.Remove(focusTarget);
+
+		if (focusTargets.Count <= 0)
+		{
+			EndFocusTargets(focusTarget);
+		}
+	}
+
+	public void ClearFocusTargets()
+	{
+		if (focusTargets.Count > 0)
+		{
+			EndFocusTargets(focusTargets[focusTargets.Count - 1]);
+
+			focusTargets.Clear();
+		}
+	}
+
+	private void EndFocusTargets(FocusTarget lastTarget)
+	{
+		skipLerpAhead = true;
+
+		//Prevent look ahead from looking weird when coming out of focusing on targets
+		skippedAheadDistance = (target.transform.position.x - lastTarget.Position.x) * (lookRight ? 1 : -1);
+	}
+
+	public FocusTarget GetFocusTargetByTransform(Transform target)
+	{
+		foreach(FocusTarget focusTarget in focusTargets)
+		{
+			if (focusTarget.target == target)
+				return focusTarget;
+		}
+
+		return null;
+	}
+	#endregion
 
 	private void OnDrawGizmos()
 	{
