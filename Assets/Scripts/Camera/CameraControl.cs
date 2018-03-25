@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class CameraFollow : MonoBehaviour
+public class CameraControl : MonoBehaviour
 {
-	public static CameraFollow Instance;
+	public static CameraControl Instance;
 
     public Transform target;
 

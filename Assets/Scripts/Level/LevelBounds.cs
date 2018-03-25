@@ -10,8 +10,8 @@ public class LevelBounds : MonoBehaviour
 
     private void Start()
     {
-		if(CameraFollow.Instance)
-			CameraFollow.Instance.SetBounds(this);
+		if(CameraControl.Instance)
+			CameraControl.Instance.SetBounds(this);
 	}
 
     private void OnDrawGizmosSelected()

@@ -108,7 +108,7 @@ public class LockedDoor : MonoBehaviour
 			characterMove.moveSpeed = moveSpeed * moveSpeedMultiplier;
 
 			//Stop camera jerkiness
-			CameraFollow cam = FindObjectOfType<CameraFollow>();
+			CameraControl cam = FindObjectOfType<CameraControl>();
 			float camDist = 0;
 
 			if (cam)

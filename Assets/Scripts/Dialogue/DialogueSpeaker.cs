@@ -121,7 +121,7 @@ public class DialogueSpeaker : MonoBehaviour
         characterMove.moveSpeed = moveSpeed * 0.5f;
 
         //Stop camera jerkiness
-        CameraFollow cam = FindObjectOfType<CameraFollow>();
+        CameraControl cam = FindObjectOfType<CameraControl>();
         float camDist = 0;
 
         if(cam)

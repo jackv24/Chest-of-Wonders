@@ -34,13 +34,13 @@ public class CameraLockArea : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (CameraFollow.Instance)
-			CameraFollow.Instance.AddCameraLock(this);
+		if (CameraControl.Instance)
+			CameraControl.Instance.AddCameraLock(this);
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (CameraFollow.Instance)
-			CameraFollow.Instance.RemoveCameraLock(this);
+		if (CameraControl.Instance)
+			CameraControl.Instance.RemoveCameraLock(this);
 	}
 }
