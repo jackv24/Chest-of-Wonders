@@ -87,8 +87,7 @@ public class CameraFollow : MonoBehaviour
 
             targetPos.z = transform.position.z;
 
-			if(usingCameraLock)
-				KeepInCameraLock();
+			KeepInCameraLock();
 
 			KeepInBounds();
 
@@ -187,6 +186,9 @@ public class CameraFollow : MonoBehaviour
 				SetCameraLock(cameraLockAreas[cameraLockAreas.Count - 1]);
 			else
 			{
+				//Create new cam lock bounds from level bounds, for smooth lerping when exiting all CameraLockAreas
+				targetLockBounds = new Bounds(bounds.centre, new Vector3(bounds.width, bounds.height));
+
 				usingCameraLock = false;
 			}
 		}
@@ -211,6 +213,10 @@ public class CameraFollow : MonoBehaviour
 
 	void KeepInCameraLock()
 	{
+		//If bounds are zero then there are no bounds set
+		if (currentLockBounds.size == Vector3.zero)
+			return;
+
 		currentLockBounds = currentLockBounds.LerpTo(targetLockBounds, cameraLockLerpSpeed * Time.deltaTime);
 
 		if (camera)
@@ -245,5 +251,11 @@ public class CameraFollow : MonoBehaviour
 		bounds.max = maxCameraWorld;
 
 		return bounds;
+	}
+
+	private void OnDrawGizmos()
+	{
+		if (currentLockBounds.size != Vector3.zero)
+			Gizmos.DrawWireCube(currentLockBounds.center, currentLockBounds.size);
 	}
 }
