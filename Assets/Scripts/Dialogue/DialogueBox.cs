@@ -314,6 +314,12 @@ public class DialogueBox : MonoBehaviour
 		if (actor.transform)
 			currentSpeaker = actor.transform.GetComponent<DialogueSpeaker>();
 
+		string text;
+
+		//Try and get translation. If this text was not a translation key then show as warning
+		if(!LocalizationManager.TryGetTranslation(info.statement.text, out text))
+			text = $"#{info.statement.text}#";
+
 		yield return null;
 
 		if (accent)
@@ -328,7 +334,7 @@ public class DialogueBox : MonoBehaviour
 
 			if (textPanel)
 			{
-				if (info.statement.text.Length > maxCharsBeforeWrap)
+				if (text.Length > maxCharsBeforeWrap)
 				{
 					textPanel.preferredWidth = textPreferredWidth;
 				}
@@ -342,7 +348,7 @@ public class DialogueBox : MonoBehaviour
 				IsDialogueOpen = true;
 
 				//Set dialogue text and as invisible to get correct box size
-				dialogueText.text = $"<color=#FFFFFF00>{info.statement.text}</color>";
+				dialogueText.text = $"<color=#FFFFFF00>{text}</color>";
 
 				if (speakerPanelAnimator && speakerOpenAnim)
 					speakerPanelAnimator.Play(speakerOpenAnim.name);
@@ -350,7 +356,7 @@ public class DialogueBox : MonoBehaviour
 				yield return new WaitForSeconds(speakerOpenAnim.length);
 			}
 
-			yield return StartCoroutine(PrintOverTime(dialogueText, info.statement.text, withSound));
+			yield return StartCoroutine(PrintOverTime(dialogueText, text, withSound));
 		}
 
 		//MultipleChoiceRequest handles continuing if there are options

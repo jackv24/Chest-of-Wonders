@@ -63,7 +63,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycby9NSlouRdJbanQ3ytpDWTop6-En_rFiGAz-5wPPONzrelakuEJ/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1522235569547
+  Google_LastUpdatedVersion: 1522237314273
   GoogleUpdateFrequency: 1
   GoogleUpdateDelay: 5
   mLanguages:
@@ -80,31 +80,25 @@ MonoBehaviour:
     Description: 
     Languages:
     - Alistair's Chest
-    - "\u30A2\u30EA\u30B9\u30BF\u30FC\u306E\u80F8"
+    - "\u30A2\u30EA\u30B9\u30BF\u30FC\u306E\u91D1\u5EAB"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/PLAY_TEXT
     TermType: 0
     Description: 
     Languages:
     - Play Game
-    - "\u30B2\u30FC\u30E0\u3057\u307E\u3059"
+    - "\u30B2\u30FC\u30E0\u59CB\u3081\u308B"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/RESUME_BUTTON
     TermType: 0
     Description: 
     Languages:
     - Resume
-    - "\u5C65\u6B74\u66F8"
+    - "\u518D\u958B\u3059\u308B"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/OPTIONS_BUTTON
     TermType: 0
     Description: 
@@ -112,9 +106,7 @@ MonoBehaviour:
     - Options
     - "\u30AA\u30D7\u30B7\u30E7\u30F3"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/QUIT_TO_MENU_BUTTON
     TermType: 0
     Description: 
@@ -122,9 +114,7 @@ MonoBehaviour:
     - Quit to Menu
     - "\u30E1\u30CB\u30E5\u30FC\u306B\u623B\u308B"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/PAUSED_TITLE
     TermType: 0
     Description: 
@@ -132,29 +122,23 @@ MonoBehaviour:
     - Paused
     - "\u4E00\u6642\u505C\u6B62\u3057\u305F"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/MAGIC_FIRE
     TermType: 0
     Description: 
     Languages:
     - Ember
-    - "\u30A8\u30D0\u30FC"
+    - "\u71E0"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/MAGIC_WIND
     TermType: 0
     Description: 
     Languages:
     - Gale
-    - "\u30AC\u30FC\u30EB"
+    - "\r\n\u75BE\u98A8"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/MAGIC_ICE
     TermType: 0
     Description: 
@@ -162,9 +146,7 @@ MonoBehaviour:
     - Frost
     - "\u971C"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/MAGIC_GRASS
     TermType: 0
     Description: 
@@ -172,9 +154,7 @@ MonoBehaviour:
     - Leaf
     - "\u8449"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Dialogue/BELLE_HELLO
     TermType: 0
     Description: 
@@ -182,9 +162,7 @@ MonoBehaviour:
     - Hi there!
     - "\u3053\u3093\u306B\u3061\u306F\uFF01"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   CaseInsensitiveTerms: 0
   OnMissingTranslation: 1
   mTerm_AppName: UI/GAME_TITLE

@@ -31,8 +31,18 @@ namespace NodeCanvas.DialogueTrees{
 		#if UNITY_EDITOR
 
 		protected override void OnNodeGUI(){
-			var displayText = statement.text.Length > 30? statement.text.Substring(0, 30) + "..." : statement.text;
-			GUILayout.Label("\"<i> " + displayText + "</i> \"");
+			var displayText = $"<color=maroon><i>\"{(statement.text.Length > 30? statement.text.Substring(0, 30) + "..." : statement.text)}\"</i></color>";
+
+			string translation;
+			if (I2.Loc.LocalizationManager.TryGetTranslation(statement.text, out translation))
+			{
+				string transDisplay = $"<i>\"{(translation.Length > 30 ? translation.Substring(0, 30) + "..." : translation)}\"</i>";
+				string keyDisplay = $"({(statement.text.Length > 30 ? statement.text.Substring(0, 30) + "..." : statement.text)})";
+
+				displayText = $"{transDisplay}\n{keyDisplay}";
+			}
+
+			GUILayout.Label(displayText);
 		}
 
 		protected override void OnNodeInspectorGUI(){

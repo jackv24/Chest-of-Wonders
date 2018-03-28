@@ -184,7 +184,6 @@ namespace NodeCanvas.DialogueTrees{
 			choice.statement.text = UnityEditor.EditorGUILayout.TextField(choice.statement.text);
 			choice.statement.audio = UnityEditor.EditorGUILayout.ObjectField("Audio File", choice.statement.audio, typeof(AudioClip), false) as AudioClip;
 			choice.statement.meta = UnityEditor.EditorGUILayout.TextField("Meta Data", choice.statement.meta);
-			choice.statement.langKey = UnityEditor.EditorGUILayout.TextField("Language Key", choice.statement.langKey);
 
 			EditorUtils.TaskField<ConditionTask>(choice.condition, graph, (c)=> { choice.condition = c; });
 

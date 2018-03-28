@@ -677,6 +677,26 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114128184604799000, guid: a66e01d0fb3ac0e41a989733fa60ff06,
+        type: 2}
+      propertyPath: m_Text
+      value: Gale
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591042873883684, guid: a66e01d0fb3ac0e41a989733fa60ff06,
+        type: 2}
+      propertyPath: m_Text
+      value: Leaf
+      objectReference: {fileID: 0}
+    - target: {fileID: 114663694952339396, guid: a66e01d0fb3ac0e41a989733fa60ff06,
+        type: 2}
+      propertyPath: m_Text
+      value: Frost
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804165008207752, guid: a66e01d0fb3ac0e41a989733fa60ff06,
+        type: 2}
+      propertyPath: m_Text
+      value: Ember
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a66e01d0fb3ac0e41a989733fa60ff06, type: 2}
   m_IsPrefabParent: 0
