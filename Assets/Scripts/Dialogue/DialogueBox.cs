@@ -313,6 +313,13 @@ public class DialogueBox : MonoBehaviour
 		if (actor.transform)
 			currentSpeaker = actor.transform.GetComponent<DialogueSpeaker>();
 
+		if (string.IsNullOrEmpty(info.statement.langKey))
+			Debug.LogWarning($"Statement missing Language Key!: {info.statement.text}");
+		else
+		{
+			//TODO: Localisation
+		}
+
 		yield return null;
 
 		if (accent)

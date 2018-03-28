@@ -29,7 +29,7 @@ namespace NodeCanvas.DialogueTrees{
 		///////////GUI AND EDITOR STUFF/////////
 		////////////////////////////////////////
 		#if UNITY_EDITOR
-		
+
 		protected override void OnNodeGUI(){
 			var displayText = statement.text.Length > 30? statement.text.Substring(0, 30) + "..." : statement.text;
 			GUILayout.Label("\"<i> " + displayText + "</i> \"");
@@ -40,11 +40,12 @@ namespace NodeCanvas.DialogueTrees{
 			base.OnNodeInspectorGUI();
 			var areaStyle = new GUIStyle(GUI.skin.GetStyle("TextArea"));
 			areaStyle.wordWrap = true;
-			
+
 			GUILayout.Label("Dialogue Text");
 			statement.text = UnityEditor.EditorGUILayout.TextArea(statement.text, areaStyle, GUILayout.Height(100));
 			statement.audio = UnityEditor.EditorGUILayout.ObjectField("Audio File", statement.audio, typeof(AudioClip), false)  as AudioClip;
 			statement.meta = UnityEditor.EditorGUILayout.TextField("Metadata", statement.meta);
+			statement.langKey = UnityEditor.EditorGUILayout.TextField("Language Key", statement.langKey);
 		}
 
 		#endif

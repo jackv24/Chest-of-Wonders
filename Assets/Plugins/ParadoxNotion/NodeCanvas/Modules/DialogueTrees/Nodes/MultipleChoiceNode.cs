@@ -33,7 +33,7 @@ namespace NodeCanvas.DialogueTrees{
 		[SerializeField]
 		private List<Choice> availableChoices = new List<Choice>();
 
-		public Task[] GetSubTasks(){ return availableChoices != null? availableChoices.Select(c => c.condition).ToArray() : new Task[0]; }		
+		public Task[] GetSubTasks(){ return availableChoices != null? availableChoices.Select(c => c.condition).ToArray() : new Task[0]; }
 		public override int maxOutConnections{ get{return availableChoices.Count;} }
 		public override bool requireActorSelection{ get {return true;} }
 
@@ -48,7 +48,7 @@ namespace NodeCanvas.DialogueTrees{
 				var condition = availableChoices[i].condition;
 				if (condition == null || condition.CheckCondition(finalActor.transform, bb)){
 					var tempStatement = availableChoices[i].statement.BlackboardReplace(bb);
-					finalOptions[tempStatement] = i;					
+					finalOptions[tempStatement] = i;
 				}
 			}
 
@@ -184,13 +184,14 @@ namespace NodeCanvas.DialogueTrees{
 			choice.statement.text = UnityEditor.EditorGUILayout.TextField(choice.statement.text);
 			choice.statement.audio = UnityEditor.EditorGUILayout.ObjectField("Audio File", choice.statement.audio, typeof(AudioClip), false) as AudioClip;
 			choice.statement.meta = UnityEditor.EditorGUILayout.TextField("Meta Data", choice.statement.meta);
+			choice.statement.langKey = UnityEditor.EditorGUILayout.TextField("Language Key", choice.statement.langKey);
 
 			EditorUtils.TaskField<ConditionTask>(choice.condition, graph, (c)=> { choice.condition = c; });
 
 			GUILayout.EndVertical();
 			GUILayout.EndHorizontal();
 
-			GUILayout.Space(10);			
+			GUILayout.Space(10);
 		}
 
 		#endif

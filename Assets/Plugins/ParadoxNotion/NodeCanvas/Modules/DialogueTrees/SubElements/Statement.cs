@@ -9,6 +9,7 @@ namespace NodeCanvas.DialogueTrees{
 		string text{get;}
 		AudioClip audio{get;}
 		string meta{get;}
+		string langKey { get; }
 	}
 
 	///Holds data of what's being said usualy by an actor
@@ -21,6 +22,8 @@ namespace NodeCanvas.DialogueTrees{
 		private AudioClip _audio;
 		[SerializeField]
 		private string _meta = string.Empty;
+		[SerializeField]
+		private string _langKey = string.Empty;
 
 		public string text{
 			get {return _text;}
@@ -35,6 +38,12 @@ namespace NodeCanvas.DialogueTrees{
 		public string meta{
 			get {return _meta;}
 			set {_meta = value;}
+		}
+
+		public string langKey
+		{
+			get { return _langKey; }
+			set { _langKey = value; }
 		}
 
 		//required
@@ -59,11 +68,11 @@ namespace NodeCanvas.DialogueTrees{
 			var s = text;
 			var i = 0;
 			while ( (i = s.IndexOf('[', i)) != -1){
-				
+
 				var end = s.Substring(i + 1).IndexOf(']');
 				var input = s.Substring(i + 1, end); //what's in the brackets
 				var output = s.Substring(i, end + 2); //what should be replaced (includes brackets)
-				
+
 				object o = null;
 				if (bb != null){ //referenced blackboard replace
 					var v = bb.GetVariable(input, typeof(object));
