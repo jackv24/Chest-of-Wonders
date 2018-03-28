@@ -12,7 +12,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Overgrowth Studio
-  productName: Chest of Dark Wonder
+  productName: Alistair's Chest
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 16, y: 16}
   m_SplashScreenBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
@@ -623,7 +623,21 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
-    1: SUPER_TILEMAP_EDITOR
+    1: SUPER_TILEMAP_EDITOR;TextMeshPro
+    4: TextMeshPro
+    7: TextMeshPro
+    13: TextMeshPro
+    14: TextMeshPro
+    17: TextMeshPro
+    18: TextMeshPro
+    19: TextMeshPro
+    20: TextMeshPro
+    21: TextMeshPro
+    23: TextMeshPro
+    24: TextMeshPro
+    25: TextMeshPro
+    26: TextMeshPro
+    27: TextMeshPro
   platformArchitecture:
     iOS: 2
   scriptingBackend:

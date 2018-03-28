@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 114591042873883684}
   - component: {fileID: 114946171849514578}
   - component: {fileID: 114461456747828582}
+  - component: {fileID: 114144118222417130}
   m_Layer: 5
   m_Name: ElementText
   m_TagString: Untagged
@@ -635,6 +636,7 @@ GameObject:
   - component: {fileID: 222044136916139032}
   - component: {fileID: 114062870578506926}
   - component: {fileID: 114766782238243180}
+  - component: {fileID: 114254281088336936}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1366,6 +1368,7 @@ GameObject:
   - component: {fileID: 114128184604799000}
   - component: {fileID: 114384983718292070}
   - component: {fileID: 114227653561801758}
+  - component: {fileID: 114414799463930792}
   m_Layer: 5
   m_Name: ElementText
   m_TagString: Untagged
@@ -1789,6 +1792,7 @@ GameObject:
   - component: {fileID: 222289506929000426}
   - component: {fileID: 114866895202626060}
   - component: {fileID: 114994334294391940}
+  - component: {fileID: 114680279811143540}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2532,6 +2536,7 @@ GameObject:
   - component: {fileID: 222872749442798258}
   - component: {fileID: 114870262121379666}
   - component: {fileID: 114749934932422282}
+  - component: {fileID: 114602126109947418}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3251,6 +3256,7 @@ GameObject:
   - component: {fileID: 114804165008207752}
   - component: {fileID: 114272898286612472}
   - component: {fileID: 114993264602224742}
+  - component: {fileID: 114387463195205012}
   m_Layer: 5
   m_Name: ElementText
   m_TagString: Untagged
@@ -3287,6 +3293,7 @@ GameObject:
   - component: {fileID: 222032198178240290}
   - component: {fileID: 114970332809462506}
   - component: {fileID: 114280635652294508}
+  - component: {fileID: 114076623988099572}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3523,6 +3530,7 @@ GameObject:
   - component: {fileID: 114663694952339396}
   - component: {fileID: 114989782373032200}
   - component: {fileID: 114388799144762966}
+  - component: {fileID: 114964508460663644}
   m_Layer: 5
   m_Name: ElementText
   m_TagString: Untagged
@@ -5363,7 +5371,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Quit
+  m_Text: Quit to Menu
 --- !u!114 &114062967676419338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5656,6 +5664,45 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114076623988099572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1835783431111634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: UI/RESUME_BUTTON
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  Source: {fileID: 0}
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!114 &114076889843814126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6357,7 +6404,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Gale
+  m_Text: Ember
 --- !u!114 &114131284326500310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6482,6 +6529,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 114262386137851282}
   item: {fileID: 0}
+--- !u!114 &114144118222417130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1052254377479124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: UI/MAGIC_GRASS
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  Source: {fileID: 0}
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!114 &114146107475804218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7932,6 +8018,45 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114254281088336936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1174866018219902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: UI/QUIT_TO_MENU_BUTTON
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  Source: {fileID: 0}
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!114 &114254437709958688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9081,6 +9206,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: b5a26946-e598-40ce-856e-6f237ee6a020
+--- !u!114 &114387463195205012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1833635327427380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: UI/MAGIC_FIRE
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  Source: {fileID: 0}
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!114 &114387668947348518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9286,6 +9450,45 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114414799463930792
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352179793965258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: UI/MAGIC_WIND
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  Source: {fileID: 0}
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!114 &114417774537125386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11327,7 +11530,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Leaf
+  m_Text: Ember
 --- !u!114 &114591072128002652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11427,6 +11630,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: 7ec63df0-9596-4fb9-ba77-2427b28867d9
+--- !u!114 &114602126109947418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1632822835911866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: UI/OPTIONS_BUTTON
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  Source: {fileID: 0}
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!114 &114603503822204408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12236,7 +12478,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Frost
+  m_Text: Ember
 --- !u!114 &114663873775960784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12524,6 +12766,45 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &114680279811143540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452733377017894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: UI/PAUSED_TITLE
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  Source: {fileID: 0}
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!114 &114683876093912002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13336,7 +13617,38 @@ MonoBehaviour:
           y: 0
           width: 0
           height: 0
-        _stringValue: Frost
+        _stringValue: Ember
+        _vector2Value: {x: 0, y: 0}
+        _vector3Value: {x: 0, y: 0, z: 0}
+        _vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    - _isExpanded: 1
+      _typeName: Localize
+      _overrideProperties:
+      - _path: mTerm
+        _animationCurveValue:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        _booleanValue: 0
+        _boundsValue:
+          m_Center: {x: 0, y: 0, z: 0}
+          m_Extent: {x: 0, y: 0, z: 0}
+        _colorValue: {r: 0, g: 0, b: 0, a: 0}
+        _doubleValue: 0
+        _floatValue: 0
+        _intValue: 0
+        _longValue: 0
+        _objectReferenceValue: {fileID: 0}
+        _quaternionValue: {x: 0, y: 0, z: 0, w: 1}
+        _rectValue:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        _stringValue: UI/MAGIC_ICE
         _vector2Value: {x: 0, y: 0}
         _vector3Value: {x: 0, y: 0, z: 0}
         _vector4Value: {x: 0, y: 0, z: 0, w: 0}
@@ -14158,7 +14470,38 @@ MonoBehaviour:
           y: 0
           width: 0
           height: 0
-        _stringValue: Gale
+        _stringValue: Ember
+        _vector2Value: {x: 0, y: 0}
+        _vector3Value: {x: 0, y: 0, z: 0}
+        _vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    - _isExpanded: 1
+      _typeName: Localize
+      _overrideProperties:
+      - _path: mTerm
+        _animationCurveValue:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        _booleanValue: 0
+        _boundsValue:
+          m_Center: {x: 0, y: 0, z: 0}
+          m_Extent: {x: 0, y: 0, z: 0}
+        _colorValue: {r: 0, g: 0, b: 0, a: 0}
+        _doubleValue: 0
+        _floatValue: 0
+        _intValue: 0
+        _longValue: 0
+        _objectReferenceValue: {fileID: 0}
+        _quaternionValue: {x: 0, y: 0, z: 0, w: 1}
+        _rectValue:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        _stringValue: UI/MAGIC_WIND
         _vector2Value: {x: 0, y: 0}
         _vector3Value: {x: 0, y: 0, z: 0}
         _vector4Value: {x: 0, y: 0, z: 0, w: 0}
@@ -14592,7 +14935,38 @@ MonoBehaviour:
           y: 0
           width: 0
           height: 0
-        _stringValue: Leaf
+        _stringValue: Ember
+        _vector2Value: {x: 0, y: 0}
+        _vector3Value: {x: 0, y: 0, z: 0}
+        _vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    - _isExpanded: 1
+      _typeName: Localize
+      _overrideProperties:
+      - _path: mTerm
+        _animationCurveValue:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        _booleanValue: 0
+        _boundsValue:
+          m_Center: {x: 0, y: 0, z: 0}
+          m_Extent: {x: 0, y: 0, z: 0}
+        _colorValue: {r: 0, g: 0, b: 0, a: 0}
+        _doubleValue: 0
+        _floatValue: 0
+        _intValue: 0
+        _longValue: 0
+        _objectReferenceValue: {fileID: 0}
+        _quaternionValue: {x: 0, y: 0, z: 0, w: 1}
+        _rectValue:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        _stringValue: UI/MAGIC_GRASS
         _vector2Value: {x: 0, y: 0}
         _vector3Value: {x: 0, y: 0, z: 0}
         _vector4Value: {x: 0, y: 0, z: 0, w: 0}
@@ -16154,6 +16528,45 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 114095181921304490}
+--- !u!114 &114964508460663644
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1874821695367086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: UI/MAGIC_ICE
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  Source: {fileID: 0}
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!114 &114964936679100988
 MonoBehaviour:
   m_ObjectHideFlags: 1

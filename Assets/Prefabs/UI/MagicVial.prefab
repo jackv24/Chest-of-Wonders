@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 114635033082481670}
   - component: {fileID: 114387831543189492}
   - component: {fileID: 114632976588959160}
+  - component: {fileID: 114162929298675590}
   m_Layer: 5
   m_Name: ElementText
   m_TagString: Untagged
@@ -213,6 +214,45 @@ MonoBehaviour:
     - {fileID: 1094272604819050}
     - {fileID: 1491935524382140}
   _assetGuid: 85f65ff3ed728a34e9fbc8f7c38a1825
+--- !u!114 &114162929298675590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094272604819050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: UI/MAGIC_FIRE
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  Source: {fileID: 0}
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_UnityUI_Text
 --- !u!114 &114230951016030772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -243,6 +283,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &114257092645434966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,7 +516,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: EMPTY
+  m_Text: Ember
 --- !u!114 &114739850861245880
 MonoBehaviour:
   m_ObjectHideFlags: 1

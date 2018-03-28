@@ -1,0 +1,219 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1446967476202984}
+  m_IsPrefabParent: 1
+--- !u!1 &1446967476202984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4021737642892188}
+  - component: {fileID: 114028212884610604}
+  - component: {fileID: 114766938185422642}
+  - component: {fileID: 114458394279357120}
+  m_Layer: 0
+  m_Name: I2Languages
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4021737642892188
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446967476202984}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114028212884610604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446967476202984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488051eaa73ba421e8fe4868f2e0f364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NeverDestroy: 0
+  UserAgreesToHaveItOnTheScene: 0
+  UserAgreesToHaveItInsideThePluginsFolder: 0
+  Spreadsheet_LocalFileName: 
+  Spreadsheet_LocalCSVSeparator: ','
+  Spreadsheet_LocalCSVEncoding: utf-8
+  Assets: []
+  Google_WebServiceURL: https://script.google.com/macros/s/AKfycby9NSlouRdJbanQ3ytpDWTop6-En_rFiGAz-5wPPONzrelakuEJ/exec
+  Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
+  Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
+  Google_LastUpdatedVersion: 1522235569547
+  GoogleUpdateFrequency: 1
+  GoogleUpdateDelay: 5
+  mLanguages:
+  - Name: English
+    Code: en
+    Flags: 0
+  - Name: Japanese
+    Code: ja
+    Flags: 0
+  IgnoreDeviceLanguage: 0
+  mTerms:
+  - Term: UI/GAME_TITLE
+    TermType: 0
+    Description: 
+    Languages:
+    - Alistair's Chest
+    - "\u30A2\u30EA\u30B9\u30BF\u30FC\u306E\u80F8"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/PLAY_TEXT
+    TermType: 0
+    Description: 
+    Languages:
+    - Play Game
+    - "\u30B2\u30FC\u30E0\u3057\u307E\u3059"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/RESUME_BUTTON
+    TermType: 0
+    Description: 
+    Languages:
+    - Resume
+    - "\u5C65\u6B74\u66F8"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/OPTIONS_BUTTON
+    TermType: 0
+    Description: 
+    Languages:
+    - Options
+    - "\u30AA\u30D7\u30B7\u30E7\u30F3"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/QUIT_TO_MENU_BUTTON
+    TermType: 0
+    Description: 
+    Languages:
+    - Quit to Menu
+    - "\u30E1\u30CB\u30E5\u30FC\u306B\u623B\u308B"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/PAUSED_TITLE
+    TermType: 0
+    Description: 
+    Languages:
+    - Paused
+    - "\u4E00\u6642\u505C\u6B62\u3057\u305F"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/MAGIC_FIRE
+    TermType: 0
+    Description: 
+    Languages:
+    - Ember
+    - "\u30A8\u30D0\u30FC"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/MAGIC_WIND
+    TermType: 0
+    Description: 
+    Languages:
+    - Gale
+    - "\u30AC\u30FC\u30EB"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/MAGIC_ICE
+    TermType: 0
+    Description: 
+    Languages:
+    - Frost
+    - "\u971C"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/MAGIC_GRASS
+    TermType: 0
+    Description: 
+    Languages:
+    - Leaf
+    - "\u8449"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: Dialogue/BELLE_HELLO
+    TermType: 0
+    Description: 
+    Languages:
+    - Hi there!
+    - "\u3053\u3093\u306B\u3061\u306F\uFF01"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  CaseInsensitiveTerms: 0
+  OnMissingTranslation: 1
+  mTerm_AppName: UI/GAME_TITLE
+--- !u!114 &114458394279357120
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446967476202984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: e99345d7-a65b-4c85-a31d-5ac6c845458a
+--- !u!114 &114766938185422642
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446967476202984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isConnected: 1
+  _guid: 
+  _referenceCollection:
+    _collection:
+    - {fileID: 1446967476202984}
+  _assetGuid: 245600708ae17b84abba54425ee593ce
