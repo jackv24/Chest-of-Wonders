@@ -40,7 +40,6 @@ namespace NodeCanvas.Tasks.Actions{
 				statement.text = UnityEditor.EditorGUILayout.TextArea(statement.text, (GUIStyle)"textField", GUILayout.Height(50));
 				statement.audio = (AudioClip)UnityEditor.EditorGUILayout.ObjectField("Audio Clip", statement.audio, typeof(AudioClip), false);
 				statement.meta = UnityEditor.EditorGUILayout.TextField("Meta", statement.meta);
-				statement.langKey = UnityEditor.EditorGUILayout.TextField("Language Key", statement.langKey);
 				GUILayout.EndVertical();
 				GUILayout.BeginVertical();
 				if (GUILayout.Button("X")){

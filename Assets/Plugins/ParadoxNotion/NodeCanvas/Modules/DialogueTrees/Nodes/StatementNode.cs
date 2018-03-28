@@ -45,7 +45,6 @@ namespace NodeCanvas.DialogueTrees{
 			statement.text = UnityEditor.EditorGUILayout.TextArea(statement.text, areaStyle, GUILayout.Height(100));
 			statement.audio = UnityEditor.EditorGUILayout.ObjectField("Audio File", statement.audio, typeof(AudioClip), false)  as AudioClip;
 			statement.meta = UnityEditor.EditorGUILayout.TextField("Metadata", statement.meta);
-			statement.langKey = UnityEditor.EditorGUILayout.TextField("Language Key", statement.langKey);
 		}
 
 		#endif

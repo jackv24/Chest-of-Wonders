@@ -9,10 +9,9 @@ namespace NodeCanvas.DialogueTrees{
 		string text{get;}
 		AudioClip audio{get;}
 		string meta{get;}
-		string langKey { get; }
 	}
 
-	///Holds data of what's being said usualy by an actor
+	///Holds data of what's being said usually by an actor
 	[System.Serializable]
 	public class Statement : IStatement{
 
@@ -22,8 +21,6 @@ namespace NodeCanvas.DialogueTrees{
 		private AudioClip _audio;
 		[SerializeField]
 		private string _meta = string.Empty;
-		[SerializeField]
-		private string _langKey = string.Empty;
 
 		public string text{
 			get {return _text;}
@@ -38,12 +35,6 @@ namespace NodeCanvas.DialogueTrees{
 		public string meta{
 			get {return _meta;}
 			set {_meta = value;}
-		}
-
-		public string langKey
-		{
-			get { return _langKey; }
-			set { _langKey = value; }
 		}
 
 		//required
