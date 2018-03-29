@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using NodeCanvas.DialogueTrees;
 using TMPro;
-using I2.Loc;
 
 public class DialogueBox : MonoBehaviour
 {
@@ -283,7 +282,7 @@ public class DialogueBox : MonoBehaviour
 			Text buttonText = buttons[pair.Value].GetComponentInChildren<Text>();
 
 			if (buttonText)
-				buttonText.text = pair.Key.text;
+				buttonText.text = pair.Key.text.TryGetTranslation();
 
 			buttons[pair.Value].gameObject.SetActive(true);
 		}
@@ -314,11 +313,7 @@ public class DialogueBox : MonoBehaviour
 		if (actor.transform)
 			currentSpeaker = actor.transform.GetComponent<DialogueSpeaker>();
 
-		string text;
-
-		//Try and get translation. If this text was not a translation key then show as warning
-		if(!LocalizationManager.TryGetTranslation(info.statement.text, out text))
-			text = $"#{info.statement.text}#";
+		string text = info.statement.text.TryGetTranslation();
 
 		yield return null;
 

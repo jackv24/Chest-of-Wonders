@@ -59,11 +59,13 @@ MonoBehaviour:
   Spreadsheet_LocalFileName: 
   Spreadsheet_LocalCSVSeparator: ','
   Spreadsheet_LocalCSVEncoding: utf-8
-  Assets: []
+  Assets:
+  - {fileID: 12800000, guid: eed6942336cffc64cb6c3ee03acf7f5d, type: 3}
+  - {fileID: 12800000, guid: 171f5f760a8259a4fbe59467c313e41f, type: 3}
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycby9NSlouRdJbanQ3ytpDWTop6-En_rFiGAz-5wPPONzrelakuEJ/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1522237314273
+  Google_LastUpdatedVersion: 1522315888754
   GoogleUpdateFrequency: 1
   GoogleUpdateDelay: 5
   mLanguages:
@@ -75,6 +77,22 @@ MonoBehaviour:
     Flags: 0
   IgnoreDeviceLanguage: 0
   mTerms:
+  - Term: YES
+    TermType: 0
+    Description: 
+    Languages:
+    - Yes
+    - "\u306F\u3044"
+    Flags: 0000
+    Languages_Touch: []
+  - Term: NO
+    TermType: 0
+    Description: 
+    Languages:
+    - No
+    - "\u3044\u3044\u3048"
+    Flags: 0000
+    Languages_Touch: []
   - Term: UI/GAME_TITLE
     TermType: 0
     Description: 

@@ -124,7 +124,17 @@ namespace NodeCanvas.DialogueTrees{
 				var choice = availableChoices[i];
 				var connection = i < outConnections.Count? outConnections[i] : null;
 				GUILayout.BeginHorizontal("box");
-				GUILayout.Label(string.Format("(#{0}) {1}", connection != null? connection.targetNode.ID.ToString() : "NONE", choice.statement.text ), leftLabelStyle );
+
+				var displayText = $"<color=maroon>{choice.statement.text}</color>";
+
+				string translation;
+				if (I2.Loc.LocalizationManager.TryGetTranslation(choice.statement.text, out translation))
+				{
+					displayText = $"{translation} ({choice.statement.text})";
+				}
+
+				GUILayout.Label(string.Format("(#{0}) {1}", connection != null? connection.targetNode.ID.ToString() : "NONE", displayText ), leftLabelStyle );
+
 				GUILayout.EndHorizontal();
 			}
 
