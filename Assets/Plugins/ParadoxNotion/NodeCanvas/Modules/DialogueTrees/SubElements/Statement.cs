@@ -56,7 +56,8 @@ namespace NodeCanvas.DialogueTrees{
 
 		///Replace the text of the statement found in brackets, with blackboard variables ToString and returns a Statement copy
 		public Statement BlackboardReplace(IBlackboard bb){
-			var s = text;
+			var s = text.TryGetTranslation();
+
 			var i = 0;
 			while ( (i = s.IndexOf('[', i)) != -1){
 
