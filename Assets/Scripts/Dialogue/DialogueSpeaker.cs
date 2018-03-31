@@ -4,13 +4,14 @@ using UnityEngine;
 using NodeCanvas.DialogueTrees;
 
 [RequireComponent(typeof(DialogueActor))]
-public class DialogueSpeaker : MonoBehaviour
+public class DialogueSpeaker : MonoBehaviour, IInteractible
 {
-    [Space()]
+	public InteractType InteractType { get { return InteractType.Speak; } }
+
+	[Space()]
     //How far offset from the gameobject should it be (in world space)
     public Vector2 boxOffset = new Vector2(0, 1.75f);
 
-    private PlayerActions playerActions;
     private bool inRange = false;
     [HideInInspector]
     public bool rangeToggle = false;
@@ -42,8 +43,6 @@ public class DialogueSpeaker : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
 
-        playerActions = ControlManager.GetPlayerActions();
-
 		animator = GetComponentInChildren<Animator>();
 
 		if (cowerFromEnemies && animator)
@@ -71,33 +70,13 @@ public class DialogueSpeaker : MonoBehaviour
 
         if (inRange)
         {
-            if (rangeToggle)
-                DialogueBox.Instance.ShowPromptIcon((Vector2)transform.position + boxOffset);
+			InteractManager.AddInteractible(this, (Vector2)transform.position + boxOffset);
 
             rangeToggle = false;
-
-            //If interact buttons is pressed in range...and the player "can move" (can perform actions outside of UI)
-            if (playerActions.Interact.WasPressed && dialogueTree && GameManager.instance.CanDoActions)
-            {
-				dialogueTree.StartDialogue(actor);
-
-                //If desired, face the player while speaking
-                if (facePlayer && graphic)
-                {
-                    //Make x scale -1 or 1 to flip the sprite to face the player
-                    Vector3 scale = graphic.transform.localScale;
-                    scale.x = Mathf.Sign(player.transform.position.x - transform.position.x);
-                    graphic.transform.localScale = scale;
-                }
-
-                if (player)
-                    StartCoroutine("MovePlayer");
-            }
         }
         else
         {
-            if (!rangeToggle)
-                DialogueBox.Instance.HidePromptIcon();
+			InteractManager.RemoveInteractible(this);
 
             rangeToggle = true;
         }
@@ -219,4 +198,24 @@ public class DialogueSpeaker : MonoBehaviour
         Gizmos.DrawLine(new Vector3(-talkRange, 1.0f) + transform.position, new Vector3(-talkRange, 0) + transform.position);
         Gizmos.DrawLine(new Vector3(talkRange, 1.0f) + transform.position, new Vector3(talkRange, 0) + transform.position);
     }
+
+	public void Interact()
+	{
+		if (dialogueTree)
+		{
+			dialogueTree.StartDialogue(actor);
+
+			//If desired, face the player while speaking
+			if (facePlayer && graphic)
+			{
+				//Make x scale -1 or 1 to flip the sprite to face the player
+				Vector3 scale = graphic.transform.localScale;
+				scale.x = Mathf.Sign(player.transform.position.x - transform.position.x);
+				graphic.transform.localScale = scale;
+			}
+
+			if (player)
+				StartCoroutine("MovePlayer");
+		}
+	}
 }

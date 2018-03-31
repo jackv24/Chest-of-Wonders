@@ -62,6 +62,7 @@ MonoBehaviour:
   Assets:
   - {fileID: 12800000, guid: eed6942336cffc64cb6c3ee03acf7f5d, type: 3}
   - {fileID: 12800000, guid: 171f5f760a8259a4fbe59467c313e41f, type: 3}
+  - {fileID: 11400000, guid: 423fe26930997454e97a899f905e0cf3, type: 2}
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycby9NSlouRdJbanQ3ytpDWTop6-En_rFiGAz-5wPPONzrelakuEJ/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
@@ -313,6 +314,36 @@ MonoBehaviour:
     Languages:
     - Music
     - "\u97F3\u697D"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/INTERACT_OPEN
+    TermType: 0
+    Description: 
+    Languages:
+    - Open
+    - "\u958B\u3044\u305F"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: UI/INTERACT_TALK
+    TermType: 0
+    Description: 
+    Languages:
+    - Talk
+    - "\u30C8\u30FC\u30AF"
+    Flags: 0000
+    Languages_Touch:
+    - 
+    - 
+  - Term: FONT_BODY_TMPRO
+    TermType: 8
+    Description: 
+    Languages:
+    - UASQUARE SDF
+    - UASQUARE SDF
     Flags: 0000
     Languages_Touch:
     - 

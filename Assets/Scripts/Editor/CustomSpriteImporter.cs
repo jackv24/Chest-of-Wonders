@@ -6,7 +6,8 @@ public class CustomSpriteImporter : AssetPostprocessor
 {
 	void OnPreprocessTexture()
 	{
-		if (assetPath.StartsWith("Assets/Sprites"))
+		if (assetPath.StartsWith("Assets/Sprites") &&
+			!assetPath.Contains("UI"))
 		{
 			Debug.Log($"Preprocessing Texture: {assetPath}");
 

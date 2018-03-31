@@ -20,9 +20,6 @@ public class DialogueBox : MonoBehaviour
 	public AnimationClip speakerOpenAnim;
 	public AnimationClip speakerCloseAnim;
 
-    [Space()]
-    public GameObject interactIcon;
-
     private KeepWorldPosOnCanvas dialoguePos;
     private KeepWorldPosOnCanvas optionsPos;
 
@@ -59,7 +56,6 @@ public class DialogueBox : MonoBehaviour
 	public float optionSelectDelay = 0.5f;
 
 	private DialogueSpeaker currentSpeaker;
-	private Vector3 lastPromptLocation;
 
     private PlayerActions playerActions;
 
@@ -82,8 +78,6 @@ public class DialogueBox : MonoBehaviour
 
         speakerPanel.gameObject.SetActive(false);
         optionPanel.gameObject.SetActive(false);
-
-        interactIcon.SetActive(false);
 
         //Set up delegate functions for getting updated world position for dialogue box elements
         if (dialoguePos)
@@ -167,8 +161,6 @@ public class DialogueBox : MonoBehaviour
 
             GameManager.instance.gameRunning = false;
 
-			lastPromptLocation = HidePromptIcon();
-
 			speakerPanel.gameObject.SetActive(true);
 
 			if (speakerPanelAnimator && speakerOpenAnim)
@@ -229,8 +221,6 @@ public class DialogueBox : MonoBehaviour
 		GameManager.instance.gameRunning = true;
 
 		IsDialogueOpen = false;
-
-		ShowPromptIcon(lastPromptLocation);
 	}
 
 	void OnDialoguePaused(DialogueTree dialogueTree)
@@ -441,26 +431,6 @@ public class DialogueBox : MonoBehaviour
             if (anim)
                 anim.SetBool("isTalking", value);
         }
-    }
-
-    public void ShowPromptIcon(Vector2 position)
-    {
-        if(interactIcon)
-        {
-            interactIcon.transform.position = position;
-            interactIcon.SetActive(true);
-        }
-    }
-
-    public Vector3 HidePromptIcon()
-    {
-		if (interactIcon)
-		{
-			interactIcon.SetActive(false);
-			return interactIcon.transform.position;
-		}
-
-		return Vector3.zero;
     }
 
 	public void AutoContinue()
