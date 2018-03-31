@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 95899688047437162}
   - component: {fileID: 114006350019743462}
   - component: {fileID: 114368579377025058}
+  - component: {fileID: 114252890000377078}
+  - component: {fileID: 61528893259024400}
   m_Layer: 17
   m_Name: Chest_Small_A
   m_TagString: Untagged
@@ -37,12 +39,37 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142925689088732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.599968, y: -25.388458, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61528893259024400
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1142925689088732}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 5.25, y: 3.15625}
+    newSize: {x: 5.25, y: 3.15625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
 --- !u!95 &95899688047437162
 Animator:
   serializedVersion: 3
@@ -62,7 +89,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114006350019743462
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142925689088732}
@@ -77,9 +104,22 @@ MonoBehaviour:
     _collection:
     - {fileID: 1142925689088732}
   _assetGuid: dfd1d34bacdf756439c35cd86c743e6f
+--- !u!114 &114252890000377078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1142925689088732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 433f90d955325e3448f473c1972c02d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptHeight: 1
+  containingItem: {fileID: 0}
 --- !u!114 &114368579377025058
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142925689088732}

@@ -34,10 +34,10 @@ public class ItemTooltip : MonoBehaviour
 			gameObject.SetActive(true);
 
 			if (nameText)
-				nameText.text = slot.item.displayName;
+				nameText.text = slot.item.displayName.TryGetTranslation();
 
 			if (descriptionText)
-				descriptionText.text = slot.item.description;
+				descriptionText.text = slot.item.description.TryGetTranslation();
 
 			transform.position = (Vector2)slot.transform.position + offset;
 		}

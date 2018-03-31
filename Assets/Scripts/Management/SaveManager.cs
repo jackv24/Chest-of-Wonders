@@ -83,7 +83,7 @@ public class SaveManager : MonoBehaviour
                 data.inventory = inventory.items;
 				inventory.UpdateInventory();
             }
-            
+
 			if(bank)
 			{
 				data.maxSouls = bank.maxSouls;
@@ -171,7 +171,69 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void SetPickedUpItem(int id)
+	public bool CheckFlag(string flag)
+	{
+		if (data.flags.Contains(flag))
+			return true;
+		else
+			return false;
+	}
+
+	public void SetFlag(string flag)
+	{
+		if (!data.flags.Contains(flag))
+			data.flags.Add(flag);
+	}
+
+	public bool GetBlackboardJson(string key, out string json)
+	{
+		if (data.blackboardDictionary.ContainsKey(key))
+		{
+			json = data.blackboardDictionary[key];
+			return true;
+		}
+		else
+		{
+			json = "";
+			return false;
+		}
+	}
+
+	public void SaveBlackBoardJson(string key, string json)
+	{
+		data.blackboardDictionary[key] = json;
+	}
+
+	public bool GetPersistentObjectState(string sceneName, string id)
+	{
+		if(data.persistentObjects.ContainsKey(sceneName))
+		{
+			var sceneDictionary = data.persistentObjects[sceneName];
+
+			if(sceneDictionary.ContainsKey(id))
+			{
+				bool activated = sceneDictionary[id];
+				return activated;
+			}
+		}
+
+		return false;
+	}
+
+	public void SetPersistentObjectState(string sceneName, string id, bool activated)
+	{
+		//Get existing scene-level dictionary or create one
+		SaveData.PersistentObjectIDDictionary sceneDictionary = null;
+		if (data.persistentObjects.ContainsKey(sceneName))
+			sceneDictionary = data.persistentObjects[sceneName];
+		else
+			sceneDictionary = data.persistentObjects[sceneName] = new SaveData.PersistentObjectIDDictionary();
+
+		sceneDictionary[id] = activated;
+	}
+
+	#region TO BE DEPRECATED
+	public void SetPickedUpItem(int id)
     {
         data.pickedUpItems.Add(id);
     }
@@ -224,37 +286,5 @@ public class SaveManager : MonoBehaviour
 		else
 			return defaultPos;
 	}
-
-	public bool CheckFlag(string flag)
-	{
-		if (data.flags.Contains(flag))
-			return true;
-		else
-			return false;
-	}
-
-	public void SetFlag(string flag)
-	{
-		if (!data.flags.Contains(flag))
-			data.flags.Add(flag);
-	}
-
-	public bool GetBlackboardJson(string key, out string json)
-	{
-		if (data.blackboardDictionary.ContainsKey(key))
-		{
-			json = data.blackboardDictionary[key];
-			return true;
-		}
-		else
-		{
-			json = "";
-			return false;
-		}
-	}
-
-	public void SaveBlackBoardJson(string key, string json)
-	{
-		data.blackboardDictionary[key] = json;
-	}
+	#endregion
 }

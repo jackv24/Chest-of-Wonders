@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd7b0652e1441a43932c46d1f70c7ea, type: 3}
   m_Name: Key
   m_EditorClassIdentifier: 
-  displayName: Key
+  displayName: Items/KEY_NAME
   inventoryIcon: {fileID: 21300000, guid: 9dd3f2579174a604991abd430f6d99d9, type: 3}
-  description: A simple key that unlocks a simple door.
+  description: Items/KEY_DESCRIPTION

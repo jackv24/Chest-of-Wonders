@@ -348,6 +348,22 @@ MonoBehaviour:
     Languages_Touch:
     - 
     - 
+  - Term: Items/KEY_NAME
+    TermType: 0
+    Description: 
+    Languages:
+    - Key
+    - "\u30AD\u30FC"
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Items/KEY_DESCRIPTION
+    TermType: 0
+    Description: 
+    Languages:
+    - A simple key that unlocks a simple door.
+    - "\u30B7\u30F3\u30D7\u30EB\u306A\u9375\u306F\u3001\u7C21\u5358\u306A\u30C9\u30A2\u306E\u30ED\u30C3\u30AF\u3092\u89E3\u9664\u3057\u307E\u3059\u3002"
+    Flags: 0000
+    Languages_Touch: []
   CaseInsensitiveTerms: 0
   OnMissingTranslation: 1
   mTerm_AppName: UI/GAME_TITLE

@@ -28,7 +28,7 @@ public class KeepWorldPosOnCanvas : MonoBehaviour
 			screenCam = cam.GetComponent<Camera>();
 	}
 
-	private void Update()
+	private void LateUpdate()
     {
 		GetWorldPos();
 

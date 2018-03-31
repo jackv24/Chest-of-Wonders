@@ -49,6 +49,19 @@ public class SaveData
 	public int currentIceSouls;
 	public int currentWindSouls;
 
+	[System.Serializable]
+	public class DialogueDictionary : SerializableDictionary<string, string> { }
+	public DialogueDictionary blackboardDictionary;
+
+	public List<string> flags;
+
+	[System.Serializable]
+	public class PersistentObjectIDDictionary : SerializableDictionary<string, bool> { }
+	[System.Serializable]
+	public class PersistentObjectDictionary : SerializableDictionary<string, PersistentObjectIDDictionary> { }
+	public PersistentObjectDictionary persistentObjects;
+
+	#region TO BE DEPRECATED
 	//Lists of unique IDs for keeping objects disabled
 	public List<int> pickedUpItems;
 	public List<int> openedDoors;
@@ -59,11 +72,5 @@ public class SaveData
 
 	//Dictionary of moved item positions
 	public ObjectPositionDictionary savedObjectPositions;
-
-	[System.Serializable]
-    public class DialogueDictionary : SerializableDictionary<string, string> { }
-
-	public DialogueDictionary blackboardDictionary;
-
-	public List<string> flags;
+	#endregion
 }
