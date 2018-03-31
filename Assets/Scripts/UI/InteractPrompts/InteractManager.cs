@@ -95,6 +95,10 @@ public class InteractManager : MonoBehaviour
 					obj.transform.SetParent(canvas.transform);
 
 					obj.transform.localScale = interactPromptPrefab.transform.localScale;
+					obj.transform.localPosition = Vector3.zero;
+
+					//Make sure to render behind other canvas elements
+					obj.transform.SetAsFirstSibling();
 
 					KeepWorldPosOnCanvas keep = obj.GetComponent<KeepWorldPosOnCanvas>();
 					if (keep)
