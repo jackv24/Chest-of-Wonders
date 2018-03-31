@@ -59,6 +59,7 @@ public class CameraControl : MonoBehaviour
 
 	private List<CameraLockArea> cameraLockAreas = new List<CameraLockArea>();
 	private bool usingCameraLock = false;
+	private bool didJustEnterLevel = false;
 	private Bounds targetLockBounds;
 	private Bounds currentLockBounds;
 
@@ -159,12 +160,18 @@ public class CameraControl : MonoBehaviour
 
 			KeepInBounds();
 
-			transform.position = Vector3.Lerp(transform.position, targetPos, lerpSpeed * Time.deltaTime);
+			if (didJustEnterLevel)
+				transform.position = targetPos;
+			else
+				transform.position = Vector3.Lerp(transform.position, targetPos, lerpSpeed * Time.deltaTime);
 
             //Calculate camera world bounds
             minCameraWorld = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
             maxCameraWorld = Camera.main.ViewportToWorldPoint(new Vector3(1, 1));
         }
+
+		//Set did just enter level flag at end of frame
+		didJustEnterLevel = false;
     }
 
     void KeepInBounds()
@@ -218,8 +225,9 @@ public class CameraControl : MonoBehaviour
 
         KeepInBounds();
 
-        if(target)
-            transform.position = targetPos;
+		//If new level bounds are set then new level must have been entered
+		// clearing camlocks from previous error removes missing references
+		ClearCameraLocks();
     }
 
     public bool IsInView(Vector2 worldPos)
@@ -263,6 +271,16 @@ public class CameraControl : MonoBehaviour
 		}
 	}
 
+	void ClearCameraLocks()
+	{
+		cameraLockAreas.Clear();
+
+		currentLockBounds.size = Vector3.zero;
+
+		usingCameraLock = false;
+		didJustEnterLevel = true;
+	}
+
 	void SetCameraLock(CameraLockArea camLock)
 	{
 		if (camLock && camera)
@@ -270,10 +288,17 @@ public class CameraControl : MonoBehaviour
 			//Calculate area in which camera can move inside the level
 			targetLockBounds = camLock.Bounds;
 
-			//If not coming from a previous camera lock, use screen bounds for lerping
-			if(!usingCameraLock)
+			if (didJustEnterLevel)
 			{
-				currentLockBounds = GetCameraBounds();
+				currentLockBounds = targetLockBounds;
+			}
+			else
+			{
+				//If not coming from a previous camera lock, use screen bounds for lerping
+				if (!usingCameraLock)
+				{
+					currentLockBounds = GetCameraBounds();
+				}
 			}
 
 			usingCameraLock = true;
