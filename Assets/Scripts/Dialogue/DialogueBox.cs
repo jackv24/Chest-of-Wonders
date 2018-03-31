@@ -282,7 +282,7 @@ public class DialogueBox : MonoBehaviour
 			Text buttonText = buttons[pair.Value].GetComponentInChildren<Text>();
 
 			if (buttonText)
-				buttonText.text = pair.Key.text.TryGetTranslation();
+				buttonText.text = pair.Key.text;
 
 			buttons[pair.Value].gameObject.SetActive(true);
 		}
