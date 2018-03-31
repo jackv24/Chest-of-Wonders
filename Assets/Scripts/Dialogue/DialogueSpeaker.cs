@@ -68,17 +68,17 @@ public class DialogueSpeaker : MonoBehaviour, IInteractible
                 inRange = false;
         }
 
-        if (inRange)
+        if (inRange && !rangeToggle)
         {
-			InteractManager.AddInteractible(this, (Vector2)transform.position + boxOffset);
-
-            rangeToggle = false;
-        }
-        else
-        {
-			InteractManager.RemoveInteractible(this);
+			ShowPrompt();
 
             rangeToggle = true;
+        }
+        else if(!inRange && rangeToggle)
+        {
+			HidePrompt();
+
+            rangeToggle = false;
         }
     }
 
@@ -199,6 +199,16 @@ public class DialogueSpeaker : MonoBehaviour, IInteractible
         Gizmos.DrawLine(new Vector3(talkRange, 1.0f) + transform.position, new Vector3(talkRange, 0) + transform.position);
     }
 
+	public void ShowPrompt()
+	{
+		InteractManager.AddInteractible(this, (Vector2)transform.position + boxOffset);
+	}
+
+	public void HidePrompt()
+	{
+		InteractManager.RemoveInteractible(this);
+	}
+
 	public void Interact()
 	{
 		if (dialogueTree)
@@ -216,6 +226,8 @@ public class DialogueSpeaker : MonoBehaviour, IInteractible
 
 			if (player)
 				StartCoroutine("MovePlayer");
+
+			HidePrompt();
 		}
 	}
 }

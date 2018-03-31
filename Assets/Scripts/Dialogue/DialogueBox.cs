@@ -217,6 +217,8 @@ public class DialogueBox : MonoBehaviour
 
 		speakerPanel.gameObject.SetActive(false);
 
+		currentSpeaker.ShowPrompt();
+
 		//Return control
 		GameManager.instance.gameRunning = true;
 

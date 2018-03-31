@@ -19,6 +19,8 @@ public class InteractManager : MonoBehaviour
 {
 	public static InteractManager Instance;
 
+	public Canvas canvas;
+
 	public GameObject interactPromptPrefab;
 
 	private class Interactible
@@ -90,7 +92,13 @@ public class InteractManager : MonoBehaviour
 				if(interactPromptPrefab)
 				{
 					GameObject obj = ObjectPooler.GetPooledObject(interactPromptPrefab);
-					obj.transform.position = currentInteractible.position;
+					obj.transform.SetParent(canvas.transform);
+
+					obj.transform.localScale = interactPromptPrefab.transform.localScale;
+
+					KeepWorldPosOnCanvas keep = obj.GetComponent<KeepWorldPosOnCanvas>();
+					if (keep)
+						keep.worldPos = currentInteractible.position;
 
 					InteractPrompt interactPrompt = obj.GetComponent<InteractPrompt>();
 					if(interactPrompt)
@@ -143,6 +151,12 @@ public class InteractManager : MonoBehaviour
 		if(interactiblePosition != null)
 		{
 			Instance.interactibles.Remove(interactiblePosition);
+
+			if(Instance.currentInteractible == interactiblePosition)
+			{
+				Instance.currentInteractible.prompt.HidePrompt();
+				Instance.currentInteractible = null;
+			}
 		}
 	}
 }

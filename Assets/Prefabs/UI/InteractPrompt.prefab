@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 114178103114895146}
   - component: {fileID: 114166205383405108}
   - component: {fileID: 114299570219982910}
+  - component: {fileID: 114235839998442576}
   m_Layer: 5
   m_Name: InteractPrompt
   m_TagString: Untagged
@@ -128,6 +129,23 @@ MonoBehaviour:
     - {fileID: 1634805075217904}
     - {fileID: 1225840675168258}
   _assetGuid: 172a61219287fd243bcbff691f79b946
+--- !u!114 &114235839998442576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896547299455670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7794ee63b61175e42886ce901504ff9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldPos: {x: 0, y: 0}
+  keepInScreenBounds: 0
+  paddingTop: 0
+  paddingDown: 0
+  paddingLeft: 0
+  paddingRight: 0
 --- !u!114 &114299570219982910
 MonoBehaviour:
   m_ObjectHideFlags: 1
