@@ -7,16 +7,6 @@ using I2.Loc;
 /// </summary>
 public static class Extensions
 {
-	public static Bounds LerpTo(this Bounds self, Bounds target, float t)
-	{
-		Bounds bounds = new Bounds();
-
-		bounds.min = Vector3.Lerp(self.min, target.min, t);
-		bounds.max = Vector3.Lerp(self.max, target.max, t);
-
-		return bounds;
-	}
-
 	/// <summary>
 	/// Attempts to get the translation of this string. If no translation is found the
 	/// original string will be returned with some warning characters to signify that it has not been translated

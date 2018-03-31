@@ -383,8 +383,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  focusTargetLerpSpeed: 2
   followSpeed: 10
   heightOffset: 1
-  lookAhead: 3
-  lookAheadSpeed: 1
+  lookAhead: 1
+  lookAheadSpeed: 2
+  cameraMinMove: 0.2
   cameraLockLerpSpeed: 2

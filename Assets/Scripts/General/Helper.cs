@@ -4,13 +4,16 @@ using System.Collections;
 using UnityEditor;
 #endif
 
+/// <summary>
+/// Generic class containing useful helper methods
+/// </summary>
 public static class Helper
 {
     public static Vector3 SnapTo(Vector3 vector, float snapAngle)
     {
         float angle = Vector3.Angle(vector, Vector3.up);
 
-        if (angle < snapAngle / 2.0f)          // Cannot do cross product 
+        if (angle < snapAngle / 2.0f)          // Cannot do cross product
             return Vector3.up * vector.magnitude;  //   with angles 0 & 180
         if (angle > 180.0f - snapAngle / 2.0f)
             return Vector3.down * vector.magnitude;
@@ -31,6 +34,37 @@ public static class Helper
         eulerAngles.z = rotationZ;
         transform.eulerAngles = eulerAngles;
     }
+
+	#region Lerping Methods
+	public static float LerpClamped(float a, float b, float t, float minChange)
+	{
+		if (Mathf.Abs(a - b) < minChange)
+			return a;
+		else
+			return Mathf.Lerp(a, b, t);
+	}
+
+	public static Vector3 LerpClamped(Vector3 a, Vector3 b, float t, float minChange)
+	{
+		Vector3 vector = new Vector3();
+
+		vector.x = LerpClamped(a.x, b.x, t, minChange);
+		vector.y = LerpClamped(a.y, b.y, t, minChange);
+		vector.z = LerpClamped(a.z, b.z, t, minChange);
+
+		return vector;
+	}
+
+	public static Bounds Lerp(Bounds a, Bounds b, float t, float minChange = 0)
+	{
+		Bounds bounds = new Bounds();
+
+		bounds.min = LerpClamped(a.min, b.min, t, minChange);
+		bounds.max = LerpClamped(a.max, b.max, t, minChange);
+
+		return bounds;
+	}
+	#endregion
 }
 
 [System.Serializable]

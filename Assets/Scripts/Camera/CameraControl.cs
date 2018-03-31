@@ -47,6 +47,9 @@ public class CameraControl : MonoBehaviour
 	private bool skipLerpAhead = false;
 	private float skippedAheadDistance;
 
+	[Space()]
+	public float cameraMinMove = 0.1f;
+
     private Vector3 targetPos;
     private LevelBounds bounds;
 
@@ -126,7 +129,8 @@ public class CameraControl : MonoBehaviour
 				}
 				else
 				{
-					aheadDistance = Mathf.Lerp(aheadDistance, lookAhead * (lookRight ? 1 : -1), lookAheadSpeed * Time.deltaTime);
+					//aheadDistance = Mathf.Lerp(aheadDistance, lookAhead * (lookRight ? 1 : -1), lookAheadSpeed * Time.deltaTime);
+					aheadDistance = Helper.LerpClamped(aheadDistance, lookAhead * (lookRight ? 1 : -1), lookAheadSpeed * Time.deltaTime, cameraMinMove);
 				}
 
 				targetPos = target.position;
@@ -311,7 +315,7 @@ public class CameraControl : MonoBehaviour
 		if (currentLockBounds.size == Vector3.zero)
 			return;
 
-		currentLockBounds = currentLockBounds.LerpTo(targetLockBounds, cameraLockLerpSpeed * Time.deltaTime);
+		currentLockBounds = Helper.Lerp(currentLockBounds, targetLockBounds, cameraLockLerpSpeed * Time.deltaTime, cameraMinMove);
 
 		if (camera)
 		{
