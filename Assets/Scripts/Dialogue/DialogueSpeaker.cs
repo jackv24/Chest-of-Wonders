@@ -201,7 +201,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteractible
 
 	public void ShowPrompt()
 	{
-		InteractManager.AddInteractible(this, (Vector2)transform.position + boxOffset);
+		InteractManager.AddInteractible(this, (Vector2)transform.position, boxOffset);
 	}
 
 	public void HidePrompt()

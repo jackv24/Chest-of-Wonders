@@ -27,13 +27,15 @@ public class InteractManager : MonoBehaviour
 	{
 		public IInteractible interactible;
 		public Vector2 position;
+		public Vector2 promptOffset;
 
 		public InteractPrompt prompt;
 
-		public Interactible(IInteractible interactible, Vector2 position)
+		public Interactible(IInteractible interactible, Vector2 position, Vector2 promptOffset)
 		{
 			this.interactible = interactible;
 			this.position = position;
+			this.promptOffset = promptOffset;
 		}
 	}
 	private List<Interactible> interactibles = new List<Interactible>();
@@ -83,32 +85,37 @@ public class InteractManager : MonoBehaviour
 				{
 					currentInteractible.prompt.HidePrompt();
 					currentInteractible.prompt = null;
+					currentInteractible = null;
 				}
 
-				//Set current
-				currentInteractible = closestInteractible;
-
-				//Show prompt
-				if(interactPromptPrefab)
+				//Only show interact prompt if they can be interacted with at this time
+				if (GameManager.instance.CanDoActions)
 				{
-					GameObject obj = ObjectPooler.GetPooledObject(interactPromptPrefab);
-					obj.transform.SetParent(canvas.transform);
+					//Set current
+					currentInteractible = closestInteractible;
 
-					obj.transform.localScale = interactPromptPrefab.transform.localScale;
-					obj.transform.localPosition = Vector3.zero;
-
-					//Make sure to render behind other canvas elements
-					obj.transform.SetAsFirstSibling();
-
-					KeepWorldPosOnCanvas keep = obj.GetComponent<KeepWorldPosOnCanvas>();
-					if (keep)
-						keep.worldPos = currentInteractible.position;
-
-					InteractPrompt interactPrompt = obj.GetComponent<InteractPrompt>();
-					if(interactPrompt)
+					//Show prompt
+					if (interactPromptPrefab)
 					{
-						currentInteractible.prompt = interactPrompt;
-						interactPrompt.ShowPrompt(currentInteractible.interactible.InteractType);
+						GameObject obj = ObjectPooler.GetPooledObject(interactPromptPrefab);
+						obj.transform.SetParent(canvas.transform);
+
+						obj.transform.localScale = interactPromptPrefab.transform.localScale;
+						obj.transform.localPosition = Vector3.zero;
+
+						//Make sure to render behind other canvas elements
+						obj.transform.SetAsFirstSibling();
+
+						KeepWorldPosOnCanvas keep = obj.GetComponent<KeepWorldPosOnCanvas>();
+						if (keep)
+							keep.worldPos = currentInteractible.position + currentInteractible.promptOffset;
+
+						InteractPrompt interactPrompt = obj.GetComponent<InteractPrompt>();
+						if (interactPrompt)
+						{
+							currentInteractible.prompt = interactPrompt;
+							interactPrompt.ShowPrompt(currentInteractible.interactible.InteractType);
+						}
 					}
 				}
 			}
@@ -120,7 +127,7 @@ public class InteractManager : MonoBehaviour
 		}
 	}
 
-	public static void AddInteractible(IInteractible interactible, Vector2 position)
+	public static void AddInteractible(IInteractible interactible, Vector2 position, Vector2 promptOffset)
 	{
 		if (Instance == null)
 			return;
@@ -136,7 +143,7 @@ public class InteractManager : MonoBehaviour
 		}
 
 		//else, add to list
-		Instance.interactibles.Add(new Interactible(interactible, position));
+		Instance.interactibles.Add(new Interactible(interactible, position, promptOffset));
 	}
 
 	public static void RemoveInteractible(IInteractible interactible)

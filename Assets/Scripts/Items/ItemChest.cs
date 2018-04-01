@@ -53,7 +53,7 @@ public class ItemChest : MonoBehaviour, IInteractible
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if(!opened)
-			InteractManager.AddInteractible(this, transform.position + Vector3.up * promptHeight);
+			InteractManager.AddInteractible(this, transform.position, Vector3.up * promptHeight);
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
