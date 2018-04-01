@@ -25,7 +25,7 @@ SpriteAtlas:
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 1
-      enableTightPacking: 1
+      enableTightPacking: 0
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: e3cc2c32ebb371f48a7850f1537fa768, type: 3}
@@ -45,6 +45,15 @@ SpriteAtlas:
   - {fileID: 21300004, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300002, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300000, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
+  - {fileID: 21300000, guid: 7a4fd0a557a1ab04f84b40c0bc956611, type: 3}
+  - {fileID: 21300000, guid: 6dbc2ad292c7651438faf43f20c1d566, type: 3}
+  - {fileID: 21300000, guid: 14e067625958f5b4e9457e5c402b487d, type: 3}
+  - {fileID: 21300000, guid: 2109c09cc9f46504894f07654ab6382d, type: 3}
+  - {fileID: 21300000, guid: a31cdd468e0225b4ab6eb8e8bfa756e6, type: 3}
+  - {fileID: 21300000, guid: b39ade9e32e43794998bc86e61125334, type: 3}
+  - {fileID: 21300000, guid: 2d7353dfd3050a34ca93c70640985d15, type: 3}
+  - {fileID: 21300000, guid: de8bc9ffe2ba2184e94aa7e8b5433b65, type: 3}
+  - {fileID: 21300000, guid: 8be7c9d315b6f6f49b562b67b31d9413, type: 3}
   - {fileID: 21300076, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300074, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300064, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
@@ -67,6 +76,11 @@ SpriteAtlas:
   - {fileID: 21300010, guid: 8781ab182901c074384367c58774cb78, type: 3}
   - {fileID: 21300000, guid: 8781ab182901c074384367c58774cb78, type: 3}
   - {fileID: 21300000, guid: 08209deaf68514b4088bcd89abab8847, type: 3}
+  - {fileID: 21300000, guid: ed22044d7a68001478733e93dc9f15de, type: 3}
+  - {fileID: 21300000, guid: 1c13cace372d30745be46a0c88c8f676, type: 3}
+  - {fileID: 21300000, guid: 938ebf1783cbaec4eb99257415db1f24, type: 3}
+  - {fileID: 21300000, guid: f9965ccd181382c41981b02bfabd9a54, type: 3}
+  - {fileID: 21300000, guid: 2513b2d6850108f4386b67635d4dc1d0, type: 3}
   - {fileID: 21300000, guid: 3057327c3197d7945bedc75c861fb4c5, type: 3}
   - {fileID: 21300006, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
   - {fileID: 21300008, guid: b2192508bd220aa49bc56296a00baa17, type: 3}
@@ -100,6 +114,15 @@ SpriteAtlas:
   - HUD_Frame_Basic
   - HUD_Frame_Half
   - HUD_Frame_Full
+  - star_appear008
+  - star_appear007
+  - star_appear006
+  - Star_appear005
+  - Star_appear004
+  - Star_appear003
+  - Star_appear002
+  - Star_appear001
+  - Star_appear000
   - HUD_bank_frame_paused
   - HUD_bank_frame
   - HUD_magic_switch_1
@@ -122,6 +145,11 @@ SpriteAtlas:
   - Buttons_Key
   - Buttons_Triangle
   - SpeakerTrail
+  - star_split_2
+  - star_split_1
+  - Arrow002
+  - Arrow000
+  - Arrow001
   - Arrow_45
   - HUD_health
   - HUD_mana
