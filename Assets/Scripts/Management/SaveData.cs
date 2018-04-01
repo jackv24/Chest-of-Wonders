@@ -53,8 +53,6 @@ public class SaveData
 	public class DialogueDictionary : SerializableDictionary<string, string> { }
 	public DialogueDictionary blackboardDictionary;
 
-	public List<string> flags;
-
 	[System.Serializable]
 	public class PersistentObjectIDDictionary : SerializableDictionary<string, bool> { }
 	[System.Serializable]

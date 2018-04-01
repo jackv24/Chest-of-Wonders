@@ -21,12 +21,7 @@ public class PullSwitch : MonoBehaviour
 	public Transform spawnPoint;
 	private GameObject spawnedObject;
 
-	[Space()]
-	[Tooltip("Flag to set then switch has succeeded (when pulled and object picked up.")]
-	public string succeedFlag = "";
-
 	private bool pulled = false;
-
 	private bool shouldSave = true;
 
 	public PersistentObject persistentObject;
@@ -61,9 +56,6 @@ public class PullSwitch : MonoBehaviour
 			if (!spawnedObject || !spawnedObject.activeSelf)
 			{
 				persistentObject.SaveState(pulled);
-
-				if (succeedFlag != "")
-					SaveManager.instance.SetFlag(succeedFlag);
 			}
 		}
 	}
