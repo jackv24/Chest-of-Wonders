@@ -390,7 +390,7 @@ public class CameraControl : MonoBehaviour
 		skipLerpAhead = true;
 
 		//Prevent look ahead from looking weird when coming out of focusing on targets
-		skippedAheadDistance = (target.transform.position.x - lastTarget.Position.x) * (lookRight ? 1 : -1);
+		skippedAheadDistance = Mathf.Abs(target.transform.position.x - lastTarget.Position.x) * (lookRight ? 1 : -1);
 	}
 
 	public FocusTarget GetFocusTargetByTransform(Transform target)
