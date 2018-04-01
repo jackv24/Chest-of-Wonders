@@ -12,9 +12,11 @@ public class PersistentObject
 
 	public void GetID(GameObject gameObject)
 	{
-		id = gameObject.name;
+		if(string.IsNullOrEmpty(id))
+			id = gameObject.name;
 
-		sceneName = gameObject.scene.name;
+		if(string.IsNullOrEmpty(sceneName))
+			sceneName = gameObject.scene.name;
 	}
 
 	public void SaveState(bool activated)

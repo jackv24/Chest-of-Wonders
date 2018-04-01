@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    [Tooltip("MUST BE UNIQUE")]
-    public int uniqueID = 0;
-
     public InventoryItem itemData;
 
     public float pickupRange = 1.0f;
@@ -18,17 +15,21 @@ public class ItemPickup : MonoBehaviour
 
     private SoundEffectBase soundEffects;
 
+	public PersistentObject persistentObject;
+
     void Start()
     {
         soundEffects = GameManager.instance.GetComponent<SoundEffectBase>();
 
-        //Check if this item has already been picked up
-        if (SaveManager.instance.IsItemPickedUp(uniqueID))
+		bool pickedUp = false;
+		persistentObject.GetID(gameObject);
+		persistentObject.LoadState(ref pickedUp);
+
+        if (pickedUp)
             gameObject.SetActive(false);
     }
 
-    //Only run on fixedupdate since this doesn't need to be run every frame
-    void FixedUpdate()
+    void Update()
     {
         if (itemData)
         {
@@ -53,8 +54,8 @@ public class ItemPickup : MonoBehaviour
                     if (soundEffects)
                         soundEffects.PlaySound(pickupSound);
 
-                    //Record that this item has been picked up
-                    SaveManager.instance.SetPickedUpItem(uniqueID);
+					//Record that this item has been picked up
+					persistentObject.SaveState(true);
 
                     //Remove item from world
                     gameObject.SetActive(false);

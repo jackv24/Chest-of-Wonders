@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class PushableBlock : MonoBehaviour
 {
-	[Tooltip("MUST BE UNIQUE")]
-	public int uniqueID = 0;
-	[Tooltip("Position will persist between level loads")]
-	public bool keepPosition = true;
-
 	private Transform player;
 
 	[Tooltip("How fast the block is pushed.")]
@@ -45,9 +40,6 @@ public class PushableBlock : MonoBehaviour
 
 		//Make sure block starts on the grid
 		ReturnToGrid();
-
-		if(keepPosition)
-			transform.position = SaveManager.instance.GetObjectPosition(uniqueID, transform.position);
 	}
 
 	private void Update()
@@ -173,9 +165,6 @@ public class PushableBlock : MonoBehaviour
 		characterMove.moveSpeed = m;
 
 		pushing = false;
-
-		if(keepPosition)
-			SaveManager.instance.SetObjectPosition(uniqueID, transform.position);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

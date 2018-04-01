@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class LockedDoor : MonoBehaviour
 {
-	[Tooltip("MUST BE UNIQUE (unless another door should be unlocked as well)")]
-	public int uniqueID = 0;
-
 	[Tooltip("Item needed to open door.")]
 	public InventoryItem requiredItem;
 	public bool consumeItem = true;
@@ -27,6 +24,8 @@ public class LockedDoor : MonoBehaviour
 	private Transform player;
 	private PlayerInventory inventory;
 
+	public PersistentObject persistentObject;
+
 	void Start()
 	{
 		playerActions = ControlManager.GetPlayerActions();
@@ -39,8 +38,11 @@ public class LockedDoor : MonoBehaviour
 		if (enableObject)
 			enableObject.SetActive(false);
 
-		//Check if this item has already been picked up
-		if (SaveManager.instance.IsDoorOpened(uniqueID))
+		bool opened = false;
+		persistentObject.GetID(gameObject);
+		persistentObject.LoadState(ref opened);
+
+		if (opened)
 		{
 			if (enableObject)
 				enableObject.SetActive(true);
@@ -71,7 +73,7 @@ public class LockedDoor : MonoBehaviour
 	void OpenDoor()
 	{
 		//Save that this door has been opened
-		SaveManager.instance.SetOpenedDoor(uniqueID);
+		persistentObject.SaveState(true);
 
 		StartCoroutine("MovePlayerOpenDoor");
 	}

@@ -60,17 +60,4 @@ public class SaveData
 	[System.Serializable]
 	public class PersistentObjectDictionary : SerializableDictionary<string, PersistentObjectIDDictionary> { }
 	public PersistentObjectDictionary persistentObjects;
-
-	#region TO BE DEPRECATED
-	//Lists of unique IDs for keeping objects disabled
-	public List<int> pickedUpItems;
-	public List<int> openedDoors;
-	public List<int> pulledSwitches;
-
-	[System.Serializable]
-	public class ObjectPositionDictionary : SerializableDictionary<int, Vector2> { }
-
-	//Dictionary of moved item positions
-	public ObjectPositionDictionary savedObjectPositions;
-	#endregion
 }

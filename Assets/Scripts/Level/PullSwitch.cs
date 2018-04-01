@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PullSwitch : MonoBehaviour
 {
-	[Tooltip("MUST BE UNIQUE (unless another door should be unlocked as well)")]
-	public int uniqueID = 0;
-
 	public float pullDistance = 1.0f;
 
 	public float pullTime = 2.0f;
@@ -32,15 +29,15 @@ public class PullSwitch : MonoBehaviour
 
 	private bool shouldSave = true;
 
+	public PersistentObject persistentObject;
+
 	void Start()
 	{
-		//Check if this item has already been picked up
-		if (SaveManager.instance.IsSwitchPulled(uniqueID))
-		{
-			pulled = true;
+		persistentObject.GetID(gameObject);
+		persistentObject.LoadState(ref pulled);
 
+		if (pulled)
 			transform.position += Vector3.down * pullDistance;
-		}
 
 		//Switch pull state should not be saved if level is unloaded because of death
 		GameManager.instance.OnGameOver += delegate { shouldSave = false; };
@@ -63,7 +60,7 @@ public class PullSwitch : MonoBehaviour
 		{
 			if (!spawnedObject || !spawnedObject.activeSelf)
 			{
-				SaveManager.instance.SetPulledSwitch(uniqueID);
+				persistentObject.SaveState(pulled);
 
 				if (succeedFlag != "")
 					SaveManager.instance.SetFlag(succeedFlag);
