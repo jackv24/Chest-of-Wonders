@@ -241,7 +241,7 @@ MonoBehaviour:
   m_FillOrigin: 0
 --- !u!114 &114166205383405108
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896547299455670}
@@ -253,7 +253,7 @@ MonoBehaviour:
   _guid: da540526-57f2-4401-82ae-a2a216dbd728
 --- !u!114 &114178103114895146
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896547299455670}
@@ -305,6 +305,7 @@ MonoBehaviour:
   interactText: {fileID: 114600774656854960}
   openText: UI/INTERACT_OPEN
   talkText: UI/INTERACT_TALK
+  disappearAnimation: {fileID: 7400000, guid: 8782ab0d295b310409950f6af4b943a7, type: 2}
 --- !u!114 &114302009382441490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -581,7 +582,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 1
-  m_inputSource: 0
+  m_inputSource: 3
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
