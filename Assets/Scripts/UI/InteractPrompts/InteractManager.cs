@@ -23,6 +23,9 @@ public class InteractManager : MonoBehaviour
 
 	public GameObject interactPromptPrefab;
 
+	public float interactDelay = 0.5f;
+	private float nextInteractTime = 0;
+
 	private class Interactible
 	{
 		public IInteractible interactible;
@@ -89,7 +92,7 @@ public class InteractManager : MonoBehaviour
 				}
 
 				//Only show interact prompt if they can be interacted with at this time
-				if (GameManager.instance.CanDoActions)
+				if (GameManager.instance.CanDoActions && Time.time >= nextInteractTime)
 				{
 					//Set current
 					currentInteractible = closestInteractible;
@@ -123,6 +126,8 @@ public class InteractManager : MonoBehaviour
 
 		if(currentInteractible != null && playerActions.Interact.WasPressed && GameManager.instance.CanDoActions)
 		{
+			nextInteractTime = Time.time + interactDelay;
+
 			currentInteractible.interactible.Interact();
 		}
 	}
