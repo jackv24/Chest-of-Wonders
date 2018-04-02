@@ -7,95 +7,14 @@ using UnityEditor.SceneManagement;
 [CustomEditor(typeof(ElementManager))]
 public class ElementManagerEditor : Editor
 {
-    ElementManager manager;
+    private ElementManager manager;
 
-    public override void OnInspectorGUI()
+	public override void OnInspectorGUI()
     {
 		serializedObject.Update();
 
         //Get selected SaveManager in inspector
         manager = (ElementManager)target;
-
-		//Element Attacks
-		{
-			EditorGUILayout.LabelField("Base Magic Attacks", EditorStyles.boldLabel);
-			EditorGUILayout.PropertyField(serializedObject.FindProperty("fireAttack"));
-			EditorGUILayout.PropertyField(serializedObject.FindProperty("grassAttack"));
-			EditorGUILayout.PropertyField(serializedObject.FindProperty("iceAttack"));
-			EditorGUILayout.PropertyField(serializedObject.FindProperty("windAttack"));
-			EditorGUILayout.Space();
-
-			EditorGUILayout.LabelField("Attack Mix Matrix", EditorStyles.boldLabel);
-
-			//Calculate rows and columns
-			float columns = System.Enum.GetNames(typeof(ElementManager.Element)).Length;
-			float rows = manager.attackArray.Length / columns;
-
-			EditorGUILayout.BeginHorizontal();
-			//Draw blank space at start for indentation
-			EditorGUILayout.LabelField("", GUILayout.Width(50));
-
-			//Draw element labels across top
-			for (int i = 0; i < columns; i++)
-			{
-				EditorGUILayout.LabelField(System.Enum.GetName(typeof(ElementManager.Element), i), GUILayout.MinWidth(0));
-			}
-			EditorGUILayout.EndHorizontal();
-
-			bool attackWrong = false;
-
-			//Draw grid of float fields
-			for (int j = 0; j < columns; j++)
-			{
-				EditorGUILayout.BeginHorizontal();
-
-				//Draw element labels across side
-				EditorGUILayout.LabelField(System.Enum.GetName(typeof(ElementManager.Element), j), GUILayout.Width(50));
-
-				for (int i = 0; i < rows; i++)
-				{
-					EditorGUILayout.BeginVertical();
-
-					MagicAttack attack = manager.GetAttack(i, j, true);
-
-					//Set slot colours
-					if (i == 0 || j == 0)
-					{
-						//None element should be greyed out since they aren't needed, and red if full
-						if (attack)
-						{
-							GUI.backgroundColor = Color.red;
-							attackWrong = true;
-						}
-						else
-							GUI.backgroundColor = Color.grey;
-					}
-					else
-					{
-						//All other slots should be yellow if empty since they should be filled, and green if filled
-						if(attack)
-							GUI.backgroundColor = Color.green;
-						else
-							GUI.backgroundColor = Color.yellow;
-					}
-
-					manager.SetAttack(i, j, (MagicAttack)EditorGUILayout.ObjectField(attack, typeof(MagicAttack), false));
-
-					EditorGUILayout.EndVertical();
-				}
-
-				EditorGUILayout.EndHorizontal();
-			}
-
-			//Reset background color for further elements
-			GUI.backgroundColor = Color.white;
-
-			if (attackWrong)
-				EditorGUILayout.HelpBox("Attack is assigned to a \"None\" column or row, please remove!", MessageType.Error);
-		}
-
-		EditorGUILayout.Space();
-		EditorGUILayout.Space();
 
 		// Damage Values
 		{

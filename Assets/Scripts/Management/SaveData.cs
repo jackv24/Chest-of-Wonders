@@ -26,20 +26,15 @@ public class SaveData
     public int maxHealth;
     public int currentHealth;
 
-    public List<InventoryItem> inventory;
+	public bool hasFireMagic;
+	public bool hasGrassMagic;
+	public bool hasIceMagic;
+	public bool hasWindMagic;
 
-	public PlayerAttack.MagicProgression currentMagicProgression;
+	public PlayerAttack.MagicProgression magicProgression;
+	public ElementManager.Element selectedElement;
 
-	public ElementManager.Element baseMagicSelected;
-
-	public bool baseFireObtained = false;
-	public bool baseGrassObtained = false;
-	public bool baseIceObtained = false;
-	public bool baseWindObtained = false;
-
-	public int maxMana = 100;
-
-	public List<PlayerAttack.MixMagic> mixMagics;
+	public List<InventoryItem> inventory;
 
 	//Magic bank
 	public int maxSouls;

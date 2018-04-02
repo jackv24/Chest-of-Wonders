@@ -66,7 +66,7 @@ public class SoulContainer : MonoBehaviour
 			PlayerAttack attack = bank.GetComponent<PlayerAttack>();
 
 			if (attack)
-				absorbPoint = attack.magicAbsorbPoint;
+				absorbPoint = attack.soulAbsorbPoint;
 		}
 
 		if (absorbPoint)

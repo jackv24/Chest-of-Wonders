@@ -18,10 +18,10 @@ public class PlayerActions : PlayerActionSet
     public PlayerAction MagicAttack;
     public PlayerAction MagicAimDiagonal;
 
-	public PlayerAction SwitchMagicBase;
-	public PlayerAction SwitchMagicMix;
+	public PlayerAction SwitchMagicLeft;
+	public PlayerAction SwitchMagicRight;
 
-    public PlayerAction Interact;
+	public PlayerAction Interact;
     public PlayerAction Submit;
     public PlayerAction Back;
     public PlayerAction Pause;
@@ -42,8 +42,8 @@ public class PlayerActions : PlayerActionSet
         MagicAttack = CreatePlayerAction("Magic Attack");
         MagicAimDiagonal = CreatePlayerAction("Magic Aim Diagonal");
 
-		SwitchMagicBase = CreatePlayerAction("Switch Base Magic");
-		SwitchMagicMix = CreatePlayerAction("Switch Mix Magic");
+		SwitchMagicLeft = CreatePlayerAction("Switch Base Left");
+		SwitchMagicRight = CreatePlayerAction("Switch Mix Right");
 
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");
@@ -79,11 +79,11 @@ public class PlayerActions : PlayerActionSet
         MagicAttack.AddDefaultBinding(Key.X);
         MagicAttack.AddDefaultBinding(InputControlType.Action2);
 
-		SwitchMagicBase.AddDefaultBinding(Key.S);
-		SwitchMagicBase.AddDefaultBinding(InputControlType.LeftBumper);
+		SwitchMagicLeft.AddDefaultBinding(Key.S);
+		SwitchMagicLeft.AddDefaultBinding(InputControlType.LeftBumper);
 
-		SwitchMagicMix.AddDefaultBinding(Key.D);
-		SwitchMagicMix.AddDefaultBinding(InputControlType.RightBumper);
+		SwitchMagicRight.AddDefaultBinding(Key.D);
+		SwitchMagicRight.AddDefaultBinding(InputControlType.RightBumper);
 
         MagicAimDiagonal.AddDefaultBinding(Key.LeftShift);
         MagicAimDiagonal.AddDefaultBinding(InputControlType.RightTrigger);

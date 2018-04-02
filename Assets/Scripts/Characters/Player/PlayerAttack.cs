@@ -4,40 +4,45 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public delegate void NormalEvent();
-    public event NormalEvent OnUpdateMagic;
-	public event NormalEvent OnSwitchBaseMagic;
-	public event NormalEvent OnSwitchMixMagic;
-
-	public bool canAttack = true;
+    public delegate void UpdateMagicEvent();
+    public event UpdateMagicEvent OnUpdateMagic;
+	public event UpdateMagicEvent OnSwitchMagic;
 
 	public enum MagicProgression
 	{
 		Basic,
-		Half,
 		Full
 	}
+	public MagicProgression magicProgression;
+
+	public bool canAttack = true;
 
 	[Header("Magic")]
-	public MagicProgression currentMagicProgression;
-	[Space()]
-	public ElementManager.Element baseMagicSelected;
-	[Space()]
-	public bool baseFireObtained;
-	public bool baseGrassObtained;
-	public bool baseIceObtained;
-	public bool baseWindObtained;
+	public bool hasFireMagic;
+	public bool hasGrassMagic;
+	public bool hasIceMagic;
+	public bool hasWindMagic;
 
 	[System.Serializable]
-	public class MixMagic
+	public class MagicAttackType
 	{
-		public ElementManager.Element element;
-		public int currentMana = 100;
+		public GameObject projectilePrefab;
+		public GameObject projectileCastEffectPrefab;
+
+		public ElementManager.Element Element { get; private set; }
+
+		public MagicAttackType(ElementManager.Element element)
+		{
+			Element = element;
+		}
 	}
 
-	[Space()]
-	public int maxMana = 100;
-	public List<MixMagic> mixMagics = new List<MixMagic>();
+	public MagicAttackType fireMagic = new MagicAttackType(ElementManager.Element.Fire);
+	public MagicAttackType grassMagic = new MagicAttackType(ElementManager.Element.Grass);
+	public MagicAttackType iceMagic = new MagicAttackType(ElementManager.Element.Ice);
+	public MagicAttackType windMagic = new MagicAttackType(ElementManager.Element.Wind);
+
+	public ElementManager.Element selectedElement = ElementManager.Element.None;
 
 	[Space()]
     public Transform upFirePoint;
@@ -45,6 +50,7 @@ public class PlayerAttack : MonoBehaviour
     public Transform forwardFirePoint;
     public Transform downForwardFirePoint;
     public Transform downFirePoint;
+	public Transform soulAbsorbPoint;
 
     [Space()]
     public float fireDelay = 0.25f;
@@ -62,17 +68,8 @@ public class PlayerAttack : MonoBehaviour
     private Vector2 aimDirection;
     private int lastDiagonalDirection = 1;
 
-    //Direction set by charactermove so that player doesnt have to hold x direction to fire
+    //Direction set by character move so that player doesn't have to hold x direction to fire
     private float directionX = 1;
-
-    [Header("Absorb Magic")]
-    public LayerMask pickupLayer;
-    public float pickupRange = 2.0f;
-
-    public float buttonHoldTime = 1.0f;
-
-    [Space]
-    public Transform magicAbsorbPoint;
 
     [Header("Bat Swing")]
     public DamageOnEnable batSwing;
@@ -99,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
     private CharacterAnimator characterAnimator;
     private CharacterMove characterMove;
     private CharacterSound characterSound;
-    
+
     private void Awake()
     {
         characterAnimator = GetComponent<CharacterAnimator>();
@@ -110,12 +107,7 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
 		//Update magic UI to start
-		if (OnUpdateMagic != null)
-			OnUpdateMagic();
-
-		//Should not have base magic selected unless there is no other magic unlocked
-		if (baseMagicSelected == ElementManager.Element.None)
-			SwitchBaseMagic();
+		UpdateMagic();
 
 		//Create event handler to update the players facing direction
 		if (characterMove)
@@ -229,86 +221,120 @@ public class PlayerAttack : MonoBehaviour
             OnUpdateMagic();
     }
 
+	public void SwitchMagic(int direction)
+	{
+		if (magicProgression <= MagicProgression.Basic)
+			return;
+
+		//Make sure direction is not larger than 1
+		direction = (int)Mathf.Sign(direction);
+
+		int selected = (int)selectedElement;
+		int max = System.Enum.GetNames(typeof(ElementManager.Element)).Length - 1;
+
+		bool anyUnlocked = false;
+		for (int i = 0; i < max; i++)
+		{
+			selected += direction;
+
+			//Wrap around (skipping first element sinc it's none)
+			if (selected <= 0) //Selected element can not be None
+				selected = max;
+			else if (selected > max)
+				selected = 1;
+
+			//Limit to unlocked magics
+			bool success = false;
+			switch((ElementManager.Element)selected)
+			{
+				case ElementManager.Element.Fire:
+					if (hasFireMagic)
+						success = true;
+					break;
+				case ElementManager.Element.Grass:
+					if (hasGrassMagic)
+						success = true;
+					break;
+				case ElementManager.Element.Ice:
+					if (hasIceMagic)
+						success = true;
+					break;
+				case ElementManager.Element.Wind:
+					if (hasWindMagic)
+						success = true;
+					break;
+			}
+
+			if(success)
+			{
+				anyUnlocked = true;
+				break;
+			}
+		}
+
+		if (anyUnlocked)
+		{
+			selectedElement = (ElementManager.Element)selected;
+
+			if (OnSwitchMagic != null)
+				OnSwitchMagic();
+
+			UpdateMagic();
+		}
+	}
+
     //Function to use magic, wrapped by other magic use functions
     public void UseMagic()
     {
-		if (!canAttack)
+		if (!canAttack || magicProgression <= MagicProgression.Basic)
 			return;
 
 		//If magic slot was chosen correctly, and there is an attack in the slot
 		if (Time.time >= nextFireTime)
 		{
-			MagicAttack attack = null;
+			MagicAttackType attackType = null;
 
-			//Only try and mix magic if there is magic to mix
-			if (mixMagics.Count > 0)
+			switch(selectedElement)
 			{
-				//If this magic has enough mana then mix, otherwise default (should only be empty if there are no mix magics left)
-				if (mixMagics[0].currentMana > 0)
-				{
-					//Get mix magic
-					attack = ElementManager.GetAttack(baseMagicSelected, mixMagics[0].element);
-
-					if (attack)
-					{
-						//Remove mana cost
-						mixMagics[0].currentMana -= attack.manaCost;
-
-						//If out of mana, clear slot and cycle to next
-						if (mixMagics[0].currentMana <= 0)
-						{
-							mixMagics[0].currentMana = 0;
-							mixMagics[0].element = ElementManager.Element.None;
-
-							SwitchMixMagic();
-						}
-					}
-				}
-				else
-				{
-					mixMagics[0].currentMana = 0;
-					mixMagics[0].element = ElementManager.Element.None;
-
-					SwitchMixMagic();
-
-					attack = ElementManager.GetAttack(baseMagicSelected, ElementManager.Element.None);
-				}
+				case ElementManager.Element.Fire:
+					attackType = fireMagic;
+					break;
+				case ElementManager.Element.Ice:
+					attackType = iceMagic;
+					break;
+				case ElementManager.Element.Grass:
+					attackType = grassMagic;
+					break;
+				case ElementManager.Element.Wind:
+					attackType = windMagic;
+					break;
 			}
-			else
-				attack = ElementManager.GetAttack(baseMagicSelected, ElementManager.Element.None);
 
-			if (attack)
-			{
-				switch(attack.type)
-				{
-					case MagicAttack.Type.Projectile:
-						nextFireTime = Time.time + fireDelay;
-
-						Fire(attack, aimDirection);
-
-						if (characterAnimator)
-						{
-							//Pass vertical axis into animator
-							characterAnimator.animator.SetFloat("vertical", aimDirection.y);
-							//Set trigger for magic animation
-							characterAnimator.animator.SetTrigger("magic");
-						}
-						break;
-					case MagicAttack.Type.Animation:
-						nextFireTime = Time.time + attack.animation.length + fireDelay;
-
-						if(characterAnimator)
-						{
-							characterAnimator.animator.Play(attack.animation.name);
-						}
-						break;
-				}
-			}
-			else
+			if (attackType != null)
 			{
 				nextFireTime = Time.time + fireDelay;
 
-				Fire(null, aimDirection);
+				//Log warnings in case prefab slots were empty
+				if (attackType.projectilePrefab == null)
+					Debug.LogWarning($"Could not fire {attackType.Element} projectile: missing prefab");
+				if (attackType.projectileCastEffectPrefab == null)
+					Debug.LogWarning($"Could not do {attackType.Element} cast effect: missing prefab");
+
+				Fire(attackType.projectilePrefab, attackType.projectileCastEffectPrefab, aimDirection);
+
+				if (characterAnimator)
+				{
+					//Pass vertical axis into animator
+					characterAnimator.animator.SetFloat("vertical", aimDirection.y);
+					//Set trigger for magic animation
+					characterAnimator.animator.SetTrigger("magic");
+				}
+			}
+			else //If no attack was chosen, do fire fail anim
+			{
+				nextFireTime = Time.time + fireDelay;
+
+				Fire(null, failedCastEffect, aimDirection);
 
 				if (characterAnimator)
 				{
@@ -321,9 +347,8 @@ public class PlayerAttack : MonoBehaviour
 		}
 	}
 
-    void Fire(MagicAttack attack, Vector2 direction)
+    void Fire(GameObject projectilePrefab, GameObject castEffect, Vector2 direction)
     {
-        GameObject castEffect = failedCastEffect;
         bool casted = false;
 
         //Projectile fire direction
@@ -348,12 +373,11 @@ public class PlayerAttack : MonoBehaviour
         }
 
         //Spawn projectile (if there is one)
-        if (attack && attack.projectilePrefab)
+        if (projectilePrefab)
         {
             //Get projectile from pool
-            GameObject obj = ObjectPooler.GetPooledObject(attack.projectilePrefab);
+            GameObject obj = ObjectPooler.GetPooledObject(projectilePrefab);
 
-            castEffect = attack.castEffect;
             casted = true;
 
             //Position projectile at fire point
@@ -395,75 +419,6 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-	public void SwitchBaseMagic()
-	{
-		//Can only switch magic if they are unlocked
-		if (baseFireObtained || baseGrassObtained || baseIceObtained || baseWindObtained)
-		{
-			int maxEnumInt = System.Enum.GetNames(typeof(ElementManager.Element)).Length - 1;
-
-			//Get current magic as int and increment to next element
-			int selectedMagic = (int)baseMagicSelected;
-			selectedMagic++;
-
-			//If magic is not obtained, move to next element
-			if (selectedMagic == (int)ElementManager.Element.Fire && !baseFireObtained)
-				selectedMagic++;
-			if (selectedMagic == (int)ElementManager.Element.Grass && !baseGrassObtained)
-				selectedMagic++;
-			if (selectedMagic == (int)ElementManager.Element.Ice && !baseIceObtained)
-				selectedMagic++;
-			if (selectedMagic == (int)ElementManager.Element.Wind && !baseWindObtained)
-				selectedMagic++;
-
-			//Wrap back around to start
-			if (selectedMagic > maxEnumInt)
-				selectedMagic = 1; //1 is start since 0 is no element
-
-			//Cast int back to element enum
-			baseMagicSelected = (ElementManager.Element)selectedMagic;
-		}
-		else
-			baseMagicSelected = ElementManager.Element.None;
-
-		//Update magic UI to reflect changes
-		UpdateMagic();
-
-		if (OnSwitchBaseMagic != null)
-			OnSwitchBaseMagic();
-	}
-
-	public void SwitchMixMagic()
-	{
-		if(mixMagics.Count > 1)
-		{
-			//Move first element to last in list
-			MixMagic element = mixMagics[0];
-			mixMagics.RemoveAt(0);
-			mixMagics.Add(element);
-		}
-
-		///Move empty notches to back of list
-		//Remove empty notches from list
-		List<MixMagic> emptyNotches = new List<MixMagic>();
-		for(int i = mixMagics.Count - 1; i >= 0; i--)
-		{
-			if(mixMagics[i].element == ElementManager.Element.None)
-			{
-				emptyNotches.Add(mixMagics[i]);
-				mixMagics.RemoveAt(i);
-			}
-		}
-		//Add empty notches back to end of list
-		mixMagics.AddRange(emptyNotches);
-
-		//Update magic UI to reflect changes
-		UpdateMagic();
-
-		if (OnSwitchMixMagic != null)
-			OnSwitchMixMagic();
-	}
-
     public void ResetMana()
     {
 		Debug.LogWarning("Reset mana not implemented!");
@@ -490,10 +445,4 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(transform.position, pickupRange);
-	}
 }

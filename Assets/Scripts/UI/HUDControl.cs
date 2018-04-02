@@ -11,49 +11,28 @@ public class HUDControl : MonoBehaviour
 
     [Header("Stat Bars")]
     public Slider healthBar;
-    public Slider manaBar;
 
     public float barLerpSpeed = 1f;
 
-	[Header("Base Magic")]
-	public Image baseFireNotch;
-	public Image baseGrassNotch;
-	public Image baseIceNotch;
-	public Image baseWindNotch;
+	[Header("Magic")]
+	public Image fireNotch;
+	public Image grassNotch;
+	public Image iceNotch;
+	public Image windNotch;
 	[Space()]
-	public Color baseNotchDisabledTint = Color.black;
-	public Color baseNotchDeselectedTint = Color.gray;
+	public Color notchDisabledTint = Color.black;
+	public Color notchDeselectedTint = Color.gray;
 	[Space()]
-	public Image currentBaseMagic;
+	public Image currentMagic;
 	[Space()]
-	public Sprite baseFireGraphic;
-	public Sprite baseGrassGraphic;
-	public Sprite baseIceGraphic;
-	public Sprite baseWindGraphic;
+	public Sprite fireGraphic;
+	public Sprite grassGraphic;
+	public Sprite iceGraphic;
+	public Sprite windGraphic;
 	[Space()]
-	public GameObject baseSwitchAnim;
-	public GameObject baseNotchSwitchAnim;
-	private Vector2 baseNotchSwitchAnimOffset;
-
-	[Header("Mix Magic")]
-	public GameObject mixNotch;
-	private List<GameObject> mixNotches = new List<GameObject>();
-	[Space()]
-	public Sprite mixEmptyNotch;
-	public Sprite mixFireNotch;
-	public Sprite mixGrassNotch;
-	public Sprite mixIceNotch;
-	public Sprite mixWindNotch;
-	[Space()]
-	public Image currentMixMagic;
-	[Space()]
-	public Sprite mixFireGraphic;
-	public Sprite mixGrassGraphic;
-	public Sprite mixIceGraphic;
-	public Sprite mixWindGraphic;
-	[Space()]
-	public GameObject mixSwitchAnim;
-	public GameObject mixNotchSwitchAnim;
+	public GameObject magicSwitchAnim;
+	public GameObject magicNotchSwitchAnim;
+	private Vector2 magicNotchSwitchAnimOffset;
 
 	[System.Serializable]
 	public class Progression
@@ -73,7 +52,6 @@ public class HUDControl : MonoBehaviour
 
 	[Header("Unlock Progression")]
 	public Progression basicProgression;
-	public Progression halfProgression;
 	public Progression fullProgression;
 
 	private CharacterStats playerStats;
@@ -100,10 +78,9 @@ public class HUDControl : MonoBehaviour
                 UpdateAttackSlots();
 
 				//Get base notch switch offset from fire notch (first notch is reference)
-				baseNotchSwitchAnimOffset = baseNotchSwitchAnim.transform.position - baseFireNotch.transform.position;
+				magicNotchSwitchAnimOffset = magicNotchSwitchAnim.transform.position - fireNotch.transform.position;
 
-				playerAttack.OnSwitchBaseMagic += PlayBaseSwitchAnim;
-				playerAttack.OnSwitchMixMagic += PlayMixSwitchAnim;
+				playerAttack.OnSwitchMagic += PlaySwitchAnim;
 
                 //Reload magic UI display when attacks are loaded from save
                 if (GameManager.instance)
@@ -120,19 +97,6 @@ public class HUDControl : MonoBehaviour
             if (healthBar)
                 healthBar.value = Mathf.Lerp(healthBar.value, (float)playerStats.currentHealth / playerStats.maxHealth, barLerpSpeed * Time.deltaTime);
         }
-
-        if (playerAttack)
-        {
-            float value = 0f;
-
-			//CURRENT MANA
-			if (playerAttack.mixMagics.Count > 0)
-				value = (float)playerAttack.mixMagics[0].currentMana / playerAttack.maxMana;
-
-            //Update slider
-            if (manaBar)
-                manaBar.value = Mathf.Lerp(manaBar.value, value, barLerpSpeed * Time.deltaTime);
-        }
     }
 
     //Loads display for mana bars
@@ -140,13 +104,10 @@ public class HUDControl : MonoBehaviour
     {
 		if (playerAttack)
 		{
-			switch(playerAttack.currentMagicProgression)
+			switch(playerAttack.magicProgression)
 			{
 				case PlayerAttack.MagicProgression.Basic:
 					basicProgression.Evaluate();
-					break;
-				case PlayerAttack.MagicProgression.Half:
-					halfProgression.Evaluate();
 					break;
 				case PlayerAttack.MagicProgression.Full:
 					fullProgression.Evaluate();
@@ -154,195 +115,81 @@ public class HUDControl : MonoBehaviour
 			}
 
 			//Tint base magic notches to reflect obtained state
-			if (baseFireNotch)
-				baseFireNotch.color = playerAttack.baseFireObtained ? baseNotchDeselectedTint : baseNotchDisabledTint;
-			if (baseGrassNotch)
-				baseGrassNotch.color = playerAttack.baseGrassObtained ? baseNotchDeselectedTint : baseNotchDisabledTint;
-			if (baseIceNotch)
-				baseIceNotch.color = playerAttack.baseIceObtained ? baseNotchDeselectedTint : baseNotchDisabledTint;
-			if (baseWindNotch)
-				baseWindNotch.color = playerAttack.baseWindObtained ? baseNotchDeselectedTint : baseNotchDisabledTint;
+			if (fireNotch)
+				fireNotch.color = playerAttack.hasFireMagic ? notchDeselectedTint : notchDisabledTint;
+			if (grassNotch)
+				grassNotch.color = playerAttack.hasGrassMagic ? notchDeselectedTint : notchDisabledTint;
+			if (iceNotch)
+				iceNotch.color = playerAttack.hasIceMagic ? notchDeselectedTint : notchDisabledTint;
+			if (windNotch)
+				windNotch.color = playerAttack.hasWindMagic ? notchDeselectedTint : notchDisabledTint;
 
 			//Show selected base magic
-			if(currentBaseMagic)
+			if(currentMagic)
 			{
-				currentBaseMagic.color = Color.white;
+				currentMagic.color = Color.white;
 
-				switch(playerAttack.baseMagicSelected)
+				switch(playerAttack.selectedElement)
 				{
 					case ElementManager.Element.Fire:
-						currentBaseMagic.sprite = baseFireGraphic;
-						baseFireNotch.color = Color.white;
+						currentMagic.sprite = fireGraphic;
+						fireNotch.color = Color.white;
 						break;
 					case ElementManager.Element.Grass:
-						currentBaseMagic.sprite = baseGrassGraphic;
-						baseGrassNotch.color = Color.white;
+						currentMagic.sprite = grassGraphic;
+						grassNotch.color = Color.white;
 						break;
 					case ElementManager.Element.Ice:
-						currentBaseMagic.sprite = baseIceGraphic;
-						baseIceNotch.color = Color.white;
+						currentMagic.sprite = iceGraphic;
+						iceNotch.color = Color.white;
 						break;
 					case ElementManager.Element.Wind:
-						currentBaseMagic.sprite = baseWindGraphic;
-						baseWindNotch.color = Color.white;
+						currentMagic.sprite = windGraphic;
+						windNotch.color = Color.white;
 						break;
 					default:
-						currentBaseMagic.sprite = null;
-						currentBaseMagic.color = Color.clear;
+						currentMagic.sprite = null;
+						currentMagic.color = Color.clear;
 						break;
 				}
 			}
-
-			UpdateMixNotches();
 		}
     }
 
-	void UpdateMixNotches()
+	void PlaySwitchAnim()
 	{
-		int mixNotchCount = 1;
-
-		if(playerAttack)
-			mixNotchCount = playerAttack.mixMagics.Count;
-
-		///Make notch UI match amount of required notches
-		if (mixNotch)
-		{
-			//Enable template notch for instantiation
-			mixNotch.SetActive(true);
-
-			//Add requred notches
-			int notchesNeeded = mixNotchCount - mixNotches.Count;
-			for (int i = 0; i < notchesNeeded; i++)
-			{
-				GameObject obj = Instantiate(mixNotch, mixNotch.transform.parent);
-
-				mixNotches.Add(obj);
-			}
-
-			//Disable template notch
-			mixNotch.SetActive(false);
-
-			//Remove unneeded notches (should never happen in normal gameplay, but good to have anyway)
-			int notchesUnneeded = -notchesNeeded;
-			int currentCount = mixNotches.Count;
-			for(int i = 1; i <= notchesUnneeded; i++)
-			{
-				int index = currentCount - i;
-
-				Destroy(mixNotches[index]);
-				mixNotches.RemoveAt(index);
-			}
-		}
-
-		if(playerAttack)
-		{
-			//Update mix notch display
-			for(int i = 0; i < mixNotchCount; i++)
-			{
-				Image image = mixNotches[i].GetComponent<Image>();
-
-				switch(playerAttack.mixMagics[i].element)
-				{
-					case ElementManager.Element.Fire:
-						image.sprite = mixFireNotch;
-						break;
-					case ElementManager.Element.Grass:
-						image.sprite = mixGrassNotch;
-						break;
-					case ElementManager.Element.Ice:
-						image.sprite = mixIceNotch;
-						break;
-					case ElementManager.Element.Wind:
-						image.sprite = mixWindNotch;
-						break;
-					default:
-						image.sprite = mixEmptyNotch;
-						break;
-				}
-			}
-
-			//Show currently selected mix magic
-			if (currentMixMagic)
-			{
-				if (playerAttack.mixMagics.Count > 0 && playerAttack.mixMagics[0].element != ElementManager.Element.None)
-				{
-					currentMixMagic.color = Color.white;
-
-					switch (playerAttack.mixMagics[0].element)
-					{
-						case ElementManager.Element.Fire:
-							currentMixMagic.sprite = mixFireGraphic;
-							break;
-						case ElementManager.Element.Grass:
-							currentMixMagic.sprite = mixGrassGraphic;
-							break;
-						case ElementManager.Element.Ice:
-							currentMixMagic.sprite = mixIceGraphic;
-							break;
-						case ElementManager.Element.Wind:
-							currentMixMagic.sprite = mixWindGraphic;
-							break;
-					}
-				}
-				else
-				{
-					currentMixMagic.sprite = null;
-					currentMixMagic.color = Color.clear;
-				}
-			}
-		}
-	}
-
-	void PlayBaseSwitchAnim()
-	{
-		if (baseSwitchAnim)
+		if (magicSwitchAnim)
 		{
 			//Disable before enabling to reset anim state when pressed too quickly
-			baseSwitchAnim.SetActive(false);
-			baseSwitchAnim.SetActive(true);
+			magicSwitchAnim.SetActive(false);
+			magicSwitchAnim.SetActive(true);
 		}
 
-		if (baseNotchSwitchAnim)
+		if (magicNotchSwitchAnim)
 		{
-			Vector3 pos = baseNotchSwitchAnim.transform.position;
+			Vector3 pos = magicNotchSwitchAnim.transform.position;
 
 			//Position switch anim on top of notch
-			switch(playerAttack.baseMagicSelected)
+			switch(playerAttack.selectedElement)
 			{
 				case ElementManager.Element.Fire:
-					pos = baseFireNotch.transform.position;
+					pos = fireNotch.transform.position;
 					break;
 				case ElementManager.Element.Grass:
-					pos = baseGrassNotch.transform.position;
+					pos = grassNotch.transform.position;
 					break;
 				case ElementManager.Element.Ice:
-					pos = baseIceNotch.transform.position;
+					pos = iceNotch.transform.position;
 					break;
 				case ElementManager.Element.Wind:
-					pos = baseWindNotch.transform.position;
+					pos = windNotch.transform.position;
 					break;
 			}
 
-			baseNotchSwitchAnim.transform.position = pos + (Vector3)baseNotchSwitchAnimOffset;
+			magicNotchSwitchAnim.transform.position = pos + (Vector3)magicNotchSwitchAnimOffset;
 
-			baseNotchSwitchAnim.SetActive(false);
-			baseNotchSwitchAnim.SetActive(true);
-		}
-	}
-
-	void PlayMixSwitchAnim()
-	{
-		if (mixSwitchAnim)
-		{
-			//Disable before enabling to reset anim state when pressed too quickly
-			mixSwitchAnim.SetActive(false);
-			mixSwitchAnim.SetActive(true);
-		}
-
-		if (mixNotchSwitchAnim)
-		{
-			mixNotchSwitchAnim.SetActive(false);
-			mixNotchSwitchAnim.SetActive(true);
+			magicNotchSwitchAnim.SetActive(false);
+			magicNotchSwitchAnim.SetActive(true);
 		}
 	}
 }

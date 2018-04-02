@@ -78,10 +78,10 @@ public class PlayerInput : MonoBehaviour
 				playerAttack.UseMelee(false, inputDirection.y);
 			else if (playerActions.MagicAttack.IsPressed)
 				playerAttack.UseMagic();
-			else if (playerActions.SwitchMagicBase.WasPressed)
-				playerAttack.SwitchBaseMagic();
-			else if (playerActions.SwitchMagicMix.WasPressed)
-				playerAttack.SwitchMixMagic();
+			else if (playerActions.SwitchMagicLeft.WasPressed)
+				playerAttack.SwitchMagic(-1);
+			else if (playerActions.SwitchMagicRight.WasPressed)
+				playerAttack.SwitchMagic(1);
 
 			playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicAimDiagonal.IsPressed);
         }

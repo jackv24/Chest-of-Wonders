@@ -8,13 +8,6 @@ public class ElementManager : MonoBehaviour
 
 	public static int ElementCount { get { return System.Enum.GetNames(typeof(Element)).Length; } }
 
-	public MagicAttack fireAttack;
-	public MagicAttack grassAttack;
-	public MagicAttack iceAttack;
-	public MagicAttack windAttack;
-
-	public MagicAttack[] attackArray = new MagicAttack[ElementCount * ElementCount];
-
 	public float normalMultiplier = 1.0f;
 	public float ineffectiveMultiplier = 0.5f;
 	public float effectiveMultiplier = 1.25f;
@@ -42,42 +35,6 @@ public class ElementManager : MonoBehaviour
     {
         instance = this;
     }
-
-	public MagicAttack GetAttack(int x, int y, bool skipDefault = false)
-	{
-		MagicAttack attack = attackArray[y * System.Enum.GetNames(typeof(Element)).Length + x];
-
-		//If attack is null and default is desired, default to base element
-		if(!skipDefault && !attack)
-		{
-			//Column major, so y is for rows
-			switch((Element)y)
-			{
-				case Element.Fire:
-					attack = fireAttack;
-					break;
-				case Element.Grass:
-					attack = grassAttack;
-					break;
-				case Element.Ice:
-					attack = iceAttack;
-					break;
-				case Element.Wind:
-					attack = windAttack;
-					break;
-			}
-
-			if ((Element)y != Element.None && (Element)x != Element.None)
-				Debug.LogWarning(string.Format("No mix found for {0} and {1}, defaulting to {2}", (Element)y, (Element)x, (Element)y));
-		}
-
-		return attack;
-	}
-
-	public void SetAttack(int x, int y, MagicAttack value)
-	{
-		attackArray[y * System.Enum.GetNames(typeof(Element)).Length + x] = value;
-	}
 
 	public Effectiveness GetEffectiveness(int x, int y)
     {
@@ -113,19 +70,4 @@ public class ElementManager : MonoBehaviour
 
         return Mathf.RoundToInt(newDamage);
     }
-
-	public static MagicAttack GetAttack(Element baseElement, Element mixElement)
-	{
-		if (instance)
-		{
-			//Cast enums to int for accessing attack matrix
-			return instance.GetAttack((int)mixElement, (int)baseElement);
-		}
-		else
-		{
-			Debug.LogError("There is no ElementManager present!");
-
-			return null;
-		}
-	}
 }

@@ -115,7 +115,7 @@ public class CharacterStats : MonoBehaviour
     {
         int newAmount = ElementManager.CalculateDamage(amount, sourceElement, element);
 
-        //Return new calulcated health with the effectiveness
+        //Return new calculated health with the effectiveness
         return RemoveHealth(newAmount, newAmount != amount ? (newAmount > amount ? 1 : -1) : 0);
     }
 

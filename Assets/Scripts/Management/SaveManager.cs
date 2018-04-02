@@ -66,16 +66,14 @@ public class SaveManager : MonoBehaviour
 
             if(attack)
             {
-				data.currentMagicProgression = attack.currentMagicProgression;
+				data.magicProgression = attack.magicProgression;
 
-				data.baseMagicSelected = attack.baseMagicSelected;
+				data.selectedElement = attack.selectedElement;
 
-				data.baseFireObtained = attack.baseFireObtained;
-				data.baseGrassObtained = attack.baseGrassObtained;
-				data.baseIceObtained = attack.baseIceObtained;
-				data.baseWindObtained = attack.baseWindObtained;
-
-				data.mixMagics = attack.mixMagics;
+				data.hasFireMagic = attack.hasFireMagic;
+				data.hasGrassMagic = attack.hasGrassMagic;
+				data.hasIceMagic = attack.hasIceMagic;
+				data.hasWindMagic = attack.hasWindMagic;
 			}
 
             if(inventory)

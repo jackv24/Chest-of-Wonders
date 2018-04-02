@@ -36,7 +36,7 @@ public class UnlockHUD : StateMachineBehaviour
 
 			if (attack)
 			{
-				attack.currentMagicProgression = progressionUnlock;
+				attack.magicProgression = progressionUnlock;
 				attack.UpdateMagic();
 			}
 		}

@@ -129,7 +129,7 @@ AudioSource:
     m_RotationOrder: 0
 --- !u!114 &114547737111946328
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706048386432494}
@@ -176,36 +176,18 @@ MonoBehaviour:
       position: {x: 6, y: 17}
     maxHealth: 100
     currentHealth: 100
+    hasFireMagic: 0
+    hasGrassMagic: 0
+    hasIceMagic: 0
+    hasWindMagic: 0
+    magicProgression: 0
+    selectedElement: 0
     inventory: []
-    currentMagicProgression: 0
-    baseMagicSelected: 0
-    baseFireObtained: 0
-    baseGrassObtained: 0
-    baseIceObtained: 0
-    baseWindObtained: 0
-    maxMana: 100
-    mixMagics: []
     maxSouls: 3
     currentFireSouls: 0
     currentGrassSouls: 0
     currentIceSouls: 0
     currentWindSouls: 0
-    pickedUpItems: 
-    openedDoors: 
-    pulledSwitches: 
-    savedObjectPositions:
-      _Buckets: ffffffffffffffffffffffff
-      _HashCodes: 000000000000000000000000
-      _Next: 000000000000000000000000
-      _Count: 0
-      _Version: 0
-      _FreeList: -1
-      _FreeCount: 0
-      _Keys: 000000000000000000000000
-      _Values:
-      - {x: 0, y: 0}
-      - {x: 0, y: 0}
-      - {x: 0, y: 0}
     blackboardDictionary:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
@@ -222,7 +204,55 @@ MonoBehaviour:
       - 
       - 
       - 
-    flags: []
+    persistentObjects:
+      _Buckets: ffffffffffffffffffffffff
+      _HashCodes: 000000000000000000000000
+      _Next: 000000000000000000000000
+      _Count: 0
+      _Version: 0
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - 
+      - 
+      - 
+      _Values:
+      - _Buckets: ffffffffffffffffffffffff
+        _HashCodes: 000000000000000000000000
+        _Next: 000000000000000000000000
+        _Count: 0
+        _Version: 0
+        _FreeList: -1
+        _FreeCount: 0
+        _Keys:
+        - 
+        - 
+        - 
+        _Values: 000000
+      - _Buckets: ffffffffffffffffffffffff
+        _HashCodes: 000000000000000000000000
+        _Next: 000000000000000000000000
+        _Count: 0
+        _Version: 0
+        _FreeList: -1
+        _FreeCount: 0
+        _Keys:
+        - 
+        - 
+        - 
+        _Values: 000000
+      - _Buckets: ffffffffffffffffffffffff
+        _HashCodes: 000000000000000000000000
+        _Next: 000000000000000000000000
+        _Count: 0
+        _Version: 0
+        _FreeList: -1
+        _FreeCount: 0
+        _Keys:
+        - 
+        - 
+        - 
+        _Values: 000000
   data:
     autoSave:
       sceneIndex: 0
@@ -232,36 +262,18 @@ MonoBehaviour:
       position: {x: 0, y: 0}
     maxHealth: 100
     currentHealth: 100
+    hasFireMagic: 0
+    hasGrassMagic: 0
+    hasIceMagic: 0
+    hasWindMagic: 0
+    magicProgression: 0
+    selectedElement: 0
     inventory: []
-    currentMagicProgression: 0
-    baseMagicSelected: 0
-    baseFireObtained: 0
-    baseGrassObtained: 0
-    baseIceObtained: 0
-    baseWindObtained: 0
-    maxMana: 100
-    mixMagics: []
     maxSouls: 0
     currentFireSouls: 0
     currentGrassSouls: 0
     currentIceSouls: 0
     currentWindSouls: 0
-    pickedUpItems: 
-    openedDoors: 
-    pulledSwitches: 
-    savedObjectPositions:
-      _Buckets: ffffffffffffffffffffffff
-      _HashCodes: 000000000000000000000000
-      _Next: 000000000000000000000000
-      _Count: 0
-      _Version: 0
-      _FreeList: -1
-      _FreeCount: 0
-      _Keys: 000000000000000000000000
-      _Values:
-      - {x: 0, y: 0}
-      - {x: 0, y: 0}
-      - {x: 0, y: 0}
     blackboardDictionary:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
@@ -278,7 +290,55 @@ MonoBehaviour:
       - 
       - 
       - 
-    flags: []
+    persistentObjects:
+      _Buckets: ffffffffffffffffffffffff
+      _HashCodes: 000000000000000000000000
+      _Next: 000000000000000000000000
+      _Count: 0
+      _Version: 0
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - 
+      - 
+      - 
+      _Values:
+      - _Buckets: ffffffffffffffffffffffff
+        _HashCodes: 000000000000000000000000
+        _Next: 000000000000000000000000
+        _Count: 0
+        _Version: 0
+        _FreeList: -1
+        _FreeCount: 0
+        _Keys:
+        - 
+        - 
+        - 
+        _Values: 000000
+      - _Buckets: ffffffffffffffffffffffff
+        _HashCodes: 000000000000000000000000
+        _Next: 000000000000000000000000
+        _Count: 0
+        _Version: 0
+        _FreeList: -1
+        _FreeCount: 0
+        _Keys:
+        - 
+        - 
+        - 
+        _Values: 000000
+      - _Buckets: ffffffffffffffffffffffff
+        _HashCodes: 000000000000000000000000
+        _Next: 000000000000000000000000
+        _Count: 0
+        _Version: 0
+        _FreeList: -1
+        _FreeCount: 0
+        _Keys:
+        - 
+        - 
+        - 
+        _Values: 000000
 --- !u!114 &114658657317432228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -290,43 +350,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5409c616bd63524096b4364d854b13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireAttack: {fileID: 11400000, guid: aa0a88e3abfc1194a8193813efde8565, type: 2}
-  grassAttack: {fileID: 0}
-  iceAttack: {fileID: 11400000, guid: db904ab3051a9f3488525650e360374d, type: 2}
-  windAttack: {fileID: 0}
-  attackArray:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 4859d3559b137514a92d1e6118599f39, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   normalMultiplier: 1
   ineffectiveMultiplier: 0.5
   effectiveMultiplier: 1.25
   damageArray: 00000000000000000000000000000000000000000000000000000000020000000100000002000000000000000100000000000000020000000100000000000000020000000100000000000000000000000000000001000000020000000000000001000000
 --- !u!114 &114687314970991524
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706048386432494}

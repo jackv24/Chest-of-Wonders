@@ -279,16 +279,14 @@ public class GameManager : MonoBehaviour
 
                 if(attack)
                 {
-					attack.currentMagicProgression = data.currentMagicProgression;
+					attack.magicProgression = data.magicProgression;
 
-					attack.baseMagicSelected = data.baseMagicSelected;
+					attack.selectedElement = data.selectedElement;
 
-					attack.baseFireObtained = data.baseFireObtained;
-					attack.baseGrassObtained = data.baseGrassObtained;
-					attack.baseIceObtained = data.baseIceObtained;
-					attack.baseWindObtained = data.baseWindObtained;
-
-					attack.mixMagics = data.mixMagics;
+					attack.hasFireMagic = data.hasFireMagic;
+					attack.hasGrassMagic = data.hasGrassMagic;
+					attack.hasIceMagic = data.hasIceMagic;
+					attack.hasWindMagic = data.hasWindMagic;
 				}
 
                 if(inventory)
