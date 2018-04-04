@@ -59,14 +59,11 @@ MonoBehaviour:
   Spreadsheet_LocalFileName: 
   Spreadsheet_LocalCSVSeparator: ','
   Spreadsheet_LocalCSVEncoding: utf-8
-  Assets:
-  - {fileID: 12800000, guid: eed6942336cffc64cb6c3ee03acf7f5d, type: 3}
-  - {fileID: 12800000, guid: 171f5f760a8259a4fbe59467c313e41f, type: 3}
-  - {fileID: 11400000, guid: 423fe26930997454e97a899f905e0cf3, type: 2}
+  Assets: []
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycby9NSlouRdJbanQ3ytpDWTop6-En_rFiGAz-5wPPONzrelakuEJ/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1522321464706
+  Google_LastUpdatedVersion: 1522847516683
   GoogleUpdateFrequency: 1
   GoogleUpdateDelay: 5
   mLanguages:
@@ -208,26 +205,6 @@ MonoBehaviour:
     Languages_Touch:
     - 
     - 
-  - Term: FONT_MENU_TITLE
-    TermType: 1
-    Description: 
-    Languages:
-    - dpcomic.regular
-    - dpcomic.regular
-    Flags: 0000
-    Languages_Touch:
-    - 
-    - 
-  - Term: FONT_MENU_BODY
-    TermType: 1
-    Description: 
-    Languages:
-    - UASQUARE
-    - UASQUARE
-    Flags: 0000
-    Languages_Touch:
-    - 
-    - 
   - Term: UI/BACK_BUTTON
     TermType: 0
     Description: 
@@ -355,7 +332,9 @@ MonoBehaviour:
     - Key
     - "\u30AD\u30FC"
     Flags: 0000
-    Languages_Touch: []
+    Languages_Touch:
+    - 
+    - 
   - Term: Items/KEY_DESCRIPTION
     TermType: 0
     Description: 
@@ -363,7 +342,9 @@ MonoBehaviour:
     - A simple key that unlocks a simple door.
     - "\u30B7\u30F3\u30D7\u30EB\u306A\u9375\u306F\u3001\u7C21\u5358\u306A\u30C9\u30A2\u306E\u30ED\u30C3\u30AF\u3092\u89E3\u9664\u3057\u307E\u3059\u3002"
     Flags: 0000
-    Languages_Touch: []
+    Languages_Touch:
+    - 
+    - 
   CaseInsensitiveTerms: 0
   OnMissingTranslation: 1
   mTerm_AppName: UI/GAME_TITLE
