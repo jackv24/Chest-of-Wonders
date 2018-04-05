@@ -26,7 +26,7 @@ public class DialogueBox : MonoBehaviour
     [Space()]
     public Text nameText;
     public Image accent;
-    public TextMeshProUGUI dialogueText;
+    public Text dialogueText;
     public Image trail;
     public int trailOffset = 10;
     public Button initialButton;
@@ -357,7 +357,7 @@ public class DialogueBox : MonoBehaviour
 		}
 	}
 
-    IEnumerator PrintOverTime(TextMeshProUGUI textObj, string text, bool withSound)
+    IEnumerator PrintOverTime(Text textObj, string text, bool withSound)
     {
         Coroutine soundRoutine = null;
 
