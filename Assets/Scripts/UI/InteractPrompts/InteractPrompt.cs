@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class InteractPrompt : MonoBehaviour
 {
-	public TextMeshProUGUI interactText;
+	public Text interactText;
 
 	[Space()]
 	public string openText = "UI/INTERACT_OPEN";
@@ -18,7 +17,7 @@ public class InteractPrompt : MonoBehaviour
 
 	private void Reset()
 	{
-		interactText = GetComponentInChildren<TextMeshProUGUI>();
+		interactText = GetComponentInChildren<Text>();
 	}
 
 	private void Awake()
