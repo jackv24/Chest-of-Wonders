@@ -164,7 +164,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114051937112269524
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1225840675168258}
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_FillOrigin: 0
 --- !u!114 &114166205383405108
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896547299455670}
@@ -234,7 +234,7 @@ MonoBehaviour:
   _guid: da540526-57f2-4401-82ae-a2a216dbd728
 --- !u!114 &114178103114895146
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896547299455670}
@@ -339,13 +339,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Open
+  m_Text: OPEN
 --- !u!114 &114464263722453384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_LayoutPriority: 1
 --- !u!114 &114519440302479168
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1929878847587042}
@@ -444,10 +444,10 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
 --- !u!114 &114620177040545856
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1105900662800986}
@@ -459,7 +459,7 @@ MonoBehaviour:
   _guid: fa8bd611-75b9-4113-97d7-65f9050525b6
 --- !u!114 &114620467320281656
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1260310245918672}
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_LayoutPriority: 1
 --- !u!114 &114908770031920826
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1581966298158716}
@@ -678,8 +678,8 @@ RectTransform:
   m_Father: {fileID: 224810740469427854}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 14, y: -7.5}
+  m_SizeDelta: {x: 28, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
