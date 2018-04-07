@@ -43,6 +43,7 @@ public class DialogueBox : MonoBehaviour
     public float textSpeed = 20;
 	public int maxCharsBeforeWrap = 30;
 	public LayoutElement textPanel;
+	public VerticalLayoutGroup textLayoutGroup;
 	private float textPreferredWidth;
 
 	[Space()]
@@ -316,14 +317,22 @@ public class DialogueBox : MonoBehaviour
 		{
 			bool withSound = !info.statement.meta.ToLower().Contains("nosound");
 
-			if (textPanel)
+			//Fixes layout issues
+			if (info.statement.text.Length > maxCharsBeforeWrap)
 			{
-				if (info.statement.text.Length > maxCharsBeforeWrap)
-				{
+				if (textPanel)
 					textPanel.preferredWidth = textPreferredWidth;
-				}
-				else
+
+				if (textLayoutGroup)
+					textLayoutGroup.childControlHeight = true;
+			}
+			else
+			{
+				if(textPanel)
 					textPanel.preferredWidth = -1;
+
+				if (textLayoutGroup)
+					textLayoutGroup.childControlHeight = false;
 			}
 
 			//Open dialogue box with animation if it is closed

@@ -5933,7 +5933,7 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
-  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
@@ -8673,6 +8673,7 @@ MonoBehaviour:
   textSpeed: 30
   maxCharsBeforeWrap: 30
   textPanel: {fileID: 114607173069141100}
+  textLayoutGroup: {fileID: 114121490369984570}
   textPrintSound: {fileID: 8300000, guid: 82bba1ebbff71e4448196683574dd895, type: 3}
   pitchVariance:
     min: 0.85
@@ -11439,8 +11440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 50
-  m_MinHeight: -1
+  m_MinWidth: -1
+  m_MinHeight: 11
   m_PreferredWidth: 200
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
