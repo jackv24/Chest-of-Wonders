@@ -151,6 +151,8 @@ public class PlayerAttack : MonoBehaviour
 				//Play charged bat swing if fully charged, else let animator transition back to regular
 				if (Time.time >= heldStartTime + chargeHoldTime)
 					animator?.Play("Charged Bat Swing");
+				else
+					animator?.Play("Bat Swing");
 			}
 		}
     }
