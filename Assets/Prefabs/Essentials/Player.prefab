@@ -924,7 +924,7 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 512
-  amount: 20
+  amount: 30
   element: 0
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.5
@@ -1047,12 +1047,7 @@ MonoBehaviour:
   arrowDistance: 1
   arrowHeight: 0.5
   arrow: {fileID: 4234596124505930}
-  batSwing: {fileID: 114806664853724274}
-  chargedBatSwing: {fileID: 114061908791259452}
-  damageAmount: 20
   chargeHoldTime: 1
-  heldDamageMultiplier: 2
-  moveSpeedMultiplier: 0.75
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.5
   flashInterval: 0.1

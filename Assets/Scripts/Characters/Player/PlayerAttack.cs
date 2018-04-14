@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public delegate void UpdateMagicEvent();
+	public delegate void UpdateMagicEvent();
     public event UpdateMagicEvent OnUpdateMagic;
 	public event UpdateMagicEvent OnSwitchMagic;
 
@@ -72,36 +72,30 @@ public class PlayerAttack : MonoBehaviour
     private float directionX = 1;
 
     [Header("Bat Swing")]
-    public DamageOnEnable batSwing;
-    public DamageOnEnable chargedBatSwing;
-    public int damageAmount = 20;
-    [Space()]
     [Tooltip("The minimum amount of time the bat needs to charge before a damage multiplier is applied.")]
     public float chargeHoldTime = 1.0f;
     private float heldStartTime = 0;
-    public float heldDamageMultiplier = 1.5f;
 
-	private bool holdingBat = false;
-	public bool HoldingBat { get { return holdingBat; } }
+	public bool HoldingBat { get; private set; } = false;
 
-    [Space()]
-    public float moveSpeedMultiplier = 0.75f;
-    private float oldMoveSpeed = 0f;
+	private Coroutine batChargeRoutine = null;
 
     [Space()]
     public SpriteRenderer graphic;
     public float flashAmount = 0.5f;
     public float flashInterval = 0.1f;
 
-    private CharacterAnimator characterAnimator;
     private CharacterMove characterMove;
     private CharacterSound characterSound;
+	private Animator animator;
 
     private void Awake()
     {
-        characterAnimator = GetComponent<CharacterAnimator>();
         characterMove = GetComponent<CharacterMove>();
         characterSound = GetComponent<CharacterSound>();
+
+		animator = graphic.GetComponent<Animator>();
+		Debug.Assert(animator, this);
     }
 
     void Start()
@@ -113,68 +107,52 @@ public class PlayerAttack : MonoBehaviour
 		if (characterMove)
         {
             characterMove.OnChangedDirection += delegate (float newDir) { directionX = newDir; };
-
-            oldMoveSpeed = characterMove.moveSpeed;
         }
     }
 
     void OnEnable()
     {
-        if (characterMove && oldMoveSpeed != 0)
-            characterMove.moveSpeed = oldMoveSpeed;
-
         canAttack = true;
     }
 
-    public void UseMelee(bool holding, float verticalDirection)
+    public void UseMelee(bool buttonDown, float verticalDirection)
     {
-        if (!canAttack)
-            return;
+		animator?.SetBool("holdingBat", buttonDown);
 
-        DamageOnEnable swing = batSwing;
+		HoldingBat = buttonDown;
 
-		holdingBat = holding;
+		//Cancel bat charge routine
+		if (batChargeRoutine != null)
+		{
+			StopCoroutine(batChargeRoutine);
+			batChargeRoutine = null;
 
-        //If button was released update bat swing damage
-        if(swing && !holding)
-        {
-            //Used charged bat swing collider if held for max hold time
-            if (Time.time >= heldStartTime + chargeHoldTime)
-                swing = chargedBatSwing;
+			//Set flash amount to 0 incase charge routine was stopped during a flash
+			graphic?.material.SetFloat("_FlashAmount", 0);
+		}
 
-            swing.amount = damageAmount;
+		if (canAttack)
+		{
+			//Button pressed
+			if(buttonDown)
+			{
+				heldStartTime = Time.time;
 
-            if (graphic)
-            {
-                //Stop flashing after bat swing
-                StopCoroutine("BatFlash");
-                graphic.material.SetFloat("_FlashAmount", 0);
-            }
-        }
+				batChargeRoutine = StartCoroutine(BatCharge(chargeHoldTime));
 
-        //Play melee animation
-        if (characterAnimator)
-        {
-            //Play charged attack anim if fully charged
-            characterAnimator.SetCharged(Time.time >= heldStartTime + chargeHoldTime && heldStartTime > 0);
-
-            characterAnimator.MeleeAttack(holding, verticalDirection);
-
-            heldStartTime = 0;
-        }
-
-        //Keep track of time held for damage multiplier
-        if (holding)
-        {
-            heldStartTime = Time.time;
-
-            //Start bat flash after max hold time
-            StartCoroutine("BatFlash", chargeHoldTime);
-        }
-
-        //Reduce move speed while holding bat
-        if (characterMove)
-            characterMove.moveSpeed = holding ? oldMoveSpeed * moveSpeedMultiplier : oldMoveSpeed;
+				//Downstrike if down is pressed, otherwise normal swing
+				if (verticalDirection < 0)
+					animator?.Play("Downstrike Start");
+				else
+					animator?.Play("Bat Swing");
+			}
+			else //Button released
+			{
+				//Play charged bat swing if fully charged, else let animator transition back to regular
+				if (Time.time >= heldStartTime + chargeHoldTime)
+					animator?.Play("Charged Bat Swing");
+			}
+		}
     }
 
     public void UpdateAimDirection(Vector2 direction, bool lockDiagonal)
@@ -322,12 +300,12 @@ public class PlayerAttack : MonoBehaviour
 
 				Fire(attackType.projectilePrefab, attackType.projectileCastEffectPrefab, aimDirection);
 
-				if (characterAnimator)
+				if (animator)
 				{
 					//Pass vertical axis into animator
-					characterAnimator.animator.SetFloat("vertical", aimDirection.y);
+					animator.SetFloat("vertical", aimDirection.y);
 					//Set trigger for magic animation
-					characterAnimator.animator.SetTrigger("magic");
+					animator.SetTrigger("magic");
 				}
 			}
 			else //If no attack was chosen, do fire fail anim
@@ -336,12 +314,12 @@ public class PlayerAttack : MonoBehaviour
 
 				Fire(null, failedCastEffect, aimDirection);
 
-				if (characterAnimator)
+				if (animator)
 				{
 					//Pass vertical axis into animator
-					characterAnimator.animator.SetFloat("vertical", aimDirection.y);
+					animator.SetFloat("vertical", aimDirection.y);
 					//Set trigger for magic animation
-					characterAnimator.animator.SetTrigger("magic");
+					animator.SetTrigger("magic");
 				}
 			}
 		}
@@ -424,7 +402,7 @@ public class PlayerAttack : MonoBehaviour
 		Debug.LogWarning("Reset mana not implemented!");
     }
 
-    IEnumerator BatFlash(float delay)
+    IEnumerator BatCharge(float delay)
     {
         //Wait for max bat hold
         yield return new WaitForSeconds(delay);

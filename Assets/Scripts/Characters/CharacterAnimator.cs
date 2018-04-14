@@ -23,7 +23,7 @@ public class CharacterAnimator : MonoBehaviour
         //If there has been no animator assigned, log a warning
         if (!animator)
             Debug.LogWarning("No Animator assigned to CharacterAnimator on " + name);
-        
+
         //Get references
         characterMove = GetComponent<CharacterMove>();
     }
@@ -84,24 +84,6 @@ public class CharacterAnimator : MonoBehaviour
             animator.SetTrigger("stun");
 
         animator.SetBool("stunned", value);
-    }
-
-    public void MeleeAttack(bool holding, float verticalDirection)
-    {
-        if(!holding)
-            animator.SetFloat("vertical", verticalDirection);
-
-        animator.SetBool("holdingBat", holding);
-    }
-
-    public void SetCharged(bool value)
-    {
-        animator.SetBool("charged", value);
-    }
-
-    public void MagicAttack()
-    {
-        animator.SetTrigger("magic");
     }
 
     void Jump()
