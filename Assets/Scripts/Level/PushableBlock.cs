@@ -25,7 +25,7 @@ public class PushableBlock : MonoBehaviour
 
 	private PlayerAttack playerAttack;
 	private CharacterMove characterMove;
-	private CharacterAnimator characterAnimator;
+	private Animator animator;
 
 	private Rigidbody2D body;
 
@@ -77,8 +77,7 @@ public class PushableBlock : MonoBehaviour
 		characterMove.moveSpeed = moveSpeed;
 
 		//Start pushing animation
-		if (characterAnimator)
-			characterAnimator.animator.SetBool("pushBlock", true);
+		animator?.Play("Push Block");
 
 		bool running = true;
 
@@ -143,8 +142,7 @@ public class PushableBlock : MonoBehaviour
 					player = null;
 					running = false;
 
-					if (characterAnimator)
-						characterAnimator.animator.SetBool("pushBlock", false);
+					animator?.Play("Locomotion");
 				}
 
 				yield return new WaitForEndOfFrame();
@@ -152,8 +150,7 @@ public class PushableBlock : MonoBehaviour
 		}
 
 		//Stop animation
-		if (characterAnimator)
-			characterAnimator.animator.SetBool("pushBlock", false);
+		animator?.Play("Locomotion");
 
 		ReturnToGrid();
 
@@ -179,7 +176,7 @@ public class PushableBlock : MonoBehaviour
 				player = null;
 			else
 			{
-				characterAnimator = player.GetComponent<CharacterAnimator>();
+				animator = player.GetComponentInChildren<Animator>();
 				characterMove = player.GetComponent<CharacterMove>();
 			}
 

@@ -63,9 +63,9 @@ public class PullSwitch : MonoBehaviour
 	IEnumerator PullOut(GameObject player)
 	{
 		CharacterMove characterMove = player.GetComponent<CharacterMove>();
-		CharacterAnimator characterAnimator = player.GetComponent<CharacterAnimator>();
+		Animator animator = player.GetComponentInChildren<Animator>();
 
-		float direction = Mathf.Sign(characterAnimator.animator.transform.localScale.x);
+		float direction = Mathf.Sign(animator.transform.localScale.x);
 
 		//Stop enemies moving
 		GameManager.instance.gameRunning = false;
@@ -77,7 +77,7 @@ public class PullSwitch : MonoBehaviour
 		Vector3 initialPos = transform.localPosition;
 		Vector3 targetPos = initialPos + Vector3.down * pullDistance;
 
-		characterAnimator.animator.SetBool("pullSwitch", true);
+		animator.Play("Pull Switch");
 
 		//Offset on x depending on the direction the player is facing
 		Vector3 offset = playerAttachPoint.localPosition;
@@ -109,7 +109,7 @@ public class PullSwitch : MonoBehaviour
 			elapsedTime += Time.deltaTime;
 		}
 
-		characterAnimator.animator.SetBool("pullSwitch", false);
+		animator.Play("Locomotion");
 
 		if(spawnPoint && spawnObject)
 		{
