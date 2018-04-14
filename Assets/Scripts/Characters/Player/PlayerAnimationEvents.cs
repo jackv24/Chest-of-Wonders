@@ -109,11 +109,24 @@ public class PlayerAnimationEvents : MonoBehaviour
             system = newSlideParticles.GetComponentInChildren<ParticleSystem>();
         }
 
-        characterMove.canMove = false;
         playerAttack.canAttack = false;
+
+		float beforeGroundedTime = Time.time;
 
         while (!characterMove.isGrounded)
             yield return new WaitForEndOfFrame();
+
+		//Keep track of time taken in air before grounded
+		float afterGroundedTime = Time.time;
+		float waitElapsed = afterGroundedTime - beforeGroundedTime;
+
+		slideTime -= waitElapsed;
+
+		//Don't do slide if there is no time left
+		if (slideTime <= 0)
+			yield break;
+
+        characterMove.canMove = false;
 
         if (canSlide)
         {
