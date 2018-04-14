@@ -32,6 +32,9 @@ public class MagicBankUI : MonoBehaviour
 	public AnimationClip closeAnim;
 	public float waitTime = 1.0f;
 
+	//Keep track of if coroutines are running for each vial to prevent overlap when rapidly showing/hiding
+	private Dictionary<MagicVial, Coroutine> vialAnimRoutines = new Dictionary<MagicVial, Coroutine>();
+
 	private PlayerMagicBank bank;
 
 	private void Start()
@@ -67,12 +70,22 @@ public class MagicBankUI : MonoBehaviour
 				if (paused)
 				{
 					for (int i = 0; i < vials.Count; i++)
-						StartCoroutine(ShowVial(vials[i], false));
+					{
+						if (vialAnimRoutines[vials[i]] != null)
+							StopCoroutine(vialAnimRoutines[vials[i]]);
+
+						vialAnimRoutines[vials[i]] = StartCoroutine(ShowVial(vials[i], false));
+					}
 				}
 				else
 				{
 					for (int i = 0; i < vials.Count; i++)
-						StartCoroutine(HideVial(vials[i]));
+					{
+						if (vialAnimRoutines[vials[i]] != null)
+							StopCoroutine(vialAnimRoutines[vials[i]]);
+
+						vialAnimRoutines[vials[i]] = StartCoroutine(HideVial(vials[i]));
+					}
 				}
 			};
 		}
@@ -82,6 +95,12 @@ public class MagicBankUI : MonoBehaviour
 		grassVial.gameObject.SetActive(false);
 		iceVial.gameObject.SetActive(false);
 		windVial.gameObject.SetActive(false);
+
+		//Make sure coroutine dictionary is pre-populated to start for easy access later
+		vialAnimRoutines.Add(fireVial, null);
+		vialAnimRoutines.Add(grassVial, null);
+		vialAnimRoutines.Add(iceVial, null);
+		vialAnimRoutines.Add(windVial, null);
 
 		UpdateAll();
 	}
@@ -124,8 +143,11 @@ public class MagicBankUI : MonoBehaviour
 		//Will only fail if a new element is encountered
 		if(vial != null)
 		{
+			if (vialAnimRoutines[vial] != null)
+				StopCoroutine(vialAnimRoutines[vial]);
+
 			//Show magic vial, and auto hide
-			StartCoroutine(ShowVial(vial, true));
+			vialAnimRoutines[vial] = StartCoroutine(ShowVial(vial, true));
 		}
 	}
 
@@ -138,6 +160,8 @@ public class MagicBankUI : MonoBehaviour
 		//Enable vial, automatically playing it's open animation
 		vial.gameObject.SetActive(true);
 
+		vial.animator.Play(openAnim.name);
+
 		yield return new WaitForSecondsRealtime(openAnim.length);
 
 		//Update with new values (if above zero)
@@ -147,11 +171,13 @@ public class MagicBankUI : MonoBehaviour
 		if (vial.amountText)
 			vial.amountText.text = string.Format(amountText, vial.currentSouls, bank.maxSouls);
 
-		//Pause, then play hid animation
+		//Pause, then play hide animation
 		yield return new WaitForSecondsRealtime(waitTime);
 
 		if(autoHide)
-			StartCoroutine(HideVial(vial));
+			vialAnimRoutines[vial] = StartCoroutine(HideVial(vial));
+		else
+			vialAnimRoutines[vial] = null;
 	}
 
 	IEnumerator HideVial(MagicVial vial)
@@ -161,5 +187,7 @@ public class MagicBankUI : MonoBehaviour
 		yield return new WaitForSecondsRealtime(closeAnim.length);
 
 		vial.gameObject.SetActive(false);
+
+		vialAnimRoutines[vial] = null;
 	}
 }

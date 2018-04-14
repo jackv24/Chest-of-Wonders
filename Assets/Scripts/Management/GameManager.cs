@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
     public float levelTransitionTime = 0.25f;
     public float autoSaveDelay = 0.25f;
 
+	[Space()]
+	public float gamePauseLockDelay = 0.25f;
+	private float gamePauseUnlockTime = 0;
+
     //Game running and game pause are two seperate bools to keep track of in dialogue or menu, or game paused...
     [HideInInspector] public bool gameRunning = true;
     [HideInInspector] public bool gamePaused = false;
@@ -228,6 +232,11 @@ public class GameManager : MonoBehaviour
 
     public void TogglePaused()
     {
+		//Only allow pausing again after a delay - prevent mashing pause and causing issues
+		if (Time.unscaledTime < gamePauseUnlockTime)
+			return;
+		gamePauseUnlockTime = Time.unscaledTime + gamePauseLockDelay;
+
         //Toggle pause bool
         gamePaused = !gamePaused;
 
