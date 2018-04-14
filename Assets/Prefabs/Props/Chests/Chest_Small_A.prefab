@@ -89,7 +89,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114006350019743462
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142925689088732}
@@ -117,9 +117,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptHeight: 1
   containingItem: {fileID: 0}
+  persistentObject:
+    id: 
+    sceneName: 
+    activated: 0
 --- !u!114 &114368579377025058
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142925689088732}
@@ -143,7 +147,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cc7763fd8a9693d40af7c3aeafc6dccd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

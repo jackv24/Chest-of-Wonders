@@ -35,7 +35,8 @@ Shader "Sprites/Flash"
              #pragma fragment frag
              #pragma multi_compile DUMMY PIXELSNAP_ON
              #include "UnityCG.cginc"
-             
+             #include "PixelPerfect.cginc"
+
              struct appdata_t
              {
                  float4 vertex   : POSITION;
@@ -56,15 +57,14 @@ Shader "Sprites/Flash"
  
              v2f vert(appdata_t IN)
              {
-                 v2f OUT;
-                 OUT.vertex = UnityObjectToClipPos(IN.vertex);
-                 OUT.texcoord = IN.texcoord;
-                 OUT.color = IN.color * _Color;
-                 #ifdef PIXELSNAP_ON
-                 OUT.vertex = UnityPixelSnap (OUT.vertex);
-                 #endif
- 
-                 return OUT;
+                 float4 alignedPos = AlignToPixelGrid(IN.vertex);
+
+				v2f OUT;
+				OUT.vertex = UnityObjectToClipPos(alignedPos);
+				OUT.texcoord = IN.texcoord;
+				OUT.color = IN.color * _Color;
+
+				return OUT;
              }
  
              sampler2D _MainTex;
