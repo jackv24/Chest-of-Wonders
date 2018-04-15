@@ -93,9 +93,19 @@ public class PlayerAnimationEvents : MonoBehaviour
         if (characterMove)
         {
             canSlide = true;
-            //Only play one at a time
-            StopCoroutine("SlideStopOverTime");
-            StartCoroutine("SlideStopOverTime", slideTime);
+
+			//Only "slide" if actually moving
+			if (Mathf.Abs(characterMove.velocity.x) > 0.1f)
+			{
+				//Only play one at a time
+				StopCoroutine("SlideStopOverTime");
+				StartCoroutine("SlideStopOverTime", slideTime);
+			}
+			else
+			{
+				playerAttack.canAttack = false;
+				characterMove.canMove = false;
+			}
         }
     }
 
