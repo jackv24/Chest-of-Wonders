@@ -67,4 +67,9 @@ public class ItemChest : MonoBehaviour, IInteractible
 		if (animator)
 			animator.SetBool("open", true);
 	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.DrawIcon(transform.position + Vector3.up * promptHeight, "Interact Icon");
+	}
 }
