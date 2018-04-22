@@ -15,7 +15,8 @@ public class CharacterStats : MonoBehaviour
     public ElementManager.Element element;
 
     [Space()]
-    public float damageImmunityTime = 0.5f;
+	public bool damageImmunity = false;
+	public float damageImmunityTime = 0.5f;
     public Vector2 damageTextOffset = Vector2.up;
 
     [Space()]
@@ -43,8 +44,8 @@ public class CharacterStats : MonoBehaviour
 	[HideInInspector]
 	public bool hasDied = false;
 
-    [Space()]
-    public bool damageImmunity = false;
+	[Space()]
+	public EnemyJournalRecord enemyRecord;
 
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
@@ -137,6 +138,8 @@ public class CharacterStats : MonoBehaviour
     public void Die()
     {
 		hasDied = true;
+
+		enemyRecord?.RecordKill();
 
         //Show stunned flashing character
         if(graphic)

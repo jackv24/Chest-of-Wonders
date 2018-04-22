@@ -7,6 +7,12 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
 
+	public delegate void DataLoadedEvent(SaveData data);
+	public event DataLoadedEvent OnDataLoaded;
+
+	public delegate void DataSavedEvent(SaveData data);
+	public event DataSavedEvent OnDataSaving;
+
     public int saveSlot = 0;
 
     [Space()]
@@ -32,6 +38,9 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame(bool hardSave)
     {
+		//Get subscribed objects to save their own state before saving file
+		OnDataSaving?.Invoke(data);
+
         //Only save data if there is a player
         if (player && data != null)
         {
@@ -107,15 +116,16 @@ public class SaveManager : MonoBehaviour
         {
             string loadString = System.IO.File.ReadAllText(SaveLocation);
             data = (SaveData)JsonUtility.FromJson(loadString, typeof(SaveData));
-
-            return true;
         }
         else
         {
             data = defaultSaveData;
-
-            return true;
         }
+
+		//Subscribed object should process data after it has been loaded
+		OnDataLoaded?.Invoke(data);
+
+		return true;
     }
 
 	//Temporary function for demo

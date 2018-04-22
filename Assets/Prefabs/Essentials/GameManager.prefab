@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 82169578968242942}
   - component: {fileID: 114547737111946328}
   - component: {fileID: 114687314970991524}
+  - component: {fileID: 114681356407913036}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -129,7 +130,7 @@ AudioSource:
     m_RotationOrder: 0
 --- !u!114 &114547737111946328
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706048386432494}
@@ -182,12 +183,22 @@ MonoBehaviour:
     hasWindMagic: 0
     magicProgression: 0
     selectedElement: 0
-    inventory: []
+    inventoryItems: []
     maxSouls: 3
     currentFireSouls: 0
     currentGrassSouls: 0
     currentIceSouls: 0
     currentWindSouls: 0
+    killedEnemies:
+      _Buckets: 
+      _HashCodes: 
+      _Next: 
+      _Count: 0
+      _Version: 0
+      _FreeList: 0
+      _FreeCount: 0
+      _Keys: []
+      _Values: []
     blackboardDictionary:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
@@ -268,12 +279,22 @@ MonoBehaviour:
     hasWindMagic: 0
     magicProgression: 0
     selectedElement: 0
-    inventory: []
+    inventoryItems: []
     maxSouls: 0
     currentFireSouls: 0
     currentGrassSouls: 0
     currentIceSouls: 0
     currentWindSouls: 0
+    killedEnemies:
+      _Buckets: 
+      _HashCodes: 
+      _Next: 
+      _Count: 0
+      _Version: 0
+      _FreeList: 0
+      _FreeCount: 0
+      _Keys: []
+      _Values: []
     blackboardDictionary:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
@@ -354,9 +375,20 @@ MonoBehaviour:
   ineffectiveMultiplier: 0.5
   effectiveMultiplier: 1.25
   damageArray: 00000000000000000000000000000000000000000000000000000000020000000100000002000000000000000100000000000000020000000100000000000000020000000100000000000000000000000000000001000000020000000000000001000000
---- !u!114 &114687314970991524
+--- !u!114 &114681356407913036
 MonoBehaviour:
   m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706048386432494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d60817c1a833c429da6d29241a4cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114687314970991524
+MonoBehaviour:
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706048386432494}
@@ -382,5 +414,6 @@ MonoBehaviour:
   playerRespawnDelay: 3
   levelTransitionTime: 0.25
   autoSaveDelay: 0.25
+  gamePauseLockDelay: 0.25
   gameRunning: 1
   gamePaused: 0

@@ -453,6 +453,7 @@ MonoBehaviour:
   currentHealth: 50
   maxHealth: 50
   element: 1
+  damageImmunity: 0
   damageImmunityTime: 0.5
   damageTextOffset: {x: 0, y: 1}
   graphic: {fileID: 212107043697564826}
@@ -469,7 +470,7 @@ MonoBehaviour:
   maxHealthDrops: 2
   healthDropForce: 5
   hasDied: 0
-  damageImmunity: 0
+  enemyRecord: {fileID: 0}
 --- !u!212 &212107043697564826
 SpriteRenderer:
   m_ObjectHideFlags: 1

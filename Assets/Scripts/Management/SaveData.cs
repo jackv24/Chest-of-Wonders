@@ -45,6 +45,10 @@ public class SaveData
 	public int currentWindSouls;
 
 	[System.Serializable]
+	public class EnemyKillDictionary : SerializableDictionary<string, EnemyJournalManager.EnemyKillRecord> { public EnemyKillDictionary(int capacity) : base(capacity) { } }
+	public EnemyKillDictionary killedEnemies;
+
+	[System.Serializable]
 	public class DialogueDictionary : SerializableDictionary<string, string> { }
 	public DialogueDictionary blackboardDictionary;
 
