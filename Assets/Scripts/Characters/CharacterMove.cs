@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class CharacterMove : MonoBehaviour
 {
     public delegate void ChangeFloat(float newFloat);
@@ -90,8 +91,8 @@ public class CharacterMove : MonoBehaviour
     public float skinWidthY = 0.01f;
 
     [Space()]
-    public LayerMask groundLayer;
-    public LayerMask platformLayer;
+    public LayerMask groundLayer = 1 << 8;
+    public LayerMask platformLayer = 1 << 13;
 
     [Space()]
     [Tooltip("When checked, prevents character from falling through ground on start.")]
@@ -108,7 +109,7 @@ public class CharacterMove : MonoBehaviour
     [HideInInspector]
     public Rigidbody2D body;
 
-    private Collider2D col;
+    private BoxCollider2D col;
     private Rect box;
 
     private CharacterAnimator characterAnimator;
@@ -118,7 +119,7 @@ public class CharacterMove : MonoBehaviour
     private void Awake()
     {
         //Get references
-        col = GetComponent<Collider2D>();
+        col = GetComponent<BoxCollider2D>();
         body = GetComponent<Rigidbody2D>();
 
         characterAnimator = GetComponent<CharacterAnimator>();
@@ -126,7 +127,7 @@ public class CharacterMove : MonoBehaviour
         characterSound = GetComponent<CharacterSound>();
     }
 
-    void Start()
+	void Start()
     {
         if(characterSound)
         {
