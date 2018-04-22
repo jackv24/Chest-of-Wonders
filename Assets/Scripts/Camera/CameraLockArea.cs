@@ -2,59 +2,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
 public class CameraLockArea : MonoBehaviour
 {
-	public float paddingLeft = 2.0f;
-	public float paddingRight = 2.0f;
-	public float paddingTop = 2.0f;
-	public float paddingBottom = 2.0f;
+	public float minX;
+	public float maxX;
+	public float minY;
+	public float maxY;
 
 	public Bounds Bounds
 	{
 		get
 		{
-			Bounds bounds = box.bounds;
+			Bounds bounds = new Bounds();
 
-			bounds.min = new Vector3(bounds.min.x - paddingLeft, bounds.min.y - paddingBottom, bounds.min.z);
-			bounds.max = new Vector3(bounds.max.x + paddingRight, bounds.max.y + paddingTop, bounds.max.z);
+			bounds.min = new Vector3(minX, minY, 0);
+			bounds.max = new Vector3(maxX, maxY, 0);
 
 			return bounds;
 		}
 	}
 
-	private BoxCollider2D box;
+	private int insideCount = 0;
 
-	private void Awake()
+	private void Reset()
 	{
-		box = GetComponent<BoxCollider2D>();
+		minX = transform.position.x - 2;
+		maxX = transform.position.x + 2;
+		minY = transform.position.y - 2;
+		maxY = transform.position.y + 2;
 	}
 
 	private void OnDrawGizmosSelected()
 	{
-		if (!box)
-			box = GetComponent<BoxCollider2D>();
+		Bounds bounds = Bounds;
 
-		if(box)
-		{
-			Bounds bounds = Bounds;
+		Gizmos.color = new Color(0, 1, 0, 0.25f);
+		Gizmos.DrawWireCube(bounds.center, bounds.size);
 
-			Gizmos.color = new Color(0, 1, 0, 0.25f);
-			Gizmos.DrawWireCube(bounds.center, bounds.size);
-
-			Gizmos.color = new Color(0, 1, 0, 0.1f);
-			Gizmos.DrawCube(bounds.center, bounds.size);
-		}
+		Gizmos.color = new Color(0, 1, 0, 0.1f);
+		Gizmos.DrawCube(bounds.center, bounds.size);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+		insideCount++;
+		if (insideCount > 1)
+			return;
+
 		if (CameraControl.Instance)
 			CameraControl.Instance.AddCameraLock(this);
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
+		insideCount--;
+		if (insideCount > 0)
+			return;
+
 		if (CameraControl.Instance)
 			CameraControl.Instance.RemoveCameraLock(this);
 	}
