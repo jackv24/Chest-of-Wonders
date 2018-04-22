@@ -300,7 +300,12 @@ public class GameManager : MonoBehaviour
 
                 if(inventory)
                 {
-                    inventory.items = data.inventory;
+					List<InventoryItem> items = new List<InventoryItem>(data.inventoryItems.Count);
+
+					foreach(string name in data.inventoryItems)
+						items.Add((InventoryItem)Resources.Load($"Items/{name}", typeof(InventoryItem)));
+
+                    inventory.items = items;
                 }
 
 				if (bank)

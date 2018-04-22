@@ -34,7 +34,7 @@ public class SaveData
 	public PlayerAttack.MagicProgression magicProgression;
 	public ElementManager.Element selectedElement;
 
-	public List<InventoryItem> inventory;
+	public List<string> inventoryItems;
 
 	//Magic bank
 	public int maxSouls;

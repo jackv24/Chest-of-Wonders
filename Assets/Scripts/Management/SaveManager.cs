@@ -14,7 +14,6 @@ public class SaveManager : MonoBehaviour
 
     [HideInInspector]
     public SaveData data = null;
-    private string saveLocation;
 
     //Assembled save location with slot number and editor extension
     public string SaveLocation { get { return string.Format("{0}/Save{1}.dat", Application.persistentDataPath, saveSlot); } }
@@ -33,12 +32,6 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame(bool hardSave)
     {
-        if(saveLocation == null)
-        {
-            Debug.Log("Save data NOT loaded, since level was open on startup");
-            return;
-        }
-
         //Only save data if there is a player
         if (player && data != null)
         {
@@ -78,7 +71,12 @@ public class SaveManager : MonoBehaviour
 
             if(inventory)
             {
-                data.inventory = inventory.items;
+				List<string> names = new List<string>((inventory.items.Count));
+
+				foreach(InventoryItem item in inventory.items)
+					names.Add(item.name);
+
+                data.inventoryItems = names;
 				inventory.UpdateInventory();
             }
 
@@ -96,7 +94,7 @@ public class SaveManager : MonoBehaviour
             string saveString = JsonUtility.ToJson(data, true);
 
             //Write serialised data to file
-            System.IO.File.WriteAllText(saveLocation, saveString);
+            System.IO.File.WriteAllText(SaveLocation, saveString);
         }
         else
             Debug.LogWarning("Save Manager could not find player! Saving did not work.");
@@ -104,13 +102,10 @@ public class SaveManager : MonoBehaviour
 
     public bool LoadGame()
     {
-        //Concatenate save location with data path and save slot
-        saveLocation = SaveLocation;
-
         //Load existing save data first, if any
-        if (System.IO.File.Exists(saveLocation))
+        if (System.IO.File.Exists(SaveLocation))
         {
-            string loadString = System.IO.File.ReadAllText(saveLocation);
+            string loadString = System.IO.File.ReadAllText(SaveLocation);
             data = (SaveData)JsonUtility.FromJson(loadString, typeof(SaveData));
 
             return true;
