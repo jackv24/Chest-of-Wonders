@@ -1053,7 +1053,7 @@ MonoBehaviour:
   flashInterval: 0.1
 --- !u!114 &114333046343265762
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   _guid: c7b9928c-9806-4fd8-807c-2ca5ea0bf15a
 --- !u!114 &114507656613439396
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1241,12 +1241,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012949439504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7667fb90041ce4f4ba97529315162bb0, type: 3}
+  m_Script: {fileID: 11500000, guid: b5ddf34aca941744e98297ee2b15c3aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 100
   maxHealth: 100
   element: 0
+  damageImmunity: 0
   damageImmunityTime: 1
   damageTextOffset: {x: 0, y: 1}
   graphic: {fileID: 212000014160401936}
@@ -1263,7 +1264,7 @@ MonoBehaviour:
   maxHealthDrops: 2
   healthDropForce: 10
   hasDied: 0
-  damageImmunity: 0
+  enemyRecord: {fileID: 0}
 --- !u!114 &114850436849671720
 MonoBehaviour:
   m_ObjectHideFlags: 1

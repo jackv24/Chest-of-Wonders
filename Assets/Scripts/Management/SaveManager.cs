@@ -14,6 +14,7 @@ public class SaveManager : MonoBehaviour
 	public event DataSavedEvent OnDataSaving;
 
 	public bool IsDataLoaded { get { return data != null; } }
+
 	private SaveData data = null;
 
 	public int saveSlot = 0;

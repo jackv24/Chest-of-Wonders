@@ -92,8 +92,7 @@ public class GameManager : MonoBehaviour
         //Load the first level
         if (SceneManager.sceneCount <= 1)
         {
-            //When game starts load save and player data, effectively respawning at start
-            SpawnPlayer(false);
+			StartCoroutine(SpawnPlayerStart());
         }
         //If level is already open in the editor, use that instead
         else if (SceneManager.sceneCount == 2)
@@ -276,6 +275,14 @@ public class GameManager : MonoBehaviour
         //Reset timescale as scene may be exited when paused
         Time.timeScale = 1;
     }
+
+	IEnumerator SpawnPlayerStart()
+	{
+		//Delay for one frame to allow for save/load events to be subscribed
+		yield return null;
+
+		SpawnPlayer(false);
+	}
 
     public void SpawnPlayer(bool reset)
     {
