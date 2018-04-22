@@ -5,10 +5,23 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class CameraLockArea : MonoBehaviour
 {
-	public float paddingX = 2.0f;
-	public float paddingY = 2.0f;
+	public float paddingLeft = 2.0f;
+	public float paddingRight = 2.0f;
+	public float paddingTop = 2.0f;
+	public float paddingBottom = 2.0f;
 
-	public Bounds Bounds { get{ return box.bounds; } }
+	public Bounds Bounds
+	{
+		get
+		{
+			Bounds bounds = box.bounds;
+
+			bounds.min = new Vector3(bounds.min.x - paddingLeft, bounds.min.y - paddingBottom, bounds.min.z);
+			bounds.max = new Vector3(bounds.max.x + paddingRight, bounds.max.y + paddingTop, bounds.max.z);
+
+			return bounds;
+		}
+	}
 
 	private BoxCollider2D box;
 
@@ -24,11 +37,13 @@ public class CameraLockArea : MonoBehaviour
 
 		if(box)
 		{
+			Bounds bounds = Bounds;
+
 			Gizmos.color = new Color(0, 1, 0, 0.25f);
-			Gizmos.DrawWireCube((Vector2)transform.position + box.offset, box.size + new Vector2(paddingX * 2, paddingY * 2));
+			Gizmos.DrawWireCube(bounds.center, bounds.size);
 
 			Gizmos.color = new Color(0, 1, 0, 0.1f);
-			Gizmos.DrawCube((Vector2)transform.position + box.offset, box.size + new Vector2(paddingX * 2, paddingY * 2));
+			Gizmos.DrawCube(bounds.center, bounds.size);
 		}
 	}
 
