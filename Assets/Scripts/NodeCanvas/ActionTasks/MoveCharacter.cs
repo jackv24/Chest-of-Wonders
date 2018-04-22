@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
+using ParadoxNotion.Design;
 
 namespace NodeCanvas.Tasks.Actions
 {
+	[Category("Character")]
     public class MoveCharacter : ActionTask<CharacterMove>
     {
         public BBParameter<float> direction;

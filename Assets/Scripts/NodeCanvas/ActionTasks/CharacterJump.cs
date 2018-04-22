@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
+using ParadoxNotion.Design;
 
 namespace NodeCanvas.Tasks.Actions
 {
+	[Category("Character")]
     public class CharacterJump : ActionTask<CharacterMove>
     {
         public BBParameter<float> jumpDirection = 0;
@@ -37,7 +39,7 @@ namespace NodeCanvas.Tasks.Actions
                     "{0} ({1}s, {2}, {3}m/s)",
                     base.info,
                     holdJumpTime.isNone ? agent.jumpTime.ToString("<color=grey>0.0</color>") : holdJumpTime.value.ToString("<b>0.0</b>"),
-                    dir, 
+                    dir,
                     moveSpeed.isNone ? agent.moveSpeed.ToString("<color=grey>0.0</color>") : moveSpeed.value.ToString("<b>0.0</b>"));
             }
         }

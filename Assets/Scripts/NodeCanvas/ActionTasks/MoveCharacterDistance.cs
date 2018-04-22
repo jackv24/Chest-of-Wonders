@@ -6,6 +6,7 @@ using ParadoxNotion.Design;
 
 namespace NodeCanvas.Tasks.Actions
 {
+	[Category("Character")]
 	[Description("Moves the character a specified distance in a specified direction")]
 	public class MoveCharacterDistance : ActionTask<CharacterMove>
 	{
