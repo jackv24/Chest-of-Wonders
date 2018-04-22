@@ -50,7 +50,7 @@ public class EnemyJournalManager : MonoBehaviour
 				}
 			};
 
-			SaveManager.instance.OnDataSaving += (SaveData data) =>
+			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
 				//Convert game data into suitable save data
 				data.killedEnemies = new SaveData.EnemyKillDictionary(killedEnemies.Count);

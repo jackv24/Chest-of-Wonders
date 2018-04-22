@@ -10,20 +10,11 @@ namespace NodeCanvas.Tasks.Conditions
 		public InventoryItem itemToCheck;
 		public bool consume = false;
 
-		private PlayerInventory inventory;
-
-		protected override string OnInit()
-		{
-			inventory = GameObject.FindObjectOfType<PlayerInventory>();
-
-			return base.OnInit();
-		}
-
 		protected override bool OnCheck()
 		{
-			if (inventory && itemToCheck)
+			if (PlayerInventory.Instance && itemToCheck)
 			{
-				if (inventory.CheckItem(itemToCheck, consume))
+				if (PlayerInventory.Instance.CheckItem(itemToCheck, consume))
 				{
 					return true;
 				}

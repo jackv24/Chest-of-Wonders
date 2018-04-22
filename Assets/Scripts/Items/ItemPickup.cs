@@ -21,12 +21,13 @@ public class ItemPickup : MonoBehaviour
     {
         soundEffects = GameManager.instance.GetComponent<SoundEffectBase>();
 
-		bool pickedUp = false;
-		persistentObject.GetID(gameObject);
-		persistentObject.LoadState(ref pickedUp);
+		persistentObject.OnStateLoaded += (bool activated) =>
+		{
+			if (activated)
+				gameObject.SetActive(false);
+		};
 
-        if (pickedUp)
-            gameObject.SetActive(false);
+		persistentObject.Setup(gameObject);
     }
 
     void Update()

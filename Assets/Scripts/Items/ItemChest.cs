@@ -13,7 +13,6 @@ public class ItemChest : MonoBehaviour, IInteractible
 	public PersistentObject persistentObject;
 
 	private bool opened = false;
-	private PlayerInventory inventory;
 
 	private Animator animator;
 
@@ -24,15 +23,18 @@ public class ItemChest : MonoBehaviour, IInteractible
 
 	void Start()
 	{
-		inventory = FindObjectOfType<PlayerInventory>();
-
-		persistentObject.GetID(gameObject);
-		persistentObject.LoadState(ref opened);
-
-		if(opened)
+		persistentObject.OnStateLoaded += (bool activated) =>
 		{
-			Open();
-		}
+			opened = activated;
+
+			if (opened)
+			{
+				//Skip to the end of play animation
+				animator?.Play("Open", 0, 1.0f);
+			}
+		};
+
+		persistentObject.Setup(gameObject);
 	}
 
 	public void Interact()
@@ -40,13 +42,13 @@ public class ItemChest : MonoBehaviour, IInteractible
 		opened = true;
 		InteractManager.RemoveInteractible(this);
 
-		if(inventory && containingItem)
+		if(PlayerInventory.Instance && containingItem)
 		{
-			inventory.AddItem(containingItem);
+			PlayerInventory.Instance.AddItem(containingItem);
 
 			persistentObject.SaveState(opened);
 
-			Open();
+			animator?.Play("Open");
 		}
 	}
 
@@ -60,12 +62,6 @@ public class ItemChest : MonoBehaviour, IInteractible
 	{
 		if(!opened)
 			InteractManager.RemoveInteractible(this);
-	}
-
-	void Open()
-	{
-		if (animator)
-			animator.SetBool("open", true);
 	}
 
 	private void OnDrawGizmos()

@@ -28,11 +28,15 @@ public class PullSwitch : MonoBehaviour
 
 	void Start()
 	{
-		persistentObject.GetID(gameObject);
-		persistentObject.LoadState(ref pulled);
+		persistentObject.OnStateLoaded += (bool activated) =>
+		{
+			pulled = activated;
 
-		if (pulled)
-			transform.position += Vector3.down * pullDistance;
+			if (pulled)
+				transform.position += Vector3.down * pullDistance;
+		};
+
+		persistentObject.Setup(gameObject);
 
 		//Switch pull state should not be saved if level is unloaded because of death
 		GameManager.instance.OnGameOver += delegate { shouldSave = false; };

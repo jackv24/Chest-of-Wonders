@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     //Events
     public delegate void NormalEvent();
     public delegate void BoolEvent(bool value);
-    public NormalEvent OnSaveLoaded;
     public NormalEvent OnLevelLoaded;
     public NormalEvent OnGameOver;
     public BoolEvent OnPausedChange;
@@ -28,7 +27,6 @@ public class GameManager : MonoBehaviour
 
     [Space()]
     public float levelTransitionTime = 0.25f;
-    public float autoSaveDelay = 0.25f;
 
 	[Space()]
 	public float gamePauseLockDelay = 0.25f;
@@ -39,6 +37,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool gamePaused = false;
     //Public property allows movement, etc, if both conditions are fulfilled
     public bool CanDoActions { get { return gameRunning && !gamePaused; } }
+
+	private SaveData.Location npcSaveLocation;
+	private SaveData.Location autoSaveLocation;
+	private SaveData.Location lastSaveLocation;
 
     private PlayerActions playerActions;
 
@@ -57,6 +59,24 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+		//Handle save/load for self
+		if(SaveManager.instance)
+		{
+			SaveManager.instance.OnDataLoaded += (SaveData data) =>
+			{
+				npcSaveLocation = data.npcSave;
+				autoSaveLocation = data.autoSave;
+			};
+
+			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
+			{
+				data.autoSave = lastSaveLocation;
+
+				if (hardSave)
+					data.npcSave = lastSaveLocation;
+			};
+		}
+
         playerActions = ControlManager.GetPlayerActions();
 
         if (!player)
@@ -185,8 +205,14 @@ public class GameManager : MonoBehaviour
         if (OnLevelLoaded != null)
             OnLevelLoaded();
 
-        //Fade in
-        UIFunctions.instance.ShowLoadingScreen(false, fadeTime);
+		//Save player position outside of door
+		lastSaveLocation = new SaveData.Location(loadedSceneIndex, new Vector2(targetPos, player.transform.position.y));
+
+		//Save data during fade out
+		SaveManager.instance?.SaveGame(false);
+
+		//Fade in
+		UIFunctions.instance.ShowLoadingScreen(false, fadeTime);
 
         PlayerInput input = player.GetComponent<PlayerInput>();
         CharacterMove move = player.GetComponent<CharacterMove>();
@@ -213,12 +239,6 @@ public class GameManager : MonoBehaviour
 
             input.enabled = true;
         }
-
-		//Save game after entering new room
-		yield return new WaitForSeconds(autoSaveDelay);
-
-        if (SaveManager.instance)
-            SaveManager.instance.SaveGame(false);
     }
 
     public void GameOver()
@@ -262,68 +282,15 @@ public class GameManager : MonoBehaviour
         player.SetActive(true);
         gameRunning = true;
 
-        if (SaveManager.instance)
-        {
-            //Load game
-            if (SaveManager.instance.LoadGame())
-            {
-                SaveData data = SaveManager.instance.data;
-                SaveData.Location location = reset ? data.npcSave : data.autoSave;
+		SaveManager.instance?.LoadGame(reset);
 
-                //Set first level to be loaded
-                firstSceneIndex = location.sceneIndex;
-                player.transform.position = location.position;
+		SaveData.Location location = reset ? npcSaveLocation : autoSaveLocation;
 
-                CharacterStats stats = player.GetComponent<CharacterStats>();
-                PlayerAttack attack = player.GetComponent<PlayerAttack>();
-                PlayerInventory inventory = player.GetComponent<PlayerInventory>();
-				PlayerMagicBank bank = player.GetComponent<PlayerMagicBank>();
+		//Set first level to be loaded
+		firstSceneIndex = location.sceneIndex;
+		player.transform.position = location.position;
 
-                if (stats)
-                {
-                    //Load player data
-                    stats.currentHealth = reset ? data.maxHealth : data.currentHealth;
-                    stats.maxHealth = data.maxHealth;
-                }
-
-                if(attack)
-                {
-					attack.magicProgression = data.magicProgression;
-
-					attack.selectedElement = data.selectedElement;
-
-					attack.hasFireMagic = data.hasFireMagic;
-					attack.hasGrassMagic = data.hasGrassMagic;
-					attack.hasIceMagic = data.hasIceMagic;
-					attack.hasWindMagic = data.hasWindMagic;
-				}
-
-                if(inventory)
-                {
-					List<InventoryItem> items = new List<InventoryItem>(data.inventoryItems.Count);
-
-					foreach(string name in data.inventoryItems)
-						items.Add((InventoryItem)Resources.Load($"Items/{name}", typeof(InventoryItem)));
-
-                    inventory.items = items;
-                }
-
-				if (bank)
-				{
-					bank.maxSouls = data.maxSouls;
-
-					bank.currentFireSouls = data.currentFireSouls;
-					bank.currentGrassSouls = data.currentGrassSouls;
-					bank.currentIceSouls = data.currentIceSouls;
-					bank.currentWindSouls = data.currentWindSouls;
-				}
-
-				if (OnSaveLoaded != null)
-                    OnSaveLoaded();
-            }
-        }
-
-        //After player data is loaded, load the level
-        LoadLevel(firstSceneIndex, -1);
+		//After player data is loaded, load the level
+		LoadLevel(firstSceneIndex, -1);
     }
 }

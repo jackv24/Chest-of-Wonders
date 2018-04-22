@@ -83,8 +83,7 @@ public class HUDControl : MonoBehaviour
 				playerAttack.OnSwitchMagic += PlaySwitchAnim;
 
                 //Reload magic UI display when attacks are loaded from save
-                if (GameManager.instance)
-                    GameManager.instance.OnSaveLoaded += UpdateAttackSlots;
+                playerAttack.OnUpdateMagic += UpdateAttackSlots;
             }
         }
     }

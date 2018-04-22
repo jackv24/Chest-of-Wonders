@@ -48,14 +48,12 @@ public class MagicBankUI : MonoBehaviour
 			if(bank)
 			{
 				bank.OnBankUpdate += UpdateUI;
+				bank.OnBankLoaded += UpdateAll;
 			}
 		}
 
 		if(GameManager.instance)
 		{
-			//Update UI after loading game
-			GameManager.instance.OnSaveLoaded += UpdateAll;
-
 			//Subscribe to game pause events
 			GameManager.instance.OnPausedChange += (bool paused) =>
 			{

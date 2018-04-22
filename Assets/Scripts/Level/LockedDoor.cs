@@ -38,20 +38,21 @@ public class LockedDoor : MonoBehaviour
 		if (enableObject)
 			enableObject.SetActive(false);
 
-		bool opened = false;
-		persistentObject.GetID(gameObject);
-		persistentObject.LoadState(ref opened);
-
-		if (opened)
+		persistentObject.OnStateLoaded += (bool activated) =>
 		{
-			if (enableObject)
-				enableObject.SetActive(true);
+			if (activated)
+			{
+				if (enableObject)
+					enableObject.SetActive(true);
 
-			if (lockedPadlock)
-				lockedPadlock.SetActive(false);
+				if (lockedPadlock)
+					lockedPadlock.SetActive(false);
 
-			gameObject.SetActive(false);
-		}
+				gameObject.SetActive(false);
+			}
+		};
+
+		persistentObject.Setup(gameObject);
 
 		if (openPadlock)
 			openPadlock.SetActive(false);

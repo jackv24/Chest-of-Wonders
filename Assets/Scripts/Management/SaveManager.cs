@@ -10,95 +10,39 @@ public class SaveManager : MonoBehaviour
 	public delegate void DataLoadedEvent(SaveData data);
 	public event DataLoadedEvent OnDataLoaded;
 
-	public delegate void DataSavedEvent(SaveData data);
+	public delegate void DataSavedEvent(SaveData data, bool hardSave);
 	public event DataSavedEvent OnDataSaving;
 
-    public int saveSlot = 0;
+	public bool IsDataLoaded { get { return data != null; } }
+	private SaveData data = null;
+
+	public int saveSlot = 0;
 
     [Space()]
     public SaveData defaultSaveData;
 
-    [HideInInspector]
-    public SaveData data = null;
-
     //Assembled save location with slot number and editor extension
     public string SaveLocation { get { return string.Format("{0}/Save{1}.dat", Application.persistentDataPath, saveSlot); } }
-
-    private GameObject player;
 
     void Awake()
     {
         instance = this;
     }
 
-    void Start()
-    {
-        player = GameObject.FindWithTag("Player");
-    }
+	private void Start()
+	{
+		//Will be overwritten if there is data to be loaded later
+		data = defaultSaveData;
+	}
 
-    public void SaveGame(bool hardSave)
+	public void SaveGame(bool hardSave)
     {
 		//Get subscribed objects to save their own state before saving file
-		OnDataSaving?.Invoke(data);
+		OnDataSaving?.Invoke(data, hardSave);
 
-        //Only save data if there is a player
-        if (player && data != null)
+        //TODO: move int relevant classes
+        if (data != null)
         {
-            //Get location data for player (level and position)
-            SaveData.Location location = new SaveData.Location(GameManager.instance.loadedSceneIndex, player.transform.position);
-
-            //Always update location for autosave
-            data.autoSave = location;
-
-            //Only update location for hardsave when saved via NPC
-            if (hardSave)
-                data.npcSave = location;
-
-            CharacterStats stats = player.GetComponent<CharacterStats>();
-            PlayerAttack attack = player.GetComponent<PlayerAttack>();
-            PlayerInventory inventory = player.GetComponent<PlayerInventory>();
-			PlayerMagicBank bank = player.GetComponent<PlayerMagicBank>();
-
-            if (stats)
-            {
-                //Store player stats
-                data.maxHealth = stats.maxHealth;
-                data.currentHealth = stats.currentHealth;
-            }
-
-            if(attack)
-            {
-				data.magicProgression = attack.magicProgression;
-
-				data.selectedElement = attack.selectedElement;
-
-				data.hasFireMagic = attack.hasFireMagic;
-				data.hasGrassMagic = attack.hasGrassMagic;
-				data.hasIceMagic = attack.hasIceMagic;
-				data.hasWindMagic = attack.hasWindMagic;
-			}
-
-            if(inventory)
-            {
-				List<string> names = new List<string>((inventory.items.Count));
-
-				foreach(InventoryItem item in inventory.items)
-					names.Add(item.name);
-
-                data.inventoryItems = names;
-				inventory.UpdateInventory();
-            }
-
-			if(bank)
-			{
-				data.maxSouls = bank.maxSouls;
-
-				data.currentFireSouls = bank.currentFireSouls;
-				data.currentGrassSouls = bank.currentGrassSouls;
-				data.currentIceSouls = bank.currentIceSouls;
-				data.currentWindSouls = bank.currentWindSouls;
-			}
-
             //Serialise save data to JSON
             string saveString = JsonUtility.ToJson(data, true);
 
@@ -106,26 +50,20 @@ public class SaveManager : MonoBehaviour
             System.IO.File.WriteAllText(SaveLocation, saveString);
         }
         else
-            Debug.LogWarning("Save Manager could not find player! Saving did not work.");
+            Debug.LogWarning("Tried to save null data. Save should never be called if load has not been called already!");
     }
 
-    public bool LoadGame()
+    public void LoadGame(bool resetPlayerLocation)
     {
-        //Load existing save data first, if any
+        //Load existing save data first, if any. Otherwise use default save data
         if (System.IO.File.Exists(SaveLocation))
         {
             string loadString = System.IO.File.ReadAllText(SaveLocation);
             data = (SaveData)JsonUtility.FromJson(loadString, typeof(SaveData));
         }
-        else
-        {
-            data = defaultSaveData;
-        }
 
 		//Subscribed object should process data after it has been loaded
 		OnDataLoaded?.Invoke(data);
-
-		return true;
     }
 
 	//Temporary function for demo

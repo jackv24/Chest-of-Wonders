@@ -100,6 +100,35 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+		if(SaveManager.instance)
+		{
+			SaveManager.instance.OnDataLoaded += (SaveData data) =>
+			{
+				magicProgression = data.magicProgression;
+
+				selectedElement = data.selectedElement;
+
+				hasFireMagic = data.hasFireMagic;
+				hasGrassMagic = data.hasGrassMagic;
+				hasIceMagic = data.hasIceMagic;
+				hasWindMagic = data.hasWindMagic;
+
+				UpdateMagic();
+			};
+
+			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
+			{
+				data.magicProgression = magicProgression;
+
+				data.selectedElement = selectedElement;
+
+				data.hasFireMagic = hasFireMagic;
+				data.hasGrassMagic = hasGrassMagic;
+				data.hasIceMagic = hasIceMagic;
+				data.hasWindMagic = hasWindMagic;
+			};
+		}
+
 		//Update magic UI to start
 		UpdateMagic();
 

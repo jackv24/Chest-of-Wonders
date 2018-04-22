@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMagicBank : MonoBehaviour
 {
+	public delegate void BankLoadedEvent();
+	public event BankLoadedEvent OnBankLoaded;
+
 	public delegate void ElementEvent(ElementManager.Element element);
 	public event ElementEvent OnBankUpdate;
 
@@ -14,6 +17,34 @@ public class PlayerMagicBank : MonoBehaviour
 	public int currentGrassSouls = 0;
 	public int currentIceSouls = 0;
 	public int currentWindSouls = 0;
+
+	private void Start()
+	{
+		if(SaveManager.instance)
+		{
+			SaveManager.instance.OnDataLoaded += (SaveData data) =>
+			{
+				maxSouls = data.maxSouls;
+
+				currentFireSouls = data.currentFireSouls;
+				currentGrassSouls = data.currentGrassSouls;
+				currentIceSouls = data.currentIceSouls;
+				currentWindSouls = data.currentWindSouls;
+
+				OnBankLoaded?.Invoke();
+			};
+
+			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
+			{
+				data.maxSouls = maxSouls;
+
+				data.currentFireSouls = currentFireSouls;
+				data.currentGrassSouls = currentGrassSouls;
+				data.currentIceSouls = currentIceSouls;
+				data.currentWindSouls = currentWindSouls;
+			};
+		}
+	}
 
 	public void AddSoul(ElementManager.Element element)
 	{
