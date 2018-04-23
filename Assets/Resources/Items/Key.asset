@@ -11,6 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd7b0652e1441a43932c46d1f70c7ea, type: 3}
   m_Name: Key
   m_EditorClassIdentifier: 
-  displayName: Items/KEY_NAME
+  displayName:
+    mTerm: Items/KEY_NAME
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+  description:
+    mTerm: Items/KEY_DESCRIPTION
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
   inventoryIcon: {fileID: 21300000, guid: 9dd3f2579174a604991abd430f6d99d9, type: 3}
-  description: Items/KEY_DESCRIPTION

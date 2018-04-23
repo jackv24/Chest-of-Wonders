@@ -53,15 +53,4 @@ public class PlayerInventory : MonoBehaviour
 
 		return contains;
 	}
-
-	public bool CheckItem(string name)
-	{
-		foreach(InventoryItem item in items)
-		{
-			if (item.displayName.ToLower() == name.ToLower())
-				return true;
-		}
-
-		return false;
-	}
 }

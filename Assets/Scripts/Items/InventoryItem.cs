@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using I2.Loc;
 
 [CreateAssetMenu(fileName ="NewItem", menuName ="Data/Item")]
 public class InventoryItem : ScriptableObject
 {
-    public string displayName;
+    public LocalizedString displayName;
+	public LocalizedString description;
 
     public Sprite inventoryIcon;
-
-	[Multiline()]
-	public string description;
 }
