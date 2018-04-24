@@ -11,11 +11,11 @@ public class InventoryUISlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 
 	public InventoryItem item;
 
-	private Selectable selectable;
+	public Selectable Selectable { get; private set; }
 
 	private void Awake()
 	{
-		selectable = GetComponent<Selectable>();
+		Selectable = GetComponent<Selectable>();
 	}
 
 	public void SetItem(InventoryItem inventoryItem)
@@ -32,15 +32,15 @@ public class InventoryUISlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 
 				itemIcon.gameObject.SetActive(true);
 
-				if (selectable)
-					selectable.interactable = true;
+				if (Selectable)
+					Selectable.interactable = true;
 			}
 			else
 			{
 				itemIcon.gameObject.SetActive(false);
 
-				if (selectable)
-					selectable.interactable = false;
+				if (Selectable)
+					Selectable.interactable = false;
 			}
 		}
 	}

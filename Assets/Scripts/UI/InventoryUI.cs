@@ -7,26 +7,14 @@ public class InventoryUI : MonoBehaviour
 {
     public PlayerInventory inventory;
 
-	private InventoryUISlot[] slots;
+	public InventoryUISlot[] slots;
 
-	void Start()
+    public void UpdateUI()
     {
-        if(!inventory)
-            inventory = GameManager.instance.player.GetComponent<PlayerInventory>();
+		if (!inventory)
+			inventory = GameManager.instance.player.GetComponent<PlayerInventory>();
 
-		slots = GetComponentsInChildren<InventoryUISlot>();
-
-		//Update inventory UI when game is paused, and UI is shown
-		if (GameManager.instance)
-			GameManager.instance.OnPausedChange += (bool value) => { if (value) UpdateUI(); };
-
-		//Update UI once on open, as game will have already been paused before event is subsscribed
-		UpdateUI();
-    }
-
-    void UpdateUI()
-    {
-        if(inventory)
+		if (inventory)
         {
 			int itemCount = inventory.items.Count;
 

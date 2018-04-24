@@ -65,6 +65,11 @@ public static class Helper
 		return bounds;
 	}
 	#endregion
+
+	public static T Get1DArrayElementBy2DIndexes<T>(ref T[] array, int width, int x, int y)
+	{
+		return array[y * width + x];
+	}
 }
 
 [System.Serializable]

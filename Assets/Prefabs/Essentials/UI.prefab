@@ -2341,6 +2341,7 @@ GameObject:
   - component: {fileID: 222285613012794696}
   - component: {fileID: 114103839949456930}
   - component: {fileID: 225892661302632122}
+  - component: {fileID: 114962801004909222}
   - component: {fileID: 114248375611047504}
   m_Layer: 5
   m_Name: PauseScreen
@@ -7238,6 +7239,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
+  slots:
+  - {fileID: 114904536453148066}
+  - {fileID: 114645076806329080}
+  - {fileID: 114921917398764408}
+  - {fileID: 114668879468227654}
+  - {fileID: 114143747281073508}
+  - {fileID: 114906601921929722}
+  - {fileID: 114905660588888542}
+  - {fileID: 114854352471284946}
+  - {fileID: 114177030416765780}
+  - {fileID: 114083050946594860}
+  - {fileID: 114725265783540772}
+  - {fileID: 114382379392430394}
+  - {fileID: 114248254485886628}
+  - {fileID: 114066734118088482}
+  - {fileID: 114826183226867502}
+  - {fileID: 114110182534490656}
+  - {fileID: 114929645294477772}
+  - {fileID: 114840723890319600}
 --- !u!114 &114228613472383414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8302,8 +8322,8 @@ MonoBehaviour:
   submitButton: 19
   cancelButton: 20
   analogMoveThreshold: 0.5
-  moveRepeatFirstDuration: 0.8
-  moveRepeatDelayDuration: 0.1
+  moveRepeatFirstDuration: 0.5
+  moveRepeatDelayDuration: 0.2
   forceModuleActive: 1
   allowMouseInput: 1
   focusOnMouseHover: 1
@@ -16132,6 +16152,23 @@ MonoBehaviour:
     - {fileID: 1011756503502476}
     - {fileID: 1922646128618804}
   _assetGuid: 766d3f4af0ca03c45b97560c9ffcd674
+--- !u!114 &114962801004909222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581037387805790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c03514fc34b22da4bbe38da68e4627dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuButtons:
+  - {fileID: 114461287781102188}
+  - {fileID: 114125546062684316}
+  - {fileID: 114537427322928854}
+  inventoryUI: {fileID: 114228396414387766}
+  inventoryRowSplit: 6
 --- !u!114 &114963263501222582
 MonoBehaviour:
   m_ObjectHideFlags: 1
