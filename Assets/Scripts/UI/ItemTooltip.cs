@@ -21,6 +21,12 @@ public class ItemTooltip : MonoBehaviour
 
 	private void Start()
 	{
+		GameManager.instance.OnPausedChange += (bool isPaused) =>
+		{
+			if (isPaused)
+				gameObject.SetActive(false);
+		};
+
 		gameObject.SetActive(false);
 	}
 

@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    //Events
-    public delegate void NormalEvent();
-    public delegate void BoolEvent(bool value);
-    public NormalEvent OnLevelLoaded;
-    public NormalEvent OnGameOver;
-    public BoolEvent OnPausedChange;
+	//Events
+	public delegate void LevelLoadedEvent();
+    public event LevelLoadedEvent OnLevelLoaded;
+
+	public delegate void GameOverEvent();
+    public event GameOverEvent OnGameOver;
+
+    public delegate void PauseChangeEvent(bool value);
+    public event PauseChangeEvent OnPausedChange;
 
     //Static instance for easy access
     public static GameManager instance;
