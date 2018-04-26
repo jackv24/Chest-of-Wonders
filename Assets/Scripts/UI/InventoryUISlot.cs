@@ -13,13 +13,27 @@ public class InventoryUISlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 
 	public Selectable Selectable { get; private set; }
 
+	private bool isSetup = false;
+
 	private void Awake()
 	{
+		Setup();
+	}
+
+	private void Setup()
+	{
+		if (isSetup)
+			return;
+		isSetup = true;
+
 		Selectable = GetComponent<Selectable>();
 	}
 
 	public void SetItem(InventoryItem inventoryItem)
 	{
+		//Make sure references have been gotten first, since it's possible for this method to be called before Awake
+		Setup();
+
 		item = inventoryItem;
 
 		if (itemIcon)
