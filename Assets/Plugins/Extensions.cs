@@ -21,4 +21,11 @@ public static class Extensions
 
 		return translation;
 	}
+
+	public static IEnumerator PlayWait(this Animator self, string stateName)
+	{
+		self.Play(stateName);
+		yield return null;
+		yield return new WaitForSeconds(self.GetCurrentAnimatorStateInfo(0).length);
+	}
 }

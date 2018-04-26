@@ -16,8 +16,6 @@ public class DialogueBox : MonoBehaviour
 
 	[Space()]
 	public Animator speakerPanelAnimator;
-	public AnimationClip speakerOpenAnim;
-	public AnimationClip speakerCloseAnim;
 
     private KeepWorldPosOnCanvas dialoguePos;
     private KeepWorldPosOnCanvas optionsPos;
@@ -38,6 +36,9 @@ public class DialogueBox : MonoBehaviour
 
     private bool buttonPressed = false;
 	private bool autoContinue = false;
+
+	private bool flipBack = false;
+	private bool skipNextFlip = true;
 
 	[Space()]
     public float textSpeed = 20;
@@ -98,7 +99,7 @@ public class DialogueBox : MonoBehaviour
                     trail.rectTransform.localPosition = pos;
 
                     Vector3 scale = trail.rectTransform.localScale;
-                    scale.x = multiplier;
+                    scale.x = -multiplier;
                     trail.rectTransform.localScale = scale;
                 }
             };
@@ -163,8 +164,11 @@ public class DialogueBox : MonoBehaviour
 
 			speakerPanel.gameObject.SetActive(true);
 
-			if (speakerPanelAnimator && speakerOpenAnim)
-				speakerPanelAnimator.Play(speakerOpenAnim.name);
+			flipBack = false;
+			skipNextFlip = true;
+
+			if (speakerPanelAnimator)
+				speakerPanelAnimator.Play("Open");
 
 			//Load blackboard variables
 			string key = GameManager.instance.loadedSceneIndex + "_" + dialogueTree.name.Replace(" DialogueTree", "");
@@ -210,10 +214,8 @@ public class DialogueBox : MonoBehaviour
 	IEnumerator EndDialogue()
 	{
 		//Close panel (wait for anim to finish before disabling)
-		if (speakerPanelAnimator && speakerCloseAnim)
-			speakerPanelAnimator.Play(speakerCloseAnim.name);
-
-		yield return new WaitForSeconds(speakerCloseAnim.length);
+		if (speakerPanelAnimator)
+			yield return StartCoroutine(speakerPanelAnimator.PlayWait("Close"));
 
 		speakerPanel.gameObject.SetActive(false);
 
@@ -232,8 +234,10 @@ public class DialogueBox : MonoBehaviour
 
 	public void HideDialogueBox()
 	{
-		if (speakerPanelAnimator && speakerCloseAnim)
-			speakerPanelAnimator.Play(speakerCloseAnim.name);
+		if (speakerPanelAnimator)
+		{
+			speakerPanelAnimator.Play("Close");
+		}
 
 		IsDialogueOpen = false;
 	}
@@ -308,6 +312,14 @@ public class DialogueBox : MonoBehaviour
 
 	IEnumerator RunSubtitleRequest(SubtitlesRequestInfo info)
 	{
+		if (skipNextFlip)
+			skipNextFlip = false;
+		else
+		{
+			yield return StartCoroutine(speakerPanelAnimator.PlayWait("Flip Close"));
+			flipBack = true;
+		}
+
 		IDialogueActor actor = info.actor;
 
 		if (actor.transform)
@@ -325,6 +337,18 @@ public class DialogueBox : MonoBehaviour
 		{
 			bool withSound = !info.statement.meta.ToLower().Contains("nosound");
 
+			//Open dialogue box with animation if it is closed
+			if (!IsDialogueOpen)
+			{
+				IsDialogueOpen = true;
+
+				//Set dialogue text and as invisible to get correct box size
+				dialogueText.text = $"<color=#FFFFFF00>{info.statement.text}</color>";
+
+				if (speakerPanelAnimator && !flipBack)
+					yield return StartCoroutine(speakerPanelAnimator.PlayWait("Open"));
+			}
+
 			//Fixes layout issues
 			if (info.statement.text.Length > maxCharsBeforeWrap)
 			{
@@ -336,25 +360,30 @@ public class DialogueBox : MonoBehaviour
 			}
 			else
 			{
-				if(textPanel)
+				if (textPanel)
+				{
 					textPanel.preferredWidth = -1;
+
+					if(dialogueText)
+					{
+						RectTransform rectTrans = dialogueText.GetComponent<RectTransform>();
+						if(rectTrans)
+						{
+							Vector2 delta = rectTrans.sizeDelta;
+							delta.y = textPanel.minHeight;
+							rectTrans.sizeDelta = delta;
+						}
+					}
+				}
 
 				if (textLayoutGroup)
 					textLayoutGroup.childControlHeight = false;
 			}
 
-			//Open dialogue box with animation if it is closed
-			if (!IsDialogueOpen)
+			if (flipBack)
 			{
-				IsDialogueOpen = true;
-
-				//Set dialogue text and as invisible to get correct box size
-				dialogueText.text = $"<color=#FFFFFF00>{info.statement.text}</color>";
-
-				if (speakerPanelAnimator && speakerOpenAnim)
-					speakerPanelAnimator.Play(speakerOpenAnim.name);
-
-				yield return new WaitForSeconds(speakerOpenAnim.length);
+				flipBack = false;
+				speakerPanelAnimator.Play("Flip Open");
 			}
 
 			yield return StartCoroutine(PrintOverTime(dialogueText, info.statement.text, withSound));
@@ -382,13 +411,19 @@ public class DialogueBox : MonoBehaviour
 
         waitingForInput = true;
 
-        int charCount = text.Length;
+		var chars = text.ToCharArray();
+
+		int charCount = text.Length;
         for (int i = 0; i < charCount; i++)
         {
             if (!waitingForInput)
                 break;
 
-            string showTex = text.Remove(i, charCount - i);
+			//Dont bother waiting to print spaces
+			if (chars[i] == ' ')
+				continue;
+
+			string showTex = text.Remove(i, charCount - i);
             string hideText = text.Remove(0, i);
 
             textObj.text = string.Format("{0}<color=#FFFFFF00>{1}</color>", showTex, hideText);
