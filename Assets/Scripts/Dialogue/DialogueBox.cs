@@ -282,11 +282,19 @@ public class DialogueBox : MonoBehaviour
 		EventSystem.current.firstSelectedGameObject = null;
 		EventSystem.current.SetSelectedGameObject(null);
 
-		foreach (Button b in buttons)
+		for(int i = 0; i < buttons.Count; i++)
 		{
-			//TODO: Add delay
 			yield return new WaitForSeconds(optionSelectDelay);
-			b.interactable = true;
+			buttons[i].interactable = true;
+
+			//Link navigation to buttons above and below (wrapping)
+			Navigation nav = new Navigation();
+			nav.mode = Navigation.Mode.Explicit;
+
+			nav.selectOnUp = i > 0 ? buttons[i - 1] : buttons[buttons.Count - 1];
+			nav.selectOnDown = i < buttons.Count - 1 ? buttons[i + 1] : buttons[0];
+
+			buttons[i].navigation = nav;
 		}
 
 		EventSystem.current.firstSelectedGameObject = buttons[0].gameObject;
