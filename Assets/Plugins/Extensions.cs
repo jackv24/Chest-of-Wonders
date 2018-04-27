@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using I2.Loc;
+using UnityEngine.UI;
 
 /// <summary>
 /// Generic class containing useful extension methods
@@ -32,5 +33,10 @@ public static class Extensions
 
 			yield return new WaitForSeconds(self.GetCurrentAnimatorStateInfo(0).length * (1 - normalizedTime));
 		}
+	}
+
+	public static bool CanSelect(this Selectable self)
+	{
+		return self.IsInteractable() && self.gameObject.activeInHierarchy;
 	}
 }

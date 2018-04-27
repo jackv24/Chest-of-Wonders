@@ -465,7 +465,7 @@ public class DialogueBox : MonoBehaviour
             //Reset button events back to default
             ButtonEventWrapper.CopyEvents(ref initialButtonEvents, ref buttonEvents);
 
-            buttonEvents.onSubmit += delegate
+            buttonEvents.OnSubmitted += delegate
             {
 				optionsOpen = false;
 

@@ -18,8 +18,8 @@ public class UISounds : SoundEffectBase
         {
             ButtonEventWrapper events = b.gameObject.AddComponent<ButtonEventWrapper>();
 
-            events.onSelect += delegate { PlaySound(buttonSelect); };
-            events.onSubmit += delegate { PlaySound(buttonSubmit); };
+            events.OnSelected += delegate { PlaySound(buttonSelect); };
+            events.OnSubmitted += delegate { PlaySound(buttonSubmit); };
         }
     }
 }
