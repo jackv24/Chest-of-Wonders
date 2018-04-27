@@ -316,7 +316,8 @@ public class DialogueBox : MonoBehaviour
 			skipNextFlip = false;
 		else
 		{
-			yield return StartCoroutine(speakerPanelAnimator.PlayWait("Flip Close"));
+			//Play flip close animation before updating (begin all the way closed if coming from dialogue closed)
+			yield return StartCoroutine(speakerPanelAnimator.PlayWait("Flip Close", IsDialogueOpen ? 0 : 1));
 			flipBack = true;
 		}
 
