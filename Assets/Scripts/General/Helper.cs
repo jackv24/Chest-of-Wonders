@@ -66,7 +66,7 @@ public static class Helper
 	}
 	#endregion
 
-	public static T Get1DArrayElementBy2DIndexes<T>(ref T[] array, int width, int x, int y)
+	public static T Get1DArrayElementBy2DIndexes<T>(T[] array, int width, int x, int y)
 	{
 		return array[y * width + x];
 	}

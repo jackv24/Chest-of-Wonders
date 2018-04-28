@@ -62,13 +62,13 @@ public class InventoryUISlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 	//UI events
 	public void OnDeselect(BaseEventData eventData)
 	{
-		if (ItemTooltip.Instance)
-			ItemTooltip.Instance.Hide(this);
+		if(item)
+			ItemTooltip.Instance?.Hide();
 	}
 
 	public void OnSelect(BaseEventData eventData)
 	{
-		if(ItemTooltip.Instance)
-			ItemTooltip.Instance.Show(this);
+		if(item)
+			ItemTooltip.Instance?.Show(item.displayName, item.description, transform.position);
 	}
 }
