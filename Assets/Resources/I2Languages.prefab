@@ -63,7 +63,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycby9NSlouRdJbanQ3ytpDWTop6-En_rFiGAz-5wPPONzrelakuEJ/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1524895365368
+  Google_LastUpdatedVersion: 1524915482949
   GoogleUpdateFrequency: 1
   GoogleUpdateDelay: 5
   mLanguages:
@@ -355,12 +355,28 @@ MonoBehaviour:
     - Rambush
     Flags: 0000
     Languages_Touch: []
-  - Term: Enemy Journal/DESC_Rambush
+  - Term: Enemy Journal/DESC_RAMBUSH
     TermType: 0
     Description: 
     Languages:
     - A sheep-bush that ambushes it's prey. An ambush ram! A RAMBUSH!
     - A sheep-bush that ambushes it's prey. An ambush ram! A RAMBUSH!
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Enemy Journal/NAME_BLAZEHARE
+    TermType: 0
+    Description: 
+    Languages:
+    - Blaze Hare
+    - Blaze Hare
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Enemy Journal/DESC_BLAZEHARE
+    TermType: 0
+    Description: 
+    Languages:
+    - It's a rabbit that's on fire!
+    - It's a rabbit that's on fire!
     Flags: 0000
     Languages_Touch: []
   CaseInsensitiveTerms: 0

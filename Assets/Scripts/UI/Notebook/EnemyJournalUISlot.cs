@@ -20,15 +20,16 @@ public class EnemyJournalUISlot : UIGridSlot
 		Setup();
 	}
 
-	public void SetDisplay()
+	public void SetDisplay(bool checkIfKilled = true)
 	{
 		if(enemy)
 		{
-			unlocked = EnemyJournalManager.Instance?.HasKilled(enemy) ?? false;
+			unlocked = checkIfKilled ? (EnemyJournalManager.Instance?.HasKilled(enemy) ?? false) : true;
 
 			if (imageDisplay)
 			{
 				imageDisplay.sprite = enemy.sprite;
+				//imageDisplay.SetNativeSize(); //Will un-comment when actual icons are made for enemies
 
 				//Set slot as unlocked if enemy killed (and if enemy assigned to slot) else locked
 				imageDisplay.color = unlocked ? unlockedColor : lockedColor;
