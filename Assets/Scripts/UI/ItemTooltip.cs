@@ -12,9 +12,13 @@ public class ItemTooltip : MonoBehaviour
 
 	public Vector2 offset = new Vector2(10, -10);
 
+	private RectTransform rectTransform;
+
 	private void Awake()
 	{
 		Instance = this;
+
+		rectTransform = GetComponent<RectTransform>();
 	}
 
 	private void Start()
@@ -30,7 +34,7 @@ public class ItemTooltip : MonoBehaviour
 
 	public void Show(string displayName, string description, Vector2 position)
 	{
-		gameObject.SetActive(true);
+		rectTransform.position = position + offset;
 
 		if (nameText)
 			nameText.text = displayName;
@@ -38,7 +42,7 @@ public class ItemTooltip : MonoBehaviour
 		if (descriptionText)
 			descriptionText.text = description;
 
-		transform.position = position + offset;
+		gameObject.SetActive(true);
 	}
 
 	public void Hide()
