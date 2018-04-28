@@ -73,4 +73,12 @@ public class EnemyJournalManager : MonoBehaviour
 
 		killedEnemies[record] = killRecord;
 	}
+
+	public bool HasKilled(EnemyJournalRecord record)
+	{
+		if (record != null && killedEnemies.ContainsKey(record))
+			return true;
+
+		return false;
+	}
 }

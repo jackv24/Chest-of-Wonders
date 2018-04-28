@@ -5,29 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class InventoryUISlot : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class InventoryUISlot : UIGridSlot
 {
 	public Image itemIcon;
 
-	public InventoryItem item;
-
-	public Selectable Selectable { get; private set; }
-
-	private bool isSetup = false;
-
-	private void Awake()
-	{
-		Setup();
-	}
-
-	private void Setup()
-	{
-		if (isSetup)
-			return;
-		isSetup = true;
-
-		Selectable = GetComponent<Selectable>();
-	}
+	private InventoryItem item;
 
 	public void SetItem(InventoryItem inventoryItem)
 	{
@@ -60,13 +42,13 @@ public class InventoryUISlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 	}
 
 	//UI events
-	public void OnDeselect(BaseEventData eventData)
+	public override void OnDeselect(BaseEventData eventData)
 	{
 		if(item)
 			ItemTooltip.Instance?.Hide();
 	}
 
-	public void OnSelect(BaseEventData eventData)
+	public override void OnSelect(BaseEventData eventData)
 	{
 		if(item)
 			ItemTooltip.Instance?.Show(item.displayName, item.description, transform.position);
