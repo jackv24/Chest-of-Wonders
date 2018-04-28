@@ -56,10 +56,13 @@ public class HUDControl : MonoBehaviour
 
 	private CharacterStats playerStats;
     private PlayerAttack playerAttack;
+	private Animator animator;
 
 	private void Awake()
 	{
 		Instance = this;
+
+		animator = GetComponent<Animator>();
 	}
 
 	private void Start()
@@ -86,6 +89,11 @@ public class HUDControl : MonoBehaviour
                 playerAttack.OnUpdateMagic += UpdateAttackSlots;
             }
         }
+
+		GameManager.instance.OnPausedChange += (value) =>
+		{
+			animator?.Play(value ? "Hide" : "Show");
+		};
     }
 
     private void Update()

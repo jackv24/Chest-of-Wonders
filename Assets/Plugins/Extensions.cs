@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using I2.Loc;
+using UnityEngine.UI;
 
 /// <summary>
 /// Generic class containing useful extension methods
@@ -22,10 +23,20 @@ public static class Extensions
 		return translation;
 	}
 
-	public static IEnumerator PlayWait(this Animator self, string stateName)
+	public static IEnumerator PlayWait(this Animator self, string stateName, float normalizedTime = 0)
 	{
-		self.Play(stateName);
-		yield return null;
-		yield return new WaitForSeconds(self.GetCurrentAnimatorStateInfo(0).length);
+		self.Play(stateName, 0, normalizedTime);
+
+		if (normalizedTime < 1)
+		{
+			yield return null;
+
+			yield return new WaitForSeconds(self.GetCurrentAnimatorStateInfo(0).length * (1 - normalizedTime));
+		}
+	}
+
+	public static bool CanSelect(this Selectable self)
+	{
+		return self.IsInteractable() && self.gameObject.activeInHierarchy;
 	}
 }
