@@ -26,10 +26,21 @@ public class CameraLockArea : MonoBehaviour
 
 	private void Reset()
 	{
-		minX = transform.position.x - 2;
-		maxX = transform.position.x + 2;
-		minY = transform.position.y - 2;
-		maxY = transform.position.y + 2;
+		BoxCollider2D box = GetComponent<BoxCollider2D>();
+		if (box)
+		{
+			minX = box.bounds.min.x;
+			maxX = box.bounds.max.x;
+			minY = box.bounds.min.y;
+			maxY = box.bounds.max.y;
+		}
+		else
+		{
+			minX = transform.position.x - 2;
+			maxX = transform.position.x + 2;
+			minY = transform.position.y - 2;
+			maxY = transform.position.y + 2;
+		}
 	}
 
 	private void OnDrawGizmosSelected()

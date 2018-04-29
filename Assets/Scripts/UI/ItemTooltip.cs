@@ -12,11 +12,13 @@ public class ItemTooltip : MonoBehaviour
 
 	public Vector2 offset = new Vector2(10, -10);
 
-	private InventoryUISlot currentSlot;
+	private RectTransform rectTransform;
 
 	private void Awake()
 	{
 		Instance = this;
+
+		rectTransform = GetComponent<RectTransform>();
 	}
 
 	private void Start()
@@ -30,31 +32,22 @@ public class ItemTooltip : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
-	public void Show(InventoryUISlot slot)
+	public void Show(string displayName, string description, Vector2 position)
 	{
-		//Keep track of which slot called show
-		currentSlot = slot;
+		rectTransform.position = position;
+		rectTransform.anchoredPosition += offset;
 
-		if (slot.item)
-		{
-			gameObject.SetActive(true);
+		if (nameText)
+			nameText.text = displayName;
 
-			if (nameText)
-				nameText.text = slot.item.displayName;
+		if (descriptionText)
+			descriptionText.text = description;
 
-			if (descriptionText)
-				descriptionText.text = slot.item.description;
-
-			transform.position = (Vector2)slot.transform.position + offset;
-		}
+		gameObject.SetActive(true);
 	}
 
-	public void Hide(InventoryUISlot slot)
+	public void Hide()
 	{
-		//Only allow hiding if the slot that called Hide is the slot that called Show
-		if(slot == currentSlot)
-		{
-			gameObject.SetActive(false);
-		}
+		gameObject.SetActive(false);
 	}
 }

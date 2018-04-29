@@ -70,6 +70,8 @@ public class CameraControl : MonoBehaviour
     private Vector2 maxCameraWorld;
 	#endregion
 
+	private Vector3 worldPos;
+
 	private new PixelCamera2D camera;
 
 	private void Awake()
@@ -109,6 +111,8 @@ public class CameraControl : MonoBehaviour
                 };
             }
         }
+
+		worldPos = transform.position;
     }
 
     private void LateUpdate()
@@ -165,9 +169,11 @@ public class CameraControl : MonoBehaviour
 			KeepInBounds();
 
 			if (didJustEnterLevel)
-				transform.position = targetPos;
+				worldPos = targetPos;
 			else
-				transform.position = Vector3.Lerp(transform.position, targetPos, lerpSpeed * Time.deltaTime);
+				worldPos = Vector3.Lerp(worldPos, targetPos, lerpSpeed * Time.deltaTime);
+
+			transform.position = worldPos.SnapToGrid();
 
             //Calculate camera world bounds
             minCameraWorld = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
