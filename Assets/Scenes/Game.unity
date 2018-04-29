@@ -245,6 +245,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mTarget: {fileID: 798760510}
+--- !u!1001 &416562647
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &451089385
 Prefab:
   m_ObjectHideFlags: 0
@@ -394,53 +436,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mTarget: {fileID: 1197062516}
---- !u!1001 &1181267977
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4907226213475084, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
-  m_IsPrefabParent: 0
 --- !u!20 &1181267978 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20306226602761684, guid: 4692fd67a54f61c44890c3fae2010a46,
     type: 2}
-  m_PrefabInternal: {fileID: 1181267977}
+  m_PrefabInternal: {fileID: 416562647}
 --- !u!114 &1197062516 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114170263091900362, guid: a66e01d0fb3ac0e41a989733fa60ff06,
