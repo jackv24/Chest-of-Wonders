@@ -34,7 +34,8 @@ public class ItemTooltip : MonoBehaviour
 
 	public void Show(string displayName, string description, Vector2 position)
 	{
-		rectTransform.position = position + offset;
+		rectTransform.position = position;
+		rectTransform.anchoredPosition += offset;
 
 		if (nameText)
 			nameText.text = displayName;
