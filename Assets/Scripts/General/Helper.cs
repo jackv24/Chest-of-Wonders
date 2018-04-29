@@ -108,3 +108,33 @@ public class MinMaxFloatDrawer : PropertyDrawer
 	}
 }
 #endif
+
+/// <summary>
+/// Helper class for handling snapping to pixel grid
+/// </summary>
+public static class GridUtils
+{
+	public const float pixelsPerUnit = 32.0f;
+
+	public static float SnapToGrid(this float value)
+	{
+		return Mathf.Floor(value * pixelsPerUnit + 0.5f) / pixelsPerUnit;
+	}
+
+	public static Vector2 SnapToGrid(this Vector2 vector)
+	{
+		vector.x = vector.x.SnapToGrid();
+		vector.y = vector.y.SnapToGrid();
+
+		return vector;
+	}
+
+	public static Vector3 SnapToGrid(this Vector3 vector)
+	{
+		//Snap to 2D grid (Z doesn't matter)
+		Vector3 vec = ((Vector2)vector).SnapToGrid();
+		vec.z = vector.z;
+
+		return vec;
+	}
+}
