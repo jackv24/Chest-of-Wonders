@@ -63,7 +63,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycby9NSlouRdJbanQ3ytpDWTop6-En_rFiGAz-5wPPONzrelakuEJ/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1524915482949
+  Google_LastUpdatedVersion: 1525263643224
   GoogleUpdateFrequency: 1
   GoogleUpdateDelay: 5
   mLanguages:
@@ -345,6 +345,14 @@ MonoBehaviour:
     Languages:
     - Hi there!
     - "\u3053\u3093\u306B\u3061\u306F"
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Enemy Journal/PREFIX_DEFEATED
+    TermType: 0
+    Description: 
+    Languages:
+    - Defeated
+    - Defeated
     Flags: 0000
     Languages_Touch: []
   - Term: Enemy Journal/NAME_RAMBUSH

@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 public class EnemyJournalUISlot : UIGridSlot
 {
+	public delegate void OnSelectDelegate(EnemyJournalRecord enemy);
+	public OnSelectDelegate OnSelection;
+
+	public delegate void OnDeselectDelegate();
+	public OnDeselectDelegate OnDeselection;
+
 	public EnemyJournalRecord enemy;
 
 	public Image imageDisplay;
@@ -28,7 +34,7 @@ public class EnemyJournalUISlot : UIGridSlot
 
 			if (imageDisplay)
 			{
-				imageDisplay.sprite = enemy.sprite;
+				imageDisplay.sprite = enemy.slotIcon;
 				//imageDisplay.SetNativeSize(); //Will un-comment when actual icons are made for enemies
 
 				//Set slot as unlocked if enemy killed (and if enemy assigned to slot) else locked
@@ -39,15 +45,16 @@ public class EnemyJournalUISlot : UIGridSlot
 
 	public override void OnDeselect(BaseEventData eventData)
 	{
-		ItemTooltip.Instance.Hide();
+		if(unlocked)
+			OnDeselection?.Invoke();
 	}
 
 	public override void OnSelect(BaseEventData eventData)
 	{
-		//TODO: Replace with card UI
-		if(enemy && unlocked)
-			ItemTooltip.Instance.Show(enemy.displayName, enemy.description, transform.position);
-		else
-			ItemTooltip.Instance.Show("???", "???", transform.position);
+		if (enemy && unlocked)
+		{
+			//Handle selection elsewhere since the slot does not need to know what happens after it's selected
+			OnSelection?.Invoke(enemy);
+		}
 	}
 }

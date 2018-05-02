@@ -18,7 +18,7 @@ public class EnemyJournalManager : MonoBehaviour
 			{
 				return new EnemyKillRecord
 				{
-					killCount = 1,
+					killCount = 0,
 					hasReceivedAward = false
 				};
 			}
@@ -80,5 +80,13 @@ public class EnemyJournalManager : MonoBehaviour
 			return true;
 
 		return false;
+	}
+
+	public int GetKills(EnemyJournalRecord record)
+	{
+		if (HasKilled(record))
+			return killedEnemies[record].killCount;
+
+		return 0;
 	}
 }

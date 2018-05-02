@@ -9,7 +9,8 @@ public class EnemyJournalRecord : ScriptableObject
 	public LocalizedString displayName = "Enemy Name";
 	public LocalizedString description;
 
-	public Sprite sprite;
+	public Sprite slotIcon;
+	public Sprite cardImage;
 
 	public int killsRequired = 1;
 
