@@ -21,6 +21,8 @@ public class PlayerActions : PlayerActionSet
 	public PlayerAction SwitchMagicLeft;
 	public PlayerAction SwitchMagicRight;
 
+	public PlayerAction Dodge;
+
 	public PlayerAction Interact;
     public PlayerAction Submit;
     public PlayerAction Back;
@@ -44,6 +46,8 @@ public class PlayerActions : PlayerActionSet
 
 		SwitchMagicLeft = CreatePlayerAction("Switch Base Left");
 		SwitchMagicRight = CreatePlayerAction("Switch Mix Right");
+
+		Dodge = CreatePlayerAction("Dodge");
 
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");
@@ -85,8 +89,11 @@ public class PlayerActions : PlayerActionSet
 		SwitchMagicRight.AddDefaultBinding(Key.D);
 		SwitchMagicRight.AddDefaultBinding(InputControlType.RightBumper);
 
-        MagicAimDiagonal.AddDefaultBinding(Key.LeftShift);
-        MagicAimDiagonal.AddDefaultBinding(InputControlType.RightTrigger);
+        //MagicAimDiagonal.AddDefaultBinding(Key.LeftShift);
+        //MagicAimDiagonal.AddDefaultBinding(InputControlType.RightTrigger);
+
+		Dodge.AddDefaultBinding(Key.LeftShift);
+		Dodge.AddDefaultBinding(InputControlType.RightTrigger);
 
         //Misc
         Interact.AddDefaultBinding(Key.UpArrow);

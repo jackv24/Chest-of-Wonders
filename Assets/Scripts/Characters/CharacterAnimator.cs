@@ -126,4 +126,13 @@ public class CharacterAnimator : MonoBehaviour
 
         return false;
     }
+
+	/// <summary>
+	/// Wrapper function for easily playing animations on the assigned animator
+	/// </summary>
+	/// <param name="stateName">The name of the state to play.</param>
+	public void Play(string stateName)
+	{
+		animator?.Play(stateName);
+	}
 }

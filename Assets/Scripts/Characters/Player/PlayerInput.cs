@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     private CharacterMove characterMove;
     private PlayerAttack playerAttack;
     private CharacterStats characterStats;
+	private PlayerDodge playerDodge;
 
     private bool canMove = true;
 
@@ -26,6 +27,7 @@ public class PlayerInput : MonoBehaviour
         characterMove = GetComponent<CharacterMove>();
         playerAttack = GetComponent<PlayerAttack>();
         characterStats = GetComponent<CharacterStats>();
+		playerDodge = GetComponent<PlayerDodge>();
     }
 
     private void Start()
@@ -69,21 +71,29 @@ public class PlayerInput : MonoBehaviour
                 characterMove.Jump(false);
         }
 
-        //Can only attack while game is running
-        if (playerAttack && GameManager.instance.CanDoActions)
-        {
-			if (playerActions.MeleeAttack.WasPressed)
-				playerAttack.UseMelee(true, inputDirection.y);
-			else if (playerActions.MeleeAttack.WasReleased)
-				playerAttack.UseMelee(false, inputDirection.y);
-			else if (playerActions.MagicAttack.IsPressed)
-				playerAttack.UseMagic();
-			else if (playerActions.SwitchMagicLeft.WasPressed)
-				playerAttack.SwitchMagic(-1);
-			else if (playerActions.SwitchMagicRight.WasPressed)
-				playerAttack.SwitchMagic(1);
+		if (GameManager.instance.CanDoActions)
+		{
+			if (playerAttack)
+			{
+				if (playerActions.MeleeAttack.WasPressed)
+					playerAttack.UseMelee(true, inputDirection.y);
+				else if (playerActions.MeleeAttack.WasReleased)
+					playerAttack.UseMelee(false, inputDirection.y);
+				else if (playerActions.MagicAttack.IsPressed)
+					playerAttack.UseMagic();
+				else if (playerActions.SwitchMagicLeft.WasPressed)
+					playerAttack.SwitchMagic(-1);
+				else if (playerActions.SwitchMagicRight.WasPressed)
+					playerAttack.SwitchMagic(1);
 
-			playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicAimDiagonal.IsPressed);
-        }
+				playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicAimDiagonal.IsPressed);
+			}
+
+			if(playerDodge)
+			{
+				if (playerActions.Dodge.WasPressed)
+					playerDodge.Dodge(inputDirection);
+			}
+		}
     }
 }
