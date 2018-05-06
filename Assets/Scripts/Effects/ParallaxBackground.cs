@@ -6,8 +6,6 @@ public class ParallaxBackground : MonoBehaviour
 {
 	public float depthLimit = 10.0f;
 
-	public float divide = 32.0f;
-
 	private class Background
 	{
 		public Transform transform;
@@ -49,6 +47,7 @@ public class ParallaxBackground : MonoBehaviour
 				Vector2 offset = (Vector2)backgrounds[i].transform.position - backgrounds[i].initialPos;
 
 				float multiplier = Mathf.Lerp(1, 0, backgrounds[i].transform.position.z / depthLimit);
+				float divide = backgrounds[i].renderer.bounds.size.x;
 
 				backgrounds[i].renderer.material.SetTextureOffset("_MainTex", (offset / divide) * multiplier);
 			}
