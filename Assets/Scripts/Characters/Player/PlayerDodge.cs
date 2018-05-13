@@ -1,22 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDodge : MonoBehaviour
 {
-	private enum DodgeType
+	[Serializable]
+	public struct DodgeDetails
+	{
+		public float duration;
+		public float speed;
+		public AnimationCurve speedCurve;
+	}
+
+	public enum DodgeType
 	{
 		Ground,
 		Air
 	}
 
+	public DodgeDetails groundDodge;
+	public DodgeDetails airDodge;
+
 	public float cooldownTime = 0.3f;
 	private float nextDodgeTime;
-
-	public float dodgeTime = 0.6f;
-
-	public float dodgeSpeed = 10.0f;
-	public AnimationCurve speedCurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
 
 	private Coroutine dodgeRoutine = null;
 
@@ -37,17 +44,18 @@ public class PlayerDodge : MonoBehaviour
 	{
 		if (dodgeRoutine == null && Time.time >= nextDodgeTime)
 		{
-			//Snap to 8 directions
-			direction = Helper.SnapTo(direction, 45.0f).normalized;
-
 			dodgeRoutine = StartCoroutine(DodgeRoutine(direction));
 		}
 	}
 
 	IEnumerator DodgeRoutine(Vector2 direction)
 	{
-		//TODO: Determine dodge type
-		DodgeType type = DodgeType.Ground;
+		//Cannot dodge without a direction
+		if (direction.magnitude < 0.01f)
+			direction = new Vector2(characterMove.FacingDirection, 0);
+
+		//Determine dodge type
+		DodgeType type = characterMove.isGrounded ? DodgeType.Ground : DodgeType.Air;
 
 		//Start dodge
 		characterStats.damageImmunity = true;
@@ -56,28 +64,56 @@ public class PlayerDodge : MonoBehaviour
 		switch (type)
 		{
 			case DodgeType.Ground:
-				characterAnimator.Play("Dodge");
-
-				//Dodge in facing direction over time
-				characterMove.Move(characterMove.FacingDirection);
-
-				//Change speed over dodge time according to curve
-				float initialSpeed = characterMove.moveSpeed;
-				float elapsed = 0;
-				while (elapsed <= dodgeTime)
 				{
-					characterMove.moveSpeed = dodgeSpeed * speedCurve.Evaluate(elapsed / dodgeTime);
+					characterAnimator.Play("Dodge");
 
-					yield return null;
-					elapsed += Time.deltaTime;
+					//Dodge in facing direction over time
+					characterMove.Move(Mathf.Sign(direction.x));
+
+					//Change speed over dodge time according to curve
+					float initialSpeed = characterMove.moveSpeed;
+					float elapsed = 0;
+					while (elapsed <= groundDodge.duration)
+					{
+						characterMove.moveSpeed = groundDodge.speed * groundDodge.speedCurve.Evaluate(elapsed / groundDodge.duration);
+
+						yield return null;
+						elapsed += Time.deltaTime;
+					}
+
+					characterMove.moveSpeed = initialSpeed;
 				}
-
-				characterMove.moveSpeed = initialSpeed;
 				break;
 
 			case DodgeType.Air:
-				//TODO: Dodge in direction in air (cancel gravity)
-				yield return new WaitForSeconds(dodgeTime);
+				{
+					characterAnimator.Play("Dodge Air");
+
+					//Switch character control from script to rigidbody (script is made for ground movement)
+					characterMove.SwitchToRigidbody();
+					float gravity = characterMove.body.gravityScale;
+					characterMove.body.gravityScale = 0;
+
+					//Snap to 8 directions
+					direction = Helper.SnapTo(direction, 45.0f).normalized;
+
+					float elapsed = 0;
+					while (elapsed <= airDodge.duration)
+					{
+						//Reset velocity every fixed update in case we hit something (so we're not knocked around, just merely stopped)
+						characterMove.body.velocity = direction * airDodge.speed * airDodge.speedCurve.Evaluate(elapsed / airDodge.duration);
+
+						//TODO: Break when hit ground
+
+						//Use fixed delta time since we're using a rigidbody
+						yield return new WaitForFixedUpdate();
+						elapsed += Time.fixedDeltaTime;
+					}
+
+					//Return values and script control back to normal
+					characterMove.body.gravityScale = gravity;
+					characterMove.SwitchBackFromRigidbody();
+				}
 				break;
 		}
 

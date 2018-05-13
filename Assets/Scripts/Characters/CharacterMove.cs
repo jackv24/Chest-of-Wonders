@@ -483,6 +483,26 @@ public class CharacterMove : MonoBehaviour
         stickToPlatforms = false;
     }
 
+	public void SwitchToRigidbody()
+	{
+		//Disable script movement
+		scriptControl = false;
+		//Enable rigidbody movement
+		body.bodyType = RigidbodyType2D.Dynamic;
+	}
+
+	public void SwitchBackFromRigidbody()
+	{
+		//Switch back to script control
+		body.bodyType = RigidbodyType2D.Kinematic;
+		body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
+
+		velocity = Vector2.zero;
+		heldJump = false;
+
+		scriptControl = true;
+	}
+
     public void Knockback(Vector2 origin, float magnitude)
     {
         if (!allowKnockback)
@@ -495,10 +515,7 @@ public class CharacterMove : MonoBehaviour
         Vector2 direction = ((Vector2)transform.position - origin).normalized;
         Vector2 force = direction * magnitude;
 
-        //Disable script movement
-        scriptControl = false;
-        //Enable rigidbody movement
-        body.bodyType = RigidbodyType2D.Dynamic;
+		SwitchToRigidbody();
 
         //Apply force
         body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
@@ -522,10 +539,7 @@ public class CharacterMove : MonoBehaviour
         //After body has stopped moving, wait alotted recover time
         yield return new WaitForSeconds(knockBackRecoveryTime);
 
-        //Switch back to script control
-        body.bodyType = RigidbodyType2D.Kinematic;
-		body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
-        scriptControl = true;
+		SwitchBackFromRigidbody();
 
         if (characterStats)
         {
