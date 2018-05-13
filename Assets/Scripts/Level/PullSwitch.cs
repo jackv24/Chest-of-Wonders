@@ -67,7 +67,7 @@ public class PullSwitch : MonoBehaviour
 	IEnumerator PullOut(GameObject player)
 	{
 		CharacterMove characterMove = player.GetComponent<CharacterMove>();
-		Animator animator = player.GetComponentInChildren<Animator>();
+		CharacterAnimator animator = player.GetComponent<CharacterAnimator>();
 
 		float direction = Mathf.Sign(animator.transform.localScale.x);
 
@@ -113,7 +113,7 @@ public class PullSwitch : MonoBehaviour
 			elapsedTime += Time.deltaTime;
 		}
 
-		animator.Play("Locomotion");
+		animator.ReturnToLocomotion();
 
 		if(spawnPoint && spawnObject)
 		{

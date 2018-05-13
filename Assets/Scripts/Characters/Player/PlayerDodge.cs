@@ -4,25 +4,40 @@ using UnityEngine;
 
 public class PlayerDodge : MonoBehaviour
 {
-	public float cooldownTime = 0.5f;
+	private enum DodgeType
+	{
+		Ground,
+		Air
+	}
+
+	public float cooldownTime = 0.3f;
 	private float nextDodgeTime;
 
-	public float dodgeTime = 1.0f;
+	public float dodgeTime = 0.6f;
+
+	public float dodgeSpeed = 10.0f;
+	public AnimationCurve speedCurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
 
 	private Coroutine dodgeRoutine = null;
 
 	private CharacterAnimator characterAnimator;
+	private CharacterStats characterStats;
+	private CharacterMove characterMove;
+	private PlayerInput playerInput;
 
 	private void Awake()
 	{
 		characterAnimator = GetComponent<CharacterAnimator>();
+		characterStats = GetComponent<CharacterStats>();
+		characterMove = GetComponent<CharacterMove>();
+		playerInput = GetComponent<PlayerInput>();
 	}
 
 	public void Dodge(Vector2 direction)
 	{
 		if (dodgeRoutine == null && Time.time >= nextDodgeTime)
 		{
-			//Snap to * directions
+			//Snap to 8 directions
 			direction = Helper.SnapTo(direction, 45.0f).normalized;
 
 			dodgeRoutine = StartCoroutine(DodgeRoutine(direction));
@@ -31,19 +46,47 @@ public class PlayerDodge : MonoBehaviour
 
 	IEnumerator DodgeRoutine(Vector2 direction)
 	{
-		//TODO: Flash white
+		//TODO: Determine dodge type
+		DodgeType type = DodgeType.Ground;
 
-		characterAnimator.Play("Dodge");
+		//Start dodge
+		characterStats.damageImmunity = true;
+		playerInput.AcceptingInput = false;
 
-		//TODO: Cancel other inputs
+		switch (type)
+		{
+			case DodgeType.Ground:
+				characterAnimator.Play("Dodge");
 
-		//TODO: Dodge in direction on ground
+				//Dodge in facing direction over time
+				characterMove.Move(characterMove.FacingDirection);
 
-		//TODO: Dodge in direction in air (cancel gravity)
+				//Change speed over dodge time according to curve
+				float initialSpeed = characterMove.moveSpeed;
+				float elapsed = 0;
+				while (elapsed <= dodgeTime)
+				{
+					characterMove.moveSpeed = dodgeSpeed * speedCurve.Evaluate(elapsed / dodgeTime);
 
-		yield return new WaitForSeconds(dodgeTime);
+					yield return null;
+					elapsed += Time.deltaTime;
+				}
 
-		characterAnimator.Play("Locomotion");
+				characterMove.moveSpeed = initialSpeed;
+				break;
+
+			case DodgeType.Air:
+				//TODO: Dodge in direction in air (cancel gravity)
+				yield return new WaitForSeconds(dodgeTime);
+				break;
+		}
+
+		//Playing locomotion state will naturally transition out to other states
+		characterAnimator.ReturnToLocomotion();
+
+		//Return to previous state after dodge
+		characterStats.damageImmunity = false;
+		playerInput.AcceptingInput = true;
 
 		nextDodgeTime = Time.time + cooldownTime;
 

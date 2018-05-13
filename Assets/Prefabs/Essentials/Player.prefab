@@ -1215,6 +1215,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownTime: 0.3
   dodgeTime: 0.6
+  dodgeSpeed: 10
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0.25
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114806664853724274
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,14 +4,15 @@ using System.Collections;
 [RequireComponent(typeof(BoxCollider2D))]
 public class CharacterMove : MonoBehaviour
 {
-    public delegate void ChangeFloat(float newFloat);
-    public delegate void GeneralEvent();
+    public delegate void DirectionChangeEvent(float newFloat);
+    public event DirectionChangeEvent OnChangedDirection;
 
-    public event ChangeFloat OnChangedDirection;
     private float oldDirection;
-    public event GeneralEvent OnJump;
 
-    public float FacingDirection { get { return -oldDirection >= 0 ? 1 : -1; } }
+    public delegate void JumpEvent();
+    public event JumpEvent OnJump;
+
+	public float FacingDirection { get; private set; } = 1;
 
 	public bool HittingWall { get { return hittingWall; } }
 	private bool hittingWall = false;
@@ -455,9 +456,13 @@ public class CharacterMove : MonoBehaviour
         else
             inputDirection = 0;
 
-        //If direction has changed (and does not equal 0), then call changed direction event
-        if (inputDirection != oldDirection && direction != 0 && OnChangedDirection != null)
-            OnChangedDirection(direction);
+		//If direction has changed (and does not equal 0), then call changed direction event
+		if (inputDirection != oldDirection && direction != 0 && OnChangedDirection != null)
+		{
+			FacingDirection = direction;
+
+			OnChangedDirection(direction);
+		}
     }
 
     public void Jump(bool pressed)
