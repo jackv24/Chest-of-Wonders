@@ -4,14 +4,15 @@ using System.Collections;
 [RequireComponent(typeof(BoxCollider2D))]
 public class CharacterMove : MonoBehaviour
 {
-    public delegate void ChangeFloat(float newFloat);
-    public delegate void GeneralEvent();
+    public delegate void DirectionChangeEvent(float newFloat);
+    public event DirectionChangeEvent OnChangedDirection;
 
-    public event ChangeFloat OnChangedDirection;
     private float oldDirection;
-    public event GeneralEvent OnJump;
 
-    public float FacingDirection { get { return -oldDirection >= 0 ? 1 : -1; } }
+    public delegate void JumpEvent();
+    public event JumpEvent OnJump;
+
+	public float FacingDirection { get; private set; } = 1;
 
 	public bool HittingWall { get { return hittingWall; } }
 	private bool hittingWall = false;
@@ -455,9 +456,13 @@ public class CharacterMove : MonoBehaviour
         else
             inputDirection = 0;
 
-        //If direction has changed (and does not equal 0), then call changed direction event
-        if (inputDirection != oldDirection && direction != 0 && OnChangedDirection != null)
-            OnChangedDirection(direction);
+		//If direction has changed (and does not equal 0), then call changed direction event
+		if (inputDirection != oldDirection && direction != 0 && OnChangedDirection != null)
+		{
+			FacingDirection = direction;
+
+			OnChangedDirection(direction);
+		}
     }
 
     public void Jump(bool pressed)
@@ -478,6 +483,26 @@ public class CharacterMove : MonoBehaviour
         stickToPlatforms = false;
     }
 
+	public void SwitchToRigidbody()
+	{
+		//Disable script movement
+		scriptControl = false;
+		//Enable rigidbody movement
+		body.bodyType = RigidbodyType2D.Dynamic;
+	}
+
+	public void SwitchBackFromRigidbody()
+	{
+		//Switch back to script control
+		body.bodyType = RigidbodyType2D.Kinematic;
+		body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
+
+		velocity = Vector2.zero;
+		heldJump = false;
+
+		scriptControl = true;
+	}
+
     public void Knockback(Vector2 origin, float magnitude)
     {
         if (!allowKnockback)
@@ -490,10 +515,7 @@ public class CharacterMove : MonoBehaviour
         Vector2 direction = ((Vector2)transform.position - origin).normalized;
         Vector2 force = direction * magnitude;
 
-        //Disable script movement
-        scriptControl = false;
-        //Enable rigidbody movement
-        body.bodyType = RigidbodyType2D.Dynamic;
+		SwitchToRigidbody();
 
         //Apply force
         body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
@@ -517,10 +539,7 @@ public class CharacterMove : MonoBehaviour
         //After body has stopped moving, wait alotted recover time
         yield return new WaitForSeconds(knockBackRecoveryTime);
 
-        //Switch back to script control
-        body.bodyType = RigidbodyType2D.Kinematic;
-		body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
-        scriptControl = true;
+		SwitchBackFromRigidbody();
 
         if (characterStats)
         {

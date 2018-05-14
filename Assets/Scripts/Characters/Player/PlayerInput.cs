@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
     private CharacterStats characterStats;
 	private PlayerDodge playerDodge;
 
-    private bool canMove = true;
+	public bool AcceptingInput { get; set; } = true;
 
     private void Awake()
     {
@@ -37,8 +37,11 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+		if (!AcceptingInput)
+			return;
+
         //Get input from controllers and keyboard, clamped
-        inputDirection = canMove ? playerActions.Move : Vector2.zero;
+        inputDirection = playerActions.Move;
 
         //Apply deadzone
         if (Mathf.Abs(inputDirection.x) <= moveDeadZone.x)

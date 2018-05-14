@@ -135,4 +135,12 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		animator?.Play(stateName);
 	}
+
+	/// <summary>
+	/// Plays the locomation animator state. Useful when returning from a custom animation, as the locomotion state will naturally transition out when needed.
+	/// </summary>
+	public void ReturnToLocomotion()
+	{
+		Play("Locomotion");
+	}
 }

@@ -60,10 +60,10 @@ MonoBehaviour:
   Spreadsheet_LocalCSVSeparator: ','
   Spreadsheet_LocalCSVEncoding: utf-8
   Assets: []
-  Google_WebServiceURL: https://script.google.com/macros/s/AKfycby9NSlouRdJbanQ3ytpDWTop6-En_rFiGAz-5wPPONzrelakuEJ/exec
+  Google_WebServiceURL: https://script.google.com/macros/s/AKfycbx8S-nfASq09t9hEhm18z2kHl8Q2FBnNdSlGDqEUA/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1525263643224
+  Google_LastUpdatedVersion: 1525613385398
   GoogleUpdateFrequency: 1
   GoogleUpdateDelay: 5
   mLanguages:
@@ -412,9 +412,23 @@ MonoBehaviour:
     - Hi there!
     - "\u3053\u3093\u306B\u3061\u306F"
     Flags: 0000
-    Languages_Touch:
+    Languages_Touch: []
+  - Term: Dialogue/I_GUESS
+    TermType: 0
+    Description: 
+    Languages:
+    - I guess
     - 
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Dialogue/true
+    TermType: 0
+    Description: 
+    Languages:
+    - 'True '
     - 
+    Flags: 0000
+    Languages_Touch: []
   - Term: Enemy Journal/PREFIX_DEFEATED
     TermType: 0
     Description: 
