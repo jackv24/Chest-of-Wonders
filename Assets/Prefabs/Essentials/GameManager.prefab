@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114547737111946328}
   - component: {fileID: 114687314970991524}
   - component: {fileID: 114681356407913036}
+  - component: {fileID: 114079096906030720}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -115,7 +116,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -128,6 +129,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114079096906030720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706048386432494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bc4291516d2994c9c182ab0416d644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miscAudioSourcePrefab: {fileID: 82609452520716450, guid: 425ad83df01cfe344b0c53203e673b8c,
+    type: 2}
+  uiAudioSourcePrefab: {fileID: 82609452520716450, guid: f7be40b28e110124db207a9642379f0f,
+    type: 2}
+  playerAudioSourcePrefab: {fileID: 82609452520716450, guid: 5ba2f874565e6a44e8d21056ca1d94c3,
+    type: 2}
+  enemyAudioSourcePrefab: {fileID: 82609452520716450, guid: 77cc7fe0101a47749b54cb20f350ca12,
+    type: 2}
 --- !u!114 &114547737111946328
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -264,102 +284,6 @@ MonoBehaviour:
         - 
         - 
         _Values: 000000
-  data:
-    autoSave:
-      sceneIndex: 0
-      position: {x: -23.5, y: 9}
-    npcSave:
-      sceneIndex: 0
-      position: {x: 0, y: 0}
-    maxHealth: 100
-    currentHealth: 100
-    hasFireMagic: 0
-    hasGrassMagic: 0
-    hasIceMagic: 0
-    hasWindMagic: 0
-    magicProgression: 0
-    selectedElement: 0
-    inventoryItems: []
-    maxSouls: 0
-    currentFireSouls: 0
-    currentGrassSouls: 0
-    currentIceSouls: 0
-    currentWindSouls: 0
-    killedEnemies:
-      _Buckets: 
-      _HashCodes: 
-      _Next: 
-      _Count: 0
-      _Version: 0
-      _FreeList: 0
-      _FreeCount: 0
-      _Keys: []
-      _Values: []
-    blackboardDictionary:
-      _Buckets: ffffffffffffffffffffffff
-      _HashCodes: 000000000000000000000000
-      _Next: 000000000000000000000000
-      _Count: 0
-      _Version: 0
-      _FreeList: -1
-      _FreeCount: 0
-      _Keys:
-      - 
-      - 
-      - 
-      _Values:
-      - 
-      - 
-      - 
-    persistentObjects:
-      _Buckets: ffffffffffffffffffffffff
-      _HashCodes: 000000000000000000000000
-      _Next: 000000000000000000000000
-      _Count: 0
-      _Version: 0
-      _FreeList: -1
-      _FreeCount: 0
-      _Keys:
-      - 
-      - 
-      - 
-      _Values:
-      - _Buckets: ffffffffffffffffffffffff
-        _HashCodes: 000000000000000000000000
-        _Next: 000000000000000000000000
-        _Count: 0
-        _Version: 0
-        _FreeList: -1
-        _FreeCount: 0
-        _Keys:
-        - 
-        - 
-        - 
-        _Values: 000000
-      - _Buckets: ffffffffffffffffffffffff
-        _HashCodes: 000000000000000000000000
-        _Next: 000000000000000000000000
-        _Count: 0
-        _Version: 0
-        _FreeList: -1
-        _FreeCount: 0
-        _Keys:
-        - 
-        - 
-        - 
-        _Values: 000000
-      - _Buckets: ffffffffffffffffffffffff
-        _HashCodes: 000000000000000000000000
-        _Next: 000000000000000000000000
-        _Count: 0
-        _Version: 0
-        _FreeList: -1
-        _FreeCount: 0
-        _Keys:
-        - 
-        - 
-        - 
-        _Values: 000000
 --- !u!114 &114658657317432228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -413,7 +337,6 @@ MonoBehaviour:
   player: {fileID: 0}
   playerRespawnDelay: 3
   levelTransitionTime: 0.25
-  autoSaveDelay: 0.25
   gamePauseLockDelay: 0.25
   gameRunning: 1
   gamePaused: 0

@@ -933,7 +933,7 @@ MonoBehaviour:
   knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114121265411087696
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1357742713667528}
@@ -977,7 +977,7 @@ MonoBehaviour:
   knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114166162631376554
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1904300614673374}
@@ -989,7 +989,7 @@ MonoBehaviour:
   _guid: 8443e1d7-2e44-41e1-b111-53f196f28099
 --- !u!114 &114217181926179350
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1504532349023518}
@@ -1054,7 +1054,7 @@ MonoBehaviour:
   flashInterval: 0.1
 --- !u!114 &114333046343265762
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1116,7 +1116,7 @@ MonoBehaviour:
     volume: 1
 --- !u!114 &114438186772933228
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1625486971748268}
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   _guid: 0b747b36-bc11-4f75-beea-8d3e4f536b76
 --- !u!114 &114439683158884220
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1161178783357966}
@@ -1140,7 +1140,7 @@ MonoBehaviour:
   _guid: c7b9928c-9806-4fd8-807c-2ca5ea0bf15a
 --- !u!114 &114507656613439396
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1169,7 +1169,7 @@ MonoBehaviour:
   _assetGuid: 99f5c5565a8074f4eb8901db7fb4c979
 --- !u!114 &114539873870724910
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1183963205681176}
@@ -1192,7 +1192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &114699408328713244
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010556696062}
@@ -1214,8 +1214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundDodge:
-    duration: 0
-    speed: 0
+    duration: 0.6
+    speed: 10
     speedCurve:
       serializedVersion: 2
       m_Curve:
@@ -1227,7 +1227,7 @@ MonoBehaviour:
         tangentMode: 0
       - serializedVersion: 2
         time: 0.75
-        value: 0
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1254,7 +1254,7 @@ MonoBehaviour:
         tangentMode: 0
       - serializedVersion: 2
         time: 0.75
-        value: 0
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1268,6 +1268,13 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
   cooldownTime: 0.3
+  dodgeSound:
+    type: 2
+    clip: {fileID: 8300000, guid: 5f338b57352a2c148a9e69eeabfce24f, type: 3}
+    volume: 1
+    pitchRange:
+      min: 0.85
+      max: 1.15
 --- !u!114 &114806664853724274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1290,7 +1297,7 @@ MonoBehaviour:
   knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114843712308607964
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880507495262974}
@@ -1334,7 +1341,7 @@ MonoBehaviour:
   enemyRecord: {fileID: 0}
 --- !u!114 &114850436849671720
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1158427886003914}
@@ -1346,7 +1353,7 @@ MonoBehaviour:
   _guid: 418918ca-c87c-4a81-b270-7d236b9fb312
 --- !u!114 &114859709759300450
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905793282419424}
@@ -1438,7 +1445,7 @@ MonoBehaviour:
   knockBackCentreOffset: {x: -0, y: -1}
 --- !u!114 &114970365722291228
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1876271065606266}
@@ -1450,7 +1457,7 @@ MonoBehaviour:
   _guid: f416a61a-2f16-4b50-a7ac-f837eb600b60
 --- !u!114 &114970601205195148
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1094960521439024}

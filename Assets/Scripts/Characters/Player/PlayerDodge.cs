@@ -27,6 +27,8 @@ public class PlayerDodge : MonoBehaviour
 
 	private Coroutine dodgeRoutine = null;
 
+	public SoundEvent dodgeSound;
+
 	private CharacterAnimator characterAnimator;
 	private CharacterStats characterStats;
 	private CharacterMove characterMove;
@@ -60,6 +62,8 @@ public class PlayerDodge : MonoBehaviour
 		//Start dodge
 		characterStats.damageImmunity = true;
 		playerInput.AcceptingInput = false;
+
+		dodgeSound.Play(transform.position);
 
 		switch (type)
 		{
