@@ -584,4 +584,11 @@ public class CharacterMove : MonoBehaviour
         }
 
     }
+
+	public void ResetJump()
+	{
+		shouldJump = false;
+		jumped = false;
+		heldJump = false;
+	}
 }

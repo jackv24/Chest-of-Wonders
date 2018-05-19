@@ -117,6 +117,7 @@ public class PlayerDodge : MonoBehaviour
 
 					characterMove.MovementState = CharacterMovementStates.SetVelocity;
 					characterMove.Velocity = Vector2.zero;
+					characterMove.ResetJump();
 
 					//Snap to 8 directions
 					direction = Helper.SnapTo(direction, 45.0f).normalized;
