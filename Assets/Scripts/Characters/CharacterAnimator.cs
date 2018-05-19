@@ -143,4 +143,21 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		Play("Locomotion");
 	}
+
+	/// <summary>
+	/// Checks whether the character's animator is in any of the specified states
+	/// </summary>
+	public bool IsInState(params string[] stateNames)
+	{
+		if(animator)
+		{
+			foreach(string stateName in stateNames)
+			{
+				if (animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+					return true;
+			}
+		}
+
+		return false;
+	}
 }

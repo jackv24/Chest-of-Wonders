@@ -55,21 +55,25 @@ public class PlayerDodge : MonoBehaviour
 
 	public void Dodge(Vector2 direction)
 	{
-		if (dodgeRoutine == null && Time.time >= nextDodgeTime)
+		//Can only dodge if in a regular state (can't dodge in the middle of an attack, etc)
+		if (!characterAnimator || characterAnimator.IsInState("Locomotion", "Jump", "Fall", "Land"))
 		{
-			//Determine dodge type
-			DodgeType type = characterMove.IsGrounded ? DodgeType.Ground : DodgeType.Air;
-
-			//Limit air dodges
-			if (type == DodgeType.Air)
+			if (dodgeRoutine == null && Time.time >= nextDodgeTime)
 			{
-				if (airDodgesLeft <= 0)
-					return;
+				//Determine dodge type
+				DodgeType type = characterMove.IsGrounded ? DodgeType.Ground : DodgeType.Air;
 
-				airDodgesLeft--;
+				//Limit air dodges
+				if (type == DodgeType.Air)
+				{
+					if (airDodgesLeft <= 0)
+						return;
+
+					airDodgesLeft--;
+				}
+
+				dodgeRoutine = StartCoroutine(DodgeRoutine(type, direction));
 			}
-
-			dodgeRoutine = StartCoroutine(DodgeRoutine(type, direction));
 		}
 	}
 
@@ -95,7 +99,7 @@ public class PlayerDodge : MonoBehaviour
 		{
 			case DodgeType.Ground:
 				{
-					characterAnimator.Play("Dodge");
+					characterAnimator?.Play("Dodge");
 
 					//Dodge in facing direction over time
 					characterMove.Move(Mathf.Sign(direction.x));
@@ -117,7 +121,7 @@ public class PlayerDodge : MonoBehaviour
 
 			case DodgeType.Air:
 				{
-					characterAnimator.Play("Dodge Air");
+					characterAnimator?.Play("Dodge Air");
 
 					characterMove.MovementState = CharacterMovementStates.SetVelocity;
 					characterMove.Velocity = Vector2.zero;
@@ -136,7 +140,7 @@ public class PlayerDodge : MonoBehaviour
 						if(characterMove.IsGrounded && characterMove.Velocity.y < 0)
 						{
 							returnToLocomotion = false;
-							characterAnimator.Play("Land");
+							characterAnimator?.Play("Land");
 							break;
 						}
 
@@ -151,7 +155,7 @@ public class PlayerDodge : MonoBehaviour
 
 		//Playing locomotion state will naturally transition out to other states
 		if(returnToLocomotion)
-			characterAnimator.ReturnToLocomotion();
+			characterAnimator?.ReturnToLocomotion();
 
 		//Return to previous state after dodge
 		characterStats.damageImmunity = false;
@@ -159,6 +163,7 @@ public class PlayerDodge : MonoBehaviour
 
 		nextDodgeTime = Time.time + cooldownTime;
 
+		//TODO: Replace with animation events
 		effect?.EndAfterImageEffect();
 
 		dodgeRoutine = null;
