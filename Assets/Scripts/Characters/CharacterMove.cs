@@ -12,6 +12,9 @@ public class CharacterMove : MonoBehaviour
     public delegate void JumpEvent();
     public event JumpEvent OnJump;
 
+	public delegate void GroundedEvent();
+	public event GroundedEvent OnGrounded;
+
 	public float FacingDirection { get; private set; } = 1;
 
 	public bool HittingWall { get { return hittingWall; } }
@@ -424,15 +427,15 @@ public class CharacterMove : MonoBehaviour
             }
         }
 
-        if (characterSound)
+        if (!wasGrounded && isGrounded)
         {
-            //Play sound when character lands on ground
-            if (!wasGrounded && isGrounded)
-            {
-                wasGrounded = true;
+            wasGrounded = true;
 
-                characterSound.PlaySound(characterSound.landSound);
-            }
+			OnGrounded?.Invoke();
+
+			//Play sound when character lands on ground
+			if (characterSound)
+				characterSound.PlaySound(characterSound.landSound);
         }
 
         if (isGrounded || Mathf.Abs(velocity.y) < 0.01f)

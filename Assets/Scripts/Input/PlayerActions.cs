@@ -15,8 +15,10 @@ public class PlayerActions : PlayerActionSet
 
     public PlayerAction MeleeAttack;
 
-    public PlayerAction MagicAttack;
-    public PlayerAction MagicAimDiagonal;
+    public PlayerAction MagicMeleeAttack;
+
+	public PlayerAction MagicProjectileAttack;
+	public PlayerAction MagicAimDiagonal;
 
 	public PlayerAction SwitchMagicLeft;
 	public PlayerAction SwitchMagicRight;
@@ -41,7 +43,9 @@ public class PlayerActions : PlayerActionSet
 
         MeleeAttack = CreatePlayerAction("Melee Attack");
 
-        MagicAttack = CreatePlayerAction("Magic Attack");
+		MagicMeleeAttack = CreatePlayerAction("Physical Magic");
+
+		MagicProjectileAttack = CreatePlayerAction("Magic Projectile");
         MagicAimDiagonal = CreatePlayerAction("Magic Aim Diagonal");
 
 		SwitchMagicLeft = CreatePlayerAction("Switch Base Left");
@@ -73,15 +77,17 @@ public class PlayerActions : PlayerActionSet
         Down.AddDefaultBinding(InputControlType.LeftStickDown);
 
         Jump.AddDefaultBinding(Key.Space);
-		Jump.AddDefaultBinding(Key.C);
 		Jump.AddDefaultBinding(InputControlType.Action1);
 
         //Attacking
         MeleeAttack.AddDefaultBinding(Key.Z);
         MeleeAttack.AddDefaultBinding(InputControlType.Action3);
 
-        MagicAttack.AddDefaultBinding(Key.X);
-        MagicAttack.AddDefaultBinding(InputControlType.Action2);
+        MagicMeleeAttack.AddDefaultBinding(Key.X);
+        MagicMeleeAttack.AddDefaultBinding(InputControlType.Action4);
+
+		MagicProjectileAttack.AddDefaultBinding(Key.C);
+		MagicProjectileAttack.AddDefaultBinding(InputControlType.Action2);
 
 		SwitchMagicLeft.AddDefaultBinding(Key.S);
 		SwitchMagicLeft.AddDefaultBinding(InputControlType.LeftBumper);

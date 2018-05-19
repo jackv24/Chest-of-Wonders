@@ -25,6 +25,9 @@ public class PlayerDodge : MonoBehaviour
 	public float cooldownTime = 0.3f;
 	private float nextDodgeTime;
 
+	public int maxAirDodges = 1;
+	private int airDodgesLeft;
+
 	private Coroutine dodgeRoutine = null;
 
 	public SoundEvent dodgeSound;
@@ -42,22 +45,39 @@ public class PlayerDodge : MonoBehaviour
 		playerInput = GetComponent<PlayerInput>();
 	}
 
+	private void Start()
+	{
+		if (characterMove)
+			characterMove.OnGrounded += () => { airDodgesLeft = maxAirDodges; };
+
+		airDodgesLeft = maxAirDodges;
+	}
+
 	public void Dodge(Vector2 direction)
 	{
 		if (dodgeRoutine == null && Time.time >= nextDodgeTime)
 		{
-			dodgeRoutine = StartCoroutine(DodgeRoutine(direction));
+			//Determine dodge type
+			DodgeType type = characterMove.isGrounded ? DodgeType.Ground : DodgeType.Air;
+
+			//Limit air dodges
+			if (type == DodgeType.Air)
+			{
+				if (airDodgesLeft <= 0)
+					return;
+
+				airDodgesLeft--;
+			}
+
+			dodgeRoutine = StartCoroutine(DodgeRoutine(type, direction));
 		}
 	}
 
-	IEnumerator DodgeRoutine(Vector2 direction)
+	IEnumerator DodgeRoutine(DodgeType type, Vector2 direction)
 	{
 		//Cannot dodge without a direction
 		if (direction.magnitude < 0.01f)
 			direction = new Vector2(characterMove.FacingDirection, 0);
-
-		//Determine dodge type
-		DodgeType type = characterMove.isGrounded ? DodgeType.Ground : DodgeType.Air;
 
 		//Start dodge
 		characterStats.damageImmunity = true;

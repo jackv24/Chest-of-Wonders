@@ -58,7 +58,7 @@ public class PlayerAttack : MonoBehaviour
 
     [Space()]
     public GameObject failedCastEffect;
-    public SoundEffectBase.SoundEffect failedCastSound;
+    public SoundEvent failedCastSound;
 
     [Space()]
     public float arrowDistance = 1.0f;
@@ -86,13 +86,11 @@ public class PlayerAttack : MonoBehaviour
     public float flashInterval = 0.1f;
 
     private CharacterMove characterMove;
-    private CharacterSound characterSound;
 	private Animator animator;
 
     private void Awake()
     {
         characterMove = GetComponent<CharacterMove>();
-        characterSound = GetComponent<CharacterSound>();
 
 		animator = graphic.GetComponent<Animator>();
 		Debug.Assert(animator, this);
@@ -292,8 +290,7 @@ public class PlayerAttack : MonoBehaviour
 		}
 	}
 
-    //Function to use magic, wrapped by other magic use functions
-    public void UseMagic()
+    public void UseProjectileMagic()
     {
 		if (!canAttack || magicProgression <= MagicProgression.Basic)
 			return;
@@ -422,10 +419,8 @@ public class PlayerAttack : MonoBehaviour
             system.Play();
         }
 
-        if(!casted && characterSound)
-        {
-            characterSound.PlaySound(failedCastSound);
-        }
+		if(!casted)
+			failedCastSound.Play(transform.position);
     }
 
     public void ResetMana()
