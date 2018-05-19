@@ -58,7 +58,7 @@ public class PlayerDodge : MonoBehaviour
 		if (dodgeRoutine == null && Time.time >= nextDodgeTime)
 		{
 			//Determine dodge type
-			DodgeType type = characterMove.isGrounded ? DodgeType.Ground : DodgeType.Air;
+			DodgeType type = characterMove.IsGrounded ? DodgeType.Ground : DodgeType.Air;
 
 			//Limit air dodges
 			if (type == DodgeType.Air)
@@ -115,8 +115,8 @@ public class PlayerDodge : MonoBehaviour
 
 					//Switch character control from script to rigidbody (script is made for ground movement)
 					characterMove.SwitchToRigidbody();
-					float gravity = characterMove.body.gravityScale;
-					characterMove.body.gravityScale = 0;
+					float gravity = characterMove.Body.gravityScale;
+					characterMove.Body.gravityScale = 0;
 
 					//Snap to 8 directions
 					direction = Helper.SnapTo(direction, 45.0f).normalized;
@@ -125,7 +125,7 @@ public class PlayerDodge : MonoBehaviour
 					while (elapsed <= airDodge.duration)
 					{
 						//Reset velocity every fixed update in case we hit something (so we're not knocked around, just merely stopped)
-						characterMove.body.velocity = direction * airDodge.speed * airDodge.speedCurve.Evaluate(elapsed / airDodge.duration);
+						characterMove.Body.velocity = direction * airDodge.speed * airDodge.speedCurve.Evaluate(elapsed / airDodge.duration);
 
 						//TODO: Break when hit ground
 
@@ -135,7 +135,7 @@ public class PlayerDodge : MonoBehaviour
 					}
 
 					//Return values and script control back to normal
-					characterMove.body.gravityScale = gravity;
+					characterMove.Body.gravityScale = gravity;
 					characterMove.SwitchBackFromRigidbody();
 				}
 				break;

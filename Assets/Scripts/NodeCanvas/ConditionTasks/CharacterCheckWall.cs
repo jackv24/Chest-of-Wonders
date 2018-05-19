@@ -14,7 +14,7 @@ namespace NodeCanvas.Tasks.Conditions
 		protected override bool OnCheck()
 		{
 			//If hitting a wall but not moving in that direction, then not considered hitting
-			if (agent.HittingWall && Mathf.Sign(agent.inputDirection) != Mathf.Sign(direction.value))
+			if (agent.HittingWall && Mathf.Sign(agent.InputDirection) != Mathf.Sign(direction.value))
 				return false;
 
 			return agent.HittingWall;

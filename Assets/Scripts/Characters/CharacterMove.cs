@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum CharacterMovementStates
+{
+	Normal,
+	ZeroGravity,
+	Custom
+}
+
 [RequireComponent(typeof(BoxCollider2D))]
 public class CharacterMove : MonoBehaviour
 {
@@ -28,7 +35,10 @@ public class CharacterMove : MonoBehaviour
 
     [Tooltip("The rate at which the character accelerates to reach the move speed (m/s^2).")]
     public float acceleration = 1f;
-    public Vector2 velocity;
+
+	//Use property since this does not need to be serialised, but not auto property so we can edit value directly
+	public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
+	private Vector2 velocity;
 
     [Space()]
     [Tooltip("The maximum angle at which a slope is considered walkable upwards.")]
@@ -40,10 +50,8 @@ public class CharacterMove : MonoBehaviour
     [Tooltip("Should horizontal speed be dampened on slopes?")]
     public bool slopeSpeedDampening = true;
 
-    [HideInInspector]
-    public float inputDirection = 0f;
+    public float InputDirection { get; private set; }
 
-    //[HideInInspector]
     public bool canMove = true;
     public bool ignoreCanMove = false;
 
@@ -63,8 +71,7 @@ public class CharacterMove : MonoBehaviour
     private bool shouldJump = false;
     private bool heldJump = false;
 
-    [HideInInspector]
-    public bool isGrounded = false;
+    public bool IsGrounded { get; private set; }
     private bool wasGrounded = true;
 
 	public bool IsOnPlatform { get { return stickToPlatforms; } }
@@ -106,12 +113,10 @@ public class CharacterMove : MonoBehaviour
     [Header("Miscellaneous")]
     public float knockBackRecoveryTime = 1f;
     public bool allowKnockback = true;
-    [HideInInspector]
-    public bool scriptControl = true;
 
-    //The RigidBody2D attached to this GameObject
-    [HideInInspector]
-    public Rigidbody2D body;
+    public CharacterMovementStates MovementState { get; set; }
+
+	public Rigidbody2D Body { get; private set; }
 
     private BoxCollider2D col;
     private Rect box;
@@ -124,7 +129,7 @@ public class CharacterMove : MonoBehaviour
     {
         //Get references
         col = GetComponent<BoxCollider2D>();
-        body = GetComponent<Rigidbody2D>();
+        Body = GetComponent<Rigidbody2D>();
 
         characterAnimator = GetComponent<CharacterAnimator>();
         characterStats = GetComponent<CharacterStats>();
@@ -143,8 +148,8 @@ public class CharacterMove : MonoBehaviour
     {
         canMove = true;
 
-        if (body)
-            body.isKinematic = true;
+        if (Body)
+            Body.isKinematic = true;
 
 		if (startOnGround)
 		{
@@ -176,7 +181,7 @@ public class CharacterMove : MonoBehaviour
     private void Update()
     {
         //Only run if script should control movement
-        if (!scriptControl)
+        if (MovementState == CharacterMovementStates.Custom)
             return;
 
 		//Store collider rect for easy typing
@@ -188,11 +193,11 @@ public class CharacterMove : MonoBehaviour
 			);
 
         //Apply gravity, capping fall speed
-        velocity.y = Mathf.Max(velocity.y - gravity * Time.deltaTime, -maxFallSpeed);
+        velocity.y = Mathf.Max(Velocity.y - gravity * Time.deltaTime, -maxFallSpeed);
 
         //Jumping
         {
-			if (isGrounded)
+			if (IsGrounded)
 			{
 				stopJumpTime = Time.time + stopJumpDelay;
 				startDetectingPlatforms = false;
@@ -254,10 +259,10 @@ public class CharacterMove : MonoBehaviour
             Vector2 endPoint = new Vector2(box.xMax - skinWidthX, box.center.y);
 
             //Distance of rays should (when cast from centre) extend past the bottom by velocity amount (or skin width if grounded)
-            float distance = box.height / 2 + (isGrounded ? skinWidthX : Mathf.Abs(velocity.y * Time.deltaTime));
+            float distance = box.height / 2 + (IsGrounded ? skinWidthX : Mathf.Abs(Velocity.y * Time.deltaTime));
 
             //Not grounded unless a ray connects
-            isGrounded = false;
+            IsGrounded = false;
 
             //All raycasts
             RaycastHit2D[] hits = new RaycastHit2D[verticalRays];
@@ -268,7 +273,7 @@ public class CharacterMove : MonoBehaviour
             int index = 0;
 
             //Detect platforms if falling after jumped
-            if(jumped && velocity.y < 0)
+            if(jumped && Velocity.y < 0)
             {
                 jumped = false;
                 shouldDetectPlatforms = true;
@@ -281,7 +286,7 @@ public class CharacterMove : MonoBehaviour
                 Vector2 origin = Vector2.Lerp(startPoint, endPoint, i / (float)(verticalRays - 1));
 
                 //Cast ray
-                if (velocity.y > 0)
+                if (Velocity.y > 0)
                     hits[i] = Physics2D.Raycast(origin, Vector2.up, distance, groundLayer);
                 else
                 {
@@ -292,7 +297,7 @@ public class CharacterMove : MonoBehaviour
                         if(hit.collider)
                         {
                             //Only actually count the hit if the character landed from above (don't jump up since rays are cast from centre)
-                            if (hit.point.y < box.yMin - velocity.y * Time.deltaTime || stickToPlatforms)
+                            if (hit.point.y < box.yMin - Velocity.y * Time.deltaTime || stickToPlatforms)
                             {
                                 hits[i] = hit;
 
@@ -311,7 +316,7 @@ public class CharacterMove : MonoBehaviour
                         hits[i] = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer);
                 }
 
-                Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(velocity.y) * (velocity.y > 0 ? distance : maxSlopeDistance)));
+                Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(Velocity.y) * (Velocity.y > 0 ? distance : maxSlopeDistance)));
 
                 //If ray connected then player should be considered grounded
                 if (hits[i].collider != null)
@@ -337,9 +342,9 @@ public class CharacterMove : MonoBehaviour
                 if (hits[index].distance <= distance || (angle <= downSlopeLimit && stickToSlope))
                 {
                     //Set grounded and stop falling (if already falling)
-                    if (velocity.y <= 0)
+                    if (Velocity.y <= 0)
                     {
-                        isGrounded = true;
+                        IsGrounded = true;
                         stickToSlope = true;
 
                         //Calculate speed dampening based on slope (if slope dampening is not desired, make a value of 1)
@@ -368,24 +373,24 @@ public class CharacterMove : MonoBehaviour
 
         //Horizontal movement
         if ((canMove || ignoreCanMove))
-            velocity.x = Mathf.Lerp(velocity.x, moveSpeed * slopeSpeedMultiplier * inputDirection, acceleration * Time.deltaTime);
+            velocity.x = Mathf.Lerp(Velocity.x, moveSpeed * slopeSpeedMultiplier * InputDirection, acceleration * Time.deltaTime);
         else
-            velocity.x = Mathf.Lerp(velocity.x, 0, acceleration * Time.deltaTime);
+            velocity.x = Mathf.Lerp(Velocity.x, 0, acceleration * Time.deltaTime);
 
         //Lateral collision detection
         {
             //Only required if there is lateral movement
-            if (velocity.x != 0)
+            if (Velocity.x != 0)
             {
                 //Start and end points that ray origins will lay between
                 Vector2 startPoint = new Vector2(box.center.x, box.yMin + skinWidthY);
                 Vector2 endPoint = new Vector2(box.center.x, box.yMax - skinWidthY);
 
                 //Rays are cast out according to velocity, from the center
-                float distance = box.width / 2 + Mathf.Abs(velocity.x * Time.deltaTime);
+                float distance = box.width / 2 + Mathf.Abs(Velocity.x * Time.deltaTime);
 
                 //Rays are cast in the direction of movement
-                Vector2 direction = velocity.x > 0 ? Vector2.right : Vector2.left;
+                Vector2 direction = Velocity.x > 0 ? Vector2.right : Vector2.left;
 
 				bool hitWall = false;
 
@@ -427,7 +432,7 @@ public class CharacterMove : MonoBehaviour
             }
         }
 
-        if (!wasGrounded && isGrounded)
+        if (!wasGrounded && IsGrounded)
         {
             wasGrounded = true;
 
@@ -438,29 +443,29 @@ public class CharacterMove : MonoBehaviour
 				characterSound.PlaySound(characterSound.landSound);
         }
 
-        if (isGrounded || Mathf.Abs(velocity.y) < 0.01f)
+        if (IsGrounded || Mathf.Abs(Velocity.y) < 0.01f)
             velocity.y = 0;
 
-        if (Mathf.Abs(velocity.x) < 0.01f)
+        if (Mathf.Abs(Velocity.x) < 0.01f)
             velocity.x = 0;
 
         //Move character by velocity
-        transform.Translate(velocity * Time.deltaTime);
+        transform.Translate(Velocity * Time.deltaTime);
     }
 
     public void Move(float direction)
     {
         //Cache old direction for comparison
-        oldDirection = inputDirection;
+        oldDirection = InputDirection;
 
         //Update input direction
         if ((GameManager.instance.CanDoActions || ignoreCanMove) && (canMove || ignoreCanMove))
-            inputDirection = direction < 0 ? Mathf.Floor(direction) : Mathf.Ceil(direction);
+            InputDirection = direction < 0 ? Mathf.Floor(direction) : Mathf.Ceil(direction);
         else
-            inputDirection = 0;
+            InputDirection = 0;
 
 		//If direction has changed (and does not equal 0), then call changed direction event
-		if (inputDirection != oldDirection && direction != 0 && OnChangedDirection != null)
+		if (InputDirection != oldDirection && direction != 0 && OnChangedDirection != null)
 		{
 			FacingDirection = direction;
 
@@ -489,21 +494,22 @@ public class CharacterMove : MonoBehaviour
 	public void SwitchToRigidbody()
 	{
 		//Disable script movement
-		scriptControl = false;
+		MovementState = CharacterMovementStates.Custom;
+
 		//Enable rigidbody movement
-		body.bodyType = RigidbodyType2D.Dynamic;
+		Body.bodyType = RigidbodyType2D.Dynamic;
 	}
 
 	public void SwitchBackFromRigidbody()
 	{
 		//Switch back to script control
-		body.bodyType = RigidbodyType2D.Kinematic;
-		body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
+		Body.bodyType = RigidbodyType2D.Kinematic;
+		Body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
 
-		velocity = Vector2.zero;
+		Velocity = Vector2.zero;
 		heldJump = false;
 
-		scriptControl = true;
+		MovementState = CharacterMovementStates.Normal;
 	}
 
     public void Knockback(Vector2 origin, float magnitude)
@@ -521,7 +527,7 @@ public class CharacterMove : MonoBehaviour
 		SwitchToRigidbody();
 
         //Apply force
-        body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
+        Body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
 
         //Coroutine to switch back to script control when required
         StopCoroutine("KnockbackRecovery"); //Make sure only one is running
@@ -534,7 +540,7 @@ public class CharacterMove : MonoBehaviour
             characterAnimator.SetStunned(true);
 
         //If body is still moving, cannot recover
-        while (body.velocity.magnitude > 0.05f)
+        while (Body.velocity.magnitude > 0.05f)
         {
             yield return new WaitForEndOfFrame();
         }

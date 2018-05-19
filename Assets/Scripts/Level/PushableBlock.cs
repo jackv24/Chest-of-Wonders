@@ -45,7 +45,7 @@ public class PushableBlock : MonoBehaviour
 	private void Update()
 	{
 		//Make sure the player is on the ground and not currently pushing the block
-		if(!pushing && player && characterMove && characterMove.isGrounded && player.position.y < transform.position.y + pushHeightOffset && Time.time >= nextPushTime)
+		if(!pushing && player && characterMove && characterMove.IsGrounded && player.position.y < transform.position.y + pushHeightOffset && Time.time >= nextPushTime)
 		{
 			float direction = 0;
 

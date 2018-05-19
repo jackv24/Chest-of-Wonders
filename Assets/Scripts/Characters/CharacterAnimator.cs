@@ -47,12 +47,12 @@ public class CharacterAnimator : MonoBehaviour
             if (characterMove)
             {
                 //Get horizontal move speed
-                float horizontal = characterMove.inputDirection;
+                float horizontal = characterMove.InputDirection;
 
                 //Set property on animator
                 animator.SetFloat("horizontal", horizontal);
 
-                animator.SetBool("isGrounded", characterMove.isGrounded);
+                animator.SetBool("isGrounded", characterMove.IsGrounded);
             }
         }
     }

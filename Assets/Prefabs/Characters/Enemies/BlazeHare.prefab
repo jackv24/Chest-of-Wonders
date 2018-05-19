@@ -261,18 +261,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   acceleration: 15
-  velocity: {x: 0, y: 0}
   upSlopeLimit: 50
   downSlopeLimit: 50
   maxSlopeDistance: 1
   slopeSpeedDampening: 1
-  inputDirection: 0
   canMove: 1
   ignoreCanMove: 0
   jumpForce: 10
   jumpTime: 0.5
   stopJumpDelay: 0.2
-  isGrounded: 1
   platformDropDetectDelay: 0.2
   gravity: 30
   maxFallSpeed: 20
@@ -290,8 +287,6 @@ MonoBehaviour:
   startGroundDistance: 5
   knockBackRecoveryTime: 0.25
   allowKnockback: 1
-  scriptControl: 1
-  body: {fileID: 0}
 --- !u!114 &114221548071508702
 MonoBehaviour:
   m_ObjectHideFlags: 1

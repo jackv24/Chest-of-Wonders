@@ -43,7 +43,7 @@ public class Trampoline : MonoBehaviour
 
 	IEnumerator ReturnForceAmount(CharacterMove move)
 	{
-		while (move.velocity.y > 0)
+		while (move.Velocity.y > 0)
 		{
 			yield return new WaitForEndOfFrame();
 		}

@@ -412,8 +412,8 @@ public class PlayerAttack : MonoBehaviour
             //Make particles move how the player was (so they aren't left behind when the player is moving)
             ParticleSystem system = effect.GetComponentInChildren<ParticleSystem>();
             ParticleSystem.VelocityOverLifetimeModule m = system.velocityOverLifetime;
-            m.x = characterMove.velocity.x;
-            m.y = characterMove.velocity.y;
+            m.x = characterMove.Velocity.x;
+            m.y = characterMove.Velocity.y;
 
             //Start the particle system (does not play on awake so values can be set through script beforehand)
             system.Play();

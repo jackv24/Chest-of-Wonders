@@ -80,7 +80,7 @@ namespace NodeCanvas.Tasks.Actions
 
                 if (waitUntilLand.value)
                 {
-                    if (agent.isGrounded && agent.velocity.y <= 0)
+                    if (agent.IsGrounded && agent.Velocity.y <= 0)
                         EndAction(true);
                 }
                 else

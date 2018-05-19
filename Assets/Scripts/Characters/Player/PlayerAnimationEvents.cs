@@ -95,7 +95,7 @@ public class PlayerAnimationEvents : MonoBehaviour
             canSlide = true;
 
 			//Only "slide" if actually moving
-			if (Mathf.Abs(characterMove.velocity.x) > 0.1f)
+			if (Mathf.Abs(characterMove.Velocity.x) > 0.1f)
 			{
 				//Only play one at a time
 				StopCoroutine("SlideStopOverTime");
@@ -123,7 +123,7 @@ public class PlayerAnimationEvents : MonoBehaviour
 
 		float beforeGroundedTime = Time.time;
 
-        while (!characterMove.isGrounded)
+        while (!characterMove.IsGrounded)
             yield return new WaitForEndOfFrame();
 
 		//Keep track of time taken in air before grounded
@@ -141,7 +141,7 @@ public class PlayerAnimationEvents : MonoBehaviour
         if (canSlide)
         {
             //Get initial velocity
-            Vector2 vel = characterMove.velocity;
+            Vector2 vel = characterMove.Velocity;
             float initialMoveSpeed = vel.x;
 
             float timeElapsed = 0;
@@ -152,9 +152,9 @@ public class PlayerAnimationEvents : MonoBehaviour
                 if (system)
                 {
                     //Only show particles when on ground
-                    if (system.isStopped && characterMove.isGrounded)
+                    if (system.isStopped && characterMove.IsGrounded)
                         system.Play();
-                    else if (system.isPlaying && !characterMove.isGrounded)
+                    else if (system.isPlaying && !characterMove.IsGrounded)
                         system.Stop();
                 }
 
@@ -163,9 +163,9 @@ public class PlayerAnimationEvents : MonoBehaviour
 
                 //Change velocity to fit curve (scaled)
                 vel.x = initialMoveSpeed * slideCurve.Evaluate(timeElapsed / slideTime);
-                vel.y = characterMove.velocity.y;
+                vel.y = characterMove.Velocity.y;
 
-                characterMove.velocity = vel;
+                characterMove.Velocity = vel;
 
                 yield return new WaitForEndOfFrame();
                 timeElapsed += Time.deltaTime;
@@ -254,7 +254,7 @@ public class PlayerAnimationEvents : MonoBehaviour
         //Stop movement and cache gravity
         float initialGravity = characterMove.gravity;
         characterMove.gravity = 0;
-        characterMove.velocity = Vector2.zero;
+        characterMove.Velocity = Vector2.zero;
 
         //Can not be hurt during attack
         characterStats.damageImmunity = true;
@@ -266,10 +266,12 @@ public class PlayerAnimationEvents : MonoBehaviour
         if (downstrikeCollider)
             downstrikeCollider.SetActive(true);
 
-        while (!characterMove.isGrounded)
+		Vector2 downVelocity = new Vector2(0, -downstrikeFallSpeed);
+
+		while (!characterMove.IsGrounded)
         {
             //Move downwards at constant speed until grounded
-            characterMove.velocity.y = -downstrikeFallSpeed;
+            characterMove.Velocity = downVelocity;
 
             yield return new WaitForEndOfFrame();
         }
@@ -303,7 +305,7 @@ public class PlayerAnimationEvents : MonoBehaviour
 			obj.transform.position = transform.position;
 
 			Vector3 scale = obj.transform.localScale;
-			scale.x = Mathf.Sign(characterMove.velocity.x);
+			scale.x = Mathf.Sign(characterMove.Velocity.x);
 			obj.transform.localScale = scale;
 		}
 	}

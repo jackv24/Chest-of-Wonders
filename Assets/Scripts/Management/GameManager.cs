@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
         CharacterMove move = player.GetComponent<CharacterMove>();
 
         if (move)
-            move.scriptControl = false;
+            move.MovementState = CharacterMovementStates.Custom;
 
         //Start the unload of old level and load of new level
         StartCoroutine(ChangeLevel(sceneIndex, doorwayID));
@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
         CharacterMove move = player.GetComponent<CharacterMove>();
 
         if (move)
-            move.scriptControl = true;
+            move.MovementState = CharacterMovementStates.Normal;
 
         if (input && move && doorwayID >= 0)
         {

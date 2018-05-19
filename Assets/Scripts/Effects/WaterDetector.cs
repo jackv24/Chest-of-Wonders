@@ -16,7 +16,7 @@ public class WaterDetector : MonoBehaviour
 			CharacterMove move = collision.GetComponent<CharacterMove>();
 
 			if (move)
-				waterPhysics.Splash(transform.position.x, move.velocity.y / 40f, WaterPhysics.SplashType.Push);
+				waterPhysics.Splash(transform.position.x, move.Velocity.y / 40f, WaterPhysics.SplashType.Push);
 			else
 			{
 				Rigidbody2D body = collision.GetComponent<Rigidbody2D>();
@@ -37,7 +37,7 @@ public class WaterDetector : MonoBehaviour
 			CharacterMove move = collision.GetComponent<CharacterMove>();
 
 			if (move)
-				waterPhysics.Splash(transform.position.x, move.velocity.y / 40f, WaterPhysics.SplashType.Pull);
+				waterPhysics.Splash(transform.position.x, move.Velocity.y / 40f, WaterPhysics.SplashType.Pull);
 			else
 			{
 				Rigidbody2D body = collision.GetComponent<Rigidbody2D>();

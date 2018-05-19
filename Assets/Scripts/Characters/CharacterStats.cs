@@ -152,7 +152,7 @@ public class CharacterStats : MonoBehaviour
         if (characterMove)
         {
             characterMove.canMove = false;
-            characterMove.velocity = Vector2.zero;
+            characterMove.Velocity = Vector2.zero;
         }
 
         if (characterAnimator)

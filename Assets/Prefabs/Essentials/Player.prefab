@@ -865,18 +865,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   acceleration: 10
-  velocity: {x: 0, y: 0}
   upSlopeLimit: 50
   downSlopeLimit: 50
   maxSlopeDistance: 1
   slopeSpeedDampening: 1
-  inputDirection: 0
   canMove: 1
   ignoreCanMove: 0
   jumpForce: 10
   jumpTime: 0.6
   stopJumpDelay: 0.2
-  isGrounded: 1
   platformDropDetectDelay: 0.2
   gravity: 40
   maxFallSpeed: 20
@@ -894,8 +891,6 @@ MonoBehaviour:
   startGroundDistance: 5
   knockBackRecoveryTime: 0.1
   allowKnockback: 1
-  scriptControl: 1
-  body: {fileID: 50735930063480252}
 --- !u!114 &114000014123730578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1079,7 +1074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a8ac91dedacc040b6026021495ebf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSouls: 3
+  maxSouls: 99
   currentFireSouls: 0
   currentGrassSouls: 0
   currentIceSouls: 0
@@ -1225,6 +1220,12 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 2
         time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.1
         value: 1
         inSlope: 0
         outSlope: 0
@@ -1237,7 +1238,7 @@ MonoBehaviour:
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 0
+        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1252,6 +1253,12 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 2
         time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.1
         value: 1
         inSlope: 0
         outSlope: 0
@@ -1264,7 +1271,7 @@ MonoBehaviour:
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 0
+        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1272,6 +1279,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
   cooldownTime: 0
+  maxAirDodges: 1
   dodgeSound:
     type: 2
     clip: {fileID: 8300000, guid: 5f338b57352a2c148a9e69eeabfce24f, type: 3}
