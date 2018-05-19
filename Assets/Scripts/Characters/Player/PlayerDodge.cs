@@ -85,6 +85,8 @@ public class PlayerDodge : MonoBehaviour
 
 		dodgeSound.Play(transform.position);
 
+		bool returnToLocomotion = true;
+
 		switch (type)
 		{
 			case DodgeType.Ground:
@@ -113,10 +115,8 @@ public class PlayerDodge : MonoBehaviour
 				{
 					characterAnimator.Play("Dodge Air");
 
-					//Switch character control from script to rigidbody (script is made for ground movement)
-					characterMove.SwitchToRigidbody();
-					float gravity = characterMove.Body.gravityScale;
-					characterMove.Body.gravityScale = 0;
+					characterMove.MovementState = CharacterMovementStates.SetVelocity;
+					characterMove.Velocity = Vector2.zero;
 
 					//Snap to 8 directions
 					direction = Helper.SnapTo(direction, 45.0f).normalized;
@@ -124,25 +124,29 @@ public class PlayerDodge : MonoBehaviour
 					float elapsed = 0;
 					while (elapsed <= airDodge.duration)
 					{
-						//Reset velocity every fixed update in case we hit something (so we're not knocked around, just merely stopped)
-						characterMove.Body.velocity = direction * airDodge.speed * airDodge.speedCurve.Evaluate(elapsed / airDodge.duration);
+						//Set velocity every frame according to curve
+						characterMove.Velocity = direction * airDodge.speed * airDodge.speedCurve.Evaluate(elapsed / airDodge.duration);
 
-						//TODO: Break when hit ground
+						//Land immediately and cancel when dodging into ground
+						if(characterMove.IsGrounded && characterMove.Velocity.y < 0)
+						{
+							returnToLocomotion = false;
+							characterAnimator.Play("Land");
+							break;
+						}
 
-						//Use fixed delta time since we're using a rigidbody
-						yield return new WaitForFixedUpdate();
-						elapsed += Time.fixedDeltaTime;
+						yield return null;
+						elapsed += Time.deltaTime;
 					}
 
-					//Return values and script control back to normal
-					characterMove.Body.gravityScale = gravity;
-					characterMove.SwitchBackFromRigidbody();
+					characterMove.MovementState = CharacterMovementStates.Normal;
 				}
 				break;
 		}
 
 		//Playing locomotion state will naturally transition out to other states
-		characterAnimator.ReturnToLocomotion();
+		if(returnToLocomotion)
+			characterAnimator.ReturnToLocomotion();
 
 		//Return to previous state after dodge
 		characterStats.damageImmunity = false;

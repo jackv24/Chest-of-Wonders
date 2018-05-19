@@ -4,7 +4,7 @@ using System.Collections;
 public enum CharacterMovementStates
 {
 	Normal,
-	ZeroGravity,
+	SetVelocity,
 	Custom
 }
 
@@ -116,7 +116,7 @@ public class CharacterMove : MonoBehaviour
 
     public CharacterMovementStates MovementState { get; set; }
 
-	public Rigidbody2D Body { get; private set; }
+	private Rigidbody2D body;
 
     private BoxCollider2D col;
     private Rect box;
@@ -129,7 +129,7 @@ public class CharacterMove : MonoBehaviour
     {
         //Get references
         col = GetComponent<BoxCollider2D>();
-        Body = GetComponent<Rigidbody2D>();
+        body = GetComponent<Rigidbody2D>();
 
         characterAnimator = GetComponent<CharacterAnimator>();
         characterStats = GetComponent<CharacterStats>();
@@ -148,8 +148,8 @@ public class CharacterMove : MonoBehaviour
     {
         canMove = true;
 
-        if (Body)
-            Body.isKinematic = true;
+        if (body)
+            body.isKinematic = true;
 
 		if (startOnGround)
 		{
@@ -193,9 +193,11 @@ public class CharacterMove : MonoBehaviour
 			);
 
         //Apply gravity, capping fall speed
-        velocity.y = Mathf.Max(Velocity.y - gravity * Time.deltaTime, -maxFallSpeed);
+		if(MovementState != CharacterMovementStates.SetVelocity)
+			velocity.y = Mathf.Max(Velocity.y - gravity * Time.deltaTime, -maxFallSpeed);
 
-        //Jumping
+        //Jumping (only if we're in a state that can jump)
+		if(MovementState != CharacterMovementStates.SetVelocity)
         {
 			if (IsGrounded)
 			{
@@ -208,36 +210,36 @@ public class CharacterMove : MonoBehaviour
 				shouldDetectPlatforms = true;
 			}
 
-            //If jump button has been pressed
-            if (shouldJump)
-            {
-                //Consume jump button flag
-                shouldJump = false;
+			//If jump button has been pressed
+			if (shouldJump)
+			{
+				//Consume jump button flag
+				shouldJump = false;
 
-                jumped = true;
-                shouldDetectPlatforms = false;
+				jumped = true;
+				shouldDetectPlatforms = false;
 
-                //If jump button was pressed within a small amount of time after leaving the ground (or still on ground)
-                if (Time.time <= stopJumpTime)
-                {
-                    //Call jump events
-                    if (OnJump != null)
-                        OnJump();
+				//If jump button was pressed within a small amount of time after leaving the ground (or still on ground)
+				if (Time.time <= stopJumpTime)
+				{
+					//Call jump events
+					if (OnJump != null)
+						OnJump();
 
-                    //Reset jump held time, allowing jump to be held
-                    jumpHeldTime = 0;
-                    stopJumpTime = 0;
+					//Reset jump held time, allowing jump to be held
+					jumpHeldTime = 0;
+					stopJumpTime = 0;
 
-                    //Should not stick to slope when jumping
-                    stickToSlope = false;
-                    //Slope speed multiplier should be reset, since character is no longer on slope
-                    slopeSpeedMultiplier = 1f;
+					//Should not stick to slope when jumping
+					stickToSlope = false;
+					//Slope speed multiplier should be reset, since character is no longer on slope
+					slopeSpeedMultiplier = 1f;
 
-                    wasGrounded = false;
+					wasGrounded = false;
 
-                    stickToPlatforms = false;
-                }
-            }
+					stickToPlatforms = false;
+				}
+			}
 
             //If jump has been held for less than the max time
             if (heldJump && jumpHeldTime < jumpTime)
@@ -251,9 +253,13 @@ public class CharacterMove : MonoBehaviour
             else //If jump has been released, at can not be held again until a new jump is started
                 jumpHeldTime = jumpTime;
         }
+		else if (shouldJump) //Consume jump inputs even if we're not in a state that can jump
+		{
+			shouldJump = false;
+		}
 
-        //Vertical collision detection
-        {
+		//Vertical collision detection
+		{
             //Calculate start and end points that rays will be cast from between
             Vector2 startPoint = new Vector2(box.xMin + skinWidthX, box.center.y);
             Vector2 endPoint = new Vector2(box.xMax - skinWidthX, box.center.y);
@@ -345,7 +351,10 @@ public class CharacterMove : MonoBehaviour
                     if (Velocity.y <= 0)
                     {
                         IsGrounded = true;
-                        stickToSlope = true;
+
+						//Don't stick to slopes when velocity is controlled elsewhere
+						if(MovementState != CharacterMovementStates.SetVelocity)
+							stickToSlope = true;
 
                         //Calculate speed dampening based on slope (if slope dampening is not desired, make a value of 1)
                         slopeSpeedMultiplier = slopeSpeedDampening ? Mathf.Cos(angle * Mathf.Deg2Rad) : 1;
@@ -371,11 +380,14 @@ public class CharacterMove : MonoBehaviour
             }
         }
 
-        //Horizontal movement
-        if ((canMove || ignoreCanMove))
-            velocity.x = Mathf.Lerp(Velocity.x, moveSpeed * slopeSpeedMultiplier * InputDirection, acceleration * Time.deltaTime);
-        else
-            velocity.x = Mathf.Lerp(Velocity.x, 0, acceleration * Time.deltaTime);
+		if (MovementState != CharacterMovementStates.SetVelocity)
+		{
+			//Horizontal movement
+			if ((canMove || ignoreCanMove))
+				velocity.x = Mathf.Lerp(Velocity.x, moveSpeed * slopeSpeedMultiplier * InputDirection, acceleration * Time.deltaTime);
+			else
+				velocity.x = Mathf.Lerp(Velocity.x, 0, acceleration * Time.deltaTime);
+		}
 
         //Lateral collision detection
         {
@@ -497,14 +509,14 @@ public class CharacterMove : MonoBehaviour
 		MovementState = CharacterMovementStates.Custom;
 
 		//Enable rigidbody movement
-		Body.bodyType = RigidbodyType2D.Dynamic;
+		body.bodyType = RigidbodyType2D.Dynamic;
 	}
 
 	public void SwitchBackFromRigidbody()
 	{
 		//Switch back to script control
-		Body.bodyType = RigidbodyType2D.Kinematic;
-		Body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
+		body.bodyType = RigidbodyType2D.Kinematic;
+		body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
 
 		Velocity = Vector2.zero;
 		heldJump = false;
@@ -527,7 +539,7 @@ public class CharacterMove : MonoBehaviour
 		SwitchToRigidbody();
 
         //Apply force
-        Body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
+        body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
 
         //Coroutine to switch back to script control when required
         StopCoroutine("KnockbackRecovery"); //Make sure only one is running
@@ -540,7 +552,7 @@ public class CharacterMove : MonoBehaviour
             characterAnimator.SetStunned(true);
 
         //If body is still moving, cannot recover
-        while (Body.velocity.magnitude > 0.05f)
+        while (body.velocity.magnitude > 0.05f)
         {
             yield return new WaitForEndOfFrame();
         }
