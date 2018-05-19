@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: CharacterSprite
+  m_Name: CharacterSprite_Screen
   m_Shader: {fileID: 4800000, guid: 673b898da427b0d40b7468f3ab4f6a32, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA PIXELSNAP_ON _EMISSION
   m_LightmapFlags: 1
@@ -58,10 +58,10 @@ Material:
     - PixelSnap: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DestMode: 10
+    - _DestMode: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FlashAmount: 0
+    - _FlashAmount: 0.356
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -72,7 +72,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SrcMode: 1
+    - _SrcMode: 4
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:

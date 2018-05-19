@@ -75,6 +75,10 @@ public class PlayerDodge : MonoBehaviour
 
 	IEnumerator DodgeRoutine(DodgeType type, Vector2 direction)
 	{
+		//TODO: Replace with anim events
+		SpriteAfterImageEffect effect = GetComponentInChildren<SpriteAfterImageEffect>();
+		effect?.StartAfterImageEffect();
+
 		//Cannot dodge without a direction
 		if (direction.magnitude < 0.01f)
 			direction = new Vector2(characterMove.FacingDirection, 0);
@@ -154,6 +158,8 @@ public class PlayerDodge : MonoBehaviour
 		playerInput.AcceptingInput = true;
 
 		nextDodgeTime = Time.time + cooldownTime;
+
+		effect?.EndAfterImageEffect();
 
 		dodgeRoutine = null;
 	}

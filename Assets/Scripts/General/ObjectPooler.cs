@@ -64,8 +64,10 @@ public static class ObjectPooler
     //An empty gameobject for organising pooled objects in the scene
     private static GameObject poolObject;
 
-    //Gets a pooled object from one of the object pools, or creates a new pool if one does not exist for this prefab
-    public static GameObject GetPooledObject(GameObject prefab)
+	/// <summary>
+	/// Gets a pooled object from one of the object pools, or creates a new pool if one does not exist for this prefab
+	/// </summary>
+	public static GameObject GetPooledObject(GameObject prefab)
     {
         //Make sure there is a gameobject for organising pooled objects in the scene
         if(!poolObject)
@@ -99,8 +101,10 @@ public static class ObjectPooler
         return pool.GetPooledObject();
     }
 
-    //Clears all object pools
-    public static void PurgePools()
+	/// <summary>
+	/// Clears all object pools
+	/// </summary>
+	public static void PurgePools()
     {
         //Eacg pool handles its own purging
         foreach (Pool pool in objectPools)
@@ -115,4 +119,24 @@ public static class ObjectPooler
         foreach (Pool pool in objectPools)
             pool.ReturnAll();
     }
+
+	/// <summary>
+	/// Ensures there is a pool with the required amount available.
+	/// </summary>
+	public static void SetupPool(GameObject prefab, int count)
+	{
+		GameObject[] objs = new GameObject[count];
+
+		//Spawn desired amount of GameObjects
+		for(int i = 0; i < count; i++)
+		{
+			objs[i] = GetPooledObject(prefab);
+		}
+
+		//Immediately return all newly spawned to pool
+		for (int i = 0; i < count; i++)
+		{
+			objs[i].SetActive(false);
+		}
+	}
 }

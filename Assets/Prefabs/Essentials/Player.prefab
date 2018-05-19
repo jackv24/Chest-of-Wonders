@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 82491122072503488}
   - component: {fileID: 114148965292316800}
   - component: {fileID: 114699408328713244}
+  - component: {fileID: 114521421153489954}
   m_Layer: 10
   m_Name: Graphic
   m_TagString: Untagged
@@ -277,7 +278,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.27, y: 0.26, z: 0}
+  m_LocalPosition: {x: -0.28, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -1166,6 +1167,50 @@ MonoBehaviour:
     - {fileID: 1158427886003914}
     - {fileID: 1504532349023518}
   _assetGuid: 99f5c5565a8074f4eb8901db7fb4c979
+--- !u!114 &114521421153489954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010556696062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e822fad4ba394f40bb21b3eca782699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preSpawnAmount: 5
+  spawnDistance: 0.5
+  lifeTime: 0.5
+  fadeOutGradient:
+    serializedVersion: 2
+    key0: {r: 0.8308824, g: 0.7148032, b: 0.7412213, a: 1}
+    key1: {r: 0.8308824, g: 0.7148032, b: 0.7412213, a: 0}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  material: {fileID: 2100000, guid: 6007ba84d0ffa56468fac8e7d1482e33, type: 2}
 --- !u!114 &114539873870724910
 MonoBehaviour:
   m_ObjectHideFlags: 1
