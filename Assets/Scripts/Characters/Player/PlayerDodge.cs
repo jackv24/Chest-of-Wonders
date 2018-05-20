@@ -52,6 +52,17 @@ public class PlayerDodge : MonoBehaviour
 		airDodgesLeft = maxAirDodges;
 	}
 
+	private void OnDisable()
+	{
+		//If still in dodge routine when disabling, return to regular state first
+		if(dodgeRoutine != null)
+		{
+			EndDodge(false);
+
+			dodgeRoutine = null;
+		}
+	}
+
 	public void Dodge(Vector2 direction)
 	{
 		//Can only dodge if in a regular state (can't dodge in the middle of an attack, etc)
@@ -78,10 +89,6 @@ public class PlayerDodge : MonoBehaviour
 
 	IEnumerator DodgeRoutine(DodgeType type, Vector2 direction)
 	{
-		//TODO: Replace with anim events
-		SpriteAfterImageEffect effect = GetComponentInChildren<SpriteAfterImageEffect>();
-		effect?.StartAfterImageEffect();
-
 		//Can only dodge horizontally on ground
 		if(type == DodgeType.Ground)
 		{
@@ -161,8 +168,8 @@ public class PlayerDodge : MonoBehaviour
 						//Land immediately and cancel when dodging into ground
 						if (characterMove.IsGrounded && characterMove.Velocity.y < 0)
 						{
-							returnToLocomotion = false;
 							characterAnimator?.Play("Land");
+							returnToLocomotion = false;
 							break;
 						}
 
@@ -173,21 +180,23 @@ public class PlayerDodge : MonoBehaviour
 				break;
 		}
 
+		EndDodge(returnToLocomotion);
+
+		dodgeRoutine = null;
+	}
+
+	private void EndDodge(bool changeAnim)
+	{
 		characterMove.MovementState = CharacterMovementStates.Normal;
 
 		//Playing locomotion state will naturally transition out to other states
-		if (returnToLocomotion)
-			characterAnimator?.ReturnToLocomotion();
+		if (changeAnim)
+			characterAnimator.ReturnToLocomotion();
 
 		//Return to previous state after dodge
 		characterStats.damageImmunity = false;
 		playerInput.AcceptingInput = true;
 
 		nextDodgeTime = Time.time + cooldownTime;
-
-		//TODO: Replace with animation events
-		effect?.EndAfterImageEffect();
-
-		dodgeRoutine = null;
 	}
 }
