@@ -8,7 +8,6 @@ public class PlayerDodge : MonoBehaviour
 	[Serializable]
 	public struct DodgeDetails
 	{
-		public float duration;
 		public float speed;
 		public AnimationCurve speedCurve;
 	}
@@ -83,13 +82,50 @@ public class PlayerDodge : MonoBehaviour
 		SpriteAfterImageEffect effect = GetComponentInChildren<SpriteAfterImageEffect>();
 		effect?.StartAfterImageEffect();
 
+		//Can only dodge horizontally on ground
+		if(type == DodgeType.Ground)
+		{
+			direction.y = 0;
+			direction.Normalize();
+		}
+
 		//Cannot dodge without a direction
 		if (direction.magnitude < 0.01f)
 			direction = new Vector2(characterMove.FacingDirection, 0);
 
+		//Snap to 8 directions
+		direction = Helper.SnapTo(direction, 45.0f).normalized;
+
+		//Determine animation to play (ground is side animation, air is directional)
+		string dodgeAnim = "Dodge Side";
+		if(type == DodgeType.Air)
+		{
+			if (direction == Vector2.up)
+				dodgeAnim = "Dodge Up";
+			else if (direction == Vector2.down)
+				dodgeAnim = "Dodge Down";
+			else if (direction.x != 0)
+			{
+				if (direction.y > 0)
+					dodgeAnim = "Dodge Diagonal Up";
+				else if (direction.y < 0)
+					dodgeAnim = "Dodge Diagonal Down";
+			}
+			//Horizontal directions are already default, so no need to add a case for them
+		}
+
+		//Play animation and set length to wait
+		characterAnimator?.Play(dodgeAnim);
+		yield return null;
+		float duration = characterAnimator.animator.GetCurrentAnimatorStateInfo(0).length;
+
 		//Start dodge
 		characterStats.damageImmunity = true;
 		playerInput.AcceptingInput = false;
+
+		characterMove.MovementState = CharacterMovementStates.SetVelocity;
+		characterMove.Velocity = Vector2.zero;
+		characterMove.ResetJump();
 
 		dodgeSound.Play(transform.position);
 
@@ -99,17 +135,12 @@ public class PlayerDodge : MonoBehaviour
 		{
 			case DodgeType.Ground:
 				{
-					characterAnimator?.Play("Dodge");
-
-					//Dodge in facing direction over time
-					characterMove.Move(Mathf.Sign(direction.x));
-
 					//Change speed over dodge time according to curve
 					float initialSpeed = characterMove.moveSpeed;
 					float elapsed = 0;
-					while (elapsed <= groundDodge.duration)
+					while (elapsed <= duration)
 					{
-						characterMove.moveSpeed = groundDodge.speed * groundDodge.speedCurve.Evaluate(elapsed / groundDodge.duration);
+						characterMove.Velocity = direction * groundDodge.speed * groundDodge.speedCurve.Evaluate(elapsed / duration);
 
 						yield return null;
 						elapsed += Time.deltaTime;
@@ -121,23 +152,14 @@ public class PlayerDodge : MonoBehaviour
 
 			case DodgeType.Air:
 				{
-					characterAnimator?.Play("Dodge Air");
-
-					characterMove.MovementState = CharacterMovementStates.SetVelocity;
-					characterMove.Velocity = Vector2.zero;
-					characterMove.ResetJump();
-
-					//Snap to 8 directions
-					direction = Helper.SnapTo(direction, 45.0f).normalized;
-
 					float elapsed = 0;
-					while (elapsed <= airDodge.duration)
+					while (elapsed <= duration)
 					{
 						//Set velocity every frame according to curve
-						characterMove.Velocity = direction * airDodge.speed * airDodge.speedCurve.Evaluate(elapsed / airDodge.duration);
+						characterMove.Velocity = direction * airDodge.speed * airDodge.speedCurve.Evaluate(elapsed / duration);
 
 						//Land immediately and cancel when dodging into ground
-						if(characterMove.IsGrounded && characterMove.Velocity.y < 0)
+						if (characterMove.IsGrounded && characterMove.Velocity.y < 0)
 						{
 							returnToLocomotion = false;
 							characterAnimator?.Play("Land");
@@ -147,14 +169,14 @@ public class PlayerDodge : MonoBehaviour
 						yield return null;
 						elapsed += Time.deltaTime;
 					}
-
-					characterMove.MovementState = CharacterMovementStates.Normal;
 				}
 				break;
 		}
 
+		characterMove.MovementState = CharacterMovementStates.Normal;
+
 		//Playing locomotion state will naturally transition out to other states
-		if(returnToLocomotion)
+		if (returnToLocomotion)
 			characterAnimator?.ReturnToLocomotion();
 
 		//Return to previous state after dodge

@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
         CharacterMove move = player.GetComponent<CharacterMove>();
 
         if (move)
-            move.MovementState = CharacterMovementStates.Custom;
+            move.MovementState = CharacterMovementStates.Disabled;
 
         //Start the unload of old level and load of new level
         StartCoroutine(ChangeLevel(sceneIndex, doorwayID));

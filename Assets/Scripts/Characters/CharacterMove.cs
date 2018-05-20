@@ -5,7 +5,7 @@ public enum CharacterMovementStates
 {
 	Normal,
 	SetVelocity,
-	Custom
+	Disabled
 }
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -181,7 +181,7 @@ public class CharacterMove : MonoBehaviour
     private void Update()
     {
         //Only run if script should control movement
-        if (MovementState == CharacterMovementStates.Custom)
+        if (MovementState == CharacterMovementStates.Disabled)
             return;
 
 		//Store collider rect for easy typing
@@ -352,9 +352,7 @@ public class CharacterMove : MonoBehaviour
                     {
                         IsGrounded = true;
 
-						//Don't stick to slopes when velocity is controlled elsewhere
-						if(MovementState != CharacterMovementStates.SetVelocity)
-							stickToSlope = true;
+						stickToSlope = true;
 
                         //Calculate speed dampening based on slope (if slope dampening is not desired, make a value of 1)
                         slopeSpeedMultiplier = slopeSpeedDampening ? Mathf.Cos(angle * Mathf.Deg2Rad) : 1;
@@ -506,7 +504,7 @@ public class CharacterMove : MonoBehaviour
 	public void SwitchToRigidbody()
 	{
 		//Disable script movement
-		MovementState = CharacterMovementStates.Custom;
+		MovementState = CharacterMovementStates.Disabled;
 
 		//Enable rigidbody movement
 		body.bodyType = RigidbodyType2D.Dynamic;

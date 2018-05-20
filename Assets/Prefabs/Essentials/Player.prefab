@@ -1258,8 +1258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundDodge:
-    duration: 0.6
-    speed: 10
+    speed: 12
     speedCurve:
       serializedVersion: 2
       m_Curve:
@@ -1291,8 +1290,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
   airDodge:
-    duration: 0.3
-    speed: 15
+    speed: 12
     speedCurve:
       serializedVersion: 2
       m_Curve:

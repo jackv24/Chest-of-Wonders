@@ -69,6 +69,36 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!114 &114453722116484702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80aaa836122d20409dd1369315aa922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotation: 90
+  resetOnExit: 1
+  flipSignWithXScale: 1
+  rotateAroundCentre: 1
+--- !u!114 &114732079007938478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80aaa836122d20409dd1369315aa922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotation: 90
+  resetOnExit: 1
+  flipSignWithXScale: 1
+  rotateAroundCentre: 1
 --- !u!206 &206000010757741008
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1550,6 +1580,31 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &1102206158521570036
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Dodge Up
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 7d7113695a4143f4d9339d94da438c7c, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &1102221467293370402
 AnimatorState:
   serializedVersion: 5
@@ -1573,6 +1628,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 206972726578916204}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &1102238330275883556
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Dodge Diagonal Down
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: 114453722116484702}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: e87399f17379a4342b7e2334444f857e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1625,6 +1706,31 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 68d98f0d88dcf0247a00ba644853d065, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &1102280420649050564
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Dodge Diagonal Up
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: e87399f17379a4342b7e2334444f857e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1890,56 +1996,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &1102570080130179410
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Dodge
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4e9b516556d14c24b80961fa4647b67a, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &1102605141062610766
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Dodge Air
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b04ad7f27fa042f4c85170f669776847, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1102 &1102647788847584156
 AnimatorState:
   serializedVersion: 5
@@ -1992,6 +2048,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &1102725967510346304
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Dodge Down
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: 114732079007938478}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: f60d84d676e34a9499b8b7a25c75a2f0, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &1102739122032875452
 AnimatorState:
   serializedVersion: 5
@@ -2014,6 +2096,31 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 55bef526bc8a148449197d29e4a99a85, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &1102817973018973600
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Dodge Side
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: f60d84d676e34a9499b8b7a25c75a2f0, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -2146,19 +2253,19 @@ AnimatorStateMachine:
     m_Position: {x: -24, y: -132, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102314661845991362}
-    m_Position: {x: -384, y: -168, z: 0}
+    m_Position: {x: -576, y: -228, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102835635218128790}
-    m_Position: {x: -384, y: -72, z: 0}
+    m_Position: {x: -576, y: -132, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102980247832468114}
-    m_Position: {x: -372, y: 96, z: 0}
+    m_Position: {x: -564, y: 36, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102456292772484840}
-    m_Position: {x: -384, y: -120, z: 0}
+    m_Position: {x: -576, y: -180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102521924060458430}
-    m_Position: {x: -384, y: -24, z: 0}
+    m_Position: {x: -576, y: -84, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102284298334144830}
     m_Position: {x: 528, y: -228, z: 0}
@@ -2173,10 +2280,10 @@ AnimatorStateMachine:
     m_Position: {x: 588, y: 12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102181278589819972}
-    m_Position: {x: -420, y: 336, z: 0}
+    m_Position: {x: -696, y: 408, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102387960561294870}
-    m_Position: {x: -420, y: 288, z: 0}
+    m_Position: {x: -696, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102127945695249886}
     m_Position: {x: 288, y: 132, z: 0}
@@ -2193,11 +2300,20 @@ AnimatorStateMachine:
     m_State: {fileID: 1102048192839858022}
     m_Position: {x: 288, y: 72, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 1102570080130179410}
-    m_Position: {x: -48, y: 264, z: 0}
+    m_State: {fileID: 1102817973018973600}
+    m_Position: {x: -396, y: 216, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 1102605141062610766}
-    m_Position: {x: -48, y: 312, z: 0}
+    m_State: {fileID: 1102206158521570036}
+    m_Position: {x: -396, y: 276, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1102280420649050564}
+    m_Position: {x: -396, y: 384, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1102725967510346304}
+    m_Position: {x: -396, y: 324, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1102238330275883556}
+    m_Position: {x: -396, y: 432, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1101039306324623486}
@@ -2211,8 +2327,8 @@ AnimatorStateMachine:
     second:
     - {fileID: 1109128262029942134}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -84, y: 180, z: 0}
-  m_EntryPosition: {x: -336, y: 192, z: 0}
+  m_AnyStatePosition: {x: -744, y: 144, z: 0}
+  m_EntryPosition: {x: -744, y: 216, z: 0}
   m_ExitPosition: {x: -744, y: 180, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102000012151822676}

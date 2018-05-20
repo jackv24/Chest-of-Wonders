@@ -75,7 +75,7 @@ public class PullSwitch : MonoBehaviour
 		GameManager.instance.gameRunning = false;
 
 		//Stop player from moving
-		characterMove.MovementState = CharacterMovementStates.Custom;
+		characterMove.MovementState = CharacterMovementStates.Disabled;
 		characterMove.Velocity = Vector2.zero;
 
 		Vector3 initialPos = transform.localPosition;
@@ -127,6 +127,6 @@ public class PullSwitch : MonoBehaviour
 
 		//Restore game state
 		GameManager.instance.gameRunning = true;
-		characterMove.MovementState = CharacterMovementStates.Custom;
+		characterMove.MovementState = CharacterMovementStates.Disabled;
 	}
 }

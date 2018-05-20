@@ -39,4 +39,11 @@ public static class Extensions
 	{
 		return self.IsInteractable() && self.gameObject.activeInHierarchy;
 	}
+
+	public static void SetRotationZ(this Transform self, float rotationZ)
+	{
+		Vector3 localRotation = self.localEulerAngles;
+		localRotation.z = rotationZ;
+		self.localEulerAngles = localRotation;
+	}
 }

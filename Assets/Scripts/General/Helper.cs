@@ -28,13 +28,6 @@ public static class Helper
         return q * vector;
     }
 
-    public static void SetRotationZ(this Transform transform, float rotationZ)
-    {
-        Vector3 eulerAngles = transform.eulerAngles;
-        eulerAngles.z = rotationZ;
-        transform.eulerAngles = eulerAngles;
-    }
-
 	#region Lerping Methods
 	public static float LerpClamped(float a, float b, float t, float minChange)
 	{

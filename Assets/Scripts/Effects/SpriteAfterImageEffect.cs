@@ -53,6 +53,7 @@ public class SpriteAfterImageEffect : MonoBehaviour
 				obj.transform.position = transform.position;
 
 				obj.transform.localScale = transform.localScale;
+				obj.transform.rotation = transform.rotation;
 
 				//Set images sprite to match current sprite
 				SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
