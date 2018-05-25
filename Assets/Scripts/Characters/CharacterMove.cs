@@ -123,7 +123,6 @@ public class CharacterMove : MonoBehaviour
 
     private CharacterAnimator characterAnimator;
     private CharacterStats characterStats;
-    private CharacterSound characterSound;
 
     private void Awake()
     {
@@ -133,15 +132,6 @@ public class CharacterMove : MonoBehaviour
 
         characterAnimator = GetComponent<CharacterAnimator>();
         characterStats = GetComponent<CharacterStats>();
-        characterSound = GetComponent<CharacterSound>();
-    }
-
-	void Start()
-    {
-        if(characterSound)
-        {
-            OnJump += delegate { characterSound.PlaySound(characterSound.jumpSound); };
-        }
     }
 
     private void OnEnable()
@@ -447,10 +437,6 @@ public class CharacterMove : MonoBehaviour
             wasGrounded = true;
 
 			OnGrounded?.Invoke();
-
-			//Play sound when character lands on ground
-			if (characterSound)
-				characterSound.PlaySound(characterSound.landSound);
         }
 
         if (IsGrounded || Mathf.Abs(Velocity.y) < 0.01f)

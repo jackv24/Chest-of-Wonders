@@ -24,9 +24,9 @@ GameObject:
   - component: {fileID: 95000013828001912}
   - component: {fileID: 114643147213042428}
   - component: {fileID: 82491122072503488}
-  - component: {fileID: 114148965292316800}
   - component: {fileID: 114699408328713244}
   - component: {fileID: 114521421153489954}
+  - component: {fileID: 114083598940472068}
   m_Layer: 10
   m_Name: Graphic
   m_TagString: Untagged
@@ -49,13 +49,12 @@ GameObject:
   - component: {fileID: 114000014123730578}
   - component: {fileID: 114303023035388868}
   - component: {fileID: 114849662361689878}
-  - component: {fileID: 114429180314876788}
-  - component: {fileID: 82899891716784434}
   - component: {fileID: 114996482148005152}
   - component: {fileID: 114349844512411816}
   - component: {fileID: 114507656613439396}
   - component: {fileID: 114333046343265762}
   - component: {fileID: 114727504904657250}
+  - component: {fileID: 114263609722694670}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -743,87 +742,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!82 &82899891716784434
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012949439504}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243557064103642996, guid: 279a8963d029f9e4cb5b3d0a2f8a5c0b,
-    type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!95 &95000013828001912
 Animator:
   serializedVersion: 3
@@ -927,6 +845,19 @@ MonoBehaviour:
   screenShakeAmount: 0.5
   knockBackAmount: 10
   knockBackCentreOffset: {x: -0, y: -1}
+--- !u!114 &114083598940472068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010556696062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feed1267e53efaa45978167f9032a02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackColliders: []
+  projectileAttacks: []
 --- !u!114 &114121265411087696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -939,18 +870,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: 420f62b5-9755-4bb7-90e6-18076c1d1f40
---- !u!114 &114148965292316800
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010556696062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11a92f74be3b5594eb856cbfbd9ca7a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterSound: {fileID: 114429180314876788}
 --- !u!114 &114159478973773784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -995,6 +914,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: ac6a0487-fa4e-43b4-ab69-2e03b72705e8
+--- !u!114 &114263609722694670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012949439504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1bbd7651eb05b4483b5a033957f265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 2
+  supportedGroundEffects:
+  - groundType: {fileID: 11400000, guid: dfcd5c47a48d8204c81527b0ec5ff4ee, type: 2}
+    groundEffects:
+      footstepSound:
+        clip: {fileID: 8300000, guid: a542fd4449999454a9a5658748811cb5, type: 3}
+        volume: 1
+        pitchRange:
+          min: 0.9
+          max: 1.1
+      jumpSound:
+        clip: {fileID: 8300000, guid: 1a7375f9b875af248a686b95c8d0e533, type: 3}
+        volume: 1
+        pitchRange:
+          min: 1
+          max: 1
+      landSound:
+        clip: {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
+        volume: 1
+        pitchRange:
+          min: 1
+          max: 1
+  - groundType: {fileID: 11400000, guid: e369b2f5782e45044b3752b8916ff1e7, type: 2}
+    groundEffects:
+      footstepSound:
+        clip: {fileID: 8300000, guid: 990276445343ba941a28291d72ef5bc3, type: 3}
+        volume: 1
+        pitchRange:
+          min: 0.9
+          max: 1.1
+      jumpSound:
+        clip: {fileID: 8300000, guid: 1a7375f9b875af248a686b95c8d0e533, type: 3}
+        volume: 1
+        pitchRange:
+          min: 1
+          max: 1
+      landSound:
+        clip: {fileID: 8300000, guid: 990276445343ba941a28291d72ef5bc3, type: 3}
+        volume: 1
+        pitchRange:
+          min: 1
+          max: 1
 --- !u!114 &114303023035388868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1039,12 +1011,12 @@ MonoBehaviour:
   failedCastEffect: {fileID: 1489579511910158, guid: 8128f907757e7fc4492ec77e06026530,
     type: 2}
   failedCastSound:
-    type: 2
     clip: {fileID: 8300000, guid: 82bba1ebbff71e4448196683574dd895, type: 3}
     volume: 1
     pitchRange:
       min: 0.9
       max: 1.1
+    type: 2
   arrowDistance: 1
   arrowHeight: 0.5
   arrow: {fileID: 4234596124505930}
@@ -1080,40 +1052,6 @@ MonoBehaviour:
   currentGrassSouls: 0
   currentIceSouls: 0
   currentWindSouls: 0
---- !u!114 &114429180314876788
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012949439504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9b048a7d860a24ab40c4593ac4f26b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpSound:
-    clip: {fileID: 8300000, guid: 1a7375f9b875af248a686b95c8d0e533, type: 3}
-    volume: 1
-  landSound:
-    clip: {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
-    volume: 0.5
-  hurtSound:
-    clip: {fileID: 8300000, guid: ffa9bbf25cf08b74b989ffa22d522f3c, type: 3}
-    volume: 1
-  deathSound:
-    clip: {fileID: 8300000, guid: 22081f76362ff9542a66eda91e20c832, type: 3}
-    volume: 1
-  footstepSource: {fileID: 82599798563426320}
-  footsteps:
-    clip: {fileID: 8300000, guid: a542fd4449999454a9a5658748811cb5, type: 3}
-    volume: 0.75
-  minPitch: 0.9
-  maxPitch: 1.1
-  minVolume: 0.7
-  maxVolume: 1.1
-  turnSound:
-    clip: {fileID: 0}
-    volume: 1
 --- !u!114 &114438186772933228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1324,12 +1262,12 @@ MonoBehaviour:
   cooldownTime: 0
   maxAirDodges: 1
   dodgeSound:
-    type: 2
     clip: {fileID: 8300000, guid: 5f338b57352a2c148a9e69eeabfce24f, type: 3}
     volume: 1
     pitchRange:
       min: 0.85
       max: 1.15
+    type: 2
 --- !u!114 &114806664853724274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1376,6 +1314,20 @@ MonoBehaviour:
   currentHealth: 100
   maxHealth: 100
   element: 0
+  hurtSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchRange:
+      min: 1
+      max: 1
+    type: 0
+  deathSound:
+    clip: {fileID: 0}
+    volume: 1
+    pitchRange:
+      min: 1
+      max: 1
+    type: 0
   damageImmunity: 0
   damageImmunityTime: 1
   damageTextOffset: {x: 0, y: 1}

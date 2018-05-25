@@ -18,10 +18,12 @@ public class CharacterAnimationEvents : MonoBehaviour
     public ProjectileAttack[] projectileAttacks;
 
     private CharacterMove characterMove;
+	private CharacterGroundEffects characterGroundEffects;
 
     void Awake()
     {
         characterMove = GetComponentInParent<CharacterMove>();
+		characterGroundEffects = GetComponentInParent<CharacterGroundEffects>();
     }
 
 	public void EnableAttackColliders(int index)
@@ -67,4 +69,10 @@ public class CharacterAnimationEvents : MonoBehaviour
             }
         }
     }
+
+	public void PlayFootstep()
+	{
+		if (characterGroundEffects)
+			characterGroundEffects.PlayFootstep();
+	}
 }

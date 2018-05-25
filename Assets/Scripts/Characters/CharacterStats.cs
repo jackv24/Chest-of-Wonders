@@ -16,6 +16,10 @@ public class CharacterStats : MonoBehaviour
 
     public ElementManager.Element element;
 
+	[Space()]
+	public SoundEvent hurtSound;
+	public SoundEvent deathSound;
+
     [Space()]
 	public bool damageImmunity = false;
 	public float damageImmunityTime = 0.5f;
@@ -51,14 +55,12 @@ public class CharacterStats : MonoBehaviour
 
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
-    private CharacterSound characterSound;
     private Blackboard blackboard;
 
     void Awake()
     {
         characterMove = GetComponent<CharacterMove>();
         characterAnimator = GetComponent<CharacterAnimator>();
-        characterSound = GetComponent<CharacterSound>();
         blackboard = GetComponent<Blackboard>();
     }
 
@@ -99,8 +101,7 @@ public class CharacterStats : MonoBehaviour
             StartCoroutine("DamageFlash", damageImmunityTime);
         }
 
-        if (characterSound)
-            characterSound.PlaySound(characterSound.hurtSound);
+		hurtSound.Play(transform.position);
 
         if (OnDamaged != null)
             OnDamaged();
@@ -206,14 +207,7 @@ public class CharacterStats : MonoBehaviour
             }
         }
 
-        if (characterSound && GameManager.instance)
-        {
-            //Play death sound effect through game manager so that it can still play after character dies
-            SoundEffectBase soundEffects = GameManager.instance.GetComponent<SoundEffectBase>();
-
-            if(soundEffects)
-                soundEffects.PlaySound(characterSound.deathSound);
-        }
+		deathSound.Play(transform.position);
 
         if ((characterAnimator && !characterAnimator.Death()) || !characterAnimator)
             gameObject.SetActive(false);

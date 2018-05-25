@@ -2,21 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class SoundEvent
+public enum SoundType
 {
-	public enum SoundType
-	{
-		Misc,
-		UI,
-		Player,
-		Enemy
-	}
+	Misc,
+	UI,
+	Player,
+	Enemy
+}
 
-	public SoundType type;
+[System.Serializable]
+public class SoundEventBasic
+{
 	public AudioClip clip;
 	public float volume = 1.0f;
 	public MinMaxFloat pitchRange = new MinMaxFloat(1.0f, 1.0f);
+
+	/// <summary>
+	/// Will play this sound using the SoundManager (which should always be present), and using a specified type. NOTE: Use a regular SoundEvent if you need to assign the type in the inspector.
+	/// </summary>
+	/// <param name="position">The position at which to spawn the AudioSource.</param>
+	/// <param name="type">The types this sound is, controls which audio mixer channel it is played through.</param>
+	public void Play(Vector2 position, SoundType type)
+	{
+		SoundEvent soundEvent = new SoundEvent
+		{
+			clip = clip,
+			volume = volume,
+			pitchRange = pitchRange,
+			type = type
+		};
+
+		SoundManager.Instance?.PlaySound(soundEvent, position);
+	}
+}
+
+[System.Serializable]
+public class SoundEvent : SoundEventBasic
+{
+	public SoundType type;
 
 	/// <summary>
 	/// Will play this sound using the SoundManager (which should always be present).
@@ -57,16 +80,16 @@ public class SoundManager : MonoBehaviour
 		//Get the correct audio source prefab for this type (they have different mixer groups, etc)
 		switch(sound.type)
 		{
-			case SoundEvent.SoundType.Misc:
+			case SoundType.Misc:
 				audioSourcePrefab = miscAudioSourcePrefab;
 				break;
-			case SoundEvent.SoundType.UI:
+			case SoundType.UI:
 				audioSourcePrefab = uiAudioSourcePrefab;
 				break;
-			case SoundEvent.SoundType.Player:
+			case SoundType.Player:
 				audioSourcePrefab = playerAudioSourcePrefab;
 				break;
-			case SoundEvent.SoundType.Enemy:
+			case SoundType.Enemy:
 				audioSourcePrefab = enemyAudioSourcePrefab;
 				break;
 		}
