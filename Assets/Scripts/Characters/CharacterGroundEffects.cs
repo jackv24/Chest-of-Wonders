@@ -15,6 +15,8 @@ public class CharacterGroundEffects : MonoBehaviour
 		public SoundEventRandom footstepSound;
 		public SoundEventSingle jumpSound;
 		public SoundEventSingle landSound;
+
+		public TrailParticles trailEffect;
 	}
 
 	[System.Serializable]
@@ -30,6 +32,8 @@ public class CharacterGroundEffects : MonoBehaviour
 
 	private List<GroundTypeRegion> groundTypeRegions = new List<GroundTypeRegion>();
 	private GroundEffects currentGroundEffects;
+
+	private TrailParticles currentTrailEffect;
 
 	private CharacterMove characterMove;
 
@@ -121,9 +125,28 @@ public class CharacterGroundEffects : MonoBehaviour
 				Debug.LogError("Could not find SceneData for default ground type!", this);
 		}
 
+		GroundEffects newGroundEffects;
+
 		if (groundType != null && groundEffects.ContainsKey(groundType))
-			currentGroundEffects = groundEffects[groundType];
+			newGroundEffects = groundEffects[groundType];
 		else
-			currentGroundEffects = null;
+			newGroundEffects = null;
+
+		//Only switch effects if we've actually changed
+		if(newGroundEffects != currentGroundEffects)
+		{
+			currentGroundEffects = newGroundEffects;
+
+			currentTrailEffect?.StopParticles();
+			currentTrailEffect = null;
+
+			if(currentGroundEffects?.trailEffect?.gameObject)
+			{
+				GameObject obj = ObjectPooler.GetPooledObject(currentGroundEffects.trailEffect.gameObject);
+				currentTrailEffect = obj.GetComponent<TrailParticles>();
+
+				currentTrailEffect.StartParticles(transform, characterMove);
+			}
+		}
 	}
 }

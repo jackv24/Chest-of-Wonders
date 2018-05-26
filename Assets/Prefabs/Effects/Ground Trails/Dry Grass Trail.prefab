@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 199857648327846894}
   - component: {fileID: 114769708265954140}
   - component: {fileID: 114989263929751350}
+  - component: {fileID: 114703627263291156}
+  - component: {fileID: 114197933819140106}
   m_Layer: 0
   m_Name: Dry Grass Trail
   m_TagString: Untagged
@@ -43,9 +45,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114769708265954140
+--- !u!114 &114197933819140106
 MonoBehaviour:
   m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501060270747026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546c1eb91a1f6374f9809f4ad93ed818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitType: 1
+  checkDelay: 0
+--- !u!114 &114703627263291156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501060270747026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff2a900e0f6b27741a1432959f6d3910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114769708265954140
+MonoBehaviour:
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501060270747026}
@@ -62,7 +88,7 @@ MonoBehaviour:
   _assetGuid: 0eb3b441ee9ed21488ec8ce94e5aa681
 --- !u!114 &114989263929751350
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501060270747026}
@@ -81,10 +107,10 @@ ParticleSystem:
   serializedVersion: 5
   lengthInSec: 1
   simulationSpeed: 1
-  stopAction: 1
+  stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 0
@@ -1365,7 +1391,7 @@ ParticleSystem:
     m_Curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2

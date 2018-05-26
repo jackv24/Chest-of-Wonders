@@ -12,6 +12,8 @@ public class DisableFinishedParticleSystem : MonoBehaviour
 
 	public float checkDelay = 0.0f;
 
+	private float delayTime;
+
     void Awake()
     {
 		//Get particle system (may be a component of a child gameobject)
@@ -23,32 +25,25 @@ public class DisableFinishedParticleSystem : MonoBehaviour
 		if (waitType == WaitType.Time)
 		{
 			//Disable the gameobject (for object pooling) after the particle system has finished
-			StartCoroutine(DisableAfterTime(system.main.duration));
+			delayTime = Time.time + system.main.duration + checkDelay;
 		}
 		else
 		{
-			StartCoroutine(DisableAfterParticles());
+			delayTime = Time.time + checkDelay;
 		}
     }
 
-    IEnumerator DisableAfterTime(float time)
-    {
-		yield return new WaitForSeconds(checkDelay);
-
-        //Wait for time
-        yield return new WaitForSeconds(time);
-
-        //Disable (return to pool)
-        gameObject.SetActive(false);
-    }
-
-	IEnumerator DisableAfterParticles()
+	private void Update()
 	{
-		yield return new WaitForSeconds(checkDelay);
-
-		while (system.isPlaying)
-			yield return new WaitForEndOfFrame();
-
-		gameObject.SetActive(false);
+		if(waitType == WaitType.Particles)
+		{
+			if(!system.IsAlive(true) && Time.time >= delayTime)
+				gameObject.SetActive(false);
+		}
+		else if(waitType == WaitType.Time)
+		{
+			if (Time.time >= delayTime)
+				gameObject.SetActive(false);
+		}
 	}
 }
