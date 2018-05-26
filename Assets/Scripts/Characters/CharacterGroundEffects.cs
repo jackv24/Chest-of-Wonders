@@ -12,9 +12,9 @@ public class CharacterGroundEffects : MonoBehaviour
 	[System.Serializable]
 	public class GroundEffects
 	{
-		public SoundEventBasic footstepSound;
-		public SoundEventBasic jumpSound;
-		public SoundEventBasic landSound;
+		public SoundEventRandom footstepSound;
+		public SoundEventSingle jumpSound;
+		public SoundEventSingle landSound;
 	}
 
 	[System.Serializable]

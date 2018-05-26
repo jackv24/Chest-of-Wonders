@@ -277,7 +277,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.28, y: 0.6, z: 0}
+  m_LocalPosition: {x: -2.45, y: 1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -930,43 +930,45 @@ MonoBehaviour:
   - groundType: {fileID: 11400000, guid: dfcd5c47a48d8204c81527b0ec5ff4ee, type: 2}
     groundEffects:
       footstepSound:
-        clip: {fileID: 8300000, guid: a542fd4449999454a9a5658748811cb5, type: 3}
-        volume: 1
+        volume: 0.5
         pitchRange:
           min: 0.9
           max: 1.1
+        clips:
+        - {fileID: 8300000, guid: a542fd4449999454a9a5658748811cb5, type: 3}
       jumpSound:
+        volume: 1
+        pitchRange:
+          min: 1
+          max: 1
         clip: {fileID: 8300000, guid: 1a7375f9b875af248a686b95c8d0e533, type: 3}
-        volume: 1
-        pitchRange:
-          min: 1
-          max: 1
       landSound:
-        clip: {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
-        volume: 1
+        volume: 0.75
         pitchRange:
           min: 1
           max: 1
+        clip: {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
   - groundType: {fileID: 11400000, guid: e369b2f5782e45044b3752b8916ff1e7, type: 2}
     groundEffects:
       footstepSound:
-        clip: {fileID: 8300000, guid: 990276445343ba941a28291d72ef5bc3, type: 3}
-        volume: 1
+        volume: 0.5
         pitchRange:
           min: 0.9
           max: 1.1
+        clips:
+        - {fileID: 8300000, guid: 990276445343ba941a28291d72ef5bc3, type: 3}
       jumpSound:
+        volume: 1
+        pitchRange:
+          min: 1
+          max: 1
         clip: {fileID: 8300000, guid: 1a7375f9b875af248a686b95c8d0e533, type: 3}
-        volume: 1
-        pitchRange:
-          min: 1
-          max: 1
       landSound:
-        clip: {fileID: 8300000, guid: 990276445343ba941a28291d72ef5bc3, type: 3}
-        volume: 1
+        volume: 0.75
         pitchRange:
           min: 1
           max: 1
+        clip: {fileID: 8300000, guid: 990276445343ba941a28291d72ef5bc3, type: 3}
 --- !u!114 &114303023035388868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1011,11 +1013,11 @@ MonoBehaviour:
   failedCastEffect: {fileID: 1489579511910158, guid: 8128f907757e7fc4492ec77e06026530,
     type: 2}
   failedCastSound:
-    clip: {fileID: 8300000, guid: 82bba1ebbff71e4448196683574dd895, type: 3}
     volume: 1
     pitchRange:
       min: 0.9
       max: 1.1
+    clip: {fileID: 8300000, guid: 82bba1ebbff71e4448196683574dd895, type: 3}
     type: 2
   arrowDistance: 1
   arrowHeight: 0.5
@@ -1262,11 +1264,11 @@ MonoBehaviour:
   cooldownTime: 0
   maxAirDodges: 1
   dodgeSound:
-    clip: {fileID: 8300000, guid: 5f338b57352a2c148a9e69eeabfce24f, type: 3}
     volume: 1
     pitchRange:
       min: 0.85
       max: 1.15
+    clip: {fileID: 8300000, guid: 5f338b57352a2c148a9e69eeabfce24f, type: 3}
     type: 2
 --- !u!114 &114806664853724274
 MonoBehaviour:
@@ -1315,18 +1317,18 @@ MonoBehaviour:
   maxHealth: 100
   element: 0
   hurtSound:
-    clip: {fileID: 0}
     volume: 1
     pitchRange:
       min: 1
       max: 1
+    clip: {fileID: 0}
     type: 0
   deathSound:
-    clip: {fileID: 0}
     volume: 1
     pitchRange:
       min: 1
       max: 1
+    clip: {fileID: 0}
     type: 0
   damageImmunity: 0
   damageImmunityTime: 1
@@ -1416,7 +1418,7 @@ MonoBehaviour:
   batSwingCollider: {fileID: 1094960521439024}
   batSwingSound:
     clip: {fileID: 8300000, guid: b6b4877f91af3ae4181f0579a44b9ab3, type: 3}
-    volume: 1
+    volume: 2
   chargedBatSwingCollider: {fileID: 1161178783357966}
   chargedBatSwingSound:
     clip: {fileID: 8300000, guid: 22081f76362ff9542a66eda91e20c832, type: 3}

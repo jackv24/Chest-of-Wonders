@@ -332,18 +332,18 @@ MonoBehaviour:
   maxHealth: 50
   element: 1
   hurtSound:
-    clip: {fileID: 0}
     volume: 1
     pitchRange:
       min: 1
       max: 1
+    clip: {fileID: 0}
     type: 0
   deathSound:
-    clip: {fileID: 0}
     volume: 1
     pitchRange:
       min: 1
       max: 1
+    clip: {fileID: 0}
     type: 0
   damageImmunity: 0
   damageImmunityTime: 0.5

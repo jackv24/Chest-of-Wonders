@@ -17,8 +17,8 @@ public class CharacterStats : MonoBehaviour
     public ElementManager.Element element;
 
 	[Space()]
-	public SoundEvent hurtSound;
-	public SoundEvent deathSound;
+	public SoundEventType hurtSound;
+	public SoundEventType deathSound;
 
     [Space()]
 	public bool damageImmunity = false;

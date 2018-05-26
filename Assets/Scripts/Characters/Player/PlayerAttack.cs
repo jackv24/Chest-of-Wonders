@@ -58,7 +58,7 @@ public class PlayerAttack : MonoBehaviour
 
     [Space()]
     public GameObject failedCastEffect;
-    public SoundEvent failedCastSound;
+    public SoundEventType failedCastSound;
 
     [Space()]
     public float arrowDistance = 1.0f;

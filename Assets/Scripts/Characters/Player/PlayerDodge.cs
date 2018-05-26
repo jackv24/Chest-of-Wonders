@@ -29,7 +29,7 @@ public class PlayerDodge : MonoBehaviour
 
 	private Coroutine dodgeRoutine = null;
 
-	public SoundEvent dodgeSound;
+	public SoundEventType dodgeSound;
 
 	private CharacterAnimator characterAnimator;
 	private CharacterStats characterStats;
