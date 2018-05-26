@@ -948,6 +948,7 @@ MonoBehaviour:
           min: 1
           max: 1
         clip: {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
+      trailEffect: {fileID: 0}
   - groundType: {fileID: 11400000, guid: e369b2f5782e45044b3752b8916ff1e7, type: 2}
     groundEffects:
       footstepSound:
@@ -969,6 +970,30 @@ MonoBehaviour:
           min: 1
           max: 1
         clip: {fileID: 8300000, guid: 990276445343ba941a28291d72ef5bc3, type: 3}
+      trailEffect: {fileID: 0}
+  - groundType: {fileID: 11400000, guid: b0fd0c242cb7e8a4387292f57ec077ff, type: 2}
+    groundEffects:
+      footstepSound:
+        volume: 0.5
+        pitchRange:
+          min: 0.9
+          max: 1.1
+        clips:
+        - {fileID: 8300000, guid: 990276445343ba941a28291d72ef5bc3, type: 3}
+      jumpSound:
+        volume: 1
+        pitchRange:
+          min: 1
+          max: 1
+        clip: {fileID: 8300000, guid: 1a7375f9b875af248a686b95c8d0e533, type: 3}
+      landSound:
+        volume: 0.75
+        pitchRange:
+          min: 1
+          max: 1
+        clip: {fileID: 8300000, guid: 990276445343ba941a28291d72ef5bc3, type: 3}
+      trailEffect: {fileID: 114703627263291156, guid: 0eb3b441ee9ed21488ec8ce94e5aa681,
+        type: 2}
 --- !u!114 &114303023035388868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1028,7 +1053,7 @@ MonoBehaviour:
   flashInterval: 0.1
 --- !u!114 &114333046343265762
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1080,7 +1105,7 @@ MonoBehaviour:
   _guid: c7b9928c-9806-4fd8-807c-2ca5ea0bf15a
 --- !u!114 &114507656613439396
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
