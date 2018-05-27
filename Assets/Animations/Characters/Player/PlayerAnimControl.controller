@@ -1456,7 +1456,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PlayerFire_D_Special_Ground
+  m_Name: Fire Special Ground D
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -2369,7 +2369,7 @@ AnimatorStateMachine:
     m_Position: {x: -361, y: 497, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102111993031756424}
-    m_Position: {x: -326, y: 562, z: 0}
+    m_Position: {x: 684, y: 156, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1101039306324623486}

@@ -23,45 +23,65 @@ public class PlayerAttack : MonoBehaviour
 	public bool hasIceMagic;
 	public bool hasWindMagic;
 
+	public ElementManager.Element selectedElement = ElementManager.Element.None;
+
+	#region Magic Melee Attack Animations
+
+	//Will build animation state name strings at runtime e.g, "Fire Special Ground D"
+	private const string magicMeleeAnimTemplate = "{0} Special {1} {2}";
+
+	private const string magicMeleeElementFire = "Fire";
+	private const string magicMeleeElementIce = "Ice";
+	private const string magicMeleeElementGrass = "Grass";
+	private const string magicMeleeElementWind = "Wind";
+
+	private const string magicMeleeStateGround = "Ground";
+	private const string magicMeleeStateAir = "Air";
+
+	private const string magicMeleeDirectionSide = "LR";
+	private const string magicMeleeDirectionUp = "U";
+	private const string magicMeleeDirectionDown = "D";
+
+	#endregion
+
 	[System.Serializable]
-	public class MagicAttackType
+	public class ProjectileAttack
 	{
 		public GameObject projectilePrefab;
 		public GameObject projectileCastEffectPrefab;
 
 		public ElementManager.Element Element { get; private set; }
 
-		public MagicAttackType(ElementManager.Element element)
+		public ProjectileAttack(ElementManager.Element element)
 		{
 			Element = element;
 		}
 	}
 
-	public MagicAttackType fireMagic = new MagicAttackType(ElementManager.Element.Fire);
-	public MagicAttackType grassMagic = new MagicAttackType(ElementManager.Element.Grass);
-	public MagicAttackType iceMagic = new MagicAttackType(ElementManager.Element.Ice);
-	public MagicAttackType windMagic = new MagicAttackType(ElementManager.Element.Wind);
-
-	public ElementManager.Element selectedElement = ElementManager.Element.None;
+	[Space()]
+	public ProjectileAttack fireProjectile = new ProjectileAttack(ElementManager.Element.Fire);
+	public ProjectileAttack grassProjectile = new ProjectileAttack(ElementManager.Element.Grass);
+	public ProjectileAttack iceProjectile = new ProjectileAttack(ElementManager.Element.Ice);
+	public ProjectileAttack windProjectile = new ProjectileAttack(ElementManager.Element.Wind);
 
 	[Space()]
-    public Transform upFirePoint;
+	public Transform upFirePoint;
     public Transform upForwardFirePoint;
     public Transform forwardFirePoint;
     public Transform downForwardFirePoint;
     public Transform downFirePoint;
 	public Transform soulAbsorbPoint;
 
-    [Space()]
-    public float fireDelay = 0.25f;
+	[Space()]
+	public float fireDelay = 0.25f;
 	private float nextFireTime;
 
-    [Space()]
-    public GameObject failedCastEffect;
+	[Space()]
+	public GameObject failedCastEffect;
     public SoundEventType failedCastSound;
 
-    [Space()]
-    public float arrowDistance = 1.0f;
+	[Space()]
+	public float arrowDistance = 1.0f;
     public float arrowHeight = 0.5f;
     public Transform arrow;
 
@@ -87,13 +107,14 @@ public class PlayerAttack : MonoBehaviour
 
     private CharacterMove characterMove;
 	private Animator animator;
+	private CharacterAnimator characterAnimator;
 
     private void Awake()
     {
         characterMove = GetComponent<CharacterMove>();
+		characterAnimator = GetComponent<CharacterAnimator>();
 
 		animator = graphic.GetComponent<Animator>();
-		Debug.Assert(animator, this);
     }
 
     void Start()
@@ -298,21 +319,21 @@ public class PlayerAttack : MonoBehaviour
 		//If magic slot was chosen correctly, and there is an attack in the slot
 		if (Time.time >= nextFireTime)
 		{
-			MagicAttackType attackType = null;
+			ProjectileAttack attackType = null;
 
 			switch(selectedElement)
 			{
 				case ElementManager.Element.Fire:
-					attackType = fireMagic;
+					attackType = fireProjectile;
 					break;
 				case ElementManager.Element.Ice:
-					attackType = iceMagic;
+					attackType = iceProjectile;
 					break;
 				case ElementManager.Element.Grass:
-					attackType = grassMagic;
+					attackType = grassProjectile;
 					break;
 				case ElementManager.Element.Wind:
-					attackType = windMagic;
+					attackType = windProjectile;
 					break;
 			}
 
@@ -449,4 +470,60 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
+	public void UseMagicMeleeAttack(Vector2 inputDirection)
+	{
+		if (!canAttack || selectedElement == ElementManager.Element.None)
+			return;
+
+		//Snap input vector to 4 directions
+		Vector2 direction = Helper.SnapTo(inputDirection, 90.0f).normalized;
+
+		string animName = GetMagicMeleeStateName(selectedElement, characterMove.IsGrounded, direction.y);
+
+		//Play attack animation, and prevent further attacks while in this animation (animation state itself will handle attack with StateMachineBehaviours)
+		canAttack = false;
+		characterAnimator.Play(animName, () =>
+		{
+			canAttack = true;
+
+			characterAnimator.ReturnToLocomotion();
+		});
+	}
+
+	/// <summary>
+	/// Builds a state name string using the given parameters to be used for playing a magic melee animation.
+	/// </summary>
+	private string GetMagicMeleeStateName(ElementManager.Element element, bool isGrounded, float verticalDirection)
+	{
+		string meleeElementName;
+		switch(element)
+		{
+			case ElementManager.Element.Fire:
+				meleeElementName = magicMeleeElementFire;
+				break;
+			case ElementManager.Element.Grass:
+				meleeElementName = magicMeleeElementGrass;
+				break;
+			case ElementManager.Element.Ice:
+				meleeElementName = magicMeleeElementIce;
+				break;
+			case ElementManager.Element.Wind:
+				meleeElementName = magicMeleeElementWind;
+				break;
+			default:
+				meleeElementName = "NONE";
+				break;
+		}
+
+		string directionName;
+		if (verticalDirection > 0)
+			directionName = magicMeleeDirectionUp;
+		else if (verticalDirection < 0)
+			directionName = magicMeleeDirectionDown;
+		else
+			directionName = magicMeleeDirectionSide;
+
+		return string.Format(magicMeleeAnimTemplate, meleeElementName, isGrounded ? magicMeleeStateGround : magicMeleeStateAir, directionName);
+	}
 }

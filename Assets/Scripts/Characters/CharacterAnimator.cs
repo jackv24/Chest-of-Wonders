@@ -137,6 +137,35 @@ public class CharacterAnimator : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Plays an animation state and invokes an action upon completion.
+	/// </summary>
+	/// <param name="stateName">The name of the state to play.</param>
+	/// <param name="completionAction">The action to invoke upon completion of the animation.</param>
+	public void Play(string stateName, System.Action completionAction)
+	{
+		if(animator)
+			StartCoroutine(PlayAnimWait(stateName, completionAction));
+	}
+
+	private IEnumerator PlayAnimWait(string stateName, System.Action completionAction)
+	{
+		AnimatorStateInfo previousState = animator.GetCurrentAnimatorStateInfo(0);
+
+		animator.Play(stateName);
+		yield return null;
+
+		AnimatorStateInfo newState = animator.GetCurrentAnimatorStateInfo(0);
+
+		//If the current state has not changed then the animation must have failed to play
+		if (newState.shortNameHash != previousState.shortNameHash)
+			yield return new WaitForSeconds(newState.length);
+		else
+			Debug.LogWarning($"Character Animation State {stateName} could not be played!");
+
+		completionAction?.Invoke();
+	}
+
+	/// <summary>
 	/// Plays the locomation animator state. Useful when returning from a custom animation, as the locomotion state will naturally transition out when needed.
 	/// </summary>
 	public void ReturnToLocomotion()
