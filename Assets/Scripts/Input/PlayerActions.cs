@@ -76,29 +76,29 @@ public class PlayerActions : PlayerActionSet
         Down.AddDefaultBinding(InputControlType.DPadDown);
         Down.AddDefaultBinding(InputControlType.LeftStickDown);
 
-        Jump.AddDefaultBinding(Key.Space);
+        Jump.AddDefaultBinding(Key.Z);
 		Jump.AddDefaultBinding(InputControlType.Action1);
 
         //Attacking
-        MeleeAttack.AddDefaultBinding(Key.Z);
+        MeleeAttack.AddDefaultBinding(Key.C);
         MeleeAttack.AddDefaultBinding(InputControlType.Action3);
 
-        MagicMeleeAttack.AddDefaultBinding(Key.X);
+        MagicMeleeAttack.AddDefaultBinding(Key.V);
         MagicMeleeAttack.AddDefaultBinding(InputControlType.Action4);
 
-		MagicProjectileAttack.AddDefaultBinding(Key.C);
+		MagicProjectileAttack.AddDefaultBinding(Key.D);
 		MagicProjectileAttack.AddDefaultBinding(InputControlType.Action2);
 
-		SwitchMagicLeft.AddDefaultBinding(Key.S);
+		SwitchMagicLeft.AddDefaultBinding(Key.A);
 		SwitchMagicLeft.AddDefaultBinding(InputControlType.LeftBumper);
 
-		SwitchMagicRight.AddDefaultBinding(Key.D);
+		SwitchMagicRight.AddDefaultBinding(Key.S);
 		SwitchMagicRight.AddDefaultBinding(InputControlType.RightBumper);
 
         //MagicAimDiagonal.AddDefaultBinding(Key.LeftShift);
         //MagicAimDiagonal.AddDefaultBinding(InputControlType.RightTrigger);
 
-		Dodge.AddDefaultBinding(Key.LeftShift);
+		Dodge.AddDefaultBinding(Key.X);
 		Dodge.AddDefaultBinding(InputControlType.RightTrigger);
 
         //Misc
@@ -106,13 +106,11 @@ public class PlayerActions : PlayerActionSet
         Interact.AddDefaultBinding(InputControlType.Action4);
 
         Submit.AddDefaultBinding(Key.Z);
-        Submit.AddDefaultBinding(Key.X);
-		Submit.AddDefaultBinding(Key.C);
-		Submit.AddDefaultBinding(Key.Space);
         Submit.AddDefaultBinding(Key.Return);
         Submit.AddDefaultBinding(InputControlType.Action1);
         Submit.AddDefaultBinding(InputControlType.Action4);
 
+        Back.AddDefaultBinding(Key.X);
         Back.AddDefaultBinding(Key.Escape);
         Back.AddDefaultBinding(InputControlType.Action2);
 
