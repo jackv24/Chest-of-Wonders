@@ -6,9 +6,20 @@ public class CustomSpriteImporter : AssetPostprocessor
 {
 	void OnPreprocessTexture()
 	{
+		//Only preprocess textures in the sprites folder
 		if (assetPath.StartsWith("Assets/Sprites"))
 		{
-			Debug.Log($"Preprocessing Texture: {assetPath}");
+			Object asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Object));
+
+			//Don't process this asset if it is labeled with the skip label
+			string[] assetLabels = AssetDatabase.GetLabels(asset);
+			foreach(string label in assetLabels)
+			{
+				if(label == "SkipPrep")
+					return;
+			}
+
+			Debug.Log($"Preprocessing Texture: {assetPath}", asset);
 
 			TextureImporter textureImporter = (TextureImporter)assetImporter;
 			textureImporter.spritePixelsPerUnit = 32;
