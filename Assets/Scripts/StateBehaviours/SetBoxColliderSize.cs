@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetBoxColliderSize : StateMachineBehaviour
+public class SetBoxColliderSize : CharacterStateBehaviour
 {
-	public enum GetLevel
-	{
-		Self, Parents, Children
-	}
-	public GetLevel getLevel;
-
 	public Vector2 offset;
 	public Vector2 size;
 
@@ -20,21 +14,7 @@ public class SetBoxColliderSize : StateMachineBehaviour
 
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		collider = null;
-
-		//Get collider from wherever specified
-		switch(getLevel)
-		{
-			case GetLevel.Self:
-				collider = animator.GetComponent<BoxCollider2D>();
-				break;
-			case GetLevel.Parents:
-				collider = animator.GetComponentInParent<BoxCollider2D>();
-				break;
-			case GetLevel.Children:
-				collider = animator.GetComponentInChildren<BoxCollider2D>();
-				break;
-		}
+		collider = GetComponentAtLevel<BoxCollider2D>(animator.gameObject);
 
 		if(collider)
 		{
