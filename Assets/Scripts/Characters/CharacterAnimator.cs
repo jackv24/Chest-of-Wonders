@@ -46,12 +46,6 @@ public class CharacterAnimator : MonoBehaviour
         {
             if (characterMove)
             {
-                //Get horizontal move speed
-                float horizontal = characterMove.InputDirection;
-
-                //Set property on animator
-                animator.SetFloat("horizontal", horizontal);
-
                 animator.SetBool("isGrounded", characterMove.IsGrounded);
             }
         }
@@ -75,6 +69,15 @@ public class CharacterAnimator : MonoBehaviour
 
 			//Set new scale as current scale
 			animator.transform.localScale = scale;
+		}
+	}
+
+	public void SetAnimatorAxis(Vector2 input)
+	{
+		if(animator)
+		{
+			animator.SetFloat("horizontal", input.x);
+			animator.SetFloat("vertical", input.y);
 		}
 	}
 

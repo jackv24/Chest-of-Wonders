@@ -18,6 +18,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerAttack playerAttack;
     private CharacterStats characterStats;
 	private PlayerDodge playerDodge;
+	private CharacterAnimator characterAnimator;
 
 	public bool AcceptingInput { get; set; } = true;
 
@@ -28,6 +29,7 @@ public class PlayerInput : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
         characterStats = GetComponent<CharacterStats>();
 		playerDodge = GetComponent<PlayerDodge>();
+		characterAnimator = GetComponent<CharacterAnimator>();
     }
 
     private void Start()
@@ -49,13 +51,15 @@ public class PlayerInput : MonoBehaviour
         if (Mathf.Abs(inputDirection.y) <= moveDeadZone.y)
             inputDirection.y = 0;
 
-        if (characterStats && Debug.isDebugBuild)
+#if DEBUG
+		if (characterStats)
         {
             if(Input.GetKeyDown(KeyCode.H))
             {
                 characterStats.currentHealth = characterStats.maxHealth;
             }
         }
+#endif
 
         if (characterMove)
         {
@@ -76,6 +80,11 @@ public class PlayerInput : MonoBehaviour
 
 		if (GameManager.instance.CanDoActions)
 		{
+			if (characterAnimator)
+			{
+				characterAnimator.SetAnimatorAxis(inputDirection);
+			}
+
 			if (playerAttack)
 			{
 				if (playerActions.MeleeAttack.WasPressed)
