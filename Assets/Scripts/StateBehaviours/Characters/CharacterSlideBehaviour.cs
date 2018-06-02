@@ -10,6 +10,11 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 	private float direction;
 	private float initialMoveSpeed;
 
+	[Range(0, 1.0f)]
+	public float endTime = 1.0f;
+
+	private bool hasEnded;
+
 	private CharacterMove characterMove;
 	private CharacterStats characterStats;
 	private PlayerInput playerInput;
@@ -33,21 +38,39 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 		//The character is not necessarily a player
 		if (playerInput)
 			playerInput.AcceptingInput = false;
+
+		hasEnded = false;
 	}
 
 	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if(characterMove)
+		if (!hasEnded)
 		{
-			characterMove.moveSpeed = moveSpeed * speedCurve.Evaluate(stateInfo.normalizedTime);
+			if (characterMove)
+			{
+				characterMove.moveSpeed = moveSpeed * speedCurve.Evaluate(Mathf.Clamp(stateInfo.normalizedTime / endTime, 0, 1.0f));
 
-			characterMove.Move(direction);
+				characterMove.Move(direction);
+			}
+
+			if (stateInfo.normalizedTime > endTime)
+				EndBehaviour();
 		}
 	}
 
 	public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if(characterMove)
+		EndBehaviour();
+	}
+
+	private void EndBehaviour()
+	{
+		//Only do once per state enter
+		if (hasEnded)
+			return;
+		hasEnded = true;
+
+		if (characterMove)
 		{
 			characterMove.moveSpeed = initialMoveSpeed;
 			characterMove.Move(0);
