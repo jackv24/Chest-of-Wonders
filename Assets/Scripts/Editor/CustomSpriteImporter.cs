@@ -11,19 +11,17 @@ public class CustomSpriteImporter : AssetPostprocessor
 		{
 			Object asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Object));
 
-			//Don't process this asset if it is labeled with the skip label
-			string[] assetLabels = AssetDatabase.GetLabels(asset);
-			foreach(string label in assetLabels)
+			//Only process new assets
+			if (!asset)
 			{
-				if(label == "SkipPrep")
-					return;
+				TextureImporter textureImporter = (TextureImporter)assetImporter;
+				textureImporter.spritePixelsPerUnit = 32;
+				textureImporter.filterMode = FilterMode.Point;
+
+				Debug.Log($"Preprocessing Texture: {assetPath}");
 			}
-
-			Debug.Log($"Preprocessing Texture: {assetPath}", asset);
-
-			TextureImporter textureImporter = (TextureImporter)assetImporter;
-			textureImporter.spritePixelsPerUnit = 32;
-			textureImporter.filterMode = FilterMode.Point;
+			else
+				Debug.Log($"Skipping preprocess of texture: {assetPath}");
 		}
 	}
 }
