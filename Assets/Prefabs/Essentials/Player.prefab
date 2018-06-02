@@ -786,7 +786,7 @@ MonoBehaviour:
   acceleration: 10
   upSlopeLimit: 50
   downSlopeLimit: 50
-  maxSlopeDistance: 1
+  maxSlopeDistance: 0.35
   slopeSpeedDampening: 1
   canMove: 1
   ignoreCanMove: 0
@@ -1011,23 +1011,19 @@ MonoBehaviour:
   hasGrassMagic: 1
   hasIceMagic: 1
   hasWindMagic: 1
-  fireMagic:
-    projectilePrefab: {fileID: 1151141745735722, guid: dbaa39ef4c4e37c44a8da4caac3b2861,
-      type: 2}
-    projectileCastEffectPrefab: {fileID: 1222039313838572, guid: c211b6e44eeca3b4d8f0bd2bf097a1a3,
-      type: 2}
-  grassMagic:
-    projectilePrefab: {fileID: 0}
-    projectileCastEffectPrefab: {fileID: 0}
-  iceMagic:
-    projectilePrefab: {fileID: 1151141745735722, guid: ed4973e2b26528c49971bca54e5cdb5b,
-      type: 2}
-    projectileCastEffectPrefab: {fileID: 1958410816669968, guid: 8aaf62b7972b0da4caa968edd7e94ba5,
-      type: 2}
-  windMagic:
-    projectilePrefab: {fileID: 0}
-    projectileCastEffectPrefab: {fileID: 0}
   selectedElement: 0
+  fireProjectile:
+    projectilePrefab: {fileID: 0}
+    projectileCastEffectPrefab: {fileID: 0}
+  grassProjectile:
+    projectilePrefab: {fileID: 0}
+    projectileCastEffectPrefab: {fileID: 0}
+  iceProjectile:
+    projectilePrefab: {fileID: 0}
+    projectileCastEffectPrefab: {fileID: 0}
+  windProjectile:
+    projectilePrefab: {fileID: 0}
+    projectileCastEffectPrefab: {fileID: 0}
   upFirePoint: {fileID: 4989383454461484}
   upForwardFirePoint: {fileID: 4094561294958548}
   forwardFirePoint: {fileID: 4265973003488688}
@@ -1053,7 +1049,7 @@ MonoBehaviour:
   flashInterval: 0.1
 --- !u!114 &114333046343265762
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1105,7 +1101,7 @@ MonoBehaviour:
   _guid: c7b9928c-9806-4fd8-807c-2ca5ea0bf15a
 --- !u!114 &114507656613439396
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}

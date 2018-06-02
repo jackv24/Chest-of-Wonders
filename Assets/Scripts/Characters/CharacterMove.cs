@@ -46,7 +46,7 @@ public class CharacterMove : MonoBehaviour
     [Tooltip("The maximum angle at which a slope is considered walkable downwards (otherwise falling).")]
     public float downSlopeLimit = 30f;
     [Tooltip("The maximum distance at which a slope will be considered (prevents player snapping to slopes from great heights).")]
-    public float maxSlopeDistance = 1f;
+    public float maxSlopeDistance = 0.35f;
     [Tooltip("Should horizontal speed be dampened on slopes?")]
     public bool slopeSpeedDampening = true;
 
@@ -257,8 +257,11 @@ public class CharacterMove : MonoBehaviour
             //Distance of rays should (when cast from centre) extend past the bottom by velocity amount (or skin width if grounded)
             float distance = box.height / 2 + (IsGrounded ? skinWidthX : Mathf.Abs(Velocity.y * Time.deltaTime));
 
-            //Not grounded unless a ray connects
-            IsGrounded = false;
+			//Rays cast downward should use either slope distance or velocity, whichever is larger (should prevent falling through ground when framerate is low)
+			float slopeDistance = Mathf.Max((box.height / 2) + maxSlopeDistance, distance);
+
+			//Not grounded unless a ray connects
+			IsGrounded = false;
 
             //All raycasts
             RaycastHit2D[] hits = new RaycastHit2D[verticalRays];
@@ -288,7 +291,7 @@ public class CharacterMove : MonoBehaviour
                 {
                     if (shouldDetectPlatforms && Time.time > nonDetectPlatformsTime)
                     {
-                        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer | platformLayer);
+                        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, slopeDistance, groundLayer | platformLayer);
 
                         if(hit.collider)
                         {
@@ -309,10 +312,10 @@ public class CharacterMove : MonoBehaviour
                         }
                     }
                     else
-                        hits[i] = Physics2D.Raycast(origin, Vector2.down, maxSlopeDistance, groundLayer);
+                        hits[i] = Physics2D.Raycast(origin, Vector2.down, slopeDistance, groundLayer);
                 }
 
-                Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(Velocity.y) * (Velocity.y > 0 ? distance : maxSlopeDistance)));
+                Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(Velocity.y) * (Velocity.y > 0 ? distance : slopeDistance)));
 
                 //If ray connected then player should be considered grounded
                 if (hits[i].collider != null)
