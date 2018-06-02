@@ -69,6 +69,20 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!114 &114049535416909714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8be671ec1b40dd4c8a02812c1f19660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getLevel: 1
+  offset: {x: 0, y: 0.45}
+  size: {x: 0.35, y: 0.9}
 --- !u!114 &114284913490068394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,7 +120,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  endTime: 0.075
+  endTime: 0.75
+  particleEffectPrefab: {fileID: 1594948976661474, guid: 4e957dcc638e75241b59d204d6943672,
+    type: 2}
+  particleOffset: {x: 1, y: 0}
+  particleLeftRotation: 150
+  particleRightRotation: 0
 --- !u!114 &114453722116484702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,6 +141,24 @@ MonoBehaviour:
   resetOnExit: 1
   flipSignWithXScale: 1
   rotateAroundCentre: 1
+--- !u!114 &114532433770687738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a90d31d98b2b74b8aa8e000276c2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    volume: 0.5
+    pitchRange:
+      min: 0.85
+      max: 1.15
+    clip: {fileID: 8300000, guid: 6b07ad75be46b1c489872466aa43fd43, type: 3}
+    type: 2
 --- !u!114 &114732079007938478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1671,6 +1708,8 @@ AnimatorState:
   m_Transitions: []
   m_StateMachineBehaviours:
   - {fileID: 114284913490068394}
+  - {fileID: 114049535416909714}
+  - {fileID: 114532433770687738}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

@@ -12,8 +12,16 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 
 	[Range(0, 1.0f)]
 	public float endTime = 1.0f;
-
 	private bool hasEnded;
+
+	[Space()]
+	public GameObject particleEffectPrefab;
+	private GameObject particleEffect;
+
+	public Vector2 particleOffset = new Vector2(0, 0.25f);
+
+	public float particleLeftRotation = 150;
+	public float particleRightRotation = 0;
 
 	private CharacterMove characterMove;
 	private CharacterStats characterStats;
@@ -39,6 +47,16 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 		if (playerInput)
 			playerInput.AcceptingInput = false;
 
+		if(particleEffectPrefab)
+		{
+			particleEffect = ObjectPooler.GetPooledObject(particleEffectPrefab);
+			particleEffect.transform.position = animator.transform.position + new Vector3(particleOffset.x * direction, particleOffset.y);
+
+			Vector3 eulerAngles = particleEffect.transform.eulerAngles;
+			eulerAngles.z = direction < 0 ? particleLeftRotation : particleRightRotation;
+			particleEffect.transform.eulerAngles = eulerAngles;
+		}
+
 		hasEnded = false;
 	}
 
@@ -52,6 +70,9 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 
 				characterMove.Move(direction);
 			}
+
+			if(particleEffect)
+				particleEffect.transform.position = animator.transform.position + new Vector3(particleOffset.x * direction, particleOffset.y);
 
 			if (stateInfo.normalizedTime > endTime)
 				EndBehaviour();
