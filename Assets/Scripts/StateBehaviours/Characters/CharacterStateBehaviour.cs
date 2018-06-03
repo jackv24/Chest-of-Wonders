@@ -25,8 +25,20 @@ public abstract class CharacterStateBehaviour : StateMachineBehaviour
 
 	protected float normalizedTime;
 
+	protected CharacterStats characterStats;
+	protected PlayerInput playerInput; //A character can be controlled by the player, but doesn't need to be
+
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+		characterStats = GetComponentAtLevel<CharacterStats>(animator.gameObject);
+		playerInput = GetComponentAtLevel<PlayerInput>(animator.gameObject);
+
+		if (characterStats)
+			characterStats.damageImmunity = true;
+
+		if (playerInput)
+			playerInput.AcceptingInput = false;
+
 		hasEnded = false;
 
 		normalizedTime = 0;
@@ -51,6 +63,12 @@ public abstract class CharacterStateBehaviour : StateMachineBehaviour
 		if (hasEnded)
 			return;
 		hasEnded = true;
+
+		if (characterStats)
+			characterStats.damageImmunity = false;
+
+		if (playerInput)
+			playerInput.AcceptingInput = true;
 	}
 
 	/// <summary>

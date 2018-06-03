@@ -20,8 +20,6 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 	public float particleRightRotation = 0;
 
 	private CharacterMove characterMove;
-	private CharacterStats characterStats;
-	private PlayerInput playerInput;
 
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
@@ -29,21 +27,12 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 
 		//GetComponents on state enter (will be less expensive on subsequent entries due to caching)
 		characterMove = GetComponentAtLevel<CharacterMove>(animator.gameObject);
-		characterStats = GetComponentAtLevel<CharacterStats>(animator.gameObject);
-		playerInput = GetComponentAtLevel<PlayerInput>(animator.gameObject);
 
 		if (characterMove)
 		{
 			direction = characterMove.FacingDirection;
 			initialMoveSpeed = characterMove.moveSpeed;
 		}
-
-		if(characterStats)
-			characterStats.damageImmunity = true;
-
-		//The character is not necessarily a player
-		if (playerInput)
-			playerInput.AcceptingInput = false;
 
 		if(particleEffectPrefab)
 		{
@@ -83,11 +72,5 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 			characterMove.moveSpeed = initialMoveSpeed;
 			characterMove.Move(0);
 		}
-
-		if (characterStats)
-			characterStats.damageImmunity = false;
-
-		if (playerInput)
-			playerInput.AcceptingInput = true;
 	}
 }

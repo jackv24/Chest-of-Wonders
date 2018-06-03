@@ -18,18 +18,12 @@ public class CharacterSetVelocity : CharacterStateBehaviour
 	private float directionX;
 
 	private CharacterMove characterMove;
-	private PlayerInput playerInput;
 
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
 		base.OnStateEnter(animator, stateInfo, layerIndex);
 
 		characterMove = GetComponentAtLevel<CharacterMove>(animator.gameObject);
-		playerInput = GetComponentAtLevel<PlayerInput>(animator.gameObject);
-
-		//A character CAN be, but is not necessarily controlled by the player
-		if(playerInput)
-			playerInput.AcceptingInput = false;
 
 		if(characterMove)
 		{
@@ -68,9 +62,6 @@ public class CharacterSetVelocity : CharacterStateBehaviour
 	protected override void EndBehaviour()
 	{
 		base.EndBehaviour();
-
-		if (playerInput)
-			playerInput.AcceptingInput = true;
 
 		if(characterMove)
 		{
