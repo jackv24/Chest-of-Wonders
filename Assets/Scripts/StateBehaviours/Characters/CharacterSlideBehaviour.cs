@@ -10,10 +10,6 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 	private float direction;
 	private float initialMoveSpeed;
 
-	[Range(0, 1.0f)]
-	public float endTime = 1.0f;
-	private bool hasEnded;
-
 	[Space()]
 	public GameObject particleEffectPrefab;
 	private GameObject particleEffect;
@@ -29,6 +25,8 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+		base.OnStateEnter(animator, stateInfo, layerIndex);
+
 		//GetComponents on state enter (will be less expensive on subsequent entries due to caching)
 		characterMove = GetComponentAtLevel<CharacterMove>(animator.gameObject);
 		characterStats = GetComponentAtLevel<CharacterStats>(animator.gameObject);
@@ -56,40 +54,29 @@ public class CharacterSlideBehaviour : CharacterStateBehaviour
 			eulerAngles.z = direction < 0 ? particleLeftRotation : particleRightRotation;
 			particleEffect.transform.eulerAngles = eulerAngles;
 		}
-
-		hasEnded = false;
 	}
 
 	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+		base.OnStateUpdate(animator, stateInfo, layerIndex);
+
 		if (!hasEnded)
 		{
 			if (characterMove)
 			{
-				characterMove.moveSpeed = moveSpeed * speedCurve.Evaluate(Mathf.Clamp(stateInfo.normalizedTime / endTime, 0, 1.0f));
+				characterMove.moveSpeed = moveSpeed * speedCurve.Evaluate(normalizedTime);
 
 				characterMove.Move(direction);
 			}
 
 			if(particleEffect)
 				particleEffect.transform.position = animator.transform.position + new Vector3(particleOffset.x * direction, particleOffset.y);
-
-			if (stateInfo.normalizedTime > endTime)
-				EndBehaviour();
 		}
 	}
 
-	public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+	protected override void EndBehaviour()
 	{
-		EndBehaviour();
-	}
-
-	private void EndBehaviour()
-	{
-		//Only do once per state enter
-		if (hasEnded)
-			return;
-		hasEnded = true;
+		base.EndBehaviour();
 
 		if (characterMove)
 		{

@@ -143,7 +143,6 @@ public class PlayerDodge : MonoBehaviour
 			case DodgeType.Ground:
 				{
 					//Change speed over dodge time according to curve
-					float initialSpeed = characterMove.moveSpeed;
 					float elapsed = 0;
 					while (elapsed <= duration)
 					{
@@ -152,8 +151,6 @@ public class PlayerDodge : MonoBehaviour
 						yield return null;
 						elapsed += Time.deltaTime;
 					}
-
-					characterMove.moveSpeed = initialSpeed;
 				}
 				break;
 

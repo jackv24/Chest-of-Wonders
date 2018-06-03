@@ -18,6 +18,41 @@ public abstract class CharacterStateBehaviour : StateMachineBehaviour
 	//Cache GetComponents to improve speed on subsequent entries of this state
 	private Dictionary<System.Type, Component> cachedComponents = new Dictionary<System.Type, Component>();
 
+	//Behaviour can end before end of state
+	[Range(0, 1.0f)]
+	public float endTime = 1.0f;
+	protected bool hasEnded;
+
+	protected float normalizedTime;
+
+	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+	{
+		hasEnded = false;
+
+		normalizedTime = 0;
+	}
+
+	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+	{
+		if (stateInfo.normalizedTime >= endTime)
+			EndBehaviour();
+
+		//Remap state normalised time to accoutn for behaviour ending early
+		normalizedTime = Mathf.Clamp(stateInfo.normalizedTime / endTime, 0, 1.0f);
+	}
+
+	public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+	{
+		EndBehaviour();
+	}
+
+	protected virtual void EndBehaviour()
+	{
+		if (hasEnded)
+			return;
+		hasEnded = true;
+	}
+
 	/// <summary>
 	/// Gets a component from on or around a GameObject (useful since a Character setup usually has the animator in a child).
 	/// </summary>
