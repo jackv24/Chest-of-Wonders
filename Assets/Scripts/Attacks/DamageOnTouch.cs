@@ -11,6 +11,7 @@ public class DamageOnTouch : MonoBehaviour
     [Space()]
     [Tooltip("How much damage to deal to everything this hits.")]
     public int amount = 10;
+	public ElementManager.Element element;
 
     public float damageCooldown = 1f;
 
@@ -53,13 +54,18 @@ public class DamageOnTouch : MonoBehaviour
             if (!onCoolDown.Contains(other.gameObject))
             {
                 //Get character references
-                CharacterStats stats = other.GetComponent<CharacterStats>();
+                IDamageable damageable = other.GetComponent<IDamageable>();
                 CharacterMove move = other.GetComponent<CharacterMove>();
 
-                if (stats)
+                if (damageable != null)
                 {
                     //Attempt to remove health
-                    if (stats.RemoveHealth(amount))
+                    if (damageable.TakeDamage(new DamageProperties
+					{
+						amount = amount,
+						sourceElement = element,
+						type = DamageType.Regular
+					}))
                     {
                         //Calculate centre point between colliders to show hit effect
                         Vector3 centre = (pos + (Vector2)other.bounds.center) / 2;

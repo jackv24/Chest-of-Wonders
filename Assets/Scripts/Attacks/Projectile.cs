@@ -98,13 +98,18 @@ public class Projectile : MonoBehaviour
             hitCharacter = true;
 
             //Get characterstats
-            CharacterStats stats = col.gameObject.GetComponent<CharacterStats>();
+            IDamageable damageable = col.gameObject.GetComponent<IDamageable>();
 
             //If hit gameobject has characterstats
-            if(stats)
+            if(damageable != null)
             {
                 //Apply damage
-                stats.RemoveHealth(damageAmount, element);
+                damageable.TakeDamage(new DamageProperties
+				{
+					amount = damageAmount,
+					sourceElement = element,
+					type = DamageType.Projectile
+				});
 
                 //Enemy aggro on hit
 				if(col.collider.tag == "Enemy")

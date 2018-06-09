@@ -160,6 +160,7 @@ MonoBehaviour:
   damageBoxPos: {x: 0, y: 0.6}
   damageBoxSize: {x: 1, y: 1}
   amount: 10
+  element: 0
   damageCooldown: 1
   hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
   screenShakeAmount: 0.5

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
 
-public class CharacterStats : MonoBehaviour
+public class CharacterStats : MonoBehaviour, IDamageable
 {
     public delegate void DeathEvent();
     public DeathEvent OnDeath;
@@ -115,12 +115,12 @@ public class CharacterStats : MonoBehaviour
         return RemoveHealth(amount, 0);
     }
 
-    public bool RemoveHealth(int amount, ElementManager.Element sourceElement)
+    public bool TakeDamage(DamageProperties damageProperties)
     {
-        int newAmount = ElementManager.CalculateDamage(amount, sourceElement, element);
+        int newAmount = ElementManager.CalculateDamage(damageProperties.amount, damageProperties.sourceElement, element);
 
         //Return new calculated health with the effectiveness
-        return RemoveHealth(newAmount, newAmount != amount ? (newAmount > amount ? 1 : -1) : 0);
+        return RemoveHealth(newAmount, newAmount != damageProperties.amount ? (newAmount > damageProperties.amount ? 1 : -1) : 0);
     }
 
     public bool AddHealth(int amount)

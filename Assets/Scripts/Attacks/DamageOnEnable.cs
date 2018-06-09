@@ -41,13 +41,18 @@ public class DamageOnEnable : MonoBehaviour
 			hitInSwing.Add(collider.gameObject);
 
 			//Get character references
-			CharacterStats stats = collider.GetComponentInParent<CharacterStats>();
+			IDamageable damageable = collider.GetComponentInParent<IDamageable>();
 			CharacterMove move = collider.GetComponentInParent<CharacterMove>();
 
 			//Remove health
-			if (stats)
+			if (damageable != null)
 			{
-				if (stats.RemoveHealth(amount, element))
+				if (damageable.TakeDamage(new DamageProperties
+				{
+					amount = amount,
+					sourceElement = element,
+					type = DamageType.Regular
+				}))
 				{
 					//Calculate centre point between colliders to show hit effect
 					Vector3 centre = (col.bounds.center + collider.bounds.center) / 2;
