@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BreakableObject : MonoBehaviour, IDamageable
 {
+	public SpriteRenderer[] disableSprites;
+	public SpriteRenderer[] enableSprites;
+
 	public GameObject[] breakEffectPrefabs;
 
 	public Vector2 effectSpawnOffset;
@@ -12,14 +15,21 @@ public class BreakableObject : MonoBehaviour, IDamageable
 	public bool usePersistentObject = false;
 	public PersistentObject persistentObject;
 
+	private bool isBroken = false;
+
 	void Start()
 	{
+		SetSpriteRenderers(false);
+
 		if (usePersistentObject)
 		{
 			persistentObject.OnStateLoaded += (activated) =>
 			{
 				if (activated)
-					gameObject.SetActive(false);
+				{
+					isBroken = true;
+					SetSpriteRenderers(true);
+				}
 			};
 
 			persistentObject.Setup(gameObject);
@@ -28,6 +38,10 @@ public class BreakableObject : MonoBehaviour, IDamageable
 
 	public bool TakeDamage(DamageProperties damageProperties)
 	{
+		//Can't take damage if already broken
+		if (isBroken)
+			return false;
+
 		//Only take damage from regular type attacks (not projectiles)
 		if(damageProperties.type == DamageType.Regular)
 		{
@@ -40,7 +54,8 @@ public class BreakableObject : MonoBehaviour, IDamageable
 			if(usePersistentObject)
 				persistentObject.SaveState(true);
 
-			gameObject.SetActive(false);
+			SetSpriteRenderers(true);
+			isBroken = true;
 
 			return true;
 		}
@@ -48,6 +63,15 @@ public class BreakableObject : MonoBehaviour, IDamageable
 		{
 			return false;
 		}
+	}
+
+	private void SetSpriteRenderers(bool isBroken)
+	{
+		foreach (SpriteRenderer sprite in enableSprites)
+			sprite.enabled = isBroken;
+
+		foreach (SpriteRenderer sprite in disableSprites)
+			sprite.enabled = !isBroken;
 	}
 
 	private void OnDrawGizmosSelected()
