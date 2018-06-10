@@ -7,6 +7,12 @@ using UnityEditor.SceneManagement;
 
 public class SceneLoaderEditor : EditorWindow
 {
+	private Dictionary<string, Color> sceneButtonColours = new Dictionary<string, Color>()
+	{
+		{"Demo", new Color(0.5f, 0.5f, 1.0f)},
+		{"Fortress", Helper.RGBToColor(233, 210, 19)}
+	};
+
 	private Vector2 scrollPos = Vector2.zero;
 
     private bool autoAddGameScene = true;
@@ -112,9 +118,17 @@ public class SceneLoaderEditor : EditorWindow
 
 	Color GetColorForSceneName(string sceneName)
 	{
-		if (sceneName.Contains("Demo_"))
-			return new Color(0.5f, 0.5f, 1.0f);
-		else
-			return Color.white;
+		string[] splitStrings = sceneName.Split('_');
+
+		if(splitStrings.Length > 0)
+		{
+			//First string in split is the prefix
+			string prefix = splitStrings[0];
+
+			if(sceneButtonColours.ContainsKey(prefix))
+				return sceneButtonColours[prefix];
+		}
+
+		return Color.white;
 	}
 }

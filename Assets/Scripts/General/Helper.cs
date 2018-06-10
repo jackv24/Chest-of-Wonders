@@ -63,6 +63,11 @@ public static class Helper
 	{
 		return array[y * width + x];
 	}
+
+	public static Color RGBToColor(float r, float g, float b)
+	{
+		return new Color(r / 255, g / 255, b / 255);
+	}
 }
 
 [System.Serializable]
