@@ -7,11 +7,14 @@ public class BreakableObject : MonoBehaviour, IDamageable
 	public SpriteRenderer[] disableSprites;
 	public SpriteRenderer[] enableSprites;
 
+	[Header("Effects")]
 	public GameObject[] breakEffectPrefabs;
-
 	public Vector2 effectSpawnOffset;
 
-	[Space()]
+	[Header("Sounds")]
+	public SoundEventType breakSound;
+
+	[Header("Saving/Loading")]
 	public bool usePersistentObject = false;
 	public PersistentObject persistentObject;
 
@@ -45,17 +48,7 @@ public class BreakableObject : MonoBehaviour, IDamageable
 		//Only take damage from regular type attacks (not projectiles)
 		if(damageProperties.type == DamageType.Regular)
 		{
-			foreach(GameObject effectPrefab in breakEffectPrefabs)
-			{
-				GameObject obj = ObjectPooler.GetPooledObject(effectPrefab);
-				obj.transform.position = transform.TransformPoint(effectSpawnOffset);
-			}
-
-			if(usePersistentObject)
-				persistentObject.SaveState(true);
-
-			SetSpriteRenderers(true);
-			isBroken = true;
+			Break();
 
 			return true;
 		}
@@ -63,6 +56,24 @@ public class BreakableObject : MonoBehaviour, IDamageable
 		{
 			return false;
 		}
+	}
+
+	private void Break()
+	{
+		foreach (GameObject effectPrefab in breakEffectPrefabs)
+		{
+			GameObject obj = ObjectPooler.GetPooledObject(effectPrefab);
+			obj.transform.position = transform.TransformPoint(effectSpawnOffset);
+		}
+
+		SetSpriteRenderers(true);
+
+		breakSound.Play(transform.position);
+
+		isBroken = true;
+
+		if (usePersistentObject)
+			persistentObject.SaveState(true);
 	}
 
 	private void SetSpriteRenderers(bool isBroken)
