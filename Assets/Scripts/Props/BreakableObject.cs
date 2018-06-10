@@ -48,7 +48,7 @@ public class BreakableObject : MonoBehaviour, IDamageable
 		//Only take damage from regular type attacks (not projectiles)
 		if(damageProperties.type == DamageType.Regular)
 		{
-			Break();
+			Break(damageProperties);
 
 			return true;
 		}
@@ -58,12 +58,14 @@ public class BreakableObject : MonoBehaviour, IDamageable
 		}
 	}
 
-	private void Break()
+	private void Break(DamageProperties damageProperties)
 	{
 		foreach (GameObject effectPrefab in breakEffectPrefabs)
 		{
 			GameObject obj = ObjectPooler.GetPooledObject(effectPrefab);
 			obj.transform.position = transform.TransformPoint(effectSpawnOffset);
+
+			obj.GetComponent<SetRotationFromBreakableObject>()?.SetRotation(damageProperties.direction);
 		}
 
 		SetSpriteRenderers(true);

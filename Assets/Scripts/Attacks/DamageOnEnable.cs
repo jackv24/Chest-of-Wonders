@@ -10,6 +10,8 @@ public class DamageOnEnable : MonoBehaviour
     public int amount = 10;
 	public ElementManager.Element element;
 
+	public bool useFacingDirection = true;
+
     [Header("Effects")]
     [Tooltip("The effect to show when something is hit.")]
     public GameObject hitEffect;
@@ -47,11 +49,13 @@ public class DamageOnEnable : MonoBehaviour
 			//Remove health
 			if (damageable != null)
 			{
+				//Only show damage effects if damage was actually taken
 				if (damageable.TakeDamage(new DamageProperties
 				{
 					amount = amount,
 					sourceElement = element,
-					type = DamageType.Regular
+					type = DamageType.Regular,
+					direction = useFacingDirection ? (transform.lossyScale.x < 0 ? Vector2.left : Vector2.right) : Vector2.zero
 				}))
 				{
 					//Calculate centre point between colliders to show hit effect

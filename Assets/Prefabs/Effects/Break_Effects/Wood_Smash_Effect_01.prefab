@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114464544961487406}
   - component: {fileID: 114529999484024026}
   - component: {fileID: 114889023633908822}
+  - component: {fileID: 114948947448077404}
   m_Layer: 0
   m_Name: Wood_Smash_Effect_01
   m_TagString: Untagged
@@ -56,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539707859135854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -44.88, y: -26.57, z: -0.034179688}
+  m_LocalPosition: {x: -24.062925, y: -2.409285, z: -0.034179688}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4582585301286540}
@@ -78,7 +79,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114056580943293464
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1355297910956260}
@@ -90,7 +91,7 @@ MonoBehaviour:
   _guid: 1f5123d2-17ac-4ed8-83ac-9962264f5fb8
 --- !u!114 &114464544961487406
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539707859135854}
@@ -108,7 +109,7 @@ MonoBehaviour:
   _assetGuid: 8e12c2b8a12c99347af7f88293647a04
 --- !u!114 &114529999484024026
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539707859135854}
@@ -137,6 +138,19 @@ MonoBehaviour:
       max: 1.15
     clips:
     - {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
+--- !u!114 &114948947448077404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539707859135854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cec0328ae3547840bf07d7035785462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDirection: 1
+  altRotation: 80
 --- !u!198 &198129001111433514
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -3603,7 +3617,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2115433266
+  randomSeed: -1077960054
   InitialModule:
     serializedVersion: 3
     enabled: 1
