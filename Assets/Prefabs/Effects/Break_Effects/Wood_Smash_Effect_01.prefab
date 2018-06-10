@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 199967753606198796}
   - component: {fileID: 114464544961487406}
   - component: {fileID: 114529999484024026}
+  - component: {fileID: 114889023633908822}
   m_Layer: 0
   m_Name: Wood_Smash_Effect_01
   m_TagString: Untagged
@@ -77,7 +78,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114056580943293464
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1355297910956260}
@@ -89,7 +90,7 @@ MonoBehaviour:
   _guid: 1f5123d2-17ac-4ed8-83ac-9962264f5fb8
 --- !u!114 &114464544961487406
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539707859135854}
@@ -107,7 +108,7 @@ MonoBehaviour:
   _assetGuid: 8e12c2b8a12c99347af7f88293647a04
 --- !u!114 &114529999484024026
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539707859135854}
@@ -117,6 +118,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: bfc4689f-1b1e-48e3-93f2-dce4af33bb31
+--- !u!114 &114889023633908822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539707859135854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c935b1046bcf940903a28d2cde528e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 0
+  collisionSounds:
+    volume: 1
+    pitchRange:
+      min: 0.85
+      max: 1.15
+    clips:
+    - {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
 --- !u!198 &198129001111433514
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -6120,9 +6140,9 @@ ParticleSystem:
       serializedVersion: 2
       m_Bits: 256
     maxCollisionShapes: 256
-    quality: 2
+    quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 0
     interiorCollisions: 0
   TriggerModule:
