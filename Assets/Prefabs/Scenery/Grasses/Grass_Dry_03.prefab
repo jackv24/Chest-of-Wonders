@@ -143,7 +143,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1010066145427102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -80, y: 0, z: 0}
+  m_LocalPosition: {x: -29.287664, y: -34.768654, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4090051164571382}
@@ -193,7 +193,7 @@ BoxCollider2D:
   m_EdgeRadius: 0
 --- !u!114 &114012632712109792
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1244243472007352}
@@ -205,7 +205,7 @@ MonoBehaviour:
   _guid: b6c79eca-ae25-45ee-bc65-0783fdf47265
 --- !u!114 &114190537781047182
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1010066145427102}
@@ -226,7 +226,7 @@ MonoBehaviour:
   _assetGuid: 51aa72b8d1c225844b71f5099c896bc6
 --- !u!114 &114235641741157454
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1316491390261420}
@@ -238,7 +238,7 @@ MonoBehaviour:
   _guid: d086ea06-ec80-4063-8848-b5bc2e117a62
 --- !u!114 &114291275809494442
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424938148024668}
@@ -262,7 +262,7 @@ MonoBehaviour:
   groundType: {fileID: 11400000, guid: b0fd0c242cb7e8a4387292f57ec077ff, type: 2}
 --- !u!114 &114459684398144024
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1518554385429806}
@@ -274,7 +274,7 @@ MonoBehaviour:
   _guid: 7d5a24b0-af9e-475d-9e93-b133967c5611
 --- !u!114 &114713290154099408
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1010066145427102}
@@ -298,7 +298,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: cc7763fd8a9693d40af7c3aeafc6dccd, type: 2}
+  - {fileID: 2100000, guid: 3e65242c0e479644f9107b41b89880ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -342,7 +342,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: cc7763fd8a9693d40af7c3aeafc6dccd, type: 2}
+  - {fileID: 2100000, guid: 3e65242c0e479644f9107b41b89880ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -386,7 +386,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: cc7763fd8a9693d40af7c3aeafc6dccd, type: 2}
+  - {fileID: 2100000, guid: 3e65242c0e479644f9107b41b89880ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
