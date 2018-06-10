@@ -115,6 +115,13 @@ MonoBehaviour:
   breakEffectPrefabs:
   - {fileID: 1539707859135854, guid: 8e12c2b8a12c99347af7f88293647a04, type: 2}
   effectSpawnOffset: {x: -0.15, y: 0.3}
+  breakSound:
+    volume: 1
+    pitchRange:
+      min: 0.9
+      max: 1.1
+    clip: {fileID: 8300000, guid: 06438e1e5e1fbee4486f6c353f53acd7, type: 3}
+    type: 0
   usePersistentObject: 0
   persistentObject:
     id: 

@@ -13,6 +13,7 @@ public struct DamageProperties
 	public int amount;
 	public ElementManager.Element sourceElement;
 	public DamageType type;
+	public Vector2 direction;
 }
 
 public interface IDamageable

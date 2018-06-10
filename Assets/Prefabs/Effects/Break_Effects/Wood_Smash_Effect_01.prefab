@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 199967753606198796}
   - component: {fileID: 114464544961487406}
   - component: {fileID: 114529999484024026}
+  - component: {fileID: 114889023633908822}
+  - component: {fileID: 114948947448077404}
   m_Layer: 0
   m_Name: Wood_Smash_Effect_01
   m_TagString: Untagged
@@ -55,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539707859135854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -44.88, y: -26.57, z: -0.034179688}
+  m_LocalPosition: {x: -24.062925, y: -2.409285, z: -0.034179688}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4582585301286540}
@@ -117,6 +119,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: bfc4689f-1b1e-48e3-93f2-dce4af33bb31
+--- !u!114 &114889023633908822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539707859135854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c935b1046bcf940903a28d2cde528e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 0
+  collisionSounds:
+    volume: 1
+    pitchRange:
+      min: 0.85
+      max: 1.15
+    clips:
+    - {fileID: 8300000, guid: 08b9cbe382d538e47b82135bd2aaace6, type: 3}
+--- !u!114 &114948947448077404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539707859135854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cec0328ae3547840bf07d7035785462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDirection: 1
+  altRotation: 80
 --- !u!198 &198129001111433514
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -3583,7 +3617,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2115433266
+  randomSeed: -1077960054
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6120,9 +6154,9 @@ ParticleSystem:
       serializedVersion: 2
       m_Bits: 256
     maxCollisionShapes: 256
-    quality: 2
+    quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 0
     interiorCollisions: 0
   TriggerModule:
