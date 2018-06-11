@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrassReact : MonoBehaviour
+public class GrassReact : MonoBehaviour, IDamageable
 {
 	public SpriteRenderer[] grassPieces;
 
@@ -28,6 +28,16 @@ public class GrassReact : MonoBehaviour
 	};
 
 	private const float velocityThreshold = 0.5f;
+
+	[System.Serializable]
+	public struct ColorFade
+	{
+		public Gradient gradient;
+		public float duration;
+	}
+
+	public ColorFade burnFade;
+	private Coroutine burnRoutine = null;
 
 	private Coroutine pushRoutineX = null;
 	private Coroutine pushRoutineY = null;
@@ -55,16 +65,7 @@ public class GrassReact : MonoBehaviour
 
 				if (velocity.magnitude >= velocityThreshold)
 				{
-					Vector2 direction = velocity.normalized;
-
-					float pushAmountX = pushX.multiplier * direction.x;
-					float pushAmountY = pushY.multiplier * direction.y;
-
-					//Start seperate push routines for X and Y movement if they're not already running
-					if(pushRoutineX == null)
-						pushRoutineX = StartCoroutine(PushRoutine(pushX, (value) => { SetGrassPushAmount(value * pushAmountX, null); }, () => { pushRoutineX = null; }));
-					if(pushRoutineY == null)
-						pushRoutineY = StartCoroutine(PushRoutine(pushY, (value) => { SetGrassPushAmount(null, value * pushAmountY); }, () => { pushRoutineY = null; }));
+					DoPush(velocity.normalized);
 				}
 			}
 			else
@@ -120,5 +121,58 @@ public class GrassReact : MonoBehaviour
 
 			piece.SetPropertyBlock(propBlock);
 		}
+	}
+
+	private void SetGrassColor(Color color)
+	{
+		foreach (var piece in grassPieces)
+			piece.color = color;
+	}
+
+	private void DoPush(Vector2 direction)
+	{
+		float pushAmountX = pushX.multiplier * direction.x;
+		float pushAmountY = pushY.multiplier * direction.y;
+
+		if (pushRoutineX == null)
+			pushRoutineX = StartCoroutine(PushRoutine(pushX, (value) => { SetGrassPushAmount(value * pushAmountX, null); }, () => { pushRoutineX = null; }));
+
+		if (pushRoutineY == null)
+			pushRoutineY = StartCoroutine(PushRoutine(pushY, (value) => { SetGrassPushAmount(null, value * pushAmountY); }, () => { pushRoutineY = null; }));
+	}
+
+	public bool TakeDamage(DamageProperties damageProperties)
+	{
+		//Only react to damage from melee attacks, etc
+		if(damageProperties.type == DamageType.Regular)
+		{
+			DoPush(damageProperties.direction);
+
+			//If the attack was a fire type then also start burning
+			if(damageProperties.sourceElement == ElementManager.Element.Fire)
+			{
+				if (burnRoutine == null)
+					burnRoutine = StartCoroutine(BurnRoutine());
+			}
+		}
+
+		//Always return false since we don't want any hit effects
+		return false;
+	}
+
+	private IEnumerator BurnRoutine()
+	{
+		float elapsed = 0;
+		while (elapsed <= burnFade.duration)
+		{
+			SetGrassColor(burnFade.gradient.Evaluate(elapsed / burnFade.duration));
+
+			yield return null;
+			elapsed += Time.deltaTime;
+		}
+
+		SetGrassColor(burnFade.gradient.Evaluate(1.0f));
+
+		//Don't clear burnRoutine reference since we only want the burn to happen once
 	}
 }
