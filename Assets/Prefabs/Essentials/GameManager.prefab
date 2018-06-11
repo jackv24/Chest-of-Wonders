@@ -27,7 +27,6 @@ GameObject:
   - component: {fileID: 114547737111946328}
   - component: {fileID: 114687314970991524}
   - component: {fileID: 114681356407913036}
-  - component: {fileID: 114079096906030720}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -129,28 +128,9 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114079096906030720
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1706048386432494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15bc4291516d2994c9c182ab0416d644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  miscAudioSourcePrefab: {fileID: 82609452520716450, guid: 425ad83df01cfe344b0c53203e673b8c,
-    type: 2}
-  uiAudioSourcePrefab: {fileID: 82609452520716450, guid: f7be40b28e110124db207a9642379f0f,
-    type: 2}
-  playerAudioSourcePrefab: {fileID: 82609452520716450, guid: 5ba2f874565e6a44e8d21056ca1d94c3,
-    type: 2}
-  enemyAudioSourcePrefab: {fileID: 82609452520716450, guid: 77cc7fe0101a47749b54cb20f350ca12,
-    type: 2}
 --- !u!114 &114547737111946328
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706048386432494}
@@ -312,7 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &114687314970991524
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706048386432494}

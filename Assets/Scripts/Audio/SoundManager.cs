@@ -80,7 +80,6 @@ public class SoundManager : MonoBehaviour
 	public AudioSource miscAudioSourcePrefab;
 	public AudioSource uiAudioSourcePrefab;
 	public AudioSource playerAudioSourcePrefab;
-	public AudioSource enemyAudioSourcePrefab;
 
 	private void Awake()
 	{
@@ -112,6 +111,7 @@ public class SoundManager : MonoBehaviour
 		//Get the correct audio source prefab for this type (they have different mixer groups, etc)
 		switch(type)
 		{
+			case SoundType.Enemy:
 			case SoundType.Misc:
 				audioSourcePrefab = miscAudioSourcePrefab;
 				break;
@@ -120,9 +120,6 @@ public class SoundManager : MonoBehaviour
 				break;
 			case SoundType.Player:
 				audioSourcePrefab = playerAudioSourcePrefab;
-				break;
-			case SoundType.Enemy:
-				audioSourcePrefab = enemyAudioSourcePrefab;
 				break;
 		}
 

@@ -24,8 +24,9 @@ GameObject:
   - component: {fileID: 82067351929339434}
   - component: {fileID: 114771188274953952}
   - component: {fileID: 114371302177262176}
+  - component: {fileID: 114345855393634110}
   m_Layer: 0
-  m_Name: MusicManager
+  m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,9 +221,26 @@ MonoBehaviour:
   primarySource: {fileID: 82712469946505818}
   secondarySource: {fileID: 82067351929339434}
   fadeDuration: 1
+--- !u!114 &114345855393634110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791263445392996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bc4291516d2994c9c182ab0416d644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miscAudioSourcePrefab: {fileID: 82609452520716450, guid: 425ad83df01cfe344b0c53203e673b8c,
+    type: 2}
+  uiAudioSourcePrefab: {fileID: 82609452520716450, guid: f7be40b28e110124db207a9642379f0f,
+    type: 2}
+  playerAudioSourcePrefab: {fileID: 82609452520716450, guid: 5ba2f874565e6a44e8d21056ca1d94c3,
+    type: 2}
 --- !u!114 &114371302177262176
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1791263445392996}
@@ -234,7 +252,7 @@ MonoBehaviour:
   _guid: 69c46805-b805-4e97-8b32-470f4b9472b8
 --- !u!114 &114771188274953952
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1791263445392996}
