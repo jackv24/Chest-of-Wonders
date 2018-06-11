@@ -6,7 +6,8 @@
 		_Color("Tint", Color) = (1,1,1,1)
 		_SwayAmount("Sway Amount", Float) = 1.0
 		_SwaySpeed("Sway Speed", Float) = 1.0
-		[PerRendererData] _PushAmount("Push Amount", Float) = 0.0
+		[PerRendererData] _PushAmountX("Push Amount X", Float) = 0.0
+		[PerRendererData] _PushAmountY("Push Amount Y", Float) = 0.0
 	}
 
 	SubShader
@@ -53,7 +54,8 @@
 			fixed4 _Color;
 			float _SwayAmount;
 			float _SwaySpeed;
-			float _PushAmount;
+			float _PushAmountX;
+			float _PushAmountY;
 
 			v2f vert(appdata_t IN)
 			{
@@ -65,10 +67,10 @@
 
 				float height = sqrt(alignedPos.y * alignedPos.y);
 				float offset = (sin(_Time.y * _SwaySpeed + ((worldV.x + worldV.z) / 2)))
-					+ (sin(_Time.y * _SwaySpeed + ((worldV.x + worldV.z) / 2) / 4)) + _PushAmount;
+					+ (sin(_Time.y * _SwaySpeed + ((worldV.x + worldV.z) / 2) / 4)) + _PushAmountX;
 
 				//Move world vertex position
-				worldV += float4(offset * height * _SwayAmount, 0.0f, 0.0f, 0.0f);
+				worldV += float4(offset * height * _SwayAmount, height * _PushAmountY, 0.0f, 0.0f);
 
 				//Set object vertex pos
 				float4 selfV = mul(unity_WorldToObject, worldV);

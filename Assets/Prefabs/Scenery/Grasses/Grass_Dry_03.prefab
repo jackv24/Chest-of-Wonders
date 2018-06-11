@@ -443,26 +443,49 @@ MonoBehaviour:
   - {fileID: 212420901473242344}
   - {fileID: 212755810653747188}
   - {fileID: 212008822109946684}
-  pushCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 6.559312
-      outSlope: 6.559312
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  pushDuration: 0.5
-  pushMultiplier: 8
+  pushX:
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 6.559312
+        outSlope: 6.559312
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    duration: 0.5
+    multiplier: 8
+  pushY:
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 6.559312
+        outSlope: 6.559312
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    duration: 0.3
+    multiplier: 0.2
+  velocityThreshold: 0.01
 --- !u!114 &114553884363233290
 MonoBehaviour:
   m_ObjectHideFlags: 1

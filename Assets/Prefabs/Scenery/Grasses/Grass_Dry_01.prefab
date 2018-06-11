@@ -233,29 +233,52 @@ MonoBehaviour:
   - {fileID: 212518185347264740}
   - {fileID: 212498471793134972}
   - {fileID: 212800632151377018}
-  pushCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 6.559312
-      outSlope: 6.559312
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  pushDuration: 0.5
-  pushMultiplier: 8
+  pushX:
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 6.559312
+        outSlope: 6.559312
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    duration: 0.5
+    multiplier: 8
+  pushY:
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 6.559312
+        outSlope: 6.559312
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    duration: 0.3
+    multiplier: 0.2
+  velocityThreshold: 0.01
 --- !u!114 &114122636330611460
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1463897403218658}
@@ -267,7 +290,7 @@ MonoBehaviour:
   _guid: 7f5e467e-c008-4b3d-a06d-184ffe4ab6bf
 --- !u!114 &114235103924272072
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1045537434247780}
@@ -279,7 +302,7 @@ MonoBehaviour:
   _guid: 26badca5-b3a7-4d0b-bbb6-714c0dd70c25
 --- !u!114 &114373614089707986
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834768652532124}
@@ -303,7 +326,7 @@ MonoBehaviour:
   groundType: {fileID: 11400000, guid: b0fd0c242cb7e8a4387292f57ec077ff, type: 2}
 --- !u!114 &114756948569747158
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1173379580103936}
@@ -315,7 +338,7 @@ MonoBehaviour:
   _guid: 9463983e-99ad-48c8-a9b6-53b8f4096006
 --- !u!114 &114968313505660858
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1638917870230498}
@@ -327,7 +350,7 @@ MonoBehaviour:
   _guid: 4ca75d36-5716-48e4-b812-20a5f02d899f
 --- !u!114 &114994044515448714
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1045537434247780}
