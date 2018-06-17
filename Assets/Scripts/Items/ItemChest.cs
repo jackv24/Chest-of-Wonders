@@ -45,11 +45,10 @@ public class ItemChest : MonoBehaviour, IInteractible
 		if(PlayerInventory.Instance && containingItem)
 		{
 			PlayerInventory.Instance.AddItem(containingItem);
-
-			persistentObject.SaveState(opened);
-
-			animator?.Play("Open");
 		}
+
+		persistentObject.SaveState(opened);
+		animator?.Play("Open");
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
