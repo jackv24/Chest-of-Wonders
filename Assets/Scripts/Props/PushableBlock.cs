@@ -69,7 +69,7 @@ public class PushableBlock : MonoBehaviour
 	IEnumerator MoveBlock(float direction)
 	{
 		//Prevent input
-		GameManager.instance.gameRunning = false;
+		GameManager.instance.GameState = GameStates.Cutscene;
 		characterMove.ignoreCanMove = true;
 
 		//Cache and set move speed
@@ -155,7 +155,7 @@ public class PushableBlock : MonoBehaviour
 		ReturnToGrid();
 
 		//Resume input
-		GameManager.instance.gameRunning = true;
+		GameManager.instance.GameState = GameStates.Playing;
 		characterMove.ignoreCanMove = false;
 
 		//Restore move speed

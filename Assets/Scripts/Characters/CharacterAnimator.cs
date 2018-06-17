@@ -173,7 +173,7 @@ public class CharacterAnimator : MonoBehaviour
 	/// </summary>
 	public void ReturnToLocomotion()
 	{
-		Play("Locomotion");
+		Play(characterMove.IsGrounded ? "Locomotion" : "Fall");
 	}
 
 	/// <summary>

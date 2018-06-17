@@ -3,9 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum GameStates
+{
+	Playing,
+	Paused,
+	ExitingLevel,
+	EnteringLevel,
+	Cutscene,
+	GameOver
+}
+
 public class GameManager : MonoBehaviour
 {
-	//Events
+	// Events
 	public delegate void LevelLoadedEvent();
     public event LevelLoadedEvent OnLevelLoaded;
 
@@ -15,7 +25,28 @@ public class GameManager : MonoBehaviour
     public delegate void PauseChangeEvent(bool value);
     public event PauseChangeEvent OnPausedChange;
 
-    //Static instance for easy access
+	public delegate void GameStateChangeEvent(GameStates fromState, GameStates toState);
+	public event GameStateChangeEvent OnGameStateChanged;
+
+	// Game state
+	private GameStates gameState;
+
+	public GameStates GameState
+	{
+		get
+		{
+			return gameState;
+		}
+		set
+		{
+			GameStates oldState = gameState;
+			gameState = value;
+
+			OnGameStateChanged?.Invoke(oldState, gameState);
+		}
+	}
+
+    // Static instance for easy access
     public static GameManager instance;
 
     private string firstSceneName;
@@ -36,11 +67,8 @@ public class GameManager : MonoBehaviour
 	public float gamePauseLockDelay = 0.25f;
 	private float gamePauseUnlockTime = 0;
 
-    //Game running and game pause are two seperate bools to keep track of in dialogue or menu, or game paused...
-    [HideInInspector] public bool gameRunning = true;
-    [HideInInspector] public bool gamePaused = false;
-    //Public property allows movement, etc, if both conditions are fulfilled
-    public bool CanDoActions { get { return gameRunning && !gamePaused; } }
+    // Public property allows movement, etc, if both conditions are fulfilled
+    public bool CanDoActions { get { return GameState == GameStates.Playing; } }
 
 	private SaveData.Location npcSaveLocation;
 	private SaveData.Location autoSaveLocation;
@@ -129,19 +157,28 @@ public class GameManager : MonoBehaviour
 
 	public void LoadLevel(string sceneName, string doorName)
 	{
-		//Disable and set player position
-		CharacterMove move = player.GetComponent<CharacterMove>();
-
-		if (move)
-			move.MovementState = CharacterMovementStates.Disabled;
-
 		//Start the unload of old level and load of new level
 		StartCoroutine(ChangeLevel(sceneName, doorName));
 	}
 
     IEnumerator ChangeLevel(string sceneName, string doorName)
     {
-        float fadeTime = levelTransitionTime / 2;
+		CharacterMove move = player.GetComponent<CharacterMove>();
+		PlayerInput input = player.GetComponent<PlayerInput>();
+
+		// Disable input and player will keep running through door
+		if (input)
+			input.enabled = false;
+
+		if (move)
+		{
+			move.ignoreCanMove = true;
+			move.Move(move.FacingDirection);
+		}
+
+		GameState = GameStates.ExitingLevel;
+
+		float fadeTime = levelTransitionTime / 2;
 
         //If a level is already loaded, unload it
         if (!string.IsNullOrEmpty(loadedSceneName))
@@ -180,17 +217,19 @@ public class GameManager : MonoBehaviour
 				{
 					player.transform.position = (Vector2)marker.transform.position;
 					targetPos = marker.transform.position.x + door.exitOffset;
+
+					exitRight = targetPos > marker.transform.position.x;
 				}
 				else
 					Debug.LogError($"Spawn Marker: {marker.gameObject.name} is not a doorway!");
 			}
 		}
 
-        //Re-enable the player after level is loaded
-        player.SetActive(true);
-
 		//Return all pooled objects to their pools (prevents things like projectiles persisting between levels)
 		ObjectPooler.ReturnAll();
+
+		//Re-enable the player after level is loaded
+		player.SetActive(true);
 
         //Call level loaded events
         if (OnLevelLoaded != null)
@@ -205,18 +244,15 @@ public class GameManager : MonoBehaviour
 		//Fade in
 		UIFunctions.instance.ShowLoadingScreen(false, fadeTime);
 
-        PlayerInput input = player.GetComponent<PlayerInput>();
-        CharacterMove move = player.GetComponent<CharacterMove>();
-
         if (move)
             move.MovementState = CharacterMovementStates.Normal;
 
+		GameState = GameStates.EnteringLevel;
+
         if (input && move && !string.IsNullOrEmpty(doorName))
         {
-            input.enabled = false;
-
-            float moveSpeed = move.moveSpeed;
-            move.moveSpeed *= 0.5f;
+			// Animate player running out
+			player.GetComponent<CharacterAnimator>()?.SetAnimatorAxis(new Vector2(exitRight ? 1 : -1, 0));
 
             //Move player to doorway exit position
             while ((exitRight && player.transform.position.x < targetPos) || (!exitRight && player.transform.position.x > targetPos))
@@ -226,15 +262,17 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
 
-            move.moveSpeed = moveSpeed;
+			move.ignoreCanMove = false;
 
             input.enabled = true;
         }
+
+		GameState = GameStates.Playing;
     }
 
     public void GameOver()
     {
-        gameRunning = false;
+		GameState = GameStates.GameOver;
 
         //Call game over events
         if (OnGameOver != null)
@@ -243,13 +281,27 @@ public class GameManager : MonoBehaviour
 
     public void TogglePaused()
     {
+		// Toggle game state between paused and playing
+		if (GameState == GameStates.Playing)
+		{
+			GameState = GameStates.Paused;
+		}
+		else if(GameState == GameStates.Paused)
+		{
+			GameState = GameStates.Playing;
+		}
+		else
+		{
+			// Can only toggle between paused and playing
+			return;
+		}
+
 		//Only allow pausing again after a delay - prevent mashing pause and causing issues
 		if (Time.unscaledTime < gamePauseUnlockTime)
 			return;
 		gamePauseUnlockTime = Time.unscaledTime + gamePauseLockDelay;
 
-        //Toggle pause bool
-        gamePaused = !gamePaused;
+        bool gamePaused = GameState == GameStates.Paused;
 
         //Timescale is 0 if game paused, 1 if game not paused
         Time.timeScale = gamePaused ? 0 : 1;
@@ -279,7 +331,7 @@ public class GameManager : MonoBehaviour
     public void SpawnPlayer(bool reset)
     {
         player.SetActive(true);
-        gameRunning = true;
+		GameState = GameStates.Playing;
 
 		SaveManager.instance?.LoadGame(reset);
 

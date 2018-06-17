@@ -19,13 +19,13 @@ public class KeepWorldPosOnCanvas : MonoBehaviour
     private Vector2 screenMax;
     private Vector2 screenMin;
 
+	private Camera gameCamera;
 	private Camera uiCamera;
 
 	private void Start()
 	{
-		GameObject cam = GameObject.FindWithTag("UICamera");
-		if (cam)
-			uiCamera = cam.GetComponent<Camera>();
+		gameCamera = CameraManager.GameCamera;
+		uiCamera = CameraManager.UICamera;
 
 		Canvas.willRenderCanvases += UpdatePos;
 	}
@@ -39,24 +39,20 @@ public class KeepWorldPosOnCanvas : MonoBehaviour
 	{
 		GetWorldPos();
 
-		Vector3 position;
+		//UICamera should be at world origin, so offset from game camera should be canvas position
+		Vector2 pos = worldPos - (Vector2)gameCamera.transform.position;
 
 		if (keepInScreenBounds)
 		{
-			Vector2 pos = worldPos;
-
 			screenMax = uiCamera.ViewportToWorldPoint(new Vector3(1, 1, 0));
 			screenMin = uiCamera.ViewportToWorldPoint(new Vector3(0, 0, 0));
 
 			pos.x = Mathf.Clamp(pos.x, screenMin.x + paddingLeft, screenMax.x - paddingRight);
 			pos.y = Mathf.Clamp(pos.y, screenMin.y + paddingDown, screenMax.y - paddingTop);
 
-			position = pos;
 		}
-		else
-			position = worldPos;
 
-		transform.position = position.SnapToGrid();//screenPos;
+		transform.position = pos.SnapToGrid();//screenPos;
 	}
 
 	public void GetWorldPos()
