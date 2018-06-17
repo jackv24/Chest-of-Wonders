@@ -160,7 +160,7 @@ public class DialogueBox : MonoBehaviour
         {
 			IsDialogueOpen = true;
 
-            GameManager.instance.gameRunning = false;
+            GameManager.instance.GameState = GameStates.Cutscene;
 
 			speakerPanel.gameObject.SetActive(true);
 
@@ -222,7 +222,7 @@ public class DialogueBox : MonoBehaviour
 		currentSpeaker.ShowPrompt();
 
 		//Return control
-		GameManager.instance.gameRunning = true;
+		GameManager.instance.GameState = GameStates.Playing;
 
 		IsDialogueOpen = false;
 	}

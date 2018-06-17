@@ -100,7 +100,7 @@ public class LockedDoor : MonoBehaviour
 				yield return null;
 
 			//Enemy and player input is paused while door is opening
-			GameManager.instance.gameRunning = false;
+			GameManager.instance.GameState = GameStates.Cutscene;
 
 			//Get character move and cache move speed
 			CharacterMove characterMove = player.GetComponent<CharacterMove>();
@@ -144,7 +144,7 @@ public class LockedDoor : MonoBehaviour
 			characterMove.ignoreCanMove = false;
 			characterMove.moveSpeed = moveSpeed;
 
-			GameManager.instance.gameRunning = true;
+			GameManager.instance.GameState = GameStates.Playing;
 		}
 
 		if (enableObject)

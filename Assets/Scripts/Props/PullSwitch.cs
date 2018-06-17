@@ -72,7 +72,7 @@ public class PullSwitch : MonoBehaviour
 		float direction = Mathf.Sign(animator.transform.localScale.x);
 
 		//Stop enemies moving
-		GameManager.instance.gameRunning = false;
+		GameManager.instance.GameState = GameStates.Cutscene;
 
 		//Stop player from moving
 		characterMove.MovementState = CharacterMovementStates.Disabled;
@@ -126,7 +126,7 @@ public class PullSwitch : MonoBehaviour
 		}
 
 		//Restore game state
-		GameManager.instance.gameRunning = true;
+		GameManager.instance.GameState = GameStates.Playing;
 		characterMove.MovementState = CharacterMovementStates.Disabled;
 	}
 }
