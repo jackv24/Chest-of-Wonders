@@ -46,4 +46,25 @@ public static class Extensions
 		localRotation.z = rotationZ;
 		self.localEulerAngles = localRotation;
 	}
+
+	public static void SetLocalPositionX(this Transform self, float value)
+	{
+		Vector3 localPosition = self.localPosition;
+		localPosition.x = value;
+		self.localPosition = localPosition;
+	}
+
+	public static void SetLocalPositionY(this Transform self, float value)
+	{
+		Vector3 localPosition = self.localPosition;
+		localPosition.y = value;
+		self.localPosition = localPosition;
+	}
+
+	public static void SetLocalPositionZ(this Transform self, float value)
+	{
+		Vector3 localPosition = self.localPosition;
+		localPosition.z = value;
+		self.localPosition = localPosition;
+	}
 }

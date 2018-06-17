@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212171251027456874}
   - component: {fileID: 95282369950610608}
   - component: {fileID: 114958768972369128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,9 +39,14 @@ GameObject:
   - component: {fileID: 4683231262621854}
   - component: {fileID: 114944074271638736}
   - component: {fileID: 114841705706154180}
-  m_Layer: 0
+  - component: {fileID: 114532440611600056}
+  - component: {fileID: 114068355911681682}
+  - component: {fileID: 114797837658412708}
+  - component: {fileID: 114349518562934582}
+  - component: {fileID: 61816427884972354}
+  m_Layer: 9
   m_Name: Flutter_bird
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,13 +71,38 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -43.16, y: -6.38, z: 0}
+  m_LocalPosition: {x: -20.74, y: -24.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4476337145652462}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61816427884972354
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404625634264932}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.62, y: 1.53}
+  m_EdgeRadius: 0
 --- !u!95 &95282369950610608
 Animator:
   serializedVersion: 3
@@ -90,9 +120,146 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114068355911681682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404625634264932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111b47b60ee8feb4d889a8c1622777cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  damageBoxPos: {x: 0, y: 0}
+  damageBoxSize: {x: 1.2, y: 1.25}
+  amount: 15
+  element: 0
+  damageCooldown: 1
+  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
+  screenShakeAmount: 0.5
+  knockBackAmount: 10
+  knockBackCentreOffset: {x: -0, y: -2}
+--- !u!114 &114349518562934582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404625634264932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedBlackboard: '{"_variables":{"animator":{"_value":1,"_name":"animator","_id":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.Animator,
+    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"swoopHorizontal":{"_value":3.0,"_name":"swoopHorizontal","_id":"626b4471-5098-49cb-9c6e-635c398c940b","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"swoopVertical":{"_value":-1.0,"_name":"swoopVertical","_id":"90ee8060-ffcb-44ba-9662-9e083818a4ac","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"swoopTime":{"_value":0.8333333,"_name":"swoopTime","_id":"3d3691e8-7fff-4ba8-89f0-4fba41cf9f5d","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 95282369950610608}
+--- !u!114 &114532440611600056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404625634264932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7667fb90041ce4f4ba97529315162bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 35
+  maxHealth: 35
+  element: 0
+  hurtSound:
+    volume: 1
+    pitchRange:
+      min: 1
+      max: 1
+    clip: {fileID: 0}
+    type: 3
+  deathSound:
+    volume: 1
+    pitchRange:
+      min: 1
+      max: 1
+    clip: {fileID: 0}
+    type: 3
+  damageImmunity: 0
+  damageImmunityTime: 0.5
+  damageTextOffset: {x: 0, y: 1}
+  graphic: {fileID: 212171251027456874}
+  flashAmount: 0.75
+  flashInterval: 0.1
+  deathTime: 0.5
+  deathParticlePrefab: {fileID: 1181358874820946, guid: 7f1104db85c03ca40b8ce7a67e74fff3,
+    type: 2}
+  deathParticleOffset: {x: 0, y: 0.75}
+  deathDrop: {fileID: 1603555440790614, guid: 99a555e024c2878489542bc902ee4246, type: 2}
+  dropOffset: {x: 0, y: 1}
+  healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
+  minHealthDrops: 1
+  maxHealthDrops: 2
+  healthDropForce: 5
+  hasDied: 0
+  enemyRecord: {fileID: 11400000, guid: 701a5a2c0fd527145bc04e9373f2a55a, type: 2}
+--- !u!114 &114561299229904130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: Flutter_bird FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4723.0,"y":-5035.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Idle"},"overrideAgent":{"_value":1,"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"minValue":{"_value":2.0},"maxValue":{"_value":3.0},"floatVariable":{"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.SetFloatRandom"},{"waitTime":{"_value":1.0,"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5172.0,"y":5193.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"boolVariable":{"_name":"_swoopRight"},"setTo":"Toggle","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"layerIndex":{},"stateName":{"_value":"Swoop
+    Enter"},"waitUntilFinish":true,"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}]},"_position":{"x":5543.0,"y":5322.0},"_name":"Swoop
+    Enter","$type":"NodeCanvas.StateMachines.ActionState","$id":"15"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Swoop
+    Loop"},"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5339.0,"y":5505.0},"_name":"Swoop","$type":"NodeCanvas.StateMachines.ActionState","$id":"24"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Swoop
+    Exit"},"waitUntilFinish":true,"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}]},"_position":{"x":5186.0,"y":5418.0},"_name":"Swoop
+    Exit","$type":"NodeCanvas.StateMachines.ActionState","$id":"33"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"UnityEngine.Transform|get_localScale|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_scale"},"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"valueA":{"_name":"_scale"},"operation":"Multiply","valueB":{"_value":{"x":-1.0,"y":1.0,"z":1.0}},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"method":{"_baseInfo":"UnityEngine.Transform|set_localScale|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_scale"},"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}]},"_position":{"x":4883.0,"y":5311.0},"_name":"Turn","_comment":"Swoop
+    ","$type":"NodeCanvas.StateMachines.ActionState","$id":"40"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 95282369950610608}
+  _deserializationFailed: 0
+--- !u!114 &114797837658412708
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404625634264932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7dbb6bbdf4ffb46ab7dd87ba8191e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundGraphSerialization: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4723.0,"y":-5035.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Idle"},"overrideAgent":{"_value":1,"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"minValue":{"_value":2.0},"maxValue":{"_value":3.0},"floatVariable":{"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.SetFloatRandom"},{"waitTime":{"_value":1.0,"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5172.0,"y":5193.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"boolVariable":{"_name":"_swoopRight"},"setTo":"Toggle","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"layerIndex":{},"stateName":{"_value":"Swoop
+    Enter"},"waitUntilFinish":true,"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}]},"_position":{"x":5543.0,"y":5322.0},"_name":"Swoop
+    Enter","$type":"NodeCanvas.StateMachines.ActionState","$id":"15"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Swoop
+    Loop"},"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"waitTime":{"_value":2.0},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5339.0,"y":5505.0},"_name":"Swoop","$type":"NodeCanvas.StateMachines.ActionState","$id":"24"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Swoop
+    Exit"},"waitUntilFinish":true,"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}]},"_position":{"x":5186.0,"y":5418.0},"_name":"Swoop
+    Exit","$type":"NodeCanvas.StateMachines.ActionState","$id":"33"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"UnityEngine.Transform|get_localScale|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_scale"},"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"valueA":{"_name":"_scale"},"operation":"Multiply","valueB":{"_value":{"x":-1.0,"y":1.0,"z":1.0}},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"method":{"_baseInfo":"UnityEngine.Transform|set_localScale|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_scale"},"overrideAgent":{"_name":"animator","_targetVariableID":"1fbcb501-009d-4d6e-b4e5-ae0b8f62c5fe"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}]},"_position":{"x":4883.0,"y":5311.0},"_name":"Turn","_comment":"Swoop
+    ","$type":"NodeCanvas.StateMachines.ActionState","$id":"40"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"24"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"33"},"_targetNode":{"$ref":"40"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"40"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  boundGraphObjectReferences:
+  - {fileID: 0}
+  - {fileID: 95282369950610608}
+  enableAction: 0
+  disableAction: 0
+  _graph: {fileID: 114561299229904130}
+  _blackboard: {fileID: 114349518562934582}
 --- !u!114 &114841705706154180
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
@@ -104,7 +271,7 @@ MonoBehaviour:
   _guid: 62f7753f-2f12-4add-af2f-e06e72f0c8ec
 --- !u!114 &114944074271638736
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
@@ -122,7 +289,7 @@ MonoBehaviour:
   _assetGuid: 0cde13fe872833841b8bf8836f2c62f5
 --- !u!114 &114958768972369128
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1297927738899542}
