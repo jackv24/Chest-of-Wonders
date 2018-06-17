@@ -8,13 +8,13 @@ public class SaveData
     [System.Serializable]
     public struct Location
     {
-        public int sceneIndex;
-        public Vector2 position;
+        public string sceneName;
+        public string spawnMarkerName;
 
-        public Location(int sceneIndex, Vector2 position)
+        public Location(string sceneName, string spawnMarkerName)
         {
-            this.sceneIndex = sceneIndex;
-            this.position = position;
+            this.sceneName = sceneName;
+            this.spawnMarkerName = spawnMarkerName;
         }
     }
 

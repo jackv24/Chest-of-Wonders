@@ -103,9 +103,13 @@ public class PlayerActions : PlayerActionSet
 
         //Misc
         Interact.AddDefaultBinding(Key.UpArrow);
-        Interact.AddDefaultBinding(InputControlType.Action4);
+		Interact.AddDefaultBinding(Key.DownArrow);
+		Interact.AddDefaultBinding(InputControlType.DPadUp);
+		Interact.AddDefaultBinding(InputControlType.LeftStickUp);
+		Interact.AddDefaultBinding(InputControlType.DPadDown);
+		Interact.AddDefaultBinding(InputControlType.LeftStickDown);
 
-        Submit.AddDefaultBinding(Key.Z);
+		Submit.AddDefaultBinding(Key.Z);
         Submit.AddDefaultBinding(Key.Return);
         Submit.AddDefaultBinding(InputControlType.Action1);
         Submit.AddDefaultBinding(InputControlType.Action4);

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Doorway : MonoBehaviour
+public class Doorway : SpawnMarker
 {
-    public int doorwayID = 0;
+	public override Vector2 SpawnPosition => (Vector2)transform.position + new Vector2(0, exitOffset);
 
-    public float exitOffset = 1.5f;
+	public float exitOffset = 1.5f;
 
 	[Space()]
-	[Scene]
-	public int targetScene = -1;
-    public int targetID = -1;
+	public string targetScene = "";
+	public string targetDoor = "";
 
     [Space()]
     public float startDelay = 0.5f;
@@ -73,7 +72,7 @@ public class Doorway : MonoBehaviour
     void Use()
     {
         //Load level with player at position
-        GameManager.instance.LoadLevel(targetScene, targetID);
+        GameManager.instance.LoadLevel(targetScene, targetDoor);
     }
 
 #if UNITY_EDITOR
@@ -91,11 +90,11 @@ public class Doorway : MonoBehaviour
 
 		GUIStyle textStyle = new GUIStyle();
 		textStyle.normal.textColor = Color.white;
-		textStyle.fontSize = 18;
+		textStyle.fontSize = Mathf.RoundToInt(24 / UnityEditor.HandleUtility.GetHandleSize(transform.position));
 
 		UnityEditor.Handles.Label(
-			(Vector2)transform.position + new Vector2(-col.size.x / 2, col.offset.y + col.size.y / 2 + 0.5f),
-			System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(targetScene)) + " - " + targetID,
+			(Vector2)transform.position + new Vector2(-col.size.x / 2, col.offset.y + col.size.y / 2 + 1.0f),
+			$"<color=grey>Scene: </color>{targetScene}\n<color=grey>Door: </color>{targetDoor}",
 			textStyle);
 	}
 #endif

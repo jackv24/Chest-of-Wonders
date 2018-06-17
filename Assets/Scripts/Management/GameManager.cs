@@ -18,9 +18,10 @@ public class GameManager : MonoBehaviour
     //Static instance for easy access
     public static GameManager instance;
 
-    private int firstSceneIndex;
-	[HideInInspector]
-	public int loadedSceneIndex = -1;
+    private string firstSceneName;
+	private string loadedSceneName;
+
+	public string LoadedSceneName { get { return loadedSceneName; } }
 
     [Space()]
     public GameObject player;
@@ -100,7 +101,7 @@ public class GameManager : MonoBehaviour
         //If level is already open in the editor, use that instead
         else if (SceneManager.sceneCount == 2)
         {
-            loadedSceneIndex = SceneManager.GetSceneAt(1).buildIndex;
+            loadedSceneName = SceneManager.GetSceneAt(1).name;
         }
         else
             Debug.LogWarning("Too many scenes open!");
@@ -126,38 +127,38 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LoadLevel(int sceneIndex, int doorwayID)
-    {
-        //Disable and set player position
-        CharacterMove move = player.GetComponent<CharacterMove>();
+	public void LoadLevel(string sceneName, string doorName)
+	{
+		//Disable and set player position
+		CharacterMove move = player.GetComponent<CharacterMove>();
 
-        if (move)
-            move.MovementState = CharacterMovementStates.Disabled;
+		if (move)
+			move.MovementState = CharacterMovementStates.Disabled;
 
-        //Start the unload of old level and load of new level
-        StartCoroutine(ChangeLevel(sceneIndex, doorwayID));
-    }
+		//Start the unload of old level and load of new level
+		StartCoroutine(ChangeLevel(sceneName, doorName));
+	}
 
-    IEnumerator ChangeLevel(int sceneIndex, int doorwayID)
+    IEnumerator ChangeLevel(string sceneName, string doorName)
     {
         float fadeTime = levelTransitionTime / 2;
 
         //If a level is already loaded, unload it
-        if (loadedSceneIndex >= 0)
+        if (!string.IsNullOrEmpty(loadedSceneName))
         {
             //Fade out
             UIFunctions.instance.ShowLoadingScreen(true, fadeTime);
             yield return new WaitForSeconds(fadeTime);
 
-            AsyncOperation a = SceneManager.UnloadSceneAsync(loadedSceneIndex);
+            AsyncOperation a = SceneManager.UnloadSceneAsync(loadedSceneName);
 
             //Wait until level has finished unloading
             yield return a;
         }
 
         //Load new level additively, and keep track of it as loaded
-        AsyncOperation async = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
-        loadedSceneIndex = sceneIndex;
+        AsyncOperation async = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        loadedSceneName = sceneName;
 
         yield return async;
 
@@ -167,35 +168,23 @@ public class GameManager : MonoBehaviour
         bool exitRight = false;
 
         //If player has come through doorway, place them in correct position
-        if (doorwayID >= 0)
+        if (!string.IsNullOrEmpty(doorName))
         {
-            //Find doorway and place at doorway out position
-            GameObject[] doors = GameObject.FindGameObjectsWithTag("Doorway");
+			SpawnMarker marker = FindSpawnMarker(doorName);
 
-            if (doors.Length < 1)
-                Debug.LogError("No doors found!");
+			if (marker)
+			{
+				Doorway door = marker as Doorway;
 
-            bool found = false;
-
-            foreach(GameObject door in doors)
-            {
-                Doorway d = door.GetComponent<Doorway>();
-
-                if (d.doorwayID == doorwayID)
-                {
-                    player.transform.position = (Vector2)door.transform.position;
-                    targetPos = door.transform.position.x + d.exitOffset;
-
-                    found = true;
-
-                    if (d.exitOffset > 0)
-                        exitRight = true;
-                }
-            }
-
-            if(!found)
-                Debug.LogError("Target Doorway ID:" + doorwayID + " not found!");
-        }
+				if (door)
+				{
+					player.transform.position = (Vector2)marker.transform.position;
+					targetPos = marker.transform.position.x + door.exitOffset;
+				}
+				else
+					Debug.LogError($"Spawn Marker: {marker.gameObject.name} is not a doorway!");
+			}
+		}
 
         //Re-enable the player after level is loaded
         player.SetActive(true);
@@ -208,7 +197,7 @@ public class GameManager : MonoBehaviour
             OnLevelLoaded();
 
 		//Save player position outside of door
-		lastSaveLocation = new SaveData.Location(loadedSceneIndex, new Vector2(targetPos, player.transform.position.y));
+		lastSaveLocation = new SaveData.Location(loadedSceneName, doorName);
 
 		//Save data during fade out
 		SaveManager.instance?.SaveGame(false);
@@ -222,7 +211,7 @@ public class GameManager : MonoBehaviour
         if (move)
             move.MovementState = CharacterMovementStates.Normal;
 
-        if (input && move && doorwayID >= 0)
+        if (input && move && !string.IsNullOrEmpty(doorName))
         {
             input.enabled = false;
 
@@ -297,10 +286,38 @@ public class GameManager : MonoBehaviour
 		SaveData.Location location = reset ? npcSaveLocation : autoSaveLocation;
 
 		//Set first level to be loaded
-		firstSceneIndex = location.sceneIndex;
-		player.transform.position = location.position;
+		firstSceneName = location.sceneName;
+
+		SpawnMarker spawnMarker = FindSpawnMarker(location.spawnMarkerName);
+		if (spawnMarker)
+		{
+			player.transform.position = spawnMarker.SpawnPosition;
+		}
 
 		//After player data is loaded, load the level
-		LoadLevel(firstSceneIndex, -1);
+		LoadLevel(firstSceneName, null);
     }
+
+	private SpawnMarker FindSpawnMarker(string spawnMarkerName)
+	{
+		//Find doorway and place at doorway out position
+		GameObject[] spawnMarkers = GameObject.FindGameObjectsWithTag("SpawnMarker");
+
+		if (spawnMarkers.Length < 1)
+			Debug.LogError("No doors found!");
+
+		foreach (GameObject marker in spawnMarkers)
+		{
+			SpawnMarker d = marker.GetComponent<SpawnMarker>();
+
+			if (marker.name == spawnMarkerName)
+			{
+				return d;
+			}
+		}
+
+		Debug.LogError($"Target Doorway: {spawnMarkerName} not found!");
+
+		return null;
+	}
 }

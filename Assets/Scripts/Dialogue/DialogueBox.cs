@@ -171,7 +171,7 @@ public class DialogueBox : MonoBehaviour
 				speakerPanelAnimator.Play("Open");
 
 			//Load blackboard variables
-			string key = GameManager.instance.loadedSceneIndex + "_" + dialogueTree.name.Replace(" DialogueTree", "");
+			string key = GameManager.instance.LoadedSceneName + "_" + dialogueTree.name.Replace(" DialogueTree", "");
 			string json;
 
 			if (SaveManager.instance.GetBlackboardJson(key, out json))
@@ -192,7 +192,7 @@ public class DialogueBox : MonoBehaviour
 			//Save blackboard variables
 			if(dialogueTree.blackboard.variables.Count > 0)
 			{
-				string key = GameManager.instance.loadedSceneIndex + "_" + dialogueTree.name.Replace(" DialogueTree", "");
+				string key = GameManager.instance.LoadedSceneName + "_" + dialogueTree.name.Replace(" DialogueTree", "");
 				string json = dialogueTree.SerializeLocalBlackboard();
 
 				SaveManager.instance.SaveBlackBoardJson(key, json);
