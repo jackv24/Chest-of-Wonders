@@ -32,6 +32,12 @@ SpriteAtlas:
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: e0e8df7afb2e1fd4ab130a42de5bd502, type: 3}
+  - {fileID: 21300000, guid: 10dde6d10b6a05a4d81ab5667bec562c, type: 3}
+  - {fileID: 21300000, guid: d1eb08c3280511840af53b04d4ea0651, type: 3}
+  - {fileID: 21300000, guid: b1fad70f05f91424c9a2d84fc06f4e31, type: 3}
+  - {fileID: 21300000, guid: 6d91296d7f62a0c498a172213cb1c24e, type: 3}
+  - {fileID: 21300000, guid: 49ea60327fa2de146b26673d88212abf, type: 3}
   - {fileID: 21300004, guid: 3a9621973b24e4049881da9a41618f5e, type: 3}
   - {fileID: 21300002, guid: 3a9621973b24e4049881da9a41618f5e, type: 3}
   - {fileID: 21300000, guid: 3a9621973b24e4049881da9a41618f5e, type: 3}
@@ -227,6 +233,12 @@ SpriteAtlas:
   - {fileID: 21300042, guid: 50edfd488e796524ca6a159e85415a6b, type: 3}
   - {fileID: 21300040, guid: 50edfd488e796524ca6a159e85415a6b, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Air_bat_swing_006
+  - Air_bat_swing_005
+  - Air_bat_swing_004
+  - Air_bat_swing_003
+  - Air_bat_swing_002
+  - Air_bat_swing_001
   - Combo_fireXleaf_3
   - Combo_fireXleaf_2
   - Combo_fireXleaf_1
