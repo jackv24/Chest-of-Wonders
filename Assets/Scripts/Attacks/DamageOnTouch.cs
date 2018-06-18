@@ -44,9 +44,9 @@ public class DamageOnTouch : MonoBehaviour
         if (characterStats && characterStats.damageImmunity)
             return;
 
-        Vector2 pos = (Vector2)transform.position + damageBoxPos;
+        Vector2 pos = transform.TransformPoint(damageBoxPos);
 
-        Collider2D[] cols = Physics2D.OverlapBoxAll(pos, damageBoxSize, 0, damageLayers);
+        Collider2D[] cols = Physics2D.OverlapBoxAll(pos, transform.TransformVector(damageBoxSize), 0, damageLayers);
 
         foreach (Collider2D other in cols)
         {
@@ -99,8 +99,14 @@ public class DamageOnTouch : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+		Gizmos.matrix = transform.localToWorldMatrix;
 
-        Gizmos.DrawWireCube(transform.position + (Vector3)damageBoxPos, damageBoxSize);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(damageBoxPos, damageBoxSize);
     }
+
+	public void SetActive(bool value)
+	{
+		enabled = value;
+	}
 }

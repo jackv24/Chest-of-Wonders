@@ -5,11 +5,8 @@ using NodeCanvas.Framework;
 
 public class CharacterStats : MonoBehaviour, IDamageable
 {
-    public delegate void DeathEvent();
-    public DeathEvent OnDeath;
-
-	public delegate void DamagedEvent();
-    public DamagedEvent OnDamaged;
+    public event System.Action OnDeath;
+    public event System.Action OnDamaged;
 
     public int currentHealth = 100;
     public int maxHealth = 100;
