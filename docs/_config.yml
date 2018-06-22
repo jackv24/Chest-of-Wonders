@@ -1,5 +1,15 @@
-theme: minima
+#Theme: https://github.com/mmistakes/jekyll-theme-basically-basic#ruby-gem-method
+remote_theme: mmistakes/jekyll-theme-basically-basic
+
 permalink: pretty
+lang: en-AU
+title: Alistair's Chest
+description: Game description goes here.
+url: https://alistairschest.com
+author:
+  name: Overgrowth Studio
+#logo:
+twitter_username: OvergrowthAU
+
 github:
   is_project_page: false
-twitter_username: OvergrowthAU
