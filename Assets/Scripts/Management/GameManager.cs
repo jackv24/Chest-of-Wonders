@@ -49,12 +49,9 @@ public class GameManager : MonoBehaviour
     // Static instance for easy access
     public static GameManager instance;
 
-    private string firstSceneName;
-	private string loadedSceneName;
+	public string LoadedSceneName { get; private set; }
 
-	public string LoadedSceneName { get { return loadedSceneName; } }
-
-    [Space()]
+	[Space()]
     public GameObject player;
 
     [Space()]
@@ -72,9 +69,10 @@ public class GameManager : MonoBehaviour
 
 	private SaveData.Location npcSaveLocation;
 	private SaveData.Location autoSaveLocation;
-	private SaveData.Location lastSaveLocation;
 
-    private PlayerActions playerActions;
+	public SaveData.Location LastSaveLocation { get; set; }
+
+	private PlayerActions playerActions;
 
     private void Awake()
     {
@@ -102,10 +100,10 @@ public class GameManager : MonoBehaviour
 
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
-				data.autoSave = lastSaveLocation;
+				data.autoSave = LastSaveLocation;
 
 				if (hardSave)
-					data.npcSave = lastSaveLocation;
+					data.npcSave = LastSaveLocation;
 			};
 		}
 
@@ -129,7 +127,7 @@ public class GameManager : MonoBehaviour
         //If level is already open in the editor, use that instead
         else if (SceneManager.sceneCount == 2)
         {
-            loadedSceneName = SceneManager.GetSceneAt(1).name;
+            LoadedSceneName = SceneManager.GetSceneAt(1).name;
         }
         else
             Debug.LogWarning("Too many scenes open!");
@@ -181,13 +179,13 @@ public class GameManager : MonoBehaviour
 		float fadeTime = levelTransitionTime / 2;
 
         //If a level is already loaded, unload it
-        if (!string.IsNullOrEmpty(loadedSceneName))
+        if (!string.IsNullOrEmpty(LoadedSceneName))
         {
             //Fade out
             UIFunctions.instance.ShowLoadingScreen(true, fadeTime);
             yield return new WaitForSeconds(fadeTime);
 
-            AsyncOperation a = SceneManager.UnloadSceneAsync(loadedSceneName);
+            AsyncOperation a = SceneManager.UnloadSceneAsync(LoadedSceneName);
 
             //Wait until level has finished unloading
             yield return a;
@@ -195,7 +193,7 @@ public class GameManager : MonoBehaviour
 
         //Load new level additively, and keep track of it as loaded
         AsyncOperation async = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        loadedSceneName = sceneName;
+        LoadedSceneName = sceneName;
 
         yield return async;
 
@@ -211,17 +209,23 @@ public class GameManager : MonoBehaviour
 
 			if (marker)
 			{
-				Doorway door = marker as Doorway;
-
-				if (door)
+				if (marker is Doorway)
 				{
+					Doorway door = (Doorway)marker;
+
 					player.transform.position = (Vector2)marker.transform.position;
 					targetPos = marker.transform.position.x + door.exitOffset;
 
 					exitRight = targetPos > marker.transform.position.x;
 				}
+				else if (marker is SpawnMarker)
+				{
+					player.transform.position = marker.SpawnPosition;
+				}
 				else
-					Debug.LogError($"Spawn Marker: {marker.gameObject.name} is not a doorway!");
+				{
+					Debug.LogError($"Spawn Marker: {doorName} type has no handler!", this);
+				}
 			}
 		}
 
@@ -231,12 +235,11 @@ public class GameManager : MonoBehaviour
 		//Re-enable the player after level is loaded
 		player.SetActive(true);
 
-        //Call level loaded events
-        if (OnLevelLoaded != null)
-            OnLevelLoaded();
+		//Call level loaded events
+		OnLevelLoaded?.Invoke();
 
 		//Save player position outside of door
-		lastSaveLocation = new SaveData.Location(loadedSceneName, doorName);
+		LastSaveLocation = new SaveData.Location(LoadedSceneName, doorName);
 
 		//Save data during fade out
 		SaveManager.instance?.SaveGame(false);
@@ -330,24 +333,15 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer(bool reset)
     {
-        player.SetActive(true);
+        //player.SetActive(true);
 		GameState = GameStates.Playing;
 
 		SaveManager.instance?.LoadGame(reset);
 
 		SaveData.Location location = reset ? npcSaveLocation : autoSaveLocation;
 
-		//Set first level to be loaded
-		firstSceneName = location.sceneName;
-
-		SpawnMarker spawnMarker = FindSpawnMarker(location.spawnMarkerName);
-		if (spawnMarker)
-		{
-			player.transform.position = spawnMarker.SpawnPosition;
-		}
-
 		//After player data is loaded, load the level
-		LoadLevel(firstSceneName, null);
+		LoadLevel(location.sceneName, location.spawnMarkerName);
     }
 
 	private SpawnMarker FindSpawnMarker(string spawnMarkerName)

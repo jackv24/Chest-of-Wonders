@@ -63,7 +63,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycbx8S-nfASq09t9hEhm18z2kHl8Q2FBnNdSlGDqEUA/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1529730579206
+  Google_LastUpdatedVersion: 1529737657317
   GoogleUpdateFrequency: 1
   GoogleUpdateDelay: 5
   mLanguages:
@@ -363,11 +363,44 @@ MonoBehaviour:
     - 
     Flags: 0000
     Languages_Touch: []
-  - Term: Dialogue/SAVE_GENERIC
+  - Term: Dialogue/SAVE_ASK
     TermType: 0
     Description: 
     Languages:
-    - Want me to save that there game?
+    - Shall I save your gaame?
+    - 
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Dialogue/SAVE_COMPLETE
+    TermType: 0
+    Description: 
+    Languages:
+    - It's done, but don't get too reckless... or do.
+    - 
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Dialogue/SAVE_CANCEL
+    TermType: 0
+    Description: 
+    Languages:
+    - Are you that confident?
+    - 
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Dialogue/SAVE_CHAT_ARCHIVE_ENTRANCE
+    TermType: 0
+    Description: 
+    Languages:
+    - "This place has a lot of class huh? <pg>\nI might have considered living here
+      <br> \nif there weren't so many thorns."
+    - 
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Dialogue/SAVE_CHAT_ARCHIVE_ENTRANCE_REPEAT
+    TermType: 0
+    Description: 
+    Languages:
+    - Terribly pleasant to see you again.
     - 
     Flags: 0000
     Languages_Touch: []

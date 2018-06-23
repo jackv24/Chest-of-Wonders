@@ -42,12 +42,6 @@ public class DialogueBox : MonoBehaviour
 
 	[Space()]
     public float textSpeed = 20;
-	public int maxCharsBeforeWrap = 30;
-	public LayoutElement textPanel;
-	public VerticalLayoutGroup textLayoutGroup;
-	private float textPreferredWidth;
-
-	[Space()]
 	public AudioClip textPrintSound;
 	public MinMaxFloat pitchVariance = new MinMaxFloat(0.85f, 1.15f);
 	public MinMaxFloat textSoundDelay = new MinMaxFloat(0.2f, 0.3f);
@@ -132,9 +126,6 @@ public class DialogueBox : MonoBehaviour
 		DialogueTree.OnDialoguePaused += OnDialoguePaused;
 		DialogueTree.OnSubtitlesRequest += OnSubtitlesRequest;
 		DialogueTree.OnMultipleChoiceRequest += OnMultipleChoiceRequest;
-
-		if (textPanel)
-			textPreferredWidth = textPanel.preferredWidth;
     }
 
     void Update()
@@ -312,84 +303,74 @@ public class DialogueBox : MonoBehaviour
 
 	IEnumerator RunSubtitleRequest(SubtitlesRequestInfo info)
 	{
-		if (skipNextFlip)
-			skipNextFlip = false;
-		else
+		ContentSizeFitter sizeFitter = speakerPanel?.GetComponent<ContentSizeFitter>();
+
+		//Split statement text into pages, then treat each page as it's own subtitle request
+		string[] textPages = Helper.ParseGameText(info.statement.text);
+		for (int i = 0; i < textPages.Length; i++)
 		{
-			//Play flip close animation before updating (begin all the way closed if coming from dialogue closed)
-			yield return StartCoroutine(speakerPanelAnimator.PlayWait("Flip Close", IsDialogueOpen ? 0 : 1));
-			flipBack = true;
-		}
-
-		IDialogueActor actor = info.actor;
-
-		if (actor.transform)
-			currentSpeaker = actor.transform.GetComponent<DialogueSpeaker>();
-
-		ShowSpeakerTalking(true);
-
-		yield return null;
-
-		if (accent)
-			accent.color = actor.dialogueColor;
-
-		if (nameText)
-			nameText.text = actor.name;
-
-		if(dialogueText)
-		{
-			bool withSound = !info.statement.meta.ToLower().Contains("nosound");
-
-			//Open dialogue box with animation if it is closed
-			if (!IsDialogueOpen)
-			{
-				IsDialogueOpen = true;
-
-				//Set dialogue text and as invisible to get correct box size
-				dialogueText.text = $"<color=#FFFFFF00>{info.statement.text}</color>";
-
-				if (speakerPanelAnimator && !flipBack)
-					yield return StartCoroutine(speakerPanelAnimator.PlayWait("Open"));
-			}
-
-			//Fixes layout issues
-			if (info.statement.text.Length > maxCharsBeforeWrap)
-			{
-				if (textPanel)
-					textPanel.preferredWidth = textPreferredWidth;
-
-				if (textLayoutGroup)
-					textLayoutGroup.childControlHeight = true;
-			}
+			if (skipNextFlip)
+				skipNextFlip = false;
 			else
 			{
-				if (textPanel)
-				{
-					textPanel.preferredWidth = -1;
+				//Play flip close animation before updating (begin all the way closed if coming from dialogue closed)
+				yield return StartCoroutine(speakerPanelAnimator.PlayWait("Flip Close", IsDialogueOpen ? 0 : 1));
+				flipBack = true;
+			}
 
-					if(dialogueText)
-					{
-						RectTransform rectTrans = dialogueText.GetComponent<RectTransform>();
-						if(rectTrans)
-						{
-							Vector2 delta = rectTrans.sizeDelta;
-							delta.y = textPanel.minHeight;
-							rectTrans.sizeDelta = delta;
-						}
-					}
+			IDialogueActor actor = info.actor;
+
+			if (actor.transform)
+				currentSpeaker = actor.transform.GetComponent<DialogueSpeaker>();
+
+			ShowSpeakerTalking(true);
+
+			yield return null;
+
+			if (accent)
+				accent.color = actor.dialogueColor;
+
+			if (nameText)
+				nameText.text = actor.name;
+
+			if (dialogueText)
+			{
+				bool withSound = !info.statement.meta.ToLower().Contains("nosound");
+
+				//Set dialogue text as invisible and wait frame to get correct box size (animated scale causes glitchiness otherwise)
+				Vector3 scale = speakerPanel.localScale;
+				speakerPanel.localScale = Vector3.one;
+				sizeFitter.enabled = true;
+				dialogueText.text = $"<color=#FFFFFF00>{textPages[i]}</color>";
+				LayoutRebuilder.ForceRebuildLayoutImmediate(speakerPanel);
+				sizeFitter.enabled = false;
+				speakerPanel.localScale = scale;
+
+				//Open dialogue box with animation if it is closed
+				if (!IsDialogueOpen)
+				{
+					IsDialogueOpen = true;
+
+					if (speakerPanelAnimator && !flipBack)
+						yield return StartCoroutine(speakerPanelAnimator.PlayWait("Open"));
 				}
 
-				if (textLayoutGroup)
-					textLayoutGroup.childControlHeight = false;
+				if (flipBack)
+				{
+					flipBack = false;
+					speakerPanelAnimator.Play("Flip Open");
+				}
+
+				yield return StartCoroutine(PrintOverTime(dialogueText, textPages[i], withSound));
 			}
 
-			if (flipBack)
+			//Wait for input on all except last page
+			if (i < textPages.Length - 1)
 			{
-				flipBack = false;
-				speakerPanelAnimator.Play("Flip Open");
+				waitingForInput = true;
+				while (waitingForInput)
+					yield return null;
 			}
-
-			yield return StartCoroutine(PrintOverTime(dialogueText, info.statement.text, withSound));
 		}
 
 		//MultipleChoiceRequest handles continuing if there are options
@@ -397,9 +378,7 @@ public class DialogueBox : MonoBehaviour
 		{
 			waitingForInput = true;
 			while (waitingForInput)
-			{
 				yield return null;
-			}
 
 			info.Continue();
 		}

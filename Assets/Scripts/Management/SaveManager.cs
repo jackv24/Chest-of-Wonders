@@ -10,8 +10,8 @@ public class SaveManager : MonoBehaviour
 	public delegate void DataLoadedEvent(SaveData data);
 	public event DataLoadedEvent OnDataLoaded;
 
-	public delegate void DataSavedEvent(SaveData data, bool hardSave);
-	public event DataSavedEvent OnDataSaving;
+	public delegate void DataSavingEvent(SaveData data, bool hardSave);
+	public event DataSavingEvent OnDataSaving;
 
 	public bool IsDataLoaded { get { return data != null; } }
 
@@ -113,50 +113,62 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-	public bool GetBlackboardJson(string key, out string json)
-	{
-		if (data.blackboardDictionary.ContainsKey(key))
-		{
-			json = data.blackboardDictionary[key];
-			return true;
-		}
-		else
-		{
-			json = "";
-			return false;
-		}
-	}
-
-	public void SaveBlackBoardJson(string key, string json)
-	{
-		data.blackboardDictionary[key] = json;
-	}
-
 	public bool GetPersistentObjectState(string sceneName, string id)
 	{
-		if(data.persistentObjects.ContainsKey(sceneName))
-		{
-			var sceneDictionary = data.persistentObjects[sceneName];
-
-			if(sceneDictionary.ContainsKey(id))
-			{
-				bool activated = sceneDictionary[id];
-				return activated;
-			}
-		}
-
-		return false;
+		return data.GetPersistentObjectState(sceneName, id);
 	}
 
 	public void SetPersistentObjectState(string sceneName, string id, bool activated)
 	{
-		//Get existing scene-level dictionary or create one
-		SaveData.PersistentObjectIDDictionary sceneDictionary = null;
-		if (data.persistentObjects.ContainsKey(sceneName))
-			sceneDictionary = data.persistentObjects[sceneName];
-		else
-			sceneDictionary = data.persistentObjects[sceneName] = new SaveData.PersistentObjectIDDictionary();
+		data.SetPersistentObjectState(sceneName, id, activated);
+	}
 
-		sceneDictionary[id] = activated;
+	public bool GetBlackboardJson(string key, out string json)
+	{
+		return data.GetBlackboardJson(key, out json);
+	}
+
+	public void SaveBlackBoardJson(string key, string json)
+	{
+		data.SaveBlackBoardJson(key, json);
+	}
+
+	public void AddTempLoadAction(DataLoadedEvent onDataLoaded)
+	{
+		if(onDataLoaded != null)
+		{
+			if (IsDataLoaded)
+			{
+				//If data is already loaded then invoke immediately
+				onDataLoaded.Invoke(data);
+			}
+			else
+			{
+				//If data has yet to be loaded, then invoke after data is loaded with a self-unsubscribing event
+				DataLoadedEvent temp = null;
+				temp = (data) =>
+				{
+					onDataLoaded.Invoke(data);
+
+					OnDataLoaded -= temp;
+				};
+				OnDataLoaded += temp;
+			}
+		}
+	}
+
+	public void AddTempSaveAction(DataSavingEvent onDataSaved)
+	{
+		if (onDataSaved != null)
+		{
+			DataSavingEvent temp = null;
+			temp = (data, hardSave) =>
+			{
+				onDataSaved.Invoke(data, hardSave);
+
+				OnDataSaving -= temp;
+			};
+			OnDataSaving += temp;
+		}
 	}
 }
