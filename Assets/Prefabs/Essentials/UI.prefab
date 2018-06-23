@@ -9551,9 +9551,6 @@ MonoBehaviour:
   trailOffset: -10
   initialButton: {fileID: 114131284326500310}
   textSpeed: 30
-  maxCharsBeforeWrap: 30
-  textPanel: {fileID: 114607173069141100}
-  textLayoutGroup: {fileID: 114121490369984570}
   textPrintSound: {fileID: 8300000, guid: 82bba1ebbff71e4448196683574dd895, type: 3}
   pitchVariance:
     min: 0.85
@@ -12544,7 +12541,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: 80
   m_MinHeight: 11
-  m_PreferredWidth: 200
+  m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1

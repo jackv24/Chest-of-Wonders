@@ -42,12 +42,6 @@ public class DialogueBox : MonoBehaviour
 
 	[Space()]
     public float textSpeed = 20;
-	public int maxCharsBeforeWrap = 30;
-	public LayoutElement textPanel;
-	public VerticalLayoutGroup textLayoutGroup;
-	private float textPreferredWidth;
-
-	[Space()]
 	public AudioClip textPrintSound;
 	public MinMaxFloat pitchVariance = new MinMaxFloat(0.85f, 1.15f);
 	public MinMaxFloat textSoundDelay = new MinMaxFloat(0.2f, 0.3f);
@@ -132,9 +126,6 @@ public class DialogueBox : MonoBehaviour
 		DialogueTree.OnDialoguePaused += OnDialoguePaused;
 		DialogueTree.OnSubtitlesRequest += OnSubtitlesRequest;
 		DialogueTree.OnMultipleChoiceRequest += OnMultipleChoiceRequest;
-
-		if (textPanel)
-			textPreferredWidth = textPanel.preferredWidth;
     }
 
     void Update()
@@ -354,37 +345,6 @@ public class DialogueBox : MonoBehaviour
 
 					if (speakerPanelAnimator && !flipBack)
 						yield return StartCoroutine(speakerPanelAnimator.PlayWait("Open"));
-				}
-
-				//Fixes layout issues
-				if (textPages[i].Length > maxCharsBeforeWrap)
-				{
-					if (textPanel)
-						textPanel.preferredWidth = textPreferredWidth;
-
-					if (textLayoutGroup)
-						textLayoutGroup.childControlHeight = true;
-				}
-				else
-				{
-					if (textPanel)
-					{
-						textPanel.preferredWidth = -1;
-
-						if (dialogueText)
-						{
-							RectTransform rectTrans = dialogueText.GetComponent<RectTransform>();
-							if (rectTrans)
-							{
-								Vector2 delta = rectTrans.sizeDelta;
-								delta.y = textPanel.minHeight;
-								rectTrans.sizeDelta = delta;
-							}
-						}
-					}
-
-					if (textLayoutGroup)
-						textLayoutGroup.childControlHeight = false;
 				}
 
 				if (flipBack)
