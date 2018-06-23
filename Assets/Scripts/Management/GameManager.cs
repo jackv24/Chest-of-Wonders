@@ -49,12 +49,9 @@ public class GameManager : MonoBehaviour
     // Static instance for easy access
     public static GameManager instance;
 
-    private string firstSceneName;
-	private string loadedSceneName;
+	public string LoadedSceneName { get; private set; }
 
-	public string LoadedSceneName { get { return loadedSceneName; } }
-
-    [Space()]
+	[Space()]
     public GameObject player;
 
     [Space()]
@@ -130,7 +127,7 @@ public class GameManager : MonoBehaviour
         //If level is already open in the editor, use that instead
         else if (SceneManager.sceneCount == 2)
         {
-            loadedSceneName = SceneManager.GetSceneAt(1).name;
+            LoadedSceneName = SceneManager.GetSceneAt(1).name;
         }
         else
             Debug.LogWarning("Too many scenes open!");
@@ -182,13 +179,13 @@ public class GameManager : MonoBehaviour
 		float fadeTime = levelTransitionTime / 2;
 
         //If a level is already loaded, unload it
-        if (!string.IsNullOrEmpty(loadedSceneName))
+        if (!string.IsNullOrEmpty(LoadedSceneName))
         {
             //Fade out
             UIFunctions.instance.ShowLoadingScreen(true, fadeTime);
             yield return new WaitForSeconds(fadeTime);
 
-            AsyncOperation a = SceneManager.UnloadSceneAsync(loadedSceneName);
+            AsyncOperation a = SceneManager.UnloadSceneAsync(LoadedSceneName);
 
             //Wait until level has finished unloading
             yield return a;
@@ -196,7 +193,7 @@ public class GameManager : MonoBehaviour
 
         //Load new level additively, and keep track of it as loaded
         AsyncOperation async = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        loadedSceneName = sceneName;
+        LoadedSceneName = sceneName;
 
         yield return async;
 
@@ -238,12 +235,11 @@ public class GameManager : MonoBehaviour
 		//Re-enable the player after level is loaded
 		player.SetActive(true);
 
-        //Call level loaded events
-        if (OnLevelLoaded != null)
-            OnLevelLoaded();
+		//Call level loaded events
+		OnLevelLoaded?.Invoke();
 
 		//Save player position outside of door
-		LastSaveLocation = new SaveData.Location(loadedSceneName, doorName);
+		LastSaveLocation = new SaveData.Location(LoadedSceneName, doorName);
 
 		//Save data during fade out
 		SaveManager.instance?.SaveGame(false);
@@ -343,15 +339,6 @@ public class GameManager : MonoBehaviour
 		SaveManager.instance?.LoadGame(reset);
 
 		SaveData.Location location = reset ? npcSaveLocation : autoSaveLocation;
-
-		//SpawnMarker spawnMarker = FindSpawnMarker(location.spawnMarkerName);
-		//if (spawnMarker)
-		//{
-		//	player.transform.position = spawnMarker.SpawnPosition;
-		//}
-
-		//Set first level to be loaded
-		firstSceneName = location.sceneName;
 
 		//After player data is loaded, load the level
 		LoadLevel(location.sceneName, location.spawnMarkerName);

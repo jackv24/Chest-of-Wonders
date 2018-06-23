@@ -49,12 +49,49 @@ public class SaveData
 	public EnemyKillDictionary killedEnemies;
 
 	[System.Serializable]
+	public class PersistentObjectDictionary : SerializableDictionary<string, bool> { }
+	public PersistentObjectDictionary persistentObjects;
+
+	[System.Serializable]
 	public class DialogueDictionary : SerializableDictionary<string, string> { }
 	public DialogueDictionary blackboardDictionary;
 
-	[System.Serializable]
-	public class PersistentObjectIDDictionary : SerializableDictionary<string, bool> { }
-	[System.Serializable]
-	public class PersistentObjectDictionary : SerializableDictionary<string, PersistentObjectIDDictionary> { }
-	public PersistentObjectDictionary persistentObjects;
+	#region Accessor Functions
+
+	public bool GetPersistentObjectState(string sceneName, string id)
+	{
+		if (persistentObjects.ContainsKey(id))
+		{
+			bool activated = persistentObjects[id];
+			return activated;
+		}
+
+		return false;
+	}
+
+	public void SetPersistentObjectState(string sceneName, string id, bool activated)
+	{
+		persistentObjects[id] = activated;
+	}
+
+	public bool GetBlackboardJson(string key, out string json)
+	{
+		if (blackboardDictionary.ContainsKey(key))
+		{
+			json = blackboardDictionary[key];
+			return true;
+		}
+		else
+		{
+			json = "";
+			return false;
+		}
+	}
+
+	public void SaveBlackBoardJson(string key, string json)
+	{
+		blackboardDictionary[key] = json;
+	}
+
+	#endregion
 }

@@ -27,35 +27,24 @@ public class PersistentObject
 
 		if(SaveManager.instance)
 		{
-			if (SaveManager.instance.IsDataLoaded)
-				LoadState();
-			else
+			SaveManager.instance.AddTempLoadAction((data) =>
 			{
-				SaveManager.DataLoadedEvent temp = null;
-				temp = (SaveData data) =>
-				{
-					LoadState();
+				if (!string.IsNullOrEmpty(sceneName) && !string.IsNullOrEmpty(id))
+					activated = data.GetPersistentObjectState(sceneName, id);
 
-					SaveManager.instance.OnDataLoaded -= temp;
-				};
-				SaveManager.instance.OnDataLoaded += temp;
-			}
+				OnStateLoaded?.Invoke(activated);
+			});
+
+			SaveManager.instance.AddTempSaveAction((data, hardSave) =>
+			{
+				if (!string.IsNullOrEmpty(sceneName) && !string.IsNullOrEmpty(id))
+					SaveManager.instance.SetPersistentObjectState(sceneName, id, activated);
+			});
 		}
 	}
 
 	public void SaveState(bool activated)
 	{
 		this.activated = activated;
-
-		if(!string.IsNullOrEmpty(sceneName) && !string.IsNullOrEmpty(id))
-			SaveManager.instance.SetPersistentObjectState(sceneName, id, activated);
-	}
-
-	private void LoadState()
-	{
-		if (!string.IsNullOrEmpty(sceneName) && !string.IsNullOrEmpty(id))
-			activated = SaveManager.instance.GetPersistentObjectState(sceneName, id);
-
-		OnStateLoaded?.Invoke(activated);
 	}
 }
