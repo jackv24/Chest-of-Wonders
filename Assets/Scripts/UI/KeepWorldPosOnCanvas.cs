@@ -37,6 +37,9 @@ public class KeepWorldPosOnCanvas : MonoBehaviour
 
 	private void UpdatePos()
 	{
+		if (!enabled || !gameObject.activeInHierarchy)
+			return;
+
 		GetWorldPos();
 
 		//UICamera should be at world origin, so offset from game camera should be canvas position
