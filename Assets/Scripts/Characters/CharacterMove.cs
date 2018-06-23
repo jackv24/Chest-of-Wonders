@@ -143,7 +143,7 @@ public class CharacterMove : MonoBehaviour
 
 		if (startOnGround)
 		{
-			StartCoroutine("WaitForGround");
+			StartCoroutine(WaitForGround());
 		}
 	}
 
@@ -153,7 +153,8 @@ public class CharacterMove : MonoBehaviour
 
 		while (!hasHit)
 		{
-			RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1000f, groundLayer);
+			//Fire ray from above ground, allowing feet to be penetrating a bit
+			RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.up, Vector2.down, 1000f, groundLayer);
 
 			//Start on ground point from raycast
 			if (hit.collider != null)
