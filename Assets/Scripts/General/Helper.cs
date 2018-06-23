@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -67,6 +68,36 @@ public static class Helper
 	public static Color RGBToColor(float r, float g, float b)
 	{
 		return new Color(r / 255, g / 255, b / 255);
+	}
+
+	/// <summary>
+	/// Parses game text, stripping whitespace and handling any tags.
+	/// </summary>
+	/// <param name="original">The text to parse.</param>
+	/// <returns>An array of string split at every "<pg>" tag.</returns>
+	public static string[] ParseGameText(string original)
+	{
+		//Split text into pages first before working on each page
+		string[] pages = original.Split(new string[] { "<pg>" }, System.StringSplitOptions.RemoveEmptyEntries);
+		for(int i = 0; i < pages.Length; i++)
+		{
+			string[] parts = pages[i].Split(new string[] { "<br>" }, System.StringSplitOptions.RemoveEmptyEntries);
+
+			//Parse each string part then re-join them
+			StringBuilder builder = new StringBuilder(parts.Length * 2);
+			for(int j = 0; j < parts.Length; j++)
+			{
+				builder.Append(parts[j].Trim());
+
+				//Append new line to all except last
+				if (j < parts.Length - 1)
+					builder.Append('\n');
+			}
+
+			pages[i] = builder.ToString();
+		}
+
+		return pages;
 	}
 }
 
