@@ -303,8 +303,10 @@ public class DialogueBox : MonoBehaviour
 
 	IEnumerator RunSubtitleRequest(SubtitlesRequestInfo info)
 	{
-		string[] textPages = Helper.ParseGameText(info.statement.text);
+		ContentSizeFitter sizeFitter = speakerPanel?.GetComponent<ContentSizeFitter>();
 
+		//Split statement text into pages, then treat each page as it's own subtitle request
+		string[] textPages = Helper.ParseGameText(info.statement.text);
 		for (int i = 0; i < textPages.Length; i++)
 		{
 			if (skipNextFlip)
@@ -335,13 +337,19 @@ public class DialogueBox : MonoBehaviour
 			{
 				bool withSound = !info.statement.meta.ToLower().Contains("nosound");
 
+				//Set dialogue text as invisible and wait frame to get correct box size (animated scale causes glitchiness otherwise)
+				Vector3 scale = speakerPanel.localScale;
+				speakerPanel.localScale = Vector3.one;
+				sizeFitter.enabled = true;
+				dialogueText.text = $"<color=#FFFFFF00>{textPages[i]}</color>";
+				LayoutRebuilder.ForceRebuildLayoutImmediate(speakerPanel);
+				sizeFitter.enabled = false;
+				speakerPanel.localScale = scale;
+
 				//Open dialogue box with animation if it is closed
 				if (!IsDialogueOpen)
 				{
 					IsDialogueOpen = true;
-
-					//Set dialogue text and as invisible to get correct box size
-					dialogueText.text = $"<color=#FFFFFF00>{textPages[i]}</color>";
 
 					if (speakerPanelAnimator && !flipBack)
 						yield return StartCoroutine(speakerPanelAnimator.PlayWait("Open"));
