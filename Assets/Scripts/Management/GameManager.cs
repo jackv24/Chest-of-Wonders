@@ -72,9 +72,10 @@ public class GameManager : MonoBehaviour
 
 	private SaveData.Location npcSaveLocation;
 	private SaveData.Location autoSaveLocation;
-	private SaveData.Location lastSaveLocation;
 
-    private PlayerActions playerActions;
+	public SaveData.Location LastSaveLocation { get; set; }
+
+	private PlayerActions playerActions;
 
     private void Awake()
     {
@@ -102,10 +103,10 @@ public class GameManager : MonoBehaviour
 
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
-				data.autoSave = lastSaveLocation;
+				data.autoSave = LastSaveLocation;
 
 				if (hardSave)
-					data.npcSave = lastSaveLocation;
+					data.npcSave = LastSaveLocation;
 			};
 		}
 
@@ -211,17 +212,23 @@ public class GameManager : MonoBehaviour
 
 			if (marker)
 			{
-				Doorway door = marker as Doorway;
-
-				if (door)
+				if (marker is Doorway)
 				{
+					Doorway door = (Doorway)marker;
+
 					player.transform.position = (Vector2)marker.transform.position;
 					targetPos = marker.transform.position.x + door.exitOffset;
 
 					exitRight = targetPos > marker.transform.position.x;
 				}
+				else if (marker is SpawnMarker)
+				{
+					player.transform.position = marker.SpawnPosition;
+				}
 				else
-					Debug.LogError($"Spawn Marker: {marker.gameObject.name} is not a doorway!");
+				{
+					Debug.LogError($"Spawn Marker: {doorName} type has no handler!", this);
+				}
 			}
 		}
 
@@ -236,7 +243,7 @@ public class GameManager : MonoBehaviour
             OnLevelLoaded();
 
 		//Save player position outside of door
-		lastSaveLocation = new SaveData.Location(loadedSceneName, doorName);
+		LastSaveLocation = new SaveData.Location(loadedSceneName, doorName);
 
 		//Save data during fade out
 		SaveManager.instance?.SaveGame(false);
@@ -330,24 +337,24 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer(bool reset)
     {
-        player.SetActive(true);
+        //player.SetActive(true);
 		GameState = GameStates.Playing;
 
 		SaveManager.instance?.LoadGame(reset);
 
 		SaveData.Location location = reset ? npcSaveLocation : autoSaveLocation;
 
+		//SpawnMarker spawnMarker = FindSpawnMarker(location.spawnMarkerName);
+		//if (spawnMarker)
+		//{
+		//	player.transform.position = spawnMarker.SpawnPosition;
+		//}
+
 		//Set first level to be loaded
 		firstSceneName = location.sceneName;
 
-		SpawnMarker spawnMarker = FindSpawnMarker(location.spawnMarkerName);
-		if (spawnMarker)
-		{
-			player.transform.position = spawnMarker.SpawnPosition;
-		}
-
 		//After player data is loaded, load the level
-		LoadLevel(firstSceneName, null);
+		LoadLevel(location.sceneName, location.spawnMarkerName);
     }
 
 	private SpawnMarker FindSpawnMarker(string spawnMarkerName)
