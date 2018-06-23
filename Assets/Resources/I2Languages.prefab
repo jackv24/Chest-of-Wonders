@@ -63,7 +63,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycbx8S-nfASq09t9hEhm18z2kHl8Q2FBnNdSlGDqEUA/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1529227062857
+  Google_LastUpdatedVersion: 1529730579206
   GoogleUpdateFrequency: 1
   GoogleUpdateDelay: 5
   mLanguages:
@@ -327,7 +327,7 @@ MonoBehaviour:
     TermType: 0
     Description: 
     Languages:
-    - TALK
+    - SPEAK
     - "\u30C8\u30FC\u30AF"
     Flags: 0000
     Languages_Touch: []
@@ -360,6 +360,14 @@ MonoBehaviour:
     Description: 
     Languages:
     - 'True '
+    - 
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Dialogue/SAVE_GENERIC
+    TermType: 0
+    Description: 
+    Languages:
+    - Want me to save that there game?
     - 
     Flags: 0000
     Languages_Touch: []
