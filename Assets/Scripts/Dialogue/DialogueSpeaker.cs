@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.DialogueTrees;
 
-[RequireComponent(typeof(DialogueActor))]
-public class DialogueSpeaker : MonoBehaviour, IInteractible
+public class DialogueSpeaker : DialogueActor, IInteractible
 {
+	public Vector2 BoxOffset { get { return _dialogueOffset; } }
+
 	public InteractType InteractType { get { return InteractType.Speak; } }
 
-	[Space()]
-    //How far offset from the gameobject should it be (in world space)
-    public Vector2 boxOffset = new Vector2(0, 1.75f);
-
     private bool inRange = false;
-    [HideInInspector]
-    public bool rangeToggle = false;
+    private bool rangeToggle = false;
 
+	[Space()]
     public float range = 2.5f;
     public float talkRange = 1.75f;
     private GameObject player;
@@ -32,18 +29,15 @@ public class DialogueSpeaker : MonoBehaviour, IInteractible
 
 	[Space()]
 	public DialogueTreeController dialogueTree;
-	private DialogueActor actor;
-
-	private void Awake()
-	{
-		actor = GetComponent<DialogueActor>();
-	}
 
 	private void Start()
     {
         player = GameObject.FindWithTag("Player");
 
-		animator = GetComponentInChildren<Animator>();
+		if (!graphic)
+			graphic = gameObject;
+
+		animator = graphic.GetComponent<Animator>();
 
 		if (cowerFromEnemies && animator)
 		{
@@ -191,7 +185,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteractible
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.DrawIcon(transform.position + (Vector3)boxOffset, "Interact Icon");
+		Gizmos.DrawIcon(transform.position + (Vector3)BoxOffset, "Interact Icon");
 	}
 
 	private void OnDrawGizmosSelected()
@@ -204,7 +198,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteractible
 
 	public void ShowPrompt()
 	{
-		InteractManager.AddInteractible(this, (Vector2)transform.position, boxOffset);
+		InteractManager.AddInteractible(this, (Vector2)transform.position, BoxOffset);
 	}
 
 	public void HidePrompt()
@@ -216,7 +210,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteractible
 	{
 		if (dialogueTree)
 		{
-			dialogueTree.StartDialogue(actor);
+			dialogueTree.StartDialogue(this);
 
 			//If desired, face the player while speaking
 			if (facePlayer && graphic)

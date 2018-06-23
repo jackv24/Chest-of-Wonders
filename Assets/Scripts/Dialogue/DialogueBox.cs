@@ -90,7 +90,7 @@ public class DialogueBox : MonoBehaviour
                 Vector2 s = speakerPanelOffset;
                 s.x *= multiplier;
 
-                dialoguePos.worldPos = (Vector2)currentSpeaker.transform.position + currentSpeaker.boxOffset + s;
+                dialoguePos.worldPos = (Vector2)currentSpeaker.transform.position + currentSpeaker.BoxOffset + s;
 
                 if(trail)
                 {
@@ -326,6 +326,8 @@ public class DialogueBox : MonoBehaviour
 		if (actor.transform)
 			currentSpeaker = actor.transform.GetComponent<DialogueSpeaker>();
 
+		ShowSpeakerTalking(true);
+
 		yield return null;
 
 		if (accent)
@@ -401,6 +403,8 @@ public class DialogueBox : MonoBehaviour
 
 			info.Continue();
 		}
+
+		ShowSpeakerTalking(false);
 	}
 
     IEnumerator PrintOverTime(Text textObj, string text, bool withSound)

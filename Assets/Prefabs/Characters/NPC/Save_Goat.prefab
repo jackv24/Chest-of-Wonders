@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4930633639304528}
   - component: {fileID: 212807320834567706}
   - component: {fileID: 95041548102910948}
-  - component: {fileID: 114972499717743998}
   - component: {fileID: 114357877189726670}
   - component: {fileID: 114550662430731252}
   - component: {fileID: 114219098389550160}
@@ -64,7 +63,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114219098389550160
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1426721727138290}
@@ -85,8 +84,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee314be393e91064ab5754a84bec453a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxOffset: {x: 0, y: 2.2}
-  rangeToggle: 0
+  _name: Save Goat
+  _portrait: {fileID: 0}
+  _dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+  _dialogueOffset: {x: 0, y: 2.2, z: 0}
   range: 2.5
   talkRange: 1.75
   graphic: {fileID: 1426721727138290}
@@ -95,7 +96,7 @@ MonoBehaviour:
   dialogueTree: {fileID: 0}
 --- !u!114 &114550662430731252
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1426721727138290}
@@ -110,21 +111,6 @@ MonoBehaviour:
     _collection:
     - {fileID: 1426721727138290}
   _assetGuid: 7140c09526bd1b94f83bc9bf9a9f4222
---- !u!114 &114972499717743998
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1426721727138290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d71fb7c52372e244baf2e69a9d0d116, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _name: Save Goat
-  _portrait: {fileID: 0}
-  _dialogueColor: {r: 1, g: 1, b: 1, a: 1}
-  _dialogueOffset: {x: 0, y: 0, z: 0}
 --- !u!212 &212807320834567706
 SpriteRenderer:
   m_ObjectHideFlags: 1
