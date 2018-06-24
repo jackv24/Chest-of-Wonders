@@ -9,9 +9,12 @@ public class CharacterAnimator : MonoBehaviour
     [Space()]
     [Tooltip("Does the character look towards the right by default? (used to flip the character to face the right move direction)")]
     public bool defaultRight = true;
-    private float oldFaceDirection = 0;
+
+	//Characters are all facing right by default
+    private float oldFaceDirection = 1;
 
 	public bool handleFlip = true;
+	public bool doTurnAnimation;
 
     [Space()]
     public AnimationClip deathAnimation;
@@ -69,6 +72,9 @@ public class CharacterAnimator : MonoBehaviour
 
 			//Set new scale as current scale
 			animator.transform.localScale = scale;
+
+			if (doTurnAnimation)
+				animator.Play("Turn");
 		}
 	}
 
