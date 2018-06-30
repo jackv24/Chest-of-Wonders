@@ -319,7 +319,7 @@ MonoBehaviour:
   InnerPadding: 0
   ColliderDepth: 0.1
   ColliderType: 1
-  Collider2DType: 1
+  Collider2DType: 0
   ShowColliderNormals: 1
   ColliderDisplayMode: 0
   IsUndoEnabled: 0
@@ -756,6 +756,8 @@ GameObject:
   - component: {fileID: 1415750909}
   - component: {fileID: 1415750908}
   - component: {fileID: 1415750907}
+  - component: {fileID: 1415750910}
+  - component: {fileID: 1415750906}
   - component: {fileID: 1415750905}
   - component: {fileID: 1415750904}
   m_Layer: 8
@@ -778,8 +780,8 @@ Transform:
   m_Father: {fileID: 222235229}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1415750904
-PolygonCollider2D:
+--- !u!68 &1415750904
+EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -791,35 +793,14 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_EdgeRadius: 0
   m_Points:
-    m_Paths:
-    - - {x: 14, y: 17}
-      - {x: 14, y: 25}
-      - {x: 0, y: 25}
-      - {x: 0, y: 28}
-      - {x: 18, y: 28}
-      - {x: 18, y: 13}
-      - {x: 0, y: 13}
-      - {x: 0, y: 17}
-      - {x: 0.1875, y: 17.0625}
-      - {x: 0.78125, y: 17.4375}
-      - {x: 1, y: 17.46875}
-      - {x: 2.46875, y: 17.46875}
-      - {x: 3, y: 17.1875}
-      - {x: 4, y: 17.1875}
-      - {x: 4.25, y: 17.15625}
-      - {x: 4.40625, y: 17}
---- !u!60 &1415750905
-PolygonCollider2D:
+  - {x: 0, y: 28}
+  - {x: 18, y: 28}
+  - {x: 18, y: 13}
+  - {x: 0, y: 13}
+--- !u!68 &1415750905
+EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -831,30 +812,35 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_EdgeRadius: 0
   m_Points:
-    m_Paths:
-    - - {x: 4, y: 17}
-      - {x: 8, y: 17}
-      - {x: 8.1875, y: 17.0625}
-      - {x: 8.78125, y: 17.4375}
-      - {x: 9, y: 17.46875}
-      - {x: 9.1875, y: 17.5}
-      - {x: 9.8125, y: 17.6875}
-      - {x: 10, y: 17.71875}
-      - {x: 10.46875, y: 17.71875}
-      - {x: 11, y: 17.46875}
-      - {x: 13, y: 17.46875}
-      - {x: 13.53125, y: 17.71875}
-      - {x: 14, y: 17.71875}
+  - {x: 14, y: 17}
+  - {x: 14, y: 25}
+  - {x: 0, y: 25}
+--- !u!68 &1415750906
+EdgeCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1415750902}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 81f318896039f0041a9d6ef19457de8a, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0, y: 17}
+  - {x: 0.1875, y: 17.0625}
+  - {x: 0.78125, y: 17.4375}
+  - {x: 1, y: 17.46875}
+  - {x: 2.46875, y: 17.46875}
+  - {x: 3, y: 17.1875}
+  - {x: 4, y: 17.1875}
+  - {x: 4.25, y: 17.15625}
+  - {x: 4.40625, y: 17}
 --- !u!114 &1415750907
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -919,6 +905,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1415750902}
   m_Mesh: {fileID: 0}
+--- !u!68 &1415750910
+EdgeCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1415750902}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 81f318896039f0041a9d6ef19457de8a, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 4, y: 17}
+  - {x: 8, y: 17}
+  - {x: 8.1875, y: 17.0625}
+  - {x: 8.78125, y: 17.4375}
+  - {x: 9, y: 17.46875}
+  - {x: 9.1875, y: 17.5}
+  - {x: 9.8125, y: 17.6875}
+  - {x: 10, y: 17.71875}
+  - {x: 10.46875, y: 17.71875}
+  - {x: 11, y: 17.46875}
+  - {x: 13, y: 17.46875}
+  - {x: 13.53125, y: 17.71875}
+  - {x: 14, y: 17.71875}
 --- !u!1 &1442324605
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +966,7 @@ MonoBehaviour:
   - {fileID: 169656095}
   - {fileID: 1254046875}
   - {fileID: 222235228}
-  m_selectedIndex: 1
+  m_selectedIndex: 2
   m_unselectedColorMultiplier: 1
   m_displayTilemapRList: 1
 --- !u!4 &1442324607
@@ -998,6 +1012,99 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 29bbc9478d819ca44bc1d3ee345c116b, type: 3}
   keepTime: 1
+--- !u!1 &1626509138
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1626509141}
+  - component: {fileID: 1626509140}
+  - component: {fileID: 1626509139}
+  m_Layer: 0
+  m_Name: Brush
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1626509139
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1626509138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860611cc84144924c8a95e2a1670d236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Offset: {x: 0, y: 0}
+  IsUndoEnabled: 1
+  m_brushTilemap: {fileID: 0}
+--- !u!114 &1626509140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1626509138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dec3ca0fe88506448df84e8bf55b2dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowGrid: 1
+  InnerPadding: 0
+  ColliderDepth: 0.1
+  ColliderType: 0
+  Collider2DType: 0
+  ShowColliderNormals: 1
+  ColliderDisplayMode: 0
+  IsUndoEnabled: 0
+  m_sortingLayer: 0
+  m_sortingLayerName: Default
+  m_orderInLayer: 0
+  m_material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_tintColor: {r: 1, g: 1, b: 1, a: 1}
+  m_pixelSnap: 0
+  m_isVisible: 1
+  m_allowPaintingOutOfBounds: 1
+  m_autoShrink: 0
+  m_enableUndoWhilePainting: 1
+  m_isTrigger: 0
+  m_physicMaterial: {fileID: 0}
+  m_physicMaterial2D: {fileID: 0}
+  m_cellSize: {x: 0, y: 0}
+  m_mapBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_tileset: {fileID: 0}
+  m_minGridX: 0
+  m_minGridY: 0
+  m_maxGridX: 0
+  m_maxGridY: 0
+  m_parentTilemapGroup: {fileID: 0}
+  m_parallaxFactor: {x: 1, y: 1}
+  m_chunkRendererProperties:
+    castShadows: 0
+    receiveShadows: 0
+    useLightProbes: 0
+    reflectionProbeUsage: 0
+    anchorOverride: {fileID: 0}
+--- !u!4 &1626509141
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1626509138}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1644217475
 GameObject:
   m_ObjectHideFlags: 1
@@ -1104,6 +1211,7 @@ GameObject:
   - component: {fileID: 1922282779}
   - component: {fileID: 1922282778}
   - component: {fileID: 1922282777}
+  - component: {fileID: 1922282776}
   - component: {fileID: 1922282775}
   m_Layer: 8
   m_Name: -1_0
@@ -1125,8 +1233,8 @@ Transform:
   m_Father: {fileID: 222235229}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1922282775
-PolygonCollider2D:
+--- !u!68 &1922282775
+EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1138,38 +1246,43 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_EdgeRadius: 0
   m_Points:
-    m_Paths:
-    - - {x: 60, y: 25}
-      - {x: 57, y: 25}
-      - {x: 57, y: 20}
-      - {x: 53, y: 20}
-      - {x: 53, y: 18}
-      - {x: 55, y: 18}
-      - {x: 55.28125, y: 18.09375}
-      - {x: 55.8125, y: 18.46875}
-      - {x: 56.46875, y: 18.46875}
-      - {x: 57, y: 18.1875}
-      - {x: 57.25, y: 18.15625}
-      - {x: 57.40625, y: 18}
-      - {x: 58, y: 17.71875}
-      - {x: 58.84375, y: 17.09375}
-      - {x: 59, y: 17}
-      - {x: 60, y: 17}
-      - {x: 60, y: 13}
-      - {x: 52, y: 13}
-      - {x: 52, y: 28}
-      - {x: 60, y: 28}
-      - {x: 60, y: 25}
+  - {x: 60, y: 25}
+  - {x: 57, y: 25}
+  - {x: 57, y: 20}
+  - {x: 53, y: 20}
+  - {x: 53, y: 18}
+  - {x: 55, y: 18}
+  - {x: 55.28125, y: 18.09375}
+  - {x: 55.8125, y: 18.46875}
+  - {x: 56.46875, y: 18.46875}
+  - {x: 57, y: 18.1875}
+  - {x: 57.25, y: 18.15625}
+  - {x: 57.40625, y: 18}
+  - {x: 58, y: 17.71875}
+  - {x: 58.84375, y: 17.09375}
+  - {x: 59, y: 17}
+  - {x: 60, y: 17}
+--- !u!68 &1922282776
+EdgeCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1922282773}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 81f318896039f0041a9d6ef19457de8a, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 60, y: 13}
+  - {x: 52, y: 13}
+  - {x: 52, y: 28}
+  - {x: 60, y: 28}
 --- !u!114 &1922282777
 MonoBehaviour:
   m_ObjectHideFlags: 1
