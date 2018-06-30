@@ -762,15 +762,16 @@ MonoBehaviour:
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        value: 0
+        inSlope: -2.9412756
+        outSlope: -2.9412756
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
-    duration: 0.25
-    magnitude: 0.1
+      m_RotationOrder: 0
+    duration: 0.15
+    magnitude: 0.05
+    freezeFrames: 2
   - decay:
       serializedVersion: 2
       m_Curve:
@@ -791,6 +792,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     duration: 1
     magnitude: 1
+    freezeFrames: 1
   - decay:
       serializedVersion: 2
       m_Curve:
@@ -811,6 +813,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     duration: 1
     magnitude: 1
+    freezeFrames: 1
   - decay:
       serializedVersion: 2
       m_Curve:
@@ -831,6 +834,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     duration: 1
     magnitude: 1
+    freezeFrames: 1
 --- !u!114 &114666870219315130
 MonoBehaviour:
   m_ObjectHideFlags: 1

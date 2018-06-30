@@ -22,6 +22,7 @@ public class CameraShake : MonoBehaviour
 		public AnimationCurve decay = AnimationCurve.Constant(0, 1, 1);
 		public float duration = 1.0f;
 		public float magnitude = 1.0f;
+		public int freezeFrames = 1;
 
 		private float elapsed = 0;
 
@@ -55,8 +56,10 @@ public class CameraShake : MonoBehaviour
 	public ShakeProfile[] shakeProfiles;
 
 	private List<ShakeProfile> currentShakes = new List<ShakeProfile>();
-
 	private Vector3 initialPosition;
+
+	private Coroutine freezeFrameRoutine = null;
+	private Action onFreezeEnd;
 
 	private void OnValidate()
 	{
@@ -67,7 +70,9 @@ public class CameraShake : MonoBehaviour
 	{
 		initialPosition = transform.position;
 
-		transform.position += (Vector3)EvaluateShakes();
+		//Only bother evaluating shake when not in freeze frame
+		if(freezeFrameRoutine == null)
+			transform.position += (Vector3)EvaluateShakes();
 	}
 
 	private void OnPostRender()
@@ -78,8 +83,23 @@ public class CameraShake : MonoBehaviour
 
 	public void DoShake(ShakeType type)
 	{
+		var profile = shakeProfiles[(int)type];
+
 		//Add a copy of the shake profile to the list (since we'll be editing this copy)
-		currentShakes.Add(shakeProfiles[(int)type].GetNewCopy());
+		currentShakes.Add(profile.GetNewCopy());
+
+		//Do freeze frames if desired
+		if(profile.freezeFrames > 0)
+		{
+			//Stop and clean up after any current freeze frame before starting another
+			if(freezeFrameRoutine != null)
+			{
+				StopCoroutine(freezeFrameRoutine);
+				onFreezeEnd?.Invoke();
+			}
+
+			freezeFrameRoutine = StartCoroutine(FreezeFrames(profile.freezeFrames));
+		}
 	}
 
 	private Vector2 EvaluateShakes()
@@ -101,6 +121,23 @@ public class CameraShake : MonoBehaviour
 		}
 
 		return totalOffset;
+	}
+
+	private IEnumerator FreezeFrames(int frameCount)
+	{
+		float timeScale = Time.timeScale;
+		Time.timeScale = 0;
+
+		onFreezeEnd = () => { Time.timeScale = timeScale; };
+
+		// Safe to approximate a frame, since we're just waiting for an amount of time
+		// Will also prevent any consistency problems at differing framerates
+		yield return new WaitForSecondsRealtime((1 / 60.0f) * frameCount);
+
+		onFreezeEnd.Invoke();
+		onFreezeEnd = null;
+
+		freezeFrameRoutine = null;
 	}
 }
 
