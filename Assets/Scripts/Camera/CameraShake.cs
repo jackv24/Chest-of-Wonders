@@ -8,6 +8,8 @@ using UnityEditor;
 
 public class CameraShake : MonoBehaviour
 {
+	public static CameraShake Instance;
+
 	public enum ShakeType
 	{
 		EnemyHit,
@@ -107,6 +109,11 @@ public class CameraShake : MonoBehaviour
 	{
 		ArrayForEnumAttribute.EnsureArraySize(ref shakeProfiles, typeof(ShakeType));
 		ArrayForEnumAttribute.EnsureArraySize(ref rumbleProfiles, typeof(RumbleType));
+	}
+
+	private void Awake()
+	{
+		Instance = this;
 	}
 
 	private void OnPreCull()
