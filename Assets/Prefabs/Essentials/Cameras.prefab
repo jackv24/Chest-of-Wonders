@@ -835,6 +835,67 @@ MonoBehaviour:
     duration: 0.5
     magnitude: 0.15
     freezeFrames: 10
+  rumbleProfiles:
+  - magnitude: 0.025
+    endDecay:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: -2.4617977
+        outSlope: -2.4617977
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    endDecayDuration: 0.25
+  - magnitude: 0.05
+    endDecay:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: -2.4617977
+        outSlope: -2.4617977
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    endDecayDuration: 0.5
+  - magnitude: 0.1
+    endDecay:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: -2.4617977
+        outSlope: -2.4617977
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    endDecayDuration: 1
 --- !u!114 &114666870219315130
 MonoBehaviour:
   m_ObjectHideFlags: 1

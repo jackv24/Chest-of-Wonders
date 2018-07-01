@@ -16,7 +16,7 @@ public class CameraShake : MonoBehaviour
 		PlayerKill
 	}
 
-	[System.Serializable]
+	[Serializable]
 	public class ShakeProfile
 	{
 		public AnimationCurve decay = AnimationCurve.Constant(0, 1, 1);
@@ -39,9 +39,9 @@ public class CameraShake : MonoBehaviour
 			};
 		}
 
-		public void AddTime(float time)
+		public void AddTime(float deltaTime)
 		{
-			elapsed += time;
+			elapsed += deltaTime;
 		}
 
 		public Vector2 GetOffset()
@@ -52,10 +52,52 @@ public class CameraShake : MonoBehaviour
 		}
 	}
 
+	public enum RumbleType
+	{
+		Small, Medium, Large
+	}
+
+	[Serializable]
+	public class RumbleProfile
+	{
+		public float magnitude = 1.0f;
+
+		public AnimationCurve endDecay;
+		public float endDecayDuration = 1.0f;
+		private float endDecayElapsed = 0;
+
+		public bool IsDone { get { return endDecayElapsed >= endDecayDuration; } }
+
+		public void AddDecayTime(float deltaTime)
+		{
+			endDecayElapsed += deltaTime;
+		}
+
+		public void ResetDecay()
+		{
+			endDecayElapsed = 0;
+		}
+
+		public Vector2 GetOffset()
+		{
+			float multiplier = 1.0f;
+
+			if (endDecayElapsed > 0)
+				multiplier = endDecay.Evaluate(endDecayElapsed / endDecayDuration);
+
+			return UnityEngine.Random.insideUnitCircle * magnitude * multiplier;
+		}
+	}
+
 	[ArrayForEnum(typeof(ShakeType))]
 	public ShakeProfile[] shakeProfiles;
 
+	[ArrayForEnum(typeof(RumbleType))]
+	public RumbleProfile[] rumbleProfiles;
+
 	private List<ShakeProfile> currentShakes = new List<ShakeProfile>();
+	private RumbleType? currentRumble = null;
+	private bool isRumbleDecaying = false;
 	private Vector3 initialPosition;
 
 	private Coroutine freezeFrameRoutine = null;
@@ -64,6 +106,7 @@ public class CameraShake : MonoBehaviour
 	private void OnValidate()
 	{
 		ArrayForEnumAttribute.EnsureArraySize(ref shakeProfiles, typeof(ShakeType));
+		ArrayForEnumAttribute.EnsureArraySize(ref rumbleProfiles, typeof(RumbleType));
 	}
 
 	private void OnPreCull()
@@ -71,8 +114,28 @@ public class CameraShake : MonoBehaviour
 		initialPosition = transform.position;
 
 		//Only bother evaluating shake when not in freeze frame
-		if(freezeFrameRoutine == null)
+		if (freezeFrameRoutine == null)
+		{
 			transform.position += (Vector3)EvaluateShakes();
+
+			//Only need to evaluate one rumble (the latest)
+			if (currentRumble != null)
+			{
+				RumbleProfile profile = rumbleProfiles[(int)currentRumble.Value];
+
+				if (isRumbleDecaying)
+					profile.AddDecayTime(Time.deltaTime);
+
+				transform.position += (Vector3)profile.GetOffset();
+
+				if(profile.IsDone)
+				{
+					currentRumble = null;
+					isRumbleDecaying = false;
+					profile.ResetDecay();
+				}
+			}
+		}
 	}
 
 	private void OnPostRender()
@@ -139,6 +202,21 @@ public class CameraShake : MonoBehaviour
 
 		freezeFrameRoutine = null;
 	}
+
+	public void StartRumble(RumbleType type)
+	{
+		if (currentRumble != null)
+			rumbleProfiles[(int)currentRumble].ResetDecay();
+
+		isRumbleDecaying = false;
+
+		currentRumble = type;
+	}
+
+	public void StopRumble()
+	{
+		isRumbleDecaying = true;
+	}
 }
 
 #if UNITY_EDITOR
@@ -157,26 +235,48 @@ public class CameraShakeEditor : Editor
 		base.OnInspectorGUI();
 		EditorGUILayout.Space();
 
-		//Test buttons will only work while the game is playing
+		EditorGUILayout.BeginVertical();
+		EditorGUILayout.LabelField("Testing", EditorStyles.boldLabel);
+
+		//Show relevant info box for current mode
 		if(Application.isPlaying)
-		{
 			EditorGUILayout.HelpBox("Remember to save your changes using Copy Component, then Paste Component Values after leaving play mode.", MessageType.Warning);
+		else
+			EditorGUILayout.HelpBox("Profiles can be tested in Play Mode", MessageType.Info);
 
-			var profiles = cameraShake.shakeProfiles;
-			for(int i = 0; i < profiles.Length; i++)
+		EditorGUILayout.LabelField("Shake", EditorStyles.centeredGreyMiniLabel);
+
+		var shakeProfiles = cameraShake.shakeProfiles;
+		for (int i = 0; i < shakeProfiles.Length; i++)
+		{
+			string name = ObjectNames.NicifyVariableName(Enum.GetNames(typeof(CameraShake.ShakeType))[i]);
+
+			if (GUILayout.Button(name) && Application.isPlaying)
 			{
-				string name = ObjectNames.NicifyVariableName(Enum.GetNames(typeof(CameraShake.ShakeType))[i]);
-
-				if(GUILayout.Button(name))
-				{
-					cameraShake.DoShake((CameraShake.ShakeType)i);
-				}
+				cameraShake.DoShake((CameraShake.ShakeType)i);
 			}
 		}
-		else
+
+		EditorGUILayout.Space();
+		EditorGUILayout.LabelField("Rumble", EditorStyles.centeredGreyMiniLabel);
+
+		var rumbleProfiles = cameraShake.rumbleProfiles;
+		for (int i = 0; i < rumbleProfiles.Length; i++)
 		{
-			EditorGUILayout.HelpBox("Profiles can be tested in Play Mode", MessageType.Info);
+			string name = ObjectNames.NicifyVariableName(Enum.GetNames(typeof(CameraShake.RumbleType))[i]);
+
+			if (GUILayout.Button(name) && Application.isPlaying)
+			{
+				cameraShake.StartRumble((CameraShake.RumbleType)i);
+			}
 		}
+
+		if (GUILayout.Button("Stop", EditorStyles.miniButton) && Application.isPlaying)
+		{
+			cameraShake.StopRumble();
+		}
+
+		EditorGUILayout.EndVertical();
 	}
 }
 #endif
