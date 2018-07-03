@@ -124,7 +124,7 @@ public class InteractManager : MonoBehaviour
 			}
 		}
 
-		if(currentInteractible != null && playerActions.Interact.WasPressed && GameManager.instance.CanDoActions)
+		if(currentInteractible != null && playerActions.WasInteractPressed && GameManager.instance.CanDoActions)
 		{
 			nextInteractTime = Time.time + interactDelay;
 

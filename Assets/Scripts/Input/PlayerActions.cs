@@ -122,4 +122,13 @@ public class PlayerActions : PlayerActionSet
 		Pause.AddDefaultBinding(Key.Tab);
         Pause.AddDefaultBinding(InputControlType.Command);
     }
+
+	public bool WasInteractPressed
+	{
+		get
+		{
+			// Interact.WasPressed returns true even when input is mostly X-based, so an additional check is needed
+			return Interact.WasPressed && Mathf.Abs(Move.Y) > Mathf.Abs(Move.X);
+		}
+	}
 }

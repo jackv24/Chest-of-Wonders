@@ -465,11 +465,11 @@ public class CharacterMove : MonoBehaviour
             InputDirection = 0;
 
 		//If direction has changed (and does not equal 0), then call changed direction event
-		if (InputDirection != oldDirection && direction != 0 && OnChangedDirection != null)
+		if (InputDirection != oldDirection && InputDirection != 0 && OnChangedDirection != null)
 		{
-			FacingDirection = direction;
+			FacingDirection = InputDirection;
 
-			OnChangedDirection(direction);
+			OnChangedDirection(InputDirection);
 		}
     }
 
