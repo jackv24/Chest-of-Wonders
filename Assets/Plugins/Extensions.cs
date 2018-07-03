@@ -18,7 +18,7 @@ public static class Extensions
 
 		//Try and get translation. If this text was not a translation key then show as warning
 		if (!LocalizationManager.TryGetTranslation(self, out translation))
-			translation = $"#{self}#";
+			translation = $"{self}";
 
 		return translation;
 	}
