@@ -209,13 +209,13 @@ public class UIFunctions : MonoBehaviour
     {
         if(GameManager.instance)
         {
-            GameManager.instance.SpawnPlayer(true);
+			GameManager.instance.LoadGame(true, true);
             deathScreen.SetActive(false);
         }
     }
 
 	public void ClearSaves()
 	{
-		
+
 	}
 }

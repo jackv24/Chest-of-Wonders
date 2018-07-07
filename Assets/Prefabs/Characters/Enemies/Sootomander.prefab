@@ -367,15 +367,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 1024
   amount: 20
   element: 0
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.5
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -1}
+  useFacingDirection: 1
 --- !u!114 &114082818067691806
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -478,17 +472,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111b47b60ee8feb4d889a8c1622777cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayers:
-    serializedVersion: 2
-    m_Bits: 1024
-  damageBoxPos: {x: 0, y: 1}
-  damageBoxSize: {x: 3, y: 1.5}
   amount: 5
-  damageCooldown: 1
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.5
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -2}
+  element: 0
+  useFacingDirection: 1
+  characterStats: {fileID: 0}
 --- !u!114 &114441054526174090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,15 +512,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 1024
   amount: 30
   element: 0
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.5
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -1}
+  useFacingDirection: 1
 --- !u!114 &114581437587600448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -548,6 +529,7 @@ MonoBehaviour:
   animator: {fileID: 95740427379029714}
   defaultRight: 0
   handleFlip: 0
+  doTurnAnimation: 0
   deathAnimation: {fileID: 7400000, guid: 0330ace8bf6a9594f9854483365bfe2e, type: 2}
 --- !u!114 &114725449248741850
 MonoBehaviour:
@@ -613,15 +595,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 1024
   amount: 20
   element: 0
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.5
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -1}
+  useFacingDirection: 1
 --- !u!114 &114959086213150190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -676,18 +652,18 @@ MonoBehaviour:
   maxHealth: 300
   element: 1
   hurtSound:
-    clip: {fileID: 0}
     volume: 1
     pitchRange:
       min: 1
       max: 1
+    clip: {fileID: 0}
     type: 0
   deathSound:
-    clip: {fileID: 0}
     volume: 1
     pitchRange:
       min: 1
       max: 1
+    clip: {fileID: 0}
     type: 0
   damageImmunity: 0
   damageImmunityTime: 0.5

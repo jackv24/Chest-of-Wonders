@@ -122,13 +122,15 @@ public class GameManager : MonoBehaviour
         //Load the first level
         if (SceneManager.sceneCount <= 1)
         {
-			StartCoroutine(SpawnPlayerStart());
+			StartCoroutine(SetupGameDelayed(true));
         }
         //If level is already open in the editor, use that instead
         else if (SceneManager.sceneCount == 2)
         {
-            LoadedSceneName = SceneManager.GetSceneAt(1).name;
-        }
+			LoadedSceneName = SceneManager.GetSceneAt(1).name;
+
+			StartCoroutine(SetupGameDelayed(false));
+		}
         else
             Debug.LogWarning("Too many scenes open!");
 
@@ -323,26 +325,28 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-	IEnumerator SpawnPlayerStart()
+	IEnumerator SetupGameDelayed(bool loadLevel)
 	{
 		//Delay for one frame to allow for save/load events to be subscribed
 		yield return null;
 
-		SpawnPlayer(false);
+		LoadGame(false, loadLevel);
 	}
 
-    public void SpawnPlayer(bool reset)
+    public void LoadGame(bool reset, bool loadLevel)
     {
-        //player.SetActive(true);
 		GameState = GameStates.Playing;
 
 		SaveManager.instance?.LoadGame(reset);
 
-		SaveData.Location location = reset ? npcSaveLocation : autoSaveLocation;
+		if (loadLevel)
+		{
+			SaveData.Location location = reset ? npcSaveLocation : autoSaveLocation;
 
-		//After player data is loaded, load the level
-		LoadLevel(location.sceneName, location.spawnMarkerName);
-    }
+			//After player data is loaded, load the level
+			LoadLevel(location.sceneName, location.spawnMarkerName);
+		}
+	}
 
 	private SpawnMarker FindSpawnMarker(string spawnMarkerName)
 	{

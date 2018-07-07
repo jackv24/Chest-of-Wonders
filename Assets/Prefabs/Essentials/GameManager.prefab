@@ -130,7 +130,7 @@ AudioSource:
     m_RotationOrder: 0
 --- !u!114 &114547737111946328
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706048386432494}
@@ -170,13 +170,13 @@ MonoBehaviour:
   saveSlot: 0
   defaultSaveData:
     autoSave:
-      sceneIndex: 2
-      position: {x: 6, y: 17}
+      sceneName: 
+      spawnMarkerName: 
     npcSave:
-      sceneIndex: 2
-      position: {x: 6, y: 17}
-    maxHealth: 100
-    currentHealth: 100
+      sceneName: 
+      spawnMarkerName: 
+    maxHealth: 5
+    currentHealth: 5
     hasFireMagic: 0
     hasGrassMagic: 0
     hasIceMagic: 0
@@ -199,6 +199,19 @@ MonoBehaviour:
       _FreeCount: 0
       _Keys: []
       _Values: []
+    persistentObjects:
+      _Buckets: ffffffffffffffffffffffff
+      _HashCodes: 000000000000000000000000
+      _Next: 000000000000000000000000
+      _Count: 0
+      _Version: 0
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - 
+      - 
+      - 
+      _Values: 2d2d2d
     blackboardDictionary:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
@@ -215,55 +228,6 @@ MonoBehaviour:
       - 
       - 
       - 
-    persistentObjects:
-      _Buckets: ffffffffffffffffffffffff
-      _HashCodes: 000000000000000000000000
-      _Next: 000000000000000000000000
-      _Count: 0
-      _Version: 0
-      _FreeList: -1
-      _FreeCount: 0
-      _Keys:
-      - 
-      - 
-      - 
-      _Values:
-      - _Buckets: ffffffffffffffffffffffff
-        _HashCodes: 000000000000000000000000
-        _Next: 000000000000000000000000
-        _Count: 0
-        _Version: 0
-        _FreeList: -1
-        _FreeCount: 0
-        _Keys:
-        - 
-        - 
-        - 
-        _Values: 000000
-      - _Buckets: ffffffffffffffffffffffff
-        _HashCodes: 000000000000000000000000
-        _Next: 000000000000000000000000
-        _Count: 0
-        _Version: 0
-        _FreeList: -1
-        _FreeCount: 0
-        _Keys:
-        - 
-        - 
-        - 
-        _Values: 000000
-      - _Buckets: ffffffffffffffffffffffff
-        _HashCodes: 000000000000000000000000
-        _Next: 000000000000000000000000
-        _Count: 0
-        _Version: 0
-        _FreeList: -1
-        _FreeCount: 0
-        _Keys:
-        - 
-        - 
-        - 
-        _Values: 000000
 --- !u!114 &114658657317432228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -292,7 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &114687314970991524
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706048386432494}
@@ -313,10 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cae71eb9bba0d448dd51127d51ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadedSceneIndex: -1
   player: {fileID: 0}
   playerRespawnDelay: 3
   levelTransitionTime: 0.25
   gamePauseLockDelay: 0.25
-  gameRunning: 1
-  gamePaused: 0
