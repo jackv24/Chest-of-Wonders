@@ -30,12 +30,6 @@ public class SaveManager : MonoBehaviour
         instance = this;
     }
 
-	private void Start()
-	{
-		//Will be overwritten if there is data to be loaded later
-		data = defaultSaveData;
-	}
-
 	public void SaveGame(bool hardSave)
     {
 		//Get subscribed objects to save their own state before saving file
@@ -56,12 +50,16 @@ public class SaveManager : MonoBehaviour
 
     public void LoadGame(bool resetPlayerLocation)
     {
-        //Load existing save data first, if any. Otherwise use default save data
-        if (System.IO.File.Exists(SaveLocation))
-        {
-            string loadString = System.IO.File.ReadAllText(SaveLocation);
-            data = (SaveData)JsonUtility.FromJson(loadString, typeof(SaveData));
-        }
+		//Only load save if there is a slot selected, and the file exists, else use default save data
+		if (saveSlot > 0 && System.IO.File.Exists(SaveLocation))
+		{
+			string loadString = System.IO.File.ReadAllText(SaveLocation);
+			data = (SaveData)JsonUtility.FromJson(loadString, typeof(SaveData));
+		}
+		else
+		{
+			data = defaultSaveData;
+		}
 
 		//Subscribed object should process data after it has been loaded
 		OnDataLoaded?.Invoke(data);

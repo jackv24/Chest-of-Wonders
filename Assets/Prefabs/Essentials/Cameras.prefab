@@ -656,7 +656,7 @@ MonoBehaviour:
   _assetGuid: 4692fd67a54f61c44890c3fae2010a46
 --- !u!114 &114176191285715380
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1974794401460124}
@@ -729,7 +729,7 @@ MonoBehaviour:
   _guid: c6224cc6-fc7f-41c2-8ff1-6200678c8bd6
 --- !u!114 &114538973377724374
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1584055964517616}
@@ -771,7 +771,7 @@ MonoBehaviour:
       m_RotationOrder: 0
     duration: 0.15
     magnitude: 0.05
-    freezeFrames: 2
+    freezeFrames: 1
   - decay:
       serializedVersion: 2
       m_Curve:
@@ -792,7 +792,7 @@ MonoBehaviour:
       m_RotationOrder: 0
     duration: 0.2
     magnitude: 0.05
-    freezeFrames: 2
+    freezeFrames: 1
   - decay:
       serializedVersion: 2
       m_Curve:

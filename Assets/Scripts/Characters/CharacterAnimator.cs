@@ -15,6 +15,7 @@ public class CharacterAnimator : MonoBehaviour
 
 	public bool handleFlip = true;
 	public bool doTurnAnimation;
+	public bool passHorizontal;
 
     [Space()]
     public AnimationClip deathAnimation;
@@ -50,6 +51,9 @@ public class CharacterAnimator : MonoBehaviour
             if (characterMove)
             {
                 animator.SetBool("isGrounded", characterMove.IsGrounded);
+
+				if (passHorizontal)
+					animator.SetFloat("horizontal", characterMove.InputDirection);
             }
         }
     }

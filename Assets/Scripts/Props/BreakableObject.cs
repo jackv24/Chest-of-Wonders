@@ -11,6 +11,9 @@ public class BreakableObject : MonoBehaviour, IDamageable
 	public GameObject[] breakEffectPrefabs;
 	public Vector2 effectSpawnOffset;
 
+	[Space()]
+	public CameraShake.ShakeType hitShake;
+
 	[Header("Sounds")]
 	public SoundEventType breakSound;
 
@@ -71,6 +74,8 @@ public class BreakableObject : MonoBehaviour, IDamageable
 		SetSpriteRenderers(true);
 
 		breakSound.Play(transform.position);
+
+		CameraShake.Instance?.DoShake(hitShake);
 
 		isBroken = true;
 
