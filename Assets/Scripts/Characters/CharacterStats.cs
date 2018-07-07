@@ -106,10 +106,16 @@ public class CharacterStats : MonoBehaviour, IDamageable
 
 		hurtSound.Play(transform.position);
 
-		if(hurtEffect)
+		if (hurtEffect)
 		{
 			GameObject obj = ObjectPooler.GetPooledObject(hurtEffect);
 			obj.transform.SetPosition2D((Vector2)transform.position + hurtEffectOffset);
+
+			CharacterHitMaskEffect maskEffect = obj.GetComponent<CharacterHitMaskEffect>();
+			if(maskEffect)
+			{
+				maskEffect.SetOwner(this);
+			}
 		}
 
 		CameraShake.Instance?.DoShake(hurtCameraShake);
