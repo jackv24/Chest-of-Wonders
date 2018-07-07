@@ -296,7 +296,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.42, y: 18.41, z: 0}
+  m_LocalPosition: {x: 9.49, y: -16.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -919,7 +919,7 @@ MonoBehaviour:
   projectileAttacks: []
 --- !u!114 &114121265411087696
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1357742713667528}
@@ -945,7 +945,7 @@ MonoBehaviour:
   useFacingDirection: 1
 --- !u!114 &114166162631376554
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1904300614673374}
@@ -957,7 +957,7 @@ MonoBehaviour:
   _guid: 8ba4f1b3-80e4-42a9-9525-7f99989bff18
 --- !u!114 &114217181926179350
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1504532349023518}
@@ -1102,7 +1102,7 @@ MonoBehaviour:
   flashInterval: 0.1
 --- !u!114 &114333046343265762
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1130,7 +1130,7 @@ MonoBehaviour:
   currentWindSouls: 0
 --- !u!114 &114438186772933228
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1625486971748268}
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   _guid: 0b747b36-bc11-4f75-beea-8d3e4f536b76
 --- !u!114 &114439683158884220
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1161178783357966}
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   useFacingDirection: 1
 --- !u!114 &114507656613439396
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1242,7 +1242,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 6007ba84d0ffa56468fac8e7d1482e33, type: 2}
 --- !u!114 &114532181970427578
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1062567118676334}
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   _guid: 8443e1d7-2e44-41e1-b111-53f196f28099
 --- !u!114 &114539873870724910
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1183963205681176}
@@ -1277,7 +1277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &114699408328713244
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010556696062}
@@ -1387,7 +1387,7 @@ MonoBehaviour:
   useFacingDirection: 1
 --- !u!114 &114843712308607964
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880507495262974}
@@ -1423,7 +1423,7 @@ MonoBehaviour:
     type: 0
   hurtCameraShake: 2
   hurtEffect: {fileID: 1854301751960796, guid: 1630f5110d0090c4da496a723669281a, type: 2}
-  hurtEffectOffset: {x: 0, y: 0}
+  hurtEffectOffset: {x: 0, y: 0.5}
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.75
   flashInterval: 0.1
@@ -1449,7 +1449,7 @@ MonoBehaviour:
   enemyRecord: {fileID: 0}
 --- !u!114 &114850436849671720
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1158427886003914}
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   _guid: 418918ca-c87c-4a81-b270-7d236b9fb312
 --- !u!114 &114859709759300450
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905793282419424}
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   useFacingDirection: 1
 --- !u!114 &114970365722291228
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1876271065606266}
@@ -1557,7 +1557,7 @@ MonoBehaviour:
   _guid: f416a61a-2f16-4b50-a7ac-f837eb600b60
 --- !u!114 &114970601205195148
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1094960521439024}
