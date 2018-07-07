@@ -66,7 +66,7 @@ public class PlayerDodge : MonoBehaviour
 	public void Dodge(Vector2 direction)
 	{
 		//Can only dodge if in a regular state (can't dodge in the middle of an attack, etc)
-		if (!characterAnimator || characterAnimator.IsInState("Locomotion", "Jump", "Fall", "Land"))
+		if (!characterAnimator || characterAnimator.IsInState("Locomotion", "Jump", "Fall", "Land", "Turn"))
 		{
 			if (dodgeRoutine == null && Time.time >= nextDodgeTime)
 			{
