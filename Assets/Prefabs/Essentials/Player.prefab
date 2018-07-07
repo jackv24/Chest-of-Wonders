@@ -296,7 +296,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.591, y: 0.447, z: 0}
+  m_LocalPosition: {x: 2.42, y: 18.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -885,6 +885,7 @@ MonoBehaviour:
   animator: {fileID: 95000013828001912}
   defaultRight: 1
   handleFlip: 1
+  doTurnAnimation: 1
   deathAnimation: {fileID: 0}
 --- !u!114 &114061908791259452
 MonoBehaviour:
@@ -897,15 +898,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 512
   amount: 30
   element: 0
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.5
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -1}
+  useFacingDirection: 1
 --- !u!114 &114083598940472068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -944,15 +939,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 512
   amount: 20
   element: 0
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.25
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -1}
+  useFacingDirection: 1
 --- !u!114 &114166162631376554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1173,15 +1162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 512
   amount: 20
   element: 1
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.25
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -1}
+  useFacingDirection: 1
 --- !u!114 &114507656613439396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1398,15 +1381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 512
   amount: 20
   element: 0
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.25
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -1}
+  useFacingDirection: 1
 --- !u!114 &114843712308607964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1433,6 +1410,9 @@ MonoBehaviour:
   currentHealth: 100
   maxHealth: 100
   element: 0
+  damageImmunity: 0
+  damageImmunityTime: 1
+  damageTextOffset: {x: 0, y: 1}
   hurtSound:
     volume: 1
     pitchRange:
@@ -1440,16 +1420,7 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  deathSound:
-    volume: 1
-    pitchRange:
-      min: 1
-      max: 1
-    clip: {fileID: 0}
-    type: 0
-  damageImmunity: 0
-  damageImmunityTime: 1
-  damageTextOffset: {x: 0, y: 1}
+  hurtCameraShake: 2
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.75
   flashInterval: 0.1
@@ -1457,6 +1428,14 @@ MonoBehaviour:
   deathParticlePrefab: {fileID: 1903849825850296, guid: a5865d3b433ae5242a60299500527fb3,
     type: 2}
   deathParticleOffset: {x: 0, y: 0.75}
+  deathSound:
+    volume: 1
+    pitchRange:
+      min: 1
+      max: 1
+    clip: {fileID: 0}
+    type: 0
+  deathCameraShake: 3
   deathDrop: {fileID: 0}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 0}
@@ -1558,15 +1537,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 512
   amount: 20
   element: 1
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.25
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -1}
+  useFacingDirection: 1
 --- !u!114 &114970365722291228
 MonoBehaviour:
   m_ObjectHideFlags: 1

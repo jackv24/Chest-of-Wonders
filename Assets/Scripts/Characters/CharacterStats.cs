@@ -13,27 +13,31 @@ public class CharacterStats : MonoBehaviour, IDamageable
 
     public ElementManager.Element element;
 
-	[Space()]
-	public SoundEventType hurtSound;
-	public SoundEventType deathSound;
-
-    [Space()]
+	[Header("Taking Damage")]
 	public bool damageImmunity = false;
 	public float damageImmunityTime = 0.5f;
     public Vector2 damageTextOffset = Vector2.up;
 
-    [Space()]
+	[Space()]
+	public SoundEventType hurtSound;
+	public CameraShake.ShakeType hurtCameraShake = CameraShake.ShakeType.EnemyHit;
+
+	[Space()]
     public SpriteRenderer graphic;
     [Range(0, 1f)]
     public float flashAmount = 0.75f;
     public float flashInterval = 0.1f;
 
-    [Space()]
+    [Header("Death")]
     public float deathTime = 1f;
     public GameObject deathParticlePrefab;
     public Vector2 deathParticleOffset;
 
-    [Space()]
+	[Space()]
+	public SoundEventType deathSound;
+	public CameraShake.ShakeType deathCameraShake = CameraShake.ShakeType.EnemyKill;
+
+	[Space()]
     public GameObject deathDrop;
     public Vector2 dropOffset = Vector2.up;
     [Space()]
@@ -99,6 +103,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
         }
 
 		hurtSound.Play(transform.position);
+		CameraShake.Instance?.DoShake(hurtCameraShake);
 
         if (OnDamaged != null)
             OnDamaged();
@@ -205,8 +210,9 @@ public class CharacterStats : MonoBehaviour, IDamageable
         }
 
 		deathSound.Play(transform.position);
+		CameraShake.Instance?.DoShake(deathCameraShake);
 
-        if ((characterAnimator && !characterAnimator.Death()) || !characterAnimator)
+		if ((characterAnimator && !characterAnimator.Death()) || !characterAnimator)
             gameObject.SetActive(false);
     }
 
