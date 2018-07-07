@@ -406,6 +406,8 @@ MonoBehaviour:
     clip: {fileID: 0}
     type: 3
   hurtCameraShake: 0
+  hurtEffect: {fileID: 0}
+  hurtEffectOffset: {x: 0, y: 0}
   graphic: {fileID: 212107043697564826}
   flashAmount: 0.75
   flashInterval: 0.1

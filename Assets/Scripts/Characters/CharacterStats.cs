@@ -21,6 +21,8 @@ public class CharacterStats : MonoBehaviour, IDamageable
 	[Space()]
 	public SoundEventType hurtSound;
 	public CameraShake.ShakeType hurtCameraShake = CameraShake.ShakeType.EnemyHit;
+	public GameObject hurtEffect;
+	public Vector2 hurtEffectOffset;
 
 	[Space()]
     public SpriteRenderer graphic;
@@ -103,6 +105,13 @@ public class CharacterStats : MonoBehaviour, IDamageable
         }
 
 		hurtSound.Play(transform.position);
+
+		if(hurtEffect)
+		{
+			GameObject obj = ObjectPooler.GetPooledObject(hurtEffect);
+			obj.transform.SetPosition2D((Vector2)transform.position + hurtEffectOffset);
+		}
+
 		CameraShake.Instance?.DoShake(hurtCameraShake);
 
         if (OnDamaged != null)

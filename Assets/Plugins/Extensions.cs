@@ -67,4 +67,13 @@ public static class Extensions
 		localPosition.z = value;
 		self.localPosition = localPosition;
 	}
+
+	public static void SetPosition2D(this Transform self, Vector2 position)
+	{
+		Vector3 pos = self.position;
+		pos.x = position.x;
+		pos.y = position.y;
+
+		self.position = pos;
+	}
 }

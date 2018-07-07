@@ -138,7 +138,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114178031452857466
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846752329716092}
@@ -190,6 +190,8 @@ MonoBehaviour:
     clip: {fileID: 0}
     type: 3
   hurtCameraShake: 0
+  hurtEffect: {fileID: 0}
+  hurtEffectOffset: {x: 0, y: 0}
   graphic: {fileID: 0}
   flashAmount: 0.75
   flashInterval: 0.1
@@ -252,7 +254,7 @@ MonoBehaviour:
   _blackboard: {fileID: 114349518562934582}
 --- !u!114 &114841705706154180
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
@@ -283,7 +285,7 @@ MonoBehaviour:
   _deserializationFailed: 0
 --- !u!114 &114944074271638736
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}

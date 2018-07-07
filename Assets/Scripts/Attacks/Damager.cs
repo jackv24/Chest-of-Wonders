@@ -23,7 +23,7 @@ public abstract class Damager : MonoBehaviour
 				direction = useFacingDirection ? (transform.lossyScale.x < 0 ? Vector2.left : Vector2.right) : Vector2.zero
 			}))
 			{
-				//TODO: Hit effects
+				//Hit effects are handles by the thing taking damage
 
 				return true;
 			}

@@ -886,6 +886,7 @@ MonoBehaviour:
   defaultRight: 1
   handleFlip: 1
   doTurnAnimation: 1
+  passHorizontal: 0
   deathAnimation: {fileID: 0}
 --- !u!114 &114061908791259452
 MonoBehaviour:
@@ -1101,7 +1102,7 @@ MonoBehaviour:
   flashInterval: 0.1
 --- !u!114 &114333046343265762
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1167,7 +1168,7 @@ MonoBehaviour:
   useFacingDirection: 1
 --- !u!114 &114507656613439396
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
@@ -1421,6 +1422,8 @@ MonoBehaviour:
     clip: {fileID: 0}
     type: 0
   hurtCameraShake: 2
+  hurtEffect: {fileID: 1956543168329638, guid: 1630f5110d0090c4da496a723669281a, type: 2}
+  hurtEffectOffset: {x: 0, y: 0}
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.75
   flashInterval: 0.1
