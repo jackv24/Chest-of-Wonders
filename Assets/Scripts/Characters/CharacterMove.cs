@@ -121,17 +121,11 @@ public class CharacterMove : MonoBehaviour
     private BoxCollider2D col;
     private Rect box;
 
-    private CharacterAnimator characterAnimator;
-    private CharacterStats characterStats;
-
     private void Awake()
     {
         //Get references
         col = GetComponent<BoxCollider2D>();
         body = GetComponent<Rigidbody2D>();
-
-        characterAnimator = GetComponent<CharacterAnimator>();
-        characterStats = GetComponent<CharacterStats>();
     }
 
     private void OnEnable()
@@ -489,88 +483,6 @@ public class CharacterMove : MonoBehaviour
         nonDetectPlatformsTime = Time.time + platformDropDetectDelay;
 
         stickToPlatforms = false;
-    }
-
-	public void SwitchToRigidbody()
-	{
-		//Disable script movement
-		MovementState = CharacterMovementStates.Disabled;
-
-		//Enable rigidbody movement
-		body.bodyType = RigidbodyType2D.Dynamic;
-	}
-
-	public void SwitchBackFromRigidbody()
-	{
-		//Switch back to script control
-		body.bodyType = RigidbodyType2D.Kinematic;
-		body.velocity = Vector2.zero; //Zero out velocity after setting kinematic, to prevent jitter bug
-
-		Velocity = Vector2.zero;
-		heldJump = false;
-
-		MovementState = CharacterMovementStates.Normal;
-	}
-
-    public void Knockback(Vector2 origin, float magnitude)
-    {
-        if (!allowKnockback)
-            return;
-
-        if (!gameObject.activeSelf)
-            return;
-
-        //Calculate force
-        Vector2 direction = ((Vector2)transform.position - origin).normalized;
-        Vector2 force = direction * magnitude;
-
-		SwitchToRigidbody();
-
-        //Apply force
-        body.AddForceAtPosition(force, origin, ForceMode2D.Impulse);
-
-        //Coroutine to switch back to script control when required
-        StopCoroutine("KnockbackRecovery"); //Make sure only one is running
-        StartCoroutine("KnockbackRecovery");
-    }
-
-    IEnumerator KnockbackRecovery()
-    {
-        if (characterAnimator)
-            characterAnimator.SetStunned(true);
-
-        //If body is still moving, cannot recover
-        while (body.velocity.magnitude > 0.05f)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-
-        //After body has stopped moving, wait alotted recover time
-        yield return new WaitForSeconds(knockBackRecoveryTime);
-
-		SwitchBackFromRigidbody();
-
-        if (characterStats)
-        {
-            //If character is not dead...
-            if (!characterStats.IsDead)
-            {
-                //Re-enable movement
-                canMove = true;
-
-                //Set not stunned
-                if (characterAnimator)
-                    characterAnimator.SetStunned(false);
-            }
-        }
-        else //If there is no stats just re-enable everything anyway
-        {
-            canMove = true;
-
-            if (characterAnimator)
-                characterAnimator.SetStunned(false);
-        }
-
     }
 
 	public void ResetJump()
