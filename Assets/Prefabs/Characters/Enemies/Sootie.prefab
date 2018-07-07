@@ -147,6 +147,16 @@ MonoBehaviour:
   damageImmunity: 0
   damageImmunityTime: 0.5
   damageTextOffset: {x: 0, y: 1}
+  hurtSound:
+    volume: 1
+    pitchRange:
+      min: 1
+      max: 1
+    clip: {fileID: 0}
+    type: 0
+  hurtCameraShake: 0
+  hurtEffect: {fileID: 1785324096871294, guid: cac17bffa1d1598479322e6927a222b4, type: 2}
+  hurtEffectOffset: {x: 0, y: 0}
   graphic: {fileID: 0}
   flashAmount: 0
   flashInterval: 0.1
@@ -154,6 +164,14 @@ MonoBehaviour:
   deathParticlePrefab: {fileID: 1395494257038326, guid: 29e2a8c42f90d49428d39dd1775b6489,
     type: 2}
   deathParticleOffset: {x: 0, y: 0}
+  deathSound:
+    volume: 1
+    pitchRange:
+      min: 1
+      max: 1
+    clip: {fileID: 0}
+    type: 0
+  deathCameraShake: 1
   deathDrop: {fileID: 0}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 0}
@@ -185,17 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111b47b60ee8feb4d889a8c1622777cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageLayers:
-    serializedVersion: 2
-    m_Bits: 1024
-  damageBoxPos: {x: 0, y: 0.05}
-  damageBoxSize: {x: 0.75, y: 0.75}
   amount: 1
-  damageCooldown: 1
-  hitEffect: {fileID: 1088265295667660, guid: 762fc713577a92143b74ec8a30cc2e3a, type: 2}
-  screenShakeAmount: 0.5
-  knockBackAmount: 10
-  knockBackCentreOffset: {x: -0, y: -2}
+  element: 0
+  useFacingDirection: 1
+  characterStats: {fileID: 0}
 --- !u!114 &114357286844744142
 MonoBehaviour:
   m_ObjectHideFlags: 11
