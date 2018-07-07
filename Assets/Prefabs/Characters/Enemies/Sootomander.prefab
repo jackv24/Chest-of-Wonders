@@ -372,7 +372,7 @@ MonoBehaviour:
   useFacingDirection: 1
 --- !u!114 &114082818067691806
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
@@ -410,7 +410,7 @@ MonoBehaviour:
   _blackboard: {fileID: 114763726739086558}
 --- !u!114 &114211091687221562
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
@@ -663,6 +663,8 @@ MonoBehaviour:
     clip: {fileID: 0}
     type: 0
   hurtCameraShake: 0
+  hurtEffect: {fileID: 1785324096871294, guid: cac17bffa1d1598479322e6927a222b4, type: 2}
+  hurtEffectOffset: {x: 0, y: 0.75}
   graphic: {fileID: 212450966352744004}
   flashAmount: 0.75
   flashInterval: 0.1
