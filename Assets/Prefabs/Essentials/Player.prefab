@@ -887,6 +887,7 @@ MonoBehaviour:
   handleFlip: 1
   doTurnAnimation: 1
   passHorizontal: 1
+  handleStun: 1
   deathAnimation: {fileID: 0}
 --- !u!114 &114061908791259452
 MonoBehaviour:
@@ -1427,6 +1428,8 @@ MonoBehaviour:
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.75
   flashInterval: 0.1
+  knockbackDistance: 2
+  knockbackTime: 0.2
   deathTime: 1
   deathParticlePrefab: {fileID: 1903849825850296, guid: a5865d3b433ae5242a60299500527fb3,
     type: 2}

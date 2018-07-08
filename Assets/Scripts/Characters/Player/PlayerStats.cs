@@ -27,8 +27,10 @@ public class PlayerStats : CharacterStats
 
 	protected override Vector2 GetKnockBackVelocity(DamageProperties damageProperties)
 	{
+		Vector2 direction = new Vector2(Mathf.Sign(damageProperties.direction.x), 1.0f).normalized;
+
 		float speed = knockbackDistance / knockbackTime;
 
-		return damageProperties.direction.normalized * speed;
+		return direction * speed;
 	}
 }
