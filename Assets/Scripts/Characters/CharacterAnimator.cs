@@ -53,7 +53,7 @@ public class CharacterAnimator : MonoBehaviour
                 animator.SetBool("isGrounded", characterMove.IsGrounded);
 
 				if (passHorizontal)
-					animator.SetFloat("horizontal", characterMove.InputDirection);
+					SetHorizontalAxis(characterMove.InputDirection);
             }
         }
     }
@@ -82,16 +82,23 @@ public class CharacterAnimator : MonoBehaviour
 		}
 	}
 
-	public void SetAnimatorAxis(Vector2 input)
+	public void SetVerticalAxis(float vertical)
 	{
 		if(animator)
 		{
-			animator.SetFloat("horizontal", input.x);
-			animator.SetFloat("vertical", input.y);
+			animator.SetFloat("vertical", vertical);
 		}
 	}
 
-    public void SetStunned(bool value)
+	public void SetHorizontalAxis(float horizontal)
+	{
+		if (animator)
+		{
+			animator.SetFloat("horizontal", horizontal);
+		}
+	}
+
+	public void SetStunned(bool value)
     {
         if(value == true)
             animator.SetTrigger("stun");

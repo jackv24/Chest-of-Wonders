@@ -82,7 +82,7 @@ public class PlayerInput : MonoBehaviour
 		{
 			if (characterAnimator)
 			{
-				characterAnimator.SetAnimatorAxis(inputDirection);
+				characterAnimator.SetVerticalAxis(inputDirection.y);
 			}
 
 			if (playerAttack)

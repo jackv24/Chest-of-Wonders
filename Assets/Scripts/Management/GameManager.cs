@@ -256,9 +256,6 @@ public class GameManager : MonoBehaviour
 
         if (input && move && !string.IsNullOrEmpty(doorName))
         {
-			// Animate player running out
-			player.GetComponent<CharacterAnimator>()?.SetAnimatorAxis(new Vector2(exitRight ? 1 : -1, 0));
-
             //Move player to doorway exit position
             while ((exitRight && player.transform.position.x < targetPos) || (!exitRight && player.transform.position.x > targetPos))
             {
