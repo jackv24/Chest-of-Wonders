@@ -35,7 +35,6 @@ public class CharacterStats : MonoBehaviour, IDamageable
 	[Space()]
 	public float knockbackDistance = 0.5f;
 	public float knockbackTime = 0.1f;
-	public float knockbackRecoverTime = 0.2f;
 
     [Header("Death")]
     public float deathTime = 1f;
@@ -310,13 +309,12 @@ public class CharacterStats : MonoBehaviour, IDamageable
 			yield return new WaitForSeconds(knockbackTime);
 
 			characterMove.Velocity = Vector2.zero;
-
-			yield return new WaitForSeconds(knockbackRecoverTime);
-
 			characterMove.MovementState = CharacterMovementStates.Normal;
 		}
 
-		OnKnockbackRecover?.Invoke();
+		if(!IsDead)
+			OnKnockbackRecover?.Invoke();
+
 		knockBackRoutine = null;
 	}
 }

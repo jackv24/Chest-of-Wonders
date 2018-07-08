@@ -255,7 +255,7 @@ MonoBehaviour:
   _blackboard: {fileID: 114497086104907862}
 --- !u!114 &114268328946855772
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953207987183754}
@@ -337,7 +337,7 @@ MonoBehaviour:
   deathAnimation: {fileID: 0}
 --- !u!114 &114426409043840866
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1917194432729150}
@@ -362,7 +362,7 @@ MonoBehaviour:
   supportedGroundEffects: []
 --- !u!114 &114493347840191376
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953207987183754}
@@ -426,7 +426,6 @@ MonoBehaviour:
   flashInterval: 0.1
   knockbackDistance: 0.5
   knockbackTime: 0.1
-  knockbackRecoverTime: 0.2
   deathTime: 0.5
   deathParticlePrefab: {fileID: 1181358874820946, guid: 7f1104db85c03ca40b8ce7a67e74fff3,
     type: 2}
@@ -468,7 +467,7 @@ MonoBehaviour:
   updateInterval: 0
 --- !u!114 &114964964858626778
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 11
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1922231558084508}
