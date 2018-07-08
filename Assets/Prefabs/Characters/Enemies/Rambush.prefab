@@ -276,7 +276,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feed1267e53efaa45978167f9032a02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackColliders: []
+  attackColliders:
+    _Buckets: ffffffffffffffffffffffff
+    _HashCodes: 000000000000000000000000
+    _Next: 000000000000000000000000
+    _Count: 0
+    _Version: 0
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys:
+    - 
+    - 
+    - 
+    _Values:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   projectileAttacks: []
 --- !u!114 &114394643851387708
 MonoBehaviour:

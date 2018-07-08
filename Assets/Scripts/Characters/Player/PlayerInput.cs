@@ -40,7 +40,14 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
 		if (!AcceptingInput)
+		{
+			if (playerActions.MeleeAttack.WasReleased)
+			{
+				playerAttack.SetHoldingBat(false);
+			}
+
 			return;
+		}
 
         //Get input from controllers and keyboard, clamped
         inputDirection = playerActions.Move;

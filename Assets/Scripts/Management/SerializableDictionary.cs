@@ -573,3 +573,6 @@ public class SerializableDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         }
     }
 }
+
+[Serializable]
+public class StringGameObjectDictionary : SerializableDictionary<string, GameObject> { };

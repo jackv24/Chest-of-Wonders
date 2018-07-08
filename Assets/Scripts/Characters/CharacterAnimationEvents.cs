@@ -5,7 +5,8 @@ using UnityEngine;
 public class CharacterAnimationEvents : MonoBehaviour
 {
     [Header("Attacks")]
-    public GameObject[] attackColliders;
+    public StringGameObjectDictionary attackColliders;
+	private string currentAttackCollider;
 
     [System.Serializable]
     public class ProjectileAttack
@@ -26,16 +27,27 @@ public class CharacterAnimationEvents : MonoBehaviour
 		characterGroundEffects = GetComponentInParent<CharacterGroundEffects>();
     }
 
-	public void EnableAttackColliders(int index)
+	public void SetCurrentAttackCollider(string id)
 	{
-		if (index < attackColliders.Length)
-			attackColliders[index].SetActive(true);
+		currentAttackCollider = id;
 	}
 
-	public void DisableAttackColliders(int index)
+	public void EnableCurrentAttackCollider()
 	{
-		if (index < attackColliders.Length)
-			attackColliders[index].SetActive(false);
+		SetCurrentAttackColliderActive(true);
+	}
+
+	public void DisableCurrentAttackCollider()
+	{
+		SetCurrentAttackColliderActive(false);
+	}
+
+	private void SetCurrentAttackColliderActive(bool value)
+	{
+		if (!string.IsNullOrEmpty(currentAttackCollider) && attackColliders.ContainsKey(currentAttackCollider))
+		{
+			attackColliders[currentAttackCollider].SetActive(value);
+		}
 	}
 
 	public void ShakeScreen(float amount)

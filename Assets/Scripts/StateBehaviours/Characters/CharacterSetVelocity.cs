@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterSetVelocity : CharacterStateBehaviour
 {
+	public bool endWhenGrounded;
+
 	public Vector2 velocity;
 
 	public float inheritVelocityX = 0;
@@ -46,6 +48,9 @@ public class CharacterSetVelocity : CharacterStateBehaviour
 		{
 			if (characterMove)
 			{
+				if (endWhenGrounded && characterMove.IsGrounded)
+					EndBehaviour();
+
 				Vector2 newVelocity = velocity;
 
 				newVelocity.x += inheritedVelocityX;

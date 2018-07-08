@@ -165,11 +165,46 @@ public class PlayerAttack : MonoBehaviour
 
     public void UseMelee(bool buttonDown, float verticalDirection)
     {
-		animator?.SetBool("holdingBat", buttonDown);
+		StopBatCharge();
 
-		HoldingBat = buttonDown;
+		if (canAttack)
+		{
+			//Button pressed
+			if(buttonDown && !HoldingBat)
+			{
+				heldStartTime = Time.time;
 
-		//Cancel bat charge routine
+				batChargeRoutine = StartCoroutine(BatCharge(chargeHoldTime));
+
+				animator?.SetTrigger("batSwing");
+			}
+			else if(!buttonDown) //Button released
+			{
+				//Play charged bat swing if fully charged, else let animator transition back to regular
+				if (Time.time >= heldStartTime + chargeHoldTime)
+					animator?.SetTrigger("batSwingCharged");
+				else
+					animator?.SetTrigger("batSwing");
+			}
+		}
+
+		SetHoldingBat(buttonDown);
+	}
+
+	public void SetHoldingBat(bool value)
+	{
+		HoldingBat = value;
+
+		animator?.SetBool("holdingBat", value);
+
+		if(!value)
+		{
+			StopBatCharge();
+		}
+	}
+
+	private void StopBatCharge()
+	{
 		if (batChargeRoutine != null)
 		{
 			StopCoroutine(batChargeRoutine);
@@ -178,32 +213,7 @@ public class PlayerAttack : MonoBehaviour
 			//Set flash amount to 0 incase charge routine was stopped during a flash
 			graphic?.material.SetFloat("_FlashAmount", 0);
 		}
-
-		if (canAttack)
-		{
-			//Button pressed
-			if(buttonDown)
-			{
-				heldStartTime = Time.time;
-
-				batChargeRoutine = StartCoroutine(BatCharge(chargeHoldTime));
-
-				//Downstrike if down is pressed, otherwise normal swing
-				if (verticalDirection < 0)
-					animator?.Play("Downstrike Start");
-				else
-					animator?.Play("Bat Swing");
-			}
-			else //Button released
-			{
-				//Play charged bat swing if fully charged, else let animator transition back to regular
-				if (Time.time >= heldStartTime + chargeHoldTime)
-					animator?.Play("Charged Bat Swing");
-				else
-					animator?.Play("Bat Swing");
-			}
-		}
-    }
+	}
 
     public void UpdateAimDirection(Vector2 direction, bool lockDiagonal)
     {

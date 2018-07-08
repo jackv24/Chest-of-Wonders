@@ -343,6 +343,21 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 1556174962}
+    - target: {fileID: 114625276708325380, guid: 8c8ee8b4b4a0cf444ab2c8189071bd1b,
+        type: 2}
+      propertyPath: defaultSaveData.magicProgression
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114625276708325380, guid: 8c8ee8b4b4a0cf444ab2c8189071bd1b,
+        type: 2}
+      propertyPath: defaultSaveData.selectedElement
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114625276708325380, guid: 8c8ee8b4b4a0cf444ab2c8189071bd1b,
+        type: 2}
+      propertyPath: defaultSaveData.hasFireMagic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8c8ee8b4b4a0cf444ab2c8189071bd1b, type: 2}
   m_IsPrefabParent: 0
