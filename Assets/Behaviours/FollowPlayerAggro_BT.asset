@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: FollowPlayerAggro_BT
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","comments":"Follow
+    Behaviour","translation":{"x":-5100.0,"y":-4874.0},"nodes":[{"_position":{"x":5597.0,"y":5224.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"filterMode":"LimitNumberOfTimes","maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"policy":"SuccessOnly","_position":{"x":5443.0,"y":5292.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"3"},{"_action":{"storeValue":{"_name":"player"},"$type":"NodeCanvas.Tasks.Actions.GetPlayer"},"_position":{"x":5428.0,"y":5387.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_condition":{"checkMode":"AnyTrueSuffice","conditions":[{"checkTarget":{"_name":"player"},"distance":{"_value":5.0},"$type":"NodeCanvas.Tasks.Conditions.CheckDistanceToGameObject"},{"valueA":{"_name":"aggro"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":5578.0,"y":5367.0},"$type":"NodeCanvas.BehaviourTrees.ConditionNode","$id":"9"},{"filterMode":"LimitNumberOfTimes","maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5775.0,"y":5332.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"18"},{"_action":{"boolVariable":{"_name":"aggro"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5780.0,"y":5432.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"21"},{"_subTree":{"_value":1},"_position":{"x":5950.0,"y":5324.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"24"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"24"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"21"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 879e88b927425e24ab74b0d92f107724, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

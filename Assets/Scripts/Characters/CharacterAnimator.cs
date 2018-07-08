@@ -16,11 +16,13 @@ public class CharacterAnimator : MonoBehaviour
 	public bool handleFlip = true;
 	public bool doTurnAnimation;
 	public bool passHorizontal;
+	public bool handleStun = true;
 
     [Space()]
     public AnimationClip deathAnimation;
 
     private CharacterMove characterMove;
+	private CharacterStats characterStats;
 
     private void Awake()
     {
@@ -30,6 +32,8 @@ public class CharacterAnimator : MonoBehaviour
 
         //Get references
         characterMove = GetComponent<CharacterMove>();
+
+		characterStats = GetComponent<CharacterStats>();
     }
 
     private void Start()
@@ -41,6 +45,12 @@ public class CharacterAnimator : MonoBehaviour
 
             characterMove.OnJump += Jump;
         }
+
+		if(characterStats && handleStun)
+		{
+			characterStats.OnDamaged += () => SetStunned(true);
+			characterStats.OnKnockbackRecover += () => SetStunned(false);
+		}
     }
 
     private void Update()

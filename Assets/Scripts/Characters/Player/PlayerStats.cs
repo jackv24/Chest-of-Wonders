@@ -24,4 +24,11 @@ public class PlayerStats : CharacterStats
 			};
 		}
 	}
+
+	protected override Vector2 GetKnockBackVelocity(DamageProperties damageProperties)
+	{
+		float speed = knockbackDistance / knockbackTime;
+
+		return damageProperties.direction.normalized * speed;
+	}
 }

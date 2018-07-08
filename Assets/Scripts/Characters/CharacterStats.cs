@@ -5,8 +5,10 @@ using NodeCanvas.Framework;
 
 public class CharacterStats : MonoBehaviour, IDamageable
 {
+	//Events (use System.Action for NodeCanvas compatibility)
     public event System.Action OnDeath;
     public event System.Action OnDamaged;
+	public event System.Action OnKnockbackRecover;
 
     public int currentHealth = 100;
     public int maxHealth = 100;
@@ -29,6 +31,11 @@ public class CharacterStats : MonoBehaviour, IDamageable
     [Range(0, 1f)]
     public float flashAmount = 0.75f;
     public float flashInterval = 0.1f;
+
+	[Space()]
+	public float knockbackDistance = 0.5f;
+	public float knockbackTime = 0.1f;
+	public float knockbackRecoverTime = 0.2f;
 
     [Header("Death")]
     public float deathTime = 1f;
@@ -57,6 +64,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
 	public EnemyJournalRecord enemyRecord;
 
 	private Coroutine damageFlashRoutine = null;
+	private Coroutine knockBackRoutine = null;
 
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
@@ -137,6 +145,13 @@ public class CharacterStats : MonoBehaviour, IDamageable
 			}
 
 			CameraShake.Instance?.DoShake(hurtCameraShake);
+
+			if (knockBackRoutine != null)
+			{
+				StopCoroutine(knockBackRoutine);
+				OnKnockbackRecover?.Invoke();
+			}
+			StartCoroutine(Knockback(damageProperties));
 
 			return true;
 		}
@@ -277,4 +292,31 @@ public class CharacterStats : MonoBehaviour, IDamageable
             blackboard.SetValue("aggro", true);
         }
     }
+
+	protected virtual Vector2 GetKnockBackVelocity(DamageProperties damageProperties)
+	{
+		float speed = knockbackDistance / knockbackTime;
+
+		return damageProperties.direction.normalized * speed;
+	}
+
+	private IEnumerator Knockback(DamageProperties damageProperties)
+	{
+		if (characterMove)
+		{
+			characterMove.MovementState = CharacterMovementStates.SetVelocity;
+			characterMove.Velocity = GetKnockBackVelocity(damageProperties);
+
+			yield return new WaitForSeconds(knockbackTime);
+
+			characterMove.Velocity = Vector2.zero;
+
+			yield return new WaitForSeconds(knockbackRecoverTime);
+
+			characterMove.MovementState = CharacterMovementStates.Normal;
+		}
+
+		OnKnockbackRecover?.Invoke();
+		knockBackRoutine = null;
+	}
 }
