@@ -56,6 +56,8 @@ public class CharacterStats : MonoBehaviour, IDamageable
 	[Space()]
 	public EnemyJournalRecord enemyRecord;
 
+	private Coroutine damageFlashRoutine = null;
+
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
     private Blackboard blackboard;
@@ -78,16 +80,12 @@ public class CharacterStats : MonoBehaviour, IDamageable
     }
 
     //Removes the specified amount of health
-    public bool RemoveHealth(int amount, int effectiveness)
+    public bool RemoveHealth(int amount)
     {
-        //Do not remove health if immune to damage
-        if (damageImmunity)
-            return false;
+		if (damageImmunity)
+			return false;
 
-        currentHealth -= amount;
-
-        if (DamageText.instance)
-            DamageText.instance.ShowDamageText((Vector2)transform.position + damageTextOffset, amount, effectiveness);
+		currentHealth -= amount;
 
         //Keep health above or equal to 0
         if (currentHealth <= 0)
@@ -97,47 +95,53 @@ public class CharacterStats : MonoBehaviour, IDamageable
 
 			currentHealth = 0;
 		}
-        else if (graphic && gameObject.activeSelf)
-        {
-            //Run only one stunned coroutine
-            StopCoroutine("DamageFlash");
-            StartCoroutine("DamageFlash", damageImmunityTime);
-        }
-
-		hurtSound.Play(transform.position);
-
-		if (hurtEffect)
-		{
-			GameObject obj = ObjectPooler.GetPooledObject(hurtEffect);
-			obj.transform.SetPosition2D((Vector2)transform.position + hurtEffectOffset);
-
-			CharacterHitMaskEffect maskEffect = obj.GetComponent<CharacterHitMaskEffect>();
-			if(maskEffect)
-			{
-				maskEffect.SetOwner(this);
-			}
-		}
-
-		CameraShake.Instance?.DoShake(hurtCameraShake);
-
-        if (OnDamaged != null)
-            OnDamaged();
 
         //Health was removed, so return true
         return true;
     }
 
-    public bool RemoveHealth(int amount)
-    {
-        return RemoveHealth(amount, 0);
-    }
-
     public bool TakeDamage(DamageProperties damageProperties)
     {
-        int newAmount = ElementManager.CalculateDamage(damageProperties.amount, damageProperties.sourceElement, element);
+		int removeAmount = ElementManager.CalculateDamage(damageProperties.amount, damageProperties.sourceElement, element);
 
-        //Return new calculated health with the effectiveness
-        return RemoveHealth(newAmount, newAmount != damageProperties.amount ? (newAmount > damageProperties.amount ? 1 : -1) : 0);
+		//Attempt to remove health (might not work if invincible)
+		if(RemoveHealth(removeAmount))
+		{
+			if (OnDamaged != null)
+				OnDamaged();
+
+			DamageText.instance?.ShowDamageText(
+				(Vector2)transform.position + damageTextOffset,
+				removeAmount,
+				DamageText.CalculateEffectiveness(damageProperties.amount, removeAmount)
+				);
+
+			//Do damage immunity flash only if this was not a fatal hit
+			if (currentHealth > 0 && graphic && gameObject.activeSelf)
+			{
+				DoDamageFlash(damageImmunityTime);
+			}
+
+			hurtSound.Play(transform.position);
+
+			if (hurtEffect)
+			{
+				GameObject obj = ObjectPooler.GetPooledObject(hurtEffect);
+				obj.transform.SetPosition2D((Vector2)transform.position + hurtEffectOffset);
+
+				CharacterHitMaskEffect maskEffect = obj.GetComponent<CharacterHitMaskEffect>();
+				if (maskEffect)
+				{
+					maskEffect.SetOwner(this);
+				}
+			}
+
+			CameraShake.Instance?.DoShake(hurtCameraShake);
+
+			return true;
+		}
+
+        return false;
     }
 
     public bool AddHealth(int amount)
@@ -155,17 +159,25 @@ public class CharacterStats : MonoBehaviour, IDamageable
             return false;
     }
 
+	private void DoDamageFlash(float time)
+	{
+		if (damageFlashRoutine != null)
+			StopCoroutine(damageFlashRoutine);
+
+		damageFlashRoutine = StartCoroutine(DamageFlash(time));
+	}
+
     public void Die()
     {
 		hasDied = true;
 
 		enemyRecord?.RecordKill();
 
-        //Show stunned flashing character
-        if(graphic)
-            StartCoroutine("DamageFlash", deathTime);
+		//Show stunned flashing character
+		DoDamageFlash(deathTime);
+
         //Count down to death
-        StartCoroutine("DeathTimer", deathTime);
+        StartCoroutine(DeathTimer(deathTime));
 
         if (characterMove)
         {
@@ -173,8 +185,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
             characterMove.Velocity = Vector2.zero;
         }
 
-        if (characterAnimator)
-            characterAnimator.SetStunned(true);
+        characterAnimator?.SetStunned(true);
     }
 
     IEnumerator DeathTimer(float duration)
@@ -255,6 +266,8 @@ public class CharacterStats : MonoBehaviour, IDamageable
         mat.SetFloat("_FlashAmount", 0);
 
         damageImmunity = false;
+
+		damageFlashRoutine = null;
     }
 
     public void SetAggro(bool value)

@@ -84,31 +84,22 @@ public class CharacterAnimator : MonoBehaviour
 
 	public void SetVerticalAxis(float vertical)
 	{
-		if(animator)
-		{
-			animator.SetFloat("vertical", vertical);
-		}
+		animator?.SetFloat("vertical", vertical);
 	}
 
 	public void SetHorizontalAxis(float horizontal)
 	{
-		if (animator)
-		{
-			animator.SetFloat("horizontal", horizontal);
-		}
+		animator?.SetFloat("horizontal", horizontal);
 	}
 
 	public void SetStunned(bool value)
     {
-        if(value == true)
-            animator.SetTrigger("stun");
-
-        animator.SetBool("stunned", value);
+        animator?.SetBool("stunned", value);
     }
 
     void Jump()
     {
-        animator.SetTrigger("jump");
+        animator?.SetTrigger("jump");
     }
 
     public bool Death()

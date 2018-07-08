@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class DamageText : MonoBehaviour
 {
+	public enum Effectiveness
+	{
+		Nuetral,
+		Effective,
+		Ineffective
+	}
+
     //Static instance as this should only be attached to one canvas
     public static DamageText instance;
 
@@ -34,7 +41,15 @@ public class DamageText : MonoBehaviour
         instance = this;
     }
 
-    public void ShowDamageText(Vector2 characterPos, int amount, int effectiveNess)
+	public static Effectiveness CalculateEffectiveness(int originalDamage, int newDamage)
+	{
+		if (originalDamage == newDamage)
+			return Effectiveness.Nuetral;
+		else
+			return newDamage > originalDamage ? Effectiveness.Effective : Effectiveness.Ineffective;
+	}
+
+    public void ShowDamageText(Vector2 characterPos, int amount, Effectiveness effectiveNess)
     {
         //Get damage text and make sure it is parented to this canvas
         GameObject obj = ObjectPooler.GetPooledObject(textPrefab);
@@ -48,10 +63,22 @@ public class DamageText : MonoBehaviour
         Text damageText = obj.GetComponent<Text>();
         Outline outline = obj.GetComponent<Outline>();
 
-        TextConfig config = neutralText;
+        TextConfig config;
 
-        if (effectiveNess != 0)
-            config = effectiveNess > 0 ? effectiveText : ineffectiveText;
+        switch(effectiveNess)
+		{
+			case Effectiveness.Effective:
+				config = effectiveText;
+				break;
+
+			case Effectiveness.Ineffective:
+				config = ineffectiveText;
+				break;
+
+			default:
+				config = neutralText;
+				break;
+		}
 
         if (damageText)
         {
