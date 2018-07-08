@@ -7,9 +7,7 @@ using UnityEditor;
 
 public class Slambeak : MonoBehaviour
 {
-	public float attackRange = 4.0f;
-
-	public bool FacingRight { get { return transform.localScale.x < 0 ? true : false; } }
+	public TriggerEvent slamTrigger;
 
 	[Space()]
 	public float stunTime = 2.0f;
@@ -23,8 +21,6 @@ public class Slambeak : MonoBehaviour
 	public AnimationClip recoverAnim;
 	public AnimationClip attackUpAnim;
 
-	private Transform player;
-
 	private Animator animator;
 
 	private void Awake()
@@ -34,13 +30,7 @@ public class Slambeak : MonoBehaviour
 
 	private void Start()
 	{
-		GameObject obj = GameObject.FindWithTag("Player");
-
-		if (obj)
-			player = obj.transform;
-
-		//Only react to player if there is a player found
-		if (player)
+		if(slamTrigger)
 			StartCoroutine(Behaviour());
 	}
 
@@ -57,10 +47,7 @@ public class Slambeak : MonoBehaviour
 		//Behaviour loops while this gameobject is active
 		while(true)
 		{
-			Vector2 offset = player.transform.position - transform.position;
-
-			//Only attack if in range and in facing direction
-			if(offset.magnitude <= attackRange && ((FacingRight && offset.x > 0) || (!FacingRight && offset.x < 0)) && offset.y > 0)
+			if(slamTrigger.InsideCount > 0)
 			{
 				//Attack is it's own routine
 				yield return StartCoroutine(Attack());
@@ -89,19 +76,4 @@ public class Slambeak : MonoBehaviour
 		PlayAnim(attackUpAnim);
 		yield return new WaitForSeconds(attackUpAnim.length);
 	}
-
-#if UNITY_EDITOR
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.red;
-
-		Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + Vector3.up * attackRange);
-		Gizmos.DrawLine(transform.position + Vector3.zero, transform.position + (FacingRight ? Vector3.right : Vector3.left) * attackRange);
-
-		Handles.color = Color.red;
-		Handles.DrawWireArc(transform.position, -Vector3.forward, (FacingRight ? Vector3.right : Vector3.left), (FacingRight ? -90 : 90), attackRange);
-		Handles.color = new Color(1, 0, 0, 0.1f);
-		Handles.DrawSolidArc(transform.position, -Vector3.forward, (FacingRight ? Vector3.right : Vector3.left), (FacingRight ? -90 : 90), attackRange);
-	}
-#endif
 }
