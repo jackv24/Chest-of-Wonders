@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Base class for UI selectables that are to be arranged in a grid.
+/// </summary>
 public abstract class UIGridSlot : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-	private bool isSetup = false;
-
 	public Selectable Selectable { get; protected set; }
+
+	private bool isSetup = false;
 
 	protected void Setup()
 	{
@@ -33,13 +36,14 @@ public abstract class UIGridSlot : MonoBehaviour, ISelectHandler, IDeselectHandl
 		{
 			for (int i = 0; i < width; i++)
 			{
-				Selectable self = Helper.Get1DArrayElementBy2DIndexes(slots, width, i, j).Selectable;
+				UIGridSlot slot = Helper.Get1DArrayElementBy2DIndexes(slots, width, i, j);
+				Selectable selectable = slot.Selectable;
 
 				Navigation nav = new Navigation();
 
 				//NOTE:	We only bother testing if slots are interactable to the right and down since the
 				//		inventory fills up from the top-right corner
-				if (self.CanSelect())
+				if (selectable.CanSelect())
 				{
 					nav.mode = Navigation.Mode.Explicit;
 
@@ -63,7 +67,7 @@ public abstract class UIGridSlot : MonoBehaviour, ISelectHandler, IDeselectHandl
 				else
 					nav.mode = Navigation.Mode.None;
 
-				self.navigation = nav;
+				selectable.navigation = nav;
 			}
 		}
 	}

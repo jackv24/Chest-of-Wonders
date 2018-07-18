@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using I2.Loc;
 
-public class InventoryUI : NotebookPageUI
+public class InventoryUI : NotebookPageGridUI
 {
 	public InventoryUISlot[] slots;
 
@@ -21,20 +21,10 @@ public class InventoryUI : NotebookPageUI
 	{
 		gameObject.SetActive(true);
 
-		if (slots.Length > 0)
-		{
-			//Update UI slots to show items in inventory
-			UpdateUI();
-
-			//Re-link navigation (in case any inventory items have been added/removed)
-			UIGridSlot.LinkNavigation(slots, inventoryRowSplit, menuButton);
-
-			//Re-link menu buttons with the first inventory slot mapped to right (if the slot can be mapped)
-			PauseScreenUI.Instance.LinkMenuButtons(slots[0].Selectable ? (slots[0].Selectable.CanSelect() ? slots[0].Selectable : null) : null);
-		}
+		SetupUI(slots, inventoryRowSplit);
 	}
 
-	private void UpdateUI()
+	protected override void UpdateUI()
     {
 		if (!inventory)
 			inventory = GameManager.instance.player.GetComponent<PlayerInventory>();

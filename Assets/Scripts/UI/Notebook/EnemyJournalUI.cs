@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyJournalUI : NotebookPageUI
+public class EnemyJournalUI : NotebookPageGridUI
 {
 	public GridLayoutGroup slotsParent;
 	private EnemyJournalUISlot[] slots = null;
@@ -29,18 +29,10 @@ public class EnemyJournalUI : NotebookPageUI
 			slots = slotsParent.GetComponentsInChildren<EnemyJournalUISlot>();
 		}
 
-		if (slots.Length > 0)
-		{
-			UpdateUI();
-
-			UIGridSlot.LinkNavigation(slots, slotsParent.constraintCount, menuButton);
-
-			//Re-link menu buttons with the first slot mapped to right (if the slot can be mapped)
-			PauseScreenUI.Instance.LinkMenuButtons(slots[0].Selectable ? (slots[0].Selectable.CanSelect() ? slots[0].Selectable : null) : null);
-		}
+		SetupUI(slots, slotsParent.constraintCount);
 	}
 
-	private void UpdateUI()
+	protected override void UpdateUI()
 	{
 		foreach(var slot in slots)
 		{
