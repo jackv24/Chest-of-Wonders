@@ -220,8 +220,6 @@ public class CharacterMove : MonoBehaviour
 					//Slope speed multiplier should be reset, since character is no longer on slope
 					slopeSpeedMultiplier = 1f;
 
-					wasGrounded = false;
-
 					stickToPlatforms = false;
 				}
 			}
@@ -430,12 +428,19 @@ public class CharacterMove : MonoBehaviour
             }
         }
 
-        if (!wasGrounded && IsGrounded)
-        {
-            wasGrounded = true;
+		if (IsGrounded)
+		{
+			if (!wasGrounded)
+			{
+				wasGrounded = true;
 
-			OnGrounded?.Invoke();
-        }
+				OnGrounded?.Invoke();
+			}
+		}
+		else
+		{
+			wasGrounded = false;
+		}
 
         if (IsGrounded || Mathf.Abs(Velocity.y) < 0.01f)
             velocity.y = 0;
