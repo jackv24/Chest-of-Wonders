@@ -45,6 +45,6 @@ public class LevelBounds : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(centre, new Vector3(width, height, 1));
+        Gizmos.DrawWireCube(centre, new Vector3(width, height));
     }
 }
