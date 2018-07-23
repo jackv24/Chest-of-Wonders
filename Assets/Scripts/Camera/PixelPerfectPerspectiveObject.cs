@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class PixelPerfectPerspectiveObject : MonoBehaviour
 {
-	public const float pixelsPerUnit = PixelPerfectPerspectiveCamera.pixelsPerUnit;
+	public const float PixelsPerUnit = PixelPerfectPerspectiveCamera.PixelsPerUnit;
 
-	public Vector2 multiplier = Vector2.one;
+	public Vector2 Multiplier = Vector2.one;
 
-	public bool updateEveryFrame = false;
+	public bool UpdateEveryFrame;
 
 	private void Start()
 	{
@@ -18,7 +16,7 @@ public class PixelPerfectPerspectiveObject : MonoBehaviour
 
 	private void Update()
 	{
-		if(!Application.isPlaying || updateEveryFrame)
+		if(!Application.isPlaying || UpdateEveryFrame)
 		{
 			UpdateSize();
 		}
@@ -26,26 +24,20 @@ public class PixelPerfectPerspectiveObject : MonoBehaviour
 
 	private void UpdateSize()
 	{
-		//var a = Camera.main.WorldToScreenPoint(transform.position);
-		//var b = new Vector3(a.x, a.y + pixelsPerUnit, a.z);
+		var cam = Camera.main;
 
-		//var aa = Camera.main.ScreenToWorldPoint(a);
-		//var bb = Camera.main.ScreenToWorldPoint(b);
+		if (!cam) return;
+		
+		var cameraDistance = -cam.transform.position.z;
+		var objectDistance = transform.position.z - cam.transform.position.z;
 
-		//transform.localScale = multiplier * (aa - bb).magnitude;
+		var frustumHeightOrigin = 2.0f * cameraDistance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+		var frustumHeightObject = 2.0f * objectDistance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
 
-		Camera cam = Camera.main;
+		var difference = frustumHeightObject - frustumHeightOrigin;
+		var size = difference * (32f/360f) + 1;
 
-		float cameraDistance = -cam.transform.position.z;
-		float objectDistance = transform.position.z - cam.transform.position.z;
-
-		float frustumHeightOrigin = 2.0f * cameraDistance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-		float frustumHeightObject = 2.0f * objectDistance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-
-		float difference = frustumHeightObject - frustumHeightOrigin;
-		float size = difference * (32f/360f) + 1;
-
-		Vector3 scale = multiplier * size;
+		Vector3 scale = Multiplier * size;
 		scale.z = transform.localScale.z;
 
 		transform.localScale = scale;
