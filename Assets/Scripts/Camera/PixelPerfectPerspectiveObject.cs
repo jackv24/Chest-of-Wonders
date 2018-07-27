@@ -24,18 +24,18 @@ public class PixelPerfectPerspectiveObject : MonoBehaviour
 
 	private void UpdateSize()
 	{
-		var cam = Camera.main;
+		Camera cam = Camera.main;
 
 		if (!cam) return;
 		
-		var cameraDistance = -cam.transform.position.z;
-		var objectDistance = transform.position.z - cam.transform.position.z;
+		float cameraDistance = -cam.transform.position.z;
+		float objectDistance = transform.position.z - cam.transform.position.z;
 
-		var frustumHeightOrigin = 2.0f * cameraDistance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-		var frustumHeightObject = 2.0f * objectDistance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+		float frustumHeightOrigin = 2.0f * cameraDistance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+		float frustumHeightObject = 2.0f * objectDistance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
 
-		var difference = frustumHeightObject - frustumHeightOrigin;
-		var size = difference * (32f/360f) + 1;
+		float difference = frustumHeightObject - frustumHeightOrigin;
+		float size = difference * (32f/360f) + 1;
 
 		Vector3 scale = Multiplier * size;
 		scale.z = transform.localScale.z;

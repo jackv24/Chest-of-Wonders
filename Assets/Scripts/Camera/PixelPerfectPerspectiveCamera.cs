@@ -28,8 +28,8 @@ public class PixelPerfectPerspectiveCamera : MonoBehaviour
 
         if (!cam) return;
         
-        var frustumInnerAngles = (180f - cam.fieldOfView) / 2f * Mathf.PI / 180f;
-        var newCamDist = Mathf.Tan(frustumInnerAngles) * (TargetFrustHeight / 2);
+        float frustumInnerAngles = (180f - cam.fieldOfView) / 2f * Mathf.PI / 180f;
+        float newCamDist = Mathf.Tan(frustumInnerAngles) * (TargetFrustHeight / 2);
         transform.SetLocalPositionZ(-newCamDist);
     }
 
