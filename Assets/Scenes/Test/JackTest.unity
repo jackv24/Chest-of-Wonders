@@ -2473,6 +2473,8 @@ GameObject:
   - component: {fileID: 1266260713}
   - component: {fileID: 1266260712}
   - component: {fileID: 1266260711}
+  - component: {fileID: 1266260715}
+  - component: {fileID: 1266260714}
   m_Layer: 0
   m_Name: save_goat_talk_01
   m_TagString: Untagged
@@ -2550,6 +2552,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1266260714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1266260710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: a68892702d56e544b910fb88e04f4879, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: a68892702d56e544b910fb88e04f4879, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!95 &1266260715
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1266260710}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1290298845
 Prefab:
   m_ObjectHideFlags: 0
