@@ -12,6 +12,9 @@ public class PixelPerfectPerspectiveCamera : MonoBehaviour
     private void Start()
     {
         UpdatePosition();
+        
+        // Make camera sort like an orthographic camera, since our camera will not rotate
+        if(cam) cam.transparencySortMode = TransparencySortMode.Orthographic;
     }
 
     private void Update()

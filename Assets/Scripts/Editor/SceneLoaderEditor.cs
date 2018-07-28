@@ -7,7 +7,7 @@ using UnityEditor.SceneManagement;
 
 public class SceneLoaderEditor : EditorWindow
 {
-	private Dictionary<string, Color> sceneButtonColours = new Dictionary<string, Color>()
+	private readonly Dictionary<string, Color> sceneButtonColours = new Dictionary<string, Color>()
 	{
 		{"Demo", new Color(0.5f, 0.5f, 1.0f)},
 		{"Fortress", Helper.RGBToColor(233, 210, 19)}
@@ -17,7 +17,7 @@ public class SceneLoaderEditor : EditorWindow
 
     private bool autoAddGameScene = true;
 
-	[MenuItem("Overgrowth Tools/Scene Loader")]
+	[MenuItem("Overgrowth Tools/Scene Loader #l")]
 	static void Init()
 	{
 		SceneLoaderEditor window = (SceneLoaderEditor)EditorWindow.GetWindow(typeof(SceneLoaderEditor));
