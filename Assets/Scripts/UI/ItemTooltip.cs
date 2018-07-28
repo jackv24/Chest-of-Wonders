@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ItemTooltip : MonoBehaviour
 {
 	public static ItemTooltip Instance;
 
-	public Text nameText;
-	public Text descriptionText;
+	public TextMeshProUGUI nameText;
+	public TextMeshProUGUI descriptionText;
 
 	public Vector2 offset = new Vector2(10, -10);
 

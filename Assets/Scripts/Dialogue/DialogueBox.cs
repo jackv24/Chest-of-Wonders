@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using NodeCanvas.DialogueTrees;
+using TMPro;
 
 public class DialogueBox : MonoBehaviour
 {
@@ -21,9 +22,9 @@ public class DialogueBox : MonoBehaviour
     private KeepWorldPosOnCanvas optionsPos;
 
     [Space()]
-    public Text nameText;
+    public TextMeshProUGUI nameText;
     public Image accent;
-    public Text dialogueText;
+    public TextMeshProUGUI dialogueText;
     public Image trail;
     public int trailOffset = 10;
     public Button initialButton;
@@ -266,7 +267,7 @@ public class DialogueBox : MonoBehaviour
 		{
 			SetupButtonEvents(buttons[pair.Value], info, pair.Value);
 
-			Text buttonText = buttons[pair.Value].GetComponentInChildren<Text>();
+			TextMeshProUGUI buttonText = buttons[pair.Value].GetComponentInChildren<TextMeshProUGUI>();
 
 			if (buttonText)
 				buttonText.text = pair.Key.text;
@@ -386,7 +387,7 @@ public class DialogueBox : MonoBehaviour
 		ShowSpeakerTalking(false);
 	}
 
-    IEnumerator PrintOverTime(Text textObj, string text, bool withSound)
+    IEnumerator PrintOverTime(TextMeshProUGUI textObj, string text, bool withSound)
     {
         Coroutine soundRoutine = null;
 
