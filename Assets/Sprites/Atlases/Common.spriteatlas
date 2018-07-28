@@ -3,10 +3,11 @@
 --- !u!687078895 &4343727234628468602
 SpriteAtlas:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Common
   m_EditorData:
+    serializedVersion: 2
     textureSettings:
       serializedVersion: 2
       anisoLevel: 1
@@ -18,8 +19,19 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
-    packingParameters:
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
       serializedVersion: 2
       padding: 4
       blockOffset: 1
@@ -32,28 +44,28 @@ SpriteAtlas:
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 7bb78d9105551a740b283f2472052dea, type: 3}
   - {fileID: 21300000, guid: 3e7368022df30614a8e9fa2c74d2389e, type: 3}
+  - {fileID: 21300000, guid: 560090c35ee890c4492aed0fd70818fd, type: 3}
   - {fileID: 21300000, guid: 1fa846b4ce6911248bb5324378a95273, type: 3}
   - {fileID: 21300000, guid: 966386c4ed3daba42b45906c11ad4eea, type: 3}
   - {fileID: 21300000, guid: f5a2e9f5b04439847adb608f99c167a8, type: 3}
-  - {fileID: 21300000, guid: 65b286eeeb609914698404d73dfe8939, type: 3}
-  - {fileID: 21300000, guid: 66d7abeb5aea7d04c944be63edc61929, type: 3}
-  - {fileID: 21300000, guid: 7bb78d9105551a740b283f2472052dea, type: 3}
-  - {fileID: 21300000, guid: 560090c35ee890c4492aed0fd70818fd, type: 3}
   - {fileID: 21300000, guid: 5be16ff8a9e86b64580821631a4f6d6c, type: 3}
-  - {fileID: 21300000, guid: 1015161b7f728964c848751a59bb80f9, type: 3}
   - {fileID: 21300000, guid: 199b579968bb2c84e911b9d8c654f1d7, type: 3}
+  - {fileID: 21300000, guid: 1015161b7f728964c848751a59bb80f9, type: 3}
+  - {fileID: 21300000, guid: 66d7abeb5aea7d04c944be63edc61929, type: 3}
+  - {fileID: 21300000, guid: 65b286eeeb609914698404d73dfe8939, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Chest_opening002
   - Chest_opening009
+  - Chest_opening005
   - Chest_opening008
   - Chest_opening010
   - Chest_opening001
-  - Chest_opening000
-  - Chest_opening003
-  - Chest_opening002
-  - Chest_opening005
   - Chest_opening004
-  - Chest_opening007
   - Chest_opening006
+  - Chest_opening007
+  - Chest_opening003
+  - Chest_opening000
   m_Tag: Common
   m_IsVariant: 0

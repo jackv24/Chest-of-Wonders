@@ -3,10 +3,11 @@
 --- !u!687078895 &4343727234628468602
 SpriteAtlas:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Magic
   m_EditorData:
+    serializedVersion: 2
     textureSettings:
       serializedVersion: 2
       anisoLevel: 1
@@ -18,8 +19,19 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
-    packingParameters:
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
       serializedVersion: 2
       padding: 4
       blockOffset: 1
@@ -32,15 +44,13 @@ SpriteAtlas:
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: a3dd2c474418e124782ddca7c2aa9d29, type: 3}
-  - {fileID: 21300000, guid: 0ba30ef91c368eb499fa2d9e2a3db343, type: 3}
-  - {fileID: 21300000, guid: e50da37bfbe2d5640b549b4d31fa570d, type: 3}
-  - {fileID: 21300000, guid: 4012aaf822c071f45a6b0561d6537237, type: 3}
-  - {fileID: 21300000, guid: 987515f909e51144dbfe46f35c0dc4df, type: 3}
-  - {fileID: 21300000, guid: f1d6cf66d6651ca488bf77acbb5295bc, type: 3}
-  - {fileID: 21300000, guid: 7f0b581f42d33f0448a014dff4f4a7ee, type: 3}
+  - {fileID: 21300000, guid: 47368c32ed33fea49b762d90b2ac7bbd, type: 3}
   - {fileID: 21300000, guid: a0f08db27a1cc434cae316d6fd510a7e, type: 3}
-  - {fileID: 21300000, guid: fd30ab09044a15147bf3a226063c1716, type: 3}
+  - {fileID: 21300030, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
+  - {fileID: 21300032, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
+  - {fileID: 21300024, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
+  - {fileID: 21300026, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
+  - {fileID: 21300028, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
   - {fileID: 21300022, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
   - {fileID: 21300020, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
   - {fileID: 21300018, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
@@ -53,6 +63,12 @@ SpriteAtlas:
   - {fileID: 21300008, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
   - {fileID: 21300010, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
   - {fileID: 21300012, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
+  - {fileID: 21300000, guid: f1d6cf66d6651ca488bf77acbb5295bc, type: 3}
+  - {fileID: 21300000, guid: a3dd2c474418e124782ddca7c2aa9d29, type: 3}
+  - {fileID: 21300000, guid: 4012aaf822c071f45a6b0561d6537237, type: 3}
+  - {fileID: 21300000, guid: fd30ab09044a15147bf3a226063c1716, type: 3}
+  - {fileID: 21300000, guid: 987515f909e51144dbfe46f35c0dc4df, type: 3}
+  - {fileID: 21300000, guid: 0ba30ef91c368eb499fa2d9e2a3db343, type: 3}
   - {fileID: 21300010, guid: bb02043a7f24d944d879c414ee037266, type: 3}
   - {fileID: 21300006, guid: bb02043a7f24d944d879c414ee037266, type: 3}
   - {fileID: 21300008, guid: bb02043a7f24d944d879c414ee037266, type: 3}
@@ -65,22 +81,16 @@ SpriteAtlas:
   - {fileID: 21300020, guid: bb02043a7f24d944d879c414ee037266, type: 3}
   - {fileID: 21300018, guid: bb02043a7f24d944d879c414ee037266, type: 3}
   - {fileID: 21300022, guid: bb02043a7f24d944d879c414ee037266, type: 3}
-  - {fileID: 21300030, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
-  - {fileID: 21300032, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
-  - {fileID: 21300024, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
-  - {fileID: 21300026, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
-  - {fileID: 21300028, guid: 905d84b5299c5fd498a3e611f46de14c, type: 3}
-  - {fileID: 21300000, guid: 47368c32ed33fea49b762d90b2ac7bbd, type: 3}
+  - {fileID: 21300000, guid: e50da37bfbe2d5640b549b4d31fa570d, type: 3}
+  - {fileID: 21300000, guid: 7f0b581f42d33f0448a014dff4f4a7ee, type: 3}
   m_PackedSpriteNamesToIndex:
-  - Todo_FIRE_Up_09
-  - Todo_FIRE_Up_08
-  - Todo_FIRE_Up_05
-  - Todo_FIRE_Up_04
-  - Todo_FIRE_Up_07
-  - Todo_FIRE_Up_06
-  - Todo_FIRE_Up_01
+  - Icicle
   - Todo_FIRE_Up_03
-  - Todo_FIRE_Up_02
+  - heart_4
+  - heart_5
+  - heart_1
+  - heart_2
+  - heart_3
   - Soul_magic_fire_12
   - Soul_magic_fire_11
   - Soul_magic_fire_10
@@ -93,6 +103,12 @@ SpriteAtlas:
   - Soul_magic_fire_5
   - Soul_magic_fire_6
   - Soul_magic_fire_7
+  - Todo_FIRE_Up_06
+  - Todo_FIRE_Up_09
+  - Todo_FIRE_Up_04
+  - Todo_FIRE_Up_02
+  - Todo_FIRE_Up_07
+  - Todo_FIRE_Up_08
   - magic_fire_6
   - magic_fire_4
   - magic_fire_5
@@ -105,11 +121,7 @@ SpriteAtlas:
   - magic_fire_death_5
   - magic_fire_death_4
   - magic_fire_death_6
-  - heart_4
-  - heart_5
-  - heart_1
-  - heart_2
-  - heart_3
-  - Icicle
+  - Todo_FIRE_Up_05
+  - Todo_FIRE_Up_01
   m_Tag: Magic
   m_IsVariant: 0
