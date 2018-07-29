@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// Highlights the heading if any of the sub-buttons are selected
 /// </summary>
 public class SubButtonHeading : MonoBehaviour
 {
-	public Text text;
+	public TextMeshProUGUI text;
 	public Color selectedColor = Color.white;
 	public Color deselectedColor = Color.grey;
 
