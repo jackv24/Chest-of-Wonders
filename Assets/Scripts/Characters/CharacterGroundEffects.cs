@@ -17,6 +17,8 @@ public class CharacterGroundEffects : MonoBehaviour
 		public SoundEventSingle landSound;
 
 		public TrailParticles trailEffect;
+		public GameObject jumpEffect;
+		public GameObject landEffect;
 	}
 
 	[System.Serializable]
@@ -70,12 +72,20 @@ public class CharacterGroundEffects : MonoBehaviour
 		{
 			characterMove.OnJump += () =>
 			{
-				currentGroundEffects?.jumpSound?.Play(transform.position, soundType);
+				if (currentGroundEffects != null)
+				{
+					currentGroundEffects.jumpSound.Play(transform.position, soundType);
+					currentGroundEffects.jumpEffect.SpawnPooled(transform.position);
+				}
 			};
 
 			characterMove.OnGrounded += () =>
 			{
-				currentGroundEffects?.landSound?.Play(transform.position, soundType);
+				if (currentGroundEffects != null)
+				{
+					currentGroundEffects.landSound.Play(transform.position, soundType);
+					currentGroundEffects.landEffect.SpawnPooled(transform.position);
+				}
 			};
 		}
 

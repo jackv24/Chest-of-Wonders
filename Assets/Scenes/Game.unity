@@ -196,11 +196,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 1873050971}
-  mAlignment_RTL: 260
-  mAlignment_LTR: 257
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
+  mInitializeAlignment: 1
 --- !u!1001 &451089385
 Prefab:
   m_ObjectHideFlags: 0
@@ -298,17 +298,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 1529428853}
+  mTarget: {fileID: 0}
   mAlignment_RTL: 516
   mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
---- !u!114 &714469304 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114429659992040328, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  mInitializeAlignment: 1
 --- !u!114 &754757087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,11 +314,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 1940797833}
+  mTarget: {fileID: 0}
   mAlignment_RTL: 516
   mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
+  mInitializeAlignment: 1
 --- !u!114 &829457175 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114498152196801840, guid: a66e01d0fb3ac0e41a989733fa60ff06,
@@ -342,11 +336,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 1203277080}
+  mTarget: {fileID: 0}
   mAlignment_RTL: 516
   mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
+  mInitializeAlignment: 1
 --- !u!1001 &929469981
 Prefab:
   m_ObjectHideFlags: 0
@@ -726,6 +720,10 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1581037387805790, guid: a66e01d0fb3ac0e41a989733fa60ff06, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a66e01d0fb3ac0e41a989733fa60ff06, type: 2}
   m_IsPrefabAsset: 0
@@ -738,11 +736,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000013017421258, guid: 99f5c5565a8074f4eb8901db7fb4c979, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4.49
+      value: -2.213
       objectReference: {fileID: 0}
     - target: {fileID: 4000013017421258, guid: 99f5c5565a8074f4eb8901db7fb4c979, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 19.22
+      value: 21.121
       objectReference: {fileID: 0}
     - target: {fileID: 4000013017421258, guid: 99f5c5565a8074f4eb8901db7fb4c979, type: 2}
       propertyPath: m_LocalPosition.z
@@ -795,12 +793,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 929469981}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!114 &1091835268 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114178004569416082, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!114 &1112256182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,11 +828,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 2058363195}
+  mTarget: {fileID: 0}
   mAlignment_RTL: 516
   mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
+  mInitializeAlignment: 1
 --- !u!114 &1179851736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,28 +844,16 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 1451533125}
-  mAlignment_RTL: 260
-  mAlignment_LTR: 257
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
+  mInitializeAlignment: 1
 --- !u!20 &1181267978 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 20306226602761684, guid: 4692fd67a54f61c44890c3fae2010a46,
     type: 2}
   m_PrefabInternal: {fileID: 1614383632}
---- !u!114 &1203277080 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114139153970559536, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
---- !u!114 &1304903066 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114502224058882594, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!1001 &1388722675
 Prefab:
   m_ObjectHideFlags: 0
@@ -934,24 +914,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mTarget: {fileID: 1396963310}
---- !u!114 &1451533125 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114195243730230712, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!114 &1495624751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114325341265955542, guid: a66e01d0fb3ac0e41a989733fa60ff06,
     type: 2}
   m_PrefabInternal: {fileID: 929469981}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!114 &1529428853 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114115963775943932, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!114 &1551612039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1022,11 +990,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4346718972097964, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 15.11
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 4346718972097964, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 22.9
+      value: 22.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4692fd67a54f61c44890c3fae2010a46, type: 2}
@@ -1043,12 +1011,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mTarget: {fileID: 235834808}
---- !u!114 &1794556902 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114357236163247366, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!114 &1842110381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1061,12 +1023,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mTarget: {fileID: 0}
---- !u!114 &1873050971 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114355912889722764, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!114 &1899169681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1090,29 +1046,17 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 714469304}
+  mTarget: {fileID: 0}
   mAlignment_RTL: 516
   mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
---- !u!114 &1940797833 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114756818720928108, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  mInitializeAlignment: 1
 --- !u!114 &1973444652 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114795991851478432, guid: a66e01d0fb3ac0e41a989733fa60ff06,
     type: 2}
   m_PrefabInternal: {fileID: 929469981}
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
---- !u!114 &2058363195 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114738318832336606, guid: a66e01d0fb3ac0e41a989733fa60ff06,
-    type: 2}
-  m_PrefabInternal: {fileID: 929469981}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!114 &2073425234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,11 +1068,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 1091835268}
-  mAlignment_RTL: 260
-  mAlignment_LTR: 257
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
+  mInitializeAlignment: 1
 --- !u!114 &2087103022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,11 +1084,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 1794556902}
+  mTarget: {fileID: 0}
   mAlignment_RTL: 516
   mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
+  mInitializeAlignment: 1
 --- !u!114 &2112444705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,11 +1100,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
-  mTarget: {fileID: 1304903066}
-  mAlignment_RTL: 260
-  mAlignment_LTR: 257
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
   mAlignmentWasRTL: 0
-  mInitializeAlignment: 0
+  mInitializeAlignment: 1
 --- !u!114 &2115902866
 MonoBehaviour:
   m_ObjectHideFlags: 0

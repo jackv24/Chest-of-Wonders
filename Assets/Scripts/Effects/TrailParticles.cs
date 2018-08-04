@@ -5,12 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class TrailParticles : MonoBehaviour
 {
-	private CharacterMove characterMove;
-
-	private ParticleSystem system;
+	public float StopGroundedDelay;
+	private Coroutine stopParticlesRoutine = null;
 
 	private bool wasGrounded;
 
+	private CharacterMove characterMove;
+	private ParticleSystem system;
 	private DisableFinishedParticleSystem disableFinished;
 
 	private Transform previousParent;
@@ -32,12 +33,28 @@ public class TrailParticles : MonoBehaviour
 				wasGrounded = characterMove.IsGrounded;
 
 				//Play particles only when on ground
-				if(wasGrounded)
+				if (wasGrounded)
+				{
+					if (stopParticlesRoutine != null)
+						StopCoroutine(stopParticlesRoutine);
+
 					system.Play(true);
+				}
 				else
-					system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+				{
+					stopParticlesRoutine = StartCoroutine(StopParticlesDelayed());
+				}
 			}
 		}
+	}
+
+	private IEnumerator StopParticlesDelayed()
+	{
+		yield return new WaitForSeconds(StopGroundedDelay);
+
+		system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+		stopParticlesRoutine = null;
 	}
 
 	/// <summary>
@@ -75,6 +92,8 @@ public class TrailParticles : MonoBehaviour
 		disableFinished.enabled = true;
 
 		//Stop emitting particles (will recycle itself when there are no live particles left)
-		system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+		if (stopParticlesRoutine != null)
+			StopCoroutine(stopParticlesRoutine);
+		stopParticlesRoutine = StartCoroutine(StopParticlesDelayed());
 	}
 }
