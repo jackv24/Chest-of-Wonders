@@ -179,24 +179,24 @@ namespace I2.Loc
         {
             for (int i = startIndex, imax = matches.Count; i < imax; ++i)
             {
-                var newTag = GetCaptureMatch(matches[i]);
+                var newTag = I2Utils.GetCaptureMatch(matches[i]);
                 if (newTag[0]=='/' && tag.StartsWith(newTag.Substring(1)))
                     return i;
             }
             return -1;
         }
 
-        static string GetCaptureMatch(Match match)
-        {
+	    static string GetGoogleNoTranslateTag(int tagNumber)
+	    {
+	        //return " I2NT" + tagNumber;
+	        if (tagNumber < 70)
+	            return "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++".Substring(0, tagNumber+1);
 
-            for (int i=match.Groups.Count-1; i>=0; --i)
-                if (match.Groups[i].Success)
-                {
-                    return match.Groups[i].ToString();
-                }
-            return match.ToString();
-        }
-
+	        string s = "";
+	        for (int i = -1; i < tagNumber; ++i)
+	            s += "+";
+	        return s;
+	    }
         static void ParseNonTranslatableElements( ref TranslationQuery query )
         {
             //\[i2nt].*\[\/i2nt]
@@ -208,7 +208,7 @@ namespace I2.Loc
             List<string> finalTags = new List<string>();
             for (int i=0, imax=matches.Count; i<imax; ++i)
             {
-                var tag = GetCaptureMatch( matches[i] );
+                var tag = I2Utils.GetCaptureMatch( matches[i] );
                 int iClosingTag = FindClosingTag(tag, matches, i); //  find [/tag] or </tag>
 
                 if (iClosingTag < 0)
@@ -217,7 +217,8 @@ namespace I2.Loc
                     var fulltag = matches[i].ToString();
                     if (fulltag.StartsWith("{[") && fulltag.EndsWith("]}"))
                     {
-                        finalText = finalText.Replace(fulltag, /*"{[" + finalTags.Count + "]}"*/ ((char)(0x2600 + finalTags.Count)).ToString());  //  0x2600 is the start of the UNICODE Miscellaneous Symbols table, so they are not going to be translated by google
+                        finalText = finalText.Replace(fulltag, GetGoogleNoTranslateTag(finalTags.Count)+" ");  //  0x2600 is the start of the UNICODE Miscellaneous Symbols table, so they are not going to be translated by google
+                        //finalText = finalText.Replace(fulltag, /*"{[" + finalTags.Count + "]}"*/ ((char)(0x2600 + finalTags.Count)).ToString());  //  0x2600 is the start of the UNICODE Miscellaneous Symbols table, so they are not going to be translated by google
                         finalTags.Add(fulltag);
                     }
                     continue;
@@ -226,17 +227,21 @@ namespace I2.Loc
                 if (tag == "i2nt")
                 {
                     var tag1 = query.Text.Substring(matches[i].Index, (matches[iClosingTag].Index-matches[i].Index) + matches[iClosingTag].Length);
-                    finalText = finalText.Replace(tag1, /*"{[" + finalTags.Count + "]}"*/ ((char)(0x2600 + finalTags.Count)).ToString());      
+                    finalText = finalText.Replace(tag1, GetGoogleNoTranslateTag(finalTags.Count)+" ");
+                    //finalText = finalText.Replace(tag1, /*"{[" + finalTags.Count + "]}"*/ ((char)(0x2600 + finalTags.Count)).ToString());
+                    
                     finalTags.Add(tag1);
                 }
                 else
                 {
                     var tag1 = matches[i].ToString();
-                    finalText = finalText.Replace(tag1, /*"{[" + finalTags.Count + "]}"*/ ((char)(0x2600 + finalTags.Count)).ToString());
+                    finalText = finalText.Replace(tag1, GetGoogleNoTranslateTag(finalTags.Count)+" ");
+                    //finalText = finalText.Replace(tag1, /*"{[" + finalTags.Count + "]}"*/ ((char)(0x2600 + finalTags.Count)).ToString());
                     finalTags.Add(tag1);
 
                     var tag2 = matches[iClosingTag].ToString();
-                    finalText = finalText.Replace(tag2, /*"{[" + finalTags.Count + "]}"*/ ((char)(0x2600 + finalTags.Count)).ToString());
+                    finalText = finalText.Replace(tag2, GetGoogleNoTranslateTag(finalTags.Count)+" ");
+                    //finalText = finalText.Replace(tag2, /*"{[" + finalTags.Count + "]}"*/ ((char)(0x2600 + finalTags.Count)).ToString());
                     finalTags.Add(tag2);
                 }
             }

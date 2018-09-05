@@ -31,7 +31,7 @@ namespace I2.Loc
         //[PostProcessBuild(10000)]
         public static void PostProcessAndroid(BuildTarget buildTarget, string pathToBuiltProject)
 		{
-			if (buildTarget!=BuildTarget.Android && buildTarget!=BuildTarget.Tizen)
+			if (buildTarget!=BuildTarget.Android)
 				return;
 
             if (LocalizationManager.Sources.Count <= 0)
@@ -91,7 +91,7 @@ namespace I2.Loc
             try
             {
                 appName = appName.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "\\\"").Replace("'", "\\'");
-                //appName = appName.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;").Replace("'", "\\'");
+                appName = appName.Replace("\r\n", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty);
 
                 if (!System.IO.Directory.Exists(folder))
                     System.IO.Directory.CreateDirectory(folder);

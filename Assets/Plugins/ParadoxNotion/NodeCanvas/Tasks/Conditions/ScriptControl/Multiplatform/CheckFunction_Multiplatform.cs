@@ -32,21 +32,29 @@ namespace NodeCanvas.Tasks.Conditions{
 		}
 
 		public override System.Type agentType{
-			get {return targetMethod != null? targetMethod.RTReflectedType() : typeof(Transform);}
+			get
+			{
+				if (targetMethod == null){ return typeof(Transform); }
+				return targetMethod.IsStatic? null : targetMethod.RTReflectedType();
+			}
 		}
 
 		protected override string info{
 			get
 			{
-				if (method == null)
+				if (method == null){
 					return "No Method Selected";
-				if (targetMethod == null)
+				}
+				if (targetMethod == null){
 					return string.Format("<color=#ff6457>* {0} *</color>", method.GetMethodString() );
+				}
 
 				var paramInfo = "";
-				for (var i = 0; i < parameters.Count; i++)
+				for (var i = 0; i < parameters.Count; i++){
 					paramInfo += (i != 0? ", " : "") + parameters[i].ToString();
-				return string.Format("{0}.{1}({2}){3}", agentInfo, targetMethod.Name, paramInfo, OperationTools.GetCompareString(comparison) + checkValue);
+				}
+				var mInfo = targetMethod.IsStatic? targetMethod.RTReflectedType().FriendlyName() : agentInfo;
+				return string.Format("{0}.{1}({2}){3}", mInfo, targetMethod.Name, paramInfo, OperationTools.GetCompareString(comparison) + checkValue);
 			}
 		}
 
@@ -79,11 +87,14 @@ namespace NodeCanvas.Tasks.Conditions{
 				args[i] = parameters[i].value;
 			}
 
-			if (checkValue.varType == typeof(float))
-				return OperationTools.Compare( (float)targetMethod.Invoke(agent, args), (float)checkValue.value, comparison, 0.05f );
-			if (checkValue.varType == typeof(int))
-				return OperationTools.Compare( (int)targetMethod.Invoke(agent, args), (int)checkValue.value, comparison );
-			return object.Equals(targetMethod.Invoke(agent, args), checkValue.value);
+			var instance = targetMethod.IsStatic? null : agent;
+			if (checkValue.varType == typeof(float)){
+				return OperationTools.Compare( (float)targetMethod.Invoke(instance, args), (float)checkValue.value, comparison, 0.05f );
+			}
+			if (checkValue.varType == typeof(int)){
+				return OperationTools.Compare( (int)targetMethod.Invoke(instance, args), (int)checkValue.value, comparison );
+			}
+			return object.Equals(targetMethod.Invoke(instance, args), checkValue.value);
 		}
 
 
@@ -104,11 +115,11 @@ namespace NodeCanvas.Tasks.Conditions{
 			}
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
-		#if UNITY_EDITOR
 
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
+		#if UNITY_EDITOR
+		
 		protected override void OnTaskInspectorGUI(){
 
 			if (!Application.isPlaying && GUILayout.Button("Select Method")){
@@ -116,33 +127,37 @@ namespace NodeCanvas.Tasks.Conditions{
 				var menu = new UnityEditor.GenericMenu();
 				if (agent != null){
 					foreach(var comp in agent.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) ){
-						menu = EditorUtils.GetMethodSelectionMenu(comp.GetType(), typeof(object), typeof(object), SetMethod, 10, false, true, menu);
+						menu = EditorUtils.GetInstanceMethodSelectionMenu(comp.GetType(), typeof(object), typeof(object), SetMethod, 10, false, true, menu);
 					}
 					menu.AddSeparator("/");
 				}
 
-				foreach (var t in UserTypePrefs.GetPreferedTypesList(typeof(Component))){
-					menu = EditorUtils.GetMethodSelectionMenu(t, typeof(object), typeof(object), SetMethod, 10, false, true, menu);
+				foreach (var t in UserTypePrefs.GetPreferedTypesList(typeof(object))){
+					menu = EditorUtils.GetStaticMethodSelectionMenu(t, typeof(object), typeof(object), SetMethod, 10, false, true, menu);
+					if (typeof(UnityEngine.Object).IsAssignableFrom(t)){
+						menu = EditorUtils.GetInstanceMethodSelectionMenu(t, typeof(object), typeof(object), SetMethod, 10, false, true, menu);
+					}
 				}
-				menu.ShowAsContext();
+				if ( NodeCanvas.Editor.NCPrefs.useBrowser){ menu.ShowAsBrowser("Select Method", this.GetType()); }
+				else { menu.ShowAsContext(); }
 				Event.current.Use();
 			}
 
 			if (targetMethod != null){
 				GUILayout.BeginVertical("box");
-				UnityEditor.EditorGUILayout.LabelField("Type", agentType.FriendlyName());
+				UnityEditor.EditorGUILayout.LabelField("Type", targetMethod.RTReflectedType().FriendlyName());
 				UnityEditor.EditorGUILayout.LabelField("Method", targetMethod.Name);
 				GUILayout.EndVertical();
 
 				var paramNames = targetMethod.GetParameters().Select(p => p.Name.SplitCamelCase() ).ToArray();
 				for (var i = 0; i < paramNames.Length; i++){
-					EditorUtils.BBParameterField(paramNames[i], parameters[i]);
+					NodeCanvas.Editor.BBParameterEditor.ParameterField(paramNames[i], parameters[i]);
 				}
 
 				GUI.enabled = checkValue.varType == typeof(float) || checkValue.varType == typeof(int);
 				comparison = (CompareMethod)UnityEditor.EditorGUILayout.EnumPopup("Comparison", comparison);
 				GUI.enabled = true;				
-				EditorUtils.BBParameterField("Check Value", checkValue);
+				NodeCanvas.Editor.BBParameterEditor.ParameterField("Check Value", checkValue);
 			}
 		}
 

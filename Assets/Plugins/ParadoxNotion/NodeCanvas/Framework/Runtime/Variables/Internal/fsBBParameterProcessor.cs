@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Linq;
 using ParadoxNotion;
 using ParadoxNotion.Serialization;
 using ParadoxNotion.Serialization.FullSerializer;
-using ParadoxNotion.Serialization.FullSerializer.Internal;
 
-namespace NodeCanvas.Framework.Internal{
+namespace NodeCanvas.Framework.Internal {
 
-	///Expended functionality for BBParameters, so that chaning a serialized type T, to BBParameter<T>, retains the original serialization.
-	///As such "upgrading" a normal T to BBParameter<T> impose no problems.
-	public class fsBBParameterProcessor : fsRecoveryProcessor<BBParameter, MissingBBParameterType> {
+    ///Extended functionality for BBParameters, so that changing a serialized type T, to BBParameter<T>, retains the original serialization.
+    ///As such "upgrading" a normal T to BBParameter<T> impose no problems.
+    public class fsBBParameterProcessor : fsRecoveryProcessor<BBParameter, MissingBBParameterType> {
 
 		//...
 		public override void OnBeforeDeserializeAfterInstanceCreation(Type storageType, object instance, ref fsData data){
@@ -25,7 +23,7 @@ namespace NodeCanvas.Framework.Internal{
 			}
 
 			var bbParam = instance as BBParameter;
-			if (bbParam != null){
+			if (bbParam != null && bbParam.GetType().RTIsGenericType()){
 				var varType = bbParam.varType;
 				var serializer = new fsSerializer();
 				object prevInstance = null;

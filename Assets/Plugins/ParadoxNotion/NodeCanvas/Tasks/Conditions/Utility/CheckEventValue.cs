@@ -1,8 +1,10 @@
-﻿using NodeCanvas.Framework;
+﻿using System.Linq;
+using NodeCanvas.Framework;
 using ParadoxNotion;
 using ParadoxNotion.Design;
 using ParadoxNotion.Services;
 using UnityEngine;
+using Logger = ParadoxNotion.Services.Logger;
 
 namespace NodeCanvas.Tasks.Conditions{
 
@@ -19,17 +21,18 @@ namespace NodeCanvas.Tasks.Conditions{
 		protected override string info{ get {return string.Format("Event [{0}].value == {1}", eventName, value);} }
 		protected override bool OnCheck(){ return false; }
 		public void OnCustomEvent(EventData receivedEvent){
-			if (receivedEvent is EventData<T> && isActive && receivedEvent.name.ToUpper() == eventName.value.ToUpper()){
-				var receivedValue = ((EventData<T>)receivedEvent).value;
-				if (receivedValue != null && receivedValue.Equals(value.value)){
-					
+			if (isActive && receivedEvent.name.ToUpper() == eventName.value.ToUpper()){
+
+				var receivedValue = receivedEvent.value;
+				if (object.Equals(receivedValue, value.value)){
+
 					#if UNITY_EDITOR
 					if (NodeCanvas.Editor.NCPrefs.logEvents){
-						Debug.Log(string.Format("Event '{0}' Received from '{1}'", receivedEvent.name, agent.gameObject.name), agent);
+						Logger.Log(string.Format("Event Received from ({0}): '{1}'", agent.gameObject.name, receivedEvent.name), "Event", this);
 					}
 					#endif			
 					
-					YieldReturn(true);
+					YieldReturn(true);					
 				}
 			}
 		}		

@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace NodeCanvas.BehaviourTrees{
 
+	[Name("Selector", 9)]
 	[Category("Composites")]
 	[Description("Execute the child nodes in order or randonly until the first that returns Success and return Success as well. If none returns Success, then returns Failure.\nIf is Dynamic, then higher priority children Status are revaluated and if one returns Success the Selector will select that one and bail out immediately in Success too")]
 	[Icon("Selector")]

@@ -54,8 +54,11 @@ namespace I2.Loc
 				LanguageSource GlobalSource = (Prefab ? Prefab.GetComponent<LanguageSource>() : null);
 				
 				if (GlobalSource && !Sources.Contains(GlobalSource))
-					AddSource( GlobalSource );
-			}
+                {
+                    GlobalSource.mIsGlobalSource = true;
+                    AddSource(GlobalSource);
+                }
+            }
 		}		
 
 		internal static void AddSource ( LanguageSource Source )
@@ -64,16 +67,20 @@ namespace I2.Loc
 				return;
 
             Sources.Add( Source );
-#if !UNITY_EDITOR || I2LOC_AUTOSYNC_IN_EDITOR
+
 			if (Source.HasGoogleSpreadsheet() && Source.GoogleUpdateFrequency != LanguageSource.eGoogleUpdateFrequency.Never)
 			{
-				Source.Import_Google_FromCache();
-				if (Source.GoogleUpdateDelay > 0)
-						CoroutineManager.Start( Delayed_Import_Google(Source, Source.GoogleUpdateDelay) );
+                #if !UNITY_EDITOR
+                    Source.Import_Google_FromCache();
+                    bool justCheck = false;
+                #else
+                    bool justCheck=true;
+                #endif
+                if (Source.GoogleUpdateDelay > 0)
+						CoroutineManager.Start( Delayed_Import_Google(Source, Source.GoogleUpdateDelay, justCheck) );
 				else
-					Source.Import_Google();
-			}
-#endif
+					Source.Import_Google(false, justCheck);
+            }
 
             //if (force)
             {
@@ -85,10 +92,10 @@ namespace I2.Loc
 				Source.UpdateDictionary(true);
 		}
 
-		static IEnumerator Delayed_Import_Google ( LanguageSource source, float delay )
+		static IEnumerator Delayed_Import_Google ( LanguageSource source, float delay, bool justCheck )
 		{
 			yield return new WaitForSeconds( delay );
-			source.Import_Google();
+			source.Import_Google(false, justCheck);
 		}
 
 		internal static void RemoveSource (LanguageSource Source )

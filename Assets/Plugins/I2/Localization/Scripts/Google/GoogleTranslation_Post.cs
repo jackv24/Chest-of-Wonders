@@ -132,8 +132,12 @@ namespace I2.Loc
                 var fullText = texts[i++];
                 if (temp.Tags != null)
                 {
-                    for (int j = 0, jmax = temp.Tags.Length; j < jmax; ++j)
-                        fullText = fullText.Replace(  /*"{[" + j + "]}"*/ ((char)(0x2600+j)).ToString(), temp.Tags[j]);
+                    //for (int j = 0, jmax = temp.Tags.Length; j < jmax; ++j)
+                    for (int j = temp.Tags.Length-1; j>=0; --j)
+                    {
+                            fullText = fullText.Replace(GetGoogleNoTranslateTag(j), temp.Tags[j]);
+                        //fullText = fullText.Replace(  /*"{[" + j + "]}"*/ ((char)(0x2600+j)).ToString(), temp.Tags[j]);
+                    }
                 }
 
                 temp.Results = fullText.Split (splitter, StringSplitOptions.None);

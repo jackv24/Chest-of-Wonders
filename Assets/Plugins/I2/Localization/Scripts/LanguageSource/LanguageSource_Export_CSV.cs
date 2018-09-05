@@ -7,7 +7,7 @@ namespace I2.Loc
 	{
 		#region I2CSV format
 
-		public string Export_I2CSV( string Category, char Separator = ',' )
+		public string Export_I2CSV( string Category, char Separator = ',', bool specializationsAsRows=true )
 		{
 			StringBuilder Builder = new StringBuilder ();
 
@@ -40,15 +40,36 @@ namespace I2.Loc
 				if (!firstLine) Builder.Append("[ln]");
                 firstLine = false;
 
-                AppendI2Term(Builder, nLanguages, Term, termData, Separator);
-			}
-			return Builder.ToString();
+                if (!specializationsAsRows)
+                {
+                    AppendI2Term(Builder, nLanguages, Term, termData, Separator, null);
+                }
+                else
+                {
+                    var allSpecializations = termData.GetAllSpecializations();
+                    for (int i=0; i< allSpecializations.Count; ++i)
+                    {
+                        if (i!=0)
+                            Builder.Append("[ln]");
+                        var specialization = allSpecializations[i];
+                        AppendI2Term(Builder, nLanguages, Term, termData, Separator, specialization);
+                    }
+                }
+
+            }
+            return Builder.ToString();
 		}
 
-		static void AppendI2Term( StringBuilder Builder, int nLanguages, string Term, TermData termData, char Separator )
+		static void AppendI2Term( StringBuilder Builder, int nLanguages, string Term, TermData termData, char Separator, string forceSpecialization )
 		{
             //--[ Key ] --------------
             AppendI2Text(Builder, Term);
+            if (!string.IsNullOrEmpty(forceSpecialization) && forceSpecialization != "Any")
+            {
+                Builder.Append("[");
+                Builder.Append(forceSpecialization);
+                Builder.Append("]");
+            }
             Builder.Append ("[*]");
 
 			//--[ Type and Description ] --------------
@@ -62,11 +83,16 @@ namespace I2.Loc
 				Builder.Append ("[*]");
 				
 				string translation = termData.Languages[i];
-				//bool isAutoTranslated = ((termData.Flags[i]&FlagBitMask)>0);
+                if (!string.IsNullOrEmpty(forceSpecialization))
+                    translation = termData.GetTranslation(i, forceSpecialization);
 
-                //if (string.IsNullOrEmpty(s))
-                //	s = "-";
+                //bool isAutoTranslated = ((termData.Flags[i]&FlagBitMask)>0);
 
+                /*if (translation == null)
+                    translation = string.Empty;
+                else
+                if (translation == "")
+                	translation = "-";*/
                 //if (isAutoTranslated) Builder.Append("[i2auto]");
                 AppendI2Text(Builder, translation);
 			}
@@ -74,6 +100,9 @@ namespace I2.Loc
 
         static void AppendI2Text(StringBuilder Builder, string text)
         {
+            if (string.IsNullOrEmpty(text))
+                return;
+
             if (text.StartsWith("\'") || text.StartsWith("="))
                 Builder.Append('\'');
             Builder.Append(text);
@@ -84,37 +113,32 @@ namespace I2.Loc
 
         #region Language Cache format
 
-        string Export_Language_to_Cache( int langIndex )
+        string Export_Language_to_Cache( int langIndex, bool fillTermWithFallback )
         {
             if (!mLanguages[langIndex].IsLoaded())
                 return null;
 
             StringBuilder sb = new StringBuilder();
 
-            int nLanguages = mLanguages.Count;
-
             for (int i=0; i<mTerms.Count; ++i)
             {
                 if (i > 0)
                     sb.Append("[i2t]");
                 var term = mTerms[i];
+                sb.Append(term.Term);
+                sb.Append("=");
 
-                int iTargetLanguage = langIndex;
-                if (OnMissingTranslation==MissingTranslationAction.Fallback && string.IsNullOrEmpty(term.Languages[langIndex]))
+                string translation = term.Languages[langIndex];
+                if (OnMissingTranslation==MissingTranslationAction.Fallback && string.IsNullOrEmpty(translation))
                 {
-                    for (int iLang = 0; iLang < nLanguages; ++iLang)
+                    if (TryGetFallbackTranslation(term, out translation, langIndex, skipDisabled: true))
                     {
-                        if (mLanguages[iLang].IsEnabled() && !string.IsNullOrEmpty(term.Languages[iLang]))
-                        {
-                            iTargetLanguage = iLang;
-                            break;
-                        }
+                        sb.Append("[i2fb]");
+                        if (fillTermWithFallback) term.Languages[langIndex] = translation;
                     }
-
                 }
-                if (iTargetLanguage!=langIndex && !string.IsNullOrEmpty(term.Languages[iTargetLanguage]))
-                    sb.Append("[i2fb]");
-                sb.Append(term.Languages[iTargetLanguage]);
+                if (!string.IsNullOrEmpty(translation))
+                    sb.Append(translation);
             }
 
             return sb.ToString();
@@ -124,7 +148,7 @@ namespace I2.Loc
 
         #region CSV format
 
-        public string Export_CSV( string Category, char Separator = ',' )
+        public string Export_CSV( string Category, char Separator = ',', bool specializationsAsRows = true)
 		{
 			StringBuilder Builder = new StringBuilder();
 			
@@ -141,16 +165,7 @@ namespace I2.Loc
 			Builder.Append ("\n");
 
 
-			// Sort Terms
-			for (int i=0; i<mTerms.Count-1; i++)
-				for (int j=i+1; j<mTerms.Count; j++)
-					if (string.CompareOrdinal( mTerms[i].Term, mTerms[j].Term)>0 )
-					{
-						var temp = mTerms[i];
-						mTerms[i] = mTerms[j];
-						mTerms[j] = temp;
-					}
-			//mTerms = mTerms.OrderBy( x => x.Term ).ToList();
+            mTerms.Sort((a, b) => string.CompareOrdinal(a.Term, b.Term));
 
 			foreach (TermData termData in mTerms)
 			{
@@ -164,11 +179,18 @@ namespace I2.Loc
 				else
 					continue;   // Term doesn't belong to this category
 
-                foreach (var specialization in termData.GetAllSpecializations())
+                if (specializationsAsRows)
                 {
-                    AppendTerm(Builder, nLanguages, Term, termData, specialization, Separator);
+                    foreach (var specialization in termData.GetAllSpecializations())
+                    {
+                        AppendTerm(Builder, nLanguages, Term, termData, specialization, Separator);
+                    }
                 }
-			}
+                else
+                {
+                    AppendTerm(Builder, nLanguages, Term, termData, null, Separator);
+                }
+            }
 			return Builder.ToString();
 		}
 
@@ -178,7 +200,7 @@ namespace I2.Loc
 			AppendString( Builder, Term, Separator );
 
 			if (!string.IsNullOrEmpty(specialization) && specialization!="Any")
-				Builder.AppendFormat( "[i2s_{0}]",specialization );
+				Builder.AppendFormat( "[{0}]",specialization );
 			
 			//--[ Type and Description ] --------------
 			Builder.Append (Separator);
@@ -191,13 +213,16 @@ namespace I2.Loc
 			{
 				Builder.Append (Separator);
 
-				string s = termData.Languages[i];
-				//bool isAutoTranslated = ((termData.Flags[i]&FlagBitMask)>0);
+				string translation = termData.Languages[i];
+                if (!string.IsNullOrEmpty(specialization))
+                    translation = termData.GetTranslation(i, specialization);
 
-				//if (string.IsNullOrEmpty(s))
-				//	s = "-";
+                //bool isAutoTranslated = ((termData.Flags[i]&FlagBitMask)>0);
 
-				AppendTranslation(Builder, s, Separator, /*isAutoTranslated ? "[i2auto]" : */null);
+                //if (string.IsNullOrEmpty(s))
+                //	s = "-";
+
+                AppendTranslation(Builder, translation, Separator, /*isAutoTranslated ? "[i2auto]" : */null);
 			}
 			Builder.Append ("\n");
 		}

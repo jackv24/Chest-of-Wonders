@@ -19,9 +19,15 @@ namespace ParadoxNotion.Design{
 			var menu = new GenericMenu();
 			foreach(var _option in options){
 				var option = _option;
-				menu.AddItem(new GUIContent(option.ToString()), object.Equals(current, option), ()=>{ callback(option); });
+				var label = option != null? option.ToString(): "null";
+				menu.AddItem(new GUIContent(label), object.Equals(current, option), ()=>{ callback(option); });
 			}
 			return menu;
+		}
+
+		//A generic menu selection
+		public static void ShowMenu<T>(List<T> options, Action<T> callback){
+			GetMenu<T>(options, default(T), callback).ShowAsContext();
 		}
 
 		///Get a selection menu of types deriving base type
@@ -116,15 +122,14 @@ namespace ParadoxNotion.Design{
 			return menu;
 		}
 
-		//yeah this is very special but....
+		//...
 		public static void ShowPreferedTypesSelectionMenu(Type type, Action<Type> callback){
 			GetPreferedTypesSelectionMenu(type, callback).ShowAsContext();
-			Event.current.Use();
 		}
 
+		///----------------------------------------------------------------------------------------------
 
-
-		public static GenericMenu GetFieldSelectionMenu(Type type, Type fieldType, Action<FieldInfo> callback, GenericMenu menu = null, string subMenu = null){
+		public static GenericMenu GetInstanceFieldSelectionMenu(Type type, Type fieldType, Action<FieldInfo> callback, GenericMenu menu = null, string subMenu = null){
 			return Internal_GetFieldSelectionMenu(BindingFlags.Public | BindingFlags.Instance, type, fieldType, callback, menu, subMenu);
 		}
 
@@ -135,11 +140,13 @@ namespace ParadoxNotion.Design{
 		///Get a GenericMenu for field selection in a type
 		static GenericMenu Internal_GetFieldSelectionMenu(BindingFlags flags, Type type, Type fieldType, Action<FieldInfo> callback, GenericMenu menu = null, string subMenu = null){
 			
-			if (menu == null)
+			if (menu == null){
 				menu = new GenericMenu();
+			}
 
-			if (subMenu != null)
+			if (subMenu != null){
 				subMenu = subMenu + "/";
+			}
 
 			GenericMenu.MenuFunction2 Selected = delegate(object selectedField){
 				callback((FieldInfo)selectedField);
@@ -149,13 +156,12 @@ namespace ParadoxNotion.Design{
 			var more = false;
 			foreach (var field in type.GetFields(flags).Where(field => fieldType.IsAssignableFrom(field.FieldType))) {
 
-				if (field.DeclaringType != type)
+				if (field.DeclaringType != type){
 					more = true;
+				}
 
 				var category = more? subMenu + type.FriendlyName() + "/More" : subMenu + type.FriendlyName();
-
 				var finalField = field.GetBaseDefinition();
-
 			    menu.AddItem(new GUIContent(string.Format("{0}/{1} : {2}", category, finalField.Name, finalField.FieldType.FriendlyName())), false, Selected, finalField);
 			    itemAdded = true;
 			}
@@ -168,9 +174,9 @@ namespace ParadoxNotion.Design{
 		}
 
 
+		///----------------------------------------------------------------------------------------------
 
-
-		public static GenericMenu GetPropertySelectionMenu(Type type, Type propType, Action<PropertyInfo> callback, bool mustRead = true, bool mustWrite = true, GenericMenu menu = null, string subMenu = null){
+		public static GenericMenu GetInstancePropertySelectionMenu(Type type, Type propType, Action<PropertyInfo> callback, bool mustRead = true, bool mustWrite = true, GenericMenu menu = null, string subMenu = null){
 			return Internal_GetPropertySelectionMenu(BindingFlags.Public | BindingFlags.Instance, type, propType, callback, mustRead, mustWrite, menu, subMenu);
 		}
 
@@ -230,9 +236,10 @@ namespace ParadoxNotion.Design{
 			return menu;
 		}
 
+		///----------------------------------------------------------------------------------------------
 
 		///Get a menu for instance methods
-		public static GenericMenu GetMethodSelectionMenu(Type type, Type returnType, Type acceptedParamsType, System.Action<MethodInfo> callback, int maxParameters, bool propertiesOnly, bool excludeVoid = false, GenericMenu menu = null, string subMenu = null){
+		public static GenericMenu GetInstanceMethodSelectionMenu(Type type, Type returnType, Type acceptedParamsType, System.Action<MethodInfo> callback, int maxParameters, bool propertiesOnly, bool excludeVoid = false, GenericMenu menu = null, string subMenu = null){
 			return Internal_GetMethodSelectionMenu(BindingFlags.Public | BindingFlags.Instance, type, returnType, acceptedParamsType, callback, maxParameters, propertiesOnly, excludeVoid, menu, subMenu);
 		}
 
@@ -296,7 +303,6 @@ namespace ParadoxNotion.Design{
 	            	continue;
 	            }
 
-
 				if (method.DeclaringType != type){
 					more = true;
 				}
@@ -314,9 +320,10 @@ namespace ParadoxNotion.Design{
 			return menu;
 		}
 
+		///----------------------------------------------------------------------------------------------
 
 		///Get a GenericMenu for Instance Events of the type and only event handler type of System.Action
-		public static GenericMenu GetEventSelectionMenu(Type type, Type argType, Action<EventInfo> callback, GenericMenu menu = null, string subMenu = null){
+		public static GenericMenu GetInstanceEventSelectionMenu(Type type, Type argType, Action<EventInfo> callback, GenericMenu menu = null, string subMenu = null){
 			return Internal_GetEventSelectionMenu(BindingFlags.Public | BindingFlags.Instance, type, argType, callback, menu, subMenu);
 		}
 
@@ -328,11 +335,13 @@ namespace ParadoxNotion.Design{
 		///Get a GenericMenu for Events of the type and only event handler type of System.Action
 		static GenericMenu Internal_GetEventSelectionMenu(BindingFlags flags, Type type, Type argType, Action<EventInfo> callback, GenericMenu menu = null, string subMenu = null){
 
-			if (menu == null)
+			if (menu == null){
 				menu = new GenericMenu();
+			}
 			
-			if (subMenu != null)
+			if (subMenu != null){
 				subMenu = subMenu + "/";
+			}
 			
 			GenericMenu.MenuFunction2 Selected = delegate(object selectedEvent){
 				callback((EventInfo)selectedEvent);
@@ -348,19 +357,21 @@ namespace ParadoxNotion.Design{
 				}
 			}
 
-			if (!itemAdded)
+			if (!itemAdded){
 				menu.AddDisabledItem(new GUIContent(subMenu + type.FriendlyName()) );
+			}
 			
 			return menu;
 		}
 
-
+		///----------------------------------------------------------------------------------------------
 
 		///Shows a GenericMenu for fields of all components of a game object
 		public static void ShowGameObjectFieldSelectionMenu(GameObject go, Type fieldType, System.Action<FieldInfo> callback){
 			var menu = new GenericMenu();
-			foreach (var comp in go.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) )
-				menu = GetFieldSelectionMenu(comp.GetType(), fieldType, callback, menu);
+			foreach (var comp in go.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) ){
+				menu = GetInstanceFieldSelectionMenu(comp.GetType(), fieldType, callback, menu);
+			}
 			menu.ShowAsContext();
 			Event.current.Use();
 		}
@@ -368,8 +379,9 @@ namespace ParadoxNotion.Design{
 		///Shows a GenericMenu for properties of all components of a game object
 		public static void ShowGameObjectPropertySelectionMenu(GameObject go, Type propType, Action<PropertyInfo> callback, bool mustRead = true, bool mustWrite = true){
 			var menu = new GenericMenu();
-			foreach (var comp in go.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) )
-				menu = GetPropertySelectionMenu(comp.GetType(), propType, callback, mustRead, mustWrite, menu);
+			foreach (var comp in go.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) ){
+				menu = GetInstancePropertySelectionMenu(comp.GetType(), propType, callback, mustRead, mustWrite, menu);
+			}
 			menu.ShowAsContext();
 			Event.current.Use();
 		}
@@ -377,8 +389,9 @@ namespace ParadoxNotion.Design{
 		///Shows a GenericMenu for methods of all components of a game object
 		public static void ShowGameObjectMethodSelectionMenu(GameObject go, Type returnType, Type paramsType, System.Action<MethodInfo> callback, int maxParameters, bool propertiesOnly, bool excludeVoid = false){
 			var menu = new GenericMenu();
-			foreach (var comp in go.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) )
-				menu = GetMethodSelectionMenu(comp.GetType(), returnType, paramsType, callback, maxParameters, propertiesOnly, excludeVoid, menu);
+			foreach (var comp in go.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) ){
+				menu = GetInstanceMethodSelectionMenu(comp.GetType(), returnType, paramsType, callback, maxParameters, propertiesOnly, excludeVoid, menu);
+			}
 			menu.ShowAsContext();
 			Event.current.Use();
 		}
@@ -387,28 +400,14 @@ namespace ParadoxNotion.Design{
 		///Show an Event selection menu for all components on a game object
 		public static void ShowGameObjectEventSelectionMenu(GameObject go, Type argType, System.Action<EventInfo> callback){
 			var menu = new GenericMenu();
-			foreach(var comp in go.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) )
-				menu = GetEventSelectionMenu(comp.GetType(), argType, callback, menu);
-			menu.ShowAsContext();
-			Event.current.Use();
-		}
-
-
-
-		//A generic menu selection
-		public static void ShowMenu<T>(List<T> options, Action<T> callback){
-			
-			GenericMenu.MenuFunction2 Selected = delegate(object selection){
-				callback((T)selection);
-			};
-
-			var menu = new GenericMenu();
-			foreach (var element in options){
-				menu.AddItem(new GUIContent( element != null? element.ToString() : "null" ), false, Selected, element );
+			foreach(var comp in go.GetComponents(typeof(Component)).Where(c => c.hideFlags == 0) ){
+				menu = GetInstanceEventSelectionMenu(comp.GetType(), argType, callback, menu);
 			}
 			menu.ShowAsContext();
 			Event.current.Use();
 		}
+
+		///----------------------------------------------------------------------------------------------
 
 
 		///MenuItemInfo exposition
@@ -452,16 +451,18 @@ namespace ParadoxNotion.Design{
 
 		///Shows the Generic Menu as a browser with CompleteContextMenu.
 		public static void ShowAsBrowser(this GenericMenu menu, Vector2 pos, string title, System.Type keyType = null){
-			if (menu != null){
-				CompleteContextMenu.Show(menu, pos, title, keyType);
-			}
+			if (menu != null){ GenericMenuBrowser.Show(menu, pos, title, keyType); }
 		}
 
 		///Shows the Generic Menu as a browser with CompleteContextMenu.
 		public static void ShowAsBrowser(this GenericMenu menu, string title, System.Type keyType = null){
-			if (menu != null){
-				CompleteContextMenu.Show(menu, Event.current.mousePosition, title, keyType);
-			}
+			if (menu != null){ GenericMenuBrowser.Show(menu, Event.current.mousePosition, title, keyType); }
+		}
+
+		///Shortcut
+		public static void Show(this GenericMenu menu, bool asBrowser, string title, System.Type keyType = null){
+			if (asBrowser){ menu.ShowAsBrowser(title, keyType); }
+			else { menu.ShowAsContext(); Event.current.Use(); }
 		}
 	}
 }

@@ -95,7 +95,7 @@ namespace NodeCanvas.DialogueTrees{
 		}
 
 		bool IsInstance(DialogueTree dt){
-			return instances.Values.Contains(dt);
+			return instances.ContainsValue(dt);
 		}
 
 		void CheckInstance(){
@@ -135,7 +135,7 @@ namespace NodeCanvas.DialogueTrees{
 
 		protected override void OnNodeInspectorGUI(){
 			base.OnNodeInspectorGUI();
-			EditorUtils.BBParameterField("Sub Dialogue Tree", _subTree);
+			NodeCanvas.Editor.BBParameterEditor.ParameterField("Sub Dialogue Tree", _subTree);
 			if (subTree == this.DLGTree){
 				Debug.LogWarning("Nested DialogueTree can't be itself! Please select another");
 				subTree = null;
@@ -201,7 +201,7 @@ namespace NodeCanvas.DialogueTrees{
 					bbParam = variablesMap[variable.ID] = new BBObjectParameter(variable.varType){ useBlackboard = true };
 					bbParam.bb = DLGTree.blackboard;
 				}
-				EditorUtils.BBParameterField(variable.name, bbParam);
+				NodeCanvas.Editor.BBParameterEditor.ParameterField(variable.name, bbParam);
 			}
 
 			foreach(var key in variablesMap.Keys.ToList()){

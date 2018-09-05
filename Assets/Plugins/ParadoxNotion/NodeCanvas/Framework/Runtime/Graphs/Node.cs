@@ -48,9 +48,9 @@ namespace NodeCanvas.Framework{
 		[System.NonSerialized]
 		private Status _status = Status.Resting;
 		[System.NonSerialized]
-		private string _nodeName;
+		private string _nameCache;
 		[System.NonSerialized]
-		private string _nodeDescription;
+		private string _descriptionCache;
 
 		/////
 
@@ -79,7 +79,7 @@ namespace NodeCanvas.Framework{
 		}
 
 		///The position of the node in the graph.
-		public Vector2 nodePosition{
+		public Vector2 position{
 			get {return _position;}
 			set {_position = value;}
 		}
@@ -89,7 +89,7 @@ namespace NodeCanvas.Framework{
 			get { return string.IsNullOrEmpty(_UID)? _UID = System.Guid.NewGuid().ToString() : _UID; }
 		}
 
-		//The custom title name of the node if any.
+		///The custom title name of the node if any.
 		private string customName{
 			get {return _name;}
 			set {_name = value;}
@@ -102,7 +102,7 @@ namespace NodeCanvas.Framework{
 		}
 
 		///The comments of the node if any.
-		public string nodeComment{
+		public string comments{
 			get {return _comment;}
 			set {_comment = value;}
 		}
@@ -122,11 +122,11 @@ namespace NodeCanvas.Framework{
 					return customName;
 				}
 
-				if (string.IsNullOrEmpty(_nodeName) ){
+				if (string.IsNullOrEmpty(_nameCache) ){
 					var nameAtt = this.GetType().RTGetAttribute<NameAttribute>(true);
-					_nodeName = nameAtt != null? nameAtt.name : GetType().FriendlyName().SplitCamelCase();
+					_nameCache = nameAtt != null? nameAtt.name : GetType().FriendlyName().SplitCamelCase();
 				}
-				return _nodeName;
+				return _nameCache;
 			}
 			set {customName = value;}
 		}
@@ -135,11 +135,11 @@ namespace NodeCanvas.Framework{
 		virtual public string description{
 			get
 			{
-				if (string.IsNullOrEmpty(_nodeDescription)){
+				if (string.IsNullOrEmpty(_descriptionCache)){
 					var descAtt = this.GetType().RTGetAttribute<DescriptionAttribute>(true);
-					_nodeDescription = descAtt != null? descAtt.description : "No Description";
+					_descriptionCache = descAtt != null? descAtt.description : "No Description";
 				}
-				return _nodeDescription;
+				return _descriptionCache;
 			}
 		}
 
@@ -177,13 +177,11 @@ namespace NodeCanvas.Framework{
 		//Used to check recursion
 		private bool isChecked{get;set;}
 
-		/////////////////////
-		/////////////////////
-		/////////////////////
+		///----------------------------------------------------------------------------------------------
+		///----------------------------------------------------------------------------------------------
 
 		//required
 		public Node(){}
-
 
 		///Create a new Node of type and assigned to the provided graph. Use this for constructor
 		public static Node Create(Graph targetGraph, System.Type nodeType, Vector2 pos){
@@ -200,7 +198,7 @@ namespace NodeCanvas.Framework{
 			}
 
 			newNode.graph = targetGraph;
-			newNode.nodePosition = pos;
+			newNode.position = pos;
 			BBParameter.SetBBFields(newNode, targetGraph.blackboard);
 
 			newNode.OnValidate(targetGraph);
@@ -228,7 +226,7 @@ namespace NodeCanvas.Framework{
 			newNode.outConnections.Clear();
 
 			if (targetGraph == this.graph){
-				newNode.nodePosition += new Vector2(50,50);
+				newNode.position += new Vector2(50,50);
 			}
 
 			newNode._UID = null;
@@ -251,6 +249,7 @@ namespace NodeCanvas.Framework{
 		///Called when the Node is removed from the graph (always through graph.RemoveNode)
 		virtual public void OnDestroy(){}
 
+		///----------------------------------------------------------------------------------------------
 
 		///The main execution function of the node. Execute the node for the agent and blackboard provided. Default = graphAgent and graphBlackboard
 		public Status Execute(Component agent, IBlackboard blackboard){
@@ -285,6 +284,25 @@ namespace NodeCanvas.Framework{
 			return status;
 		}
 
+		///Recursively reset the node and child nodes if it's not Resting already
+		public void Reset(bool recursively = true){
+
+			if (status == Status.Resting || isChecked){
+				return;
+			}
+
+			OnReset();
+			status = Status.Resting;
+
+			isChecked = true;
+			for (var i = 0; i < outConnections.Count; i++){
+				outConnections[i].Reset(recursively);
+			}
+			isChecked = false;
+		}
+
+		///----------------------------------------------------------------------------------------------
+
 		///Helper for breakpoints
 		IEnumerator YieldBreak(Component agent, IBlackboard blackboard){
 			Debug.Break();
@@ -318,22 +336,7 @@ namespace NodeCanvas.Framework{
 			this.status = status;
 		}
 
-		///Recursively reset the node and child nodes if it's not Resting already
-		public void Reset(bool recursively = true){
-
-			if (status == Status.Resting || isChecked){
-				return;
-			}
-
-			OnReset();
-			status = Status.Resting;
-
-			isChecked = true;
-			for (var i = 0; i < outConnections.Count; i++){
-				outConnections[i].Reset(recursively);
-			}
-			isChecked = false;
-		}
+		///----------------------------------------------------------------------------------------------
 
 		///Sends an event to the graph
 		public void SendEvent(EventData eventData){
@@ -379,7 +382,7 @@ namespace NodeCanvas.Framework{
 			}
 		}
 
-
+		///----------------------------------------------------------------------------------------------
 
 		///Returns if a new input connection should be allowed.
 		public bool IsNewConnectionAllowed(){ return IsNewConnectionAllowed(null); }
@@ -411,33 +414,27 @@ namespace NodeCanvas.Framework{
 			return true;
 		}
 
-		//Updates the node ID in it's current graph. This is called in the editor GUI for convenience, as well as whenever a change is made in the node graph and from the node graph.
+		///Updates the node ID in it's current graph. This is called in the editor GUI for convenience, as well as whenever a change is made in the node graph and from the node graph.
 		public int AssignIDToGraph(int lastID){
-
-			if (isChecked){
-				return lastID;
-			}
-			
-			isChecked = true;
-			lastID++;
-			ID = lastID;
-
-			for (var i = 0; i < outConnections.Count; i++){
-				lastID = outConnections[i].targetNode.AssignIDToGraph(lastID);
+			if (!isChecked){
+				isChecked = true;
+				lastID++;
+				ID = lastID;
+				for (var i = 0; i < outConnections.Count; i++){
+					lastID = outConnections[i].targetNode.AssignIDToGraph(lastID);
+				}
 			}
 
 			return lastID;
 		}
 
+		//...
 		public void ResetRecursion(){
-
-			if (!isChecked){
-				return;
-			}
-
-			isChecked = false;
-			for (var i = 0; i < outConnections.Count; i++){
-				outConnections[i].targetNode.ResetRecursion();
+			if (isChecked){
+				isChecked = false;
+				for (var i = 0; i < outConnections.Count; i++){
+					outConnections[i].targetNode.ResetRecursion();
+				}
 			}
 		}
 
@@ -499,17 +496,20 @@ namespace NodeCanvas.Framework{
 		///Called when the parent graph is unpaused.
 		virtual public void OnGraphUnpaused(){}
 
+		//...
 		sealed public override string ToString(){
 			return string.Format("{0} ({1})", name, tag);
 		}
 
-		public virtual void OnDrawGizmos(){
+		//...
+		public void OnDrawGizmos(){
 			if (this is ITaskAssignable && (this as ITaskAssignable).task != null ){
 				(this as ITaskAssignable).task.OnDrawGizmos();
 			}
 		}
 
-		public virtual void OnDrawGizmosSelected(){
+		//...
+		public void OnDrawGizmosSelected(){
 			if (this is ITaskAssignable && (this as ITaskAssignable).task != null){
 				(this as ITaskAssignable).task.OnDrawGizmosSelected();
 			}

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ParadoxNotion.Design{
 
-	///A generic popup editor for all reference types
+	///A generic popup editor
 	public class GenericInspectorWindow : EditorWindow{
 
 		public static GenericInspectorWindow current{get; private set;}
@@ -17,12 +17,9 @@ namespace ParadoxNotion.Design{
 		private Object context;
 		private Vector2 scrollPos;
 
+		//...
 		void OnEnable(){
-	        #if UNITY_5_3_OR_NEWER
 	        titleContent = new GUIContent("Object Editor");
-	        #else
-	        title = "Object Editor";
-	        #endif
 			current = this;
 			#if UNITY_2017_2_OR_NEWER
 			EditorApplication.playModeStateChanged += PlayModeChange;
@@ -31,6 +28,7 @@ namespace ParadoxNotion.Design{
 			#endif
 		}
 
+		//...
 		void OnDisable(){
 			#if UNITY_2017_2_OR_NEWER
 			EditorApplication.playModeStateChanged -= PlayModeChange;
@@ -46,6 +44,7 @@ namespace ParadoxNotion.Design{
 		void PlayModeChange(){ Close(); }
 #endif
 
+		//...
 		void OnGUI(){
 
 			if (targetType == null){
@@ -62,10 +61,9 @@ namespace ParadoxNotion.Design{
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 
-
 			GUILayout.Space(10);
 			scrollPos = GUILayout.BeginScrollView(scrollPos);
-			value = EditorUtils.GenericField(targetType.FriendlyName(), value, targetType, null);
+			value = EditorUtils.ReflectedFieldInspector(targetType.FriendlyName(), value, targetType, null, null);
 			GUILayout.EndScrollView();
 			Repaint();
 
@@ -73,6 +71,8 @@ namespace ParadoxNotion.Design{
 			UndoManager.CheckDirty(context);
 		}
 
+		///Open utility window to inspect target object of type in context.
+		///ID is simply a way for external types to track what is inspected on their own and whether or not they should care.
 		public static void Show(string inspectedID, object o, System.Type t, Object context){
 			var window = current == null? CreateInstance<GenericInspectorWindow>() : current;
 			window.inspectedID = inspectedID;

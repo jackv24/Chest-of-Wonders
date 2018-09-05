@@ -12,7 +12,7 @@ namespace NodeCanvas.Tasks.Actions{
 		public CompactStatus finishStatus = CompactStatus.Success;
 
 		protected override string info{
-			get {return "Wait " + waitTime + " sec.";}
+			get {return string.Format("Wait {0} sec.", waitTime);}
 		}
 
 		protected override void OnUpdate(){

@@ -56,7 +56,7 @@ namespace NodeCanvas.Framework {
 
 		///The graph this connection belongs to taken from the source node.
 		protected Graph graph{
-			get {return sourceNode.graph;}
+			get {return sourceNode != null? sourceNode.graph : null;}
 		}
 
 
@@ -83,10 +83,9 @@ namespace NodeCanvas.Framework {
 				source.graph.RecordUndo("Create Connection");
 			}
 
-			newConnection.sourceNode = source;
-			newConnection.targetNode = target;
-			source.outConnections.Insert(sourceIndex, newConnection);
-			target.inConnections.Add(newConnection);
+			newConnection.SetSource(source, false, sourceIndex);
+			newConnection.SetTarget(target, false);
+
 			var targetIndex = target.inConnections.IndexOf(newConnection);
 			newConnection.OnValidate(sourceIndex, targetIndex);
 			newConnection.OnCreate(sourceIndex, targetIndex);
@@ -130,7 +129,7 @@ namespace NodeCanvas.Framework {
 		virtual public void OnDestroy(){}
 
 		///Relinks the source node of the connection
-		public void SetSource(Node newSource, bool isRelink = true){
+		public void SetSource(Node newSource, bool isRelink = true, int index = -1){
 			
 			if (sourceNode == newSource){
 				return;
@@ -146,12 +145,14 @@ namespace NodeCanvas.Framework {
 				newSource.OnChildConnected(i);
 				sourceNode.outConnections.Remove(this);
 			}
-			newSource.outConnections.Add(this);
+
+			index = index == -1? newSource.outConnections.Count : index;
+			newSource.outConnections.Insert(index, this);
 			sourceNode = newSource;
 		}
 
 		///Relinks the target node of the connection
-		public void SetTarget(Node newTarget, bool isRelink = true){
+		public void SetTarget(Node newTarget, bool isRelink = true, int index = -1){
 			
 			if (targetNode == newTarget){
 				return;
@@ -167,8 +168,14 @@ namespace NodeCanvas.Framework {
 				newTarget.OnParentConnected(i);
 				targetNode.inConnections.Remove(this);
 			}
-			newTarget.inConnections.Add(this);
+
+			index = index == -1? newTarget.inConnections.Count : index;
+			newTarget.inConnections.Insert(index, this);
 			targetNode = newTarget;
+
+			#if UNITY_EDITOR
+			targetNode.TrySortConnectionsByPositionX();
+			#endif
 		}
 
 
@@ -178,7 +185,7 @@ namespace NodeCanvas.Framework {
 		public Status Execute(Component agent, IBlackboard blackboard){
 
 			if (!isActive){
-				return Status.Resting;
+				return Status.Optional;
 			}
 
 			status = targetNode.Execute(agent, blackboard);

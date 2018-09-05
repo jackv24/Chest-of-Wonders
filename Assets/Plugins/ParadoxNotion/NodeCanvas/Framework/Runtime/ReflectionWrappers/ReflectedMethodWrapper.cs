@@ -4,14 +4,13 @@ using System.Linq;
 using System.Reflection;
 using ParadoxNotion;
 using ParadoxNotion.Serialization;
-using ParadoxNotion.Serialization.FullSerializer;
 using UnityEngine;
 
 
-namespace NodeCanvas.Framework.Internal{
+namespace NodeCanvas.Framework.Internal {
 
-	///Wraps a MethodInfo with the relevant BBParameters to be called within a Reflection based Task
-	abstract public class ReflectedWrapper{
+    ///Wraps a MethodInfo with the relevant BBParameters to be called within a Reflection based Task
+    abstract public class ReflectedWrapper{
 
 	    protected delegate void ActionCall();
 	    protected delegate void ActionCall<T1>(T1 a);

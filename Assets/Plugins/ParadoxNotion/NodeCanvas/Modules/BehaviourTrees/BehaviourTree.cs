@@ -7,14 +7,15 @@ namespace NodeCanvas.BehaviourTrees{
 
 	/// BehaviourTrees are used to create advanced AI and logic based on simple rules.
 	[GraphInfo(
-		packageName = "NodeCanvas",
-		docsURL = "http://nodecanvas.paradoxnotion.com/documentation/",
+		packageName  = "NodeCanvas",
+		docsURL      = "http://nodecanvas.paradoxnotion.com/documentation/",
 		resourcesURL = "http://nodecanvas.paradoxnotion.com/downloads/",
-		forumsURL = "http://nodecanvas.paradoxnotion.com/forums-page/"
+		forumsURL    = "http://nodecanvas.paradoxnotion.com/forums-page/"
 		)]
+	[CreateAssetMenu(menuName="ParadoxNotion/NodeCanvas/Behaviour Tree Asset")]
 	public class BehaviourTree : Graph {
 
-		//////
+		///----------------------------------------------------------------------------------------------
 		[System.Serializable]
 		struct DerivedSerializationData{
 			public bool repeat;
@@ -34,7 +35,7 @@ namespace NodeCanvas.BehaviourTrees{
 				this.updateInterval = ((DerivedSerializationData)data).updateInterval;
 			}
 		}
-		//////
+		///----------------------------------------------------------------------------------------------
 
 		///Should the tree repeat forever?
 		[SerializeField]
@@ -68,6 +69,7 @@ namespace NodeCanvas.BehaviourTrees{
 		public override bool requiresPrimeNode { get {return true;} }
 		public override bool autoSort{ get {return true;} }
 		public override bool useLocalBlackboard{get {return false;}}
+		sealed public override bool canAcceptVariableDrops{ get {return false;} }
 
 		protected override void OnGraphStarted(){
 			intervalCounter = updateInterval;
@@ -99,23 +101,17 @@ namespace NodeCanvas.BehaviourTrees{
 			return rootStatus;
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
+
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
+
 		[UnityEditor.MenuItem("Tools/ParadoxNotion/NodeCanvas/Create/Behaviour Tree Asset", false, 0)]
-		public static void Editor_CreateGraph(){
+		static void Editor_CreateGraph(){
 			var newGraph = EditorUtils.CreateAsset<BehaviourTree>(true);
 			UnityEditor.Selection.activeObject = newGraph;
 		}
 
-
-		[UnityEditor.MenuItem("Assets/Create/ParadoxNotion/NodeCanvas/Behaviour Tree Asset")]
-		public static void Editor_CreateGraphFix(){
-			var path = EditorUtils.GetAssetUniquePath("BehaviourTree.asset");
-			var newGraph = EditorUtils.CreateAsset<BehaviourTree>(path);
-			UnityEditor.Selection.activeObject = newGraph;
-		}	
 		#endif
 	}
 }

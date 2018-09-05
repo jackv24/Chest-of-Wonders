@@ -10,11 +10,12 @@ namespace NodeCanvas.StateMachines{
 
 	/// Use FSMs to create state like behaviours
 	[GraphInfo(
-		packageName = "NodeCanvas",
-		docsURL = "http://nodecanvas.paradoxnotion.com/documentation/",
+		packageName  = "NodeCanvas",
+		docsURL      = "http://nodecanvas.paradoxnotion.com/documentation/",
 		resourcesURL = "http://nodecanvas.paradoxnotion.com/downloads/",
-		forumsURL = "http://nodecanvas.paradoxnotion.com/forums-page/"
+		forumsURL    = "http://nodecanvas.paradoxnotion.com/forums-page/"
 		)]
+	[CreateAssetMenu(menuName="ParadoxNotion/NodeCanvas/FSM Asset")]
 	public class FSM : Graph{
 
 		private bool hasInitialized;
@@ -46,6 +47,7 @@ namespace NodeCanvas.StateMachines{
 		public override bool requiresPrimeNode { get {return true;} }
 		public override bool autoSort{ get {return false;} }
 		public override bool useLocalBlackboard{get {return false;}}
+		sealed public override bool canAcceptVariableDrops{ get {return false;} }
 
 
 		protected override void OnGraphStarted(){
@@ -235,24 +237,17 @@ namespace NodeCanvas.StateMachines{
 			}
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
+
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
 		
 		[UnityEditor.MenuItem("Tools/ParadoxNotion/NodeCanvas/Create/State Machine Asset", false, 0)]
-		public static void Editor_CreateGraph(){
+		static void Editor_CreateGraph(){
 			var newGraph = EditorUtils.CreateAsset<FSM>(true);
 			UnityEditor.Selection.activeObject = newGraph;
 		}
-
-		[UnityEditor.MenuItem("Assets/Create/ParadoxNotion/NodeCanvas/State Machine Asset")]
-		public static void Editor_CreateGraphFix(){
-			var path = EditorUtils.GetAssetUniquePath("FSM.asset");
-			var newGraph = EditorUtils.CreateAsset<FSM>(path);
-			UnityEditor.Selection.activeObject = newGraph;
-		}
-		
+	
 		#endif
 	}
 }

@@ -11,19 +11,15 @@ using System.Xml;
 
 namespace ParadoxNotion.Design
 {
-    /// <summary>
+
     /// Utility class to provide documentation for various types where available with the assembly
-    /// </summary>
-    public static class DocsByReflection
-    {
+    public static class DocsByReflection {
         
         private static Dictionary<MemberInfo, XmlElement> cachedElements = new Dictionary<MemberInfo, XmlElement>();
         private static Dictionary<MemberInfo, string> cachedSummaries = new Dictionary<MemberInfo, string>();
 
+        ///Returns a cached XML elements for member
         public static XmlElement GetXmlElementForMember(MemberInfo memberInfo){
-            if (memberInfo == null){
-                return null;
-            }
 
             if (memberInfo is MethodInfo){
                 var method = (MethodInfo)memberInfo;
@@ -52,6 +48,7 @@ namespace ParadoxNotion.Design
             return cachedElements[memberInfo] = element;
         }
 
+        ///Returns a chached summary info for member
         public static string GetMemberSummary(MemberInfo memberInfo){
             string result;
             if (cachedSummaries.TryGetValue(memberInfo, out result)){
@@ -61,12 +58,15 @@ namespace ParadoxNotion.Design
             return cachedSummaries[memberInfo] = (element != null? element["summary"].InnerText.Trim() : "No Documentation Found");
         }
 
+        ///Returns a chached return info for method
         public static string GetMethodReturn(MethodBase method){
             var element = GetXmlElementForMember(method);
             return element != null? element["returns"].InnerText.Trim() : null;
         }
 
+        ///Returns a semi-chached method parameter info for method
         public static string GetMethodParameter(MethodBase method, ParameterInfo parameter){ return GetMethodParameter(method, parameter.Name); }
+        ///Returns a semi-chached method parameter info for method
         public static string GetMethodParameter(MethodBase method, string parameterName){
             var methodElement = GetXmlElementForMember(method);
             if (methodElement != null){
@@ -81,6 +81,8 @@ namespace ParadoxNotion.Design
             }
             return null;
         }
+
+        ///----------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Provides the documentation comments for a specific method

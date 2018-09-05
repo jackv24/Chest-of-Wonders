@@ -1,9 +1,10 @@
-﻿using NodeCanvas.Framework;
+﻿using System.Linq;
+using NodeCanvas.Framework;
 using ParadoxNotion;
 using ParadoxNotion.Design;
 using UnityEngine;
-
 using ParadoxNotion.Services;
+using Logger = ParadoxNotion.Services.Logger;
 
 namespace NodeCanvas.Tasks.Conditions{
 
@@ -22,7 +23,7 @@ namespace NodeCanvas.Tasks.Conditions{
 
 				#if UNITY_EDITOR
 				if (NodeCanvas.Editor.NCPrefs.logEvents){
-					Debug.Log(string.Format("Event '{0}' Received from '{1}'", receivedEvent.name, agent.gameObject.name), agent);
+					Logger.Log(string.Format("Event Received from ({0}): '{1}'", agent.gameObject.name, receivedEvent.name), "Event", this);
 				}
 				#endif			
 
@@ -56,13 +57,18 @@ namespace NodeCanvas.Tasks.Conditions{
 		protected override bool OnCheck(){ return false; }
 		public void OnCustomEvent(EventData receivedEvent){
 			if (isActive && receivedEvent.name.ToUpper() == eventName.value.ToUpper()){
-				if (receivedEvent.value is T){
-					saveEventValue.value = (T)receivedEvent.value;
+
+				var eventType = receivedEvent.GetType();
+				if (eventType.RTIsGenericType()){
+					var valueType = eventType.RTGetGenericArguments().FirstOrDefault();
+					if (typeof(T).RTIsAssignableFrom(valueType)){
+						saveEventValue.value = (T)receivedEvent.value;
+					}
 				}
 
 				#if UNITY_EDITOR
 				if (NodeCanvas.Editor.NCPrefs.logEvents){
-					Debug.Log(string.Format("Event '{0}' Received from '{1}'", receivedEvent.name, agent.gameObject.name), agent);
+					Logger.Log(string.Format("Event Received from ({0}): '{1}'", agent.gameObject.name, receivedEvent.name), "Event", this);
 				}
 				#endif			
 				

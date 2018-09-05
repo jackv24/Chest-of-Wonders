@@ -12,7 +12,7 @@ namespace NodeCanvas.Tasks.Conditions{
 
 		public TriggerTypes checkType = TriggerTypes.TriggerEnter;
 		public bool specifiedTagOnly;
-		[TagField]
+		[TagField] [ShowIf("specifiedTagOnly", 1)]
 		public string objectTag = "Untagged";
 		[BlackboardOnly]
 		public BBParameter<GameObject> saveGameObjectAs;

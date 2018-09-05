@@ -22,8 +22,12 @@ namespace I2.Loc
 			form.AddField("data", Data);
 			form.AddField("updateMode", UpdateMode.ToString());
 
-            
-			WWW www = new WWW(LocalizationManager.GetWebServiceURL(this), form);
+            #if UNITY_EDITOR
+            form.AddField("password", Google_Password);
+            #endif
+
+
+            WWW www = new WWW(LocalizationManager.GetWebServiceURL(this), form);
 			return www;
 			#endif
 		}
@@ -41,8 +45,11 @@ namespace I2.Loc
 				else
 					Builder.Append("<I2Loc>");
 
-				//string CSV = Export_CSV(category);
-				string CSV = Export_I2CSV(category);
+                #if !UNITY_EDITOR
+                    bool Spreadsheet_SpecializationAsRows = true;
+                #endif
+
+                string CSV = Export_I2CSV(category, specializationsAsRows:Spreadsheet_SpecializationAsRows);
 				Builder.Append(category);
 				Builder.Append("<I2Loc>");
 				Builder.Append(CSV);

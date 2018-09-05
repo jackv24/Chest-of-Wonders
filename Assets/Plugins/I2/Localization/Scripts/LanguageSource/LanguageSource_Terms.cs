@@ -70,7 +70,7 @@ namespace I2.Loc
 				TermData data = GetTermData(term, allowCategoryMistmatch:allowCategoryMistmatch);
 				if (data!=null)
 				{
-					Translation = data.GetTranslation(Index, overrideSpecialization);
+					Translation = data.GetTranslation(Index, overrideSpecialization, editMode:true);
 
 					// "---" is a code to define that the translation is meant to be empty
 					if (Translation == "---")
@@ -96,13 +96,7 @@ namespace I2.Loc
 				else
 				if (OnMissingTranslation == MissingTranslationAction.Fallback && data!=null)
 				{
-					for (int i = 0; i < mLanguages.Count; ++i)
-						if (i != Index && mLanguages[i].IsEnabled())
-						{
-							Translation = data.GetTranslation(i, overrideSpecialization);
-							if (!string.IsNullOrEmpty(Translation))
-								return true;
-						}
+                    return TryGetFallbackTranslation(data, out Translation, Index, overrideSpecialization, skipDisabled);
 				}
                 else
 				if (OnMissingTranslation == MissingTranslationAction.Empty)
@@ -115,6 +109,48 @@ namespace I2.Loc
 			Translation = null;
 			return false;
 		}
+
+        bool TryGetFallbackTranslation(TermData termData, out string Translation, int langIndex, string overrideSpecialization = null, bool skipDisabled = false)
+        {
+            // Find base Language Code
+            string baseLanguage = mLanguages[langIndex].Code;
+            if (!string.IsNullOrEmpty(baseLanguage))
+            {
+                if (baseLanguage.Contains('-'))
+                {
+                    baseLanguage = baseLanguage.Substring(0, baseLanguage.IndexOf('-'));
+                }
+
+                // Try finding in any of the Region of the base language
+                for (int i = 0; i < mLanguages.Count; ++i)
+                {
+                    if (i != langIndex && 
+                        mLanguages[i].Code.StartsWith(baseLanguage) &&
+                        (!skipDisabled || mLanguages[i].IsEnabled()) )
+                    {
+                        Translation = termData.GetTranslation(i, overrideSpecialization, editMode: true);
+                        if (!string.IsNullOrEmpty(Translation))
+                            return true;
+                    }
+                }
+            }
+
+
+            // Otherwise, Try finding the first active language with a valid translation
+            for (int i = 0; i < mLanguages.Count; ++i)
+            {
+                if (i!=langIndex && 
+                    (!skipDisabled || mLanguages[i].IsEnabled()) && 
+                    (baseLanguage==null || !mLanguages[i].Code.StartsWith(baseLanguage)))
+                {
+                    Translation = termData.GetTranslation(i, overrideSpecialization, editMode: true);
+                    if (!string.IsNullOrEmpty(Translation))
+                        return true;
+                }
+            }
+            Translation = null;
+            return false;
+        }
 
 		public TermData AddTerm( string term )
 		{

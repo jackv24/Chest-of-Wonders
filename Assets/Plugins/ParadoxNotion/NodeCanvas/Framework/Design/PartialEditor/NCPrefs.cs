@@ -25,7 +25,8 @@ namespace NodeCanvas.Editor{
 			public bool useExternalInspector       = false;
 			public bool showWelcomeWindow          = true;
 			public bool logEvents                  = true;
-			public bool highlightOwnersInHierarchy = true;
+			public bool logDynamicParametersInfo   = true;
+			public bool highlightOwnersInHierarchy = false;
 			public bool useBrowser                 = true;
 			public bool breakpointPauseEditor      = true;
 			public float inspectorPanelWidth       = 330;
@@ -151,6 +152,11 @@ namespace NodeCanvas.Editor{
 		public static bool logEvents{
 			get {return data.logEvents;}
 			set {if (data.logEvents != value){ data.logEvents = value; Save(); } }
+		}
+
+		public static bool logDynamicParametersInfo{
+			get {return data.logDynamicParametersInfo;}
+			set {if (data.logDynamicParametersInfo != value){ data.logDynamicParametersInfo = value; Save(); } }
 		}
 
 		public static bool highlightOwnersInHierarchy{

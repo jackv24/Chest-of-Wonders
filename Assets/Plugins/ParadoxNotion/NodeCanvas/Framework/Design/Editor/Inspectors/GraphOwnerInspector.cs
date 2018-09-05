@@ -53,7 +53,7 @@ namespace NodeCanvas.Editor{
 		//destroy local graph when owner gets destroyed
 		void OnDestroy(){
 			if (owner == null && owner.graph != null){
-				if (!EditorUtility.IsPersistent(owner.graph)){
+				if (owner.graphIsBound){
 					Undo.DestroyObjectImmediate(owner.graph);
 				}
 			}
@@ -135,12 +135,12 @@ namespace NodeCanvas.Editor{
 
 			//Graph comments ONLY if Bound graph
 			if (owner.graphIsBound){
-				owner.graph.graphComments = GUILayout.TextArea(owner.graph.graphComments, GUILayout.Height(45));
-				EditorUtils.TextFieldComment(owner.graph.graphComments, "Graph comments...");
+				owner.graph.comments = GUILayout.TextArea(owner.graph.comments, GUILayout.Height(45));
+				EditorUtils.TextFieldComment(owner.graph.comments, "Graph comments...");
 			}
 
 			//Open behaviour
-			GUI.backgroundColor = EditorUtils.lightBlue;
+			GUI.backgroundColor = Colors.lightBlue;
 			if (GUILayout.Button( ("Edit " + owner.graphType.Name.SplitCamelCase()).ToUpper() )){
 				GraphEditor.OpenWindow(owner);
 			}
@@ -162,8 +162,7 @@ namespace NodeCanvas.Editor{
 				} else {
 
 					if (GUILayout.Button("Delete Bound Graph")){
-						var safe = !EditorUtility.IsPersistent(owner.graph) || AssetDatabase.IsSubAsset(owner.graph);
-						if (safe && EditorUtility.DisplayDialog("Delete Bound Graph", "Are you sure?", "YES", "NO")){
+						if (EditorUtility.DisplayDialog("Delete Bound Graph", "Are you sure?", "YES", "NO")){
 							Object.DestroyImmediate(owner.graph, true);
 							Undo.RecordObject(owner, "Delete Bound Graph");
 							owner.SetBoundGraphReference(null);
@@ -176,7 +175,7 @@ namespace NodeCanvas.Editor{
 
 
 			//basic options
-//			owner.blackboard = (Blackboard)EditorGUILayout.ObjectField("Blackboard", owner.blackboard as Blackboard, typeof(Blackboard), true);
+			// owner.blackboard = (Blackboard)EditorGUILayout.ObjectField("Blackboard", owner.blackboard as Blackboard, typeof(Blackboard), true);
 			owner.enableAction = (GraphOwner.EnableAction)EditorGUILayout.EnumPopup("On Enable", owner.enableAction);
 			owner.disableAction = (GraphOwner.DisableAction)EditorGUILayout.EnumPopup("On Disable", owner.disableAction);
 
@@ -194,12 +193,12 @@ namespace NodeCanvas.Editor{
 				GUILayout.BeginHorizontal("box");
 				GUILayout.FlexibleSpace();
 
-				if (GUILayout.Button(EditorUtils.playIcon, owner.isRunning || owner.isPaused? pressed : (GUIStyle)"button")){
+				if (GUILayout.Button(Icons.playIcon, owner.isRunning || owner.isPaused? pressed : (GUIStyle)"button")){
 					if (owner.isRunning || owner.isPaused) owner.StopBehaviour();
 					else owner.StartBehaviour();
 				}
 
-				if (GUILayout.Button(EditorUtils.pauseIcon, owner.isPaused? pressed : (GUIStyle)"button")){	
+				if (GUILayout.Button(Icons.pauseIcon, owner.isPaused? pressed : (GUIStyle)"button")){	
 					if (owner.isPaused) owner.StartBehaviour();
 					else owner.PauseBehaviour();
 				}
@@ -209,7 +208,7 @@ namespace NodeCanvas.Editor{
 				GUILayout.EndHorizontal();
 			}
 
-			EditorUtils.ShowAutoEditorGUI(owner);
+			EditorUtils.ReflectedObjectInspector(owner);
 			EditorUtils.EndOfInspector();
 
 			UndoManager.CheckDirty(owner);

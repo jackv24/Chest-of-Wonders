@@ -8,7 +8,7 @@ using UnityEngine;
 namespace NodeCanvas.BehaviourTrees{
 
 	[Category("Composites")]
-	[Description("Used for Utility AI, the Priority Selector executes the child with the highest priority value. If it fails, the Prioerity Selector will continue with the next highest priority child until one Succeeds, or until all Fail (similar to how a normal Selector does).")]
+	[Description("Used for Utility AI, the Priority Selector executes the child with the highest priority value. If it fails, the Priority Selector will continue with the next highest priority child until one Succeeds, or until all Fail (similar to how a normal Selector does).")]
 	[Icon("Priority")]
 	[Color("b3ff7f")]
 	public class PrioritySelector : BTComposite {
@@ -65,12 +65,12 @@ namespace NodeCanvas.BehaviourTrees{
 		}
 
 		public override void OnConnectionInspectorGUI(int i){
-			priorities[i] = (BBParameter<float>)EditorUtils.BBParameterField("Priority Weight", priorities[i]);
+			priorities[i] = (BBParameter<float>)NodeCanvas.Editor.BBParameterEditor.ParameterField("Priority Weight", priorities[i]);
 		}
 
 		protected override void OnNodeInspectorGUI(){
 			for (var i = 0; i < priorities.Count; i++)
-				priorities[i] = (BBParameter<float>)EditorUtils.BBParameterField("Priority Weight", priorities[i]);
+				priorities[i] = (BBParameter<float>)NodeCanvas.Editor.BBParameterEditor.ParameterField("Priority Weight", priorities[i]);
 		}
 
 		#endif

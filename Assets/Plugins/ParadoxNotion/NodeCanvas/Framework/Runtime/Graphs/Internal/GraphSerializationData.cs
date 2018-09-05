@@ -7,7 +7,7 @@ namespace NodeCanvas.Framework.Internal{
 	[System.Serializable]
 	public class GraphSerializationData {
 
-		public const float FRAMEWORK_VERSION = 2.70f;
+		public const float FRAMEWORK_VERSION = 2.81f;
 
 		public float version;
 		public System.Type type;
@@ -21,8 +21,7 @@ namespace NodeCanvas.Framework.Internal{
 		public Node primeNode                   = null;
 		public List<CanvasGroup> canvasGroups   = null;
 		public BlackboardSource localBlackboard = null;
-
-		public object derivedData;
+		public object derivedData               = null;
 
 		//required
 		public GraphSerializationData(){}
@@ -33,7 +32,7 @@ namespace NodeCanvas.Framework.Internal{
 			this.version         = FRAMEWORK_VERSION;
 			this.type            = graph.GetType();
 			this.category        = graph.category;
-			this.comments        = graph.graphComments;
+			this.comments        = graph.comments;
 			this.translation     = graph.translation;
 			this.zoomFactor      = graph.zoomFactor;
 			this.nodes           = graph.allNodes;
@@ -69,7 +68,7 @@ namespace NodeCanvas.Framework.Internal{
 			//re-set the node's owner and ID
 			for (var i = 0; i < this.nodes.Count; i++){
 				nodes[i].graph = graph;
-				nodes[i].ID = i + 1;
+				nodes[i].ID = i;
 			}
 
 			//deserialize derived data

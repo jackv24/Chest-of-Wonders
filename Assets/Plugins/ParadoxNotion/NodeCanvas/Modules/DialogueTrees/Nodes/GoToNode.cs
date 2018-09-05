@@ -56,7 +56,7 @@ namespace NodeCanvas.DialogueTrees{
 			}
 
 			if (_targetNode != null && GUILayout.Button("Select Target Node")){
-				Graph.currentSelection = _targetNode;
+				NodeCanvas.Editor.GraphEditorUtility.activeElement = _targetNode;
 			}
 		}
 

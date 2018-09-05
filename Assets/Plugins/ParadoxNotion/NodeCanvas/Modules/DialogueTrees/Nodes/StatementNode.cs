@@ -29,20 +29,10 @@ namespace NodeCanvas.DialogueTrees{
 		///////////GUI AND EDITOR STUFF/////////
 		////////////////////////////////////////
 		#if UNITY_EDITOR
-
+		
 		protected override void OnNodeGUI(){
-			var displayText = $"<color=maroon><i>\"{(statement.text.Length > 30? statement.text.Substring(0, 30) + "..." : statement.text)}\"</i></color>";
-
-			string translation;
-			if (I2.Loc.LocalizationManager.TryGetTranslation(statement.text, out translation))
-			{
-				string transDisplay = $"<i>\"{(translation.Length > 30 ? translation.Substring(0, 30) + "..." : translation)}\"</i>";
-				string keyDisplay = $"({(statement.text.Length > 30 ? statement.text.Substring(0, 30) + "..." : statement.text)})";
-
-				displayText = $"{transDisplay}\n{keyDisplay}";
-			}
-
-			GUILayout.Label(displayText);
+			var displayText = statement.text.Length > 30? statement.text.Substring(0, 30) + "..." : statement.text;
+			GUILayout.Label("\"<i> " + displayText + "</i> \"");
 		}
 
 		protected override void OnNodeInspectorGUI(){
@@ -50,7 +40,7 @@ namespace NodeCanvas.DialogueTrees{
 			base.OnNodeInspectorGUI();
 			var areaStyle = new GUIStyle(GUI.skin.GetStyle("TextArea"));
 			areaStyle.wordWrap = true;
-
+			
 			GUILayout.Label("Dialogue Text");
 			statement.text = UnityEditor.EditorGUILayout.TextArea(statement.text, areaStyle, GUILayout.Height(100));
 			statement.audio = UnityEditor.EditorGUILayout.ObjectField("Audio File", statement.audio, typeof(AudioClip), false)  as AudioClip;

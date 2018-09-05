@@ -39,7 +39,7 @@ namespace NodeCanvas.BehaviourTrees{
 
 		Graph[] IGraphAssignable.GetInstances(){ return instances.Values.ToArray(); }
 
-		/////////
+		///----------------------------------------------------------------------------------------------
 
 		protected override Status OnExecute(Component agent, IBlackboard blackboard){
 
@@ -115,13 +115,12 @@ namespace NodeCanvas.BehaviourTrees{
 			return instance;
 		}
 
-		////////////////////////////
-		//////EDITOR AND GUI////////
-		////////////////////////////
+
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
 
 		protected override void OnNodeGUI(){
-
 			GUILayout.Label(string.Format("SubFSM\n{0}", _nestedFSM) );
 			if (nestedFSM == null){
 				if (!Application.isPlaying && GUILayout.Button("CREATE NEW")){
@@ -131,9 +130,7 @@ namespace NodeCanvas.BehaviourTrees{
 		}
 
 		protected override void OnNodeInspectorGUI(){
-
-		    EditorUtils.BBParameterField("Nested FSM", _nestedFSM);
-
+		    NodeCanvas.Editor.BBParameterEditor.ParameterField("Nested FSM", _nestedFSM);
 		    if (nestedFSM == null){
 		    	return;
 		    }
@@ -143,7 +140,6 @@ namespace NodeCanvas.BehaviourTrees{
 
 	    	var defParams = nestedFSM.GetDefinedParameters();
 	    	if (defParams.Length != 0){
-
 		    	EditorUtils.TitledSeparator("Defined SubFSM Parameters");
 		    	GUI.color = Color.yellow;
 		    	UnityEditor.EditorGUILayout.LabelField("Name", "Type");
@@ -158,11 +154,13 @@ namespace NodeCanvas.BehaviourTrees{
 		    	}
 
 		    	if (GUILayout.Button("Check/Create Blackboard Variables")){
-		    		nestedFSM.CreateDefinedParameterVariables(graphBlackboard);
+		    		nestedFSM.PromoteDefinedParametersToVariables(graphBlackboard);
 		    	}
 		    }
 		}
 
 		#endif
+		///----------------------------------------------------------------------------------------------
+
 	}
 }

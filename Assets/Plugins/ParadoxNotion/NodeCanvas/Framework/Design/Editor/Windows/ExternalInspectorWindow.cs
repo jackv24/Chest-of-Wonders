@@ -19,11 +19,7 @@ namespace NodeCanvas.Editor{
 	    }
 
 		void OnEnable(){
-	        #if UNITY_5_3_OR_NEWER
 	        titleContent = new GUIContent("NC Inspector");
-	        #else
-	        title = "NC Inspector";
-	        #endif
 		}
 
 		void OnDestroy(){
@@ -31,7 +27,7 @@ namespace NodeCanvas.Editor{
 		}
 
 		void Update(){
-			if (currentSelection != Graph.currentSelection){
+			if (currentSelection != GraphEditorUtility.activeElement){
 				Repaint();
 			}
 		}
@@ -48,7 +44,7 @@ namespace NodeCanvas.Editor{
 				return;			
 			}
 
-			currentSelection = Graph.currentSelection;
+			currentSelection = GraphEditorUtility.activeElement;
 
 			if (currentSelection == null){
 				GUILayout.Label("No Node Selected in Canvas");
@@ -60,7 +56,7 @@ namespace NodeCanvas.Editor{
 			if (currentSelection is Node){
 				var node = (Node)currentSelection;
 				Title(node.name);
-				node.ShowNodeInspectorGUI();
+				Node.ShowNodeInspectorGUI(node);
 			}
 			
 			if (currentSelection is Connection){
@@ -73,7 +69,6 @@ namespace NodeCanvas.Editor{
 		}
 
 		void Title(string text){
-
 			GUILayout.Space(5);
 			GUILayout.BeginHorizontal("box", GUILayout.Height(28));
 			GUILayout.FlexibleSpace();

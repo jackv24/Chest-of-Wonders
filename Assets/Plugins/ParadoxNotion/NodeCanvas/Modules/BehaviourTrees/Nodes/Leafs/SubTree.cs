@@ -35,8 +35,7 @@ namespace NodeCanvas.BehaviourTrees{
 
 		Graph[] IGraphAssignable.GetInstances(){ return instances.Values.ToArray(); }
 
-		/////////
-		/////////
+		///----------------------------------------------------------------------------------------------
 
 		protected override Status OnExecute(Component agent, IBlackboard blackboard){
 
@@ -80,26 +79,30 @@ namespace NodeCanvas.BehaviourTrees{
 			}
 
 			BehaviourTree instance = null;
+			bool isNewInstance = false;
 			if (!instances.TryGetValue(subTree, out instance)){
 				instance = Graph.Clone<BehaviourTree>(subTree);
 				instances[subTree] = instance;
-				for (var i = 0; i < instance.allNodes.Count; i++){
-					instance.allNodes[i].OnGraphStarted();
-				}	
+				isNewInstance = true;
 			}
 
             instance.agent = graphAgent;
 		    instance.blackboard = graphBlackboard;
 		    instance.UpdateReferences();
+			if (isNewInstance){
+				for (var i = 0; i < instance.allNodes.Count; i++){
+					instance.allNodes[i].OnGraphStarted();
+				}	
+			}
+
 			subTree = instance;
 		    return instance;
 		}
 
-		////////////////////////////
-		//////EDITOR AND GUI////////
-		////////////////////////////
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
-
+		
 		protected override void OnNodeGUI(){
 			GUILayout.Label(string.Format("SubTree\n{0}", _subTree) );
 			if (subTree == null){
@@ -111,7 +114,7 @@ namespace NodeCanvas.BehaviourTrees{
 
 		protected override void OnNodeInspectorGUI(){
 
-		    EditorUtils.BBParameterField("Behaviour SubTree", _subTree);
+		    NodeCanvas.Editor.BBParameterEditor.ParameterField("Behaviour SubTree", _subTree);
 
 	    	if (subTree == this.graph){
 		    	Debug.LogWarning("You can't have a Graph nested to iteself! Please select another");
@@ -134,7 +137,7 @@ namespace NodeCanvas.BehaviourTrees{
 				    	}
 			    	}
 			    	if (GUILayout.Button("Check/Create Blackboard Variables")){
-			    		subTree.CreateDefinedParameterVariables(graphBlackboard);
+			    		subTree.PromoteDefinedParametersToVariables(graphBlackboard);
 			    	}
 			    }
 		    }

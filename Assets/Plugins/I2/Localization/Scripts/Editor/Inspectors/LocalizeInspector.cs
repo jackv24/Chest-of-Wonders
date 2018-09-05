@@ -35,6 +35,7 @@ namespace I2.Loc
 		public static string HelpURL_ReleaseNotes	= "http://inter-illusion.com/forum/i2-localization/26-release-notes";
 		public static string HelpURL_AssetStore		= "https://www.assetstore.unity3d.com/#!/content/14884";
 
+        public static LocalizeInspector mLocalizeInspector;
 		#endregion
 		
 		#region Inspector
@@ -42,7 +43,9 @@ namespace I2.Loc
 		void OnEnable()
 		{
 			mLocalize = (Localize)target;
-			mProp_mTerm 			 		= serializedObject.FindProperty("mTerm");
+            mLocalizeInspector = this;
+            LocalizationEditor.mCurrentInspector = this;
+            mProp_mTerm 			 		= serializedObject.FindProperty("mTerm");
 			mProp_mTermSecondary	 		= serializedObject.FindProperty("mTermSecondary");
 			mProp_TranslatedObjects  		= serializedObject.FindProperty("TranslatedObjects");
 			mProp_IgnoreRTL			 		= serializedObject.FindProperty("IgnoreRTL");
@@ -83,30 +86,40 @@ namespace I2.Loc
 
 		void OnDisable()
 		{
-			if (mLocalize == null)
+            mLocalizeInspector = null;
+            if (LocalizationEditor.mCurrentInspector == this) LocalizationEditor.mCurrentInspector = null;
+
+
+            if (mLocalize == null)
 				return;
 
-			//#if TextMeshPro
-			//string previous = null;
+            //#if TextMeshPro
+            //string previous = null;
 
-			//if (!Application.isPlaying && !string.IsNullOrEmpty(mLocalize.TMP_previewLanguage))
-			//{
-			//	previous = LocalizationManager.CurrentLanguage;
-			//	LocalizationManager.PreviewLanguage( mLocalize.TMP_previewLanguage );
-			//}
-			//#endif
+            //if (!Application.isPlaying && !string.IsNullOrEmpty(mLocalize.TMP_previewLanguage))
+            //{
+            //	previous = LocalizationManager.CurrentLanguage;
+            //	LocalizationManager.PreviewLanguage( mLocalize.TMP_previewLanguage );
+            //}
+            //#endif
 
-			//mLocalize.OnLocalize();
-			LocalizationManager.LocalizeAll();
+            //mLocalize.OnLocalize();
 
-			//#if TextMeshPro
-			//if (!string.IsNullOrEmpty(previous))
-			//{
-			//	LocalizationManager.PreviewLanguage(previous);
-			//	mLocalize.TMP_previewLanguage = null;
-			//}
-			//#endif
-		}
+            // Revert the preview language
+            // except when in TMPro and not changing to another GameObject (TMPro has a bug where any change causes the inspector to Disable and Enable)
+            if (!mLocalize.mLocalizeTargetName.Contains("LocalizeTarget_TextMeshPro") || Selection.activeGameObject==null || !Selection.gameObjects.Contains(mLocalize.gameObject))
+            {
+                LocalizationManager.LocalizeAll();
+            }
+
+            //#if TextMeshPro
+            //if (!string.IsNullOrEmpty(previous))
+            //{
+            //	LocalizationManager.PreviewLanguage(previous);
+            //	mLocalize.TMP_previewLanguage = null;
+            //}
+            //#endif
+        }
 
 		#endregion
 
@@ -598,22 +611,29 @@ namespace I2.Loc
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label ("Target:", GUILayout.Width (60));
-			GUI.changed = false;
-			int index = EditorGUILayout.Popup(CurrentTarget, TargetTypes.ToArray());
-			if (GUI.changed)
-			{
-				serializedObject.ApplyModifiedProperties();
-
-                if (mLocalize.mLocalizeTarget != null)
-                    DestroyImmediate(mLocalize.mLocalizeTarget);
-
-                foreach (var desc in LocalizationManager.mLocalizeTargets)
+            EditorGUI.BeginChangeCheck();
+			    int index = EditorGUILayout.Popup(CurrentTarget, TargetTypes.ToArray());
+            if (EditorGUI.EndChangeCheck())
+            {
+                serializedObject.ApplyModifiedProperties();
+                foreach (var obj in serializedObject.targetObjects)
                 {
-                    if (desc.Name == TargetTypes[index])
+                    var cmp = obj as Localize;
+                    if (cmp == null)
+                        continue;
+
+                    if (cmp.mLocalizeTarget != null)
+                        DestroyImmediate(cmp.mLocalizeTarget);
+                    cmp.mLocalizeTarget = null;
+
+                    foreach (var desc in LocalizationManager.mLocalizeTargets)
                     {
-                        mLocalize.mLocalizeTarget = desc.CreateTarget(mLocalize);
-                        mLocalize.mLocalizeTargetName = desc.GetTargetType().ToString();
-                        break;
+                        if (desc.Name == TargetTypes[index])
+                        {
+                            cmp.mLocalizeTarget = desc.CreateTarget(cmp);
+                            cmp.mLocalizeTargetName = desc.GetTargetType().ToString();
+                            break;
+                        }
                     }
                 }
 				serializedObject.Update();

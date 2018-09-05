@@ -231,8 +231,29 @@ namespace I2.Loc
 		//(e.g. "English (Canada)" could be mapped to "english" or "English (United States)" if "English (Canada)" is not found
 		public static string GetSupportedLanguage( string Language )
 		{
-			// First look for an exact match
-			for (int i=0, imax=Sources.Count; i<imax; ++i)
+            // First try finding the language that matches one of the official languages
+            string code = GoogleLanguages.GetLanguageCode(Language, false);
+            if (!string.IsNullOrEmpty(code))
+            {
+                // First try finding if the exact language code is in one source
+                for (int i = 0, imax = Sources.Count; i < imax; ++i)
+                {
+                    int Idx = Sources[i].GetLanguageIndexFromCode(code, true);
+                    if (Idx >= 0)
+                        return Sources[i].mLanguages[Idx].Name;
+                }
+
+                // If not, try checking without the region
+                for (int i = 0, imax = Sources.Count; i < imax; ++i)
+                {
+                    int Idx = Sources[i].GetLanguageIndexFromCode(code, false);
+                    if (Idx >= 0)
+                        return Sources[i].mLanguages[Idx].Name;
+                }
+            }
+
+            // If not found, then try finding an exact match for the name
+            for (int i=0, imax=Sources.Count; i<imax; ++i)
 			{
 				int Idx = Sources[i].GetLanguageIndex(Language, false);
 				if (Idx>=0)
@@ -311,14 +332,13 @@ namespace I2.Loc
         {
             for (int i = 0; i < Sources.Count; ++i)
             {
-                Sources[i].LoadLanguage(Sources[i].GetLanguageIndex(mCurrentLanguage, true, false), true, true, true);
+                var iCurrentLang = Sources[i].GetLanguageIndex(mCurrentLanguage, true, false);
+                Sources[i].LoadLanguage(iCurrentLang, true, true, true, false);
             }
         }
 
 
-#if UNITY_EDITOR
         // This function should only be called from within the Localize Inspector to temporaly preview that Language
-
         public static void PreviewLanguage(string NewLanguage)
 		{
 			mCurrentLanguage = NewLanguage;
@@ -326,6 +346,5 @@ namespace I2.Loc
 			IsRight2Left = IsRTL(mLanguageCode);
             HasJoinedWords = GoogleLanguages.LanguageCode_HasJoinedWord(mLanguageCode);
         }
-#endif
     }
 }

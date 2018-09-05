@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using NodeCanvas.Editor;
 
 namespace NodeCanvas.Editor{
 
@@ -20,7 +21,7 @@ namespace NodeCanvas.Editor{
 			GUILayout.Space(10);
 
 			list.blackboard = (Blackboard)EditorGUILayout.ObjectField("Target Blackboard", (Blackboard)list.blackboard, typeof(Blackboard), true);
-			Task.ShowTaskInspectorGUI(list.actionList, null, false);
+			TaskEditor.TaskFieldSingle(list.actionList, null, false);
 			EditorUtils.EndOfInspector();
 
 			if (Event.current.isMouse){

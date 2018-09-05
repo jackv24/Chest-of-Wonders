@@ -4,6 +4,8 @@ using ParadoxNotion.Design;
 
 #if UNITY_5_5_OR_NEWER
 using NavMeshAgent = UnityEngine.AI.NavMeshAgent;
+using NavMesh = UnityEngine.AI.NavMesh;
+using NavMeshHit = UnityEngine.AI.NavMeshHit;
 #endif
 
 namespace NodeCanvas.Tasks.Actions{
@@ -43,8 +45,9 @@ namespace NodeCanvas.Tasks.Actions{
 				wanderPos = (Random.insideUnitSphere * max) + agent.transform.position;
 			}
 
-			if ( !agent.SetDestination(wanderPos) ){
-				DoWander();
+			NavMeshHit hit;
+			if (NavMesh.SamplePosition(wanderPos, out hit, float.PositiveInfinity, NavMesh.AllAreas)){
+				agent.SetDestination(hit.position);
 			}
 		}
 

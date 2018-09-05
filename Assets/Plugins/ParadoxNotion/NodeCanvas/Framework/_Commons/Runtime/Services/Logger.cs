@@ -4,8 +4,10 @@ using System.Linq;
 
 namespace ParadoxNotion.Services{
 
+	///A custom logger
 	public static class Logger {
 
+		///A message that logs
 		public struct Message{
 			public LogType type;
 			public string text;
@@ -20,7 +22,7 @@ namespace ParadoxNotion.Services{
 		}
 
 		public delegate bool LogHandler(Message message);
-		public static List<LogHandler> subscribers = new List<LogHandler>();
+		private static List<LogHandler> subscribers = new List<LogHandler>();
 
 		#if UNITY_EDITOR
 		[UnityEditor.InitializeOnLoadMethod]
@@ -28,25 +30,32 @@ namespace ParadoxNotion.Services{
 		private static System.Threading.Thread mainThread;
 		#endif
 
+		///Subscribe a listener to the logger
 		public static void AddListener(LogHandler callback){ subscribers.Add(callback); }
+		///Remove a listener from the logger
 		public static void RemoveListener(LogHandler callback){ subscribers.Remove(callback); }
 
+		///Log
 		public static void Log(object message, string tag = null, object context = null){
 			Internal_Log(LogType.Log, message, tag, context);
 		}
 
+		///Log Warning
 		public static void LogWarning(object message, string tag = null, object context = null){
 			Internal_Log(LogType.Warning, message, tag, context);
 		}
 
+		///Log Error
 		public static void LogError(object message, string tag = null, object context = null){
 			Internal_Log(LogType.Error, message, tag, context);
 		}
 
+		///Log Exception
 		public static void LogException(System.Exception exception, string tag = null, object context = null){
 			Internal_Log(LogType.Exception, exception, tag, context);
 		}
 
+		//...
 		private static void Internal_Log(LogType type, object message, string tag, object context){
 			if (subscribers != null && subscribers.Count > 0){
 				var msg = new Message();
@@ -84,6 +93,7 @@ namespace ParadoxNotion.Services{
 			ForwardToUnity(type, message, tag, context);
 		}
 		
+		//forward the log to unity console
 		private static void ForwardToUnity(LogType type, object message, string tag, object context){
 			#if UNITY_2017_1_OR_NEWER
 			if (message is System.Exception){

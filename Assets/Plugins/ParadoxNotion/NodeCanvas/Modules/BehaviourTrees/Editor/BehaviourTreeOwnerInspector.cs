@@ -26,7 +26,7 @@ namespace NodeCanvas.Editor{
 		}
 
 		protected override void OnGrapOwnerControls(){
-			if (GUILayout.Button(EditorUtils.stepIcon)){
+			if (GUILayout.Button(Icons.stepIcon)){
 				owner.Tick();
 			}
 		}

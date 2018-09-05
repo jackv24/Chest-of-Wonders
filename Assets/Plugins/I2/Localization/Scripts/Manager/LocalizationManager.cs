@@ -35,7 +35,7 @@ namespace I2.Loc
 
         public static string GetVersion()
 		{
-			return "2.8.4 f1";
+			return "2.8.7 f1";
 		}
 
 		public static int GetRequiredWebServiceVersion()
@@ -72,7 +72,7 @@ namespace I2.Loc
 
             foreach (var source in Sources)
             {
-                source.LoadAllLanguages();
+                source.LoadAllLanguages(true);
             }
             try
             {

@@ -9,9 +9,9 @@ namespace NodeCanvas.Framework
     /// A component that is used to control a Graph in respects to the gameobject attached to
 	abstract public class GraphOwner : MonoBehaviour {
 
-		[SerializeField] [HideInInspector]
+		[SerializeField]
 		private string boundGraphSerialization;
-		[SerializeField] [HideInInspector]
+		[SerializeField]
 		private List<UnityEngine.Object> boundGraphObjectReferences;
 
 		public enum EnableAction{
@@ -35,12 +35,14 @@ namespace NodeCanvas.Framework
 
 		private Dictionary<Graph, Graph> instances = new Dictionary<Graph, Graph>();
 		private bool awakeCalled = false;
-		private bool startCalled = false;
 
 		private static bool isQuiting;
 
+		///The graph assigned
 		abstract public Graph graph{get;set;}
+		///The blackboard assigned
 		abstract public IBlackboard blackboard{get;set;}
+		///The type of graph that can be assigned
 		abstract public System.Type graphType{get;}
 
 		///Is the assigned graph currently running?
@@ -125,9 +127,9 @@ namespace NodeCanvas.Framework
 		}
 
 		///Stop the current running graph
-		public void StopBehaviour(){
+		public void StopBehaviour(bool success = true){
 			if (graph != null){
-				graph.Stop();
+				graph.Stop(success);
 				if (onOwnerBehaviourStateChange != null){
 					onOwnerBehaviourStateChange(this);
 				}
@@ -140,7 +142,6 @@ namespace NodeCanvas.Framework
 				graph.UpdateGraph();
 			}
 		}
-
 
 		///Send an event through the graph (To be used with CheckEvent for example). Same as .graph.SendEvent
 		public void SendEvent(string eventName){ SendEvent(new EventData(eventName));}
@@ -160,7 +161,6 @@ namespace NodeCanvas.Framework
 			Graph.SendGlobalEvent( new EventData<T>(eventName, eventValue) );
 		}
 
-
 		///Instantiate and deserialize the bound graph, or instantiate the asset graph reference.
 		///This is public so that you can call this manually to pre-initialize when gameobject is deactive, if required.
 		public void Awake(){
@@ -171,12 +171,11 @@ namespace NodeCanvas.Framework
 
 			awakeCalled = true;
 
-			if ( !string.IsNullOrEmpty(boundGraphSerialization) ){ //bound
+			//Bound
+			if ( !string.IsNullOrEmpty(boundGraphSerialization) ){
 				if (graph == null){
 					graph = (Graph)ScriptableObject.CreateInstance(graphType);
-					#if UNITY_EDITOR
 					graph.name = this.name + " " + graphType.Name;
-					#endif
 					graph.Deserialize(boundGraphSerialization, true, boundGraphObjectReferences);
 					instances[graph] = graph;
 					return;
@@ -186,20 +185,13 @@ namespace NodeCanvas.Framework
 				graph.SetSerializationObjectReferences(boundGraphObjectReferences);
 			}
 
+			//Asset reference
 			graph = GetInstance(graph);
-		}
-
-		//mark as startCalled and handle enable behaviour setting
-		protected void Start(){
-			startCalled = true;
-			if (enableAction == EnableAction.EnableBehaviour){
-				StartBehaviour();
-			}
 		}
 
 		//handle enable behaviour setting
 		protected void OnEnable(){
-			if (startCalled && enableAction == EnableAction.EnableBehaviour){
+			if (enableAction == EnableAction.EnableBehaviour){
 				StartBehaviour();
 			}
 		}
@@ -257,9 +249,9 @@ namespace NodeCanvas.Framework
 			get	{ return boundGraphInstance != null || !string.IsNullOrEmpty(boundGraphSerialization); }
 		}
 
-		//Called in editor only after assigned graph is serialized.
-		//If the graph is bound, we store the serialization data here.
-		public void OnGraphSerialized(Graph serializedGraph){
+		///Called in editor only after assigned graph is serialized.
+		///If the graph is bound, we store the serialization data here.
+		public void OnAfterGraphSerialized(Graph serializedGraph){
 			if (graphIsBound && this.graph == serializedGraph){
 				string newSerialization = null;
 				List<Object> newReferences = null;
@@ -273,44 +265,34 @@ namespace NodeCanvas.Framework
 			}
 		}
 
-		///Called from the editor.
+		///Editor. Validate.
 		protected void OnValidate(){ Validate(); }
+		///Editor. Validate.
 		public void Validate(){
-
-			//everything bellow is relevant to bound graphs only
-			if (!graphIsBound || Application.isPlaying || UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode){
-				return;
-			}
-
-			var prefabType = UnityEditor.PrefabUtility.GetPrefabType(this);
-			if (boundGraphInstance == null){
-
+			
+			//everything here is relevant to bound graphs only
+			if (graphIsBound && !Application.isPlaying && !UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode){
+				var prefabType = UnityEditor.PrefabUtility.GetPrefabType(this);
 				if (prefabType == UnityEditor.PrefabType.Prefab){
-
-					if (graph == null){
-						graph = (Graph)ScriptableObject.CreateInstance(graphType);
-						UnityEditor.AssetDatabase.AddObjectToAsset(graph, this);
-						UnityEditor.EditorApplication.delayCall += ()=>{ UnityEditor.AssetDatabase.ImportAsset(UnityEditor.AssetDatabase.GetAssetPath(graph)); };
+					//Update from previous version. No longer store graph as sub-asset.
+					if (graph != null && UnityEditor.AssetDatabase.IsSubAsset(graph)){
+						DestroyImmediate(graph, true);
 					}
+				}
 
-					boundGraphInstance = graph;
-
-				} else {
-
+				if (boundGraphInstance == null){
 					boundGraphInstance = (Graph)ScriptableObject.CreateInstance(graphType);
 				}
+
+				boundGraphInstance.Deserialize(boundGraphSerialization, false, boundGraphObjectReferences);
+				boundGraphInstance.hideFlags = prefabType == UnityEditor.PrefabType.Prefab? HideFlags.HideAndDontSave : HideFlags.None;
+				(boundGraphInstance as UnityEngine.Object).name = this.name + " " + graphType.Name;
+				boundGraphInstance.Validate();
+				boundGraphSerialization = boundGraphInstance.Serialize(false, boundGraphObjectReferences);
+				boundGraphInstance.agent = this;
+				boundGraphInstance.blackboard = this.blackboard;
+				graph = boundGraphInstance;
 			}
-
-			boundGraphInstance.Deserialize(boundGraphSerialization, false, boundGraphObjectReferences);
-			boundGraphInstance.hideFlags = HideFlags.None;
-			(boundGraphInstance as UnityEngine.Object).name = this.name + " " + graphType.Name;
-			boundGraphInstance.Validate();
-			graph = boundGraphInstance;
-
-			boundGraphSerialization = graph.Serialize(false, boundGraphObjectReferences);
-
-			graph.agent = this;
-			graph.blackboard = this.blackboard;
 		}
 
 
@@ -334,6 +316,7 @@ namespace NodeCanvas.Framework
 			Validate(); //validate to handle bound graph instance
 		}
 
+		///Reset unity callback
 		protected void Reset(){
 			blackboard = gameObject.GetComponent<Blackboard>();
 			if (blackboard == null){
@@ -341,23 +324,24 @@ namespace NodeCanvas.Framework
 			}
 		}
 
-		//forward the call
+		///Forward Gizmos callback
 		protected void OnDrawGizmos(){
 			Gizmos.DrawIcon(transform.position, "GraphOwnerGizmo.png", true);
-			DoGizmos(graph);
+			DoGraphGizmos(graph);
 		}
 
-		void DoGizmos(Graph targetGraph){
+		///Show gizmos for nodes and tasks
+		void DoGraphGizmos(Graph targetGraph){
 			if (targetGraph != null){
 				for (var i = 0; i < targetGraph.allNodes.Count; i++){
 					var node = targetGraph.allNodes[i];
 					node.OnDrawGizmos();
-					if (Graph.currentSelection == node){
+					if (NodeCanvas.Editor.GraphEditorUtility.activeElement == node){
 						node.OnDrawGizmosSelected();
 					}
 					var graphAssignable = node as IGraphAssignable;
 					if (graphAssignable != null && graphAssignable.nestedGraph != null){
-						DoGizmos(graphAssignable.nestedGraph);
+						DoGraphGizmos(graphAssignable.nestedGraph);
 					}
 				}
 			}			
@@ -372,9 +356,9 @@ namespace NodeCanvas.Framework
 	///The class where GraphOwners derive from
 	abstract public class GraphOwner<T> : GraphOwner where T:Graph{
 
-		[SerializeField] /*[HideInInspector]*/
+		[SerializeField]
 		private T _graph;
-		[SerializeField] /*[HideInInspector]*/
+		[SerializeField]
 		private Object _blackboard;
 
 		///The current behaviour Graph assigned

@@ -14,6 +14,9 @@ namespace I2.Loc
 
 		public bool IgnoreDeviceLanguage; // If false, it will use the Device's language as the initial Language, otherwise it will use the first language in the source.
 
+        public enum eAllowUnloadLanguages { Never, OnlyInDevice, EditorAndDevice }
+        public eAllowUnloadLanguages _AllowUnloadingLanguages = eAllowUnloadLanguages.OnlyInDevice;
+
 		#endregion
 
 		#region Language
@@ -82,8 +85,8 @@ namespace I2.Loc
 			if (string.IsNullOrEmpty (Language1) || string.IsNullOrEmpty (Language2))
 					return 0;
 			var separators = "( )-/\\".ToCharArray();
-			string[] Words1 = Language1.Split(separators);
-			string[] Words2 = Language2.Split(separators);
+			string[] Words1 = Language1.ToLower().Split(separators);
+			string[] Words2 = Language2.ToLower().Split(separators);
 
 			int similitud = 0;
 			foreach (var word in Words1)
@@ -208,6 +211,16 @@ namespace I2.Loc
         #endregion
 
         #region Save/Load Language
+
+        public bool AllowUnloadingLanguages()
+        {
+            #if UNITY_EDITOR
+                return _AllowUnloadingLanguages==eAllowUnloadLanguages.EditorAndDevice;
+            #else
+                return _AllowUnloadingLanguages!=eAllowUnloadLanguages.Never;
+            #endif
+        }
+
         string GetSavedLanguageFileName(int languageIndex)
         {
             if (languageIndex < 0)
@@ -215,12 +228,19 @@ namespace I2.Loc
 
             return "LangSource_" + GetSourcePlayerPrefName() + "_" + mLanguages[languageIndex].Name + ".loc";
         }
-        public void LoadLanguage( int languageIndex, bool UnloadOtherLanguages, bool useFallback, bool onlyCurrentSpecialization )
+        public void LoadLanguage( int languageIndex, bool UnloadOtherLanguages, bool useFallback, bool onlyCurrentSpecialization, bool forceLoad )
 		{
-            if (languageIndex >= 0 && !mLanguages[languageIndex].IsLoaded())
+            if (!AllowUnloadingLanguages())
+                return;
+
+            // Some consoles don't allow IO access
+            if (!PersistentStorage.CanAccessFiles())
+                return;
+
+            if (languageIndex >= 0 && (forceLoad || !mLanguages[languageIndex].IsLoaded()))
             {
                 var tempPath = GetSavedLanguageFileName(languageIndex);
-                var langData = PersistentStorage.LoadFile(PersistentStorage.eFileType.Temporal, tempPath);
+                var langData = PersistentStorage.LoadFile(PersistentStorage.eFileType.Temporal, tempPath, false);
 
                 if (!string.IsNullOrEmpty(langData))
                 {
@@ -238,14 +258,25 @@ namespace I2.Loc
             }
         }
 
-        public void LoadAllLanguages()
+        // if forceLoad, then the language is loaded from the cache even if its already loaded
+        // this is needed to cleanup fallbacks
+        public void LoadAllLanguages(bool forceLoad=false)
         {
             for (int i = 0; i < mLanguages.Count; ++i)
-                LoadLanguage(i, false, false, false);
+            {
+                LoadLanguage(i, false, false, false, forceLoad);
+            }
         }
 
         public void UnloadLanguage(int languageIndex)
         {
+            if (!AllowUnloadingLanguages())
+                return;
+
+            // Some consoles don't allow IO access
+            if (!PersistentStorage.CanAccessFiles())
+                return;
+
             if (!I2Utils.IsPlaying() ||
                 !mLanguages[languageIndex].IsLoaded() ||
                 !mLanguages[languageIndex].CanBeUnloaded() ||
@@ -260,14 +291,20 @@ namespace I2.Loc
                 termData.Languages[languageIndex] = null;
             }
             mLanguages[languageIndex].SetLoaded(false);
-
         }
 
-        public void SaveLanguages( bool unloadAll )
+        public void SaveLanguages( bool unloadAll, PersistentStorage.eFileType fileLocation = PersistentStorage.eFileType.Temporal)
         {
+            if (!AllowUnloadingLanguages())
+                return;
+
+            // Some consoles don't allow IO access
+            if (!PersistentStorage.CanAccessFiles())
+                return;
+
             for (int i = 0; i < mLanguages.Count; ++i)
             {
-                var data = Export_Language_to_Cache(i);
+                var data = Export_Language_to_Cache(i, IsCurrentLanguage(i));
                 if (string.IsNullOrEmpty(data))
                     continue;
 
@@ -283,6 +320,17 @@ namespace I2.Loc
                 }
             }
         }
-        #endregion
+
+        public bool HasUnloadedLanguages()
+        {
+            for (int i = 0; i < mLanguages.Count; ++i)
+            {
+                if (!mLanguages[i].IsLoaded())
+                    return true;
+            }
+            return false;
+
+        }
+#endregion
     }
 }

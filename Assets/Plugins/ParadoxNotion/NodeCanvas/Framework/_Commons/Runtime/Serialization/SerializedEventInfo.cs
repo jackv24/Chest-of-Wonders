@@ -17,7 +17,7 @@ namespace ParadoxNotion.Serialization{
 
 		void ISerializationCallbackReceiver.OnBeforeSerialize(){
 			if (_event != null){
-				_baseInfo = string.Format("{0}|{1}", _event.DeclaringType.FullName, _event.Name);
+				_baseInfo = string.Format("{0}|{1}", _event.RTReflectedType().FullName, _event.Name);
 			}
 		}
 

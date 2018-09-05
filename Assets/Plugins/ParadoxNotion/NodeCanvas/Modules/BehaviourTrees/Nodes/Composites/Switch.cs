@@ -14,8 +14,8 @@ namespace NodeCanvas.BehaviourTrees{
 
 		public enum CaseSelectionMode
 		{
-			IndexBased,
-			EnumBased
+			IndexBased = 0,
+			EnumBased = 1
 		}
 
 		public enum OutOfRangeMode
@@ -26,11 +26,15 @@ namespace NodeCanvas.BehaviourTrees{
 
 		public bool dynamic;
 
-		[BlackboardOnly]
-		public BBObjectParameter enumCase = new BBObjectParameter(typeof(System.Enum));
-		public BBParameter<int> intCase;
 		public CaseSelectionMode selectionMode = CaseSelectionMode.IndexBased;
+
+		[ShowIf("selectionMode", 0)]
+		public BBParameter<int> intCase;
+		[ShowIf("selectionMode", 0)]
 		public OutOfRangeMode outOfRangeMode = OutOfRangeMode.LoopIndex;
+
+		[ShowIf("selectionMode", 1)] [BlackboardOnly]
+		public BBObjectParameter enumCase = new BBObjectParameter(typeof(System.Enum));
 
 		private int current;
 		private int runningIndex;
@@ -75,11 +79,11 @@ namespace NodeCanvas.BehaviourTrees{
 			return status;
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
-		#if UNITY_EDITOR
 
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
+		#if UNITY_EDITOR
+		
 		public override string GetConnectionInfo(int i){
 			if (selectionMode == CaseSelectionMode.EnumBased){
 				if (enumCase.value == null){
@@ -102,16 +106,8 @@ namespace NodeCanvas.BehaviourTrees{
 		}
 
 		protected override void OnNodeInspectorGUI(){
-			dynamic = UnityEditor.EditorGUILayout.Toggle("Dynamic", dynamic);
-			selectionMode = (CaseSelectionMode)UnityEditor.EditorGUILayout.EnumPopup("Selection Mode", selectionMode);
-			if (selectionMode == CaseSelectionMode.IndexBased)
-			{
-				intCase = (BBParameter<int>)EditorUtils.BBParameterField("Index", intCase);
-				outOfRangeMode = (OutOfRangeMode)UnityEditor.EditorGUILayout.EnumPopup("When Out Of Range", outOfRangeMode);
-			}
-			else
-			{
-				enumCase = (BBObjectParameter)EditorUtils.BBParameterField("Enum", enumCase, true);
+			base.OnNodeInspectorGUI();
+			if (selectionMode == CaseSelectionMode.EnumBased){
 				if (enumCase.value != null){
 					GUILayout.BeginVertical("box");
 					foreach (var s in System.Enum.GetNames(enumCase.value.GetType()) ){

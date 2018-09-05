@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace ParadoxNotion{
 
@@ -95,7 +96,6 @@ namespace ParadoxNotion{
 		    }
 
 			ParadoxNotion.Services.Logger.LogError(string.Format("Type with name '{0}' could not be resolved.", typeFullName), "Type Request");
-
             return typeMap[typeFullName] = null;
 		}
 
@@ -193,7 +193,7 @@ namespace ParadoxNotion{
 
         //uterly slow, but only happens when we have a null type
         static Type TryResolveDeserializeFromAttribute(string typeName){
-            var allTypes = GetAllTypes();
+            var allTypes = GetAllTypes(true);
             for (var i = 0; i < allTypes.Length; i++){
             	var t = allTypes[i];
             	var att = t.RTGetAttribute<Serialization.DeserializeFromAttribute>(false);
@@ -224,7 +224,7 @@ namespace ParadoxNotion{
 			}
 
             //check all types
-            var allTypes = GetAllTypes();
+            var allTypes = GetAllTypes(true);
             for (var i = 0; i < allTypes.Length; i++){
             	var t = allTypes[i];
             	if (t.Name == typeName && (fallbackAssignable == null || fallbackAssignable.RTIsAssignableFrom(t)) ){
@@ -237,7 +237,7 @@ namespace ParadoxNotion{
 
 		///Get every single type in loaded assemblies
 		private static Type[] _allTypes;
-		public static Type[] GetAllTypes(){
+		public static Type[] GetAllTypes(bool includeObsolete){
 			if (_allTypes != null){
 				return _allTypes;
 			}
@@ -245,10 +245,30 @@ namespace ParadoxNotion{
 			var result = new List<Type>();
 			for (var i = 0; i < loadedAssemblies.Length; i++){
 				var asm = loadedAssemblies[i];
-				try {result.AddRange(asm.RTGetExportedTypes());}
+				try {result.AddRange(asm.RTGetExportedTypes().Where(t => includeObsolete == true || !t.RTIsDefined<System.ObsoleteAttribute>(true) ) );}
 				catch { continue; }
 			}
-			return _allTypes = result.ToArray();
+			return _allTypes = result.OrderBy(t => t.FriendlyName()).OrderBy(t => t.Namespace).ToArray();
+		}
+
+		///Get a collection of types assignable to provided type, excluding Abstract types
+		private static Dictionary<Type, Type[]> _subTypesMap = new Dictionary<Type, Type[]>();
+		public static Type[] GetImplementationsOf(Type baseType){
+			
+			Type[] result = null;
+			if (_subTypesMap.TryGetValue(baseType, out result)){
+				return result;
+			}
+
+			var temp = new List<Type>();
+			var allTypes = GetAllTypes(false);
+			for (var i = 0; i < allTypes.Length; i++){
+				var type = allTypes[i];
+				if (baseType.RTIsAssignableFrom(type) && !type.RTIsAbstract()){
+					temp.Add(type);
+				}
+			}
+			return _subTypesMap[baseType] = temp.ToArray();
 		}
 
 		private static Type[] RTGetExportedTypes(this Assembly asm){
@@ -306,7 +326,7 @@ namespace ParadoxNotion{
 
 
 		//Method operator special name to friendly name map
-		public static Dictionary<string, string> op_FriendlyNamesLong = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+		public readonly static Dictionary<string, string> op_FriendlyNamesLong = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 		{
 			{"op_Equality", "Equal"},
 			{"op_Inequality", "Not Equal"},
@@ -337,7 +357,7 @@ namespace ParadoxNotion{
 		};
 
 		//Method operator special name to friendly name map
-		public static Dictionary<string, string> op_FriendlyNamesShort = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+		public readonly static Dictionary<string, string> op_FriendlyNamesShort = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 		{
 			{"op_Equality", "="},
 			{"op_Inequality", "≠"},
@@ -436,7 +456,7 @@ namespace ParadoxNotion{
         ///Get a friendly full signature string name for a method
 		private static Dictionary<MethodBase, string> cacheSignatures = new Dictionary<MethodBase, string>();
         public static string SignatureName(this MethodBase method){
-			string sig;
+			string sig = null;
 			if (cacheSignatures.TryGetValue(method, out sig)){
 				return sig;
 			}
@@ -444,26 +464,41 @@ namespace ParadoxNotion{
 			var specialType = MethodType.Normal;
 			var methodName = method.FriendlyName(out specialType);
 			var parameters = method.GetParameters();
-			string finalName = null;
 			if (method is ConstructorInfo){
-				finalName = string.Format("new {0} (", method.DeclaringType.FriendlyName());
+				sig = string.Format("new {0} (", method.DeclaringType.FriendlyName());
 			} else {
-				finalName = string.Format("{0}{1} (", method.IsStatic && specialType != MethodType.Operator? "static " : "", methodName);
+				sig = string.Format("{0}{1} (", method.IsStatic && specialType != MethodType.Operator? "static " : "", methodName);
 			}
 			for (var i = 0; i < parameters.Length; i++){
 				var p = parameters[i];
 				if (p.IsParams(parameters)){
-					finalName += "params ";
+					sig += "params ";
 				}
-				finalName += (p.ParameterType.IsByRef? (p.IsOut? "out " : "ref ") : "" ) + p.ParameterType.FriendlyName() + (i < parameters.Length - 1? ", " : "");
+				sig += (p.ParameterType.IsByRef? (p.IsOut? "out " : "ref ") : "" ) + p.ParameterType.FriendlyName() + (i < parameters.Length - 1? ", " : "");
 			}
 			if (method is MethodInfo){
-				finalName += ") : " + (method as MethodInfo).ReturnType.FriendlyName();
+				sig += ") : " + (method as MethodInfo).ReturnType.FriendlyName();
 			} else {
-				finalName += ")";
+				sig += ")";
 			}
-			return cacheSignatures[method] = finalName;
+			return cacheSignatures[method] = sig;
 		}
+
+		///Create object of type
+		public static object CreateObject(this Type type){
+			if (type == null) return null;
+			return Activator.CreateInstance(type);
+        }
+
+        ///Create uninitialized object of type
+		public static object CreateObjectUninitialized(this Type type){
+            if (type == null) return null;
+			#if NETFX_CORE
+			return Activator.CreateInstance(type);
+			#else
+            return FormatterServices.GetUninitializedObject(type);
+			#endif
+        }
 
 		public static Type RTReflectedType(this MemberInfo member){
 			#if NETFX_CORE
@@ -474,11 +509,11 @@ namespace ParadoxNotion{
 		}
 
 
-		public static bool RTIsAssignableFrom(this Type type, Type second){
+		public static bool RTIsAssignableFrom(this Type type, Type other){
 			#if NETFX_CORE
-			return type.GetTypeInfo().IsAssignableFrom(second.GetTypeInfo());
+			return type.GetTypeInfo().IsAssignableFrom(other.GetTypeInfo());
 			#else
-			return type.IsAssignableFrom(second);
+			return type.IsAssignableFrom(other);
 			#endif
 		}
 
@@ -571,8 +606,7 @@ namespace ParadoxNotion{
 			#endif
 		}
 
-	    public static ConstructorInfo RTGetConstructor(this Type type)
-	    {
+	    public static ConstructorInfo RTGetConstructor(this Type type){
             #if NETFX_CORE
             return type.GetTypeInfo().GetConstructors(flagsEverything).FirstOrDefault(info => info.GetParameters().Length == 0);
             #else
@@ -580,8 +614,7 @@ namespace ParadoxNotion{
             #endif
         }
 
-	    public static ConstructorInfo RTGetConstructor(this Type type, Type[] paramTypes)
-	    {
+	    public static ConstructorInfo RTGetConstructor(this Type type, Type[] paramTypes){
             #if NETFX_CORE
             return type.GetTypeInfo().GetConstructor(flagsEverything, null, paramTypes, null);
             #else
@@ -756,23 +789,6 @@ namespace ParadoxNotion{
 			}
 			return result.ToArray();
 		}
-
-		public static T[] RTGetAttributes<T>(this Type type, bool inherited) where T : Attribute{
-			#if NETFX_CORE
-			return (T[])type.GetTypeInfo().GetCustomAttributes(typeof(T), inherited);
-			#else
-			return (T[])type.GetCustomAttributes(typeof(T), inherited);
-			#endif						
-		}
-
-		public static T[] RTGetAttributes<T>(this MemberInfo member, bool inherited) where T : Attribute{
-			#if NETFX_CORE
-			return (T[])member.GetCustomAttributes(typeof(T), inherited);
-			#else
-			return (T[])member.GetCustomAttributes(typeof(T), inherited);
-			#endif			
-		}
-
 		//
 
 		public static Type RTMakeGenericType(this Type type, params Type[] typeArgs){
@@ -799,8 +815,7 @@ namespace ParadoxNotion{
 			#endif
         }
 
-		public static Type RTGetElementType(this Type type)
-	    {
+		public static Type RTGetElementType(this Type type){
 	        if (type == null) return null;
             #if NETFX_CORE
 			return type.GetTypeInfo().GetElementType();
@@ -809,8 +824,7 @@ namespace ParadoxNotion{
             #endif
 	    }
 
-		public static bool RTIsByRef(this Type type)
-	    {
+		public static bool RTIsByRef(this Type type){
 	        if (type == null) return false;
             #if NETFX_CORE
 			return type.GetTypeInfo().IsByRef;
@@ -829,7 +843,7 @@ namespace ParadoxNotion{
 			if (instance != null){
 				var instanceType = instance.GetType();
 				if (method.DeclaringType != instanceType){
-					method = instance.GetType().RTGetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray() );
+					method = instanceType.RTGetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray() );
 				}
 			}
 			#if NETFX_CORE
@@ -907,29 +921,27 @@ namespace ParadoxNotion{
 	    }
 
 
-		private static Dictionary<Type, List<MethodInfo>> _typeExtensions = new Dictionary<Type, List<MethodInfo>>();
+		private static Dictionary<Type, MethodInfo[]> _typeExtensions = new Dictionary<Type, MethodInfo[]>();
 		///Get a list of methods that extend the provided type
 		public static MethodInfo[] GetExtensionMethods(this Type targetType){
-			List<MethodInfo> methods = null;
+			MethodInfo[] methods = null;
 			if (_typeExtensions.TryGetValue(targetType, out methods)){
-				return methods.ToArray();
+				return methods;
 			}
-			methods = new List<MethodInfo>();
-			foreach (var t in GetAllTypes()){
-
+			var result = new List<MethodInfo>();
+			foreach (var t in GetAllTypes(false)){
 				if (!t.IsSealed || t.IsGenericType || !t.RTIsDefined<System.Runtime.CompilerServices.ExtensionAttribute>(false)){
 					continue;
 				}
 
 				foreach (var m in t.RTGetMethods()){
 					if ( m.IsExtensionMethod() && m.GetParameters()[0].ParameterType.RTIsAssignableFrom(targetType) ){
-						methods.Add(m);
+						result.Add(m);
 					}
 				}
 			}
 
-			_typeExtensions[targetType] = methods;
-			return methods.ToArray();
+			return _typeExtensions[targetType] = result.ToArray();
 		}
 
 		///Helper to determine if method is extension quicker.
@@ -1094,6 +1106,19 @@ namespace ParadoxNotion{
 			}
 			return result;
 	    }
+
+		///Resize array of arbitrary element type
+		public static System.Array Resize(this System.Array array, int newSize) {
+			if (array == null){ return null; }
+			var oldSize = array.Length;
+			var elementType = array.GetType().GetElementType();
+			var newArray = System.Array.CreateInstance(elementType, newSize);
+			var preserveLength = System.Math.Min(oldSize, newSize);
+			if (preserveLength > 0){
+				System.Array.Copy(array, newArray, preserveLength);
+			}
+			return newArray;
+		}
 
 		///----------------------------------------------------------------------------------------------
 

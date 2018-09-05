@@ -69,7 +69,10 @@ namespace I2.Loc
                 {
                     var term = match.Value.Substring(1, match.Value.Length - 2);
 
-                    mSelectedKeys.Add(term);
+                    if (!mSelectedKeys.Contains(term))
+                    {
+                        mSelectedKeys.Add(term);
+                    }
                 }
             }
             catch(System.Exception)
@@ -83,29 +86,34 @@ namespace I2.Loc
 		void BuildScriptWithSelectedTerms()
 		{
 			EditorApplication.update -= BuildScriptWithSelectedTerms;
-			var sb = new StringBuilder();
-			sb.AppendLine( "using UnityEngine;" );
-			sb.AppendLine();
-			sb.AppendLine( "namespace I2.Loc" );
-			sb.AppendLine( "{" );
-			sb.AppendLine( "	public static class ScriptLocalization" );
-			sb.AppendLine( "	{" );
-			sb.AppendLine( "		public static string Get(string Term, bool FixForRTL=true, int maxLineLengthForRTL=0, bool ignoreRTLnumbers=true, bool applyParameters=false, GameObject localParametersRoot=null, string overrideLanguage=null) { return LocalizationManager.GetTranslation(Term, FixForRTL, maxLineLengthForRTL, ignoreRTLnumbers, applyParameters, localParametersRoot, overrideLanguage); }" );
-			sb.AppendLine();
-
-			BuildScriptWithSelectedTerms( sb );
-
-			sb.AppendLine();
-			sb.AppendLine( "	}" );
-			sb.AppendLine( "}" );
+            var sbTrans = new StringBuilder();
+            var sbTerms = new StringBuilder();
+            sbTrans.AppendLine( "using UnityEngine;" );
+            sbTrans.AppendLine();
+            sbTrans.AppendLine( "namespace I2.Loc" );
+            sbTrans.AppendLine( "{" );
+            sbTrans.AppendLine( "	public static class ScriptLocalization" );
+            sbTrans.AppendLine( "	{" );
 
 
-			string ScriptFile = GetPathToGeneratedScriptLocalization ();
+            sbTerms.AppendLine();
+            sbTerms.AppendLine("    public static class ScriptTerms");
+            sbTerms.AppendLine("	{");
+
+
+
+            BuildScriptWithSelectedTerms( sbTrans, sbTerms );
+            sbTrans.AppendLine("	}");    // Closing both classes
+            sbTerms.AppendLine("	}");
+
+
+            string ScriptFile = GetPathToGeneratedScriptLocalization ();
 			Debug.Log ("Generating: " + ScriptFile);
 
             var filePath = Application.dataPath + ScriptFile.Substring("Assets".Length);
+            string fileText = sbTrans.ToString() + sbTerms.ToString() + "}";
 
-            System.IO.File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
+            System.IO.File.WriteAllText(filePath, fileText, Encoding.UTF8);
 
 			AssetDatabase.ImportAsset(ScriptFile);
 		}
@@ -127,7 +135,7 @@ namespace I2.Loc
 			return "Assets/ScriptLocalization.cs";
         }
 
-		void BuildScriptWithSelectedTerms( StringBuilder sb )
+		void BuildScriptWithSelectedTerms( StringBuilder sbTrans, StringBuilder sbTerms )
 		{
 			List<string> Categories = LocalizationManager.GetCategories();
 			foreach (string Category in Categories)
@@ -140,21 +148,26 @@ namespace I2.Loc
 				for (int i=0, imax=AdjustedCategoryTerms.Count; i<imax; ++i)
 					AdjustedCategoryTerms[i] = ScriptTool_AdjustTerm( AdjustedCategoryTerms[i] );
 				ScriptTool_EnumerateDuplicatedTerms(AdjustedCategoryTerms);
-				
-				sb.AppendLine();
+
+                sbTrans.AppendLine();
+                sbTerms.AppendLine();
+                if (Category != LanguageSource.EmptyCategory)
+				{
+                    sbTrans.AppendLine("		public static class " + ScriptTool_AdjustTerm(Category,true));
+                    sbTrans.AppendLine("		{");
+
+                    sbTerms.AppendLine("		public static class " + ScriptTool_AdjustTerm(Category, true));
+                    sbTerms.AppendLine("		{");
+                }
+
+                BuildScriptCategory( sbTrans, sbTerms, Category, AdjustedCategoryTerms, CategoryTerms );
+
 				if (Category != LanguageSource.EmptyCategory)
 				{
-					sb.AppendLine("		public static class " + ScriptTool_AdjustTerm(Category,true));
-					sb.AppendLine("		{");
-				}
-
-				BuildScriptCategory( sb, Category, AdjustedCategoryTerms, CategoryTerms );
-
-				if (Category != LanguageSource.EmptyCategory)
-				{
-					sb.AppendLine("		}");
-				}
-			}
+                    sbTrans.AppendLine("		}");
+                    sbTerms.AppendLine("		}");
+                }
+            }
 		}
 
 		List<string> ScriptTool_GetSelectedTermsInCategory( string Category )
@@ -172,17 +185,21 @@ namespace I2.Loc
 			return list;
 		}
 
-		void BuildScriptCategory( StringBuilder sb, string Category, List<string> AdjustedTerms, List<string> Terms )
+		void BuildScriptCategory( StringBuilder sbTrans, StringBuilder sbTerms, string Category, List<string> AdjustedTerms, List<string> Terms )
 		{
 			if (Category==LanguageSource.EmptyCategory)
 			{
-				for (int i=0; i<Terms.Count; ++i)
-					sb.AppendLine("		public static string "+AdjustedTerms[i]+" \t\t{ get{ return Get (\""+Terms[i]+"\"); } }");
-			}
+                for (int i = 0; i < Terms.Count; ++i)
+                {
+                    sbTrans.AppendLine( "		public static string " + AdjustedTerms[i] + " \t\t{ get{ return LocalizationManager.GetTranslation (\"" + Terms[i] + "\"); } }");
+                    sbTerms.AppendLine("		public const string " + AdjustedTerms[i] + " = \"" + Terms[i] + "\";");
+                }
+            }
 			else
 			for (int i=0; i<Terms.Count; ++i)
 			{
-				sb.AppendLine("			public static string "+AdjustedTerms[i]+" \t\t{ get{ return Get (\""+Category+"/"+Terms[i]+"\"); } }");
+				sbTrans.AppendLine("			public static string "+AdjustedTerms[i]+ " \t\t{ get{ return LocalizationManager.GetTranslation (\"" + Category+"/"+Terms[i]+"\"); } }");
+                sbTerms.AppendLine("		    public const string " + AdjustedTerms[i] + " = \"" + Category + "/" + Terms[i] + "\";");
 			}
 		}
 

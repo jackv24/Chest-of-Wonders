@@ -16,23 +16,31 @@ namespace I2.Loc
 
 		public bool UserAgreesToHaveItOnTheScene = false;
 		public bool UserAgreesToHaveItInsideThePluginsFolder = false;
+        public bool GoogleLiveSyncIsUptoDate = true;
 
-		#endregion
+        [NonSerialized] public bool mIsGlobalSource;
 
-		#region EditorVariables
+        #endregion
+
+        #region EditorVariables
 #if UNITY_EDITOR
 
-		public string Spreadsheet_LocalFileName;
+        public string Spreadsheet_LocalFileName;
 		public string Spreadsheet_LocalCSVSeparator = ",";
-		public string Spreadsheet_LocalCSVEncoding = "utf-8";
+        public string Spreadsheet_LocalCSVEncoding = "utf-8";
+        public bool Spreadsheet_SpecializationAsRows = true;
 
-		#endif
-		#endregion
+#endif
+        #endregion
 
-		#region Language
+        #region Language
 
-		void Awake()
+        void Awake()
 		{
+            #if UNITY_EDITOR
+            if (UnityEditor.BuildPipeline.isBuildingPlayer)
+                return;
+            #endif
             NeverDestroy = false;
 
             if (NeverDestroy)
@@ -114,6 +122,11 @@ namespace I2.Loc
 			mDictionary.Clear();
             mAssetDictionary.Clear();
 		}
+
+        public bool IsGlobalSource()
+        {
+            return mIsGlobalSource;
+        }
 
 		#endregion
 	}

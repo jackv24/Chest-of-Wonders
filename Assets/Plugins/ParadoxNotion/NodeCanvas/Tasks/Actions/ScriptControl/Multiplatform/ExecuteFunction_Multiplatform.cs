@@ -34,22 +34,30 @@ namespace NodeCanvas.Tasks.Actions{
 		}
 
 		public override System.Type agentType{
-			get {return targetMethod != null? targetMethod.RTReflectedType() : typeof(Transform);}
+			get
+			{
+				if (targetMethod == null){ return typeof(Transform); }
+				return targetMethod.IsStatic? null : targetMethod.RTReflectedType();
+			}
 		}
 
 		protected override string info{
 			get
 			{
-				if (method == null)
+				if (method == null){
 					return "No Method Selected";
-				if (targetMethod == null)
+				}
+				if (targetMethod == null){
 					return string.Format("<color=#ff6457>* {0} *</color>", method.GetMethodString() );
+				}
 
 				var returnInfo = targetMethod.ReturnType == typeof(void) || targetMethod.ReturnType == typeof(IEnumerator)? "" : returnValue.ToString() + " = ";
 				var paramInfo = "";
-				for (var i = 0; i < parameters.Count; i++)
+				for (var i = 0; i < parameters.Count; i++){
 					paramInfo += (i != 0? ", " : "") + parameters[i].ToString();
-				return string.Format("{0}{1}.{2}({3})", returnInfo, agentInfo, targetMethod.Name, paramInfo );
+				}
+				var mInfo = targetMethod.IsStatic? targetMethod.RTReflectedType().FriendlyName() : agentInfo;
+				return string.Format("{0}{1}.{2}({3})", returnInfo, mInfo, targetMethod.Name, paramInfo );
 			}
 		}
 
@@ -90,12 +98,13 @@ namespace NodeCanvas.Tasks.Actions{
 				args[i] = parameters[i].value;
 			}			
 
+			var instance = targetMethod.IsStatic? null : agent;
 			if (targetMethod.ReturnType == typeof(IEnumerator)){
-				StartCoroutine( InternalCoroutine( (IEnumerator)targetMethod.Invoke(agent, args) ));
+				StartCoroutine( InternalCoroutine( (IEnumerator)targetMethod.Invoke(instance, args) ));
 				return;
 			}
 
-			returnValue.value = targetMethod.Invoke(agent, args);
+			returnValue.value = targetMethod.Invoke(instance, args);
 
 			for (var i = 0; i < parameters.Count; i++){
 				if (parameterIsByRef[i]){
@@ -115,8 +124,9 @@ namespace NodeCanvas.Tasks.Actions{
 		IEnumerator InternalCoroutine(IEnumerator routine){
 			routineRunning = true;
 			while(routineRunning && routine.MoveNext()){
-				if (routineRunning == false)
+				if (routineRunning == false){
 					yield break;
+				}
 				yield return routine.Current;
 			}
 
@@ -152,9 +162,8 @@ namespace NodeCanvas.Tasks.Actions{
 		}
 
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
 		
 		protected override void OnTaskInspectorGUI(){
@@ -164,13 +173,16 @@ namespace NodeCanvas.Tasks.Actions{
 				var menu = new UnityEditor.GenericMenu();
 				if (agent != null){
 					foreach(var comp in agent.GetComponents(typeof(Component)).Where(c => c.hideFlags != HideFlags.HideInInspector) ){
-						menu = EditorUtils.GetMethodSelectionMenu(comp.GetType(), typeof(object), typeof(object), SetMethod, 10, false, false, menu);
+						menu = EditorUtils.GetInstanceMethodSelectionMenu(comp.GetType(), typeof(object), typeof(object), SetMethod, 10, false, false, menu);
 					}
 					menu.AddSeparator("/");
 				}
 
-				foreach (var t in UserTypePrefs.GetPreferedTypesList(typeof(Component))){
-					menu = EditorUtils.GetMethodSelectionMenu(t, typeof(object), typeof(object), SetMethod, 10, false, false, menu);
+				foreach (var t in UserTypePrefs.GetPreferedTypesList(typeof(object))){
+					menu = EditorUtils.GetStaticMethodSelectionMenu(t, typeof(object), typeof(object), SetMethod, 10, false, false, menu);
+					if (typeof(UnityEngine.Object).IsAssignableFrom(t)){
+						menu = EditorUtils.GetInstanceMethodSelectionMenu(t, typeof(object), typeof(object), SetMethod, 10, false, false, menu);
+					}
 				}
 				if ( NodeCanvas.Editor.NCPrefs.useBrowser){ menu.ShowAsBrowser("Select Method", this.GetType()); }
 				else { menu.ShowAsContext(); }
@@ -180,23 +192,23 @@ namespace NodeCanvas.Tasks.Actions{
 
 			if (targetMethod != null){
 				GUILayout.BeginVertical("box");
-				UnityEditor.EditorGUILayout.LabelField("Type", agentType.FriendlyName());
+				UnityEditor.EditorGUILayout.LabelField("Type", targetMethod.RTReflectedType().FriendlyName());
 				UnityEditor.EditorGUILayout.LabelField("Method", targetMethod.Name);
 				UnityEditor.EditorGUILayout.LabelField("Returns", targetMethod.ReturnType.FriendlyName());
 
-				if (targetMethod.ReturnType == typeof(IEnumerator))
-					GUILayout.Label("<b>This will execute as a Coroutine</b>");
+				if (targetMethod.ReturnType == typeof(IEnumerator)){
+					GUILayout.Label("<b>This will execute as a Coroutine!</b>");
+				}
 
 				GUILayout.EndVertical();
 
-
 				var paramNames = targetMethod.GetParameters().Select(p => p.Name.SplitCamelCase() ).ToArray();
 				for (var i = 0; i < paramNames.Length; i++){
-					EditorUtils.BBParameterField(paramNames[i], parameters[i]);
+					NodeCanvas.Editor.BBParameterEditor.ParameterField(paramNames[i], parameters[i]);
 				}
 
 				if (targetMethod.ReturnType != typeof(void) && targetMethod.ReturnType != typeof(IEnumerator)){
-					EditorUtils.BBParameterField("Save Return Value", returnValue, true);
+					NodeCanvas.Editor.BBParameterEditor.ParameterField("Save Return Value", returnValue, true);
 				}
 			}
 		}

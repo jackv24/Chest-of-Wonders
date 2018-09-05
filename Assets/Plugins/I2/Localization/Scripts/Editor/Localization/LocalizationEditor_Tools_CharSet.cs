@@ -133,7 +133,8 @@ namespace I2.Loc
 					AppendToCharSet( sb, termData.Languages[iLanguage], isRTL );
 				}
 			}
-			mCharSet = new string(sb.ToArray().OrderBy(c=>c).ToArray ());
+            var bytes = System.Text.Encoding.UTF8.GetBytes( sb.ToArray().OrderBy(c => c).ToArray() );
+            mCharSet = System.Text.Encoding.UTF8.GetString(bytes);
 		}
 
 		void AppendToCharSet( HashSet<char> sb, string text, bool isRTL )
@@ -173,7 +174,7 @@ namespace I2.Loc
                 if (idx2 < 0)
                     break;
 
-                text = text.Remove(idx, idx2 - idx);
+                text = text.Remove(idx, idx2 - idx+1);
             }
             return text;
 

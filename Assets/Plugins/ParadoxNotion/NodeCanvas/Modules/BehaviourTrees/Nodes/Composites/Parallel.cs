@@ -7,8 +7,9 @@ using UnityEngine;
 
 namespace NodeCanvas.BehaviourTrees{
 
+	[Name("Parallel", 8)]
 	[Category("Composites")]
-	[Description("Execute all child nodes once but simultaneously and return Success or Failure depending on the selected ParallelPolicy.\nIf set to Dynamic, child nodes are repeated until the Policy set is met, or until all children have had a chance to complete at least once.")]
+	[Description("Execute all child nodes once but simultaneously and return Success or Failure depending on the selected ParallelPolicy.\nIf set to Repeat, child nodes are repeated until the Policy set is met, or until all children have had a chance to complete at least once.")]
 	[Icon("Parallel")]
 	[Color("ff64cb")]
 	public class Parallel : BTComposite{
@@ -21,6 +22,7 @@ namespace NodeCanvas.BehaviourTrees{
 		}
 
 		public ParallelPolicy policy = ParallelPolicy.FirstFailure;
+		[Name("Repeat")]
 		public bool dynamic;
 
 		private readonly List<Connection> finishedConnections = new List<Connection>();
@@ -96,7 +98,7 @@ namespace NodeCanvas.BehaviourTrees{
 		#if UNITY_EDITOR
 		
 		protected override void OnNodeGUI(){
-			GUILayout.Label( (dynamic? "<b>DYNAMIC</b>\n" : "") + policy.ToString().SplitCamelCase() );
+			GUILayout.Label( (dynamic? "<b>REPEAT</b>\n" : "") + policy.ToString().SplitCamelCase() );
 		}
 
 		#endif

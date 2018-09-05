@@ -93,7 +93,7 @@ namespace NodeCanvas.StateMachines{
 		protected override void OnNodeInspectorGUI(){
 
 			ShowBaseFSMInspectorGUI();
-			EditorUtils.BBParameterField("FSM", _nestedFSM);
+			NodeCanvas.Editor.BBParameterEditor.ParameterField("FSM", _nestedFSM);
 			
 			if (nestedFSM == this.FSM){
 				Debug.LogWarning("Nested FSM can't be itself!");
@@ -119,7 +119,7 @@ namespace NodeCanvas.StateMachines{
 			    	}
 		    	}
 		    	if (GUILayout.Button("Check/Create Blackboard Variables")){
-		    		nestedFSM.CreateDefinedParameterVariables(graphBlackboard);
+		    		nestedFSM.PromoteDefinedParametersToVariables(graphBlackboard);
 		    	}
 		    }
 		}

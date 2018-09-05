@@ -42,13 +42,16 @@ namespace I2.Loc
 
         [SerializeField] private string[] Languages_Touch = null;      // TO BE REMOVED IN A FUTURE RELEASE
 
-        public string GetTranslation ( int idx, string specialization=null )
+        public string GetTranslation ( int idx, string specialization=null, bool editMode=false )
 		{
             string text = Languages[idx];
             if (text != null)
             {
                 text = SpecializationManager.GetSpecializedText(text, specialization);
-                text = text.Replace("[i2nt]", "").Replace("[/i2nt]", "");
+                if (!editMode)
+                {
+                    text = text.Replace("[i2nt]", "").Replace("[/i2nt]", "");
+                }
             }
             return text;
 		}
@@ -85,20 +88,22 @@ namespace I2.Loc
 
 		public void Validate ()
 		{
-			int nLanguages = Mathf.Max(Languages.Length, 
-							 Mathf.Max(Languages_Touch.Length, Flags.Length));
+			int nLanguages = Mathf.Max(Languages.Length, Flags.Length);
 
 			if (Languages.Length != nLanguages) 		Array.Resize(ref Languages, nLanguages);
-			if (Languages_Touch.Length != nLanguages) 	Array.Resize(ref Languages_Touch, nLanguages);
 			if (Flags.Length!=nLanguages) 				Array.Resize(ref Flags, nLanguages);
 
-            for (int i = 0; i < nLanguages; ++i)
+            if (Languages_Touch != null)
             {
-                if (string.IsNullOrEmpty(Languages[i]) && !string.IsNullOrEmpty(Languages_Touch[i]))
+                for (int i = 0; i < Mathf.Min(Languages_Touch.Length, nLanguages); ++i)
                 {
-                    Languages[i] = Languages_Touch[i];
-                    Languages_Touch[i] = null;
+                    if (string.IsNullOrEmpty(Languages[i]) && !string.IsNullOrEmpty(Languages_Touch[i]))
+                    {
+                        Languages[i] = Languages_Touch[i];
+                        Languages_Touch[i] = null;
+                    }
                 }
+                Languages_Touch = null;
             }
         }
         

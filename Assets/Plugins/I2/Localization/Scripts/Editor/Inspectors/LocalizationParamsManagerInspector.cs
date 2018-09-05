@@ -92,7 +92,7 @@ namespace I2.Loc
             GUILayout.Space(5);
             mList.DoLayoutList();
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("_AutoRegister"), new GUIContent("Auto Register"));
+            //EditorGUILayout.PropertyField(serializedObject.FindProperty("_AutoRegister"), new GUIContent("Auto Register"));
 
             GUILayout.EndVertical();
             serializedObject.ApplyModifiedProperties();

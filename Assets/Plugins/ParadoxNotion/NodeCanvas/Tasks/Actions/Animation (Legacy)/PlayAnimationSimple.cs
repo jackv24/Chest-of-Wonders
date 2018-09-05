@@ -31,7 +31,8 @@ namespace NodeCanvas.Tasks.Actions{
 
 		protected override void OnExecute(){
 
-			if (lastPlayedClips.ContainsKey(agent) && lastPlayedClips[agent] == animationClip.value){
+			AnimationClip last = null;
+			if (lastPlayedClips.TryGetValue(agent, out last) && last == animationClip.value){
 				EndAction(true);
 				return;
 			}

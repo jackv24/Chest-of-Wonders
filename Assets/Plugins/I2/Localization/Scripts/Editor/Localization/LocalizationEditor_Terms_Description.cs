@@ -263,6 +263,7 @@ namespace I2.Loc
                 {
                     var langIdx = i;
                     var term = termdata;
+                    var i2source = source;
                     Translate(mainText, ref termdata, source.mLanguages[i].Code,
                                 (translation, error) =>
                                 {
@@ -272,6 +273,9 @@ namespace I2.Loc
                                     if (translation != null)
                                     {
                                         term.Languages[langIdx] = translation; //SetTranslation(langIdx, translation);
+                                        #if UNITY_EDITOR
+                                            UnityEditor.EditorUtility.SetDirty(i2source);
+                                        #endif
                                     }
                                 }, null);
                 }
@@ -380,7 +384,7 @@ namespace I2.Loc
 					forcePreview = true;
 
 
-				string Translation = termdata.GetTranslation(i, GUI_SelectedSpecialization);
+				string Translation = termdata.GetTranslation(i, GUI_SelectedSpecialization, editMode:true);
                 if (Translation == null) Translation = string.Empty;
 
 //				if (termdata.Languages[i] != termdata.Languages_Touch[i] && !string.IsNullOrEmpty(termdata.Languages[i]) && !string.IsNullOrEmpty(termdata.Languages_Touch[i]))
@@ -398,10 +402,11 @@ namespace I2.Loc
 					{
                         termdata.SetTranslation(i, Translation, GUI_SelectedSpecialization);
 						EditorUtility.SetDirty(source);
-					}
+                        forcePreview = true;
+                    }
 
 					if (localizeCmp!=null &&
-						(forcePreview || GUI.changed || (GUI.GetNameOfFocusedControl()==CtrName && IsSelect)))
+						(forcePreview || /*GUI.changed || */(GUI.GetNameOfFocusedControl()==CtrName && IsSelect)))
 					{
 						if (IsPrimaryKey && string.IsNullOrEmpty(localizeCmp.Term))
 						{
@@ -527,7 +532,14 @@ namespace I2.Loc
                         if (NewObj != null)
                         {
                             sPath = AssetDatabase.GetAssetPath(NewObj);
-                            AddObjectPath(ref sPath, localizeCmp, NewObj);
+
+                            mCurrentInspector.serializedObject.ApplyModifiedProperties();
+                            foreach (var cmp in mCurrentInspector.serializedObject.targetObjects)
+                            {
+                                AddObjectPath(ref sPath, cmp as Localize, NewObj);
+                            }
+                            mCurrentInspector.serializedObject.ApplyModifiedProperties();
+
                             if (HasObjectInReferences(NewObj, localizeCmp))
                                 sPath = NewObj.name;
                             else
@@ -566,7 +578,14 @@ namespace I2.Loc
             var term = termdata;
             var specialization = GUI_SelectedSpecialization;
             var langIdx = i;
-            Translate(sourceText, ref termdata, source.mLanguages[i].Code, (translation, error) => { term.SetTranslation(langIdx, translation, specialization); }, specialization);
+            var i2source = source;
+            Translate(sourceText, ref termdata, source.mLanguages[i].Code, (translation, error) => 
+            {
+                term.SetTranslation(langIdx, translation, specialization);
+                #if UNITY_EDITOR
+                    UnityEditor.EditorUtility.SetDirty(i2source);
+                #endif
+            }, specialization);
         }
 
         static void EditPluralTranslations( ref string translation, int langIdx, string langCode )
@@ -743,7 +762,7 @@ namespace I2.Loc
             {
                 if (mLanguageSource.mLanguages[i].IsEnabled() && !string.IsNullOrEmpty(termdata.Languages[i]))
                 {
-                    sourceText = forceSpecialization==null ? termdata.Languages[i] : termdata.GetTranslation(i, forceSpecialization);
+                    sourceText = forceSpecialization==null ? termdata.Languages[i] : termdata.GetTranslation(i, forceSpecialization, editMode:true);
                     if (mLanguageSource.mLanguages[i].Code != TargetLanguageCode)
                     {
                         sourceLanguageCode = mLanguageSource.mLanguages[i].Code;

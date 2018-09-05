@@ -1,59 +1,38 @@
 using ParadoxNotion;
 using NodeCanvas.Framework;
-
+using System.Linq;
 
 namespace NodeCanvas.BehaviourTrees{
 
-	/// <summary>
 	/// Base class for BehaviourTree Decorator nodes.
-	/// </summary>
 	abstract public class BTDecorator : BTNode{
 
 		sealed public override int maxOutConnections{ get{return 1;}}
 		sealed public override Alignment2x2 commentsAlignment{ get{return Alignment2x2.Right;}}
 
-		///The decorated connection object
+		///The decorated connection element
 		protected Connection decoratedConnection{
-			get
-			{
-				try { return outConnections[0]; }
-				catch {return null;}
-			}
+			get {return outConnections.Count > 0? outConnections[0] : null;}
 		}
 
-		///The decorated node object
+		///The decorated node element
 		protected Node decoratedNode{
 			get
 			{
-				try {return outConnections[0].targetNode;}
-				catch {return null;}
+				var c = decoratedConnection;
+				return c != null? c.targetNode : null;
 			}
 		}
 
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
 			
 		protected override UnityEditor.GenericMenu OnContextMenu(UnityEditor.GenericMenu menu){
 			menu = base.OnContextMenu(menu);
-			menu = ParadoxNotion.Design.EditorUtils.GetTypeSelectionMenu(typeof(BTDecorator), (t)=>{ ReplaceWith(t); }, menu, "Replace");
+			menu = ParadoxNotion.Design.EditorUtils.GetTypeSelectionMenu(typeof(BTDecorator), (t)=>{ this.ReplaceWith(t); }, menu, "Replace");
 			return menu;
-		}		
-
-		void ReplaceWith(System.Type t){
-			var newNode = graph.AddNode(t, this.nodePosition);
-			foreach(var c in inConnections.ToArray()){
-				c.SetTarget(newNode);
-			}
-			foreach(var c in outConnections.ToArray()){
-				c.SetSource(newNode);
-			}
-			if (graph.primeNode == this){
-				graph.primeNode = newNode;
-			}
-			graph.RemoveNode(this);
 		}		
 
 		#endif

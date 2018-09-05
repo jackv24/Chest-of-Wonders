@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -13,21 +14,104 @@ namespace ParadoxNotion.Design{
     /// Specific Editor GUIs
 	partial class EditorUtils {
 
-        private static readonly Dictionary<object, bool> registeredEditorFoldouts = new Dictionary<object, bool>();
+        private static Texture2D _tex;
+        private static Texture2D tex
+        {
+            get
+            {
+                if (_tex == null){
+                    _tex = new Texture2D(1, 1);
+                    _tex.hideFlags = HideFlags.HideAndDontSave;
+                }
+                return _tex;
+            }
+        }
 
-        public static LayerMask LayerMaskField(string prefix, LayerMask layerMask, params GUILayoutOption[] layoutOptions){
+		///A cool label :-P (for headers)
+		public static void CoolLabel(string text){
+			GUI.skin.label.richText = true;
+			GUI.color = Colors.lightOrange;
+			GUILayout.Label("<b><size=14>" + text + "</size></b>");
+			GUI.color = Color.white;
+			GUILayout.Space(2);
+		}
+
+		///Combines the rest functions for a header style label
+		public static void TitledSeparator(string title){
+			GUILayout.Space(1);
+			BoldSeparator();
+			CoolLabel(title + " ▼");
+			Separator();
+		}
+
+		///A thin separator
+		public static void Separator(){
+			var lastRect = GUILayoutUtility.GetLastRect();
+			GUILayout.Space(7);
+			GUI.color = new Color(0, 0, 0, 0.3f);
+			GUI.DrawTexture(Rect.MinMaxRect(lastRect.xMin, lastRect.yMax + 4, lastRect.xMax, lastRect.yMax + 6), tex);
+			GUI.color = Color.white;
+		}
+
+		///A thick separator similar to ngui. Thanks
+		public static void BoldSeparator(){
+			var lastRect = GUILayoutUtility.GetLastRect();
+			GUILayout.Space(14);
+			GUI.color = new Color(0, 0, 0, 0.3f);
+			GUI.DrawTexture(new Rect(0, lastRect.yMax + 6, Screen.width, 4), tex);
+			GUI.DrawTexture(new Rect(0, lastRect.yMax + 6, Screen.width, 1), tex);
+			GUI.DrawTexture(new Rect(0, lastRect.yMax + 9, Screen.width, 1), tex);
+			GUI.color = Color.white;
+		}
+
+		///Just a fancy ending for inspectors
+		public static void EndOfInspector(){
+			var lastRect= GUILayoutUtility.GetLastRect();
+			GUILayout.Space(8);
+			GUI.color = new Color(0, 0, 0, 0.4f);
+			GUI.DrawTexture(new Rect(0, lastRect.yMax + 6, Screen.width, 4), tex);
+			GUI.DrawTexture(new Rect(0, lastRect.yMax + 4, Screen.width, 1), tex);
+			GUI.color = Color.white;
+		}
+
+		///A Search Field
+		public static string SearchField(string search){
+			GUILayout.BeginHorizontal();
+			search = EditorGUILayout.TextField(search, Styles.toolbarSearchTextField);
+			if (GUILayout.Button(string.Empty, Styles.toolbarSearchCancelButton)){
+				search = string.Empty;
+				GUIUtility.keyboardControl = 0;
+			}
+			GUILayout.EndHorizontal();
+			return search;
+		}
+
+		///Used just after a textfield with no prefix to show an italic transparent text inside when empty
+		public static void TextFieldComment(string check, string comment = "Comments..."){
+			if (string.IsNullOrEmpty(check)){
+				var lastRect = GUILayoutUtility.GetLastRect();
+				GUI.color = new Color(1,1,1,0.3f);
+				GUI.Label(lastRect, " <i>" + comment + "</i>");
+				GUI.color = Color.white;
+			}
+		}
+
+        ///Editor for LayerMask
+		public static LayerMask LayerMaskField(string prefix, LayerMask layerMask, params GUILayoutOption[] layoutOptions){
         	return LayerMaskField( string.IsNullOrEmpty(prefix)? GUIContent.none : new GUIContent(prefix), layerMask, layoutOptions );
         }
+
+		///Editor for LayerMask
 		public static LayerMask LayerMaskField(GUIContent content, LayerMask layerMask, params GUILayoutOption[] layoutOptions){
 		    var layers = UnityEditorInternal.InternalEditorUtility.layers;
 		    var layerNumbers = new List<int>();
 		 
-		    for (int i = 0; i < layers.Length; i++){
+		    for (var i = 0; i < layers.Length; i++){
 				layerNumbers.Add(LayerMask.NameToLayer(layers[i]));
 			}
 		 
 		    var maskWithoutEmpty = 0;
-		    for (int i = 0; i < layerNumbers.Count; i++) {
+		    for (var i = 0; i < layerNumbers.Count; i++) {
 		    	if (((1 << layerNumbers[i]) & layerMask.value) > 0){
 		            maskWithoutEmpty |= (1 << i);
 		        }
@@ -36,7 +120,7 @@ namespace ParadoxNotion.Design{
 			maskWithoutEmpty = UnityEditor.EditorGUILayout.MaskField(content, maskWithoutEmpty, layers, layoutOptions);
 
 		    var mask = 0;
-		    for (int i = 0; i < layerNumbers.Count; i++){
+		    for (var i = 0; i < layerNumbers.Count; i++){
 		        if ((maskWithoutEmpty & (1 << i)) > 0){
 		            mask |= (1 << layerNumbers[i]);
 		        }
@@ -45,122 +129,68 @@ namespace ParadoxNotion.Design{
 		    return layerMask;
 		}
 
-		//An IList editor (List<T> and Arrays)
-		public static IList ListEditor(string prefix, IList list, Type listType, object contextInstance){
-			return ListEditor(new GUIContent(prefix), list, listType, contextInstance);
+
+        ///Stores fold states
+		private static readonly Dictionary<object, bool> registeredEditorFoldouts = new Dictionary<object, bool>();
+		
+		///Do a cached editor Foldout based on provided key object
+		public static bool CachedFoldout(object key, GUIContent content){
+			var foldout = false;
+			registeredEditorFoldouts.TryGetValue(key, out foldout);
+			foldout = EditorGUILayout.Foldout(foldout, content);
+			return registeredEditorFoldouts[key] = foldout;
 		}
-		public static IList ListEditor(GUIContent content, IList list, Type listType, object contextInstance){
+
+		///An IList editor (List<T> and Arrays)
+		public static IList ListEditor(GUIContent content, IList list, Type listType, FieldInfo field = null, object context = null, object[] attributes = null){
 
 			var argType = listType.GetEnumerableElementType();
 			if (argType == null){
 				return list;
 			}
 
-			//register foldout
-			if (!registeredEditorFoldouts.ContainsKey(list)){
-				registeredEditorFoldouts[list] = false;
+			if (object.Equals(list, null)){
+				GUILayout.Label("Null List");
+				return list;
+			}
+
+			if (!CachedFoldout(list, content)){
+				return list;
 			}
 
 			GUILayout.BeginVertical();
-
-			var foldout = registeredEditorFoldouts[list];
-			foldout = EditorGUILayout.Foldout(foldout, content);
-			registeredEditorFoldouts[list] = foldout;
-
-			if (!foldout){
-				GUILayout.EndVertical();
-				return list;
-			}
-
-			if (list.Equals(null)){
-				GUILayout.Label("Null List");
-				GUILayout.EndVertical();
-				return list;
-			}
-
-			if (GUILayout.Button("Add Element")){
-				
-				if (listType.IsArray){
-				
-					list = ResizeArray( (Array)list, list.Count + 1);
-					registeredEditorFoldouts[list] = true;
-				
-				} else {
-
-					var o = argType.IsValueType? Activator.CreateInstance(argType) : null;
-					list.Add(o);
-				}
-			}
-
 			EditorGUI.indentLevel ++;
 
-			EditorUtils.ReorderableList(list, (i, r) =>
+			var options = new ReorderableListOptions();
+			options.allowAdd = true;
+			options.allowRemove = true;
+			list = EditorUtils.ReorderableList(list, options, (i, r) =>
 			{
-				GUILayout.BeginHorizontal();
-				list[i] = GenericField("Element " + i, list[i], argType, null);
-				if (GUILayout.Button("X", GUILayout.Width(18))){
-					
-					if (listType.IsArray){
-						
-						list = ResizeArray( (Array)list, list.Count - 1 );
-						registeredEditorFoldouts[list] = true;
-
-					} else{
-
-						list.RemoveAt(i);
-					}
-				}
-				GUILayout.EndHorizontal();				
+				list[i] = ReflectedFieldInspector("Element " + i, list[i], argType, field, context, attributes);
 			});
 
 			EditorGUI.indentLevel --;
 			Separator();
-
 			GUILayout.EndVertical();
 			return list;
 		}
 
-		static System.Array ResizeArray (System.Array oldArray, int newSize) {
-			int oldSize = oldArray.Length;
-			System.Type elementType = oldArray.GetType().GetElementType();
-			System.Array newArray = System.Array.CreateInstance(elementType,newSize);
-			int preserveLength = System.Math.Min(oldSize,newSize);
-			if (preserveLength > 0){
-				System.Array.Copy (oldArray,newArray,preserveLength);
-			}
-			return newArray;
-		}
-
-		//A dictionary editor
-		public static IDictionary DictionaryEditor(string prefix, IDictionary dict, Type dictType, object contextInstance){
-			return DictionaryEditor(new GUIContent(prefix), dict, dictType, contextInstance);
-		}
-		public static IDictionary DictionaryEditor(GUIContent content, IDictionary dict, Type dictType, object contextInstance){
+		///A IDictionary editor
+		public static IDictionary DictionaryEditor(GUIContent content, IDictionary dict, Type dictType, FieldInfo field = null, object context = null, object[] attributes = null){
 
 			var keyType = dictType.GetGenericArguments()[0];
 			var valueType = dictType.GetGenericArguments()[1];
 
-			//register foldout
-			if (!registeredEditorFoldouts.ContainsKey(dict)){
-				registeredEditorFoldouts[dict] = false;
+			if (object.Equals(dict, null)){
+				GUILayout.Label("Null Dictionary");
+				return dict;
+			}
+
+			if (!CachedFoldout(dict, content)){
+				return dict;
 			}
 
 			GUILayout.BeginVertical();
-
-			var foldout = registeredEditorFoldouts[dict];
-			foldout = EditorGUILayout.Foldout(foldout, content);
-			registeredEditorFoldouts[dict] = foldout;
-
-			if (!foldout){
-				GUILayout.EndVertical();
-				return dict;
-			}
-
-			if (dict.Equals(null)){
-				GUILayout.Label("Null Dictionary");
-				GUILayout.EndVertical();
-				return dict;
-			}
 
 			var keys = dict.Keys.Cast<object>().ToList();
 			var values = dict.Values.Cast<object>().ToList();
@@ -168,9 +198,12 @@ namespace ParadoxNotion.Design{
 			if (GUILayout.Button("Add Element")) {
 			    if (!typeof(UnityObject).IsAssignableFrom(keyType)){
 					object newKey = null;
-					if (keyType == typeof(string))
+					if (keyType == typeof(string)){
 						newKey = string.Empty;
-					else newKey = Activator.CreateInstance(keyType);
+					} else {
+						newKey = Activator.CreateInstance(keyType);
+					}
+
 					if (dict.Contains(newKey)){
 						Debug.LogWarning(string.Format("Key '{0}' already exists in Dictionary", newKey.ToString()));
 						return dict;
@@ -192,10 +225,10 @@ namespace ParadoxNotion.Design{
 			for (var i = 0; i < keys.Count; i++){
 				GUILayout.BeginHorizontal("box");
 				GUILayout.Box("", GUILayout.Width(6), GUILayout.Height(35));
-				GUILayout.BeginVertical();
 
-				keys[i] = GenericField("K:", keys[i], keyType, null);
-				values[i] = GenericField("V:", values[i], valueType, null);
+				GUILayout.BeginVertical();
+				keys[i] = ReflectedFieldInspector("K:", keys[i], keyType, field, context, attributes);
+				values[i] = ReflectedFieldInspector("V:", values[i], valueType, field, context, attributes);
 				GUILayout.EndVertical();
 
 				if (GUILayout.Button("X", GUILayout.Width(18), GUILayout.Height(34) ) ){
@@ -216,11 +249,14 @@ namespace ParadoxNotion.Design{
 		}
 
 
-		//An editor field where if the component is null simply shows an object field, but if its not, shows a dropdown popup to select the specific component
-		//from within the gameobject
+		///An editor field where if the component is null simply shows an object field, but if its not, shows a dropdown popup to select the specific component
+		///from within the gameobject
 		public static Component ComponentField(string prefix, Component comp, Type type, bool allowNone = true){
 			return ComponentField( string.IsNullOrEmpty(prefix)? GUIContent.none : new GUIContent(prefix), comp, type, allowNone );
 		}
+
+		///An editor field where if the component is null simply shows an object field, but if its not, shows a dropdown popup to select the specific component
+		///from within the gameobject
 		public static Component ComponentField(GUIContent content, Component comp, Type type, bool allowNone = true){
 
 			if (comp == null){
@@ -228,38 +264,36 @@ namespace ParadoxNotion.Design{
 				return comp;
 			}
 
-			var allComp = new List<Component>(comp.GetComponents(type));
-			var compNames = new List<string>();
-
-			foreach (var c in allComp.ToArray()){
-				if (c == null) continue;
-				compNames.Add(c.GetType().FriendlyName() + " (" + c.gameObject.name + ")");
-			}
+			var components = comp.GetComponents(type).ToList();
+			var componentNames = components.Where(c => c != null).Select(c => c.GetType().FriendlyName() + " (" + c.gameObject.name + ")" ).ToList();
 
 			if (allowNone){
-				compNames.Add("|NONE|");
+				componentNames.Add("|NONE|");
 			}
 
 			int index;
-			var contentOptions = compNames.Select( n => new GUIContent(n) ).ToArray();
-			index = EditorGUILayout.Popup(content, allComp.IndexOf(comp), contentOptions, GUILayout.ExpandWidth(true));
+			var contentOptions = componentNames.Select( n => new GUIContent(n) ).ToArray();
+			index = EditorGUILayout.Popup(content, components.IndexOf(comp), contentOptions, GUILayout.ExpandWidth(true));
 			
-			if (allowNone && index == compNames.Count - 1){
+			if (allowNone && index == componentNames.Count - 1){
 				return null;
 			}
 
-			return allComp[index];
+			return components[index];
 		}
 
-
+		
+		///A popup that is based on the string rather than the index
 		public static string StringPopup(string selected, List<string> options, bool showWarning = true, bool allowNone = false, params GUILayoutOption[] GUIOptions){
 			return StringPopup(string.Empty, selected, options, showWarning, allowNone, GUIOptions);
 		}
 
-		//a popup that is based on the string rather than the index
+		///A popup that is based on the string rather than the index
 		public static string StringPopup(string prefix, string selected, List<string> options, bool showWarning = true, bool allowNone = false, params GUILayoutOption[] GUIOptions){
 			return StringPopup( string.IsNullOrEmpty(prefix)? GUIContent.none : new GUIContent(prefix), selected, options, showWarning, allowNone,  GUIOptions);
 		}
+
+		///A popup that is based on the string rather than the index
 		public static string StringPopup(GUIContent content, string selected, List<string> options, bool showWarning = true, bool allowNone = false, params GUILayoutOption[] GUIOptions){
 
 			EditorGUILayout.BeginVertical();
@@ -291,10 +325,7 @@ namespace ParadoxNotion.Design{
 			}
 
 			EditorGUILayout.EndVertical();
-			if (allowNone){
-				return index == 0? string.Empty : copy[index];
-			}
-
+			if (allowNone){ return index == 0? string.Empty : copy[index]; }
 			return index == -1? string.Empty : copy[index];
 		}
 
@@ -302,6 +333,8 @@ namespace ParadoxNotion.Design{
 		public static T Popup<T>(string prefix, T selected, List<T> options, params GUILayoutOption[] GUIOptions){
 			return Popup<T>( string.IsNullOrEmpty(prefix)? GUIContent.none : new GUIContent(prefix), selected, options, GUIOptions );
 		}
+
+		///Generic Popup for selection of any element within a list
 		public static T Popup<T>(GUIContent content, T selected, List<T> options, params GUILayoutOption[] GUIOptions){
 
 			var index = 0;
@@ -320,15 +353,16 @@ namespace ParadoxNotion.Design{
 			GUI.enabled = stringedOptions.Count > 1;
 			index = EditorGUILayout.Popup(content, index, stringedOptions.Select(s => new GUIContent(s)).ToArray(), GUIOptions);
 			GUI.enabled = true;
-
 			return index == 0? default(T) : options[index - 1];
 		}
 
 
-		///Generic Popup for selection of any element within a list
+		///Generic Button Popup for selection of any element within a list
 		public static void ButtonPopup<T>(string prefix, T selected, List<T> options, Action<T> Callback){
 			ButtonPopup<T>(string.IsNullOrEmpty(prefix)? GUIContent.none : new GUIContent(prefix), selected, options, Callback);
 		}
+		
+		///Generic Button Popup for selection of any element within a list
 		public static void ButtonPopup<T>(GUIContent content, T selected, List<T> options, Action<T> Callback){
 			var buttonText = selected != null? selected.ToString() : "|NONE|";
 			GUILayout.BeginHorizontal();
@@ -350,6 +384,8 @@ namespace ParadoxNotion.Design{
 		public static void ButtonTypePopup(string prefix, Type selected, Action<Type> Callback){
 			ButtonTypePopup(string.IsNullOrEmpty(prefix)? GUIContent.none : new GUIContent(prefix), selected, Callback);
 		}
+
+		///Specialized Type button popup
 		public static void ButtonTypePopup(GUIContent content, Type selected, Action<Type> Callback){
 			var buttonText = selected != null? selected.FriendlyName() : "|NONE|";
 			GUILayout.BeginHorizontal();
@@ -357,7 +393,8 @@ namespace ParadoxNotion.Design{
 				GUILayout.Label(content, GUILayout.Width(0), GUILayout.ExpandWidth(true));
 			}
 			if (GUILayout.Button(buttonText, (GUIStyle)"MiniPopup", GUILayout.Width(0), GUILayout.ExpandWidth(true))){
-				EditorUtils.GetPreferedTypesSelectionMenu(typeof(object), Callback).ShowAsContext();
+				var menu = EditorUtils.GetPreferedTypesSelectionMenu(typeof(object), Callback);
+				menu.ShowAsContext();
 			}
 			GUILayout.EndHorizontal();
 		}

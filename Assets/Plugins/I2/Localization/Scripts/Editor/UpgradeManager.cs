@@ -65,9 +65,17 @@ namespace I2.Loc
 		}
 
 
+        [MenuItem("Tools/I2 Localization/Toggle Highlight Localized", false, 17)]
+        public static void ToogleH()
+        {
+            LocalizationManager.HighlightLocalizedTargets = !LocalizationManager.HighlightLocalizedTargets;
+            LocalizationManager.LocalizeAll(true);
+        }
 
-		
-		public static void EnablePlugins( bool bForce = false )
+
+
+
+        public static void EnablePlugins( bool bForce = false )
 		{
 			if (!bForce)
 			{
@@ -101,7 +109,7 @@ namespace I2.Loc
 			HasChanged |= UpdateSettings("TK2D",  "tk2dTextMesh", 				"", ref symbols);
 			HasChanged |= UpdateSettings( "TextMeshPro", "TMPro.TMP_FontAsset", "TextMeshPro", ref symbols );
 			HasChanged |= UpdateSettings( "SVG", "SVGImporter.SVGAsset",		"", ref symbols );
-
+            
 			if (HasChanged)
 			{
 				try
@@ -129,7 +137,7 @@ namespace I2.Loc
 				if (!string.IsNullOrEmpty( AssemblyType ))
 				{
 					var rtype = System.AppDomain.CurrentDomain.GetAssemblies()
-								.Where( assembly => assembly.FullName.StartsWith( mPlugin, System.StringComparison.Ordinal ) )
+								.Where( assembly => assembly.FullName.Contains(AssemblyType) )
 								.Select( assembly => assembly.GetType( mType, false ) )
 								.Where( t => t!=null )
 								.FirstOrDefault();

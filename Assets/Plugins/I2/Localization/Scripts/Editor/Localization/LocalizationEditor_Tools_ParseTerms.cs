@@ -122,16 +122,22 @@ namespace I2.Loc
 		public static void ParseTermsInSelectedScenes()
 		{
 			EditorApplication.update -= ParseTermsInSelectedScenes;
-			ParseTerms(false);
+			ParseTerms(false, false, true);
 		}
 
         public static void DoParseTermsInCurrentScene()
         {
             EditorApplication.update -= DoParseTermsInCurrentScene;
-			ParseTerms(true);
+			ParseTerms(true, false, true);
         }
 
-        static void ParseTerms(bool OnlyCurrentScene, bool OpenTermsTab = true)
+        public static void DoParseTermsInCurrentSceneAndScripts()
+        {
+            EditorApplication.update -= DoParseTermsInCurrentSceneAndScripts;
+            ParseTerms(true, true, true);
+        }
+
+        static void ParseTerms(bool OnlyCurrentScene, bool ParseScripts, bool OpenTermsTab)
         {
             mIsParsing = true;
 
@@ -139,8 +145,8 @@ namespace I2.Loc
             mSelectedKeys.Clear();
             mParsedCategories.Clear();
 
-            //if (mParseTermsIn_Scripts)
-            //	ParseTermsInScripts();
+            if (ParseScripts)
+            	ParseTermsInScripts();
 
             if (mParseTermsIn_Scenes)
             {
@@ -175,8 +181,15 @@ namespace I2.Loc
 
 			if (OpenTermsTab) 
 			{
-				mFlagsViewKeys = ((int)eFlagsViewKeys.Used | (int)eFlagsViewKeys.NotUsed | (int)eFlagsViewKeys.Missing);
-				mCurrentViewMode = eViewMode.Keys;
+                if ((mFlagsViewKeys & (int)eFlagsViewKeys.Missing) > 0)
+                {
+                    mFlagsViewKeys = ((int)eFlagsViewKeys.Used | (int)eFlagsViewKeys.NotUsed | (int)eFlagsViewKeys.Missing);
+                }
+                else
+                {
+                    mFlagsViewKeys = ((int)eFlagsViewKeys.Used | (int)eFlagsViewKeys.NotUsed);
+                }
+                mCurrentViewMode = eViewMode.Keys;
 			}
 			mIsParsing = false;
 		}
@@ -224,11 +237,12 @@ namespace I2.Loc
 
             string[] scriptFiles = AssetDatabase.GetAllAssetPaths().Where(path => path.ToLower().EndsWith(".cs")).ToArray();
 
-            string mScriptLocalization = @"ScriptLocalization\.Get\s?\(\s?\""(.*?)\""";
-            string mLocalizationManager = @"LocalizationManager\.GetTranslation\s?\(\s?\""(.*?)\""";
-            string mLocalizationManagerTry = @"LocalizationManager\.TryGetTranslation\s?\(\s?\""(.*?)\""";
+            string mLocalizationManager = @"GetTranslation\s?\(\s?\""(.*?)\""";
+            string mLocalizationManagerOld = @"GetTermTranslation\s?\(\s?\""(.*?)\""";
+            string mLocalizationManagerTry = @"TryGetTranslation\s?\(\s?\""(.*?)\""";
+            string mSetTerm = @"SetTerm\s?\(\s?\""(.*?)\""";
 
-            Regex regex = new Regex(mScriptLocalization + "|" + mLocalizationManager + "|" + mLocalizationManagerTry, RegexOptions.Multiline);
+            Regex regex = new Regex(mLocalizationManager + "|" + mLocalizationManagerTry + "|" + mLocalizationManagerOld + "|" + mSetTerm, RegexOptions.Multiline);
 
             foreach (string scriptFile in scriptFiles) 
 			{
@@ -237,9 +251,7 @@ namespace I2.Loc
                 for (int matchNum = 0; matchNum < matches.Count; matchNum++) 
 				{
                     Match match = matches[matchNum];
-					string term = match.Groups[1].Value;
-					if (string.IsNullOrEmpty(term))
-						term = match.Groups[2].Value;
+					string term = I2Utils.GetCaptureMatch(match);
                     GetParsedTerm(term).Usage++;
                 }
             }
@@ -267,7 +279,7 @@ namespace I2.Loc
 				ApplyInferredTerm( localize );
 			}
 
-			ParseTerms (true);
+			ParseTerms (true, false, true);
 		}
 
 		public static void ApplyInferredTerm( Localize localize)

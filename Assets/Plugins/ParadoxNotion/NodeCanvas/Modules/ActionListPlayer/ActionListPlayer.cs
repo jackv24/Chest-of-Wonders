@@ -5,7 +5,7 @@ using ParadoxNotion.Serialization;
 
 namespace NodeCanvas{
 
-	[AddComponentMenu("NodeCanvas/Action List")]
+	[AddComponentMenu("NodeCanvas/Standalone Action List (Bonus)")]
 	public class ActionListPlayer : MonoBehaviour, ITaskSystem, ISerializationCallbackReceiver {
 
 		[SerializeField]
@@ -33,8 +33,7 @@ namespace NodeCanvas{
 		}
 
 
-		////////
-		////////
+		///----------------------------------------------------------------------------------------------
 
 		public ActionList actionList{
 			get {return _actionList;}
@@ -114,10 +113,14 @@ namespace NodeCanvas{
 		}
 
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
+
+		[UnityEditor.MenuItem("Tools/ParadoxNotion/NodeCanvas/Create/Standalone Action List")]
+		static void CreateActionListPlayer(){
+			UnityEditor.Selection.activeObject = Create();
+		}
 
 		void Reset(){
 			var bb = GetComponent<Blackboard>();

@@ -11,14 +11,15 @@ namespace NodeCanvas.DialogueTrees{
 
 	/// Use DialogueTrees to create Dialogues between Actors
 	[GraphInfo(
-		packageName = "NodeCanvas",
-		docsURL = "http://nodecanvas.paradoxnotion.com/documentation/",
+		packageName  = "NodeCanvas",
+		docsURL      = "http://nodecanvas.paradoxnotion.com/documentation/",
 		resourcesURL = "http://nodecanvas.paradoxnotion.com/downloads/",
-		forumsURL = "http://nodecanvas.paradoxnotion.com/forums-page/"
+		forumsURL    = "http://nodecanvas.paradoxnotion.com/forums-page/"
 		)]
+	[CreateAssetMenu(menuName="ParadoxNotion/NodeCanvas/Dialogue Tree Asset")]
 	public class DialogueTree : Graph {
 
-		//////
+		///----------------------------------------------------------------------------------------------
 		[System.Serializable]
 		struct DerivedSerializationData{
 			public List<ActorParameter> actorParameters;
@@ -35,7 +36,7 @@ namespace NodeCanvas.DialogueTrees{
 				this._actorParameters = ((DerivedSerializationData)data).actorParameters;
 			}
 		}
-		//////
+		///----------------------------------------------------------------------------------------------
 
 		[System.Serializable]
 		public class ActorParameter {
@@ -95,7 +96,6 @@ namespace NodeCanvas.DialogueTrees{
 
 		private DTNode currentNode;
 
-
 		public static event Action<DialogueTree> OnDialogueStarted;
 		public static event Action<DialogueTree> OnDialoguePaused;
 		public static event Action<DialogueTree> OnDialogueFinished;
@@ -104,13 +104,12 @@ namespace NodeCanvas.DialogueTrees{
 		public static DialogueTree currentDialogue{get; private set;}
 		public static DialogueTree previousDialogue{get; private set;}
 
-
 		public override System.Type baseNodeType{ get {return typeof(DTNode);} }
 		public override bool requiresAgent{	get {return false;} }
 		public override bool requiresPrimeNode { get {return true;} }
 		public override bool autoSort{ get {return true;} }
 		public override bool useLocalBlackboard{get {return true;}}
-
+		sealed public override bool canAcceptVariableDrops{ get {return false;} }
 
 		///The dialogue actor parameters
 		public List<ActorParameter> actorParameters{
@@ -291,22 +290,14 @@ namespace NodeCanvas.DialogueTrees{
 		}
 
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
 
 		[UnityEditor.MenuItem("Tools/ParadoxNotion/NodeCanvas/Create/Dialogue Tree Object", false, 0)]
-		public static void Editor_CreateGraph(){
+		static void Editor_CreateGraph(){
 			var dt = new GameObject("DialogueTree").AddComponent<DialogueTreeController>();
 			UnityEditor.Selection.activeObject = dt;
-		}
-
-		[UnityEditor.MenuItem("Assets/Create/ParadoxNotion/NodeCanvas/Dialogue Tree Asset")]
-		public static void Editor_CreateGraphFix(){
-			var path = EditorUtils.GetAssetUniquePath("DialogueTree.asset");
-			var newGraph = EditorUtils.CreateAsset<DialogueTree>(path);
-			UnityEditor.Selection.activeObject = newGraph;
 		}
 
 		#endif

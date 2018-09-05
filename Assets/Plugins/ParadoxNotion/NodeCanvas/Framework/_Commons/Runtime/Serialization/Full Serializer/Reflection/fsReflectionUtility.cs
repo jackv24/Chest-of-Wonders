@@ -28,7 +28,9 @@ namespace ParadoxNotion.Serialization.FullSerializer.Internal {
             };
 
             while (type != null) {
-                foreach (var iface in type.GetInterfaces()) {
+                var interfaces = type.GetInterfaces();
+                for (var i = 0; i < interfaces.Length; i++){
+                    var iface = interfaces[i];
                     if (iface.Resolve().IsGenericType) {
                         if (interfaceType == iface.GetGenericTypeDefinition()) {
                             return iface;

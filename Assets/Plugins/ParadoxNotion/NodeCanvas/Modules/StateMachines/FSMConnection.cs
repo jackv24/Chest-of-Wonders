@@ -27,11 +27,11 @@ namespace NodeCanvas.StateMachines{
 			(graph as FSM).EnterState( (FSMState)targetNode );
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
-		#if UNITY_EDITOR
 
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
+		#if UNITY_EDITOR
+		
 		protected override TipConnectionStyle tipConnectionStyle{
 			get {return TipConnectionStyle.Arrow;}
 		}
@@ -41,7 +41,7 @@ namespace NodeCanvas.StateMachines{
 		}
 
 		protected override void OnConnectionInspectorGUI(){
-			EditorUtils.TaskField<ConditionTask>(condition, graph, (c)=> { condition = c; });
+			NodeCanvas.Editor.TaskEditor.TaskFieldMulti<ConditionTask>(condition, graph, (c)=> { condition = c; });
 		}
 		
 		#endif

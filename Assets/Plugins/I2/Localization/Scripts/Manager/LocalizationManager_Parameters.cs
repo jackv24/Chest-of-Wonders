@@ -72,6 +72,18 @@ namespace I2.Loc
                 var result = (string)getParam(param);
                 if (result != null)
                 {
+                    // check if Param is Localized
+                    LanguageSource source;
+                    var termData = LocalizationManager.GetTermData(result, out source);
+                    if (termData != null)
+                    {
+                        int idx = source.GetLanguageIndex(LocalizationManager.CurrentLanguage);
+                        if (idx >= 0)
+                        {
+                            result = termData.GetTranslation(idx);
+                        }
+                    }
+
                     var paramTag = translation.Substring(iParamStart, iParamEnd - iParamStart + 2);
                     translation = translation.Replace(paramTag, result);
 
@@ -112,7 +124,7 @@ namespace I2.Loc
                 for (int i = 0, imax = components.Length; i < imax; ++i)
                 {
                     var manager = components[i] as ILocalizationParamsManager;
-                    if (manager != null && components[i].isActiveAndEnabled)
+                    if (manager != null && components[i].enabled)
                     {
                         result = manager.GetParameterValue(ParamName);
                         if (result != null)

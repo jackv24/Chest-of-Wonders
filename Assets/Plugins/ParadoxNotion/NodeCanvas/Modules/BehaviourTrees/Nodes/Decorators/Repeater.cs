@@ -13,9 +13,9 @@ namespace NodeCanvas.BehaviourTrees{
 
 		public enum RepeaterMode
 		{
-			RepeatTimes,
-			RepeatUntil,
-			RepeatForever
+			RepeatTimes = 0,
+			RepeatUntil = 1,
+			RepeatForever = 2
 		}
 
 		public enum RepeatUntilStatus
@@ -24,9 +24,11 @@ namespace NodeCanvas.BehaviourTrees{
 			Success = 1
 		}
 
-		public RepeaterMode repeaterMode           = RepeaterMode.RepeatTimes;
+		public RepeaterMode repeaterMode = RepeaterMode.RepeatTimes;
+		[ShowIf("repeaterMode", 0)]
+		public BBParameter<int> repeatTimes = 1;
+		[ShowIf("repeaterMode", 1)]
 		public RepeatUntilStatus repeatUntilStatus = RepeatUntilStatus.Success;
-		public BBParameter<int> repeatTimes        = 1;
 
         private int currentIteration = 1;
 
@@ -77,11 +79,10 @@ namespace NodeCanvas.BehaviourTrees{
 		}
 
 
-		/////////////////////////////////////////
-		/////////GUI AND EDITOR STUFF////////////
-		/////////////////////////////////////////
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
-
+		
 		protected override void OnNodeGUI(){
 
 			if (repeaterMode == RepeaterMode.RepeatTimes){
@@ -96,20 +97,6 @@ namespace NodeCanvas.BehaviourTrees{
 			} else {
 
 				GUILayout.Label("Repeat Forever");
-			}
-		}
-
-		protected override void OnNodeInspectorGUI(){
-
-			repeaterMode = (RepeaterMode)UnityEditor.EditorGUILayout.EnumPopup("Repeat Type", repeaterMode);
-
-			if (repeaterMode == RepeaterMode.RepeatTimes){
-
-				repeatTimes = (BBParameter<int>)EditorUtils.BBParameterField("Repeat Times", repeatTimes);
-
-			} else if (repeaterMode == RepeaterMode.RepeatUntil){
-
-				repeatUntilStatus = (RepeatUntilStatus)UnityEditor.EditorGUILayout.EnumPopup("Repeat Until", repeatUntilStatus);
 			}
 		}
 
