@@ -306,8 +306,10 @@ public class DialogueBox : MonoBehaviour
 	{
 		ContentSizeFitter sizeFitter = speakerPanel?.GetComponent<ContentSizeFitter>();
 
+		string text = info.statement.text.TryGetTranslation();
+
 		//Split statement text into pages, then treat each page as it's own subtitle request
-		string[] textPages = Helper.ParseGameText(info.statement.text);
+		string[] textPages = Helper.ParseGameText(text);
 		for (int i = 0; i < textPages.Length; i++)
 		{
 			if (skipNextFlip)
@@ -342,10 +344,10 @@ public class DialogueBox : MonoBehaviour
 				Vector3 scale = speakerPanel.localScale;
 				speakerPanel.localScale = Vector3.one;
 				sizeFitter.enabled = true;
-				
+
 				dialogueText.text = textPages[i];
 				dialogueText.maxVisibleCharacters = 0;
-				
+
 				LayoutRebuilder.ForceRebuildLayoutImmediate(speakerPanel);
 				sizeFitter.enabled = false;
 				speakerPanel.localScale = scale;
@@ -405,12 +407,12 @@ public class DialogueBox : MonoBehaviour
                 break;
 
 	        textObj.maxVisibleCharacters = i;
-	        
+
             yield return new WaitForSeconds(1 / textSpeed);
         }
 
 	    textObj.maxVisibleCharacters = textObj.textInfo.characterCount;
-	    
+
         if (soundRoutine != null)
             StopCoroutine(soundRoutine);
     }
