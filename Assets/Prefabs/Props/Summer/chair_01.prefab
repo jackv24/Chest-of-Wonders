@@ -8,22 +8,20 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1359915511716894}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1359915511716894
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4042967925677032}
   - component: {fileID: 212815212053781600}
   - component: {fileID: 114894362158713606}
   - component: {fileID: 61082491080643780}
-  - component: {fileID: 114818898296824380}
-  - component: {fileID: 114457921368193482}
   m_Layer: 17
   m_Name: chair_01
   m_TagString: Untagged
@@ -34,7 +32,7 @@ GameObject:
 --- !u!4 &4042967925677032
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359915511716894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -47,7 +45,7 @@ Transform:
 --- !u!61 &61082491080643780
 BoxCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359915511716894}
   m_Enabled: 1
@@ -72,7 +70,7 @@ BoxCollider2D:
 --- !u!114 &114457921368193482
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359915511716894}
   m_Enabled: 1
@@ -84,7 +82,7 @@ MonoBehaviour:
 --- !u!114 &114818898296824380
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359915511716894}
   m_Enabled: 1
@@ -101,7 +99,7 @@ MonoBehaviour:
 --- !u!114 &114894362158713606
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359915511716894}
   m_Enabled: 1
@@ -115,6 +113,7 @@ MonoBehaviour:
   breakEffectPrefabs:
   - {fileID: 1539707859135854, guid: 8e12c2b8a12c99347af7f88293647a04, type: 2}
   effectSpawnOffset: {x: -0.15, y: 0.3}
+  hitShake: 0
   breakSound:
     volume: 1
     pitchRange:
@@ -130,7 +129,7 @@ MonoBehaviour:
 --- !u!212 &212815212053781600
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359915511716894}
   m_Enabled: 1
@@ -140,6 +139,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: cc7763fd8a9693d40af7c3aeafc6dccd, type: 2}
   m_StaticBatchInfo:
@@ -171,3 +171,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0

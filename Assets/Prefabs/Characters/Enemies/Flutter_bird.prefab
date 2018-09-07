@@ -8,19 +8,17 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1404625634264932}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1404625634264932
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4683231262621854}
-  - component: {fileID: 114944074271638736}
-  - component: {fileID: 114841705706154180}
   - component: {fileID: 114532440611600056}
   - component: {fileID: 114797837658412708}
   - component: {fileID: 114349518562934582}
@@ -37,14 +35,13 @@ GameObject:
 --- !u!1 &1846752329716092
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4984120093367492}
   - component: {fileID: 58083152551296380}
   - component: {fileID: 114688182151244766}
-  - component: {fileID: 114178031452857466}
   m_Layer: 16
   m_Name: Damager
   m_TagString: Untagged
@@ -55,7 +52,7 @@ GameObject:
 --- !u!4 &4683231262621854
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -69,7 +66,7 @@ Transform:
 --- !u!4 &4984120093367492
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846752329716092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -82,7 +79,7 @@ Transform:
 --- !u!58 &58083152551296380
 CircleCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846752329716092}
   m_Enabled: 1
@@ -97,7 +94,7 @@ CircleCollider2D:
 --- !u!61 &61816427884972354
 BoxCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_Enabled: 1
@@ -123,7 +120,7 @@ BoxCollider2D:
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_Enabled: 1
@@ -136,10 +133,11 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114178031452857466
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846752329716092}
   m_Enabled: 1
@@ -151,7 +149,7 @@ MonoBehaviour:
 --- !u!114 &114349518562934582
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_Enabled: 1
@@ -168,7 +166,7 @@ MonoBehaviour:
 --- !u!114 &114532440611600056
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_Enabled: 1
@@ -220,7 +218,7 @@ MonoBehaviour:
 --- !u!114 &114688182151244766
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846752329716092}
   m_Enabled: 1
@@ -235,7 +233,7 @@ MonoBehaviour:
 --- !u!114 &114797837658412708
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_Enabled: 1
@@ -243,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7dbb6bbdf4ffb46ab7dd87ba8191e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundGraphSerialization: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3807.0,"y":-4562.0},"zoomFactor":0.9484116,"nodes":[{"_actionList":{"actions":[{"valueA":{"_name":"_halfTime"},"valueB":{"_name":"swoopTime","_targetVariableID":"3d3691e8-7fff-4ba8-89f0-4fba41cf9f5d"},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"valueA":{"_name":"_halfTime"},"Operation":"Multiply","valueB":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.SetFloat"}]},"_position":{"x":5009.0,"y":4948.0},"_name":"Setup","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"method":{"_baseInfo":"UnityEngine.Transform|get_position|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_restPosition"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"layerIndex":{},"stateName":{"_value":"Idle"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"minValue":{"_value":2.0},"maxValue":{"_value":3.0},"floatVariable":{"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.SetFloatRandom"},{"waitTime":{"_value":1.0,"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5173.0,"y":5193.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Swoop"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"x":{"_name":"swoopHorizontal","_targetVariableID":"626b4471-5098-49cb-9c6e-635c398c940b"},"y":{},"z":{},"saveAs":{"_name":"_horizontalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"x":{},"y":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"z":{},"saveAs":{"_name":"_verticalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"targetPosition":{"_name":"_horizontalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"},{"targetPosition":{"_name":"_verticalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":2.0,"outTangent":2.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":0.0,"outTangent":0.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"}]},"_position":{"x":5377.0,"y":5466.0},"_name":"Swoop","$type":"NodeCanvas.StateMachines.ActionState","$id":"26"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"Operation":"Multiply","valueB":{"_value":-1.0},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"x":{"_name":"swoopHorizontal","_targetVariableID":"626b4471-5098-49cb-9c6e-635c398c940b"},"y":{},"z":{},"saveAs":{"_name":"_horizontalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"x":{},"y":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"z":{},"saveAs":{"_name":"_verticalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"targetPosition":{"_name":"_horizontalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"},{"targetPosition":{"_name":"_verticalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":0.0,"outTangent":0.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":2.0,"outTangent":2.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"}]},"_position":{"x":5197.0,"y":5627.0},"_name":"Swoop
+  boundGraphSerialization: '{"version":2.81,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3807.0,"y":-4562.0},"zoomFactor":0.9484116,"nodes":[{"_actionList":{"actions":[{"valueA":{"_name":"_halfTime"},"valueB":{"_name":"swoopTime","_targetVariableID":"3d3691e8-7fff-4ba8-89f0-4fba41cf9f5d"},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"valueA":{"_name":"_halfTime"},"Operation":"Multiply","valueB":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.SetFloat"}]},"_position":{"x":5009.0,"y":4948.0},"_name":"Setup","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"method":{"_baseInfo":"UnityEngine.Transform|get_position|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_restPosition"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"layerIndex":{},"stateName":{"_value":"Idle"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"minValue":{"_value":2.0},"maxValue":{"_value":3.0},"floatVariable":{"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.SetFloatRandom"},{"waitTime":{"_value":1.0,"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5173.0,"y":5193.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Swoop"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"x":{"_name":"swoopHorizontal","_targetVariableID":"626b4471-5098-49cb-9c6e-635c398c940b"},"y":{},"z":{},"saveAs":{"_name":"_horizontalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"x":{},"y":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"z":{},"saveAs":{"_name":"_verticalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"targetPosition":{"_name":"_horizontalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"},{"targetPosition":{"_name":"_verticalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":2.0,"outTangent":2.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":0.0,"outTangent":0.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"}]},"_position":{"x":5377.0,"y":5466.0},"_name":"Swoop","$type":"NodeCanvas.StateMachines.ActionState","$id":"26"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"Operation":"Multiply","valueB":{"_value":-1.0},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"x":{"_name":"swoopHorizontal","_targetVariableID":"626b4471-5098-49cb-9c6e-635c398c940b"},"y":{},"z":{},"saveAs":{"_name":"_horizontalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"x":{},"y":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"z":{},"saveAs":{"_name":"_verticalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"targetPosition":{"_name":"_horizontalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"},{"targetPosition":{"_name":"_verticalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":0.0,"outTangent":0.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":2.0,"outTangent":2.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"}]},"_position":{"x":5197.0,"y":5627.0},"_name":"Swoop
     Up","$type":"NodeCanvas.StateMachines.ActionState","$id":"52"},{"_actionList":{"actions":[{"valueA":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"Operation":"Multiply","valueB":{"_value":-1.0},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"valueA":{"_name":"swoopHorizontal","_targetVariableID":"626b4471-5098-49cb-9c6e-635c398c940b"},"Operation":"Multiply","valueB":{"_value":-1.0},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"layerIndex":{},"stateName":{"_value":"Swoop
     Exit"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}]},"_position":{"x":5046.0,"y":5454.0},"_name":"Swoop
     Exit","$type":"NodeCanvas.StateMachines.ActionState","$id":"78"},{"_actionList":{"actions":[{"method":{"_baseInfo":"UnityEngine.Transform|get_localScale|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_scale"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"valueA":{"_name":"_scale"},"operation":"Multiply","valueB":{"_value":{"x":-1.0,"y":1.0,"z":1.0}},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"method":{"_baseInfo":"UnityEngine.Transform|set_localScale|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_scale"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}]},"_position":{"x":4883.0,"y":5311.0},"_name":"Turn","_comment":"Swoop
@@ -252,12 +250,12 @@ MonoBehaviour:
   boundGraphObjectReferences: []
   enableAction: 0
   disableAction: 0
-  _graph: {fileID: 114868281870234270}
+  _graph: {fileID: 0}
   _blackboard: {fileID: 114349518562934582}
 --- !u!114 &114841705706154180
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_Enabled: 1
@@ -266,29 +264,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: 62f7753f-2f12-4add-af2f-e06e72f0c8ec
---- !u!114 &114868281870234270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
-  m_Name: Flutter_bird FSM
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3807.0,"y":-4562.0},"zoomFactor":0.9484116,"nodes":[{"_actionList":{"actions":[{"valueA":{"_name":"_halfTime"},"valueB":{"_name":"swoopTime","_targetVariableID":"3d3691e8-7fff-4ba8-89f0-4fba41cf9f5d"},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"valueA":{"_name":"_halfTime"},"Operation":"Multiply","valueB":{"_value":0.5},"$type":"NodeCanvas.Tasks.Actions.SetFloat"}]},"_position":{"x":5009.0,"y":4948.0},"_name":"Setup","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"actions":[{"method":{"_baseInfo":"UnityEngine.Transform|get_position|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_restPosition"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"layerIndex":{},"stateName":{"_value":"Idle"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"minValue":{"_value":2.0},"maxValue":{"_value":3.0},"floatVariable":{"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.SetFloatRandom"},{"waitTime":{"_value":1.0,"_name":"_idleTime"},"$type":"NodeCanvas.Tasks.Actions.Wait"}]},"_position":{"x":5173.0,"y":5193.0},"_name":"Idle","$type":"NodeCanvas.StateMachines.ActionState","$id":"11"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Swoop"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"x":{"_name":"swoopHorizontal","_targetVariableID":"626b4471-5098-49cb-9c6e-635c398c940b"},"y":{},"z":{},"saveAs":{"_name":"_horizontalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"x":{},"y":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"z":{},"saveAs":{"_name":"_verticalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"targetPosition":{"_name":"_horizontalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"},{"targetPosition":{"_name":"_verticalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":2.0,"outTangent":2.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":0.0,"outTangent":0.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"}]},"_position":{"x":5377.0,"y":5466.0},"_name":"Swoop","$type":"NodeCanvas.StateMachines.ActionState","$id":"26"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"valueA":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"Operation":"Multiply","valueB":{"_value":-1.0},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"x":{"_name":"swoopHorizontal","_targetVariableID":"626b4471-5098-49cb-9c6e-635c398c940b"},"y":{},"z":{},"saveAs":{"_name":"_horizontalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"x":{},"y":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"z":{},"saveAs":{"_name":"_verticalComponent"},"$type":"NodeCanvas.Tasks.Actions.ComposeVector"},{"targetPosition":{"_name":"_horizontalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":1.0,"outTangent":1.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"},{"targetPosition":{"_name":"_verticalComponent"},"curve":{"_value":{"keys":[{"time":0.0,"value":0.0,"tangentMode":0,"inTangent":0.0,"outTangent":0.0},{"time":1.0,"value":1.0,"tangentMode":0,"inTangent":2.0,"outTangent":2.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}},"time":{"_name":"_halfTime"},"$type":"NodeCanvas.Tasks.Actions.CurveTransformTweenAdditive"}]},"_position":{"x":5197.0,"y":5627.0},"_name":"Swoop
-    Up","$type":"NodeCanvas.StateMachines.ActionState","$id":"52"},{"_actionList":{"actions":[{"valueA":{"_name":"swoopVertical","_targetVariableID":"90ee8060-ffcb-44ba-9662-9e083818a4ac"},"Operation":"Multiply","valueB":{"_value":-1.0},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"valueA":{"_name":"swoopHorizontal","_targetVariableID":"626b4471-5098-49cb-9c6e-635c398c940b"},"Operation":"Multiply","valueB":{"_value":-1.0},"$type":"NodeCanvas.Tasks.Actions.SetFloat"},{"layerIndex":{},"stateName":{"_value":"Swoop
-    Exit"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}]},"_position":{"x":5046.0,"y":5454.0},"_name":"Swoop
-    Exit","$type":"NodeCanvas.StateMachines.ActionState","$id":"78"},{"_actionList":{"actions":[{"method":{"_baseInfo":"UnityEngine.Transform|get_localScale|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_scale"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"valueA":{"_name":"_scale"},"operation":"Multiply","valueB":{"_value":{"x":-1.0,"y":1.0,"z":1.0}},"$type":"NodeCanvas.Tasks.Actions.SetVector3"},{"method":{"_baseInfo":"UnityEngine.Transform|set_localScale|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_scale"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}]},"_position":{"x":4883.0,"y":5311.0},"_name":"Turn","_comment":"Swoop
-    ","$type":"NodeCanvas.StateMachines.ActionState","$id":"90"},{"_position":{"x":4314.0,"y":5095.0},"$type":"NodeCanvas.StateMachines.AnyState","$id":"102"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"layerIndex":{},"stateName":{"_value":"Hurt"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}]},"_position":{"x":4305.0,"y":5238.0},"_name":"Damaged","$type":"NodeCanvas.StateMachines.ActionState","$id":"103"},{"_actionList":{"actions":[{"layerIndex":{},"stateName":{"_value":"Idle"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"target":{"_name":"_restPosition"},"speed":{"_value":2.0,"_name":"recoverSpeed","_targetVariableID":"5a26defe-bb60-4aaf-8ff3-9094f5237689"},"stopDistance":{"_value":0.1},"waitActionFinish":true,"$type":"NodeCanvas.Tasks.Actions.MoveTowardsPosition"},{"method":{"_baseInfo":"UnityEngine.Transform|set_position|System.Void","_paramsInfo":"UnityEngine.Vector3"},"parameter":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_restPosition"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}]},"_position":{"x":4506.0,"y":5104.0},"_name":"Recover","$type":"NodeCanvas.StateMachines.ActionState","$id":"109"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"11"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"26"},"_targetNode":{"$ref":"52"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"52"},"_targetNode":{"$ref":"78"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"78"},"_targetNode":{"$ref":"90"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"90"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"targetType":"CharacterStats","eventName":"OnDamaged","$type":"NodeCanvas.Tasks.Conditions.CheckCSharpEvent"},"_sourceNode":{"$ref":"102"},"_targetNode":{"$ref":"103"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"103"},"_targetNode":{"$ref":"109"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"109"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{}}}'
-  _objectReferences: []
-  _deserializationFailed: 0
 --- !u!114 &114944074271638736
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_Enabled: 1
@@ -306,7 +285,7 @@ MonoBehaviour:
 --- !u!212 &212888075276420354
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
   m_Enabled: 1
@@ -316,6 +295,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -347,3 +327,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0

@@ -196,6 +196,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!1001 &451089385
 Prefab:
   m_ObjectHideFlags: 0
@@ -293,6 +298,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!114 &754757087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +314,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!114 &829457175 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114498152196801840, guid: a66e01d0fb3ac0e41a989733fa60ff06,
@@ -321,6 +336,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!1001 &929469981
 Prefab:
   m_ObjectHideFlags: 0
@@ -716,11 +736,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000013017421258, guid: 99f5c5565a8074f4eb8901db7fb4c979, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.213
+      value: 19.09
       objectReference: {fileID: 0}
     - target: {fileID: 4000013017421258, guid: 99f5c5565a8074f4eb8901db7fb4c979, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 21.121
+      value: 19.2
       objectReference: {fileID: 0}
     - target: {fileID: 4000013017421258, guid: 99f5c5565a8074f4eb8901db7fb4c979, type: 2}
       propertyPath: m_LocalPosition.z
@@ -808,6 +828,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!114 &1179851736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,6 +844,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!20 &1181267978 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 20306226602761684, guid: 4692fd67a54f61c44890c3fae2010a46,
@@ -1016,6 +1046,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!114 &1973444652 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114795991851478432, guid: a66e01d0fb3ac0e41a989733fa60ff06,
@@ -1033,6 +1068,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!114 &2087103022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,6 +1084,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!114 &2112444705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1055,6 +1100,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass:I2.Loc:LocalizeTarget_TextMeshPro_UGUI
+  mTarget: {fileID: 0}
+  mAlignment_RTL: 516
+  mAlignment_LTR: 513
+  mAlignmentWasRTL: 0
+  mInitializeAlignment: 1
 --- !u!114 &2115902866
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 224695516848351958}
   - component: {fileID: 222476428321359398}
   - component: {fileID: 114952161808591708}
-  - component: {fileID: 114227663605869528}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -37,8 +36,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224190730119896794}
-  - component: {fileID: 114756252596793958}
-  - component: {fileID: 114876549572343370}
   m_Layer: 5
   m_Name: SoundSlider
   m_TagString: Untagged
@@ -54,7 +51,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224622118376941404}
-  - component: {fileID: 114231962508372526}
   m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
@@ -71,7 +67,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224280098731111866}
   - component: {fileID: 114972448441361304}
-  - component: {fileID: 114187781225601954}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -87,7 +82,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224045669862791280}
-  - component: {fileID: 114655123458465168}
   m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
@@ -105,7 +99,6 @@ GameObject:
   - component: {fileID: 224809989113147552}
   - component: {fileID: 222969635499899600}
   - component: {fileID: 114066588503504974}
-  - component: {fileID: 114585176759760230}
   - component: {fileID: 114749905068034560}
   m_Layer: 5
   m_Name: Text
@@ -124,7 +117,6 @@ GameObject:
   - component: {fileID: 224262942713406974}
   - component: {fileID: 222391585400888248}
   - component: {fileID: 114529995261896588}
-  - component: {fileID: 114394914971384730}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -142,7 +134,6 @@ GameObject:
   - component: {fileID: 224718825147163226}
   - component: {fileID: 222942336275882116}
   - component: {fileID: 114072809707140534}
-  - component: {fileID: 114558772454033104}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged

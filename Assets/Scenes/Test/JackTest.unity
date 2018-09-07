@@ -2369,24 +2369,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1010066145427102, guid: 51aa72b8d1c225844b71f5099c896bc6,
     type: 2}
   m_PrefabInternal: {fileID: 1143721383}
---- !u!114 &1176722132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: DialogueTree DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.81,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"This
-    is a dialogue text."},"_position":{"x":5437.0,"y":5267.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"This
-    is a very quit really actually <b>long</b> dialogue text."},"_position":{"x":5476.0,"y":5405.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences: []
-  _deserializationFailed: 0
-  _actorParameters: []
 --- !u!1001 &1215186280
 Prefab:
   m_ObjectHideFlags: 0
@@ -3068,7 +3050,7 @@ MonoBehaviour:
   boundGraphObjectReferences: []
   enableAction: 1
   disableAction: 2
-  _graph: {fileID: 1176722132}
+  _graph: {fileID: 2041652696}
   _blackboard: {fileID: 0}
 --- !u!4 &1424155903
 Transform:
@@ -3682,6 +3664,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1010066145427102, guid: 51aa72b8d1c225844b71f5099c896bc6,
     type: 2}
   m_PrefabInternal: {fileID: 2012990935}
+--- !u!114 &2041652696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: DialogueTree DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.81,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"This
+    is a dialogue text."},"_position":{"x":5437.0,"y":5267.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"This
+    is a very quit really actually <b>long</b> dialogue text."},"_position":{"x":5476.0,"y":5405.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  _actorParameters: []
 --- !u!1 &2083937186
 GameObject:
   m_ObjectHideFlags: 1

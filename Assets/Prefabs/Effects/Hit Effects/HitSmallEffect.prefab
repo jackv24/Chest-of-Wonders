@@ -8,22 +8,20 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1785324096871294}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1785324096871294
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4887822230421714}
   - component: {fileID: 212239874760398684}
   - component: {fileID: 95603141892262936}
   - component: {fileID: 114796238952890576}
-  - component: {fileID: 114869435703685778}
-  - component: {fileID: 114014486878566618}
   - component: {fileID: 114778153096322312}
   m_Layer: 0
   m_Name: HitSmallEffect
@@ -35,7 +33,7 @@ GameObject:
 --- !u!4 &4887822230421714
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785324096871294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -49,7 +47,7 @@ Transform:
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785324096871294}
   m_Enabled: 1
@@ -62,10 +60,11 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114014486878566618
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785324096871294}
   m_Enabled: 1
@@ -77,7 +76,7 @@ MonoBehaviour:
 --- !u!114 &114778153096322312
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785324096871294}
   m_Enabled: 1
@@ -92,7 +91,7 @@ MonoBehaviour:
 --- !u!114 &114796238952890576
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785324096871294}
   m_Enabled: 1
@@ -104,7 +103,7 @@ MonoBehaviour:
 --- !u!114 &114869435703685778
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785324096871294}
   m_Enabled: 1
@@ -121,7 +120,7 @@ MonoBehaviour:
 --- !u!212 &212239874760398684
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785324096871294}
   m_Enabled: 1
@@ -131,6 +130,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -162,3 +162,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
