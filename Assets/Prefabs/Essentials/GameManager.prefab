@@ -173,12 +173,12 @@ MonoBehaviour:
       spawnMarkerName: 
     maxHealth: 5
     currentHealth: 5
-    hasFireMagic: 0
+    hasFireMagic: 1
     hasGrassMagic: 0
     hasIceMagic: 0
     hasWindMagic: 0
-    magicProgression: 0
-    selectedElement: 0
+    magicProgression: 1
+    selectedElement: 1
     inventoryItems: []
     maxSouls: 3
     currentFireSouls: 0
@@ -250,6 +250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d60817c1a833c429da6d29241a4cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyKilledEvent: {fileID: 0}
+  newEnemyKilledEvent: {fileID: 11400000, guid: b64aee85ab6b53241a611f89d8506be9,
+    type: 2}
+  lastEnemyKilledEvent: {fileID: 0}
 --- !u!114 &114777719817609730
 MonoBehaviour:
   m_ObjectHideFlags: 1

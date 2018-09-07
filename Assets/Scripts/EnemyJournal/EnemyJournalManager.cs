@@ -24,7 +24,17 @@ public class EnemyJournalManager : MonoBehaviour
 			}
 		}
 	}
-	public Dictionary<EnemyJournalRecord, EnemyKillRecord> killedEnemies = new Dictionary<EnemyJournalRecord, EnemyKillRecord>();
+
+	private Dictionary<EnemyJournalRecord, EnemyKillRecord> killedEnemies = new Dictionary<EnemyJournalRecord, EnemyKillRecord>();
+
+	[SerializeField]
+	private GameEvent enemyKilledEvent;
+
+	[SerializeField]
+	private GameEvent newEnemyKilledEvent;
+
+	[SerializeField]
+	private GameEvent lastEnemyKilledEvent;
 
 	private void Awake()
 	{
@@ -70,6 +80,13 @@ public class EnemyJournalManager : MonoBehaviour
 		EnemyKillRecord killRecord = killedEnemies.ContainsKey(record) ? killedEnemies[record] : EnemyKillRecord.New;
 
 		killRecord.killCount++;
+
+		// Raise all enemy kill events (listeners should determine priority)
+		if (killRecord.killCount == 1)
+			newEnemyKilledEvent.RaiseSafe();
+		if (killRecord.killCount >= record.killsRequired)
+			lastEnemyKilledEvent.RaiseSafe();
+		enemyKilledEvent.RaiseSafe();
 
 		killedEnemies[record] = killRecord;
 	}

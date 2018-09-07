@@ -217,6 +217,99 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1375554269100262, guid: 448cb682fcc367a4d898d3210b53232c,
     type: 2}
   m_PrefabInternal: {fileID: 110864025}
+--- !u!1 &115528040
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 115528043}
+  - component: {fileID: 115528042}
+  - component: {fileID: 115528041}
+  m_Layer: 0
+  m_Name: Brush
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &115528041
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 115528040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860611cc84144924c8a95e2a1670d236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Offset: {x: 0, y: 0}
+  IsUndoEnabled: 1
+  m_brushTilemap: {fileID: 0}
+--- !u!114 &115528042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 115528040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dec3ca0fe88506448df84e8bf55b2dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowGrid: 1
+  InnerPadding: 0
+  ColliderDepth: 0.1
+  ColliderType: 0
+  Collider2DType: 0
+  ShowColliderNormals: 1
+  ColliderDisplayMode: 0
+  IsUndoEnabled: 0
+  m_sortingLayer: 0
+  m_sortingLayerName: Default
+  m_orderInLayer: 0
+  m_material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_tintColor: {r: 1, g: 1, b: 1, a: 1}
+  m_pixelSnap: 0
+  m_isVisible: 1
+  m_allowPaintingOutOfBounds: 1
+  m_autoShrink: 0
+  m_enableUndoWhilePainting: 1
+  m_isTrigger: 0
+  m_physicMaterial: {fileID: 0}
+  m_physicMaterial2D: {fileID: 0}
+  m_cellSize: {x: 0, y: 0}
+  m_mapBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_tileset: {fileID: 0}
+  m_minGridX: 0
+  m_minGridY: 0
+  m_maxGridX: 0
+  m_maxGridY: 0
+  m_parentTilemapGroup: {fileID: 0}
+  m_parallaxFactor: {x: 1, y: 1}
+  m_chunkRendererProperties:
+    castShadows: 0
+    receiveShadows: 0
+    useLightProbes: 0
+    reflectionProbeUsage: 0
+    anchorOverride: {fileID: 0}
+--- !u!4 &115528043
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 115528040}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &197364761
 Prefab:
   m_ObjectHideFlags: 0
@@ -685,7 +778,7 @@ Transform:
   - {fileID: 1263150971}
   - {fileID: 239809721}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &363140148
 Prefab:
@@ -1867,7 +1960,7 @@ Transform:
   m_Children:
   - {fileID: 744222249}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &818990975
 Prefab:
@@ -2065,7 +2158,7 @@ Transform:
   - {fileID: 2083937187}
   - {fileID: 723921491}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &953078846
 GameObject:
@@ -2159,8 +2252,72 @@ Transform:
   - {fileID: 1830403873}
   - {fileID: 721149073}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963307056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: BlazeHare FSM
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.81,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4879.0,"y":-4998.0},"nodes":[{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[{"method":{"_baseInfo":"UnityEngine.Transform|get_localScale|UnityEngine.Vector3","_paramsInfo":""},"returnValue":{"_type":"UnityEngine.Vector3","_value":{"$type":"UnityEngine.Vector3"},"_name":"_localScale","_targetVariableID":"4395773f-3bcd-40d1-80cb-c1810276e898"},"$type":"NodeCanvas.Tasks.Actions.GetProperty_Multiplatform"},{"targetVector":{"_name":"_localScale","_targetVariableID":"4395773f-3bcd-40d1-80cb-c1810276e898"},"x":{"_name":"direction","_targetVariableID":"9ca3be0e-c5e2-4a37-903c-aae96ecf22ae"},"y":{"_name":""},"z":{"_name":""},"$type":"NodeCanvas.Tasks.Actions.DecomposeVector"}]},"_position":{"x":5366.0,"y":5249.0},"_name":"Setup","$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedBT":{"_value":1},"_position":{"x":5626.0,"y":5459.0},"$type":"NodeCanvas.StateMachines.NestedBTState","$id":"13"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5261.0,"y":5592.0},"_name":"Stunned","$type":"NodeCanvas.StateMachines.ActionState","$id":"15"},{"_actionList":{"executionMode":"ActionsRunInParallel","actions":[]},"_position":{"x":5469.0,"y":5680.0},"_name":"Falling","$type":"NodeCanvas.StateMachines.ActionState","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"targetType":"CharacterStats","eventName":"OnDamaged","$type":"NodeCanvas.Tasks.Conditions.CheckCSharpEvent"},"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"targetType":"CharacterStats","eventName":"OnKnockbackRecover","$type":"NodeCanvas.Tasks.Conditions.CheckCSharpEvent"},"_sourceNode":{"$ref":"15"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"method":{"_baseInfo":"CharacterMove|get_IsGrounded|System.Boolean","_paramsInfo":""},"checkValue":{"_type":"System.Boolean","_value":{"$content":true,"$type":"System.Boolean"}},"$type":"NodeCanvas.Tasks.Conditions.CheckProperty_Multiplatform"},"_sourceNode":{"$ref":"18"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: ca907feecc7e7574d9653bf21582bb5a, type: 2}
+  _deserializationFailed: 0
+--- !u!1001 &990157980
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 26.888838
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 18.522633
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734510423594088, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114207438053551852, guid: dd5f6a91b6dcb57499f806ef1646576b,
+        type: 2}
+      propertyPath: _graph
+      value: 
+      objectReference: {fileID: 963307056}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dd5f6a91b6dcb57499f806ef1646576b, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1013244280
 Prefab:
   m_ObjectHideFlags: 0
@@ -2606,7 +2763,7 @@ Transform:
   m_LocalScale: {x: 1.857485, y: 1.857485, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1266260714
 MonoBehaviour:
@@ -2754,7 +2911,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1290298845
 Prefab:
@@ -3050,7 +3207,7 @@ MonoBehaviour:
   boundGraphObjectReferences: []
   enableAction: 1
   disableAction: 2
-  _graph: {fileID: 2041652696}
+  _graph: {fileID: 1605890012}
   _blackboard: {fileID: 0}
 --- !u!4 &1424155903
 Transform:
@@ -3063,7 +3220,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1526358931
 Prefab:
@@ -3117,6 +3274,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1010066145427102, guid: 51aa72b8d1c225844b71f5099c896bc6,
     type: 2}
   m_PrefabInternal: {fileID: 1526358931}
+--- !u!114 &1605890012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: DialogueTree DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.81,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"This
+    is a dialogue text."},"_position":{"x":5437.0,"y":5267.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"This
+    is a very quit really actually <b>long</b> dialogue text."},"_position":{"x":5476.0,"y":5405.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  _actorParameters: []
 --- !u!1001 &1672472060
 Prefab:
   m_ObjectHideFlags: 0
@@ -3664,24 +3839,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1010066145427102, guid: 51aa72b8d1c225844b71f5099c896bc6,
     type: 2}
   m_PrefabInternal: {fileID: 2012990935}
---- !u!114 &2041652696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: DialogueTree DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.81,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"This
-    is a dialogue text."},"_position":{"x":5437.0,"y":5267.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"This
-    is a very quit really actually <b>long</b> dialogue text."},"_position":{"x":5476.0,"y":5405.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences: []
-  _deserializationFailed: 0
-  _actorParameters: []
 --- !u!1 &2083937186
 GameObject:
   m_ObjectHideFlags: 1
