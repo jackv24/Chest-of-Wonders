@@ -38,7 +38,7 @@ namespace NodeCanvas.Framework{
 		private bool _isDisabled;
 		[SerializeField]
 		private TaskAgent overrideAgent = null;
-		
+
 		[NonSerialized]
 		private IBlackboard _blackboard;
 		[NonSerialized]
@@ -47,7 +47,7 @@ namespace NodeCanvas.Framework{
 		//the current/last agent used
 		[NonSerialized]
 		private Component current;
-		
+
 		//info
 		[NonSerialized]
 		private bool _agentTypeInit;
@@ -160,7 +160,7 @@ namespace NodeCanvas.Framework{
 			{
 				if (_taskName == null){
 					var nameAtt = this.GetType().RTGetAttribute<NameAttribute>(false);
-					_taskName = nameAtt != null? nameAtt.name : GetType().FriendlyName().SplitCamelCase();					
+					_taskName = nameAtt != null? nameAtt.name : GetType().FriendlyName().SplitCamelCase();
 				}
 				return _taskName;
 			}
@@ -172,7 +172,7 @@ namespace NodeCanvas.Framework{
 			{
 				if (_taskDescription == null){
 					var descAtt = this.GetType().RTGetAttribute<DescriptionAttribute>(true);
-					_taskDescription = descAtt != null? descAtt.description : string.Empty;					
+					_taskDescription = descAtt != null? descAtt.description : string.Empty;
 				}
 				return _taskDescription;
 			}
@@ -219,7 +219,7 @@ namespace NodeCanvas.Framework{
 
 				if (value == true && overrideAgent == null){
 					overrideAgent = new TaskAgent();
-					overrideAgent.bb = blackboard;					
+					overrideAgent.bb = blackboard;
 				}
 			}
 		}
@@ -307,7 +307,8 @@ namespace NodeCanvas.Framework{
 		static Component TransformAgent(Component input, Type type){
 			if (input != null && type != null && !type.RTIsAssignableFrom(input.GetType()) ){
 				if ( type.RTIsSubclassOf(typeof(Component)) || type.RTIsInterface() ){
-					input = input.GetComponent(type);
+					// CUSTOM: Changed to also search children
+					input = input.GetComponentInChildren(type);
 				}
 			}
 			return input;
@@ -346,7 +347,7 @@ namespace NodeCanvas.Framework{
 			if (error != null){
 				return Error(error);
 			}
-			
+
 			return true;
 		}
 

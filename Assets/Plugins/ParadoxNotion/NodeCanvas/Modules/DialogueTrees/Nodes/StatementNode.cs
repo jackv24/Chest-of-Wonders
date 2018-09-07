@@ -32,6 +32,7 @@ namespace NodeCanvas.DialogueTrees{
 
 		protected override void OnNodeGUI()
 		{
+			//CUSTOM: Changed to preview localised text
 			string localizedText = statement.text.TryGetTranslation();
 
 			var displayText = localizedText.Length > 30 ? localizedText.Substring(0, 30) + "..." : localizedText;
