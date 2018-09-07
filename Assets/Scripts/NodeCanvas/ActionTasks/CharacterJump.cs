@@ -28,6 +28,9 @@ namespace NodeCanvas.Tasks.Actions
         {
             get
             {
+				if (!agent)
+					return base.info;
+
                 string dir = "<color=grey>Up</color>";
 
                 if (jumpDirection.value > 0)
