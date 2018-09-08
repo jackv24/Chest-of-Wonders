@@ -7,17 +7,17 @@ using System;
 public class CameraShakeReference : ScriptableObject
 {
 	[NonSerialized]
-	private List<CameraShake> targetCameras;
+	private List<ICameraShakeHandler> targetCameras;
 
-	public void RegisterCamera(CameraShake cameraShake)
+	public void RegisterCamera(ICameraShakeHandler cameraShake)
 	{
 		if (targetCameras == null)
-			targetCameras = new List<CameraShake>();
+			targetCameras = new List<ICameraShakeHandler>();
 
 		targetCameras.Add(cameraShake);
 	}
 
-	public void DeregisterCamera(CameraShake cameraShake)
+	public void DeregisterCamera(ICameraShakeHandler cameraShake)
 	{
 		if (targetCameras != null)
 			targetCameras.Remove(cameraShake);

@@ -12,6 +12,14 @@ public class CameraShakeTarget
 	private CameraShakeProfile profile;
 	public CameraShakeProfile Profile { get { return profile; } }
 
+	public CameraShakeTarget() { }
+
+	public CameraShakeTarget(CameraShakeReference camera, CameraShakeProfile profile)
+	{
+		this.camera = camera;
+		this.profile = profile;
+	}
+
 	public void DoShake()
 	{
 		if (camera)
