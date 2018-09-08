@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570463987493718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.5, y: 18.321547, z: 0}
+  m_LocalPosition: {x: 26.888838, y: 18.522633, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4026268335730914}
@@ -273,30 +273,6 @@ MonoBehaviour:
   passHorizontal: 0
   handleStun: 1
   deathAnimation: {fileID: 0}
---- !u!114 &114280667053844034
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1173511815162502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: a4306bba-93c6-4d58-9c17-66715a860611
---- !u!114 &114315981722740052
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1283032372313482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: ac10ce4e-6816-45a1-a6b3-3f85d706c0f7
 --- !u!114 &114318090580064742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -331,25 +307,6 @@ MonoBehaviour:
   _deserializationFailed: 0
   repeat: 1
   updateInterval: 0
---- !u!114 &114405028001253742
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1570463987493718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isConnected: 1
-  _guid: 
-  _referenceCollection:
-    _collection:
-    - {fileID: 1570463987493718}
-    - {fileID: 1283032372313482}
-    - {fileID: 1173511815162502}
-  _assetGuid: dd5f6a91b6dcb57499f806ef1646576b
 --- !u!114 &114532999235300998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,18 +322,6 @@ MonoBehaviour:
   element: 1
   useFacingDirection: 1
   characterStats: {fileID: 114823241359853506}
---- !u!114 &114807347205697448
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1570463987493718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: 6fd7be6c-41f3-4de9-a4a6-842aa18a9fe7
 --- !u!114 &114823241359853506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -401,7 +346,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 3
-  hurtCameraShake: 0
+  hurtCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: b00cb13ce19892a48bbbff9bcefd1874, type: 2}
   hurtEffect: {fileID: 1785324096871294, guid: cac17bffa1d1598479322e6927a222b4, type: 2}
   hurtEffectOffset: {x: 0, y: 0.5}
   graphic: {fileID: 212107043697564826}
@@ -420,7 +367,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 3
-  deathCameraShake: 1
+  deathCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: 2cda7b4b715c0e044b230b3f4f5229da, type: 2}
   deathDrop: {fileID: 1603555440790614, guid: 99a555e024c2878489542bc902ee4246, type: 2}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
