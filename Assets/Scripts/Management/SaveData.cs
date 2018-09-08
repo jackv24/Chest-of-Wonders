@@ -54,7 +54,7 @@ public class SaveData
 
 	[System.Serializable]
 	public class DialogueDictionary : SerializableDictionary<string, string> { }
-	public DialogueDictionary BlackboardDictionary;
+	public DialogueDictionary BlackboardDictionary = new DialogueDictionary();
 
 	#region Accessor Functions
 

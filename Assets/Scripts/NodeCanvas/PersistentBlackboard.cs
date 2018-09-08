@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
+using System.Linq;
 
 public class PersistentBlackboard : MonoBehaviour
 {
 	public string key;
 
 	private Blackboard blackboard;
-
-	private void Awake()
-	{
-		blackboard = GetComponent<Blackboard>();
-	}
 
 	private void Reset()
 	{
@@ -26,21 +22,35 @@ public class PersistentBlackboard : MonoBehaviour
 
 	private void Start()
 	{
+		Setup(SaveManager.instance);
+	}
+
+	public void Setup(SaveManager saveManager)
+	{
+		blackboard = GetComponent<Blackboard>();
+
 		if (!blackboard || string.IsNullOrEmpty(key))
 			return;
 
-		if(SaveManager.instance)
+		if (saveManager)
 		{
-			SaveManager.instance.AddTempLoadAction((data) =>
+			saveManager.AddTempLoadAction((data) =>
 			{
 				string json;
-				if(data.GetBlackboardJson(key, out json))
+				if (data.GetBlackboardJson(key, out json))
 				{
+					var beforeVariables = new Dictionary<string, Variable>(blackboard.variables);
 					blackboard.Deserialize(json);
+
+					// Merge existing variables with deserialized variables (prefer deserialized)
+					blackboard.variables = blackboard.variables
+					.Concat(beforeVariables
+					.Where(kvp => !blackboard.variables.ContainsKey(kvp.Key)))
+					.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 				}
 			});
 
-			SaveManager.instance.AddTempSaveAction((data, hardSave) =>
+			saveManager.AddTempSaveAction((data, hardSave) =>
 			{
 				data.SaveBlackBoardJson(key, blackboard.Serialize());
 			});

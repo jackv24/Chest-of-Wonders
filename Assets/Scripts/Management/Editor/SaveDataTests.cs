@@ -3,6 +3,7 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 using System.IO;
+using NodeCanvas.Framework;
 
 public class SaveDataTests
 {
@@ -52,5 +53,41 @@ public class SaveDataTests
 		saveManager.LoadGame(false);
 
 		Assert.IsTrue(isActivated);
+	}
+
+	[Test]
+	public void PersistentBlackboardSavesAndLoads()
+	{
+		var blackboardObj = new GameObject("Blackboard", typeof(Blackboard), typeof(PersistentBlackboard));
+		var blackboard = blackboardObj.GetComponent<Blackboard>();
+		var persistent = blackboardObj.GetComponent<PersistentBlackboard>();
+		persistent.Setup(saveManager);
+
+		Variable testBool = blackboard.AddVariable("Test Bool", true);
+		saveManager.SaveGame(true);
+		testBool.value = false;
+
+		// Temp load event was already expended, so call setup again (as if we've re-entered the scene)
+		persistent.Setup(saveManager);
+
+		Assert.IsTrue((bool)testBool.value);
+	}
+
+	[Test]
+	public void PersistentBlackboardSavesAndLoadsWithExtraVariables()
+	{
+		var blackboardObj = new GameObject("Blackboard", typeof(Blackboard), typeof(PersistentBlackboard));
+		var blackboard = blackboardObj.GetComponent<Blackboard>();
+		var persistent = blackboardObj.GetComponent<PersistentBlackboard>();
+		persistent.Setup(saveManager);
+
+		blackboard.AddVariable("Test Bool", true);
+		saveManager.SaveGame(true);
+		blackboard.AddVariable("Test String", "Test");
+
+		// Temp load event was already expended, so call setup again (as if we've re-entered the scene)
+		persistent.Setup(saveManager);
+
+		Assert.NotNull(blackboard.GetVariable("Test String"));
 	}
 }
