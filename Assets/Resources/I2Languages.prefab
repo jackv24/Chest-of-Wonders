@@ -54,15 +54,19 @@ MonoBehaviour:
   NeverDestroy: 0
   UserAgreesToHaveItOnTheScene: 0
   UserAgreesToHaveItInsideThePluginsFolder: 0
+  GoogleLiveSyncIsUptoDate: 1
   Spreadsheet_LocalFileName: 
   Spreadsheet_LocalCSVSeparator: ','
   Spreadsheet_LocalCSVEncoding: utf-8
+  Spreadsheet_SpecializationAsRows: 1
   Assets: []
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycbx8S-nfASq09t9hEhm18z2kHl8Q2FBnNdSlGDqEUA/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
   Google_LastUpdatedVersion: 1529838274798
+  Google_Password: change_this
   GoogleUpdateFrequency: 1
+  GoogleInEditorCheckFrequency: 2
   GoogleUpdateDelay: 5
   mLanguages:
   - Name: English
@@ -72,6 +76,7 @@ MonoBehaviour:
     Code: ja
     Flags: 0
   IgnoreDeviceLanguage: 0
+  _AllowUnloadingLanguages: 1
   mTerms:
   - Term: YES
     TermType: 0
@@ -80,9 +85,7 @@ MonoBehaviour:
     - Yes
     - "\u306F\u3044"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: NO
     TermType: 0
     Description: 
@@ -90,9 +93,7 @@ MonoBehaviour:
     - No
     - "\u3044\u3044\u3048"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Items/KEY_NAME
     TermType: 0
     Description: 
@@ -100,9 +101,7 @@ MonoBehaviour:
     - Key
     - "\u30AD\u30FC"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Items/KEY_DESCRIPTION
     TermType: 0
     Description: 
@@ -110,9 +109,7 @@ MonoBehaviour:
     - A simple key that unlocks a simple door.
     - "\u30B7\u30F3\u30D7\u30EB\u306A\u9375\u306F\u3001\u7C21\u5358\u306A\u30C9\u30A2\u306E\u30ED\u30C3\u30AF\u3092\u89E3\u9664\u3057\u307E\u3059\u3002"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Items/BOSSKEY_NAME
     TermType: 0
     Description: 
@@ -120,9 +117,7 @@ MonoBehaviour:
     - Boss Key
     - Boss Key
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Items/BOSSKEY_DESCRIPTION
     TermType: 0
     Description: 
@@ -130,9 +125,7 @@ MonoBehaviour:
     - A key that unlocks the boss door.
     - A key that unlocks the boss door.
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/GAME_TITLE
     TermType: 0
     Description: 
@@ -140,9 +133,7 @@ MonoBehaviour:
     - Alistair's Chest
     - "\u30A2\u30EA\u30B9\u30BF\u30FC\u306E\u91D1\u5EAB"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/PLAY_TEXT
     TermType: 0
     Description: 
@@ -150,9 +141,7 @@ MonoBehaviour:
     - Play Game
     - "\u30B2\u30FC\u30E0\u59CB\u3081\u308B"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/RESUME_BUTTON
     TermType: 0
     Description: 
@@ -160,9 +149,7 @@ MonoBehaviour:
     - Resume
     - "\u518D\u958B\u3059\u308B"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/NOTEBOOK_TITLE
     TermType: 0
     Description: 
@@ -170,9 +157,7 @@ MonoBehaviour:
     - Notebook
     - Notebook
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/QUESTS_BUTTON
     TermType: 0
     Description: 
@@ -180,9 +165,7 @@ MonoBehaviour:
     - Quests
     - Quests
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/CHARACTERS_BUTTON
     TermType: 0
     Description: 
@@ -190,9 +173,7 @@ MonoBehaviour:
     - Characters
     - Characters
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/CREATURES_BUTTON
     TermType: 0
     Description: 
@@ -200,9 +181,7 @@ MonoBehaviour:
     - Creatures
     - Creatures
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/ELEMENTS_BUTTON
     TermType: 0
     Description: 
@@ -210,9 +189,7 @@ MonoBehaviour:
     - Elements
     - Elements
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/OPTIONS_BUTTON
     TermType: 0
     Description: 
@@ -220,9 +197,7 @@ MonoBehaviour:
     - Options
     - "\u30AA\u30D7\u30B7\u30E7\u30F3"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/QUIT_TO_MENU_BUTTON
     TermType: 0
     Description: 
@@ -230,9 +205,7 @@ MonoBehaviour:
     - Quit to Menu
     - "\u30E1\u30CB\u30E5\u30FC\u306B\u623B\u308B"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/PAUSED_TITLE
     TermType: 0
     Description: 
@@ -240,9 +213,7 @@ MonoBehaviour:
     - Paused
     - "\u4E00\u6642\u505C\u6B62\u3057\u305F"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/MAGIC_FIRE
     TermType: 0
     Description: 
@@ -250,9 +221,7 @@ MonoBehaviour:
     - Ember
     - "\u71E0"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/MAGIC_WIND
     TermType: 0
     Description: 
@@ -260,9 +229,7 @@ MonoBehaviour:
     - Gale
     - "\u75BE\u98A8"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/MAGIC_ICE
     TermType: 0
     Description: 
@@ -270,9 +237,7 @@ MonoBehaviour:
     - Frost
     - "\u971C"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/MAGIC_GRASS
     TermType: 0
     Description: 
@@ -280,9 +245,7 @@ MonoBehaviour:
     - Leaf
     - "\u8449"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/BACK_BUTTON
     TermType: 0
     Description: 
@@ -290,9 +253,7 @@ MonoBehaviour:
     - Back
     - "\u30D0\u30C3\u30AF"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/OPTIONS_TITLE
     TermType: 0
     Description: 
@@ -300,9 +261,7 @@ MonoBehaviour:
     - Options
     - "\u30AA\u30D7\u30B7\u30E7\u30F3"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/GRAPHICS_TITLE
     TermType: 0
     Description: 
@@ -310,9 +269,7 @@ MonoBehaviour:
     - Graphics
     - "\u30B0\u30E9\u30D5\u30A3\u30C3\u30AF\u30B9"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/RESOLUTION_LABEL
     TermType: 0
     Description: 
@@ -320,9 +277,7 @@ MonoBehaviour:
     - Resolution
     - "\u89E3\u6C7A"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/FULLSCREEN_LABEL
     TermType: 0
     Description: 
@@ -330,9 +285,7 @@ MonoBehaviour:
     - Fullscreen
     - "\u5168\u753B\u9762\u8868\u793A"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/POSTFX_LABEL
     TermType: 0
     Description: 
@@ -340,9 +293,7 @@ MonoBehaviour:
     - Post FX
     - "\u30DD\u30B9\u30C8FX"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/VOLUME_MASTER_LABEL
     TermType: 0
     Description: 
@@ -350,9 +301,7 @@ MonoBehaviour:
     - Master Volume
     - "\u30DE\u30B9\u30BF\u30FC\u30DC\u30EA\u30E5\u30FC\u30E0"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/VOLUME_SOUNDS_LABEL
     TermType: 0
     Description: 
@@ -360,9 +309,7 @@ MonoBehaviour:
     - Sounds
     - "\u97F3"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/VOLUME_MUSIC_LABEL
     TermType: 0
     Description: 
@@ -370,9 +317,7 @@ MonoBehaviour:
     - Music
     - "\u97F3\u697D"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/INTERACT_OPEN
     TermType: 0
     Description: 
@@ -380,9 +325,7 @@ MonoBehaviour:
     - OPEN
     - "\u958B\u3044\u305F"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/INTERACT_TALK
     TermType: 0
     Description: 
@@ -390,9 +333,7 @@ MonoBehaviour:
     - SPEAK
     - "\u30C8\u30FC\u30AF"
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: UI/INVENTORY_BUTTON
     TermType: 0
     Description: 
@@ -400,9 +341,7 @@ MonoBehaviour:
     - Inventory
     - Inventory
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Dialogue/SAVE_ASK
     TermType: 0
     Description: 
@@ -410,9 +349,7 @@ MonoBehaviour:
     - Shall I save your gaame?
     - 
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Dialogue/SAVE_COMPLETE
     TermType: 0
     Description: 
@@ -420,9 +357,7 @@ MonoBehaviour:
     - It's done, but don't get too reckless... or do.
     - 
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Dialogue/SAVE_CANCEL
     TermType: 0
     Description: 
@@ -430,9 +365,7 @@ MonoBehaviour:
     - Are you that confident?
     - 
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Dialogue/SAVE_CHAT_ARCHIVE_ENTRANCE
     TermType: 0
     Description: 
@@ -441,9 +374,7 @@ MonoBehaviour:
       <br> \nif there weren't so many thorns."
     - 
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Dialogue/SAVE_CHAT_ARCHIVE_ENTRANCE_REPEAT
     TermType: 0
     Description: 
@@ -451,9 +382,7 @@ MonoBehaviour:
     - Terribly pleasant to see you again.
     - 
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Enemy Journal/PREFIX_DEFEATED
     TermType: 0
     Description: 
@@ -461,9 +390,7 @@ MonoBehaviour:
     - Defeated
     - Defeated
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Enemy Journal/NAME_RAMBUSH
     TermType: 0
     Description: 
@@ -471,9 +398,7 @@ MonoBehaviour:
     - Rambush
     - Rambush
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Enemy Journal/DESC_RAMBUSH
     TermType: 0
     Description: 
@@ -481,9 +406,7 @@ MonoBehaviour:
     - A sheep-bush that ambushes it's prey. An ambush ram! A RAMBUSH!
     - A sheep-bush that ambushes it's prey. An ambush ram! A RAMBUSH!
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Enemy Journal/NAME_BLAZEHARE
     TermType: 0
     Description: 
@@ -491,9 +414,7 @@ MonoBehaviour:
     - Blaze Hare
     - Blaze Hare
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Enemy Journal/DESC_BLAZEHARE
     TermType: 0
     Description: 
@@ -501,9 +422,7 @@ MonoBehaviour:
     - It's a rabbit that's on fire!
     - It's a rabbit that's on fire!
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Enemy Journal/NAME_FLUTTERBIRD
     TermType: 0
     Description: 
@@ -511,9 +430,7 @@ MonoBehaviour:
     - Flutterbird
     - 
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   - Term: Enemy Journal/DESC_FLUTTERBIRD
     TermType: 0
     Description: 
@@ -521,9 +438,7 @@ MonoBehaviour:
     - It just...flutters!
     - 
     Flags: 0000
-    Languages_Touch:
-    - 
-    - 
+    Languages_Touch: []
   CaseInsensitiveTerms: 0
   OnMissingTranslation: 1
   mTerm_AppName: UI/GAME_TITLE

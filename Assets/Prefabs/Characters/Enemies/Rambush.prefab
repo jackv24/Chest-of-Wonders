@@ -233,18 +233,6 @@ MonoBehaviour:
   disableAction: 0
   _graph: {fileID: 0}
   _blackboard: {fileID: 114497086104907862}
---- !u!114 &114268328946855772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953207987183754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: 101cda59-160d-4137-95c4-30616d478aae
 --- !u!114 &114308533614988398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,18 +318,6 @@ MonoBehaviour:
   passHorizontal: 1
   handleStun: 1
   deathAnimation: {fileID: 0}
---- !u!114 &114426409043840866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1917194432729150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: b6d01af9-1098-47e6-a0a5-02f61a36ae41
 --- !u!114 &114488476801883466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,25 +331,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundType: 3
   supportedGroundEffects: []
---- !u!114 &114493347840191376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953207987183754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isConnected: 1
-  _guid: 
-  _referenceCollection:
-    _collection:
-    - {fileID: 1953207987183754}
-    - {fileID: 1917194432729150}
-    - {fileID: 1922231558084508}
-  _assetGuid: c8d62949ade1f32448a0189dca72481c
 --- !u!114 &114497086104907862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -464,18 +421,6 @@ MonoBehaviour:
   _deserializationFailed: 0
   repeat: 1
   updateInterval: 0
---- !u!114 &114964964858626778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1922231558084508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: 823fc0c8-9cf5-4b6a-bc3b-7679ab7ac898
 --- !u!212 &212130082368449006
 SpriteRenderer:
   m_ObjectHideFlags: 1

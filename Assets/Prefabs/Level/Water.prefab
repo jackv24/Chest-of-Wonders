@@ -149,35 +149,6 @@ MonoBehaviour:
   particleHeight: 0.1
   baseSpeed: 2
   baseEmission: 8
---- !u!114 &114311027859313116
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1262053438768386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isConnected: 1
-  _guid: 
-  _referenceCollection:
-    _collection:
-    - {fileID: 1262053438768386}
-  _assetGuid: 2cba463c5a56655478ce5e8ab24b1015
---- !u!114 &114997266018738866
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1262053438768386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: 748afdd0-5369-431e-bfac-694dd868093a
 --- !u!120 &120918605486903556
 LineRenderer:
   m_ObjectHideFlags: 1

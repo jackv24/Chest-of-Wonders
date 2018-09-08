@@ -42,23 +42,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114136867450706898
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1679684435938906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isConnected: 1
-  _guid: 
-  _referenceCollection:
-    _collection:
-    - {fileID: 1679684435938906}
-  _assetGuid: b908b8648c963d34b8e1980fbbda8340
 --- !u!114 &114913248734861508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,18 +55,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitType: 0
   checkDelay: 0
---- !u!114 &114987457135024220
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1679684435938906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: 9a296fa7-ad4a-4ae9-8d0f-6348e8bc442e
 --- !u!198 &198575779344629858
 ParticleSystem:
   m_ObjectHideFlags: 1

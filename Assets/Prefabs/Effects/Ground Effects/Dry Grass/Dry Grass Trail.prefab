@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2a900e0f6b27741a1432959f6d3910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StopGroundedDelay: 0
 --- !u!198 &198562477474511320
 ParticleSystem:
   m_ObjectHideFlags: 1

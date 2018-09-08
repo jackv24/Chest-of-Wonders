@@ -88,18 +88,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.99, y: 2}
   m_EdgeRadius: 0
---- !u!114 &114386068340803108
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1430262940613518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: 5f609eab-e2df-48d2-b8de-ffe992d04aeb
 --- !u!114 &114631514090213912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -117,23 +105,6 @@ MonoBehaviour:
   gravity: -30
   groundedRayDist: 1.1
   pushHeightOffset: 0.5
---- !u!114 &114982446519966218
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1430262940613518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isConnected: 1
-  _guid: 
-  _referenceCollection:
-    _collection:
-    - {fileID: 1430262940613518}
-  _assetGuid: 734d893861dd2fb4f8eb04c0caf4b49c
 --- !u!212 &212227009037208910
 SpriteRenderer:
   m_ObjectHideFlags: 1

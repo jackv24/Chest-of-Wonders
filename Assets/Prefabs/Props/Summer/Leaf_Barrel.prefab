@@ -97,30 +97,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1912613, y: 1.5538197}
   m_EdgeRadius: 0
---- !u!114 &114098222166907970
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1525575629555724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: fbb302c8-8919-49b0-9d8f-93ea73f04bc8
---- !u!114 &114493722826816064
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1036039170743112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 112998890, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _guid: 4b5993dc-1d9e-4a40-a891-e6cb259efd9c
 --- !u!114 &114557936588857272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,7 +115,9 @@ MonoBehaviour:
   breakEffectPrefabs:
   - {fileID: 1181358874820946, guid: 7f1104db85c03ca40b8ce7a67e74fff3, type: 2}
   effectSpawnOffset: {x: -0.21, y: 1.49}
-  hitShake: 0
+  hitShake:
+    camera: {fileID: 0}
+    profile: {fileID: 0}
   breakSound:
     volume: 1
     pitchRange:
@@ -152,24 +130,6 @@ MonoBehaviour:
     id: 
     sceneName: 
     activated: 0
---- !u!114 &114626964935784524
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1036039170743112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -605777808, guid: 325c5b2a7434372429c2ca9d61dba58e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isConnected: 1
-  _guid: 
-  _referenceCollection:
-    _collection:
-    - {fileID: 1036039170743112}
-    - {fileID: 1525575629555724}
-  _assetGuid: 067a7bfcc5031094db95545244a422fb
 --- !u!212 &212326746795071500
 SpriteRenderer:
   m_ObjectHideFlags: 1

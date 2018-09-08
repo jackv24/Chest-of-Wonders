@@ -113,6 +113,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &131706366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: DialogueTree DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.81,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"Hello!"},"_position":{"x":5611.0,"y":5111.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"Rad
+    Plains, huh?"},"_actorName":"Belle","_actorParameterID":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_position":{"x":5429.0,"y":5177.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"},{"statement":{"_text":"It
+    looks a bit janky though."},"_actorName":"Clover","_actorParameterID":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_position":{"x":5492.0,"y":5279.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"6"},{"availableChoices":[{"statement":{"_text":"TRUE"}},{"statement":{"_text":"I
+    guess"}}],"_position":{"x":5543.0,"y":5372.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Better
+    get working on that then"},"_actorName":"Belle","_actorParameterID":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_position":{"x":5458.0,"y":5584.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"You
+    sound, SO enthused"},"_actorName":"Clover","_actorParameterID":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_position":{"x":5788.0,"y":5540.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_actorObject":1},{"_keyName":"Clover","_id":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _deserializationFailed: 0
+  _actorParameters:
+  - _keyName: Belle
+    _id: dc3d57ab-aa1e-4bce-94e1-88406ae21ce9
+    _actorObject: {fileID: 0}
+  - _keyName: Clover
+    _id: 8977ad4f-0f32-4f1c-a2f4-3dae76e6b664
+    _actorObject: {fileID: 0}
 --- !u!1 &243060162
 GameObject:
   m_ObjectHideFlags: 1
@@ -229,36 +259,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 243060162}
   m_Mesh: {fileID: 0}
---- !u!114 &550872593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: DialogueTree DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"Hello!"},"_position":{"x":5611.0,"y":5111.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"Rad
-    Plains, huh?"},"_actorName":"Belle","_actorParameterID":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_position":{"x":5429.0,"y":5177.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"},{"statement":{"_text":"It
-    looks a bit janky though."},"_actorName":"Clover","_actorParameterID":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_position":{"x":5492.0,"y":5279.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"6"},{"availableChoices":[{"statement":{"_text":"TRUE"}},{"statement":{"_text":"I
-    guess"}}],"_position":{"x":5543.0,"y":5372.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Better
-    get working on that then"},"_actorName":"Belle","_actorParameterID":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_position":{"x":5458.0,"y":5584.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"14"},{"statement":{"_text":"You
-    sound, SO enthused"},"_actorName":"Clover","_actorParameterID":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_position":{"x":5788.0,"y":5540.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"16"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{}},"derivedData":{"actorParameters":[{"_keyName":"Belle","_id":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_actorObject":1},{"_keyName":"Clover","_id":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _deserializationFailed: 0
-  _actorParameters:
-  - _keyName: Belle
-    _id: dc3d57ab-aa1e-4bce-94e1-88406ae21ce9
-    _actorObject: {fileID: 0}
-  - _keyName: Clover
-    _id: 8977ad4f-0f32-4f1c-a2f4-3dae76e6b664
-    _actorObject: {fileID: 0}
 --- !u!1001 &665712253
 Prefab:
   m_ObjectHideFlags: 0
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32e4b851ebd8fa4ea0645b99be1cf97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundGraphSerialization: '{"version":2.7,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"Hello!"},"_position":{"x":5611.0,"y":5111.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"Rad
+  boundGraphSerialization: '{"version":2.81,"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"Hello!"},"_position":{"x":5611.0,"y":5111.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"Rad
     Plains, huh?"},"_actorName":"Belle","_actorParameterID":"dc3d57ab-aa1e-4bce-94e1-88406ae21ce9","_position":{"x":5429.0,"y":5177.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"},{"statement":{"_text":"It
     looks a bit janky though."},"_actorName":"Clover","_actorParameterID":"8977ad4f-0f32-4f1c-a2f4-3dae76e6b664","_position":{"x":5492.0,"y":5279.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"6"},{"availableChoices":[{"statement":{"_text":"TRUE"}},{"statement":{"_text":"I
     guess"}}],"_position":{"x":5543.0,"y":5372.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"8"},{"statement":{"_text":"Better
@@ -1181,7 +1181,7 @@ MonoBehaviour:
   - {fileID: 0}
   enableAction: 1
   disableAction: 2
-  _graph: {fileID: 550872593}
+  _graph: {fileID: 131706366}
   _blackboard: {fileID: 0}
 --- !u!4 &1964824465
 Transform:
