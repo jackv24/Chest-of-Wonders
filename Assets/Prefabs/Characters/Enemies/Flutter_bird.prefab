@@ -25,6 +25,8 @@ GameObject:
   - component: {fileID: 61816427884972354}
   - component: {fileID: 212888075276420354}
   - component: {fileID: 95815874226510916}
+  - component: {fileID: 114841705706154180}
+  - component: {fileID: 114944074271638736}
   m_Layer: 9
   m_Name: Flutter_bird
   m_TagString: Enemy
@@ -42,6 +44,7 @@ GameObject:
   - component: {fileID: 4984120093367492}
   - component: {fileID: 58083152551296380}
   - component: {fileID: 114688182151244766}
+  - component: {fileID: 114178031452857466}
   m_Layer: 16
   m_Name: Damager
   m_TagString: Untagged
@@ -136,7 +139,7 @@ Animator:
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114178031452857466
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846752329716092}
@@ -187,7 +190,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 3
-  hurtCameraShake: 0
+  hurtCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: b00cb13ce19892a48bbbff9bcefd1874, type: 2}
   hurtEffect: {fileID: 1785324096871294, guid: cac17bffa1d1598479322e6927a222b4, type: 2}
   hurtEffectOffset: {x: 0, y: 0}
   graphic: {fileID: 0}
@@ -206,7 +211,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 3
-  deathCameraShake: 1
+  deathCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: 2cda7b4b715c0e044b230b3f4f5229da, type: 2}
   deathDrop: {fileID: 1603555440790614, guid: 99a555e024c2878489542bc902ee4246, type: 2}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
@@ -254,7 +261,7 @@ MonoBehaviour:
   _blackboard: {fileID: 114349518562934582}
 --- !u!114 &114841705706154180
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}
@@ -266,7 +273,7 @@ MonoBehaviour:
   _guid: 62f7753f-2f12-4add-af2f-e06e72f0c8ec
 --- !u!114 &114944074271638736
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404625634264932}

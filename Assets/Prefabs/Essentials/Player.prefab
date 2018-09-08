@@ -1416,7 +1416,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  hurtCameraShake: 2
+  hurtCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: 272a41621c87dad438a683e7009f1e1f, type: 2}
   hurtEffect: {fileID: 1854301751960796, guid: 1630f5110d0090c4da496a723669281a, type: 2}
   hurtEffectOffset: {x: 0, y: 0.5}
   graphic: {fileID: 212000014160401936}
@@ -1435,7 +1437,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  deathCameraShake: 3
+  deathCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: b9e3ce3b07284e947b9340041e725a98, type: 2}
   deathDrop: {fileID: 0}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 0}

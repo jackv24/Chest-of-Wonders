@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212130082368449006}
   - component: {fileID: 95258887201087530}
   - component: {fileID: 114308533614988398}
+  - component: {fileID: 114426409043840866}
   m_Layer: 9
   m_Name: Graphic
   m_TagString: Untagged
@@ -39,6 +40,7 @@ GameObject:
   - component: {fileID: 4223155319394504}
   - component: {fileID: 61959421403983916}
   - component: {fileID: 114130630305092396}
+  - component: {fileID: 114964964858626778}
   m_Layer: 16
   m_Name: Damager
   m_TagString: Untagged
@@ -62,6 +64,8 @@ GameObject:
   - component: {fileID: 114488476801883466}
   - component: {fileID: 114497086104907862}
   - component: {fileID: 114186666845030854}
+  - component: {fileID: 114268328946855772}
+  - component: {fileID: 114493347840191376}
   m_Layer: 9
   m_Name: Rambush
   m_TagString: Enemy
@@ -235,7 +239,7 @@ MonoBehaviour:
   _blackboard: {fileID: 114497086104907862}
 --- !u!114 &114268328946855772
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953207987183754}
@@ -332,7 +336,7 @@ MonoBehaviour:
   deathAnimation: {fileID: 0}
 --- !u!114 &114426409043840866
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1917194432729150}
@@ -357,7 +361,7 @@ MonoBehaviour:
   supportedGroundEffects: []
 --- !u!114 &114493347840191376
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953207987183754}
@@ -413,7 +417,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  hurtCameraShake: 0
+  hurtCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: b00cb13ce19892a48bbbff9bcefd1874, type: 2}
   hurtEffect: {fileID: 1785324096871294, guid: cac17bffa1d1598479322e6927a222b4, type: 2}
   hurtEffectOffset: {x: 0, y: 0.75}
   graphic: {fileID: 212130082368449006}
@@ -432,7 +438,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  deathCameraShake: 1
+  deathCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: 2cda7b4b715c0e044b230b3f4f5229da, type: 2}
   deathDrop: {fileID: 1603555440790614, guid: 99a555e024c2878489542bc902ee4246, type: 2}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
@@ -462,7 +470,7 @@ MonoBehaviour:
   updateInterval: 0
 --- !u!114 &114964964858626778
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1922231558084508}

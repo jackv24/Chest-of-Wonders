@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4896829573703824}
   - component: {fileID: 212214592049931808}
   - component: {fileID: 95185524855794016}
+  - component: {fileID: 114671909597868612}
   m_Layer: 14
   m_Name: Graphic
   m_TagString: Untagged
@@ -41,6 +42,8 @@ GameObject:
   - component: {fileID: 114361726919820766}
   - component: {fileID: 50270106803801894}
   - component: {fileID: 58953327103004430}
+  - component: {fileID: 114128878449541174}
+  - component: {fileID: 114357286844744142}
   m_Layer: 14
   m_Name: Sootie
   m_TagString: Enemy
@@ -152,7 +155,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  hurtCameraShake: 0
+  hurtCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: b00cb13ce19892a48bbbff9bcefd1874, type: 2}
   hurtEffect: {fileID: 1785324096871294, guid: cac17bffa1d1598479322e6927a222b4, type: 2}
   hurtEffectOffset: {x: 0, y: 0}
   graphic: {fileID: 0}
@@ -171,7 +176,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  deathCameraShake: 1
+  deathCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: 2cda7b4b715c0e044b230b3f4f5229da, type: 2}
   deathDrop: {fileID: 0}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 0}
@@ -182,7 +189,7 @@ MonoBehaviour:
   enemyRecord: {fileID: 0}
 --- !u!114 &114128878449541174
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
@@ -209,7 +216,7 @@ MonoBehaviour:
   characterStats: {fileID: 0}
 --- !u!114 &114357286844744142
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
@@ -246,7 +253,7 @@ MonoBehaviour:
     m_Bits: 256
 --- !u!114 &114671909597868612
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038996923405694}

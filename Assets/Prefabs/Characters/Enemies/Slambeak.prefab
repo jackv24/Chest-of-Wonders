@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4176988366070516}
   - component: {fileID: 114380435230801488}
   - component: {fileID: 60223868669900396}
+  - component: {fileID: 114725252700473310}
   m_Layer: 0
   m_Name: AttackCollider
   m_TagString: Untagged
@@ -39,6 +40,8 @@ GameObject:
   - component: {fileID: 114026582892981942}
   - component: {fileID: 114410520341251328}
   - component: {fileID: 50533719981076872}
+  - component: {fileID: 114371336129403542}
+  - component: {fileID: 114642297517268852}
   m_Layer: 9
   m_Name: Slambeak
   m_TagString: Enemy
@@ -55,6 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4825881922611602}
   - component: {fileID: 61153216758989076}
+  - component: {fileID: 114986048852144978}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -72,6 +76,7 @@ GameObject:
   - component: {fileID: 4575618046459320}
   - component: {fileID: 114551464260744870}
   - component: {fileID: 60161889527334184}
+  - component: {fileID: 114023144922042552}
   m_Layer: 0
   m_Name: ReturnCollider
   m_TagString: Untagged
@@ -88,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4970584013765288}
   - component: {fileID: 61626732067633028}
+  - component: {fileID: 114444303498782888}
   m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
@@ -103,6 +109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4568048972348868}
+  - component: {fileID: 114230591726696532}
   m_Layer: 9
   m_Name: IdleColliders
   m_TagString: Untagged
@@ -120,6 +127,7 @@ GameObject:
   - component: {fileID: 4007642940452808}
   - component: {fileID: 114999225428559154}
   - component: {fileID: 60141708717329794}
+  - component: {fileID: 114128140169119688}
   m_Layer: 16
   m_Name: Slam Trigger
   m_TagString: Untagged
@@ -136,6 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4263326695743704}
   - component: {fileID: 61084739800188674}
+  - component: {fileID: 114312637418347246}
   m_Layer: 13
   m_Name: NeckCollider
   m_TagString: Untagged
@@ -154,6 +163,7 @@ GameObject:
   - component: {fileID: 212296451428870952}
   - component: {fileID: 95373892422398750}
   - component: {fileID: 114865188087239950}
+  - component: {fileID: 114742653329547288}
   m_Layer: 9
   m_Name: Graphic
   m_TagString: Untagged
@@ -170,6 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4505319069470612}
   - component: {fileID: 61698910517918410}
+  - component: {fileID: 114199855852597056}
   m_Layer: 8
   m_Name: Block
   m_TagString: Untagged
@@ -186,6 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4907351151202444}
   - component: {fileID: 61959360418788994}
+  - component: {fileID: 114060270669567526}
   m_Layer: 9
   m_Name: Neck
   m_TagString: Untagged
@@ -202,6 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4813440882845584}
   - component: {fileID: 61883166380263962}
+  - component: {fileID: 114383213183470078}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -654,7 +667,7 @@ Animator:
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114023144922042552
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1300719776552570}
@@ -698,7 +711,7 @@ MonoBehaviour:
   _guid: eec6c60c-8de6-47c9-a6de-ed853d4ac6a5
 --- !u!114 &114128140169119688
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1507925025919060}
@@ -722,7 +735,7 @@ MonoBehaviour:
   _guid: 4d0a576e-bb45-40f2-ab1f-4a23985bdd9c
 --- !u!114 &114230591726696532
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1425654944600192}
@@ -734,7 +747,7 @@ MonoBehaviour:
   _guid: fbaeece1-c5ff-4ad0-a795-92b058a54ec1
 --- !u!114 &114312637418347246
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552031967610022}
@@ -746,7 +759,7 @@ MonoBehaviour:
   _guid: 1501673d-7d09-4b1f-bdb5-115a67111b9e
 --- !u!114 &114371336129403542
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111621812965594}
@@ -806,7 +819,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  hurtCameraShake: 0
+  hurtCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: b00cb13ce19892a48bbbff9bcefd1874, type: 2}
   hurtEffect: {fileID: 1785324096871294, guid: cac17bffa1d1598479322e6927a222b4, type: 2}
   hurtEffectOffset: {x: 0, y: 0.5}
   graphic: {fileID: 212296451428870952}
@@ -825,7 +840,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  deathCameraShake: 1
+  deathCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: 2cda7b4b715c0e044b230b3f4f5229da, type: 2}
   deathDrop: {fileID: 0}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
@@ -862,7 +879,7 @@ MonoBehaviour:
   useFacingDirection: 1
 --- !u!114 &114642297517268852
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111621812965594}
@@ -890,7 +907,7 @@ MonoBehaviour:
   _assetGuid: 347e41fd1da9e7842b2d4b2c84ff7168
 --- !u!114 &114725252700473310
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1068468472700672}
@@ -902,7 +919,7 @@ MonoBehaviour:
   _guid: 624e93de-06b8-4c42-ac6a-9c0e660461ea
 --- !u!114 &114742653329547288
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1589575255243670}

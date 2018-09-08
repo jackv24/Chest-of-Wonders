@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4521934052029854}
+  - component: {fileID: 114842616292959170}
   m_Layer: 0
   m_Name: MouthTransform
   m_TagString: Untagged
@@ -36,6 +37,7 @@ GameObject:
   - component: {fileID: 4512676611416354}
   - component: {fileID: 114051145543724472}
   - component: {fileID: 60344537139949536}
+  - component: {fileID: 114992757463457280}
   m_Layer: 15
   m_Name: PounceCollider
   m_TagString: Untagged
@@ -53,6 +55,7 @@ GameObject:
   - component: {fileID: 4083025214045174}
   - component: {fileID: 114508196575901406}
   - component: {fileID: 60577992651340798}
+  - component: {fileID: 114725449248741850}
   m_Layer: 15
   m_Name: Attack2Collider
   m_TagString: Untagged
@@ -71,6 +74,7 @@ GameObject:
   - component: {fileID: 212450966352744004}
   - component: {fileID: 95740427379029714}
   - component: {fileID: 114249413797912622}
+  - component: {fileID: 114735666694105410}
   m_Layer: 9
   m_Name: Graphic
   m_TagString: Untagged
@@ -88,6 +92,7 @@ GameObject:
   - component: {fileID: 4860697361460588}
   - component: {fileID: 114925967057376362}
   - component: {fileID: 60615508878901952}
+  - component: {fileID: 114358987451813380}
   m_Layer: 15
   m_Name: Attack1Collider
   m_TagString: Untagged
@@ -109,8 +114,8 @@ GameObject:
   - component: {fileID: 114581437587600448}
   - component: {fileID: 114985464808033458}
   - component: {fileID: 114414467170502894}
-  - component: {fileID: 114763726739086558}
-  - component: {fileID: 114189580519881636}
+  - component: {fileID: 114082818067691806}
+  - component: {fileID: 114211091687221562}
   m_Layer: 9
   m_Name: Sootomander
   m_TagString: Enemy
@@ -366,7 +371,7 @@ MonoBehaviour:
   useFacingDirection: 1
 --- !u!114 &114082818067691806
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
@@ -376,36 +381,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: 70467e70-d2dd-46cd-8e12-4be73b334f7b
---- !u!114 &114189580519881636
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914621623221682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aad115aca74ce3c4891b3f6de0b4aae8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boundGraphSerialization: '{"version":2.81,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3332.0,"y":-3703.0},"zoomFactor":0.7500044,"nodes":[{"_position":{"x":5101.0,"y":5104.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"filterMode":"LimitNumberOfTimes","maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":4990.0,"y":5234.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"3"},{"_action":{"storeValue":{"_name":"player","_targetVariableID":"66abf58a-494c-41e4-9817-b13f40e88c3f"},"$type":"NodeCanvas.Tasks.Actions.GetPlayer"},"_position":{"x":4931.0,"y":5342.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_position":{"x":5251.0,"y":5312.0},"_comment":"Patrol
-    until player in range or aggro''d","$type":"NodeCanvas.BehaviourTrees.Selector","$id":"9"},{"_position":{"x":4997.0,"y":5472.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"10"},{"_condition":{"conditions":[{"checkTarget":{"_name":"player","_targetVariableID":"66abf58a-494c-41e4-9817-b13f40e88c3f"},"checkType":"GreaterThan","distance":{"_value":6.0},"$type":"NodeCanvas.Tasks.Conditions.CheckDistanceToGameObject"},{"valueA":{"_name":"aggro","_targetVariableID":"f840d681-e539-4506-9a08-fc22d2c547d0"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":4831.0,"y":5566.0},"_tag":"","$type":"NodeCanvas.BehaviourTrees.ConditionNode","$id":"11"},{"_subTree":{"_value":1},"_position":{"x":5039.0,"y":5574.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"20"},{"_position":{"x":5217.0,"y":5414.0},"_comment":"Optional,
-    since we need to go to the next node after","$type":"NodeCanvas.BehaviourTrees.Optional","$id":"22"},{"filterMode":"LimitNumberOfTimes","maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5204.0,"y":5478.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"23"},{"_action":{"boolVariable":{"_name":"aggro","_targetVariableID":"f840d681-e539-4506-9a08-fc22d2c547d0"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5281.0,"y":5580.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"},{"_position":{"x":5715.0,"y":5493.0},"_comment":"Attempt
-    attacks, if all failed just follow player","$type":"NodeCanvas.BehaviourTrees.Selector","$id":"29"},{"missingType":"NodeCanvas.BehaviourTrees.DistancePrioritySelector","recoveryState":"{\"target\":{\"_name\":\"player\",\"_targetVariableID\":\"66abf58a-494c-41e4-9817-b13f40e88c3f\"},\"priorities\":[{\"_value\":2.5},{\"_value\":3.0},{\"_value\":9.0}],\"_position\":{\"x\":5423.0,\"y\":5693.0},\"_comment\":\"Attempt
-    distance-based attacks first\",\"$type\":\"NodeCanvas.BehaviourTrees.DistancePrioritySelector\",\"$id\":\"30\",\"missingType\":\"NodeCanvas.BehaviourTrees.DistancePrioritySelector\"}","_position":{"x":5423.0,"y":5693.0},"_comment":"Attempt
-    distance-based attacks first","$type":"NodeCanvas.Framework.Internal.MissingNode","$id":"30"},{"_position":{"x":5119.0,"y":5783.0},"$type":"NodeCanvas.BehaviourTrees.Selector","$id":"31"},{"_condition":{"valueA":{"_name":"attack1Done"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":4957.0,"y":5883.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"32"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"Attack1"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"boolVariable":{"_name":"attack1Done"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4987.0,"y":5967.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"36"},{"_position":{"x":5189.0,"y":5885.0},"$type":"NodeCanvas.BehaviourTrees.Inverter","$id":"46"},{"_action":{"boolVariable":{"_name":"attack1Done"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5189.0,"y":5965.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"47"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"Attack2"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5335.0,"y":5837.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"50"},{"maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5579.0,"y":5815.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"58"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"Pounce_Ready"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"layerIndex":{},"stateName":{"_value":"Pounce_Action"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"jumpDirection":{"_name":"direction","_targetVariableID":"d6f2c103-6f7b-424c-9fc4-9784bfc11a92"},"moveSpeed":{"_value":10.0},"holdJumpTime":{"_value":0.5},"waitUntilLand":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.CharacterJump"},{"layerIndex":{},"stateName":{"_value":"Pounce_Land"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5543.0,"y":5915.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"61"},{"maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5768.0,"y":5713.0},"_comment":"Ash
-    breath is a ranged attack, and can be performed at any distance","$type":"NodeCanvas.BehaviourTrees.Filter","$id":"80"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"AshBreath"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5801.0,"y":5830.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"83"},{"_subTree":{"_value":2},"_position":{"x":5843.0,"y":5588.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"91"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"80"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"91"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"31"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"50"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"58"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"32"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"31"},"_targetNode":{"$ref":"46"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"32"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"46"},"_targetNode":{"$ref":"47"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"58"},"_targetNode":{"$ref":"61"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"80"},"_targetNode":{"$ref":"83"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
-  boundGraphObjectReferences:
-  - {fileID: 0}
-  - {fileID: 11400000, guid: f8ce9c6c83c3f904f9d520018fbb0dfc, type: 2}
-  - {fileID: 11400000, guid: 879e88b927425e24ab74b0d92f107724, type: 2}
-  enableAction: 0
-  disableAction: 0
-  _graph: {fileID: 0}
-  _blackboard: {fileID: 114763726739086558}
 --- !u!114 &114211091687221562
 MonoBehaviour:
-  m_ObjectHideFlags: 11
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914621623221682}
@@ -529,7 +507,7 @@ MonoBehaviour:
   _guid: 319cde45-3c96-4e15-83b5-20ae6b889e7d
 --- !u!114 &114735666694105410
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430549831077228}
@@ -539,26 +517,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _guid: d9c622e8-2324-4259-8f28-2212c5594337
---- !u!114 &114763726739086558
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914621623221682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _serializedBlackboard: '{"_variables":{"player":{"_name":"player","_id":"66abf58a-494c-41e4-9817-b13f40e88c3f","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
-    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"aggro":{"_name":"aggro","_id":"f840d681-e539-4506-9a08-fc22d2c547d0","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"direction":{"_value":-1.0,"_name":"direction","_id":"d6f2c103-6f7b-424c-9fc4-9784bfc11a92","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"playerDirection":{"_name":"playerDirection","_id":"50bd4ae1-d991-490c-b9ce-7c966d869406","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
-  _objectReferences: []
 --- !u!114 &114842616292959170
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211249783460290}
@@ -645,7 +606,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  hurtCameraShake: 0
+  hurtCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: b00cb13ce19892a48bbbff9bcefd1874, type: 2}
   hurtEffect: {fileID: 1785324096871294, guid: cac17bffa1d1598479322e6927a222b4, type: 2}
   hurtEffectOffset: {x: 0, y: 0.75}
   graphic: {fileID: 212450966352744004}
@@ -663,7 +626,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  deathCameraShake: 1
+  deathCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: 2cda7b4b715c0e044b230b3f4f5229da, type: 2}
   deathDrop: {fileID: 1022593397258198, guid: 960fcd0a9b537e64ea77c3b1d5b062a2, type: 2}
   dropOffset: {x: 0, y: 2.5}
   healthDrop: {fileID: 1534400475479588, guid: dd033582c814a03409c8e976b6360e19, type: 2}
