@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class HUDControl : MonoBehaviour
 {
-	public static HUDControl Instance;
-
     public GameObject player;
 
     [Header("Stat Bars")]
@@ -60,8 +58,6 @@ public class HUDControl : MonoBehaviour
 
 	private void Awake()
 	{
-		Instance = this;
-
 		animator = GetComponent<Animator>();
 	}
 

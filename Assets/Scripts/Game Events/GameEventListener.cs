@@ -24,8 +24,33 @@ public class GameEventListener : MonoBehaviour
 			listenTo.DeregisterListener(this);
 	}
 
+	public void SetEvent(GameEvent gameEvent)
+	{
+		if (listenTo)
+			listenTo.DeregisterListener(this);
+
+		if(gameEvent)
+		{
+			listenTo = gameEvent;
+			listenTo.RegisterListener(this);
+		}
+	}
+
 	public void OnEventRaised()
 	{
 		response.Invoke();
+	}
+
+	public void AddResponse(UnityAction call)
+	{
+		if (response == null)
+			response = new UnityEvent();
+		response.AddListener(call);
+	}
+
+	public void RemoveResponse(UnityAction call)
+	{
+		if(response != null)
+			response.RemoveListener(call);
 	}
 }

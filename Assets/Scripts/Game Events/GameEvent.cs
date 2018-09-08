@@ -18,9 +18,12 @@ public class GameEvent : ScriptableObject
 		{
 			listenerCountBefore = eventListeners.Count;
 
-			// Loop backwards through list in case listeners unsubscribe when called
+			// Cache list first in case listeners unsubscribe when called
+			// (could loop backwards instead, but this preserves the order)
+			var listeners = new List<GameEventListener>(eventListeners);
 			for (int i = 0; i < eventListeners.Count; i++)
-				eventListeners[i].OnEventRaised();
+				listeners[i].OnEventRaised();
+			eventListeners = listeners;
 
 			listenerCountAfter = eventListeners.Count;
 		}
