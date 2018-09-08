@@ -14,8 +14,8 @@ namespace NodeCanvas.BehaviourTrees{
 
 		public enum FilterMode
 		{
-			LimitNumberOfTimes,
-			CoolDown
+			LimitNumberOfTimes = 0,
+			CoolDown = 1
 		}
 
 		public enum Policy
@@ -25,11 +25,14 @@ namespace NodeCanvas.BehaviourTrees{
 			FailureOnly
 		}
 
-		public FilterMode filterMode           = FilterMode.CoolDown;
-		public BBParameter<int> maxCount       = 1;
+		public FilterMode filterMode = FilterMode.CoolDown;
+		[ShowIf("filterMode", 0)] [Name("Max Times")]
+		public BBParameter<int> maxCount = 1;
+		[ShowIf("filterMode", 0)] [Name("Increase Count When")]
+		public Policy policy = Policy.SuccessOrFailure;
+		[ShowIf("filterMode", 1)]
 		public BBParameter<float> coolDownTime = 5f;
-		public bool inactiveWhenLimited        = true;
-		public Policy policy                   = Policy.SuccessOrFailure;
+		public bool inactiveWhenLimited = true;
 
 		private int executedCount;
 		private float currentTime;
@@ -89,38 +92,22 @@ namespace NodeCanvas.BehaviourTrees{
 			}
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
+
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
 		
 		protected override void OnNodeGUI(){
 
 			if (filterMode == FilterMode.CoolDown){
 				GUILayout.Space(25);
-				var pRect = new Rect(5, GUILayoutUtility.GetLastRect().y, nodeRect.width - 10, 20);
+				var pRect = new Rect(5, GUILayoutUtility.GetLastRect().y, rect.width - 10, 20);
 				UnityEditor.EditorGUI.ProgressBar(pRect, currentTime/coolDownTime.value, currentTime > 0? "Cooling..." : "Cooled");
 			}
 			else
 			if (filterMode == FilterMode.LimitNumberOfTimes){
 				GUILayout.Label(executedCount + " / " + maxCount.value + " Accessed Times");
 			}
-		}
-
-		protected override void OnNodeInspectorGUI(){
-
-			filterMode = (FilterMode)UnityEditor.EditorGUILayout.EnumPopup("Mode", filterMode);
-
-			if (filterMode == FilterMode.CoolDown){
-				coolDownTime = (BBParameter<float>)EditorUtils.BBParameterField("CoolDown Time", coolDownTime);
-			}
-			else
-			if (filterMode == FilterMode.LimitNumberOfTimes){
-				maxCount = (BBParameter<int>)EditorUtils.BBParameterField("Max Times", maxCount);
-				policy = (Policy)UnityEditor.EditorGUILayout.EnumPopup("Increase Count For", policy);
-			}
-
-			inactiveWhenLimited = UnityEditor.EditorGUILayout.Toggle("Inactive When Limited", inactiveWhenLimited);
 		}
 		
 		#endif

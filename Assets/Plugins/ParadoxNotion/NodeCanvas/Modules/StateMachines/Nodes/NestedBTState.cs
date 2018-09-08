@@ -148,7 +148,7 @@ namespace NodeCanvas.StateMachines{
 		protected override void OnNodeInspectorGUI(){
 
 			ShowBaseFSMInspectorGUI();
-			EditorUtils.BBParameterField("Behaviour Tree", _nestedBT);
+			NodeCanvas.Editor.BBParameterEditor.ParameterField("Behaviour Tree", _nestedBT);
 
 			if (nestedBT == null){
 				return;
@@ -169,7 +169,6 @@ namespace NodeCanvas.StateMachines{
 
 	    	var defParams = nestedBT.GetDefinedParameters();
 	    	if (defParams.Length != 0){
-
 		    	EditorUtils.TitledSeparator("Defined Nested BT Parameters");
 		    	GUI.color = Color.yellow;
 		    	EditorGUILayout.LabelField("Name", "Type");
@@ -182,7 +181,7 @@ namespace NodeCanvas.StateMachines{
 			    	}
 		    	}
 		    	if (GUILayout.Button("Check/Create Blackboard Variables")){
-		    		nestedBT.CreateDefinedParameterVariables(graphBlackboard);
+		    		nestedBT.PromoteDefinedParametersToVariables(graphBlackboard);
 		    	}
 		    }
 		}

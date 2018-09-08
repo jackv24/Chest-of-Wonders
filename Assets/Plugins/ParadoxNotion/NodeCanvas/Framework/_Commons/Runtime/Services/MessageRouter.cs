@@ -32,7 +32,6 @@ namespace ParadoxNotion.Services{
 			}
 		}
 
-
 		//The event names and the objects subscribed to them
 		private Dictionary<string, List<object>> listeners = new Dictionary<string, List<object>>(System.StringComparer.OrdinalIgnoreCase);
 		
@@ -237,6 +236,7 @@ namespace ParadoxNotion.Services{
 		}
 
 
+		///----------------------------------------------------------------------------------------------
 
 
 		///Add a listener to several messages
@@ -267,7 +267,7 @@ namespace ParadoxNotion.Services{
 		}
 
 
-		///...
+		///Register a delegate callback to a message directly
 		public void RegisterCallback(string message, Action callback){ Internal_RegisterCallback(message, callback); }
 		public void RegisterCallback<T>(string message, Action<T> callback){ Internal_RegisterCallback(message, callback); }
 		void Internal_RegisterCallback(string message, Delegate callback){
@@ -282,7 +282,7 @@ namespace ParadoxNotion.Services{
 		}
 
 
-		///Remove a listener completely
+		///Remove a listener completely from all messages
 		public void UnRegister(object target){
 
 			if (target == null){
@@ -337,8 +337,6 @@ namespace ParadoxNotion.Services{
 				}
 			}
 		}
-
-
 
 		///Call the functions assigned to the event without argument
 		public bool Dispatch(string message){ return Dispatch<object>(message, null); }

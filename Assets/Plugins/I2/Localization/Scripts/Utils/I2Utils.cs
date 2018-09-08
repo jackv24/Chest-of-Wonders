@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace I2.Loc
 {
@@ -181,5 +182,14 @@ namespace I2.Loc
             return comp;
         }
 
+        public static string GetCaptureMatch(Match match)
+        {
+            for (int i = match.Groups.Count - 1; i >= 0; --i)
+                if (match.Groups[i].Success)
+                {
+                    return match.Groups[i].ToString();
+                }
+            return match.ToString();
+        }
     }
 }

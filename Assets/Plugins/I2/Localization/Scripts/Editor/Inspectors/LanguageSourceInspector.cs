@@ -9,12 +9,14 @@ namespace I2.Loc
 		#region Variables
 		
 		SerializedProperty 	mProp_Assets, mProp_Languages, 
-							mProp_Google_WebServiceURL, mProp_GoogleUpdateFrequency, mProp_GoogleUpdateDelay, mProp_Google_SpreadsheetKey, mProp_Google_SpreadsheetName, 
-							mProp_Spreadsheet_LocalFileName, mProp_Spreadsheet_LocalCSVSeparator, mProp_CaseInsensitiveTerms, mProp_Spreadsheet_LocalCSVEncoding,
-							mProp_OnMissingTranslation, mProp_AppNameTerm, mProp_IgnoreDeviceLanguage;
+							mProp_Google_WebServiceURL, mProp_GoogleUpdateFrequency, mProp_GoogleUpdateDelay, mProp_Google_SpreadsheetKey, mProp_Google_SpreadsheetName, mProp_Google_Password,
+                            mProp_Spreadsheet_LocalFileName, mProp_Spreadsheet_LocalCSVSeparator, mProp_CaseInsensitiveTerms, mProp_Spreadsheet_LocalCSVEncoding,
+							mProp_OnMissingTranslation, mProp_AppNameTerm, mProp_IgnoreDeviceLanguage, mProp_Spreadsheet_SpecializationAsRows, mProp_GoogleInEditorCheckFrequency,
+                            mProp_HighlightLocalizedTargets, mProp_GoogleLiveSyncIsUptoDate, mProp_AllowUnloadingLanguages;
 
 		public static LanguageSource mLanguageSource;
         public static LocalizationEditor mLanguageSourceEditor;
+        public static Editor mCurrentInspector;
 
         static bool mIsParsing = false;  // This is true when the editor is opening several scenes to avoid reparsing objects
 
@@ -56,24 +58,30 @@ namespace I2.Loc
 			bool ForceParse = (mLanguageSource != newSource);
 			mLanguageSource = newSource;
             mLanguageSourceEditor = this;
+            mCurrentInspector = this;
 
 
             if (!LocalizationManager.Sources.Contains(mLanguageSource))
 				LocalizationManager.UpdateSources();
-            mProp_Assets                        = serializedObject.FindProperty("Assets");
-            mProp_Languages                     = serializedObject.FindProperty("mLanguages");
-            mProp_Google_WebServiceURL          = serializedObject.FindProperty("Google_WebServiceURL");
-            mProp_GoogleUpdateFrequency         = serializedObject.FindProperty("GoogleUpdateFrequency");
-            mProp_GoogleUpdateDelay             = serializedObject.FindProperty("GoogleUpdateDelay");
-            mProp_Google_SpreadsheetKey         = serializedObject.FindProperty("Google_SpreadsheetKey");
-            mProp_Google_SpreadsheetName        = serializedObject.FindProperty("Google_SpreadsheetName");
-            mProp_CaseInsensitiveTerms          = serializedObject.FindProperty("CaseInsensitiveTerms");
-            mProp_Spreadsheet_LocalFileName     = serializedObject.FindProperty("Spreadsheet_LocalFileName");
-            mProp_Spreadsheet_LocalCSVSeparator = serializedObject.FindProperty("Spreadsheet_LocalCSVSeparator");
-            mProp_Spreadsheet_LocalCSVEncoding  = serializedObject.FindProperty("Spreadsheet_LocalCSVEncoding");
-            mProp_OnMissingTranslation          = serializedObject.FindProperty("OnMissingTranslation");
-			mProp_AppNameTerm					= serializedObject.FindProperty("mTerm_AppName");
-			mProp_IgnoreDeviceLanguage			= serializedObject.FindProperty("IgnoreDeviceLanguage");
+            mProp_Assets                           = serializedObject.FindProperty("Assets");
+            mProp_Languages                        = serializedObject.FindProperty("mLanguages");
+            mProp_Google_WebServiceURL             = serializedObject.FindProperty("Google_WebServiceURL");
+            mProp_GoogleUpdateFrequency            = serializedObject.FindProperty("GoogleUpdateFrequency");
+            mProp_GoogleInEditorCheckFrequency     = serializedObject.FindProperty("GoogleInEditorCheckFrequency");
+            mProp_GoogleUpdateDelay                = serializedObject.FindProperty("GoogleUpdateDelay");
+            mProp_Google_SpreadsheetKey            = serializedObject.FindProperty("Google_SpreadsheetKey");
+            mProp_Google_SpreadsheetName           = serializedObject.FindProperty("Google_SpreadsheetName");
+            mProp_Google_Password                  = serializedObject.FindProperty("Google_Password");            
+            mProp_CaseInsensitiveTerms             = serializedObject.FindProperty("CaseInsensitiveTerms");
+            mProp_Spreadsheet_LocalFileName        = serializedObject.FindProperty("Spreadsheet_LocalFileName");
+            mProp_Spreadsheet_LocalCSVSeparator    = serializedObject.FindProperty("Spreadsheet_LocalCSVSeparator");
+            mProp_Spreadsheet_LocalCSVEncoding     = serializedObject.FindProperty("Spreadsheet_LocalCSVEncoding");
+            mProp_Spreadsheet_SpecializationAsRows = serializedObject.FindProperty("Spreadsheet_SpecializationAsRows");
+            mProp_OnMissingTranslation             = serializedObject.FindProperty("OnMissingTranslation");
+			mProp_AppNameTerm					   = serializedObject.FindProperty("mTerm_AppName");
+			mProp_IgnoreDeviceLanguage			   = serializedObject.FindProperty("IgnoreDeviceLanguage");
+            mProp_GoogleLiveSyncIsUptoDate         = serializedObject.FindProperty("GoogleLiveSyncIsUptoDate");
+            mProp_AllowUnloadingLanguages          = serializedObject.FindProperty("_AllowUnloadingLanguages");
 
             if (!mIsParsing)
 			{
@@ -89,7 +97,7 @@ namespace I2.Loc
                 if (ForceParse || mParsedTerms.Count < mLanguageSource.mTerms.Count)
                 {
                     mSelectedCategories.Clear();
-                    ParseTerms(true);
+                    ParseTerms(true, false, true);
                 }
 			}
             ScheduleUpdateTermsToShowInList();
@@ -101,7 +109,9 @@ namespace I2.Loc
 		{
 			//LocalizationManager.LocalizeAll();
 			SaveSelectedCategories();
-		}
+            mLanguageSourceEditor = null;
+            if (mCurrentInspector==this) mCurrentInspector = null;
+        }
 
 
         void UpdateSelectedKeys()
@@ -165,7 +175,7 @@ namespace I2.Loc
 			GUILayout.Space (10);
 			GUILayout.FlexibleSpace();
 
-			GUITools.OnGUI_Footer("I2 Localization", LocalizationManager.GetVersion(), LocalizeInspector.HelpURL_forum, LocalizeInspector.HelpURL_Documentation, LocalizeInspector.HelpURL_AssetStore);
+            GUITools.OnGUI_Footer("I2 Localization", LocalizationManager.GetVersion(), LocalizeInspector.HelpURL_forum, LocalizeInspector.HelpURL_Documentation, LocalizeInspector.HelpURL_AssetStore);
 
 			GUILayout.EndVertical();
 

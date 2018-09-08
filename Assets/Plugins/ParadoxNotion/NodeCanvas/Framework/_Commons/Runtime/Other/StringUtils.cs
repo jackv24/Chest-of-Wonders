@@ -6,11 +6,12 @@ using System.Text.RegularExpressions;
 
 namespace ParadoxNotion{
 
+	///Some common string utilities
 	public static class StringUtils {
 
 		private static Dictionary<string, string> splitCaseCache = new Dictionary<string, string>(StringComparer.Ordinal);
 
-		///Convert camelCase to words as the name implies.
+		///Convert camelCase to words.
 		public static string SplitCamelCase(this string s){
 			if (string.IsNullOrEmpty(s)){
 				return s;
@@ -20,6 +21,7 @@ namespace ParadoxNotion{
 			if (splitCaseCache.TryGetValue(s, out result)){
 				return result;
 			}
+			if (s.StartsWith("_")){ s = s.Substring(1); }
 			result = s.Replace("_", " ");
 			result = char.ToUpper(result[0]) + result.Substring(1);
 			result = Regex.Replace(result, "(?<=[a-z])([A-Z])", " $1").Trim();
@@ -63,13 +65,47 @@ namespace ParadoxNotion{
 			return letters[index].ToString();
 		}
 
-		//Get the string result within from to
+		///Get the string result within from to
 		public static string GetStringWithin(this string input, string from, string to){
 			var pattern = string.Format(@"{0}(.*?){1}", from, to);
 			var regex = new Regex(pattern);
 			var match = regex.Match(input);
 			return match.Groups[1].ToString();
-			// var result = Regex.Replace(input, pattern, s);
+		}
+
+		///Returns whether or not the input is valid for a search match vs the target.
+		///Done by splitting input to words and checking sequential occurency within target string which can be in path format ("/").
+		public static bool SearchMatch(string input, string target){
+			//ignore case
+			input = input.ToUpper();
+			target = target.ToUpper();
+
+			//determine leaf name
+			var leafName = target.Contains('/')? target.Substring(target.LastIndexOf('/') + 1) : target;
+
+			//if fewer than 3 chars, do a direct match check with leaf name
+			if (input.Length <= 2){
+				return input == leafName;
+			}
+
+			//treat dot as spaces and split to words
+			var words = input.Replace('.', ' ').Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
+
+			//check match for sequential occurency
+			var leftover = target;
+			for (var i = 0; i < words.Length; i++){
+				var word = words[i];
+
+				if (!leftover.Contains(word) && word != "*"){
+					return false;
+				}
+
+				leftover = leftover.Substring(leftover.IndexOf(word) + word.Length);
+			}
+
+			//last word should also be contained in leaf name
+			var lastWord = words[ words.Length - 1 ];
+			return leafName.Contains(lastWord) || lastWord == "*";
 		}
 
 		///A more complete ToString version

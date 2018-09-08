@@ -138,6 +138,7 @@ namespace NodeCanvas.Framework{
 			
 			isPaused = false;
 			status = success == true? Status.Success : Status.Failure;
+			// status = success == null? Status.Resting : (success == true? Status.Success : Status.Failure);
 			OnStop();
 		}
 

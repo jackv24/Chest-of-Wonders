@@ -6,6 +6,12 @@ namespace NodeCanvas.Framework{
 		void Update();
 	}
 
+	///Denotes that the node can be invoked in means outside of it's 'Execution' scope.
+	public interface IInvokable{
+		string GetInvocationID();
+		object Invoke(params object[] args);
+	}
+
 	///Denotes that the node holds a nested graph.
 	///Nodes are checked for this interface
 	public interface IGraphAssignable{

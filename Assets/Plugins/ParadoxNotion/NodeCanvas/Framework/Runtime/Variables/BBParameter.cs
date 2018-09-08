@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using ParadoxNotion;
-using ParadoxNotion.Serialization;
 using ParadoxNotion.Serialization.FullSerializer;
 using NodeCanvas.Framework.Internal;
 using UnityEngine;
 using Logger = ParadoxNotion.Services.Logger;
 
-namespace NodeCanvas.Framework{
+namespace NodeCanvas.Framework {
 
 	#if UNITY_EDITOR //handles missing parameter types and upgrades of T to BBParameter<T>
-	[fsObject(Processor = typeof(fsBBParameterProcessor))]
+    [fsObject(Processor = typeof(fsBBParameterProcessor))]
 	#endif
 
 	///Class for Parameter Variables that allow binding to a Blackboard variable or specifying a value directly.
@@ -172,7 +170,7 @@ namespace NodeCanvas.Framework{
 			{
 				if (_bb != value){
 
-					#if UNITY_EDITOR //avoid when using Dyanmic Variables
+					#if UNITY_EDITOR //avoid alocations when using Dyanamic Variables
 					if (!Application.isPlaying){
 						if (_bb != null){
 							_bb.onVariableAdded -= OnBBVariableAdded;
@@ -269,7 +267,7 @@ namespace NodeCanvas.Framework{
 			set {objectValue = value;}
 		}
 
-		///The raw object value
+		///The parameter object value
 		abstract protected object objectValue{get;set;}
 		///The type of the value that this BBParameter holds
 		abstract public Type varType{get;}
@@ -318,7 +316,9 @@ namespace NodeCanvas.Framework{
 			varRef = targetBB.AddVariable(varName, varType);
 			if (varRef != null){
 				#if UNITY_EDITOR
-				Logger.Log(string.Format("Parameter '{0}' (of type '{1}') promoted to a Variable in Blackboard '{2}'.", varName, varType.FriendlyName(), bbName), "Variable", this);
+				if (NodeCanvas.Editor.NCPrefs.logDynamicParametersInfo){
+					Logger.Log(string.Format("Parameter '{0}' (of type '{1}') promoted to a Variable in Blackboard '{2}'.", varName, varType.FriendlyName(), bbName), "Variable", this);
+				}
 				#endif
 			} else {
 				Logger.LogError(string.Format("Parameter {0} (of type '{1}') failed to promote to a Variable in Blackboard '{2}'.", varName, varType.FriendlyName(), bbName), "Variable", this);
@@ -326,7 +326,7 @@ namespace NodeCanvas.Framework{
 			return varRef;
 		}
 
-		///Super nicely formated text :)
+		///Nicely formated text :)
 		public override string ToString(){
 			if (isNone){
 				return "<b>NONE</b>";
@@ -346,23 +346,21 @@ namespace NodeCanvas.Framework{
 			if (isNull){
 				return "<b>NULL</b>";
 			}
-			if (objectValue is IList){
-				return string.Format("<b>{0}</b>", varType.FriendlyName());
-			}
-			if (objectValue is IDictionary){
+			if (objectValue is IList || objectValue is IDictionary){
 				return string.Format("<b>{0}</b>", varType.FriendlyName());
 			}
 			return string.Format("<b>{0}</b>", objectValue.ToStringAdvanced());
 		}
 	}
 
+	///----------------------------------------------------------------------------------------------
 
 	///Use BBParameter to create a parameter possible to be linked to a blackboard Variable
 	[Serializable]
 	public class BBParameter<T> : BBParameter{
 
-	    public BBParameter() {}
-        public BBParameter(T value) { _value = value; }
+	    public BBParameter(){}
+        public BBParameter(T value){ _value = value; }
 
 	    //delegates for Variable binding
 		private Func<T> getter;
@@ -401,7 +399,9 @@ namespace NodeCanvas.Framework{
 				//Dynamic?
 				if (bb != null && !string.IsNullOrEmpty(name)){
 					#if UNITY_EDITOR
-					Logger.LogWarning(string.Format("Dynamic Parameter Variable '{0}' Encountered...", name), "Variable", this );
+					if (NodeCanvas.Editor.NCPrefs.logDynamicParametersInfo){
+						Logger.LogWarning(string.Format("Dynamic Parameter Variable '{0}' Encountered...", name), "Variable", this );
+					}
 					#endif
 					//setting the varRef property also binds it
 					varRef = PromoteToVariable(bb);

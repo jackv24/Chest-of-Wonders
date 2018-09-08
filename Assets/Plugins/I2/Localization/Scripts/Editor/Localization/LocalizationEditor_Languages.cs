@@ -27,15 +27,25 @@ namespace I2.Loc
             OnGUI_StoreIntegration();
 
             GUILayout.BeginHorizontal();
-                GUILayout.Label(new GUIContent("On Missing Translation:", "What should happen IN-GAME when a term is not yet translated to the current language?"), EditorStyles.boldLabel, GUILayout.Width(160));
+                GUILayout.Label(new GUIContent("On Missing Translation:", "What should happen IN-GAME when a term is not yet translated to the current language?"), EditorStyles.boldLabel, GUILayout.Width(200));
                 GUILayout.BeginVertical();
                     GUILayout.Space(7);
                     EditorGUILayout.PropertyField(mProp_OnMissingTranslation, GUITools.EmptyContent, GUILayout.Width(165));
                 GUILayout.EndVertical();
             GUILayout.EndHorizontal();
 
+            GUILayout.BeginHorizontal();
+                GUILayout.Label(new GUIContent("Unload Languages At Runtime:", "When playing the game, the plugin will unload all unused languages and only load them when needed"), EditorStyles.boldLabel, GUILayout.Width(200));
+                GUILayout.BeginVertical();
+                    GUILayout.Space(7);
+                    EditorGUILayout.PropertyField(mProp_AllowUnloadingLanguages, GUITools.EmptyContent, GUILayout.Width(165));
+                GUILayout.EndVertical();
+            GUILayout.EndHorizontal();
 
-			string firstLanguage = "";
+
+            
+
+            string firstLanguage = "";
 			if (mLanguageSource.mLanguages.Count > 0)
 				firstLanguage = " (" + mLanguageSource.mLanguages [0].Name + ")";
 			
@@ -187,7 +197,7 @@ namespace I2.Loc
 				{
 					mLanguageSource.RemoveLanguage (mLanguageSource.mLanguages [IndexLanguageToDelete].Name);
 					serializedObject.Update ();
-					ParseTerms (true, false);
+					ParseTerms (true, false, false);
 				}
 			}
 

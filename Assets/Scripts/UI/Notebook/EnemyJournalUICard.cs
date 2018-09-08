@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using I2.Loc;
+using TMPro;
 
 public class EnemyJournalUICard : MonoBehaviour
 {
-	public Text nameText;
-	public Text descriptionText;
+	public TextMeshProUGUI nameText;
+	public TextMeshProUGUI descriptionText;
 
 	public Localize amountText;
 	private string amountSuffix;

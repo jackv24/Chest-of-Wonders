@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Linq;
 using ParadoxNotion;
 using ParadoxNotion.Serialization;
 using ParadoxNotion.Serialization.FullSerializer;
@@ -8,10 +7,10 @@ using NodeCanvas.Framework.Internal;
 using UnityEngine;
 
 
-namespace NodeCanvas.Framework{
+namespace NodeCanvas.Framework {
 
 	#if UNITY_EDITOR //handles missing variable types
-	[fsObject(Processor = typeof(fsRecoveryProcessor<Variable, MissingVariableType>))]
+    [fsObject(Processor = typeof(fsRecoveryProcessor<Variable, MissingVariableType>))]
 	#endif
 
 	[Serializable]
@@ -224,7 +223,7 @@ namespace NodeCanvas.Framework{
 		}
 	}
 
-	
+	///----------------------------------------------------------------------------------------------
 
 	///The actual Variable
 	[Serializable]
@@ -323,7 +322,7 @@ namespace NodeCanvas.Framework{
 		    var type = ReflectionTools.GetType(typeString, /*fallback?*/ true);
 
 		    if (type == null){
-		    	Debug.LogError(string.Format("Type '{0}' not found for Blackboard Variable '{1}' Binding", typeString, name), go);
+		    	Debug.LogError(string.Format("Type '{0}' not found for Blackboard Variable '{1}' Binding.", typeString, name), go);
 		    	return;
 		    }
 
@@ -334,7 +333,7 @@ namespace NodeCanvas.Framework{
 			    var isStatic = (getMethod != null && getMethod.IsStatic) || (setMethod != null && setMethod.IsStatic);
 		    	var instance = isStatic? null : go.GetComponent(type);
 		    	if (instance == null && !isStatic){
-					Debug.LogError(string.Format("A Blackboard Variable '{0}' is due to bind to a Component type that is missing '{1}'. Binding ignored", name, typeString));
+					Debug.LogError(string.Format("A Blackboard Variable '{0}' is due to bind to a Component type that is missing '{1}'. Binding ignored.", name, typeString), go);
 		    		return;
 		    	}
 
@@ -342,7 +341,7 @@ namespace NodeCanvas.Framework{
 		            try {getter = getMethod.RTCreateDelegate<Func<T>>(instance);} //JIT
 		            catch {getter = ()=>{ return (T)getMethod.Invoke(instance, null); };} //AOT
 			    } else {
-			    	getter = ()=> { Debug.LogError(string.Format("You tried to Get a Property Bound Variable '{0}', but the Bound Property '{1}' is Write Only!", name, _propertyPath) ); return default(T); };
+			    	getter = ()=> { Debug.LogError(string.Format("You tried to Get a Property Bound Variable '{0}', but the Bound Property '{1}' is Write Only!", name, _propertyPath), go ); return default(T); };
 			    }
 
 			    if (prop.CanWrite){
@@ -354,7 +353,7 @@ namespace NodeCanvas.Framework{
 		            }
 		            
 			    } else {
-			    	setter = (o)=> { Debug.LogError(string.Format("You tried to Set a Property Bound Variable '{0}', but the Bound Property '{1}' is Read Only!", name, _propertyPath) ); };
+			    	setter = (o)=> { Debug.LogError(string.Format("You tried to Set a Property Bound Variable '{0}', but the Bound Property '{1}' is Read Only!", name, _propertyPath), go ); };
 			    }
 
 			    return;
@@ -364,10 +363,10 @@ namespace NodeCanvas.Framework{
 			if (field != null){
 		    	var instance = field.IsStatic? null : go.GetComponent(type);
 		    	if (instance == null && !field.IsStatic){
-					Debug.LogError(string.Format("A Blackboard Variable '{0}' is due to bind to a Component type that is missing '{1}'. Binding ignored", name, typeString));
+					Debug.LogError(string.Format("A Blackboard Variable '{0}' is due to bind to a Component type that is missing '{1}'. Binding ignored", name, typeString), go);
 		    		return;
 		    	}
-		    	if (field.IsReadOnly()){
+		    	if (field.IsConstant()){
 		    		T value = (T)field.GetValue(instance);
 		    		getter = ()=>{ return value; };
 		    	} else {
@@ -377,14 +376,15 @@ namespace NodeCanvas.Framework{
 				return;
 			}
 
-	        Debug.LogError(string.Format("A Blackboard Variable '{0}' is due to bind to a property/field named '{1}' that does not exist on type '{2}'. Binding ignored", name, memberString, type.FullName));
+	        Debug.LogError(string.Format("A Blackboard Variable '{0}' is due to bind to a property/field named '{1}' that does not exist on type '{2}'. Binding ignored", name, memberString, type.FullName), go);
 		}
 	}
 
-
+	///----------------------------------------------------------------------------------------------
 
 	///This is a very special dummy class for variable header separators
 	public class VariableSeperator{
 		public bool isEditingName{get;set;}
 	}
+	
 }

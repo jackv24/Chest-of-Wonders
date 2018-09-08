@@ -5,9 +5,7 @@ using UnityEngine;
 
 namespace NodeCanvas.Framework {
 
-    /// <summary>
     /// An interface for Blackboards, or otherwise for a Variables container.
-    /// </summary>
     [ParadoxNotion.Design.SpoofAOT]
     public interface IBlackboard
     {

@@ -75,7 +75,7 @@ namespace NodeCanvas.DialogueTrees{
 
 		protected override void OnNodeInspectorGUI(){
 			if (requireActorSelection){
-				GUI.backgroundColor = EditorUtils.lightBlue;
+				GUI.backgroundColor = Colors.lightBlue;
 				actorName = EditorUtils.StringPopup(actorName, DLGTree.definedActorParameterNames, false, false);
 				GUI.backgroundColor = Color.white;
 			}

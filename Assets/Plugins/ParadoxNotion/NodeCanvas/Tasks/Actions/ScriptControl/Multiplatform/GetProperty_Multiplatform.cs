@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace NodeCanvas.Tasks.Actions{
 
-	[Name("Get Property (mp)")]
+	[Name("Get Property (mp)", -1)]
 	[Category("✫ Script Control/Multiplatform")]
 	[Description("Get a property of a script and save it to the blackboard")]
 	public class GetProperty_Multiplatform : ActionTask {
@@ -25,17 +25,24 @@ namespace NodeCanvas.Tasks.Actions{
 		}
 
 		public override System.Type agentType{
-			get {return targetMethod != null? targetMethod.RTReflectedType() : typeof(Transform);}
+			get
+			{
+				if (targetMethod == null){ return typeof(Transform); }
+				return targetMethod.IsStatic? null : targetMethod.RTReflectedType();
+			}
 		}
 
 		protected override string info{
 			get
 			{
-				if (method == null)
+				if (method == null){
 					return "No Property Selected";
-				if (targetMethod == null)
+				}
+				if (targetMethod == null){
 					return string.Format("<color=#ff6457>* {0} *</color>", method.GetMethodString() );
-				return string.Format("{0} = {1}.{2}", returnValue.ToString(), agentInfo, targetMethod.Name);
+				}
+				var mInfo = targetMethod.IsStatic? targetMethod.RTReflectedType().FriendlyName() : agentInfo;
+				return string.Format("{0} = {1}.{2}", returnValue.ToString(), mInfo, targetMethod.Name);
 			}
 		}
 
@@ -61,7 +68,7 @@ namespace NodeCanvas.Tasks.Actions{
 
 		//do it by invoking method
 		protected override void OnExecute(){
-			returnValue.value = targetMethod.Invoke(agent, null);
+			returnValue.value = targetMethod.Invoke(targetMethod.IsStatic? null : agent, null);
 			EndAction();
 		}
 
@@ -72,25 +79,27 @@ namespace NodeCanvas.Tasks.Actions{
 			}
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
-		#if UNITY_EDITOR
 
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
+		#if UNITY_EDITOR
+		
 		protected override void OnTaskInspectorGUI(){
 
 			if (!Application.isPlaying && GUILayout.Button("Select Property")){
 				var menu = new UnityEditor.GenericMenu();
 				if (agent != null){
 					foreach(var comp in agent.GetComponents(typeof(Component)).Where(c => c.hideFlags != HideFlags.HideInInspector) ){
-						menu = EditorUtils.GetMethodSelectionMenu(comp.GetType(), typeof(object), typeof(object), SetMethod, 0, true, true, menu);
+						menu = EditorUtils.GetInstanceMethodSelectionMenu(comp.GetType(), typeof(object), typeof(object), SetMethod, 0, true, true, menu);
 					}
 					menu.AddSeparator("/");
 				}
-				foreach (var t in UserTypePrefs.GetPreferedTypesList(typeof(Component))){
-					menu = EditorUtils.GetMethodSelectionMenu(t, typeof(object), typeof(object), SetMethod, 0, true, true, menu);
+				foreach (var t in UserTypePrefs.GetPreferedTypesList(typeof(object))){
+					menu = EditorUtils.GetStaticMethodSelectionMenu(t, typeof(object), typeof(object), SetMethod, 0, true, true, menu);
+					if (typeof(UnityEngine.Object).IsAssignableFrom(t)){
+						menu = EditorUtils.GetInstanceMethodSelectionMenu(t, typeof(object), typeof(object), SetMethod, 0, true, true, menu);
+					}
 				}
-
 				if ( NodeCanvas.Editor.NCPrefs.useBrowser){ menu.ShowAsBrowser("Select Property", this.GetType()); }
 				else { menu.ShowAsContext(); }
 				Event.current.Use();
@@ -99,11 +108,11 @@ namespace NodeCanvas.Tasks.Actions{
 
 			if (targetMethod != null){
 				GUILayout.BeginVertical("box");
-				UnityEditor.EditorGUILayout.LabelField("Type", agentType.FriendlyName());
+				UnityEditor.EditorGUILayout.LabelField("Type", targetMethod.RTReflectedType().FriendlyName());
 				UnityEditor.EditorGUILayout.LabelField("Property", targetMethod.Name);
 				UnityEditor.EditorGUILayout.LabelField("Property Type", targetMethod.ReturnType.FriendlyName() );
 				GUILayout.EndVertical();
-				EditorUtils.BBParameterField("Save As", returnValue, true);
+				NodeCanvas.Editor.BBParameterEditor.ParameterField("Save As", returnValue, true);
 			}
 		}
 

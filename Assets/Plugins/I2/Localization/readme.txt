@@ -1,11 +1,11 @@
 ﻿----------------------------------------------
               I2 Localization
-                  2.8.4 f1
+                  2.8.7 f1
         http://www.inter-illusion.com
           inter.illusion@gmail.com
 ----------------------------------------------
 
-Thank you for buying the I2 Localization!
+Thank you for buying I2 Localization!
 
 Documentation can be found here: http://www.inter-illusion.com/assets/I2LocalizationManual/I2LocalizationManual.html
 
@@ -30,14 +30,6 @@ drop by the I2 forum: http://www.inter-illusion.com/forum/index
 The documentation provides further explanaition on each of those steps and some tutorials.
 Also its presented how to convert an existing NGUI localization into the I2 Localization system.
 
------------------------
-  Troubleshooting
------------------------
-
-This plugins contains several dll to access GoogleAPI funtionality. 
-If some other plugin already installed those dlls into the project there will be some warnings.
-That could be fixed by removing the duplicated dlls from either of the plugins
-
 
 -----------------------
  Ratings
@@ -61,6 +53,49 @@ AssetStore Deals   - A bot that constantly checks the Store to find you the late
 -----------------------
  Version History
 -----------------------
+2.8.7
+NEW: WebService now has a password to restrict other players from modifying the localization data
+NEW: Importing a CSV file from script will now update the temporal files while playing
+NEW: A warning is now displayed in top of the LanguageSource when Google Live Sync is enabled but the spreadsheet is not up-to-date
+NEW: New option in the Languages tab to define if Runtime Unloading of Languages happens for the source, or if only in the device
+NEW: By default, the Runtime Unloading of language will not happen in the Editor (to allow for editing while playing)
+NEW: Missing terms are going to show hidden by default, given that they are only suggestions and are making the list to crowded
+NEW: Added function LocalizationManager.GetTranslatedObject(termName) to return the translated Sprite/Material/Font/etc from a Term
+FIX: Translating and editing terms now keep the [i2nt]...[/i2nt] sections correctly
+FIX: Translating texts with rich text tags was removing the tags
+FIX: Modified temporal language file format to recover from errors and avoid shifting the term's translations
+FIX: When source is set to show a warning when the term is not found, the Localized Parameters was showing the warning
+FIX: Corrected wrong layout in Terms list when in Retina displays (contributed by @TailoraSAS)
+FIX: Languages will fallback were filling their translations when doing a build
+
+2.8.6
+NEW: Menu "Tools/I2 Localization/Toggle Highlight Localized" changes all localized text into "LOC:<TermName>" to easily spot errors
+NEW: "Bake Terms" tool now generate another class (ScriptTerms) in ScriptLocalization.cs that class have variables for the Term Names
+NEW: Parameters can now be localized if the parameter value is the name of an existing Term
+NEW: Terms filtering in the LanguageSource list, now allow prefix 'f xxx' or 'c xx' to search in translations or category
+FIX: Downloaded Spreadsheets will also save their key to avoid corrupting the cache when running different versions of the same app
+FIX: Google Live Synchronization was not updating the temporal languages files used to save memory at runtime
+FIX: GetCommonWordInLanguageNames now does a Case Insensitive comparison ("English (Canada)" can now match "english")
+FIX: Latest unity beta was failing to detect TextMeshPro when installed using the PackageManager
+FIX: Removed warning regarding Tizen
+FIX: Clicking the Language names in the Term's description was not previewing the translations
+FIX: Changing Fonts/Objects and Localize Targets when selecting multiple Localize components was only updating one of them
+FIX: Charset tool was not removing the last ] from tags
+FIX: ParameterManager activation was crashing IOS build in some Unity versions
+
+2.8.5
+NEW: Once a day (can be configured), the editor will check if the Spreadsheet is up-to-date to avoid issues when playing in device
+NEW: Added Language code 'es-US' to support "Spanish (Latin Americas)"
+NEW: Added Toggle "Separate Specializations into Rows" to Spreadsheet export inspector, to either merge or split the specializations
+NEW: Startup language will now try to match an official language before trying a fallback to any custom language name or variant
+FIX: Fallback languages now try finding a language of the same country, and then fallback to the first from the list
+FIX: Removed harmless logs marked as error related to File not found or accessible
+FIX: Disable language Loading/Unloading on the Switch console
+FIX: Some character combinations where producing an error when using the CharSet tool and clicking "Copy to clipboard"
+FIX: When the starting language had Fallbacks, those where not loaded correctly
+FIX: If the Localize or LanguageSource inspector was open, changing the languages was not updating the inspector preview
+FIX: Removed example script using OnMouseUp to avoid showing a warning when building the game (replaced with Unity UI)
+
 2.8.4
 NEW: Component CustomLocalizeCallback with a UnityEvent to set functions that should be called whenever the Language changes
 NEW: Localize component now has the Callback as a UnityEvent which allows calling several function and even passing parameters

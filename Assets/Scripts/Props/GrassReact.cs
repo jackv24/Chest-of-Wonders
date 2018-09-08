@@ -56,20 +56,27 @@ public class GrassReact : MonoBehaviour, IDamageable
 	{
 		if(target)
 		{
-			//Wait one frame to determine the velocity of the target
-			if (waitedFrame)
+			if (!target.gameObject.activeInHierarchy)
 			{
-				//Calculate velocity and then store current position as last position for next frame
-				Vector2 velocity = ((Vector2)target.position - lastPosition) / Time.deltaTime; //Divide by delta time to change from per frame to per second
-				lastPosition = target.position;
-
-				if (velocity.magnitude >= velocityThreshold)
-				{
-					DoPush(velocity.normalized);
-				}
+				target = null;
 			}
 			else
-				waitedFrame = true;
+			{
+				//Wait one frame to determine the velocity of the target
+				if (waitedFrame)
+				{
+					//Calculate velocity and then store current position as last position for next frame
+					Vector2 velocity = ((Vector2)target.position - lastPosition) / Time.deltaTime; //Divide by delta time to change from per frame to per second
+					lastPosition = target.position;
+
+					if (velocity.magnitude >= velocityThreshold)
+					{
+						DoPush(velocity.normalized);
+					}
+				}
+				else
+					waitedFrame = true;
+			}
 		}
 	}
 

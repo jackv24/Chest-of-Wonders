@@ -25,7 +25,8 @@ public abstract class SoundEventBase
 	/// <param name="type">The types this sound is, controls which audio mixer channel it is played through.</param>
 	public void Play(Vector2 position, SoundType type)
 	{
-		SoundManager.Instance?.PlaySound(this, position, type);
+		if(Clip)
+			SoundManager.Instance?.PlaySound(this, position, type);
 	}
 }
 

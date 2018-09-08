@@ -17,7 +17,7 @@ namespace ParadoxNotion.Serialization{
 
 		void ISerializationCallbackReceiver.OnBeforeSerialize(){
 			if (_field != null){
-				_baseInfo = string.Format("{0}|{1}", _field.DeclaringType.FullName, _field.Name);
+				_baseInfo = string.Format("{0}|{1}", _field.RTReflectedType().FullName, _field.Name);
 			}
 		}
 

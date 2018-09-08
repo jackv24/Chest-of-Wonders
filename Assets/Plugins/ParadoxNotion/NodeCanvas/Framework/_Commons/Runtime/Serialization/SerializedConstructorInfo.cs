@@ -22,7 +22,7 @@ namespace ParadoxNotion.Serialization
         public override void OnBeforeSerialize() {
             _hasChanged = false;
             if (_constructor != null){
-                _baseInfo = _constructor.DeclaringType.FullName + "|" + "$Constructor";
+                _baseInfo = _constructor.RTReflectedType().FullName + "|" + "$Constructor";
                 _paramsInfo = string.Join("|", _constructor.GetParameters().Select(p => p.ParameterType.FullName).ToArray());
             }
         }

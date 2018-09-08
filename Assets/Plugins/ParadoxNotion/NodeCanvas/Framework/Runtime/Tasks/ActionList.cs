@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
+using NodeCanvas.Editor;
 #endif
 
 using System.Collections.Generic;
@@ -167,31 +168,23 @@ namespace NodeCanvas.Framework{
 			
 			actions.Add(action);
 			action.SetOwnerSystem(this.ownerSystem);
+			// action.isActive = true;
 		}
 
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
+		
+		private ActionTask currentViewAction;
 
-		protected ActionTask currentViewAction;
-
-
+		//...
 		protected override void OnTaskInspectorGUI(){
 			ShowListGUI();
 			ShowNestedActionsGUI();
 		}
 
-		void ValidateList(){
-			for (var i = 0; i < actions.Count; i++){
-				if (actions[i] == null){
-					actions.RemoveAt(i);
-				}
-			}
-		}
-
-		//The action list gui
+		///Show the sub-tasks list
 		public void ShowListGUI(){
 
 			if (ownerSystem == null){
@@ -199,7 +192,7 @@ namespace NodeCanvas.Framework{
 				return;
 			}
 
-			EditorUtils.TaskSelectionButton<ActionTask>(ownerSystem, (a)=>{ AddAction(a); });
+			TaskEditor.ShowCreateTaskSelectionButton<ActionTask>(ownerSystem, AddAction);
 
 			ValidateList();
 
@@ -216,18 +209,11 @@ namespace NodeCanvas.Framework{
 			EditorUtils.ReorderableList(actions, (i, picked)=>
 			{
 				var action = actions[i];
-				GUI.color = new Color(1, 1, 1, 0.25f);
+				GUI.color = Color.white.WithAlpha( action == currentViewAction? 0.75f : 0.25f);
 				EditorGUILayout.BeginHorizontal("box");
 
-				GUI.color = action.isActive? new Color(1,1,1,0.8f) : new Color(1,1,1,0.25f);
+				GUI.color = Color.white.WithAlpha( action.isActive? 0.8f : 0.25f );
 				action.isActive = EditorGUILayout.Toggle(action.isActive, GUILayout.Width(18));
-
-				GUI.backgroundColor = action == currentViewAction? Color.grey : Color.white;
-				if (GUILayout.Button(EditorUtils.viewIcon, GUILayout.Width(25), GUILayout.Height(18))){
-					currentViewAction = action == currentViewAction? null : action;
-				}
-				EditorGUIUtility.AddCursorRect(GUILayoutUtility.GetLastRect(), MouseCursor.Link);
-				GUI.backgroundColor = Color.white;
 
 				GUILayout.Label( (action.isPaused? "<b>||</b> " : action.isRunning? "► " : "") + action.summaryInfo, GUILayout.MinWidth(0), GUILayout.ExpandWidth(true));
 
@@ -236,15 +222,22 @@ namespace NodeCanvas.Framework{
 					actions.RemoveAt(i);
 				}
 
-				EditorGUIUtility.AddCursorRect(GUILayoutUtility.GetLastRect(), MouseCursor.Link);
 				EditorGUILayout.EndHorizontal();
+				
+				var lastRect = GUILayoutUtility.GetLastRect();
+				EditorGUIUtility.AddCursorRect(lastRect, MouseCursor.Link);
+				if (Event.current.type == EventType.MouseDown && lastRect.Contains(Event.current.mousePosition)){
+					currentViewAction = action == currentViewAction? null : action;
+					Event.current.Use();
+				}
+
 				GUI.color = Color.white;
 			});
 
 			executionMode = (ActionsExecutionMode)EditorGUILayout.EnumPopup(executionMode);
 		}
 
-
+		///Show currently selected task inspector
 		public void ShowNestedActionsGUI(){
 
 			if (actions.Count == 1){
@@ -253,7 +246,7 @@ namespace NodeCanvas.Framework{
 
 			if (currentViewAction != null){
 				EditorUtils.Separator();
-				Task.ShowTaskInspectorGUI(currentViewAction, (a)=>
+				TaskEditor.TaskFieldSingle(currentViewAction, (a)=>
 				{
 					if (a == null){
 						var i = actions.IndexOf(currentViewAction);
@@ -264,22 +257,26 @@ namespace NodeCanvas.Framework{
 			}
 		}
 
+		//Validate possible null tasks
+		void ValidateList(){
+			for (var i = 0; i < actions.Count; i++){
+				if (actions[i] == null){
+					actions.RemoveAt(i);
+				}
+			}
+		}
 
-
-		public void DoSavePreset(){
-			#if !UNITY_WEBPLAYER
+		[ContextMenu("Save List Preset")]
+		void DoSavePreset(){
 			var path = EditorUtility.SaveFilePanelInProject ("Save Preset", "", "actionList", "");
             if (!string.IsNullOrEmpty(path)){
                 System.IO.File.WriteAllText( path, JSONSerializer.Serialize(typeof(ActionList), this, true) ); //true for pretyJson
                 AssetDatabase.Refresh();
             }				
-            #else
-            Debug.LogWarning("Preset saving is not possible with WebPlayer as active platform");
-            #endif
 		}
 
-		public void DoLoadPreset(){
-			#if !UNITY_WEBPLAYER
+		[ContextMenu("Load List Preset")]
+		void DoLoadPreset(){
             var path = EditorUtility.OpenFilePanel("Load Preset", "Assets", "actionList");
             if (!string.IsNullOrEmpty(path)){
                 var json = System.IO.File.ReadAllText(path);
@@ -291,9 +288,6 @@ namespace NodeCanvas.Framework{
                 	a.SetOwnerSystem(this.ownerSystem);
                 }
             }				
-            #else
-            Debug.LogWarning("Preset loading is not possible with WebPlayer as active platform");
-            #endif
 		}
 
 

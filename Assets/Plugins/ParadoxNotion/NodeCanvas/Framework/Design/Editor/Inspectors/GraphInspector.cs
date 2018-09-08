@@ -40,10 +40,10 @@ namespace NodeCanvas.Editor{
             graph.category = GUILayout.TextField(graph.category);
             EditorUtils.TextFieldComment(graph.category, "Category...");
 
-            graph.graphComments = GUILayout.TextArea(graph.graphComments, GUILayout.Height(45));
-            EditorUtils.TextFieldComment(graph.graphComments, "Comments...");
+            graph.comments = GUILayout.TextArea(graph.comments, GUILayout.Height(45));
+            EditorUtils.TextFieldComment(graph.comments, "Comments...");
 
-            GUI.backgroundColor = EditorUtils.lightBlue;
+            GUI.backgroundColor = Colors.lightBlue;
             if (GUILayout.Button(string.Format("EDIT {0}", graph.GetType().Name.SplitCamelCase().ToUpper() ))){
                 GraphEditor.OpenWindow(graph);
             }

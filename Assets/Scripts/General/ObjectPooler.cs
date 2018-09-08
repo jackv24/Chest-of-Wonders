@@ -140,3 +140,23 @@ public static class ObjectPooler
 		}
 	}
 }
+
+public static class ObjectPoolerExtensions
+{
+	/// <summary>
+	/// Spawns a GameObject from the pool. If there is none, it will be instantiated.
+	/// </summary>
+	/// <param name="position">World space position to spawn.</param>
+	public static GameObject SpawnPooled(this GameObject self, Vector3 position)
+	{
+		if (!self) return null;
+
+		GameObject obj = ObjectPooler.GetPooledObject(self);
+		obj.transform.position = position;
+		obj.transform.localRotation = self.transform.localRotation;
+
+		obj.SetActive(true);
+
+		return obj;
+	}
+}

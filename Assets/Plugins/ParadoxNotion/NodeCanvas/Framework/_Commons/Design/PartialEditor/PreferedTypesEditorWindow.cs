@@ -10,25 +10,29 @@ using System.Linq;
 
 namespace ParadoxNotion.Design{
 
+	///An editor for preferred types
 	public class PreferedTypesEditorWindow : EditorWindow {
 
 		private List<System.Type> typeList;
 		private List<System.Type> alltypes;
 		private Vector2 scrollPos;
 
+		///Open window
 		public static void ShowWindow(){
 			var window = GetWindow<PreferedTypesEditorWindow>();
 			window.Show();
 		}
 
+		//...
 		void OnEnable(){
 	        titleContent = new GUIContent("Preferred Types");
 			typeList = UserTypePrefs.GetPreferedTypesList();
-			alltypes = EditorUtils.GetAssemblyTypes(typeof(object)).Where( t => !t.IsGenericType && !t.IsGenericTypeDefinition).ToList();
+			alltypes = ReflectionTools.GetAllTypes(true).Where( t => !t.IsGenericType && !t.IsGenericTypeDefinition).ToList();
 		}
 
+		//...
 		void OnGUI(){
-			
+
 			GUI.skin.label.richText = true;
 			EditorGUILayout.HelpBox("Here you can specify frequently used types for your project and for easier access wherever you need to select a type, like for example when you create a new blackboard variable or using any refelection based actions.\nFurthermore, it is essential when working with AOT platforms like iOS or WebGL, that you generate an AOT Classes and link.xml files with the relevant button bellow.\nTo add types in the list quicker, you can also Drag&Drop an object, or a Script file in this editor window.", MessageType.Info);
 
@@ -76,14 +80,14 @@ namespace ParadoxNotion.Design{
 				if (EditorUtility.DisplayDialog("Generate AOT Classes", "A script relevant to AOT compatibility for certain platforms will now be generated.", "OK")){
 					var path = EditorUtility.SaveFilePanelInProject ("AOT Classes File", "AOTClasses", "cs", "");
 		            if (!string.IsNullOrEmpty(path)){
-						AOTClassesGenerator.GenerateAOTClasses( path, UserTypePrefs.GetPreferedTypesList(typeof(object), true).ToArray() );
+						AOTClassesGenerator.GenerateAOTClasses( path, UserTypePrefs.GetPreferedTypesList(true).ToArray() );
 		            }
 				}
 
 				if (EditorUtility.DisplayDialog("Generate link.xml File", "A file relevant to 'code stripping' for platforms that have code stripping enabled will now be generated.", "OK")){
 					var path = EditorUtility.SaveFilePanelInProject ("AOT link.xml", "link", "xml", "");
 		            if (!string.IsNullOrEmpty(path)){
-						AOTClassesGenerator.GenerateLinkXML( path, UserTypePrefs.GetPreferedTypesList(typeof(object)).ToArray() );
+						AOTClassesGenerator.GenerateLinkXML( path, UserTypePrefs.GetPreferedTypesList().ToArray() );
 		            }
 				}
 
@@ -95,7 +99,7 @@ namespace ParadoxNotion.Design{
 			if (GUILayout.Button("RESET DEFAULTS")){
 				if (EditorUtility.DisplayDialog("Reset Preferred Types", "Are you sure?", "Yes", "NO!")){
 					UserTypePrefs.ResetTypeConfiguration();
-					typeList = UserTypePrefs.GetPreferedTypesList(typeof(object));
+					typeList = UserTypePrefs.GetPreferedTypesList();
 					Save();
 				}
 			}
@@ -178,6 +182,7 @@ namespace ParadoxNotion.Design{
 			}
 		}
 
+		///Add a type
 		void AddType(System.Type t){
 			if (!typeList.Contains(t)){
 				typeList.Add(t);
@@ -189,12 +194,14 @@ namespace ParadoxNotion.Design{
 			ShowNotification(new GUIContent(string.Format("Type '{0}' is already in the list.", t.FriendlyName()) ) );
 		}
 
+		///Remove a type
 		void RemoveType(System.Type t){
 			typeList.Remove(t);
 			Save();
 			ShowNotification(new GUIContent(string.Format("Type '{0}' Removed.", t.FriendlyName()) ));
 		}
 
+		///Save changes
 		void Save(){
 			UserTypePrefs.SetPreferedTypesList(typeList);
 		}

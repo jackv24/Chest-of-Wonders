@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -39,6 +39,7 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -116,9 +116,9 @@ NavMeshSettings:
 --- !u!1 &1607271
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1607272}
   - component: {fileID: 1607275}
@@ -134,7 +134,7 @@ GameObject:
 --- !u!4 &1607272
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1607271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -147,7 +147,7 @@ Transform:
 --- !u!114 &1607273
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1607271}
   m_Enabled: 1
@@ -170,7 +170,7 @@ MonoBehaviour:
 --- !u!23 &1607274
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1607271}
   m_Enabled: 1
@@ -180,6 +180,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -199,21 +200,21 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1202196009
-  m_SortingLayer: -3
+  m_SortingLayer: -5
   m_SortingOrder: 0
 --- !u!33 &1607275
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1607271}
   m_Mesh: {fileID: 0}
 --- !u!1 &142265228
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 142265229}
   - component: {fileID: 142265235}
@@ -230,7 +231,7 @@ GameObject:
 --- !u!4 &142265229
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 142265228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -243,7 +244,7 @@ Transform:
 --- !u!68 &142265230
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 142265228}
   m_Enabled: 1
@@ -271,7 +272,7 @@ EdgeCollider2D:
 --- !u!114 &142265233
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 142265228}
   m_Enabled: 1
@@ -294,7 +295,7 @@ MonoBehaviour:
 --- !u!23 &142265234
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 142265228}
   m_Enabled: 1
@@ -304,6 +305,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -323,21 +325,21 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1202196009
-  m_SortingLayer: -3
+  m_SortingLayer: -5
   m_SortingOrder: 1
 --- !u!33 &142265235
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 142265228}
   m_Mesh: {fileID: 0}
 --- !u!1 &169656094
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 169656096}
   - component: {fileID: 169656095}
@@ -351,7 +353,7 @@ GameObject:
 --- !u!114 &169656095
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 169656094}
   m_Enabled: 1
@@ -400,7 +402,7 @@ MonoBehaviour:
 --- !u!4 &169656096
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 169656094}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -417,9 +419,9 @@ Transform:
 --- !u!1 &222235227
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 222235229}
   - component: {fileID: 222235228}
@@ -433,7 +435,7 @@ GameObject:
 --- !u!114 &222235228
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 222235227}
   m_Enabled: 1
@@ -482,7 +484,7 @@ MonoBehaviour:
 --- !u!4 &222235229
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 222235227}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -497,9 +499,9 @@ Transform:
 --- !u!1 &239124881
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 239124883}
   - component: {fileID: 239124882}
@@ -513,7 +515,7 @@ GameObject:
 --- !u!114 &239124882
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 239124881}
   m_Enabled: 1
@@ -562,7 +564,7 @@ MonoBehaviour:
 --- !u!4 &239124883
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 239124881}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -579,9 +581,9 @@ Transform:
 --- !u!1 &363135447
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 363135448}
   - component: {fileID: 363135453}
@@ -599,7 +601,7 @@ GameObject:
 --- !u!4 &363135448
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 363135447}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -612,7 +614,7 @@ Transform:
 --- !u!68 &363135449
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 363135447}
   m_Enabled: 1
@@ -640,7 +642,7 @@ EdgeCollider2D:
 --- !u!68 &363135450
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 363135447}
   m_Enabled: 1
@@ -668,7 +670,7 @@ EdgeCollider2D:
 --- !u!114 &363135451
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 363135447}
   m_Enabled: 1
@@ -691,7 +693,7 @@ MonoBehaviour:
 --- !u!23 &363135452
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 363135447}
   m_Enabled: 1
@@ -701,6 +703,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -720,21 +723,21 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1202196009
-  m_SortingLayer: -3
+  m_SortingLayer: -5
   m_SortingOrder: 1
 --- !u!33 &363135453
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 363135447}
   m_Mesh: {fileID: 0}
 --- !u!1 &547204461
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 547204462}
   - component: {fileID: 547204466}
@@ -751,7 +754,7 @@ GameObject:
 --- !u!4 &547204462
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 547204461}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -764,7 +767,7 @@ Transform:
 --- !u!68 &547204463
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 547204461}
   m_Enabled: 1
@@ -783,7 +786,7 @@ EdgeCollider2D:
 --- !u!114 &547204464
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 547204461}
   m_Enabled: 1
@@ -806,7 +809,7 @@ MonoBehaviour:
 --- !u!23 &547204465
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 547204461}
   m_Enabled: 1
@@ -816,6 +819,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -840,16 +844,16 @@ MeshRenderer:
 --- !u!33 &547204466
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 547204461}
   m_Mesh: {fileID: 0}
 --- !u!1 &628826153
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 628826154}
   - component: {fileID: 628826159}
@@ -867,7 +871,7 @@ GameObject:
 --- !u!4 &628826154
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 628826153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -880,7 +884,7 @@ Transform:
 --- !u!68 &628826155
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 628826153}
   m_Enabled: 1
@@ -901,7 +905,7 @@ EdgeCollider2D:
 --- !u!68 &628826156
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 628826153}
   m_Enabled: 1
@@ -920,7 +924,7 @@ EdgeCollider2D:
 --- !u!114 &628826157
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 628826153}
   m_Enabled: 1
@@ -943,7 +947,7 @@ MonoBehaviour:
 --- !u!23 &628826158
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 628826153}
   m_Enabled: 1
@@ -953,6 +957,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: ad965d77f93e118459419840c6557bd3, type: 2}
   m_StaticBatchInfo:
@@ -977,16 +982,16 @@ MeshRenderer:
 --- !u!33 &628826159
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 628826153}
   m_Mesh: {fileID: 0}
 --- !u!1 &781837309
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 781837312}
   - component: {fileID: 781837311}
@@ -1001,7 +1006,7 @@ GameObject:
 --- !u!114 &781837310
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 781837309}
   m_Enabled: 1
@@ -1015,7 +1020,7 @@ MonoBehaviour:
 --- !u!114 &781837311
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 781837309}
   m_Enabled: 1
@@ -1064,7 +1069,7 @@ MonoBehaviour:
 --- !u!4 &781837312
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 781837309}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -1077,9 +1082,9 @@ Transform:
 --- !u!1 &1191347277
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1191347278}
   - component: {fileID: 1191347285}
@@ -1099,7 +1104,7 @@ GameObject:
 --- !u!4 &1191347278
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191347277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1112,7 +1117,7 @@ Transform:
 --- !u!68 &1191347279
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191347277}
   m_Enabled: 1
@@ -1131,7 +1136,7 @@ EdgeCollider2D:
 --- !u!68 &1191347280
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191347277}
   m_Enabled: 1
@@ -1150,7 +1155,7 @@ EdgeCollider2D:
 --- !u!68 &1191347281
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191347277}
   m_Enabled: 1
@@ -1167,7 +1172,7 @@ EdgeCollider2D:
 --- !u!68 &1191347282
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191347277}
   m_Enabled: 1
@@ -1185,7 +1190,7 @@ EdgeCollider2D:
 --- !u!114 &1191347283
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191347277}
   m_Enabled: 1
@@ -1208,7 +1213,7 @@ MonoBehaviour:
 --- !u!23 &1191347284
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191347277}
   m_Enabled: 1
@@ -1218,6 +1223,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -1242,7 +1248,7 @@ MeshRenderer:
 --- !u!33 &1191347285
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191347277}
   m_Mesh: {fileID: 0}
@@ -1302,14 +1308,14 @@ Prefab:
         Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 4e504010f785cfc4e848e5a350db0473, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 4e504010f785cfc4e848e5a350db0473, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1330022773
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1330022774}
   - component: {fileID: 1330022779}
@@ -1327,7 +1333,7 @@ GameObject:
 --- !u!4 &1330022774
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1330022773}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1340,7 +1346,7 @@ Transform:
 --- !u!68 &1330022775
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1330022773}
   m_Enabled: 1
@@ -1363,7 +1369,7 @@ EdgeCollider2D:
 --- !u!68 &1330022776
 EdgeCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1330022773}
   m_Enabled: 1
@@ -1381,7 +1387,7 @@ EdgeCollider2D:
 --- !u!114 &1330022777
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1330022773}
   m_Enabled: 1
@@ -1404,7 +1410,7 @@ MonoBehaviour:
 --- !u!23 &1330022778
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1330022773}
   m_Enabled: 1
@@ -1414,6 +1420,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -1438,16 +1445,16 @@ MeshRenderer:
 --- !u!33 &1330022779
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1330022773}
   m_Mesh: {fileID: 0}
 --- !u!1 &1442324605
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1442324607}
   - component: {fileID: 1442324608}
@@ -1463,7 +1470,7 @@ GameObject:
 --- !u!114 &1442324606
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1442324605}
   m_Enabled: 1
@@ -1481,7 +1488,7 @@ MonoBehaviour:
 --- !u!4 &1442324607
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1442324605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1497,7 +1504,7 @@ Transform:
 --- !u!114 &1442324608
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1442324605}
   m_Enabled: 1
@@ -1511,7 +1518,7 @@ MonoBehaviour:
 --- !u!114 &1442324609
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1442324605}
   m_Enabled: 1
@@ -1616,12 +1623,12 @@ Prefab:
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
-  m_IsPrefabParent: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 0a6c97d59abf4e94796962d5b0d7433e, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!114 &1640398262
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -1646,9 +1653,9 @@ MonoBehaviour:
 --- !u!1 &1700588313
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1700588314}
   - component: {fileID: 1700588318}
@@ -1664,7 +1671,7 @@ GameObject:
 --- !u!4 &1700588314
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1700588313}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1677,7 +1684,7 @@ Transform:
 --- !u!114 &1700588316
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1700588313}
   m_Enabled: 1
@@ -1700,7 +1707,7 @@ MonoBehaviour:
 --- !u!23 &1700588317
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1700588313}
   m_Enabled: 1
@@ -1710,6 +1717,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -1729,21 +1737,21 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1202196009
-  m_SortingLayer: -3
+  m_SortingLayer: -5
   m_SortingOrder: 0
 --- !u!33 &1700588318
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1700588313}
   m_Mesh: {fileID: 0}
 --- !u!1 &1921854504
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 1921854505}
   - component: {fileID: 1921854512}
@@ -1759,7 +1767,7 @@ GameObject:
 --- !u!4 &1921854505
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1921854504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1772,7 +1780,7 @@ Transform:
 --- !u!114 &1921854510
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1921854504}
   m_Enabled: 1
@@ -1795,7 +1803,7 @@ MonoBehaviour:
 --- !u!23 &1921854511
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1921854504}
   m_Enabled: 1
@@ -1805,6 +1813,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -1824,21 +1833,46 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1202196009
-  m_SortingLayer: -3
+  m_SortingLayer: -5
   m_SortingOrder: 0
 --- !u!33 &1921854512
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1921854504}
   m_Mesh: {fileID: 0}
+--- !u!114 &2059212924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Sootomander BehaviourTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3332.0,"y":-3703.0},"zoomFactor":0.7500044,"nodes":[{"_position":{"x":5101.0,"y":5104.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"filterMode":"LimitNumberOfTimes","maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":4990.0,"y":5234.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"3"},{"_action":{"storeValue":{"_name":"player","_targetVariableID":"66abf58a-494c-41e4-9817-b13f40e88c3f"},"$type":"NodeCanvas.Tasks.Actions.GetPlayer"},"_position":{"x":4931.0,"y":5342.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_position":{"x":5251.0,"y":5312.0},"_comment":"Patrol
+    until player in range or aggro''d","$type":"NodeCanvas.BehaviourTrees.Selector","$id":"9"},{"_position":{"x":4997.0,"y":5472.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"10"},{"_condition":{"conditions":[{"checkTarget":{"_name":"player","_targetVariableID":"66abf58a-494c-41e4-9817-b13f40e88c3f"},"checkType":"GreaterThan","distance":{"_value":6.0},"$type":"NodeCanvas.Tasks.Conditions.CheckDistanceToGameObject"},{"valueA":{"_name":"aggro","_targetVariableID":"f840d681-e539-4506-9a08-fc22d2c547d0"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":4831.0,"y":5566.0},"_tag":"","$type":"NodeCanvas.BehaviourTrees.ConditionNode","$id":"11"},{"_subTree":{"_value":1},"_position":{"x":5039.0,"y":5574.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"20"},{"_position":{"x":5217.0,"y":5414.0},"_comment":"Optional,
+    since we need to go to the next node after","$type":"NodeCanvas.BehaviourTrees.Optional","$id":"22"},{"filterMode":"LimitNumberOfTimes","maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5204.0,"y":5478.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"23"},{"_action":{"boolVariable":{"_name":"aggro","_targetVariableID":"f840d681-e539-4506-9a08-fc22d2c547d0"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5281.0,"y":5580.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"},{"_position":{"x":5715.0,"y":5493.0},"_comment":"Attempt
+    attacks, if all failed just follow player","$type":"NodeCanvas.BehaviourTrees.Selector","$id":"29"},{"target":{"_name":"player","_targetVariableID":"66abf58a-494c-41e4-9817-b13f40e88c3f"},"priorities":[{"_value":2.5},{"_value":3.0},{"_value":9.0}],"_position":{"x":5423.0,"y":5693.0},"_comment":"Attempt
+    distance-based attacks first","$type":"NodeCanvas.BehaviourTrees.DistancePrioritySelector","$id":"30"},{"_position":{"x":5119.0,"y":5783.0},"$type":"NodeCanvas.BehaviourTrees.Selector","$id":"36"},{"_condition":{"valueA":{"_name":"attack1Done"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":4957.0,"y":5883.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"37"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"Attack1"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"boolVariable":{"_name":"attack1Done"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4987.0,"y":5967.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"41"},{"_position":{"x":5189.0,"y":5885.0},"$type":"NodeCanvas.BehaviourTrees.Inverter","$id":"51"},{"_action":{"boolVariable":{"_name":"attack1Done"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5189.0,"y":5965.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"52"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"Attack2"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5335.0,"y":5837.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"55"},{"maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5579.0,"y":5815.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"63"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"Pounce_Ready"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"layerIndex":{},"stateName":{"_value":"Pounce_Action"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"jumpDirection":{"_name":"direction","_targetVariableID":"d6f2c103-6f7b-424c-9fc4-9784bfc11a92"},"moveSpeed":{"_value":10.0},"holdJumpTime":{"_value":0.5},"waitUntilLand":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.CharacterJump"},{"layerIndex":{},"stateName":{"_value":"Pounce_Land"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5543.0,"y":5915.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"66"},{"maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5768.0,"y":5713.0},"_comment":"Ash
+    breath is a ranged attack, and can be performed at any distance","$type":"NodeCanvas.BehaviourTrees.Filter","$id":"85"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"AshBreath"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5801.0,"y":5830.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"88"},{"_subTree":{"_value":2},"_position":{"x":5843.0,"y":5588.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"96"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"85"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"96"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"55"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"63"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"51"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"37"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"51"},"_targetNode":{"$ref":"52"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"63"},"_targetNode":{"$ref":"66"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"85"},"_targetNode":{"$ref":"88"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f8ce9c6c83c3f904f9d520018fbb0dfc, type: 2}
+  - {fileID: 11400000, guid: 879e88b927425e24ab74b0d92f107724, type: 2}
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0
 --- !u!1 &2127669469
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 2127669470}
   - component: {fileID: 2127669473}
@@ -1854,7 +1888,7 @@ GameObject:
 --- !u!4 &2127669470
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2127669469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1867,7 +1901,7 @@ Transform:
 --- !u!114 &2127669471
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2127669469}
   m_Enabled: 1
@@ -1890,7 +1924,7 @@ MonoBehaviour:
 --- !u!23 &2127669472
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2127669469}
   m_Enabled: 1
@@ -1900,6 +1934,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -1919,37 +1954,12 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1202196009
-  m_SortingLayer: -3
+  m_SortingLayer: -5
   m_SortingOrder: 0
 --- !u!33 &2127669473
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2127669469}
   m_Mesh: {fileID: 0}
---- !u!114 &2131011144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
-  m_Name: Sootomander BehaviourTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.7,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3332.0,"y":-3703.0},"zoomFactor":0.7500044,"nodes":[{"_position":{"x":5101.0,"y":5104.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"2"},{"filterMode":"LimitNumberOfTimes","maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":4990.0,"y":5234.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"3"},{"_action":{"storeValue":{"_name":"player","_targetVariableID":"66abf58a-494c-41e4-9817-b13f40e88c3f"},"$type":"NodeCanvas.Tasks.Actions.GetPlayer"},"_position":{"x":4931.0,"y":5342.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_position":{"x":5251.0,"y":5312.0},"_comment":"Patrol
-    until player in range or aggro''d","$type":"NodeCanvas.BehaviourTrees.Selector","$id":"9"},{"_position":{"x":4997.0,"y":5472.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"10"},{"_condition":{"conditions":[{"checkTarget":{"_name":"player","_targetVariableID":"66abf58a-494c-41e4-9817-b13f40e88c3f"},"checkType":"GreaterThan","distance":{"_value":6.0},"$type":"NodeCanvas.Tasks.Conditions.CheckDistanceToGameObject"},{"valueA":{"_name":"aggro","_targetVariableID":"f840d681-e539-4506-9a08-fc22d2c547d0"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"$type":"NodeCanvas.Framework.ConditionList"},"_position":{"x":4831.0,"y":5566.0},"_tag":"","$type":"NodeCanvas.BehaviourTrees.ConditionNode","$id":"11"},{"_subTree":{"_value":1},"_position":{"x":5039.0,"y":5574.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"20"},{"_position":{"x":5217.0,"y":5414.0},"_comment":"Optional,
-    since we need to go to the next node after","$type":"NodeCanvas.BehaviourTrees.Optional","$id":"22"},{"filterMode":"LimitNumberOfTimes","maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5204.0,"y":5478.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"23"},{"_action":{"boolVariable":{"_name":"aggro","_targetVariableID":"f840d681-e539-4506-9a08-fc22d2c547d0"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5281.0,"y":5580.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"26"},{"_position":{"x":5715.0,"y":5493.0},"_comment":"Attempt
-    attacks, if all failed just follow player","$type":"NodeCanvas.BehaviourTrees.Selector","$id":"29"},{"target":{"_name":"player","_targetVariableID":"66abf58a-494c-41e4-9817-b13f40e88c3f"},"priorities":[{"_value":2.5},{"_value":3.0},{"_value":9.0}],"_position":{"x":5423.0,"y":5693.0},"_comment":"Attempt
-    distance-based attacks first","$type":"NodeCanvas.BehaviourTrees.DistancePrioritySelector","$id":"30"},{"_position":{"x":5119.0,"y":5783.0},"$type":"NodeCanvas.BehaviourTrees.Selector","$id":"36"},{"_condition":{"valueA":{"_name":"attack1Done"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":4957.0,"y":5883.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"37"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"Attack1"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"boolVariable":{"_name":"attack1Done"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":4987.0,"y":5967.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"41"},{"_position":{"x":5189.0,"y":5885.0},"$type":"NodeCanvas.BehaviourTrees.Inverter","$id":"51"},{"_action":{"boolVariable":{"_name":"attack1Done"},"setTo":"False","$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":5189.0,"y":5965.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"52"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"Attack2"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5335.0,"y":5837.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"55"},{"maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5579.0,"y":5815.0},"$type":"NodeCanvas.BehaviourTrees.Filter","$id":"63"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"Pounce_Ready"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"layerIndex":{},"stateName":{"_value":"Pounce_Action"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"jumpDirection":{"_name":"direction","_targetVariableID":"d6f2c103-6f7b-424c-9fc4-9784bfc11a92"},"moveSpeed":{"_value":10.0},"holdJumpTime":{"_value":0.5},"waitUntilLand":{"_value":true},"$type":"NodeCanvas.Tasks.Actions.CharacterJump"},{"layerIndex":{},"stateName":{"_value":"Pounce_Land"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5543.0,"y":5915.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"66"},{"maxCount":{"_value":1},"coolDownTime":{"_value":5.0},"_position":{"x":5768.0,"y":5713.0},"_comment":"Ash
-    breath is a ranged attack, and can be performed at any distance","$type":"NodeCanvas.BehaviourTrees.Filter","$id":"85"},{"_action":{"actions":[{"direction":{},"$type":"NodeCanvas.Tasks.Actions.MoveCharacter"},{"layerIndex":{},"stateName":{"_value":"AshBreath"},"waitUntilFinish":true,"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5801.0,"y":5830.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"88"},{"_subTree":{"_value":2},"_position":{"x":5843.0,"y":5588.0},"$type":"NodeCanvas.BehaviourTrees.SubTree","$id":"96"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"22"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"29"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"20"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"22"},"_targetNode":{"$ref":"23"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"23"},"_targetNode":{"$ref":"26"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"30"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"85"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"29"},"_targetNode":{"$ref":"96"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"36"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"55"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"30"},"_targetNode":{"$ref":"63"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"37"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"36"},"_targetNode":{"$ref":"51"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"37"},"_targetNode":{"$ref":"41"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"51"},"_targetNode":{"$ref":"52"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"63"},"_targetNode":{"$ref":"66"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"85"},"_targetNode":{"$ref":"88"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 11400000, guid: f8ce9c6c83c3f904f9d520018fbb0dfc, type: 2}
-  - {fileID: 11400000, guid: 879e88b927425e24ab74b0d92f107724, type: 2}
-  _deserializationFailed: 0
-  repeat: 1
-  updateInterval: 0

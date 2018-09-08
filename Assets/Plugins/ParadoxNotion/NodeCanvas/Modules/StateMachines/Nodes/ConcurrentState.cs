@@ -59,6 +59,7 @@ namespace NodeCanvas.StateMachines{
 		}
 
 		protected override void OnEnter(){
+			conditionList.Enable(graphAgent, graphBlackboard);
 			accessed = false;
 			Update();
 		}
@@ -78,6 +79,7 @@ namespace NodeCanvas.StateMachines{
 		}
 
 		protected override void OnExit(){
+			conditionList.Disable();
 			actionList.EndAction(null);
 		}
 
@@ -85,11 +87,11 @@ namespace NodeCanvas.StateMachines{
 			actionList.PauseAction();
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
+
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
 		#if UNITY_EDITOR
-	
+		
 		protected override void OnNodeGUI(){
 			if (repeatStateActions){
 				GUILayout.Label("<b>[REPEAT]</b>");

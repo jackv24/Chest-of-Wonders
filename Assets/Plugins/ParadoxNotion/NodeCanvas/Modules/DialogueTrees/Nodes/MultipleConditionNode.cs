@@ -54,7 +54,7 @@ namespace NodeCanvas.DialogueTrees{
 		#if UNITY_EDITOR
 
 		public override void OnConnectionInspectorGUI(int i){
-			EditorUtils.TaskField<ConditionTask>(conditions[i], DLGTree, (c)=> { conditions[i] = c; });
+			NodeCanvas.Editor.TaskEditor.TaskFieldMulti<ConditionTask>(conditions[i], DLGTree, (c)=> { conditions[i] = c; });
 		}
 
 		public override string GetConnectionInfo(int i){

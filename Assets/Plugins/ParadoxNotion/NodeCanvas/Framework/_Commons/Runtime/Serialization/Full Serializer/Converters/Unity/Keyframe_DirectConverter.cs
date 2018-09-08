@@ -1,3 +1,5 @@
+#pragma warning disable 612, 618
+
 #if !NO_UNITY
 using System;
 using System.Collections.Generic;
@@ -55,3 +57,5 @@ namespace ParadoxNotion.Serialization.FullSerializer.Internal.DirectConverters {
     }
 }
 #endif
+
+#pragma warning restore 612, 618

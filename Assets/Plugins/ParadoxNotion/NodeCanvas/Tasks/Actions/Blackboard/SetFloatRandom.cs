@@ -2,7 +2,6 @@
 using ParadoxNotion.Design;
 using UnityEngine;
 
-
 namespace NodeCanvas.Tasks.Actions{
 
 	[Category("✫ Blackboard")]
@@ -20,7 +19,6 @@ namespace NodeCanvas.Tasks.Actions{
 		}
 
 		protected override void OnExecute(){
-
 			floatVariable.value = Random.Range(minValue.value, maxValue.value);
 			EndAction();
 		}

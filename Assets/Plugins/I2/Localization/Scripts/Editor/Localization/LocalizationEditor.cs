@@ -59,6 +59,7 @@ namespace I2.Loc
 		{
 			OnGUI_Warning_SourceInScene();
 			OnGUI_Warning_SourceInsidePluginsFolder();
+            OnGUI_Warning_SourceNotUpToDate();
 
             var prevViewMode = mCurrentViewMode;
 

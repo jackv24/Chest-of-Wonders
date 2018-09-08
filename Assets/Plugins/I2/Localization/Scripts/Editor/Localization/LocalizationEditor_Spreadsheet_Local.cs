@@ -205,6 +205,14 @@ namespace I2.Loc
 
 			GUILayout.Space(10);
 			GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                EditorGUIUtility.labelWidth += 10;
+                EditorGUILayout.PropertyField(mProp_Spreadsheet_SpecializationAsRows, new GUIContent("Show Specializations as Rows", "true: Make each specialization a separate row (e.g. Term[VR]..., Term[Touch]....\nfalse: Merge specializations into same cell separated by [i2s_XXX]"));
+                EditorGUIUtility.labelWidth -= 10;
+            GUILayout.EndHorizontal();
+
 			
 			GUI.enabled = true;
 		}
@@ -236,7 +244,7 @@ namespace I2.Loc
 					{
 						case eLocalSpreadsheeet.CSV		: Import_CSV(File, UpdateMode); break;
 					}
-					ParseTerms(true);
+					ParseTerms(true, false, true);
 					EditorUtility.SetDirty (target);
 					AssetDatabase.SaveAssets();
 				}
@@ -317,7 +325,7 @@ namespace I2.Loc
 		{
 			LanguageSource source = (LanguageSource)target;
 			
-			string CSVstring = source.Export_CSV(null, Separator);
+			string CSVstring = source.Export_CSV(null, Separator, mProp_Spreadsheet_SpecializationAsRows.boolValue);
 			System.IO.File.WriteAllText (FileName, CSVstring, encoding);
 		}
 	}

@@ -6,7 +6,7 @@ using System;
 
 namespace ParadoxNotion.Services{
 
-	///Simple Thread helper
+	///Simple Thread helper for both runtime and editor
 	public static class Threader{
 
 		public static Thread StartAction(Action function, Action callback = null){

@@ -102,6 +102,11 @@ namespace I2.Loc
 
         void Awake()
 		{
+            #if UNITY_EDITOR
+            if (UnityEditor.BuildPipeline.isBuildingPlayer)
+                return;
+            #endif
+
             UpdateAssetDictionary();
             FindTarget();
 
@@ -114,10 +119,19 @@ namespace I2.Loc
         {
             if (LocalizeCallBack.HasCallback())
             {
-                var methodInfo = UnityEvent.GetValidMethodInfo(LocalizeCallBack.Target, LocalizeCallBack.MethodName, new Type[0]);
+                try
+                {
+                    var methodInfo = UnityEvent.GetValidMethodInfo(LocalizeCallBack.Target, LocalizeCallBack.MethodName, new Type[0]);
 
-                UnityAction methodDelegate = System.Delegate.CreateDelegate(typeof(UnityAction), LocalizeCallBack.Target, methodInfo) as UnityAction;
-                UnityEditor.Events.UnityEventTools.AddPersistentListener(LocalizeEvent, methodDelegate);
+                    if (methodInfo != null)
+                    {
+                        UnityAction methodDelegate = System.Delegate.CreateDelegate(typeof(UnityAction), LocalizeCallBack.Target, methodInfo, false) as UnityAction;
+                        if (methodDelegate != null)
+                            UnityEditor.Events.UnityEventTools.AddPersistentListener(LocalizeEvent, methodDelegate);
+                    }
+                }
+                catch(Exception)
+                {}
 
                 LocalizeCallBack.Target = null;
                 LocalizeCallBack.MethodName = null;
@@ -221,6 +235,11 @@ namespace I2.Loc
                 }
                 if (applyRTL && mLocalizeTarget.AllowSecondTermToBeRTL() && !string.IsNullOrEmpty(SecondaryTranslation))
                         SecondaryTranslation = LocalizationManager.ApplyRTLfix(SecondaryTranslation);
+            }
+
+            if (LocalizationManager.HighlightLocalizedTargets)
+            {
+                MainTranslation = "LOC:" + FinalTerm;
             }
 
             mLocalizeTarget.DoLocalize( this, MainTranslation, SecondaryTranslation );
@@ -380,16 +399,16 @@ namespace I2.Loc
 				return null;
 			T obj = GetTranslatedObject<T>(Translation);
 			
-			if (obj==null)
-			{
+			//if (obj==null)
+			//{
 				// Remove path and search by name
 				//int Index = Translation.LastIndexOfAny("/\\".ToCharArray());
 				//if (Index>=0)
 				//{
 				//	Translation = Translation.Substring(Index+1);
-					obj = GetTranslatedObject<T>(Translation);
+				//	obj = GetTranslatedObject<T>(Translation);
 				//}
-			}
+			//}
 			return obj;
 		}
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using NodeCanvas.DialogueTrees;
+using TMPro;
 
 public class DialogueBox : MonoBehaviour
 {
@@ -21,9 +22,9 @@ public class DialogueBox : MonoBehaviour
     private KeepWorldPosOnCanvas optionsPos;
 
     [Space()]
-    public Text nameText;
+    public TextMeshProUGUI nameText;
     public Image accent;
-    public Text dialogueText;
+    public TextMeshProUGUI dialogueText;
     public Image trail;
     public int trailOffset = 10;
     public Button initialButton;
@@ -266,7 +267,7 @@ public class DialogueBox : MonoBehaviour
 		{
 			SetupButtonEvents(buttons[pair.Value], info, pair.Value);
 
-			Text buttonText = buttons[pair.Value].GetComponentInChildren<Text>();
+			TextMeshProUGUI buttonText = buttons[pair.Value].GetComponentInChildren<TextMeshProUGUI>();
 
 			if (buttonText)
 				buttonText.text = pair.Key.text;
@@ -305,8 +306,10 @@ public class DialogueBox : MonoBehaviour
 	{
 		ContentSizeFitter sizeFitter = speakerPanel?.GetComponent<ContentSizeFitter>();
 
+		string text = info.statement.text.TryGetTranslation();
+
 		//Split statement text into pages, then treat each page as it's own subtitle request
-		string[] textPages = Helper.ParseGameText(info.statement.text);
+		string[] textPages = Helper.ParseGameText(text);
 		for (int i = 0; i < textPages.Length; i++)
 		{
 			if (skipNextFlip)
@@ -341,7 +344,10 @@ public class DialogueBox : MonoBehaviour
 				Vector3 scale = speakerPanel.localScale;
 				speakerPanel.localScale = Vector3.one;
 				sizeFitter.enabled = true;
-				dialogueText.text = $"<color=#FFFFFF00>{textPages[i]}</color>";
+
+				dialogueText.text = textPages[i];
+				dialogueText.maxVisibleCharacters = 0;
+
 				LayoutRebuilder.ForceRebuildLayoutImmediate(speakerPanel);
 				sizeFitter.enabled = false;
 				speakerPanel.localScale = scale;
@@ -361,7 +367,7 @@ public class DialogueBox : MonoBehaviour
 					speakerPanelAnimator.Play("Flip Open");
 				}
 
-				yield return StartCoroutine(PrintOverTime(dialogueText, textPages[i], withSound));
+				yield return StartCoroutine(PrintOverTime(dialogueText, withSound));
 			}
 
 			//Wait for input on all except last page
@@ -386,7 +392,7 @@ public class DialogueBox : MonoBehaviour
 		ShowSpeakerTalking(false);
 	}
 
-    IEnumerator PrintOverTime(Text textObj, string text, bool withSound)
+    IEnumerator PrintOverTime(TextMeshProUGUI textObj, bool withSound)
     {
         Coroutine soundRoutine = null;
 
@@ -395,27 +401,17 @@ public class DialogueBox : MonoBehaviour
 
         waitingForInput = true;
 
-		var chars = text.ToCharArray();
-
-		int charCount = text.Length;
-        for (int i = 0; i < charCount; i++)
+        for (int i = 0; i <= textObj.textInfo.characterCount; i++)
         {
             if (!waitingForInput)
                 break;
 
-			//Dont bother waiting to print spaces
-			if (chars[i] == ' ')
-				continue;
-
-			string showTex = text.Remove(i, charCount - i);
-            string hideText = text.Remove(0, i);
-
-            textObj.text = string.Format("{0}<color=#FFFFFF00>{1}</color>", showTex, hideText);
+	        textObj.maxVisibleCharacters = i;
 
             yield return new WaitForSeconds(1 / textSpeed);
         }
 
-        textObj.text = text;
+	    textObj.maxVisibleCharacters = textObj.textInfo.characterCount;
 
         if (soundRoutine != null)
             StopCoroutine(soundRoutine);

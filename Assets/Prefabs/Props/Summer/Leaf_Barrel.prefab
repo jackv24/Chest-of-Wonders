@@ -8,22 +8,20 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1036039170743112}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1036039170743112
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4082504937761754}
   - component: {fileID: 212326746795071500}
   - component: {fileID: 61081103149599766}
   - component: {fileID: 114557936588857272}
-  - component: {fileID: 114626964935784524}
-  - component: {fileID: 114493722826816064}
   m_Layer: 17
   m_Name: Leaf_Barrel
   m_TagString: Untagged
@@ -34,13 +32,12 @@ GameObject:
 --- !u!1 &1525575629555724
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4626202803568748}
   - component: {fileID: 212582718180700236}
-  - component: {fileID: 114098222166907970}
   m_Layer: 0
   m_Name: Leaf_Barrel_broken
   m_TagString: Untagged
@@ -51,7 +48,7 @@ GameObject:
 --- !u!4 &4082504937761754
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1036039170743112}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -65,7 +62,7 @@ Transform:
 --- !u!4 &4626202803568748
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525575629555724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -78,7 +75,7 @@ Transform:
 --- !u!61 &61081103149599766
 BoxCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1036039170743112}
   m_Enabled: 1
@@ -103,7 +100,7 @@ BoxCollider2D:
 --- !u!114 &114098222166907970
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525575629555724}
   m_Enabled: 1
@@ -115,7 +112,7 @@ MonoBehaviour:
 --- !u!114 &114493722826816064
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1036039170743112}
   m_Enabled: 1
@@ -127,7 +124,7 @@ MonoBehaviour:
 --- !u!114 &114557936588857272
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1036039170743112}
   m_Enabled: 1
@@ -142,6 +139,7 @@ MonoBehaviour:
   breakEffectPrefabs:
   - {fileID: 1181358874820946, guid: 7f1104db85c03ca40b8ce7a67e74fff3, type: 2}
   effectSpawnOffset: {x: -0.21, y: 1.49}
+  hitShake: 0
   breakSound:
     volume: 1
     pitchRange:
@@ -157,7 +155,7 @@ MonoBehaviour:
 --- !u!114 &114626964935784524
 MonoBehaviour:
   m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1036039170743112}
   m_Enabled: 1
@@ -175,7 +173,7 @@ MonoBehaviour:
 --- !u!212 &212326746795071500
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1036039170743112}
   m_Enabled: 1
@@ -185,6 +183,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: cc7763fd8a9693d40af7c3aeafc6dccd, type: 2}
   m_StaticBatchInfo:
@@ -204,7 +203,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 445895771
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e997c3407e8af7043b519941148bf3d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -216,10 +215,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!212 &212582718180700236
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525575629555724}
   m_Enabled: 0
@@ -229,6 +229,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: cc7763fd8a9693d40af7c3aeafc6dccd, type: 2}
   m_StaticBatchInfo:
@@ -248,7 +249,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 445895771
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: af02391bba650aa408161485ec66fe9c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -260,3 +261,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0

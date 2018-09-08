@@ -59,7 +59,7 @@ namespace NodeCanvas.BehaviourTrees{
 					failedIndeces.Add(i);
 					var newTotal = GetTotal();
 					for (var j = 0; j < failedIndeces.Count; j++){
-						newTotal -= childWeights[j].value;
+						newTotal -= childWeights[ failedIndeces[j] ].value;
 					}
 					probability = Random.Range(0, newTotal);
 					return Status.Running;
@@ -93,7 +93,7 @@ namespace NodeCanvas.BehaviourTrees{
 		}
 
 		public override void OnConnectionInspectorGUI(int i){
-			EditorUtils.BBParameterField("Weight", childWeights[i]);
+			NodeCanvas.Editor.BBParameterEditor.ParameterField("Weight", childWeights[i]);
 		}
 
 		protected override void OnNodeInspectorGUI(){
@@ -106,7 +106,7 @@ namespace NodeCanvas.BehaviourTrees{
 			var total = GetTotal();
 			for (var i = 0; i < childWeights.Count; i++){
 				GUILayout.BeginHorizontal();
-				childWeights[i] = (BBParameter<float>)EditorUtils.BBParameterField("Weight", childWeights[i]);
+				childWeights[i] = (BBParameter<float>)NodeCanvas.Editor.BBParameterEditor.ParameterField("Weight", childWeights[i]);
 				GUILayout.Label( Mathf.Round( (childWeights[i].value/total) * 100 ) + "%", GUILayout.Width(38));
 				GUILayout.EndHorizontal();
 			}
@@ -114,7 +114,7 @@ namespace NodeCanvas.BehaviourTrees{
 			GUILayout.Space(5);
 
 			GUILayout.BeginHorizontal();
-			failChance = (BBParameter<float>)EditorUtils.BBParameterField("Direct Failure Chance", failChance);
+			failChance = (BBParameter<float>)NodeCanvas.Editor.BBParameterEditor.ParameterField("Direct Failure Chance", failChance);
 			GUILayout.Label( Mathf.Round( (failChance.value/total) * 100 ) + "%", GUILayout.Width(38));
 			GUILayout.EndHorizontal();
 		}

@@ -28,7 +28,7 @@ namespace NodeCanvas.BehaviourTrees{
 		}
 
 		protected override void OnReset(){
-			current += 1;
+			current++;
 		}
 	}
 }

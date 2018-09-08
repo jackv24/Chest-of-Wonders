@@ -22,7 +22,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
 
 	[Space()]
 	public SoundEventType hurtSound;
-	public CameraShake.ShakeType hurtCameraShake = CameraShake.ShakeType.EnemyHit;
+	public CameraShakeTarget hurtCameraShake;
 	public GameObject hurtEffect;
 	public Vector2 hurtEffectOffset;
 
@@ -43,7 +43,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
 
 	[Space()]
 	public SoundEventType deathSound;
-	public CameraShake.ShakeType deathCameraShake = CameraShake.ShakeType.EnemyKill;
+	public CameraShakeTarget deathCameraShake;
 
 	[Space()]
     public GameObject deathDrop;
@@ -143,7 +143,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
 				}
 			}
 
-			CameraShake.Instance?.DoShake(hurtCameraShake);
+			hurtCameraShake.DoShake();
 
 			if (knockBackRoutine != null)
 			{
@@ -250,7 +250,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
         }
 
 		deathSound.Play(transform.position);
-		CameraShake.Instance?.DoShake(deathCameraShake);
+		deathCameraShake.DoShake();
 
 		if ((characterAnimator && !characterAnimator.Death()) || !characterAnimator)
             gameObject.SetActive(false);

@@ -8,7 +8,8 @@ namespace ParadoxNotion.Services {
     ///Singleton. Automatically added when needed, collectively calls methods that needs updating amongst other things relevant to MonoBehaviours
     public class MonoManager : MonoBehaviour {
 
-        public enum UpdateMode{
+        public enum UpdateMode
+        {
             Auto,
             Manual
         }

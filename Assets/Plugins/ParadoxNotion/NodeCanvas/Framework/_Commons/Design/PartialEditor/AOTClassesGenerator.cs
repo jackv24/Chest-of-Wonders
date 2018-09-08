@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR && !UNITY_WEBPLAYER
+﻿#if UNITY_EDITOR
 
 using System;
 using System.IO;
@@ -57,7 +57,7 @@ namespace ParadoxNotion.Design{
 
 			var spoofTypes = defaultSpoofTypes;
 			spoofTypes.AddRange(targetTypes.Where(t => t.IsValueType && !spoofTypes.Contains(t)) );
-			var types = EditorUtils.GetAssemblyTypes(typeof(object)).Where(t => t.IsDefined(typeof(SpoofAOTAttribute), true) ).ToList();
+			var types = ReflectionTools.GetAllTypes(true).Where(t => t.IsDefined(typeof(SpoofAOTAttribute), true) ).ToList();
 
 			var nTypes = 0;
 			var nMethods = 0;
@@ -207,7 +207,8 @@ namespace ParadoxNotion.Design{
 
 			var sb = new StringBuilder();
 			sb.AppendLine("<linker>");
-			sb.AppendLine("\t<assembly fullname=\"Assembly-CSharp\", preserve=\"all\">");
+			sb.AppendLine("\t<assembly fullname=\"Assembly-CSharp\" preserve=\"all\">");
+			sb.AppendLine("\t</assembly>");
 			foreach(var pair in pairs){
 				sb.AppendLine(string.Format("\t<assembly fullname=\"{0}\">", pair.Key) );
 				foreach(var type in pair.Value){

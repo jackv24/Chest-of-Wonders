@@ -11,7 +11,7 @@ namespace NodeCanvas.DialogueTrees{
 		string meta{get;}
 	}
 
-	///Holds data of what's being said usually by an actor
+	///Holds data of what's being said usualy by an actor
 	[System.Serializable]
 	public class Statement : IStatement{
 
@@ -56,15 +56,15 @@ namespace NodeCanvas.DialogueTrees{
 
 		///Replace the text of the statement found in brackets, with blackboard variables ToString and returns a Statement copy
 		public Statement BlackboardReplace(IBlackboard bb){
-			var s = text.TryGetTranslation();
-
+			var copy = ParadoxNotion.Serialization.JSONSerializer.Clone<Statement>(this);
+			var s = text;
 			var i = 0;
 			while ( (i = s.IndexOf('[', i)) != -1){
-
+				
 				var end = s.Substring(i + 1).IndexOf(']');
 				var input = s.Substring(i + 1, end); //what's in the brackets
 				var output = s.Substring(i, end + 2); //what should be replaced (includes brackets)
-
+				
 				object o = null;
 				if (bb != null){ //referenced blackboard replace
 					var v = bb.GetVariable(input, typeof(object));
@@ -88,7 +88,8 @@ namespace NodeCanvas.DialogueTrees{
 				i++;
 			}
 
-			return new Statement(s, audio, meta);
+			copy.text = s;
+			return copy;
 		}
 
 		public override string ToString(){

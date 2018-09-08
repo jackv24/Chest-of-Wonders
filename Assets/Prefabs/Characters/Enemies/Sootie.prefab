@@ -8,20 +8,19 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1186632841924686}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1038996923405694
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4896829573703824}
   - component: {fileID: 212214592049931808}
   - component: {fileID: 95185524855794016}
-  - component: {fileID: 114671909597868612}
   m_Layer: 14
   m_Name: Graphic
   m_TagString: Untagged
@@ -32,9 +31,9 @@ GameObject:
 --- !u!1 &1186632841924686
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4732936720740404}
   - component: {fileID: 114024603411156280}
@@ -42,8 +41,6 @@ GameObject:
   - component: {fileID: 114361726919820766}
   - component: {fileID: 50270106803801894}
   - component: {fileID: 58953327103004430}
-  - component: {fileID: 114357286844744142}
-  - component: {fileID: 114128878449541174}
   m_Layer: 14
   m_Name: Sootie
   m_TagString: Enemy
@@ -54,7 +51,7 @@ GameObject:
 --- !u!4 &4732936720740404
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -68,7 +65,7 @@ Transform:
 --- !u!4 &4896829573703824
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038996923405694}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -82,7 +79,7 @@ Transform:
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
   m_BodyType: 0
@@ -101,7 +98,7 @@ Rigidbody2D:
 --- !u!58 &58953327103004430
 CircleCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
   m_Enabled: 1
@@ -117,7 +114,7 @@ CircleCollider2D:
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038996923405694}
   m_Enabled: 1
@@ -130,10 +127,11 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114024603411156280
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
   m_Enabled: 1
@@ -154,12 +152,16 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  hurtCameraShake: 0
+  hurtCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: b00cb13ce19892a48bbbff9bcefd1874, type: 2}
   hurtEffect: {fileID: 1785324096871294, guid: cac17bffa1d1598479322e6927a222b4, type: 2}
   hurtEffectOffset: {x: 0, y: 0}
   graphic: {fileID: 0}
   flashAmount: 0
   flashInterval: 0.1
+  knockbackDistance: 0.5
+  knockbackTime: 0.1
   deathTime: 0
   deathParticlePrefab: {fileID: 1395494257038326, guid: 29e2a8c42f90d49428d39dd1775b6489,
     type: 2}
@@ -171,7 +173,9 @@ MonoBehaviour:
       max: 1
     clip: {fileID: 0}
     type: 0
-  deathCameraShake: 1
+  deathCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: 2cda7b4b715c0e044b230b3f4f5229da, type: 2}
   deathDrop: {fileID: 0}
   dropOffset: {x: 0, y: 1}
   healthDrop: {fileID: 0}
@@ -182,8 +186,8 @@ MonoBehaviour:
   enemyRecord: {fileID: 0}
 --- !u!114 &114128878449541174
 MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
   m_Enabled: 1
@@ -195,7 +199,7 @@ MonoBehaviour:
 --- !u!114 &114211805847487764
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
   m_Enabled: 1
@@ -209,8 +213,8 @@ MonoBehaviour:
   characterStats: {fileID: 0}
 --- !u!114 &114357286844744142
 MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
   m_Enabled: 1
@@ -228,7 +232,7 @@ MonoBehaviour:
 --- !u!114 &114361726919820766
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186632841924686}
   m_Enabled: 1
@@ -246,8 +250,8 @@ MonoBehaviour:
     m_Bits: 256
 --- !u!114 &114671909597868612
 MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_PrefabParentObject: {fileID: 0}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038996923405694}
   m_Enabled: 1
@@ -259,7 +263,7 @@ MonoBehaviour:
 --- !u!212 &212214592049931808
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038996923405694}
   m_Enabled: 1
@@ -269,6 +273,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: a8187624fdced814bac764c445427fe7, type: 2}
   m_StaticBatchInfo:
@@ -300,3 +305,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0

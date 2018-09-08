@@ -712,9 +712,8 @@ namespace ParadoxNotion.Serialization.FullSerializer {
             //PARADOXNOTION ADDITION
             catch (Exception e)
             {
-                var msg = string.Format("<b>(Deserialization Error)</b>: {0}\n{1}", e.Message, e.StackTrace);
-                UnityEngine.Debug.LogError(msg);
-                return fsResult.Fail(msg);
+                ParadoxNotion.Services.Logger.LogException(e, "Deserialization", result);
+                return fsResult.Fail(e.Message);
             }
 
             finally

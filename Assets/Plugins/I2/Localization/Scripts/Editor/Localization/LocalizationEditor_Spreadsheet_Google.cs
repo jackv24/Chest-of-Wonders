@@ -50,7 +50,13 @@ namespace I2.Loc
 			GUILayout.BeginVertical(EditorStyles.textArea, GUILayout.Height (1));
 			GUI.backgroundColor = Color.white;
 				GUILayout.Space(10);
-				OnGUI_GoogleSpreadsheetsInGDrive();
+
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(new GUIContent("  Password", "This should match the value of the LocalizationPassword variable in the WebService Script in your Google Drive"), GUILayout.Width(108));
+                mProp_Google_Password.stringValue = EditorGUILayout.TextField(mProp_Google_Password.stringValue, GUILayout.ExpandWidth(true));
+                GUILayout.EndHorizontal();
+
+                OnGUI_GoogleSpreadsheetsInGDrive();
 			GUILayout.EndVertical();
 
 			if (mConnection_WWW!=null)
@@ -85,8 +91,20 @@ namespace I2.Loc
 						mProp_GoogleUpdateDelay.floatValue = EditorGUILayout.FloatField(mProp_GoogleUpdateDelay.floatValue, GUILayout.Width(30));
 					GUILayout.Label("secs");
 
-				GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+				GUILayout.FlexibleSpace();
+					var GoogleInEditorCheckFrequency = (LanguageSource.eGoogleUpdateFrequency)mProp_GoogleInEditorCheckFrequency.enumValueIndex;
+                    EditorGUI.BeginChangeCheck();
+                    GoogleInEditorCheckFrequency = (LanguageSource.eGoogleUpdateFrequency)EditorGUILayout.EnumPopup(new GUIContent("In-Editor Check Frequency", "How often the editor will verify that the Spreadsheet is up-to-date with the LanguageSource. Having un-synchronized Spreadsheets can lead to issues when playing in the device as the download data will override the one in the build"), GoogleInEditorCheckFrequency, GUILayout.ExpandWidth(false));
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        mProp_GoogleInEditorCheckFrequency.enumValueIndex = (int)GoogleInEditorCheckFrequency;
+                    }
+					GUILayout.Space(122);
+			GUILayout.EndHorizontal();
+
 			GUILayout.Space(5);
 
 			GUI.changed = false;
@@ -304,7 +322,16 @@ namespace I2.Loc
             GUILayout.Space(10);
 			GUILayout.EndHorizontal();
 
-			GUI.enabled = true;
+            GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                EditorGUIUtility.labelWidth += 10;
+                EditorGUILayout.PropertyField(mProp_Spreadsheet_SpecializationAsRows, new GUIContent("Show Specializations as Rows", "true: Make each specialization a separate row (e.g. Term[VR]..., Term[Touch]....\nfalse: Merge specializations into same cell separated by [i2s_XXX]"));
+                EditorGUIUtility.labelWidth -= 10;
+            GUILayout.EndHorizontal();
+            GUILayout.Space(10);
+
+
+            GUI.enabled = true;
 		}
 
 		eSpreadsheetUpdateMode SynchronizationButtons( string Operation, bool ForceReplace = false )
@@ -414,7 +441,8 @@ namespace I2.Loc
 
         void OnExported_Google( string Result, string Error )
 		{
-			if (!string.IsNullOrEmpty(Error))
+            // Checkf or error, but discard the "necessary data rewind wasn't possible" as thats not a real error, just a bug in Unity with POST redirects
+            if (!string.IsNullOrEmpty(Error) && !Error.Contains("rewind"))
 			{
 				Debug.Log (Error);
 				ShowError("Unable to access google");
@@ -424,7 +452,8 @@ namespace I2.Loc
             var source = ((LanguageSource)target);
             if (EditorPrefs.GetBool("I2Loc OpenDataSourceAfterExport", true) && !string.IsNullOrEmpty(source.Google_SpreadsheetName))
 				OpenGoogleSpreadsheet(source.Google_SpreadsheetKey );
-		}
+            mProp_GoogleLiveSyncIsUptoDate.boolValue = true;
+        }
 
 		static void OpenGoogleSpreadsheet( string SpreadsheetKey )
 		{
@@ -438,7 +467,7 @@ namespace I2.Loc
 		{
 			StopConnectionWWW();
 			LanguageSource source = ((LanguageSource)target);
-			mConnection_WWW = source.Import_Google_CreateWWWcall(true);
+			mConnection_WWW = source.Import_Google_CreateWWWcall(true, false);
 			if (mConnection_WWW==null)
 			{
 				OnImported_Google(string.Empty, "Unable to import from google", eSpreadsheetUpdateMode.Replace);
@@ -477,7 +506,7 @@ namespace I2.Loc
 				ShowError(ErrorMsg);
 
 			serializedObject.Update();
-			ParseTerms(true, !HasErrors);
+			ParseTerms(true, false, !HasErrors);
 			mSelectedKeys.Clear ();
 			mSelectedCategories.Clear();
 			ScheduleUpdateTermsToShowInList();
@@ -534,12 +563,12 @@ namespace I2.Loc
 			string SpreadsheetName;
 
 			LanguageSource source = (LanguageSource)target;
-			if (!GUITools.ObjectExistInScene(source.gameObject) && LocalizationManager.IsGlobalSource(source.name))
+            if (source.IsGlobalSource())
 				SpreadsheetName = string.Format("{0} Localization", PlayerSettings.productName);
 			else
 				SpreadsheetName = string.Format("{0} {1} {2}", PlayerSettings.productName, Editor_GetCurrentScene(), source.name);
 
-			string query =  mProp_Google_WebServiceURL.stringValue + "?action=NewSpreadsheet&name=" + Uri.EscapeDataString(SpreadsheetName);
+			string query =  mProp_Google_WebServiceURL.stringValue + "?action=NewSpreadsheet&name=" + Uri.EscapeDataString(SpreadsheetName) + "&password="+ Uri.EscapeDataString(mProp_Google_Password.stringValue);
 
 			mConnection_WWW = new WWW(query);
 			mConnection_Callback = Google_OnNewSpreadsheet;
@@ -556,9 +585,14 @@ namespace I2.Loc
 				ShowError("Unable to access google");
 				return;
 			}
+            if (Result=="Wrong Password")
+            {
+                ShowError(Result);
+                return;
+            }
 
-			try
-			{
+            try
+            {
 				var data = SimpleJSON.JSON.Parse(Result).AsObject;
 
 				string name = data["name"];
@@ -590,17 +624,14 @@ namespace I2.Loc
 
 		void Google_FindSpreadsheets()
 		{
+            ClearErrors();
             EditorApplication.update -= Google_FindSpreadsheets;
-            #if UNITY_WEBPLAYER
-			ShowError ("Contacting google translation is not yet supported on WebPlayer" );
-#else
-            string query =  mProp_Google_WebServiceURL.stringValue + "?action=GetSpreadsheetList";
+            string query =  mProp_Google_WebServiceURL.stringValue + "?action=GetSpreadsheetList&password="+ Uri.EscapeDataString(mProp_Google_Password.stringValue);
 			mConnection_WWW = new WWW(query);
 			mConnection_Callback = Google_OnFindSpreadsheets;
 			EditorApplication.update += CheckForConnection;
 			mConnection_Text = "Accessing google";
             //mConnection_TimeOut = Time.realtimeSinceStartup + 10;
-			#endif
 		}
 
 		void Google_OnFindSpreadsheets( string Result, string Error)
@@ -611,7 +642,13 @@ namespace I2.Loc
 				return;
 			}
 
-			try
+            if (Result=="Wrong Password")
+            {
+                ShowError(Result);
+                return;
+            }
+
+            try
 			{
 				mGoogleSpreadsheets.Clear();
 				var data = SimpleJSON.JSON.Parse(Result).AsObject;

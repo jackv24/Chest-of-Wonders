@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class MagicBankUI : MonoBehaviour
 		public Animator animator;
 
 		public Slider slider;
-		public Text amountText;
+		public TextMeshProUGUI amountText;
 
 		[HideInInspector]
 		public int currentSouls;

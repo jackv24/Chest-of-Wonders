@@ -10,24 +10,22 @@ namespace NodeCanvas.Tasks.Actions
 	[Name("Camera Shake")]
 	public class CameraShakeControl : ActionTask
 	{
-		public CameraShake.ShakeType type;
+		public CameraShakeTarget cameraShake;
 
 		protected override string info
 		{
 			get
 			{
-				return $"Shake Camera: {type.ToString()}";
+				string camera = cameraShake.Camera ? cameraShake.Camera.name : "None";
+				string profile = cameraShake.Profile ? cameraShake.Profile.name : "None";
+
+				return $"Shake Camera: {camera}, Profile: {profile}";
 			}
 		}
 
 		protected override void OnExecute()
 		{
-			CameraShake camShake = CameraShake.Instance;
-
-			if (camShake)
-			{
-				camShake.DoShake(type);
-			}
+			cameraShake.DoShake();
 
 			EndAction(true);
 		}

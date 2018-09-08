@@ -52,20 +52,6 @@ namespace I2.Loc
             return Languages;
         }
 
-        public static string GetClosestLanguage(string Filter)
-        {
-            if (string.IsNullOrEmpty(Filter))
-                return string.Empty;
-
-            string[] Filters = Filter.ToLowerInvariant().Split(" /(),".ToCharArray());
-
-            foreach (var kvp in mLanguageDef)
-                if (LanguageMatchesFilter(kvp.Key, Filters))
-                    return kvp.Key;//GetFormatedLanguageName( kvp.Key );
-
-            return string.Empty;
-        }
-
         // "Engl Unit" matches "English/United States"
         static bool LanguageMatchesFilter(string Language, string[] Filters)
         {
@@ -438,7 +424,8 @@ namespace I2.Loc
 			{"Spanish/Puerto Rico", new LanguageCodeDef(){PluralRule=1, Code="es-PR", GoogleCode="es"}},
 			{"Spanish/Spain", 		new LanguageCodeDef(){PluralRule=1, Code="es-ES", GoogleCode="es"}},
 			{"Spanish/Uruguay", 	new LanguageCodeDef(){PluralRule=1, Code="es-UY", GoogleCode="es"}},
-			{"Spanish/Venezuela", 	new LanguageCodeDef(){PluralRule=1, Code="es-VE", GoogleCode="es"}},
+            {"Spanish/Venezuela",   new LanguageCodeDef(){PluralRule=1, Code="es-VE", GoogleCode="es"}},
+            {"Spanish/Latin Americas",   new LanguageCodeDef(){PluralRule=1, Code="es-US", GoogleCode="es"}},
             /**/{"Sundanese",                new LanguageCodeDef(){PluralRule=1, Code="su"}},
             {"Swahili", 			new LanguageCodeDef(){Code="sw"}},
             /**/{"Swati",                new LanguageCodeDef(){PluralRule=1, Code="ss", GoogleCode="-"}},

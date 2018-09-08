@@ -3,10 +3,8 @@
 using UnityEditor;
 using UnityEngine;
 using System.Linq;
-
-using ParadoxNotion;
-using ParadoxNotion.Design;
 using NodeCanvas.Framework;
+using ParadoxNotion.Design;
 
 namespace NodeCanvas.Editor {
 
@@ -16,22 +14,14 @@ namespace NodeCanvas.Editor {
         private static Texture2D resourcesIcon;
         private static Texture2D communityIcon;
         private static Texture2D paradoxHeader;
-        
         private static System.Type assetType;
 
         void OnEnable() {
-
-            #if UNITY_5_3_OR_NEWER
-            titleContent = new GUIContent("Welcome");
-            #else
-            title = "Welcome";
-            #endif
-
+            titleContent  = new GUIContent("Welcome");
             docsIcon      = EditorGUIUtility.FindTexture("TextAsset Icon");
             resourcesIcon = EditorGUIUtility.FindTexture("d_WelcomeScreen.AssetStoreLogo");
             communityIcon = EditorGUIUtility.FindTexture("AudioChorusFilter Icon");
             paradoxHeader = Resources.Load("ParadoxNotionHeader") as Texture2D;
-
             var size = new Vector2(paradoxHeader.width, 500);
             minSize = size;
             maxSize = size;
@@ -62,10 +52,9 @@ namespace NodeCanvas.Editor {
             GUILayout.Label(string.Format("<i>Thanks for using {0}! Following are a few important links to get you started!</i>", packageName ) );
             GUILayout.Space(10);
 
+            ///----------------------------------------------------------------------------------------------
 
-
-
-            GUILayout.BeginHorizontal("ShurikenEffectBg");
+            GUILayout.BeginHorizontal(Styles.roundedBox);
             GUI.backgroundColor = new Color(1,1,1,0f);
             if ( GUILayout.Button(docsIcon, GUILayout.Width(64), GUILayout.Height(64)) ) {
                 UnityEditor.Help.BrowseURL(docsURL);
@@ -79,11 +68,9 @@ namespace NodeCanvas.Editor {
             GUILayout.Space(10);
             GUI.backgroundColor = Color.white;
 
+            ///----------------------------------------------------------------------------------------------
 
-
-
-
-            GUILayout.BeginHorizontal("ShurikenEffectBg");
+            GUILayout.BeginHorizontal(Styles.roundedBox);
             GUI.backgroundColor = new Color(1, 1, 1, 0f);
             if (GUILayout.Button(resourcesIcon, GUILayout.Width(64), GUILayout.Height(64)))
             {
@@ -98,11 +85,9 @@ namespace NodeCanvas.Editor {
             GUILayout.Space(10);
             GUI.backgroundColor = Color.white;
 
+            ///----------------------------------------------------------------------------------------------
 
-
-
-
-            GUILayout.BeginHorizontal("ShurikenEffectBg");
+            GUILayout.BeginHorizontal(Styles.roundedBox);
             GUI.backgroundColor = new Color(1, 1, 1, 0f);
             if (GUILayout.Button(communityIcon, GUILayout.Width(64), GUILayout.Height(64)))
             {
@@ -117,7 +102,7 @@ namespace NodeCanvas.Editor {
             GUILayout.Space(10);
             GUI.backgroundColor = Color.white;
 
-
+            ///----------------------------------------------------------------------------------------------
 
             GUILayout.FlexibleSpace();
 
@@ -132,8 +117,8 @@ namespace NodeCanvas.Editor {
 
             GUILayout.Space(20);
         }
-
         
+        //...
         public static void ShowWindow(System.Type t) {
             var window = CreateInstance<WelcomeWindow>();
             assetType = t;

@@ -33,7 +33,7 @@ namespace NodeCanvas.DialogueTrees{
 		[SerializeField]
 		private List<Choice> availableChoices = new List<Choice>();
 
-		public Task[] GetSubTasks(){ return availableChoices != null? availableChoices.Select(c => c.condition).ToArray() : new Task[0]; }
+		public Task[] GetSubTasks(){ return availableChoices != null? availableChoices.Select(c => c.condition).ToArray() : new Task[0]; }		
 		public override int maxOutConnections{ get{return availableChoices.Count;} }
 		public override bool requireActorSelection{ get {return true;} }
 
@@ -48,7 +48,7 @@ namespace NodeCanvas.DialogueTrees{
 				var condition = availableChoices[i].condition;
 				if (condition == null || condition.CheckCondition(finalActor.transform, bb)){
 					var tempStatement = availableChoices[i].statement.BlackboardReplace(bb);
-					finalOptions[tempStatement] = i;
+					finalOptions[tempStatement] = i;					
 				}
 			}
 
@@ -124,17 +124,7 @@ namespace NodeCanvas.DialogueTrees{
 				var choice = availableChoices[i];
 				var connection = i < outConnections.Count? outConnections[i] : null;
 				GUILayout.BeginHorizontal("box");
-
-				var displayText = $"<color=maroon>{choice.statement.text}</color>";
-
-				string translation;
-				if (I2.Loc.LocalizationManager.TryGetTranslation(choice.statement.text, out translation))
-				{
-					displayText = $"{translation} ({choice.statement.text})";
-				}
-
-				GUILayout.Label(string.Format("(#{0}) {1}", connection != null? connection.targetNode.ID.ToString() : "NONE", displayText ), leftLabelStyle );
-
+				GUILayout.Label(string.Format("(#{0}) {1}", connection != null? connection.targetNode.ID.ToString() : "NONE", choice.statement.text ), leftLabelStyle );
 				GUILayout.EndHorizontal();
 			}
 
@@ -195,12 +185,12 @@ namespace NodeCanvas.DialogueTrees{
 			choice.statement.audio = UnityEditor.EditorGUILayout.ObjectField("Audio File", choice.statement.audio, typeof(AudioClip), false) as AudioClip;
 			choice.statement.meta = UnityEditor.EditorGUILayout.TextField("Meta Data", choice.statement.meta);
 
-			EditorUtils.TaskField<ConditionTask>(choice.condition, graph, (c)=> { choice.condition = c; });
+			NodeCanvas.Editor.TaskEditor.TaskFieldMulti<ConditionTask>(choice.condition, graph, (c)=> { choice.condition = c; });
 
 			GUILayout.EndVertical();
 			GUILayout.EndHorizontal();
 
-			GUILayout.Space(10);
+			GUILayout.Space(10);			
 		}
 
 		#endif

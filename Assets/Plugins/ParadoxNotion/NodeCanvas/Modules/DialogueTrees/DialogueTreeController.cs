@@ -6,6 +6,7 @@ using ParadoxNotion;
 
 namespace NodeCanvas.DialogueTrees{
 
+	[AddComponentMenu("NodeCanvas/Dialogue Tree Controller")]
 	public class DialogueTreeController : GraphOwner<DialogueTree>, IDialogueActor {
 
 		string IDialogueActor.name{ get {return name;} }
@@ -18,14 +19,17 @@ namespace NodeCanvas.DialogueTrees{
 
 		///Start the DialogueTree without an Instigator
 		public void StartDialogue(){
-			graph = GetInstance(graph);
-			graph.StartGraph(this, blackboard, true, null);
+			StartDialogue(this, null);
+		}
+
+		///Start the DialogueTree with a callback for when its finished
+		public void StartDialogue(Action<bool> callback){
+			StartDialogue(this, callback);
 		}
 
 		///Start the DialogueTree with provided actor as Instigator
 		public void StartDialogue(IDialogueActor instigator){
-			graph = GetInstance(graph);
-			graph.StartGraph(instigator is Component? (Component)instigator : instigator.transform, blackboard, true, null);
+			StartDialogue(instigator, null);
 		}
 
 		///Start the DialogueTree with provded actor as instigator and callback
@@ -34,12 +38,15 @@ namespace NodeCanvas.DialogueTrees{
 			graph.StartGraph(instigator is Component? (Component)instigator : instigator.transform, blackboard, true, callback );
 		}
 
-		///Start the DialogueTree with a callback for when its finished
-		public void StartDialogue(Action<bool> callback){
-			graph = GetInstance(graph);
-			graph.StartGraph(this, blackboard, true, callback);
+		///Pause the DialogueTree
+		public void PauseDialogue(){
+			graph.Pause();
 		}
 
+		///Stop the DialogueTree
+		public void StopDialogue(){
+			graph.Stop();
+		}
 
 		///Set an actor reference by parameter name
 		public void SetActorReference(string paramName, IDialogueActor actor){
@@ -60,11 +67,10 @@ namespace NodeCanvas.DialogueTrees{
 			return behaviour != null? behaviour.GetActorReferenceByName(paramName) : null;
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
-		#if UNITY_EDITOR	
-
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
+		#if UNITY_EDITOR
+		
 		new void Reset(){
 			base.enableAction = EnableAction.DoNothing;
 			base.disableAction = DisableAction.DoNothing;

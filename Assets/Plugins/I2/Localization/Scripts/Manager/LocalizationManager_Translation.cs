@@ -18,6 +18,9 @@ namespace I2.Loc
         static bool mLocalizeIsScheduled = false;
         static bool mLocalizeIsScheduledWithForcedValue = false;
 
+        public static bool HighlightLocalizedTargets = false;
+
+
         #endregion
 
         public static string GetTranslation(string Term, bool FixForRTL = true, int maxLineLengthForRTL = 0, bool ignoreRTLnumbers = true, bool applyParameters = false, GameObject localParametersRoot = null, string overrideLanguage = null)
@@ -55,6 +58,23 @@ namespace I2.Loc
             }
 
             return false;
+        }
+
+        public static T GetTranslatedObject<T>( string Term, Localize optionalLocComp=null) where T : Object
+        {
+            if (optionalLocComp != null)
+            {
+                return optionalLocComp.FindTranslatedObject<T>(Term);
+            }
+            else
+            {
+                T obj = FindAsset(Term) as T;
+                if (obj)
+                    return obj;
+
+                obj = ResourceManager.pInstance.GetAsset<T>(Term);
+                return obj;
+            }
         }
 
         public static string GetAppName(string languageCode)
@@ -122,10 +142,25 @@ namespace I2.Loc
 			if (OnLocalizeEvent != null)
 				OnLocalizeEvent ();
 			ResourceManager.pInstance.CleanResourceCache();
-		}
+            #if UNITY_EDITOR
+                RepaintInspectors();
+            #endif
+        }
 
- 
-		public static List<string> GetCategories ()
+        #if UNITY_EDITOR
+        static void RepaintInspectors()
+        {
+            var assemblyEditor = System.Reflection.Assembly.GetAssembly(typeof(UnityEditor.Editor));
+            var typeInspectorWindow = assemblyEditor.GetType("UnityEditor.InspectorWindow");
+            if (typeInspectorWindow != null)
+            {
+                typeInspectorWindow.GetMethod("RepaintAllInspectors", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static).Invoke(null, null);
+            }
+        }
+        #endif
+
+
+        public static List<string> GetCategories ()
 		{
 			List<string> Categories = new List<string> ();
 			for (int i=0, imax=Sources.Count; i<imax; ++i)
@@ -163,5 +198,24 @@ namespace I2.Loc
 
 			return null;
 		}
+        public static TermData GetTermData(string term, out LanguageSource source)
+        {
+            InitializeIfNeeded();
+
+            TermData data;
+            for (int i = 0, imax = Sources.Count; i < imax; ++i)
+            {
+                data = Sources[i].GetTermData(term);
+                if (data != null)
+                {
+                    source = Sources[i];
+                    return data;
+                }
+            }
+
+            source = null;
+            return null;
+        }
+
     }
 }

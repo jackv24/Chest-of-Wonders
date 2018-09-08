@@ -33,7 +33,7 @@ namespace I2.Loc
 		{
 			#if UNITY_EDITOR
 				// Special case to allow coroutines to run in the Editor
-				if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+				if (!Application.isPlaying)
 				{
 					UnityEditor.EditorApplication.CallbackFunction delg=null;
 					delg = delegate () 

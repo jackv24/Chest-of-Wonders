@@ -166,22 +166,28 @@ namespace I2.Loc
 				if (DescColumnIdx>0)
 					termData.Description = Tokens[DescColumnIdx];
 
-				for (int j=0; j<LanIndices.Length && j<Tokens.Length-LanguagesStartIdx; ++j)
-					if (!string.IsNullOrEmpty(Tokens[j+LanguagesStartIdx]))	// Only change the translation if there is a new value
-					{
-						var lanIdx = LanIndices[j];
-						if (lanIdx < 0)
-								continue;
-						var value = Tokens[j+LanguagesStartIdx];
+                for (int j = 0; j < LanIndices.Length && j < Tokens.Length - LanguagesStartIdx; ++j)
+                    if (!string.IsNullOrEmpty(Tokens[j + LanguagesStartIdx]))   // Only change the translation if there is a new value
+                    {
+                        var lanIdx = LanIndices[j];
+                        if (lanIdx < 0)
+                            continue;
+                        var value = Tokens[j + LanguagesStartIdx];
 
-						//if (value=="-")
-						//	value = string.Empty;
+                        if (value == "-")
+                            value = string.Empty;
+                        else
+                        if (value == "")
+                            value = null;
 
-						termData.SetTranslation(lanIdx, value, specialization);
-					}
-			}
-
-			return string.Empty;
+                        termData.SetTranslation(lanIdx, value, specialization);
+                    }
+            }
+            if (Application.isPlaying)
+            {
+                SaveLanguages(HasUnloadedLanguages());
+            }
+            return string.Empty;
 		}
 
 		bool ArrayContains( string MainText, params string[] texts )
@@ -205,34 +211,39 @@ namespace I2.Loc
 
         void Import_Language_from_Cache(int langIndex, string langData, bool useFallback, bool onlyCurrentSpecialization)
         {
-            if (mLanguages[langIndex].IsLoaded())
-                return;
-
-            int iTerm = 0;
             int index = 0;
             while (index < langData.Length)
             {
-                var termData = mTerms[iTerm];
-                iTerm++;
-
                 int nextIndex = langData.IndexOf("[i2t]", index);
                 if (nextIndex < 0) nextIndex = langData.Length;
 
-                string translation = null;
+                // check for errors
+                int termNameEnd = langData.IndexOf("=", index);
+                if (termNameEnd >= nextIndex)
+                    return;
 
-                if (index != nextIndex)
+                string termName = langData.Substring(index, termNameEnd - index);
+                index = termNameEnd+1;
+
+                var termData = GetTermData(termName, false);
+                if (termData != null)
                 {
-                    translation = langData.Substring(index, nextIndex - index);
-                    if (translation.StartsWith("[i2fb]"))
+                    string translation = null;
+
+                    if (index != nextIndex)
                     {
-                        translation = (useFallback) ? translation.Substring(6) : null;
+                        translation = langData.Substring(index, nextIndex - index);
+                        if (translation.StartsWith("[i2fb]"))
+                        {
+                            translation = (useFallback) ? translation.Substring(6) : null;
+                        }
+                        if (onlyCurrentSpecialization && translation != null)
+                        {
+                            translation = SpecializationManager.GetSpecializedText(translation, null);
+                        }
                     }
-                    if (onlyCurrentSpecialization && translation!=null)
-                    {
-                        translation = SpecializationManager.GetSpecializedText(translation, null);
-                    }
+                    termData.Languages[langIndex] = translation;
                 }
-                termData.Languages[langIndex] = translation;
                 index = nextIndex + 5;
             }
         }

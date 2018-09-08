@@ -13,8 +13,13 @@ namespace I2.Loc
 		public string Google_SpreadsheetName;
 		public string Google_LastUpdatedVersion;
 
-		public enum eGoogleUpdateFrequency { Always, Never, Daily, Weekly, Monthly, OnlyOnce }
+        #if UNITY_EDITOR
+        public string Google_Password = "change_this";
+        #endif
+
+        public enum eGoogleUpdateFrequency { Always, Never, Daily, Weekly, Monthly, OnlyOnce }
 		public eGoogleUpdateFrequency GoogleUpdateFrequency = eGoogleUpdateFrequency.Weekly;
+		public eGoogleUpdateFrequency GoogleInEditorCheckFrequency = eGoogleUpdateFrequency.Daily;
 
 		public float GoogleUpdateDelay = 5; // How many second to delay downloading data from google (to avoid lag on the startup)
 
@@ -49,7 +54,7 @@ namespace I2.Loc
 					return;
 					
 			string PlayerPrefName = GetSourcePlayerPrefName();
-			string I2SavedData = PersistentStorage.LoadFile(PersistentStorage.eFileType.Persistent, "I2Source_"+ PlayerPrefName + ".loc");
+			string I2SavedData = PersistentStorage.LoadFile(PersistentStorage.eFileType.Persistent, "I2Source_"+ PlayerPrefName + ".loc", false);
 			if (string.IsNullOrEmpty (I2SavedData))
 				return;
 
@@ -70,7 +75,7 @@ namespace I2.Loc
 
 			if (!shouldUpdate)
 			{
-                PersistentStorage.DeleteFile(PersistentStorage.eFileType.Persistent, "I2Source_"+PlayerPrefName+".loc");
+                PersistentStorage.DeleteFile(PersistentStorage.eFileType.Persistent, "I2Source_"+PlayerPrefName+".loc", false);
                 PersistentStorage.DeleteSetting("I2SourceVersion_"+PlayerPrefName);
 				return;
 			}
@@ -97,27 +102,42 @@ namespace I2.Loc
 			return newV > currentV;
 		}
 
-		public void Import_Google( bool ForceUpdate = false)
+        // When JustCheck is true, importing from google will not download any data, just detect if the Spreadsheet is up-to-date
+		public void Import_Google( bool ForceUpdate, bool justCheck)
 		{
-			if (!ForceUpdate && GoogleUpdateFrequency==eGoogleUpdateFrequency.Never)
+            if (!ForceUpdate && GoogleUpdateFrequency==eGoogleUpdateFrequency.Never)
 				return;
 
-			#if UNITY_EDITOR
-			if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
-				return;
-			#endif
+            if (!I2Utils.IsPlaying())
+                return;
 
-			string PlayerPrefName = GetSourcePlayerPrefName();
-			if (!ForceUpdate && GoogleUpdateFrequency!=eGoogleUpdateFrequency.Always)
+            #if UNITY_EDITOR
+            if (justCheck && GoogleInEditorCheckFrequency==eGoogleUpdateFrequency.Never)
+                return;
+            #endif
+
+            #if UNITY_EDITOR
+                        var updateFrequency = GoogleInEditorCheckFrequency;
+            #else
+                        var updateFrequency = GoogleUpdateFrequency;
+            #endif
+
+            string PlayerPrefName = GetSourcePlayerPrefName();
+
+            if (!ForceUpdate && updateFrequency != eGoogleUpdateFrequency.Always)
 			{
-				string sTimeOfLastUpdate = PersistentStorage.GetSetting_String("LastGoogleUpdate_"+PlayerPrefName, "");
+                #if UNITY_EDITOR
+                    string sTimeOfLastUpdate = UnityEditor.EditorPrefs.GetString("LastGoogleUpdate_"+PlayerPrefName, "");
+                #else
+                    string sTimeOfLastUpdate = PersistentStorage.GetSetting_String("LastGoogleUpdate_"+PlayerPrefName, "");
+                #endif
 				DateTime TimeOfLastUpdate;
 				try
 				{
 					if (DateTime.TryParse( sTimeOfLastUpdate, out TimeOfLastUpdate ))
 					{
 						double TimeDifference = (DateTime.Now-TimeOfLastUpdate).TotalDays;
-						switch (GoogleUpdateFrequency)
+                        switch (updateFrequency)
 						{
 							case eGoogleUpdateFrequency.Daily: if (TimeDifference<1) return;
 								break;
@@ -132,30 +152,39 @@ namespace I2.Loc
 				catch(Exception)
 				{ }
 			}
-            PersistentStorage.SetSetting_String("LastGoogleUpdate_"+PlayerPrefName, DateTime.Now.ToString());
+            #if UNITY_EDITOR
+                UnityEditor.EditorPrefs.SetString("LastGoogleUpdate_" + PlayerPrefName, DateTime.Now.ToString());
+            #else
+                PersistentStorage.SetSetting_String("LastGoogleUpdate_"+PlayerPrefName, DateTime.Now.ToString());
+            #endif
 
 			//--[ Checking google for updated data ]-----------------
-			CoroutineManager.Start(Import_Google_Coroutine());
+			CoroutineManager.Start(Import_Google_Coroutine(justCheck));
 		}
 
 		string GetSourcePlayerPrefName()
 		{
-			// If its a global source, use its name, otherwise, use the name and the level it is in
-			if (Array.IndexOf(LocalizationManager.GlobalSources, name)>=0)
-				return name;
+            string sourceName = name;
+            if (!string.IsNullOrEmpty(Google_SpreadsheetKey))
+            {
+                sourceName += Google_SpreadsheetKey;
+            }
+            // If its a global source, use its name, otherwise, use the name and the level it is in
+            if (Array.IndexOf(LocalizationManager.GlobalSources, name)>=0)
+				return sourceName;
 			else
 			{
-				#if UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
-				return Application.loadedLevelName + "_" + name;
-				#else
-				return UnityEngine.SceneManagement.SceneManager.GetActiveScene().name+"_"+name;
-				#endif
+#if UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+				return Application.loadedLevelName + "_" + sourceName;
+#else
+                return UnityEngine.SceneManagement.SceneManager.GetActiveScene().name+"_"+ sourceName;
+#endif
 			}
 		}
 
-		IEnumerator Import_Google_Coroutine()
+		IEnumerator Import_Google_Coroutine(bool JustCheck)
 		{
-			WWW www = Import_Google_CreateWWWcall();
+			WWW www = Import_Google_CreateWWWcall(false, JustCheck);
 			if (www==null)
 				yield break;
 
@@ -170,43 +199,50 @@ namespace I2.Loc
 			{
 				var bytes = www.bytes;
 				wwwText = System.Text.Encoding.UTF8.GetString(bytes, 0, bytes.Length); //www.text
+
+                bool isEmpty = string.IsNullOrEmpty(wwwText) || wwwText == "\"\"";
+
+                if (JustCheck)
+                {
+                    if (!isEmpty)
+                    {
+                        Debug.LogWarning("Spreadsheet is not up-to-date and Google Live Synchronization is enabled\nWhen playing in the device the Spreadsheet will be downloaded and translations may not behave as what you see in the editor.\nTo fix this, Import or Export replace to Google");
+                        GoogleLiveSyncIsUptoDate = false;
+                    }
+
+                    yield break;
+                }
+
+                if (!isEmpty)
+                {
+                    var errorMsg = Import_Google_Result(wwwText, eSpreadsheetUpdateMode.Replace, true);
+                    if (string.IsNullOrEmpty(errorMsg))
+                    {
+                        if (Event_OnSourceUpdateFromGoogle != null)
+                            Event_OnSourceUpdateFromGoogle(this, true, www.error);
+
+                        LocalizationManager.LocalizeAll(true);
+                        Debug.Log("Done Google Sync");
+                    }
+                    else
+                    {
+                        if (Event_OnSourceUpdateFromGoogle != null)
+                            Event_OnSourceUpdateFromGoogle(this, false, www.error);
+
+                        Debug.Log("Done Google Sync: source was up-to-date");
+                    }
+                    yield break;
+                }
 			}
 
-			if (notError && !string.IsNullOrEmpty(wwwText) && wwwText != "\"\"")
-			{
-				var errorMsg = Import_Google_Result(wwwText, eSpreadsheetUpdateMode.Replace, true);
-				if (string.IsNullOrEmpty(errorMsg))
-				{
-					if (Event_OnSourceUpdateFromGoogle != null)
-						Event_OnSourceUpdateFromGoogle(this, true, www.error);
+			if (Event_OnSourceUpdateFromGoogle != null)
+				Event_OnSourceUpdateFromGoogle(this, false, www.error);
 
-					LocalizationManager.LocalizeAll(true);
-					Debug.Log("Done Google Sync");
-				}
-				else
-				{
-					if (Event_OnSourceUpdateFromGoogle != null)
-						Event_OnSourceUpdateFromGoogle(this, false, www.error);
-
-					Debug.Log("Done Google Sync: source was up-to-date");
-				}
-			}
-			else
-			{
-				if (Event_OnSourceUpdateFromGoogle != null)
-					Event_OnSourceUpdateFromGoogle(this, false, www.error);
-
-				Debug.Log("Language Source was up-to-date with Google Spreadsheet");
-			}
+			Debug.Log("Language Source was up-to-date with Google Spreadsheet");
 		}
 
-		public WWW Import_Google_CreateWWWcall( bool ForceUpdate = false )
+		public WWW Import_Google_CreateWWWcall( bool ForceUpdate, bool justCheck )
 		{
-			#if UNITY_WEBPLAYER
-			Debug.Log ("Contacting google translation is not yet supported on WebPlayer" );
-			return null;
-			#else
-
 			if (!HasGoogleSpreadsheet())
 				return null;
 
@@ -214,22 +250,30 @@ namespace I2.Loc
 			if (savedVersion.Length > 19) // Check for corruption
 				savedVersion= string.Empty;
 
-			if (IsNewerVersion(savedVersion, Google_LastUpdatedVersion))
+#if !UNITY_EDITOR
+            if (IsNewerVersion(savedVersion, Google_LastUpdatedVersion))
 				Google_LastUpdatedVersion = savedVersion;
+#endif
 
 			string query =  string.Format("{0}?key={1}&action=GetLanguageSource&version={2}", 
 										  LocalizationManager.GetWebServiceURL(this),
 										  Google_SpreadsheetKey,
 										  ForceUpdate ? "0" : Google_LastUpdatedVersion);
-			WWW www = new WWW(query);
+#if UNITY_EDITOR
+            if (justCheck)
+            {
+                query += "&justcheck=true";
+            }
+#endif
+            WWW www = new WWW(query);
 			return www;
-			#endif
 		}
 
 		public bool HasGoogleSpreadsheet()
 		{
-            return !string.IsNullOrEmpty(LocalizationManager.GetWebServiceURL(this)) && !string.IsNullOrEmpty(Google_SpreadsheetKey);// && !string.IsNullOrEmpty(Google_SpreadsheetName);
-		}
+            return !string.IsNullOrEmpty(Google_WebServiceURL) && !string.IsNullOrEmpty(Google_SpreadsheetKey) &&
+                   !string.IsNullOrEmpty(LocalizationManager.GetWebServiceURL(this));
+        }
 
 		public string Import_Google_Result( string JsonString, eSpreadsheetUpdateMode UpdateMode, bool saveInPlayerPrefs = false )
 		{
@@ -302,6 +346,12 @@ namespace I2.Loc
                         UpdateMode = eSpreadsheetUpdateMode.Merge;
                 }
 
+                GoogleLiveSyncIsUptoDate = true;
+                if (I2Utils.IsPlaying())
+                {
+                    SaveLanguages(true);
+                }
+
 #if UNITY_EDITOR
                 if (!string.IsNullOrEmpty(ErrorMsg))
                     UnityEditor.EditorUtility.SetDirty(this);
@@ -315,6 +365,6 @@ namespace I2.Loc
             }
 		}
 
-		#endregion
+#endregion
 	}
 }

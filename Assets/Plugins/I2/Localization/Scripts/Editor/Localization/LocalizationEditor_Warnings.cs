@@ -11,7 +11,7 @@ namespace I2.Loc
 			if (mLanguageSource.UserAgreesToHaveItOnTheScene) return;
 			
 			LanguageSource source = (LanguageSource)target;
-			if (LocalizationManager.IsGlobalSource(source.name) && !GUITools.ObjectExistInScene(source.gameObject))
+			if (source.IsGlobalSource() && !GUITools.ObjectExistInScene(source.gameObject))
 				return;
 			
 			string Text = @"Its advised to only use the source in I2\Localization\Resources\I2Languages.prefab
@@ -78,7 +78,7 @@ Furthermore, having a source in the scene require that any Localize component ge
 				return;
 			
 			LanguageSource source = (LanguageSource)target;
-			if (!LocalizationManager.IsGlobalSource(source.name) || GUITools.ObjectExistInScene(source.gameObject))
+			if (!source.IsGlobalSource())
 			{
 				bSourceInsidePluginsFolder = false;
 				return;
@@ -93,7 +93,7 @@ Furthermore, having a source in the scene require that any Localize component ge
 				return;
 			}
 			
-			string Text = @"Its advised to move this Global Source to a folder outside the plugin.
+			string Text = @"Its advised to move this Global Source to a folder outside the I2 Localization.
 For example (Assets/I2/Resources) instead of (Assets/I2/Localization/Resources)
 
 That way upgrading the plugin its as easy as deleting the I2/Localization and I2/Common folders and reinstalling. 
@@ -126,6 +126,19 @@ Do you want the plugin to automatically move the LanguageSource to a folder outs
 
 			GUILayout.Space(10);		
 		}
+
+        public bool OnGUI_Warning_SourceNotUpToDate()
+        {
+            if (mProp_GoogleLiveSyncIsUptoDate.boolValue)
+            {
+                return false;
+            }
+
+            string Text = "Spreadsheet is not up-to-date and Google Live Synchronization is enabled\n\nWhen playing in the device the Spreadsheet will be downloaded and override the translations built from the editor.\n\nTo fix this, Import or Export REPLACE to Google";
+            EditorGUILayout.HelpBox(Text, MessageType.Warning);
+            return true;
+        }
+
 		private static void MoveGlobalSource()
 		{
 			EditorApplication.delayCall -= MoveGlobalSource;

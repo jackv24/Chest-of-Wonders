@@ -174,7 +174,7 @@ namespace I2.Loc
 			{
 				mLanguageSource.UpdateDictionary(true);
 				ExecuteActionOnSelectedScenes( ReplaceTermsInCurrentScene );
-				ParseTerms(true);
+				ParseTerms(true, false, true);
 
                 if (string.IsNullOrEmpty(mNewCategory)) 
 					mNewCategory = LanguageSource.EmptyCategory;

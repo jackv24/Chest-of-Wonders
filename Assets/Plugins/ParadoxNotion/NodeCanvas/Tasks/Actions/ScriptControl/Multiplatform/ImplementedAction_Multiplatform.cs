@@ -28,17 +28,24 @@ namespace NodeCanvas.Tasks.Actions{
 		}
 
 		public override System.Type agentType{
-			get {return targetMethod != null? targetMethod.RTReflectedType() : typeof(Transform);}
+			get
+			{
+				if (targetMethod == null){ return typeof(Transform); }
+				return targetMethod.IsStatic? null : targetMethod.RTReflectedType();
+			}
 		}
 
 		protected override string info{
 			get
 			{
-				if (method == null)
+				if (method == null){
 					return "No Action Selected";
-				if (targetMethod == null)
+				}
+				if (targetMethod == null){
 					return string.Format("<color=#ff6457>* {0} *</color>", method.GetMethodString() );
-				return string.Format("[ {0}.{1}({2}) ]", agentInfo, targetMethod.Name, parameters.Count == 1? parameters[0].ToString() : "" );
+				}
+				var mInfo = targetMethod.IsStatic? targetMethod.RTReflectedType().FriendlyName() : agentInfo;
+				return string.Format("[ {0}.{1}({2}) ]", mInfo, targetMethod.Name, parameters.Count == 1? parameters[0].ToString() : "" );
 			}
 		}
 
@@ -61,13 +68,9 @@ namespace NodeCanvas.Tasks.Actions{
 			return null;
 		}
 
-		protected override void OnExecute(){ Forward(); }
-		protected override void OnUpdate(){	Forward(); }
-
-		void Forward(){
-
+		protected override void OnUpdate(){
 			var args = parameters.Select(p => p.value).ToArray();
-			actionStatus = (Status)targetMethod.Invoke(agent, args);
+			actionStatus = (Status)targetMethod.Invoke(targetMethod.IsStatic? null : agent, args);
 
 			if (actionStatus == Status.Success){
 				EndAction(true);
@@ -95,11 +98,11 @@ namespace NodeCanvas.Tasks.Actions{
 			}
 		}
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
-		#if UNITY_EDITOR
 
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
+		#if UNITY_EDITOR
+		
 		protected override void OnTaskInspectorGUI(){
 
 			if (!Application.isPlaying && GUILayout.Button("Select Action Method")){
@@ -107,12 +110,15 @@ namespace NodeCanvas.Tasks.Actions{
 				var menu = new UnityEditor.GenericMenu();
 				if (agent != null){
 					foreach(var comp in agent.GetComponents(typeof(Component)).Where(c => c.hideFlags != HideFlags.HideInInspector) ){
-						menu = EditorUtils.GetMethodSelectionMenu(comp.GetType(), typeof(Status), typeof(object), SetMethod, 1, false, true, menu);
+						menu = EditorUtils.GetInstanceMethodSelectionMenu(comp.GetType(), typeof(Status), typeof(object), SetMethod, 1, false, true, menu);
 					}
 					menu.AddSeparator("/");
 				}
-				foreach (var t in UserTypePrefs.GetPreferedTypesList(typeof(Component))){
-					menu = EditorUtils.GetMethodSelectionMenu(t, typeof(Status), typeof(object), SetMethod, 1, false, true, menu);
+				foreach (var t in UserTypePrefs.GetPreferedTypesList(typeof(object))){
+					menu = EditorUtils.GetStaticMethodSelectionMenu(t, typeof(Status), typeof(object), SetMethod, 1, false, true, menu);
+					if (typeof(UnityEngine.Object).IsAssignableFrom(t)){
+						menu = EditorUtils.GetInstanceMethodSelectionMenu(t, typeof(Status), typeof(object), SetMethod, 1, false, true, menu);
+					}
 				}
 				if ( NodeCanvas.Editor.NCPrefs.useBrowser){ menu.ShowAsBrowser("Select Action Method", this.GetType()); }
 				else { menu.ShowAsContext(); }
@@ -121,13 +127,13 @@ namespace NodeCanvas.Tasks.Actions{
 
 			if (targetMethod != null){
 				GUILayout.BeginVertical("box");
-				UnityEditor.EditorGUILayout.LabelField("Type", agentType.FriendlyName());
+				UnityEditor.EditorGUILayout.LabelField("Type", targetMethod.RTReflectedType().FriendlyName());
 				UnityEditor.EditorGUILayout.LabelField("Selected Action Method:", targetMethod.Name);
 				GUILayout.EndVertical();
 				
 				if (targetMethod.GetParameters().Length == 1){
 					var paramName = targetMethod.GetParameters()[0].Name.SplitCamelCase();
-					EditorUtils.BBParameterField(paramName, parameters[0]);
+					NodeCanvas.Editor.BBParameterEditor.ParameterField(paramName, parameters[0]);
 				}
 			}
 		}

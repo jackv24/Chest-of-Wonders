@@ -2,13 +2,11 @@
 
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace NodeCanvas.Editor{
+namespace NodeCanvas.Editor {
 
-	//Shows a GUI within a popup. The delegate includes the gui calls
-	public class QuickPopup : PopupWindowContent {
+    //Shows a GUI within a popup. The delegate includes the gui calls
+    public class QuickPopup : PopupWindowContent {
 
 		private System.Action Call;
 		private Rect myRect = new Rect(0,0,200,10);

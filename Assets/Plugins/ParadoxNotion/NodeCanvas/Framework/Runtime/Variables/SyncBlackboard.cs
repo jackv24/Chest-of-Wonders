@@ -1,12 +1,8 @@
-﻿#if UNITY_5
-
-
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
-using ParadoxNotion;
-
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
+using ParadoxNotion;
 
 namespace NodeCanvas.Framework{
 
@@ -148,12 +144,11 @@ namespace NodeCanvas.Framework{
 			}
 		}
 
-
+		///----------------------------------------------------------------------------------------------
 
 		private const short VALUE_CHANGE = 1000;
 		private const short REFRESH_VALUES = 1001;
 		private List<string> waitResponseNames = new List<string>();
-		
 
 		public override void OnStartServer(){
 			NetworkServer.RegisterHandler(VALUE_CHANGE, SyncValue);
@@ -175,7 +170,6 @@ namespace NodeCanvas.Framework{
 				}
 			}
 		}
-
 
 		void OnValueChange(string name, object value){
 
@@ -212,5 +206,3 @@ namespace NodeCanvas.Framework{
 		}
 	}
 }
-
-#endif

@@ -38,7 +38,7 @@ namespace NodeCanvas.Framework{
 		private bool _isDisabled;
 		[SerializeField]
 		private TaskAgent overrideAgent = null;
-		
+
 		[NonSerialized]
 		private IBlackboard _blackboard;
 		[NonSerialized]
@@ -47,7 +47,7 @@ namespace NodeCanvas.Framework{
 		//the current/last agent used
 		[NonSerialized]
 		private Component current;
-		
+
 		//info
 		[NonSerialized]
 		private bool _agentTypeInit;
@@ -160,7 +160,7 @@ namespace NodeCanvas.Framework{
 			{
 				if (_taskName == null){
 					var nameAtt = this.GetType().RTGetAttribute<NameAttribute>(false);
-					_taskName = nameAtt != null? nameAtt.name : GetType().FriendlyName().SplitCamelCase();					
+					_taskName = nameAtt != null? nameAtt.name : GetType().FriendlyName().SplitCamelCase();
 				}
 				return _taskName;
 			}
@@ -172,7 +172,7 @@ namespace NodeCanvas.Framework{
 			{
 				if (_taskDescription == null){
 					var descAtt = this.GetType().RTGetAttribute<DescriptionAttribute>(true);
-					_taskDescription = descAtt != null? descAtt.description : string.Empty;					
+					_taskDescription = descAtt != null? descAtt.description : string.Empty;
 				}
 				return _taskDescription;
 			}
@@ -211,7 +211,7 @@ namespace NodeCanvas.Framework{
 		///Is the agent overriden or the default taken from owner system will be used?
 		public bool agentIsOverride{
 			get {return overrideAgent != null;}
-			private set
+			set
 			{
 				if (value == false && overrideAgent != null){
 					overrideAgent = null;
@@ -219,7 +219,7 @@ namespace NodeCanvas.Framework{
 
 				if (value == true && overrideAgent == null){
 					overrideAgent = new TaskAgent();
-					overrideAgent.bb = blackboard;					
+					overrideAgent.bb = blackboard;
 				}
 			}
 		}
@@ -230,20 +230,20 @@ namespace NodeCanvas.Framework{
 		}
 
 		///The current or last executive agent of this task
-		protected Component agent{
+		public Component agent{
 			get
 			{
 				if (current != null){
 					return current;
 				}
 
-				var result = agentIsOverride? (Component)overrideAgent.value : ownerAgent;
-				return TransformAgent(result, agentType);
+				var input = agentIsOverride? (Component)overrideAgent.value : ownerAgent;
+				return TransformAgent(input, agentType);
 			}
 		}
 
 		///The current or last blackboard used by this task
-		protected IBlackboard blackboard{
+		public IBlackboard blackboard{
 			get { return _blackboard; }
 			private set
 			{
@@ -261,7 +261,7 @@ namespace NodeCanvas.Framework{
 		///This is mostly used in editor.
 		public string firstWarningMessage{get; private set;}
 
-		//////////
+		///----------------------------------------------------------------------------------------------
 
 		///Tasks can start coroutine through MonoManager
 		protected Coroutine StartCoroutine(IEnumerator routine){
@@ -292,7 +292,6 @@ namespace NodeCanvas.Framework{
 			//set blackboard with normal setter first
 			blackboard = newBB;
 
-			/// DIVERGENCE /// MORI /// emilio.saffi /// Xcode was catching EXE_BAD_ACCESS
 			if (agentIsOverride){
 				newAgent = (Component)overrideAgent.value;
 			}
@@ -302,17 +301,17 @@ namespace NodeCanvas.Framework{
 			}
 
 			return isActive = Initialize(newAgent);
-			/// DIVERGENCE /// MORI /// emilio.saffi /// Xcode was catching EXE_BAD_ACCESS
 		}
 
 		//"Transform" the agent to the agentType
-		static Component TransformAgent(Component currentAgent, Type type){
-			if (currentAgent != null && type != null && !type.RTIsAssignableFrom(currentAgent.GetType()) ){
+		static Component TransformAgent(Component input, Type type){
+			if (input != null && type != null && !type.RTIsAssignableFrom(input.GetType()) ){
 				if ( type.RTIsSubclassOf(typeof(Component)) || type.RTIsInterface() ){
-					currentAgent = currentAgent.GetComponentInChildren(type);
+					// CUSTOM: Changed to also search children
+					input = input.GetComponentInChildren(type);
 				}
 			}
-			return currentAgent;
+			return input;
 		}
 
 		//Initialize whenever agent is set to a new value
@@ -348,7 +347,7 @@ namespace NodeCanvas.Framework{
 			if (error != null){
 				return Error(error);
 			}
-			
+
 			return true;
 		}
 
@@ -486,5 +485,31 @@ namespace NodeCanvas.Framework{
 
 		virtual public void OnDrawGizmos(){}
 		virtual public void OnDrawGizmosSelected(){}
+
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
+		#if UNITY_EDITOR
+
+		private object _icon;
+		//The icon if any of the task
+		public Texture2D icon{
+			get
+			{
+				if (_icon == null){
+					var iconAtt = this.GetType().RTGetAttribute<IconAttribute>(true);
+					_icon = iconAtt != null? UserTypePrefs.GetTypeIcon(iconAtt, this) : null;
+					if (_icon == null){ _icon = new object(); }
+				}
+				return _icon as Texture2D;
+			}
+		}
+
+		///Draw an automatic editor inspector for this task.
+		protected void DrawDefaultInspector(){ EditorUtils.ReflectedObjectInspector(this); }
+		///Optional override to show custom controls whenever the ShowTaskInspectorGUI is called. By default controls will automaticaly show for most types.
+		virtual protected void OnTaskInspectorGUI(){ DrawDefaultInspector(); }
+
+		#endif
+		///----------------------------------------------------------------------------------------------
 	}
 }

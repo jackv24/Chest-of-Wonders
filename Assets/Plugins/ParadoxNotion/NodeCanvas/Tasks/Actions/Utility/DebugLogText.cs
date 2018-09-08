@@ -17,10 +17,17 @@ namespace NodeCanvas.Tasks.Actions{
 			Error
 		}
 
+		public enum VerboseMode{
+			LogAndDisplayLabel,
+			LogOnly,
+			DisplayLabelOnly,
+		}
+
         [RequiredField]
 		public BBParameter<string> log = "Hello World";
 		public float labelYOffset = 0;
 		public float secondsToRun = 1f;
+		public VerboseMode verboseMode;
 		public LogMode logMode;
 		public CompactStatus finishStatus = CompactStatus.Success;
 
@@ -29,24 +36,30 @@ namespace NodeCanvas.Tasks.Actions{
 		}
 
 		protected override void OnExecute(){
-			var label = string.Format("(<b>{0}</b>) {1}", agent.gameObject.name, log.value);
-			if (logMode == LogMode.Log){
-				Debug.Log(label, agent.gameObject);
+			if (verboseMode == VerboseMode.LogAndDisplayLabel || verboseMode == VerboseMode.LogOnly){
+				var label = string.Format("(<b>{0}</b>) {1}", agent.gameObject.name, log.value);
+				if (logMode == LogMode.Log){
+					Debug.Log(label, agent.gameObject);
+				}
+				if (logMode == LogMode.Warning){
+					Debug.LogWarning(label, agent.gameObject);	
+				}
+				if (logMode == LogMode.Error){
+					Debug.LogError(label, agent.gameObject);
+				}
 			}
-			if (logMode == LogMode.Warning){
-				Debug.LogWarning(label, agent.gameObject);	
-			}
-			if (logMode == LogMode.Error){
-				Debug.LogError(label, agent.gameObject);
-			}
-			if (secondsToRun > 0){
-				MonoManager.current.onGUI += OnGUI;
+			if (verboseMode == VerboseMode.LogAndDisplayLabel || verboseMode == VerboseMode.DisplayLabelOnly){
+				if (secondsToRun > 0){
+					MonoManager.current.onGUI += OnGUI;
+				}
 			}
 		}
 
 		protected override void OnStop(){
-			if (secondsToRun > 0){
-				MonoManager.current.onGUI -= OnGUI;
+			if (verboseMode == VerboseMode.LogAndDisplayLabel || verboseMode == VerboseMode.DisplayLabelOnly){
+				if (secondsToRun > 0){
+					MonoManager.current.onGUI -= OnGUI;
+				}
 			}
 		}
 
@@ -57,10 +70,9 @@ namespace NodeCanvas.Tasks.Actions{
 		}
 
 
-		////////////////////////////////////////
-		///////////GUI AND EDITOR STUFF/////////
-		////////////////////////////////////////
-			
+		///----------------------------------------------------------------------------------------------
+		///---------------------------------------UNITY EDITOR-------------------------------------------
+		
 		private Texture2D _tex;
 		private Texture2D tex{
 			get

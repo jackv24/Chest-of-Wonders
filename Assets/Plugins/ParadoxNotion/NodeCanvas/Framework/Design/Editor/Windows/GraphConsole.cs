@@ -66,11 +66,11 @@ namespace NodeCanvas.Editor{
 			messages = new List<Logger.Message>();
 			graphsMap = new Dictionary<Graph, List<Logger.Message>>();
 			styleMap = new Dictionary<LogType, ConsoleStyle>{
-				{LogType.Log,		new ConsoleStyle(EditorUtils.infoIcon, "eeeeee")},
-				{LogType.Warning,	new ConsoleStyle(EditorUtils.warningIcon, "f6ff00")},
-				{LogType.Error,		new ConsoleStyle(EditorUtils.errorIcon, "db3b3b")},
-				{LogType.Exception, new ConsoleStyle(EditorUtils.errorIcon, "db3b3b")},
-				{LogType.Assert,	new ConsoleStyle(EditorUtils.infoIcon, "eeeeee")},
+				{LogType.Log,		new ConsoleStyle(Icons.infoIcon, "eeeeee")},
+				{LogType.Warning,	new ConsoleStyle(Icons.warningIcon, "f6ff00")},
+				{LogType.Error,		new ConsoleStyle(Icons.errorIcon, "db3b3b")},
+				{LogType.Exception, new ConsoleStyle(Icons.errorIcon, "db3b3b")},
+				{LogType.Assert,	new ConsoleStyle(Icons.infoIcon, "eeeeee")},
 			};
 		}
 
@@ -82,7 +82,7 @@ namespace NodeCanvas.Editor{
 
 		//...
 		void EnsureTitle(){
-			var title = messages != null && messages.Count > 0? "(!) NC Console" : "NC Console";
+			var title = messages != null && messages.Count > 0? "(!) GConsole" : "GConsole";
 			titleContent = new GUIContent(title);
 		}
 
@@ -145,11 +145,11 @@ namespace NodeCanvas.Editor{
 			var newValue = GUILayout.Toggle(ascending, new GUIContent(ascending? "▲" : "▼"), "label", GUILayout.Width(14));
 			if (ascending != newValue){ NCPrefs.consoleLogOrder = newValue? NCPrefs.ConsoleLogOrder.Ascending : NCPrefs.ConsoleLogOrder.Descending; }
 			GUILayout.Space(2);
-			NCPrefs.consoleLogInfo = GUILayout.Toggle(NCPrefs.consoleLogInfo, new GUIContent(EditorUtils.infoIcon), logTypeFilterStyle, GUILayout.Width(20));
+			NCPrefs.consoleLogInfo = GUILayout.Toggle(NCPrefs.consoleLogInfo, new GUIContent(Icons.infoIcon), logTypeFilterStyle, GUILayout.Width(20));
 			GUILayout.Space(2);
-			NCPrefs.consoleLogWarning = GUILayout.Toggle(NCPrefs.consoleLogWarning, new GUIContent(EditorUtils.warningIcon), logTypeFilterStyle, GUILayout.Width(20));
+			NCPrefs.consoleLogWarning = GUILayout.Toggle(NCPrefs.consoleLogWarning, new GUIContent(Icons.warningIcon), logTypeFilterStyle, GUILayout.Width(20));
 			GUILayout.Space(2);
-			NCPrefs.consoleLogError = GUILayout.Toggle(NCPrefs.consoleLogError, new GUIContent(EditorUtils.errorIcon), logTypeFilterStyle, GUILayout.Width(20));
+			NCPrefs.consoleLogError = GUILayout.Toggle(NCPrefs.consoleLogError, new GUIContent(Icons.errorIcon), logTypeFilterStyle, GUILayout.Width(20));
 
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button("Clear", EditorStyles.toolbarButton, GUILayout.Width(70))){
@@ -206,7 +206,7 @@ namespace NodeCanvas.Editor{
 		}
 
 		//...
-		bool IsFiltered(LogType type){
+		static bool IsFiltered(LogType type){
 			if (type == LogType.Log && !NCPrefs.consoleLogInfo) return true;
 			if (type == LogType.Warning && !NCPrefs.consoleLogWarning) return true;
 			if (type == LogType.Error && !NCPrefs.consoleLogError) return true;
@@ -214,7 +214,7 @@ namespace NodeCanvas.Editor{
 		}
 
 		//...
-		void ProccessMessage(Logger.Message msg){
+		static void ProccessMessage(Logger.Message msg){
 			var graph = Graph.GetElementGraph(msg.context);
 			if (graph != null){
 				var unityContext = graph.agent != null? (Object)graph.agent.gameObject : (Object)graph;
@@ -226,17 +226,17 @@ namespace NodeCanvas.Editor{
 				}
 				if (msg.context is Node){
 					var node = (Node)msg.context;
-					EditorApplication.delayCall += ()=> editor.FocusNode(node);
+					EditorApplication.delayCall += ()=> GraphEditor.FocusNode(node);
 				}
 				if (msg.context is Connection){
 					var connection = (Connection)msg.context;
-					EditorApplication.delayCall += ()=> editor.FocusConnection(connection);
+					EditorApplication.delayCall += ()=> GraphEditor.FocusConnection(connection);
 				}
 				if (msg.context is Task){
 					var task = (Task)msg.context;
 					var parent = graph.GetTaskParent(task);
 					if (parent != null){
-						EditorApplication.delayCall += ()=> editor.FocusNode(parent);
+						EditorApplication.delayCall += ()=> GraphEditor.FocusNode(parent);
 					}
 				}
 			}
