@@ -24,24 +24,24 @@ public class PlayerMagicBank : MonoBehaviour
 		{
 			SaveManager.instance.OnDataLoaded += (SaveData data) =>
 			{
-				maxSouls = data.maxSouls;
+				maxSouls = data.MaxSouls;
 
-				currentFireSouls = data.currentFireSouls;
-				currentGrassSouls = data.currentGrassSouls;
-				currentIceSouls = data.currentIceSouls;
-				currentWindSouls = data.currentWindSouls;
+				currentFireSouls = data.CurrentFireSouls;
+				currentGrassSouls = data.CurrentGrassSouls;
+				currentIceSouls = data.CurrentIceSouls;
+				currentWindSouls = data.CurrentWindSouls;
 
 				OnBankLoaded?.Invoke();
 			};
 
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
-				data.maxSouls = maxSouls;
+				data.MaxSouls = maxSouls;
 
-				data.currentFireSouls = currentFireSouls;
-				data.currentGrassSouls = currentGrassSouls;
-				data.currentIceSouls = currentIceSouls;
-				data.currentWindSouls = currentWindSouls;
+				data.CurrentFireSouls = currentFireSouls;
+				data.CurrentGrassSouls = currentGrassSouls;
+				data.CurrentIceSouls = currentIceSouls;
+				data.CurrentWindSouls = currentWindSouls;
 			};
 		}
 	}

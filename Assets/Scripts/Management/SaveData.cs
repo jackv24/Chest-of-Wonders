@@ -8,61 +8,61 @@ public class SaveData
     [System.Serializable]
     public struct Location
     {
-        public string sceneName;
-        public string spawnMarkerName;
+        public string SceneName;
+        public string SpawnMarkerName;
 
         public Location(string sceneName, string spawnMarkerName)
         {
-            this.sceneName = sceneName;
-            this.spawnMarkerName = spawnMarkerName;
+            SceneName = sceneName;
+            SpawnMarkerName = spawnMarkerName;
         }
     }
 
     //Location data
-    public Location autoSave; //Used when reloading save
-    public Location npcSave; //Used when respawning after death
+    public Location AutoSave; //Used when reloading save
+    public Location NpcSave; //Used when respawning after death
 
     //Player data
-    public int maxHealth;
-    public int currentHealth;
+    public int MaxHealth;
+    public int CurrentHealth;
 
-	public bool hasFireMagic;
-	public bool hasGrassMagic;
-	public bool hasIceMagic;
-	public bool hasWindMagic;
+	public bool HasFireMagic;
+	public bool HasGrassMagic;
+	public bool HasIceMagic;
+	public bool HasWindMagic;
 
-	public PlayerAttack.MagicProgression magicProgression;
-	public ElementManager.Element selectedElement;
+	public PlayerAttack.MagicProgression MagicProgression;
+	public ElementManager.Element SelectedElement;
 
-	public List<string> inventoryItems;
+	public List<string> InventoryItems;
 
 	//Magic bank
-	public int maxSouls;
+	public int MaxSouls;
 
-	public int currentFireSouls;
-	public int currentGrassSouls;
-	public int currentIceSouls;
-	public int currentWindSouls;
+	public int CurrentFireSouls;
+	public int CurrentGrassSouls;
+	public int CurrentIceSouls;
+	public int CurrentWindSouls;
 
 	[System.Serializable]
 	public class EnemyKillDictionary : SerializableDictionary<string, EnemyJournalManager.EnemyKillRecord> { public EnemyKillDictionary(int capacity) : base(capacity) { } }
-	public EnemyKillDictionary killedEnemies;
+	public EnemyKillDictionary KilledEnemies;
 
 	[System.Serializable]
 	public class PersistentObjectDictionary : SerializableDictionary<string, bool> { }
-	public PersistentObjectDictionary persistentObjects;
+	public PersistentObjectDictionary PersistentObjects = new PersistentObjectDictionary();
 
 	[System.Serializable]
 	public class DialogueDictionary : SerializableDictionary<string, string> { }
-	public DialogueDictionary blackboardDictionary;
+	public DialogueDictionary BlackboardDictionary;
 
 	#region Accessor Functions
 
 	public bool GetPersistentObjectState(string sceneName, string id)
 	{
-		if (persistentObjects.ContainsKey(id))
+		if (PersistentObjects.ContainsKey(id))
 		{
-			bool activated = persistentObjects[id];
+			bool activated = PersistentObjects[id];
 			return activated;
 		}
 
@@ -71,14 +71,14 @@ public class SaveData
 
 	public void SetPersistentObjectState(string sceneName, string id, bool activated)
 	{
-		persistentObjects[id] = activated;
+		PersistentObjects[id] = activated;
 	}
 
 	public bool GetBlackboardJson(string key, out string json)
 	{
-		if (blackboardDictionary.ContainsKey(key))
+		if (BlackboardDictionary.ContainsKey(key))
 		{
-			json = blackboardDictionary[key];
+			json = BlackboardDictionary[key];
 			return true;
 		}
 		else
@@ -90,7 +90,7 @@ public class SaveData
 
 	public void SaveBlackBoardJson(string key, string json)
 	{
-		blackboardDictionary[key] = json;
+		BlackboardDictionary[key] = json;
 	}
 
 	#endregion

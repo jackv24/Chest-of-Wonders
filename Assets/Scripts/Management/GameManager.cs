@@ -94,16 +94,16 @@ public class GameManager : MonoBehaviour
 		{
 			SaveManager.instance.OnDataLoaded += (SaveData data) =>
 			{
-				npcSaveLocation = data.npcSave;
-				autoSaveLocation = data.autoSave;
+				npcSaveLocation = data.NpcSave;
+				autoSaveLocation = data.AutoSave;
 			};
 
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
-				data.autoSave = LastSaveLocation;
+				data.AutoSave = LastSaveLocation;
 
 				if (hardSave)
-					data.npcSave = LastSaveLocation;
+					data.NpcSave = LastSaveLocation;
 			};
 		}
 
@@ -341,7 +341,7 @@ public class GameManager : MonoBehaviour
 			SaveData.Location location = reset ? npcSaveLocation : autoSaveLocation;
 
 			//After player data is loaded, load the level
-			LoadLevel(location.sceneName, location.spawnMarkerName);
+			LoadLevel(location.SceneName, location.SpawnMarkerName);
 		}
 	}
 

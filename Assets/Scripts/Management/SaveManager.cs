@@ -17,13 +17,13 @@ public class SaveManager : MonoBehaviour
 
 	private SaveData data = null;
 
-	public int saveSlot = 0;
+	public int SaveSlot = 0;
 
     [Space()]
     public SaveData defaultSaveData;
 
     //Assembled save location with slot number and editor extension
-    public string SaveLocation { get { return string.Format("{0}/Save{1}.dat", Application.persistentDataPath, saveSlot); } }
+    public string SaveLocation { get { return string.Format("{0}/Save{1}.dat", Application.persistentDataPath, SaveSlot); } }
 
     void Awake()
     {
@@ -35,7 +35,6 @@ public class SaveManager : MonoBehaviour
 		//Get subscribed objects to save their own state before saving file
 		OnDataSaving?.Invoke(data, hardSave);
 
-        //TODO: move int relevant classes
         if (data != null)
         {
             //Serialise save data to JSON
@@ -51,14 +50,14 @@ public class SaveManager : MonoBehaviour
     public void LoadGame(bool resetPlayerLocation)
     {
 		//Only load save if there is a slot selected, and the file exists, else use default save data
-		if (saveSlot > 0 && System.IO.File.Exists(SaveLocation))
+		if (SaveSlot > 0 && System.IO.File.Exists(SaveLocation))
 		{
 			string loadString = System.IO.File.ReadAllText(SaveLocation);
 			data = (SaveData)JsonUtility.FromJson(loadString, typeof(SaveData));
 		}
 		else
 		{
-			data = defaultSaveData;
+			data = defaultSaveData ?? new SaveData();
 		}
 
 		//Subscribed object should process data after it has been loaded
@@ -85,10 +84,10 @@ public class SaveManager : MonoBehaviour
             {
                 System.IO.File.Delete(location);
 
-                Debug.Log("Save data cleared in slot " + saveSlot);
+                Debug.Log("Save data cleared in slot " + SaveSlot);
             }
             else
-                Debug.LogWarning("No save data exists in slot " + saveSlot);
+                Debug.LogWarning("No save data exists in slot " + SaveSlot);
         }
         else
         {

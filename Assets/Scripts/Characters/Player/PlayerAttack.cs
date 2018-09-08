@@ -123,28 +123,28 @@ public class PlayerAttack : MonoBehaviour
 		{
 			SaveManager.instance.OnDataLoaded += (SaveData data) =>
 			{
-				magicProgression = data.magicProgression;
+				magicProgression = data.MagicProgression;
 
-				selectedElement = data.selectedElement;
+				selectedElement = data.SelectedElement;
 
-				hasFireMagic = data.hasFireMagic;
-				hasGrassMagic = data.hasGrassMagic;
-				hasIceMagic = data.hasIceMagic;
-				hasWindMagic = data.hasWindMagic;
+				hasFireMagic = data.HasFireMagic;
+				hasGrassMagic = data.HasGrassMagic;
+				hasIceMagic = data.HasIceMagic;
+				hasWindMagic = data.HasWindMagic;
 
 				UpdateMagic();
 			};
 
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
-				data.magicProgression = magicProgression;
+				data.MagicProgression = magicProgression;
 
-				data.selectedElement = selectedElement;
+				data.SelectedElement = selectedElement;
 
-				data.hasFireMagic = hasFireMagic;
-				data.hasGrassMagic = hasGrassMagic;
-				data.hasIceMagic = hasIceMagic;
-				data.hasWindMagic = hasWindMagic;
+				data.HasFireMagic = hasFireMagic;
+				data.HasGrassMagic = hasGrassMagic;
+				data.HasIceMagic = hasIceMagic;
+				data.HasWindMagic = hasWindMagic;
 			};
 		}
 

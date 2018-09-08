@@ -10,8 +10,8 @@ public class PlayerStats : CharacterStats
 		{
 			SaveManager.instance.OnDataLoaded += (SaveData data) =>
 			{
-				currentHealth = data.currentHealth;
-				maxHealth = data.maxHealth;
+				currentHealth = data.CurrentHealth;
+				maxHealth = data.MaxHealth;
 			};
 
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
@@ -19,8 +19,8 @@ public class PlayerStats : CharacterStats
 				if (hardSave)
 					currentHealth = maxHealth;
 
-				data.currentHealth = currentHealth;
-				data.maxHealth = maxHealth;
+				data.CurrentHealth = currentHealth;
+				data.MaxHealth = maxHealth;
 			};
 		}
 	}

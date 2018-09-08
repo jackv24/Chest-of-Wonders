@@ -19,9 +19,9 @@ public class PlayerInventory : MonoBehaviour
 		{
 			SaveManager.instance.OnDataLoaded += (SaveData data) =>
 			{
-				items = new List<InventoryItem>(data.inventoryItems.Count);
+				items = new List<InventoryItem>(data.InventoryItems.Count);
 
-				foreach (string name in data.inventoryItems)
+				foreach (string name in data.InventoryItems)
 					items.Add((InventoryItem)Resources.Load($"Items/{name}", typeof(InventoryItem)));
 			};
 
@@ -32,7 +32,7 @@ public class PlayerInventory : MonoBehaviour
 				foreach (InventoryItem item in items)
 					names.Add(item.name);
 
-				data.inventoryItems = names;
+				data.InventoryItems = names;
 			};
 		}
 	}

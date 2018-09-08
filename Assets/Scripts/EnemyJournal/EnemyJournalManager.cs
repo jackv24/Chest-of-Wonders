@@ -49,9 +49,9 @@ public class EnemyJournalManager : MonoBehaviour
 			SaveManager.instance.OnDataLoaded += (SaveData data) =>
 			{
 				//Convert saved data into useful game data
-				killedEnemies = new Dictionary<EnemyJournalRecord, EnemyKillRecord>(data.killedEnemies.Count);
+				killedEnemies = new Dictionary<EnemyJournalRecord, EnemyKillRecord>(data.KilledEnemies.Count);
 
-				foreach(var pair in data.killedEnemies)
+				foreach(var pair in data.KilledEnemies)
 				{
 					//Load record object by name for easy use in-game
 					EnemyJournalRecord record = Resources.Load<EnemyJournalRecord>($"Enemy Journal Records/{pair.Key}");
@@ -63,13 +63,13 @@ public class EnemyJournalManager : MonoBehaviour
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
 				//Convert game data into suitable save data
-				data.killedEnemies = new SaveData.EnemyKillDictionary(killedEnemies.Count);
+				data.KilledEnemies = new SaveData.EnemyKillDictionary(killedEnemies.Count);
 
 				foreach(var pair in killedEnemies)
 				{
 					//Save ScriptableObject name since a reference to the actual object cannot be saved
 					//NOTE: This is extremely sensitive to naming changes, do not change enemy record object names after release!
-					data.killedEnemies.Add(pair.Key.name, pair.Value);
+					data.KilledEnemies.Add(pair.Key.name, pair.Value);
 				}
 			};
 		}

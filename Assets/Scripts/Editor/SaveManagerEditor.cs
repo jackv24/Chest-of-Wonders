@@ -18,7 +18,7 @@ public class SaveManagerEditor : Editor
         manager = (SaveManager)target;
 
         //If button is pressed, clear save data
-        if(GUILayout.Button("Clear Save Data in slot " + manager.saveSlot))
+        if(GUILayout.Button("Clear Save Data in slot " + manager.SaveSlot))
             manager.ClearSave(false);
 
         if (GUILayout.Button("Clear all Save Data"))
