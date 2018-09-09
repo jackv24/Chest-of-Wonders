@@ -163,29 +163,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a75d6be792f6694881d0411bd036d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveSlot: 0
+  SaveSlot: 0
   defaultSaveData:
-    autoSave:
-      sceneName: Demo_Spawnroom
-      spawnMarkerName: 
-    npcSave:
-      sceneName: Demo_Spawnroom
-      spawnMarkerName: 
-    maxHealth: 5
-    currentHealth: 5
-    hasFireMagic: 1
-    hasGrassMagic: 0
-    hasIceMagic: 0
-    hasWindMagic: 0
-    magicProgression: 1
-    selectedElement: 1
-    inventoryItems: []
-    maxSouls: 3
-    currentFireSouls: 0
-    currentGrassSouls: 0
-    currentIceSouls: 0
-    currentWindSouls: 0
-    killedEnemies:
+    AutoSave:
+      SceneName: 
+      SpawnMarkerName: 
+    NpcSave:
+      SceneName: 
+      SpawnMarkerName: 
+    MaxHealth: 5
+    CurrentHealth: 5
+    HasFireMagic: 0
+    HasGrassMagic: 0
+    HasIceMagic: 0
+    HasWindMagic: 0
+    MagicProgression: 1
+    SelectedElement: 1
+    InventoryItems: []
+    MaxSouls: 3
+    CurrentFireSouls: 0
+    CurrentGrassSouls: 0
+    CurrentIceSouls: 0
+    CurrentWindSouls: 0
+    KilledEnemies:
       _Buckets: 
       _HashCodes: 
       _Next: 
@@ -195,7 +195,7 @@ MonoBehaviour:
       _FreeCount: 0
       _Keys: []
       _Values: []
-    persistentObjects:
+    PersistentObjects:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
       _Next: 000000000000000000000000
@@ -207,8 +207,8 @@ MonoBehaviour:
       - 
       - 
       - 
-      _Values: 2d2d2d
-    blackboardDictionary:
+      _Values: 000000
+    BlackboardDictionary:
       _Buckets: ffffffffffffffffffffffff
       _HashCodes: 000000000000000000000000
       _Next: 000000000000000000000000

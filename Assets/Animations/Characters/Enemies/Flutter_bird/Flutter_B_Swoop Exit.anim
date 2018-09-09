@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Flutter_B_Swoop
+  m_Name: Flutter_B_Swoop Exit
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,9 +19,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 3ef5a041b1eef894485d259d1db8f621, type: 3}
+      value: {fileID: 21300000, guid: 20461575e19bc3e4ebca62507eb767bb, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: a316a409045719349a49427886e220b3, type: 3}
+      value: {fileID: 21300000, guid: 432ce9b73ff7f9a4aacfa125f9c8a689, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: c25a6fc7ac5e9fe4b860d9e7fb437cdc, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -41,14 +43,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 3ef5a041b1eef894485d259d1db8f621, type: 3}
-    - {fileID: 21300000, guid: a316a409045719349a49427886e220b3, type: 3}
+    - {fileID: 21300000, guid: 20461575e19bc3e4ebca62507eb767bb, type: 3}
+    - {fileID: 21300000, guid: 432ce9b73ff7f9a4aacfa125f9c8a689, type: 3}
+    - {fileID: 21300000, guid: c25a6fc7ac5e9fe4b860d9e7fb437cdc, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.16666667
+    m_StopTime: 0.25
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
