@@ -63,7 +63,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycbx8S-nfASq09t9hEhm18z2kHl8Q2FBnNdSlGDqEUA/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1529838274798
+  Google_LastUpdatedVersion: 1537665980823
   Google_Password: change_this
   GoogleUpdateFrequency: 1
   GoogleInEditorCheckFrequency: 2
@@ -340,6 +340,14 @@ MonoBehaviour:
     Languages:
     - Inventory
     - Inventory
+    Flags: 0000
+    Languages_Touch: []
+  - Term: UI/AUDIO_TITLE
+    TermType: 0
+    Description: 
+    Languages:
+    - Audio
+    - Audio
     Flags: 0000
     Languages_Touch: []
   - Term: Dialogue/SAVE_ASK
