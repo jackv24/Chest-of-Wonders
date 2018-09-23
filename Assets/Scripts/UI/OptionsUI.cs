@@ -7,70 +7,25 @@ using UnityEngine.EventSystems;
 
 public class OptionsUI : MonoBehaviour
 {
-	public GameObject firstSelected;
-	private GameObject previousSelected;
-
-	public bool skipFirstTime = true;
-	private bool firstTime = true;
+	[SerializeField]
+	private Selectable firstSelected;
 
 	[Space()]
-	public Dropdown resolutionDropdown;
-	public Toggle fullscreenToggle;
+	[SerializeField]
+	private Dropdown resolutionDropdown;
+
+	[SerializeField]
+	private Toggle fullscreenToggle;
 
 	private List<Resolution> resolutions;
 
-	public Toggle postFXToggle;
+	[SerializeField, ArrayForEnum(typeof(GameSettings.VolumeTarget))]
+	private Slider[] volumeSliders;
 
-	[System.Serializable]
-	public class VolumeSlider
+	private void OnValidate()
 	{
-		public Slider slider;
-		public string key = "Volume";
-
-		private AudioMixer mixer;
-
-		public void Setup(AudioMixer audioMixer)
-		{
-			mixer = audioMixer;
-
-			if(slider)
-			{
-				slider.value = PlayerPrefs.GetFloat(key, 1.0f);
-
-				slider.onValueChanged.AddListener(UpdateMixer);
-				UpdateMixer(slider.value);
-			}
-		}
-
-		void UpdateMixer(float value)
-		{
-			if(mixer)
-				mixer.SetFloat(key, LinearToDecibel(value));
-		}
-
-		public void SavePrefs()
-		{
-			if(slider)
-				PlayerPrefs.SetFloat(key, slider.value);
-		}
-
-		public static float LinearToDecibel(float linear)
-		{
-			float dB;
-
-			if (linear != 0)
-				dB = 20.0f * Mathf.Log10(linear);
-			else
-				dB = -144.0f;
-
-			return dB;
-		}
+		ArrayForEnumAttribute.EnsureArraySize(ref volumeSliders, typeof(GameSettings.VolumeTarget));
 	}
-
-	public AudioMixer audioMixer;
-	public VolumeSlider masterVolume;
-	public VolumeSlider musicVolume;
-	public VolumeSlider soundVolume;
 
 	private void Start()
 	{
@@ -101,61 +56,31 @@ public class OptionsUI : MonoBehaviour
 			}
 		}
 
-		if(postFXToggle)
+		for(int i = 0; i < volumeSliders.Length; i++)
 		{
-			postFXToggle.isOn = PlayerPrefs.GetInt("PostFX", 1) > 0 ? true : false;
-
-			var postFX = FindObjectOfType<UnityEngine.PostProcessing.PostProcessingBehaviour>();
-
-			if (postFX)
-			{
-				postFXToggle.onValueChanged.AddListener((isOn) => { postFX.enabled = isOn; });
-				postFX.enabled = postFXToggle.isOn;
-			}
+			var target = (GameSettings.VolumeTarget)i;
+			if (volumeSliders[i] != null)
+				volumeSliders[i].onValueChanged.AddListener(value => GameSettings.SetVolume(target, value));
 		}
-
-		masterVolume.Setup(audioMixer);
-		musicVolume.Setup(audioMixer);
-		soundVolume.Setup(audioMixer);
 	}
 
 	private void OnEnable()
 	{
-		if (skipFirstTime && firstTime)
-		{
-			firstTime = false;
-			return;
-		}
-
 		if(firstSelected)
+			firstSelected.Select();
+
+		for (int i = 0; i < volumeSliders.Length; i++)
 		{
-			previousSelected = EventSystem.current.currentSelectedGameObject;
-
-			EventSystem.current.firstSelectedGameObject = firstSelected;
-			EventSystem.current.SetSelectedGameObject(firstSelected);
-		}
-	}
-
-	private void OnDisable()
-	{
-		if (postFXToggle)
-			PlayerPrefs.SetInt("PostFX", postFXToggle.isOn ? 1 : 0);
-
-		masterVolume.SavePrefs();
-		musicVolume.SavePrefs();
-		soundVolume.SavePrefs();
-
-		if(previousSelected)
-		{
-			EventSystem.current.firstSelectedGameObject = previousSelected;
-			EventSystem.current.SetSelectedGameObject(previousSelected);
+			var target = (GameSettings.VolumeTarget)i;
+			if (volumeSliders[i] != null)
+				volumeSliders[i].value = GameSettings.GetVolume(target);
 		}
 	}
 
 	void UpdateResolution()
 	{
+		// Unity itself remembers resolution settings, so we only need the Ui for it (no need to save in GameSettings)
 		Resolution res = resolutions[resolutionDropdown.value];
-
 		Screen.SetResolution(res.width, res.height, fullscreenToggle.isOn);
 	}
 }

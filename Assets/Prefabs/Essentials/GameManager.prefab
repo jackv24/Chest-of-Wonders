@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114602473707108892}
   - component: {fileID: 82169578968242942}
   - component: {fileID: 114681356407913036}
+  - component: {fileID: 114937157006816180}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -269,3 +270,15 @@ MonoBehaviour:
   playerRespawnDelay: 3
   levelTransitionTime: 0.25
   gamePauseLockDelay: 0.25
+--- !u!114 &114937157006816180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706048386432494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32272810b1152af49b47ecc7e3f1c9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 279a8963d029f9e4cb5b3d0a2f8a5c0b, type: 2}
