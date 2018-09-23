@@ -119,7 +119,7 @@ namespace SubjectNerd.Utilities
 					// Element height seems to control selected background
 #if UNITY_5_1 || UNITY_5_2
 					if (index == propList.index)
-					{	
+					{
 						// Height might have changed when dealing with serialized class
 						// Call the select callback when height changes to reset the list elementHeight
 						float newHeight = EditorGUI.GetPropertyHeight(targetElement, GUIContent.none, targetElement.isExpanded);
@@ -171,7 +171,7 @@ namespace SubjectNerd.Utilities
 				// Draw the reorderable list for the property
 				if (property.isExpanded)
 				{
-					int newArraySize = EditorGUILayout.IntField("Size", property.arraySize);
+					int newArraySize = EditorGUILayout.DelayedIntField("Size", property.arraySize);
 					if (newArraySize != property.arraySize)
 						property.arraySize = newArraySize;
 					propIndex[property.propertyPath].DoLayoutList();
