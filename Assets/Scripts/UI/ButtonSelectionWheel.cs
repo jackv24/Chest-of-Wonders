@@ -11,23 +11,14 @@ public class ButtonSelectionWheel : MonoBehaviour
 	private PlayerAction button;
 
 	[SerializeField]
-	private CanvasGroup group;
-
-	[SerializeField]
 	private KeepWorldPosOnCanvas keepPos;
 	private Transform followTarget;
 
 	[SerializeField]
 	private Vector2 followOffset;
 
-	[Space(), SerializeField]
-	private Animator animator;
-
 	[SerializeField]
-	private string openAnim;
-
-	[SerializeField]
-	private string closeAnim;
+	private OpenCloseAnimator openClose;
 
 	private bool isOpen;
 
@@ -43,11 +34,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 
 		playerInput = GameManager.instance.player.GetComponent<PlayerInput>();
 
-		if (animator)
-			animator.enabled = false;
-
-		if (group)
-			group.alpha = 0;
+		openClose.PreClose();
 	}
 
 	private void Update()
@@ -78,11 +65,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.MovementOnly;
 		InteractManager.CanInteract = false;
 
-		if(animator)
-		{
-			animator.enabled = true;
-			animator.Play(openAnim);
-		}
+		openClose.PlayOpen();
 	}
 
 	private void Close()
@@ -91,7 +74,6 @@ public class ButtonSelectionWheel : MonoBehaviour
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
 		InteractManager.CanInteract = true;
 
-		if (animator)
-			animator.Play(closeAnim);
+		openClose.PlayClose();
 	}
 }

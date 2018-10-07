@@ -13769,12 +13769,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdButton: 4
-  group: {fileID: 225405619057149346}
   keepPos: {fileID: 114285065424017920}
   followOffset: {x: 0, y: 0.7}
-  animator: {fileID: 95226769291989788}
-  openAnim: Open
-  closeAnim: Close
+  openClose:
+    Animator: {fileID: 95226769291989788}
+    OpenAnim: Open
+    CloseAnim: Close
+    areMirrored: 1
 --- !u!114 &114692931211934964
 MonoBehaviour:
   m_ObjectHideFlags: 1
