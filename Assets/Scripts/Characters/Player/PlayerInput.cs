@@ -28,6 +28,7 @@ public class PlayerInput : MonoBehaviour
 	private CharacterAnimator characterAnimator;
 
 	public InputAcceptance AcceptingInput { get; set; }
+	public bool SkipFrame { get; set; }
 
     private void Awake()
     {
@@ -82,6 +83,12 @@ public class PlayerInput : MonoBehaviour
 
 		if (AcceptingInput != InputAcceptance.All)
 			return;
+
+		if(SkipFrame)
+		{
+			SkipFrame = false;
+			return;
+		}
 
 		if (characterMove)
         {

@@ -311,13 +311,16 @@ public class PlayerAttack : MonoBehaviour
 		}
 
 		if (anyUnlocked)
-		{
-			selectedElement = (ElementManager.Element)selected;
+			SetSelectedMagic((ElementManager.Element)selected);
+	}
 
-			OnSwitchMagic?.Invoke(selectedElement);
+	public void SetSelectedMagic(ElementManager.Element element)
+	{
+		selectedElement = element;
 
-			UpdateMagic();
-		}
+		OnSwitchMagic?.Invoke(selectedElement);
+
+		UpdateMagic();
 	}
 
     public void UseProjectileMagic()
