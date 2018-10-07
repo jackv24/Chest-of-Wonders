@@ -128,7 +128,7 @@ public class PlayerDodge : MonoBehaviour
 
 		//Start dodge
 		characterStats.damageImmunity = true;
-		playerInput.AcceptingInput = false;
+		playerInput.AcceptingInput = PlayerInput.InputAcceptance.None;
 
 		characterMove.MovementState = CharacterMovementStates.SetVelocity;
 		characterMove.Velocity = Vector2.zero;
@@ -192,7 +192,7 @@ public class PlayerDodge : MonoBehaviour
 
 		//Return to previous state after dodge
 		characterStats.damageImmunity = false;
-		playerInput.AcceptingInput = true;
+		playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
 
 		nextDodgeTime = Time.time + cooldownTime;
 	}

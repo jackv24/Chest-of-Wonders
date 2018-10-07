@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerAttack : MonoBehaviour
 {
-	public delegate void UpdateMagicEvent();
-    public event UpdateMagicEvent OnUpdateMagic;
-	public event UpdateMagicEvent OnSwitchMagic;
+    public event Action OnUpdateMagic;
+	public event Action<ElementManager.Element> OnSwitchMagic;
 
 	public enum MagicProgression
 	{
@@ -314,8 +314,7 @@ public class PlayerAttack : MonoBehaviour
 		{
 			selectedElement = (ElementManager.Element)selected;
 
-			if (OnSwitchMagic != null)
-				OnSwitchMagic();
+			OnSwitchMagic?.Invoke(selectedElement);
 
 			UpdateMagic();
 		}

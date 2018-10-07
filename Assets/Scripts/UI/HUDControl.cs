@@ -159,7 +159,7 @@ public class HUDControl : MonoBehaviour
 		}
     }
 
-	void PlaySwitchAnim()
+	void PlaySwitchAnim(ElementManager.Element newElement)
 	{
 		if (magicSwitchAnim)
 		{

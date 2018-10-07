@@ -5,6 +5,20 @@ using InControl;
 
 public class PlayerActions : PlayerActionSet
 {
+	public enum ButtonActionType
+	{
+		Jump,
+		MeleeAttack,
+		MagicMeleeAttack,
+		MagicProjectileAttack,
+		SwitchMagic,
+		Dodge,
+		Interact,
+		Submit,
+		Back,
+		Pause
+	}
+
     public PlayerAction Left;
     public PlayerAction Right;
     public PlayerAction Up;
@@ -14,14 +28,10 @@ public class PlayerActions : PlayerActionSet
     public PlayerTwoAxisAction Move;
 
     public PlayerAction MeleeAttack;
-
     public PlayerAction MagicMeleeAttack;
-
 	public PlayerAction MagicProjectileAttack;
-	public PlayerAction MagicAimDiagonal;
 
-	public PlayerAction SwitchMagicLeft;
-	public PlayerAction SwitchMagicRight;
+	public PlayerAction SwitchMagic;
 
 	public PlayerAction Dodge;
 
@@ -46,10 +56,8 @@ public class PlayerActions : PlayerActionSet
 		MagicMeleeAttack = CreatePlayerAction("Physical Magic");
 
 		MagicProjectileAttack = CreatePlayerAction("Magic Projectile");
-        MagicAimDiagonal = CreatePlayerAction("Magic Aim Diagonal");
 
-		SwitchMagicLeft = CreatePlayerAction("Switch Base Left");
-		SwitchMagicRight = CreatePlayerAction("Switch Mix Right");
+		SwitchMagic = CreatePlayerAction("Switch Magic");
 
 		Dodge = CreatePlayerAction("Dodge");
 
@@ -89,14 +97,8 @@ public class PlayerActions : PlayerActionSet
 		MagicProjectileAttack.AddDefaultBinding(Key.D);
 		MagicProjectileAttack.AddDefaultBinding(InputControlType.Action2);
 
-		SwitchMagicLeft.AddDefaultBinding(Key.A);
-		SwitchMagicLeft.AddDefaultBinding(InputControlType.LeftBumper);
-
-		SwitchMagicRight.AddDefaultBinding(Key.S);
-		SwitchMagicRight.AddDefaultBinding(InputControlType.RightBumper);
-
-        //MagicAimDiagonal.AddDefaultBinding(Key.LeftShift);
-        //MagicAimDiagonal.AddDefaultBinding(InputControlType.RightTrigger);
+		SwitchMagic.AddDefaultBinding(Key.S);
+		SwitchMagic.AddDefaultBinding(InputControlType.LeftBumper);
 
 		Dodge.AddDefaultBinding(Key.X);
 		Dodge.AddDefaultBinding(InputControlType.RightTrigger);
@@ -130,5 +132,43 @@ public class PlayerActions : PlayerActionSet
 			// Interact.WasPressed returns true even when input is mostly X-based, so an additional check is needed
 			return Interact.WasPressed && Mathf.Abs(Move.Y) > Mathf.Abs(Move.X);
 		}
+	}
+
+	public PlayerAction GetButtonAction(ButtonActionType actionType)
+	{
+		switch(actionType)
+		{
+			case ButtonActionType.Jump:
+				return Jump;
+
+			case ButtonActionType.MeleeAttack:
+				return MeleeAttack;
+
+			case ButtonActionType.MagicMeleeAttack:
+				return MagicMeleeAttack;
+
+			case ButtonActionType.MagicProjectileAttack:
+				return MagicProjectileAttack;
+
+			case ButtonActionType.SwitchMagic:
+				return SwitchMagic;
+
+			case ButtonActionType.Dodge:
+				return Dodge;
+
+			case ButtonActionType.Interact:
+				return Interact;
+
+			case ButtonActionType.Submit:
+				return Submit;
+
+			case ButtonActionType.Back:
+				return Back;
+
+			case ButtonActionType.Pause:
+				return Pause;
+		}
+
+		return null;
 	}
 }

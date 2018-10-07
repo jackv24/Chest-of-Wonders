@@ -4,6 +4,13 @@ using InControl;
 
 public class PlayerInput : MonoBehaviour
 {
+	public enum InputAcceptance
+	{
+		All,
+		None,
+		MovementOnly
+	}
+
     //Horizontal direction of the movement input
     private Vector2 inputDirection;
 
@@ -20,7 +27,7 @@ public class PlayerInput : MonoBehaviour
 	private PlayerDodge playerDodge;
 	private CharacterAnimator characterAnimator;
 
-	public bool AcceptingInput { get; set; } = true;
+	public InputAcceptance AcceptingInput { get; set; }
 
     private void Awake()
     {
@@ -39,15 +46,16 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-		if (!AcceptingInput)
+		if (AcceptingInput != InputAcceptance.All)
 		{
 			if (playerActions.MeleeAttack.WasReleased)
 			{
 				playerAttack.SetHoldingBat(false);
 			}
-
-			return;
 		}
+
+		if (AcceptingInput == InputAcceptance.None)
+			return;
 
         //Get input from controllers and keyboard, clamped
         inputDirection = playerActions.Move;
@@ -68,12 +76,15 @@ public class PlayerInput : MonoBehaviour
         }
 #endif
 
-        if (characterMove)
-        {
-            //Move the player using the CharacterMove script
-            if(GameManager.instance && GameManager.instance.CanDoActions)
-                characterMove.Move(inputDirection.x);
+		//Move the player using the CharacterMove script
+		if (GameManager.instance && GameManager.instance.CanDoActions)
+			characterMove?.Move(inputDirection.x);
 
+		if (AcceptingInput != InputAcceptance.All)
+			return;
+
+		if (characterMove)
+        {
             if (playerActions.Jump.WasPressed)
             {
                 if (inputDirection.y < 0 && characterMove.IsOnPlatform)
@@ -110,16 +121,8 @@ public class PlayerInput : MonoBehaviour
 				{
 					playerAttack.UseProjectileMagic();
 				}
-				else if (playerActions.SwitchMagicLeft.WasPressed)
-				{
-					playerAttack.SwitchMagic(-1);
-				}
-				else if (playerActions.SwitchMagicRight.WasPressed)
-				{
-					playerAttack.SwitchMagic(1);
-				}
 
-				playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicAimDiagonal.IsPressed);
+				playerAttack.UpdateAimDirection(inputDirection, false);
 			}
 
 			if(playerDodge)

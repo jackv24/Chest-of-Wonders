@@ -37,7 +37,7 @@ public abstract class CharacterStateBehaviour : StateMachineBehaviour
 			characterStats.damageImmunity = true;
 
 		if (playerInput)
-			playerInput.AcceptingInput = false;
+			playerInput.AcceptingInput = PlayerInput.InputAcceptance.None;
 
 		hasEnded = false;
 
@@ -68,7 +68,7 @@ public abstract class CharacterStateBehaviour : StateMachineBehaviour
 			characterStats.damageImmunity = false;
 
 		if (playerInput)
-			playerInput.AcceptingInput = true;
+			playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
 	}
 
 	/// <summary>
