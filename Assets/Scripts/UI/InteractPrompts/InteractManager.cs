@@ -17,7 +17,19 @@ public interface IInteractible
 
 public class InteractManager : MonoBehaviour
 {
-	public static InteractManager Instance;
+	private static InteractManager instance;
+
+	public static bool CanInteract
+	{
+		get { return instance && instance.canInteract; }
+		set
+		{
+			if (instance)
+				instance.canInteract = value;
+		}
+	}
+
+	private bool canInteract = true;
 
 	public Canvas canvas;
 
@@ -50,7 +62,7 @@ public class InteractManager : MonoBehaviour
 
 	private void Awake()
 	{
-		Instance = this;
+		instance = this;
 	}
 
 	private void Start()
@@ -92,7 +104,7 @@ public class InteractManager : MonoBehaviour
 				}
 
 				//Only show interact prompt if they can be interacted with at this time
-				if (GameManager.instance.CanDoActions && Time.time >= nextInteractTime)
+				if (canInteract && GameManager.instance.CanDoActions && Time.time >= nextInteractTime)
 				{
 					//Set current
 					currentInteractible = closestInteractible;
@@ -124,7 +136,7 @@ public class InteractManager : MonoBehaviour
 			}
 		}
 
-		if(currentInteractible != null && playerActions.WasInteractPressed && GameManager.instance.CanDoActions)
+		if(canInteract && currentInteractible != null && playerActions.WasInteractPressed && GameManager.instance.CanDoActions)
 		{
 			nextInteractTime = Time.time + interactDelay;
 
@@ -134,11 +146,11 @@ public class InteractManager : MonoBehaviour
 
 	public static void AddInteractible(IInteractible interactible, Vector2 position, Vector2 promptOffset)
 	{
-		if (Instance == null)
+		if (instance == null)
 			return;
 
 		//If already in list just update position and return
-		foreach(Interactible interact in Instance.interactibles)
+		foreach(Interactible interact in instance.interactibles)
 		{
 			if(interact.interactible == interactible)
 			{
@@ -148,17 +160,17 @@ public class InteractManager : MonoBehaviour
 		}
 
 		//else, add to list
-		Instance.interactibles.Add(new Interactible(interactible, position, promptOffset));
+		instance.interactibles.Add(new Interactible(interactible, position, promptOffset));
 	}
 
 	public static void RemoveInteractible(IInteractible interactible)
 	{
-		if (Instance == null)
+		if (instance == null)
 			return;
 
 		Interactible interactiblePosition = null;
 
-		foreach(Interactible interact in Instance.interactibles)
+		foreach(Interactible interact in instance.interactibles)
 		{
 			if (interact.interactible == interactible)
 				interactiblePosition = interact;
@@ -166,12 +178,12 @@ public class InteractManager : MonoBehaviour
 
 		if(interactiblePosition != null)
 		{
-			Instance.interactibles.Remove(interactiblePosition);
+			instance.interactibles.Remove(interactiblePosition);
 
-			if(Instance.currentInteractible == interactiblePosition)
+			if(instance.currentInteractible == interactiblePosition)
 			{
-				Instance.currentInteractible.prompt.HidePrompt();
-				Instance.currentInteractible = null;
+				instance.currentInteractible.prompt.HidePrompt();
+				instance.currentInteractible = null;
 			}
 		}
 	}

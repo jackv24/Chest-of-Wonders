@@ -76,6 +76,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 	{
 		isOpen = true;
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.MovementOnly;
+		InteractManager.CanInteract = false;
 
 		if(animator)
 		{
@@ -88,6 +89,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 	{
 		isOpen = false;
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
+		InteractManager.CanInteract = true;
 
 		if (animator)
 			animator.Play(closeAnim);
