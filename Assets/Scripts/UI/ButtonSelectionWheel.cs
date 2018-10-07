@@ -20,8 +20,6 @@ public class ButtonSelectionWheel : MonoBehaviour
 	[SerializeField]
 	private OpenCloseAnimator openClose;
 
-	private bool isOpen;
-
 	private PlayerActions actions;
 	private PlayerInput playerInput;
 
@@ -47,8 +45,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 				Close();
 		}
 
-		//if (isOpen)
-			UpdatePosition();
+		UpdatePosition();
 	}
 
 	private void UpdatePosition()
@@ -56,12 +53,22 @@ public class ButtonSelectionWheel : MonoBehaviour
 		if (!followTarget || !keepPos)
 			return;
 
-		keepPos.worldPos = (Vector2)followTarget.position + followOffset;
+		if (openClose.IsOpen)
+		{
+			if (!keepPos.enabled)
+				keepPos.enabled = true;
+
+			keepPos.worldPos = (Vector2)followTarget.position + followOffset;
+		}
+		else
+		{
+			if (keepPos.enabled)
+				keepPos.enabled = false;
+		}
 	}
 
 	private void Open()
 	{
-		isOpen = true;
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.MovementOnly;
 		InteractManager.CanInteract = false;
 
@@ -70,7 +77,6 @@ public class ButtonSelectionWheel : MonoBehaviour
 
 	private void Close()
 	{
-		isOpen = false;
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
 		InteractManager.CanInteract = true;
 

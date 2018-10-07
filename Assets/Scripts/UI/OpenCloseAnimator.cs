@@ -9,12 +9,30 @@ public class OpenCloseAnimator
 	public string CloseAnim = "Close";
 	public bool areMirrored = true;
 
+	private bool isOpen;
+
+	public bool IsOpen
+	{
+		get
+		{
+			if (!Animator)
+				return isOpen;
+
+			if (isOpen)
+				return true;
+
+			var stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+			return stateInfo.normalizedTime < stateInfo.length;
+		}
+	}
+
 	public void PreClose()
 	{
 		if (!Animator)
 			return;
 
 		Animator.Play(CloseAnim, 0, 1.0f);
+		isOpen = false;
 	}
 
 	public void PlayOpen()
@@ -23,6 +41,8 @@ public class OpenCloseAnimator
 			return;
 
 		Animator.Play(OpenAnim);
+
+		isOpen = true;
 	}
 
 	public void PlayClose()
@@ -34,5 +54,7 @@ public class OpenCloseAnimator
 			Animator.Play(CloseAnim, 0, 1 - Mathf.Clamp01(Animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
 		else
 			Animator.Play(CloseAnim);
+
+		isOpen = false;
 	}
 }
