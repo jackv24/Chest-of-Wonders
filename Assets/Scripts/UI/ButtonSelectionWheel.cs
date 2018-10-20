@@ -11,6 +11,13 @@ public class ButtonSelectionWheel : MonoBehaviour
 		Up, Down, Left, Right
 	}
 
+	private enum ButtonDisplayTypes
+	{
+		Keyboard,
+		PS4,
+		XBOX
+	}
+
 	[SerializeField]
 	private PlayerActions.ButtonActionType holdButton;
 	private PlayerAction button;
@@ -30,14 +37,18 @@ public class ButtonSelectionWheel : MonoBehaviour
 	[SerializeField, ArrayForEnum(typeof(Direction))]
 	private ElementManager.Element[] directionMappings;
 
-	private PlayerActions actions;
+    [SerializeField, ArrayForEnum(typeof(ButtonDisplayTypes))]
+    private GameObject[] deviceButtonPrompts;
+
+    private PlayerActions actions;
 	private PlayerInput playerInput;
 	private PlayerAttack playerAttack;
 
 	private void OnValidate()
 	{
 		ArrayForEnumAttribute.EnsureArraySize(ref directionMappings, typeof(Direction));
-	}
+        ArrayForEnumAttribute.EnsureArraySize(ref deviceButtonPrompts, typeof(ButtonDisplayTypes));
+    }
 
 	private void Awake()
 	{
@@ -47,14 +58,28 @@ public class ButtonSelectionWheel : MonoBehaviour
 	private void Start()
 	{
 		actions = ControlManager.GetPlayerActions();
-		button = actions?.GetButtonAction(holdButton);
 
-		followTarget = GameManager.instance.player.transform;
+        if (actions != null)
+        {
+			button = actions.GetButtonAction(holdButton);
+
+            actions.OnLastInputTypeChanged += UpdateButtonPrompts;
+			if (actions.LastInputType != BindingSourceType.None)
+                UpdateButtonPrompts(actions.LastInputType);
+        }
+
+        followTarget = GameManager.instance.player.transform;
 		playerInput = GameManager.instance.player.GetComponent<PlayerInput>();
 		playerAttack = GameManager.instance.player.GetComponent<PlayerAttack>();
 
         openClose.PreClose();
 	}
+
+	private void OnDestroy()
+	{
+		if (actions != null)
+            actions.OnLastInputTypeChanged -= UpdateButtonPrompts;
+    }
 
 	private void Update()
 	{
@@ -151,4 +176,42 @@ public class ButtonSelectionWheel : MonoBehaviour
 
 		Close();
 	}
+
+	private void UpdateButtonPrompts(BindingSourceType sourceType)
+	{
+		foreach(var obj in deviceButtonPrompts)
+            obj?.SetActive(false);
+
+        ButtonDisplayTypes? buttonDisplay = null;
+
+        if (sourceType == BindingSourceType.KeyBindingSource)
+            buttonDisplay = ButtonDisplayTypes.Keyboard;
+        else if (sourceType == BindingSourceType.DeviceBindingSource)
+		{
+			switch (actions.LastDeviceStyle)
+			{
+				case InputDeviceStyle.Xbox360:
+				case InputDeviceStyle.XboxOne:
+                    buttonDisplay = ButtonDisplayTypes.XBOX;
+                    break;
+
+				case InputDeviceStyle.PlayStation3:
+				case InputDeviceStyle.PlayStation4:
+                    buttonDisplay = ButtonDisplayTypes.PS4;
+                    break;
+            }
+		}
+
+		if (buttonDisplay == null)
+		{
+            Debug.LogError($"Couldn't match source type \"{sourceType}\" with style \"{actions.LastDeviceStyle}\" to button display", this);
+            return;
+        }
+
+        GameObject displayObj = deviceButtonPrompts[(int)buttonDisplay.Value];
+		if (displayObj)
+            displayObj.SetActive(true);
+		else
+            Debug.LogError($"No button prompt assigned for \"{buttonDisplay.Value}\"", this);
+    }
 }
