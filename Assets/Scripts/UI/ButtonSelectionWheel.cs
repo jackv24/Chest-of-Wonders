@@ -53,7 +53,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 		playerInput = GameManager.instance.player.GetComponent<PlayerInput>();
 		playerAttack = GameManager.instance.player.GetComponent<PlayerAttack>();
 
-		openClose.PreClose();
+        openClose.PreClose();
 	}
 
 	private void Update()
@@ -74,10 +74,27 @@ public class ButtonSelectionWheel : MonoBehaviour
 
 			if (button != null)
 			{
-				if (button.WasPressed)
-					Open();
-				else if (button.WasReleased)
-					Close();
+				switch (actions.LastInputType)
+				{
+					// When using a controller only keep open while button is pressed
+                    case BindingSourceType.DeviceBindingSource:
+						if (button.WasPressed)
+							Open();
+						else if (button.WasReleased)
+							Close();
+                        break;
+
+					// When using a keyboard button is a toggle
+					case BindingSourceType.KeyBindingSource:
+						if (button.WasPressed)
+						{
+							if (!isOpen)
+                                Open();
+							else
+                                Close();
+                        }
+                        break;
+                }
 			}
 		}
 
