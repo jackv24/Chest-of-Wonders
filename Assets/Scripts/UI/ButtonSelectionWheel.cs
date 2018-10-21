@@ -58,15 +58,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 	private void Start()
 	{
 		actions = ControlManager.GetPlayerActions();
-
-        if (actions != null)
-        {
-			button = actions.GetButtonAction(holdButton);
-
-            actions.OnLastInputTypeChanged += UpdateButtonPrompts;
-			if (actions.LastInputType != BindingSourceType.None)
-                UpdateButtonPrompts(actions.LastInputType);
-        }
+		button = actions?.GetButtonAction(holdButton);
 
         followTarget = GameManager.instance.player.transform;
 		playerInput = GameManager.instance.player.GetComponent<PlayerInput>();
@@ -74,12 +66,6 @@ public class ButtonSelectionWheel : MonoBehaviour
 
         openClose.PreClose();
 	}
-
-	private void OnDestroy()
-	{
-		if (actions != null)
-            actions.OnLastInputTypeChanged -= UpdateButtonPrompts;
-    }
 
 	private void Update()
 	{
@@ -151,7 +137,9 @@ public class ButtonSelectionWheel : MonoBehaviour
 			return;
 		isOpen = true;
 
-		playerInput.AcceptingInput = PlayerInput.InputAcceptance.MovementOnly;
+        UpdateButtonPrompts();
+
+        playerInput.AcceptingInput = PlayerInput.InputAcceptance.MovementOnly;
 		InteractManager.CanInteract = false;
 
 		openClose.PlayOpen();
@@ -177,11 +165,12 @@ public class ButtonSelectionWheel : MonoBehaviour
 		Close();
 	}
 
-	private void UpdateButtonPrompts(BindingSourceType sourceType)
+	private void UpdateButtonPrompts()
 	{
 		foreach(var obj in deviceButtonPrompts)
             obj?.SetActive(false);
 
+        BindingSourceType sourceType = actions.LastInputType;
         ButtonDisplayTypes? buttonDisplay = null;
 
         if (sourceType == BindingSourceType.KeyBindingSource)
