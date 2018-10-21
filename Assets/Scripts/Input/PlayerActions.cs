@@ -33,7 +33,12 @@ public class PlayerActions : PlayerActionSet
 
 	public PlayerAction SwitchMagic;
 
-	public PlayerAction Dodge;
+    public PlayerAction SelectionWheelUp;
+	public PlayerAction SelectionWheelDown;
+	public PlayerAction SelectionWheelLeft;
+	public PlayerAction SelectionWheelRight;
+
+    public PlayerAction Dodge;
 
 	public PlayerAction Interact;
     public PlayerAction Submit;
@@ -42,31 +47,12 @@ public class PlayerActions : PlayerActionSet
 
     public PlayerActions()
     {
-        //Create actions
-        Left = CreatePlayerAction("Move Left");
-        Right = CreatePlayerAction("Move Right");
-        Up = CreatePlayerAction("Move Up");
-        Down = CreatePlayerAction("Move Down");
-        Jump = CreatePlayerAction("Jump");
+        CreateActions();
+        AddDefaultBindings();
+    }
 
-        Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
-
-        MeleeAttack = CreatePlayerAction("Melee Attack");
-
-		MagicMeleeAttack = CreatePlayerAction("Physical Magic");
-
-		MagicProjectileAttack = CreatePlayerAction("Magic Projectile");
-
-		SwitchMagic = CreatePlayerAction("Switch Magic");
-
-		Dodge = CreatePlayerAction("Dodge");
-
-        Interact = CreatePlayerAction("Interact");
-        Submit = CreatePlayerAction("Submit");
-        Back = CreatePlayerAction("Back");
-        Pause = CreatePlayerAction("Pause");
-
-        //Bind actions
+    private void AddDefaultBindings()
+    {
         //Movement
         Left.AddDefaultBinding(Key.LeftArrow);
         Left.AddDefaultBinding(InputControlType.DPadLeft);
@@ -85,7 +71,7 @@ public class PlayerActions : PlayerActionSet
         Down.AddDefaultBinding(InputControlType.LeftStickDown);
 
         Jump.AddDefaultBinding(Key.Z);
-		Jump.AddDefaultBinding(InputControlType.Action1);
+        Jump.AddDefaultBinding(InputControlType.Action1);
 
         //Attacking
         MeleeAttack.AddDefaultBinding(Key.C);
@@ -94,24 +80,36 @@ public class PlayerActions : PlayerActionSet
         MagicMeleeAttack.AddDefaultBinding(Key.V);
         MagicMeleeAttack.AddDefaultBinding(InputControlType.Action4);
 
-		MagicProjectileAttack.AddDefaultBinding(Key.D);
-		MagicProjectileAttack.AddDefaultBinding(InputControlType.Action2);
+        MagicProjectileAttack.AddDefaultBinding(Key.D);
+        MagicProjectileAttack.AddDefaultBinding(InputControlType.Action2);
 
-		SwitchMagic.AddDefaultBinding(Key.S);
-		SwitchMagic.AddDefaultBinding(InputControlType.LeftBumper);
+        SwitchMagic.AddDefaultBinding(Key.S);
+        SwitchMagic.AddDefaultBinding(InputControlType.LeftBumper);
 
-		Dodge.AddDefaultBinding(Key.X);
-		Dodge.AddDefaultBinding(InputControlType.RightTrigger);
+        SelectionWheelUp.AddDefaultBinding(Key.S);
+        SelectionWheelUp.AddDefaultBinding(InputControlType.Action4);
+
+        SelectionWheelDown.AddDefaultBinding(Key.X);
+        SelectionWheelDown.AddDefaultBinding(InputControlType.Action1);
+
+        SelectionWheelLeft.AddDefaultBinding(Key.Z);
+        SelectionWheelLeft.AddDefaultBinding(InputControlType.Action3);
+
+        SelectionWheelRight.AddDefaultBinding(Key.C);
+        SelectionWheelRight.AddDefaultBinding(InputControlType.Action2);
+
+        Dodge.AddDefaultBinding(Key.X);
+        Dodge.AddDefaultBinding(InputControlType.RightTrigger);
 
         //Misc
         Interact.AddDefaultBinding(Key.UpArrow);
-		Interact.AddDefaultBinding(Key.DownArrow);
-		Interact.AddDefaultBinding(InputControlType.DPadUp);
-		Interact.AddDefaultBinding(InputControlType.LeftStickUp);
-		Interact.AddDefaultBinding(InputControlType.DPadDown);
-		Interact.AddDefaultBinding(InputControlType.LeftStickDown);
+        Interact.AddDefaultBinding(Key.DownArrow);
+        Interact.AddDefaultBinding(InputControlType.DPadUp);
+        Interact.AddDefaultBinding(InputControlType.LeftStickUp);
+        Interact.AddDefaultBinding(InputControlType.DPadDown);
+        Interact.AddDefaultBinding(InputControlType.LeftStickDown);
 
-		Submit.AddDefaultBinding(Key.Z);
+        Submit.AddDefaultBinding(Key.Z);
         Submit.AddDefaultBinding(Key.Return);
         Submit.AddDefaultBinding(InputControlType.Action1);
         Submit.AddDefaultBinding(InputControlType.Action4);
@@ -121,11 +119,42 @@ public class PlayerActions : PlayerActionSet
         Back.AddDefaultBinding(InputControlType.Action2);
 
         Pause.AddDefaultBinding(Key.Escape);
-		Pause.AddDefaultBinding(Key.Tab);
+        Pause.AddDefaultBinding(Key.Tab);
         Pause.AddDefaultBinding(InputControlType.Command);
     }
 
-	public bool WasInteractPressed
+    private void CreateActions()
+    {
+        Left = CreatePlayerAction("Move Left");
+        Right = CreatePlayerAction("Move Right");
+        Up = CreatePlayerAction("Move Up");
+        Down = CreatePlayerAction("Move Down");
+        Jump = CreatePlayerAction("Jump");
+
+        Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
+
+        MeleeAttack = CreatePlayerAction("Melee Attack");
+
+        MagicMeleeAttack = CreatePlayerAction("Physical Magic");
+
+        MagicProjectileAttack = CreatePlayerAction("Magic Projectile");
+
+        SwitchMagic = CreatePlayerAction("Switch Magic");
+
+        SelectionWheelUp = CreatePlayerAction("Selection Wheel Up");
+        SelectionWheelDown = CreatePlayerAction("Selection Wheel Down");
+        SelectionWheelLeft = CreatePlayerAction("Selection Wheel Left");
+        SelectionWheelRight = CreatePlayerAction("Selection Wheel Right");
+
+        Dodge = CreatePlayerAction("Dodge");
+
+        Interact = CreatePlayerAction("Interact");
+        Submit = CreatePlayerAction("Submit");
+        Back = CreatePlayerAction("Back");
+        Pause = CreatePlayerAction("Pause");
+    }
+
+    public bool WasInteractPressed
 	{
 		get
 		{

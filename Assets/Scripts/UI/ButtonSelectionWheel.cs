@@ -73,13 +73,13 @@ public class ButtonSelectionWheel : MonoBehaviour
 		{
 			if (isOpen)
 			{
-				if (actions.ActiveDevice.Action1.WasPressed)
+				if (actions.SelectionWheelDown.WasPressed)
 					SelectDirection(Direction.Down);
-				else if (actions.ActiveDevice.Action2.WasPressed)
+				else if (actions.SelectionWheelRight.WasPressed)
 					SelectDirection(Direction.Right);
-				else if (actions.ActiveDevice.Action3.WasPressed)
+				else if (actions.SelectionWheelLeft.WasPressed)
 					SelectDirection(Direction.Left);
-				else if (actions.ActiveDevice.Action4.WasPressed)
+				else if (actions.SelectionWheelUp.WasPressed)
 					SelectDirection(Direction.Up);
 			}
 
