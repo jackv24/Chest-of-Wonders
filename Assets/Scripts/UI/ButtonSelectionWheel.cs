@@ -84,13 +84,15 @@ public class ButtonSelectionWheel : MonoBehaviour
 					SelectDirection(Direction.Left);
 				else if (actions.SelectionWheelUp.WasPressed)
 					SelectDirection(Direction.Up);
-                else if (actions.SelectionWheelDown.WasReleased
-                    || actions.SelectionWheelRight.WasReleased
-                    || actions.SelectionWheelLeft.WasReleased
-                    || actions.SelectionWheelUp.WasReleased)
-                {
-                    Close();
-                }
+
+                if (actions.SelectionWheelDown.WasReleased)
+                    ConfirmDirection(Direction.Down);
+                else if (actions.SelectionWheelRight.WasReleased)
+                    ConfirmDirection(Direction.Right);
+                else if (actions.SelectionWheelLeft.WasReleased)
+                    ConfirmDirection(Direction.Left);
+                else if (actions.SelectionWheelUp.WasReleased)
+                    ConfirmDirection(Direction.Up);
             }
 
 			if (button != null)
@@ -179,8 +181,6 @@ public class ButtonSelectionWheel : MonoBehaviour
         if (selectedDirection != null)
             ConfirmDirection(selectedDirection.Value);
 
-        selectedDirection = null;
-
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
 		InteractManager.CanInteract = true;
 
@@ -202,9 +202,12 @@ public class ButtonSelectionWheel : MonoBehaviour
     {
         if (selectedDirection != direction)
             return;
+        selectedDirection = null;
 
         playerInput.SkipFrame = true;
         playerAttack.SetSelectedMagic(directionMappings[(int)direction]);
+
+        Close();
     }
 
 	private void UpdateButtonPrompts()
