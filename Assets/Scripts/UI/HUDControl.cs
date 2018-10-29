@@ -30,7 +30,6 @@ public class HUDControl : MonoBehaviour
 	[Space()]
 	public GameObject magicSwitchAnim;
 	public GameObject magicNotchSwitchAnim;
-	private Vector2 magicNotchSwitchAnimOffset;
 
 	[System.Serializable]
 	public class Progression
@@ -75,9 +74,6 @@ public class HUDControl : MonoBehaviour
             {
                 playerAttack.OnUpdateMagic += UpdateAttackSlots;
                 UpdateAttackSlots();
-
-				//Get base notch switch offset from fire notch (first notch is reference)
-				magicNotchSwitchAnimOffset = magicNotchSwitchAnim.transform.position - fireNotch.transform.position;
 
 				playerAttack.OnSwitchMagic += PlaySwitchAnim;
 
@@ -189,7 +185,7 @@ public class HUDControl : MonoBehaviour
 					break;
 			}
 
-			magicNotchSwitchAnim.transform.position = pos + (Vector3)magicNotchSwitchAnimOffset;
+            magicNotchSwitchAnim.transform.position = pos;
 
 			magicNotchSwitchAnim.SetActive(false);
 			magicNotchSwitchAnim.SetActive(true);
