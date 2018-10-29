@@ -16,8 +16,12 @@ public class PlayerActions : PlayerActionSet
 		Interact,
 		Submit,
 		Back,
-		Pause
-	}
+		Pause,
+        SelectionWheelUp,
+        SelectionWheelDown,
+        SelectionWheelLeft,
+        SelectionWheelRight
+    }
 
     public PlayerAction Left;
     public PlayerAction Right;
@@ -196,7 +200,19 @@ public class PlayerActions : PlayerActionSet
 
 			case ButtonActionType.Pause:
 				return Pause;
-		}
+
+            case ButtonActionType.SelectionWheelUp:
+                return SelectionWheelUp;
+
+            case ButtonActionType.SelectionWheelDown:
+                return SelectionWheelDown;
+
+            case ButtonActionType.SelectionWheelLeft:
+                return SelectionWheelLeft;
+
+            case ButtonActionType.SelectionWheelRight:
+                return SelectionWheelRight;
+        }
 
 		return null;
 	}
