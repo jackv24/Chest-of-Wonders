@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using InControl;
 
-public class ButtonSelectionWheel : MonoBehaviour
+public abstract class ButtonSelectionWheel : MonoBehaviour
 {
-	private enum Direction
+	protected enum Direction
 	{
 		Up, Down, Left, Right
 	}
@@ -15,9 +15,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 		XBOX
 	}
 
-	[SerializeField]
-	private PlayerActions.ButtonActionType holdButton;
-	private PlayerAction button;
+	protected abstract PlayerAction HoldButton { get; }
 
 	[SerializeField]
 	private KeepWorldPosOnCanvas keepPos;
@@ -31,9 +29,6 @@ public class ButtonSelectionWheel : MonoBehaviour
 
 	private bool isOpen;
 
-	[SerializeField, ArrayForEnum(typeof(Direction))]
-	private ElementManager.Element[] directionMappings;
-
     [SerializeField, ArrayForEnum(typeof(ButtonDisplayTypes))]
     private GameObject[] deviceButtonPrompts;
 
@@ -42,13 +37,11 @@ public class ButtonSelectionWheel : MonoBehaviour
 
     private Direction? selectedDirection = null;
 
-    private PlayerActions actions;
+    protected PlayerActions Actions;
 	private PlayerInput playerInput;
-	private PlayerAttack playerAttack;
 
-	private void OnValidate()
+	protected virtual void OnValidate()
 	{
-		ArrayForEnumAttribute.EnsureArraySize(ref directionMappings, typeof(Direction));
         ArrayForEnumAttribute.EnsureArraySize(ref deviceButtonPrompts, typeof(ButtonDisplayTypes));
         ArrayForEnumAttribute.EnsureArraySize(ref sectionAnimators, typeof(Direction));
     }
@@ -58,14 +51,12 @@ public class ButtonSelectionWheel : MonoBehaviour
 		OnValidate();
 	}
 
-	private void Start()
+	protected virtual void Start()
 	{
-		actions = ControlManager.GetPlayerActions();
-		button = actions?.GetButtonAction(holdButton);
+		Actions = ControlManager.GetPlayerActions();
 
         followTarget = GameManager.instance.player.transform;
 		playerInput = GameManager.instance.player.GetComponent<PlayerInput>();
-		playerAttack = GameManager.instance.player.GetComponent<PlayerAttack>();
 
         openClose.PreClose();
 	}
@@ -76,49 +67,46 @@ public class ButtonSelectionWheel : MonoBehaviour
 		{
 			if (isOpen)
 			{
-				if (actions.SelectionWheelDown.WasPressed)
+				if (Actions.SelectionWheelDown.WasPressed)
 					SelectDirection(Direction.Down);
-				else if (actions.SelectionWheelRight.WasPressed)
+				else if (Actions.SelectionWheelRight.WasPressed)
 					SelectDirection(Direction.Right);
-				else if (actions.SelectionWheelLeft.WasPressed)
+				else if (Actions.SelectionWheelLeft.WasPressed)
 					SelectDirection(Direction.Left);
-				else if (actions.SelectionWheelUp.WasPressed)
+				else if (Actions.SelectionWheelUp.WasPressed)
 					SelectDirection(Direction.Up);
 
-                if (actions.SelectionWheelDown.WasReleased)
+                if (Actions.SelectionWheelDown.WasReleased)
                     ConfirmDirection(Direction.Down);
-                else if (actions.SelectionWheelRight.WasReleased)
+                else if (Actions.SelectionWheelRight.WasReleased)
                     ConfirmDirection(Direction.Right);
-                else if (actions.SelectionWheelLeft.WasReleased)
+                else if (Actions.SelectionWheelLeft.WasReleased)
                     ConfirmDirection(Direction.Left);
-                else if (actions.SelectionWheelUp.WasReleased)
+                else if (Actions.SelectionWheelUp.WasReleased)
                     ConfirmDirection(Direction.Up);
             }
 
-			if (button != null)
+			switch (Actions.LastInputType)
 			{
-				switch (actions.LastInputType)
-				{
-					// When using a controller only keep open while button is pressed
-                    case BindingSourceType.DeviceBindingSource:
-						if (button.WasPressed)
-							Open();
-						else if (button.WasReleased)
-							Close();
-                        break;
+				// When using a controller only keep open while button is pressed
+                case BindingSourceType.DeviceBindingSource:
+					if (HoldButton.WasPressed)
+						Open();
+					else if (HoldButton.WasReleased)
+						Close();
+                    break;
 
-					// When using a keyboard button is a toggle
-					case BindingSourceType.KeyBindingSource:
-						if (button.WasPressed)
-						{
-							if (!isOpen)
-                                Open();
-							else
-                                Close();
-                        }
-                        break;
-                }
-			}
+				// When using a keyboard button is a toggle
+				case BindingSourceType.KeyBindingSource:
+					if (HoldButton.WasPressed)
+					{
+						if (!isOpen)
+                            Open();
+						else
+                            Close();
+                    }
+                    break;
+            }
 		}
 
 		UpdatePosition();
@@ -149,20 +137,14 @@ public class ButtonSelectionWheel : MonoBehaviour
 			return;
 		isOpen = true;
 
+        OnOpen();
         UpdateButtonPrompts();
 
         playerInput.AcceptingInput = PlayerInput.InputAcceptance.MovementOnly;
 		InteractManager.CanInteract = false;
 
-        int currentDirection = -1;
-        for (int i = 0; i < directionMappings.Length; i++)
-        {
-            if (directionMappings[i] == playerAttack.selectedElement)
-            {
-                currentDirection = i;
-                break;
-            }
-        }
+        int currentDirection = GetSelectedDirection();
+
         for (int i = 0; i < sectionAnimators.Length; i++)
         {
             sectionAnimators[i].SetBool("IsCurrent", i == currentDirection);
@@ -205,7 +187,7 @@ public class ButtonSelectionWheel : MonoBehaviour
         selectedDirection = null;
 
         playerInput.SkipFrame = true;
-        playerAttack.SetSelectedMagic(directionMappings[(int)direction]);
+        DirectionConfirmed(direction);
 
         Close();
     }
@@ -215,14 +197,14 @@ public class ButtonSelectionWheel : MonoBehaviour
 		foreach(var obj in deviceButtonPrompts)
             obj?.SetActive(false);
 
-        BindingSourceType sourceType = actions.LastInputType;
+        BindingSourceType sourceType = Actions.LastInputType;
         ButtonDisplayTypes? buttonDisplay = null;
 
         if (sourceType == BindingSourceType.KeyBindingSource)
             buttonDisplay = ButtonDisplayTypes.Keyboard;
         else if (sourceType == BindingSourceType.DeviceBindingSource)
 		{
-			switch (actions.LastDeviceStyle)
+			switch (Actions.LastDeviceStyle)
 			{
 				case InputDeviceStyle.Xbox360:
 				case InputDeviceStyle.XboxOne:
@@ -238,7 +220,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 
 		if (buttonDisplay == null)
 		{
-            Debug.LogError($"Couldn't match source type \"{sourceType}\" with style \"{actions.LastDeviceStyle}\" to button display", this);
+            Debug.LogError($"Couldn't match source type \"{sourceType}\" with style \"{Actions.LastDeviceStyle}\" to button display", this);
             return;
         }
 
@@ -248,4 +230,9 @@ public class ButtonSelectionWheel : MonoBehaviour
 		else
             Debug.LogError($"No button prompt assigned for \"{buttonDisplay.Value}\"", this);
     }
+
+    protected abstract void DirectionConfirmed(Direction direction);
+
+    protected virtual int GetSelectedDirection() { return -1; }
+    protected virtual void OnOpen() { }
 }

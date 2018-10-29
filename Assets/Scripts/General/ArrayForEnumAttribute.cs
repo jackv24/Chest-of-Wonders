@@ -18,7 +18,9 @@ public class ArrayForEnumAttribute : PropertyAttribute
 	public static void EnsureArraySize<T>(ref T[] array, Type enumType)
 	{
 		int size = Enum.GetNames(enumType).Length;
-		if(array.Length != size)
+        if (array == null)
+            array = new T[size];
+		else if(array.Length != size)
 		{
 			T[] oldArray = array;
 			array = new T[size];

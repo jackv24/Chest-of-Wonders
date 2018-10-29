@@ -20,7 +20,8 @@ public class PlayerActions : PlayerActionSet
         SelectionWheelUp,
         SelectionWheelDown,
         SelectionWheelLeft,
-        SelectionWheelRight
+        SelectionWheelRight,
+        ItemSelection
     }
 
     public PlayerAction Left;
@@ -35,7 +36,8 @@ public class PlayerActions : PlayerActionSet
     public PlayerAction MagicMeleeAttack;
 	public PlayerAction MagicProjectileAttack;
 
-	public PlayerAction SwitchMagic;
+	public PlayerAction MagicSelection;
+    public PlayerAction ItemSelection;
 
     public PlayerAction SelectionWheelUp;
 	public PlayerAction SelectionWheelDown;
@@ -87,8 +89,8 @@ public class PlayerActions : PlayerActionSet
         MagicProjectileAttack.AddDefaultBinding(Key.D);
         MagicProjectileAttack.AddDefaultBinding(InputControlType.Action2);
 
-        SwitchMagic.AddDefaultBinding(Key.S);
-        SwitchMagic.AddDefaultBinding(InputControlType.LeftBumper);
+        MagicSelection.AddDefaultBinding(Key.S);
+        MagicSelection.AddDefaultBinding(InputControlType.LeftBumper);
 
         SelectionWheelUp.AddDefaultBinding(Key.S);
         SelectionWheelUp.AddDefaultBinding(InputControlType.Action4);
@@ -101,6 +103,9 @@ public class PlayerActions : PlayerActionSet
 
         SelectionWheelRight.AddDefaultBinding(Key.C);
         SelectionWheelRight.AddDefaultBinding(InputControlType.Action2);
+
+        ItemSelection.AddDefaultBinding(Key.A);
+        ItemSelection.AddDefaultBinding(InputControlType.RightBumper);
 
         Dodge.AddDefaultBinding(Key.X);
         Dodge.AddDefaultBinding(InputControlType.RightTrigger);
@@ -143,7 +148,8 @@ public class PlayerActions : PlayerActionSet
 
         MagicProjectileAttack = CreatePlayerAction("Magic Projectile");
 
-        SwitchMagic = CreatePlayerAction("Switch Magic");
+        MagicSelection = CreatePlayerAction("Switch Magic");
+        ItemSelection = CreatePlayerAction("Use Item");
 
         SelectionWheelUp = CreatePlayerAction("Selection Wheel Up");
         SelectionWheelDown = CreatePlayerAction("Selection Wheel Down");
@@ -184,7 +190,7 @@ public class PlayerActions : PlayerActionSet
 				return MagicProjectileAttack;
 
 			case ButtonActionType.SwitchMagic:
-				return SwitchMagic;
+				return MagicSelection;
 
 			case ButtonActionType.Dodge:
 				return Dodge;
@@ -212,6 +218,9 @@ public class PlayerActions : PlayerActionSet
 
             case ButtonActionType.SelectionWheelRight:
                 return SelectionWheelRight;
+
+            case ButtonActionType.ItemSelection:
+                return ItemSelection;
         }
 
 		return null;
