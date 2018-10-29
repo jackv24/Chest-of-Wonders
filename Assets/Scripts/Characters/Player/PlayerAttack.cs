@@ -95,6 +95,7 @@ public class PlayerAttack : MonoBehaviour
     [Tooltip("The minimum amount of time the bat needs to charge before a damage multiplier is applied.")]
     public float chargeHoldTime = 1.0f;
     private float heldStartTime = 0;
+    private bool isChargingBat;
 
 	public bool HoldingBat { get; private set; } = false;
 
@@ -178,8 +179,10 @@ public class PlayerAttack : MonoBehaviour
 
 				animator?.SetTrigger("batSwing");
 			}
-			else if(!buttonDown) //Button released
+			else if(!buttonDown && isChargingBat) //Button released
 			{
+                isChargingBat = false;
+
 				//Play charged bat swing if fully charged, else let animator transition back to regular
 				if (Time.time >= heldStartTime + chargeHoldTime)
 					animator?.SetTrigger("batSwingCharged");
@@ -463,6 +466,8 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator BatCharge(float delay)
     {
+        isChargingBat = true;
+
         //Wait for max bat hold
         yield return new WaitForSeconds(delay);
 
