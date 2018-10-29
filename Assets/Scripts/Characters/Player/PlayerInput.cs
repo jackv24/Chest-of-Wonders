@@ -129,7 +129,7 @@ public class PlayerInput : MonoBehaviour
 					playerAttack.UseProjectileMagic();
 				}
 
-				playerAttack.UpdateAimDirection(inputDirection, false);
+				playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicProjectileDiagonalLock.IsPressed);
 			}
 
 			if(playerDodge)

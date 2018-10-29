@@ -35,6 +35,7 @@ public class PlayerActions : PlayerActionSet
     public PlayerAction MeleeAttack;
     public PlayerAction MagicMeleeAttack;
 	public PlayerAction MagicProjectileAttack;
+    public PlayerAction MagicProjectileDiagonalLock;
 
 	public PlayerAction MagicSelection;
     public PlayerAction ItemSelection;
@@ -54,81 +55,85 @@ public class PlayerActions : PlayerActionSet
     public PlayerActions()
     {
         CreateActions();
-        AddDefaultBindings();
+        AddDefaultKeyBindings();
+        AddDefaultControllerBindings();
     }
 
-    private void AddDefaultBindings()
+    private void AddDefaultKeyBindings()
     {
-        //Movement
         Left.AddDefaultBinding(Key.LeftArrow);
-        Left.AddDefaultBinding(InputControlType.DPadLeft);
-        Left.AddDefaultBinding(InputControlType.LeftStickLeft);
-
         Right.AddDefaultBinding(Key.RightArrow);
-        Right.AddDefaultBinding(InputControlType.DPadRight);
-        Right.AddDefaultBinding(InputControlType.LeftStickRight);
-
         Up.AddDefaultBinding(Key.UpArrow);
-        Up.AddDefaultBinding(InputControlType.DPadUp);
-        Up.AddDefaultBinding(InputControlType.LeftStickUp);
-
         Down.AddDefaultBinding(Key.DownArrow);
-        Down.AddDefaultBinding(InputControlType.DPadDown);
-        Down.AddDefaultBinding(InputControlType.LeftStickDown);
 
         Jump.AddDefaultBinding(Key.Z);
-        Jump.AddDefaultBinding(InputControlType.Action1);
 
-        //Attacking
         MeleeAttack.AddDefaultBinding(Key.C);
-        MeleeAttack.AddDefaultBinding(InputControlType.Action3);
-
         MagicMeleeAttack.AddDefaultBinding(Key.V);
-        MagicMeleeAttack.AddDefaultBinding(InputControlType.Action4);
-
         MagicProjectileAttack.AddDefaultBinding(Key.D);
-        MagicProjectileAttack.AddDefaultBinding(InputControlType.Action2);
+        MagicProjectileDiagonalLock.AddDefaultBinding(Key.LeftShift);
 
         MagicSelection.AddDefaultBinding(Key.S);
-        MagicSelection.AddDefaultBinding(InputControlType.LeftBumper);
+        ItemSelection.AddDefaultBinding(Key.A);
 
         SelectionWheelUp.AddDefaultBinding(Key.S);
-        SelectionWheelUp.AddDefaultBinding(InputControlType.Action4);
-
         SelectionWheelDown.AddDefaultBinding(Key.X);
-        SelectionWheelDown.AddDefaultBinding(InputControlType.Action1);
-
         SelectionWheelLeft.AddDefaultBinding(Key.Z);
-        SelectionWheelLeft.AddDefaultBinding(InputControlType.Action3);
-
         SelectionWheelRight.AddDefaultBinding(Key.C);
-        SelectionWheelRight.AddDefaultBinding(InputControlType.Action2);
-
-        ItemSelection.AddDefaultBinding(Key.A);
-        ItemSelection.AddDefaultBinding(InputControlType.RightBumper);
 
         Dodge.AddDefaultBinding(Key.X);
-        Dodge.AddDefaultBinding(InputControlType.RightTrigger);
 
-        //Misc
         Interact.AddDefaultBinding(Key.UpArrow);
         Interact.AddDefaultBinding(Key.DownArrow);
-        Interact.AddDefaultBinding(InputControlType.DPadUp);
-        Interact.AddDefaultBinding(InputControlType.LeftStickUp);
-        Interact.AddDefaultBinding(InputControlType.DPadDown);
-        Interact.AddDefaultBinding(InputControlType.LeftStickDown);
 
         Submit.AddDefaultBinding(Key.Z);
         Submit.AddDefaultBinding(Key.Return);
-        Submit.AddDefaultBinding(InputControlType.Action1);
-        Submit.AddDefaultBinding(InputControlType.Action4);
 
         Back.AddDefaultBinding(Key.X);
         Back.AddDefaultBinding(Key.Escape);
-        Back.AddDefaultBinding(InputControlType.Action2);
 
         Pause.AddDefaultBinding(Key.Escape);
         Pause.AddDefaultBinding(Key.Tab);
+    }
+
+    private void AddDefaultControllerBindings()
+    {
+        Left.AddDefaultBinding(InputControlType.DPadLeft);
+        Left.AddDefaultBinding(InputControlType.LeftStickLeft);
+
+        Right.AddDefaultBinding(InputControlType.DPadRight);
+        Right.AddDefaultBinding(InputControlType.LeftStickRight);
+
+        Up.AddDefaultBinding(InputControlType.DPadUp);
+        Up.AddDefaultBinding(InputControlType.LeftStickUp);
+
+        Down.AddDefaultBinding(InputControlType.DPadDown);
+        Down.AddDefaultBinding(InputControlType.LeftStickDown);
+
+        Jump.AddDefaultBinding(InputControlType.Action1);
+
+        MeleeAttack.AddDefaultBinding(InputControlType.Action3);
+        //MagicMeleeAttack.AddDefaultBinding(InputControlType.Action4);
+        MagicProjectileAttack.AddDefaultBinding(InputControlType.Action4);
+        MagicProjectileDiagonalLock.AddDefaultBinding(InputControlType.Command);
+
+        MagicSelection.AddDefaultBinding(InputControlType.LeftBumper);
+        ItemSelection.AddDefaultBinding(InputControlType.RightBumper);
+
+        SelectionWheelUp.AddDefaultBinding(InputControlType.Action4);
+        SelectionWheelDown.AddDefaultBinding(InputControlType.Action1);
+        SelectionWheelLeft.AddDefaultBinding(InputControlType.Action3);
+        SelectionWheelRight.AddDefaultBinding(InputControlType.Action2);
+
+        Dodge.AddDefaultBinding(InputControlType.RightTrigger);
+
+        Interact.AddDefaultBinding(InputControlType.Action2);
+
+        Submit.AddDefaultBinding(InputControlType.Action1);
+        Submit.AddDefaultBinding(InputControlType.Action4);
+
+        Back.AddDefaultBinding(InputControlType.Action2);
+
         Pause.AddDefaultBinding(InputControlType.Command);
     }
 
@@ -143,10 +148,9 @@ public class PlayerActions : PlayerActionSet
         Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
 
         MeleeAttack = CreatePlayerAction("Melee Attack");
-
         MagicMeleeAttack = CreatePlayerAction("Physical Magic");
-
         MagicProjectileAttack = CreatePlayerAction("Magic Projectile");
+        MagicProjectileDiagonalLock = CreatePlayerAction("Diagonal Lock");
 
         MagicSelection = CreatePlayerAction("Switch Magic");
         ItemSelection = CreatePlayerAction("Use Item");
@@ -169,7 +173,7 @@ public class PlayerActions : PlayerActionSet
 		get
 		{
 			// Interact.WasPressed returns true even when input is mostly X-based, so an additional check is needed
-			return Interact.WasPressed && Mathf.Abs(Move.Y) > Mathf.Abs(Move.X);
+			return Interact.WasPressed && (Move.Vector.magnitude < Mathf.Epsilon || Mathf.Abs(Move.Y) > Mathf.Abs(Move.X));
 		}
 	}
 

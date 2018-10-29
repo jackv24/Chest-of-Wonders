@@ -133,13 +133,13 @@ public class DialogueBox : MonoBehaviour
     {
 		if (waitingForInput && !buttonPressed)
 		{
-			if (playerActions.Submit.WasPressed || playerActions.Jump.WasPressed || Input.GetMouseButtonDown(0))
+			if (playerActions.Submit.WasPressed || playerActions.Jump.WasPressed || playerActions.Interact.WasPressed || Input.GetMouseButtonDown(0))
 			{
 				waitingForInput = false;
 				buttonPressed = true;
 			}
 		}
-		else if (playerActions.Submit.WasReleased || playerActions.Jump.WasReleased || Input.GetMouseButtonUp(0))
+		else if (playerActions.Submit.WasReleased || playerActions.Jump.WasReleased || playerActions.Interact.WasReleased || Input.GetMouseButtonUp(0))
 		{
 			buttonPressed = false;
 		}
