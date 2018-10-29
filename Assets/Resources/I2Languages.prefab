@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1446967476202984}
+  m_RootGameObject: {fileID: 1681512290431838}
   m_IsPrefabAsset: 1
---- !u!1 &1446967476202984
+--- !u!1 &1681512290431838
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4021737642892188}
-  - component: {fileID: 114028212884610604}
+  - component: {fileID: 4606197295554456}
+  - component: {fileID: 114773941654068702}
   m_Layer: 0
   m_Name: I2Languages
   m_TagString: Untagged
@@ -27,12 +27,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4021737642892188
+--- !u!4 &4606197295554456
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1446967476202984}
+  m_GameObject: {fileID: 1681512290431838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,12 +40,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114028212884610604
+--- !u!114 &114773941654068702
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1446967476202984}
+  m_GameObject: {fileID: 1681512290431838}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 488051eaa73ba421e8fe4868f2e0f364, type: 3}
@@ -60,11 +60,11 @@ MonoBehaviour:
   Spreadsheet_LocalCSVEncoding: utf-8
   Spreadsheet_SpecializationAsRows: 1
   Assets: []
-  Google_WebServiceURL: https://script.google.com/macros/s/AKfycbx8S-nfASq09t9hEhm18z2kHl8Q2FBnNdSlGDqEUA/exec
+  Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyMTEZ3fUA5MuS1p_4M4C1sRpx3FQWMh1pr_JJrDA/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1537665980823
-  Google_Password: change_this
+  Google_LastUpdatedVersion: 1537665988916
+  Google_Password: WonderfulChest128
   GoogleUpdateFrequency: 1
   GoogleInEditorCheckFrequency: 2
   GoogleUpdateDelay: 5
@@ -449,4 +449,4 @@ MonoBehaviour:
     Languages_Touch: []
   CaseInsensitiveTerms: 0
   OnMissingTranslation: 1
-  mTerm_AppName: UI/GAME_TITLE
+  mTerm_AppName: 
