@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using InControl;
 
 public class ButtonSelectionWheel : MonoBehaviour
@@ -40,6 +37,11 @@ public class ButtonSelectionWheel : MonoBehaviour
     [SerializeField, ArrayForEnum(typeof(ButtonDisplayTypes))]
     private GameObject[] deviceButtonPrompts;
 
+    [SerializeField, ArrayForEnum(typeof(Direction))]
+    private Animator[] sectionAnimators;
+
+    private Direction? selectedDirection = null;
+
     private PlayerActions actions;
 	private PlayerInput playerInput;
 	private PlayerAttack playerAttack;
@@ -48,6 +50,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 	{
 		ArrayForEnumAttribute.EnsureArraySize(ref directionMappings, typeof(Direction));
         ArrayForEnumAttribute.EnsureArraySize(ref deviceButtonPrompts, typeof(ButtonDisplayTypes));
+        ArrayForEnumAttribute.EnsureArraySize(ref sectionAnimators, typeof(Direction));
     }
 
 	private void Awake()
@@ -81,7 +84,7 @@ public class ButtonSelectionWheel : MonoBehaviour
 					SelectDirection(Direction.Left);
 				else if (actions.SelectionWheelUp.WasPressed)
 					SelectDirection(Direction.Up);
-			}
+            }
 
 			if (button != null)
 			{
@@ -142,6 +145,21 @@ public class ButtonSelectionWheel : MonoBehaviour
         playerInput.AcceptingInput = PlayerInput.InputAcceptance.MovementOnly;
 		InteractManager.CanInteract = false;
 
+        int currentDirection = -1;
+        for (int i = 0; i < directionMappings.Length; i++)
+        {
+            if (directionMappings[i] == playerAttack.selectedElement)
+            {
+                currentDirection = i;
+                break;
+            }
+        }
+        for (int i = 0; i < sectionAnimators.Length; i++)
+        {
+            sectionAnimators[i].SetBool("IsCurrent", i == currentDirection);
+            sectionAnimators[i].SetBool("IsSelected", false);
+        }
+
 		openClose.PlayOpen();
 	}
 
@@ -151,19 +169,36 @@ public class ButtonSelectionWheel : MonoBehaviour
 			return;
 		isOpen = false;
 
+        if (selectedDirection != null)
+            ConfirmDirection(selectedDirection.Value);
+
+        selectedDirection = null;
+
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
 		InteractManager.CanInteract = true;
 
-		openClose.PlayClose();
+        openClose.PlayClose();
 	}
 
 	private void SelectDirection(Direction direction)
 	{
-		playerInput.SkipFrame = true;
-		playerAttack.SetSelectedMagic(directionMappings[(int)direction]);
+        if (selectedDirection != null)
+            sectionAnimators[(int)selectedDirection].SetBool("IsSelected", false);
 
-		Close();
-	}
+        selectedDirection = direction;
+
+        if (selectedDirection != null)
+            sectionAnimators[(int)selectedDirection].SetBool("IsSelected", true);
+    }
+
+    private void ConfirmDirection(Direction direction)
+    {
+        if (selectedDirection != direction)
+            return;
+
+        playerInput.SkipFrame = true;
+        playerAttack.SetSelectedMagic(directionMappings[(int)direction]);
+    }
 
 	private void UpdateButtonPrompts()
 	{
