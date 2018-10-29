@@ -84,6 +84,13 @@ public class ButtonSelectionWheel : MonoBehaviour
 					SelectDirection(Direction.Left);
 				else if (actions.SelectionWheelUp.WasPressed)
 					SelectDirection(Direction.Up);
+                else if (actions.SelectionWheelDown.WasReleased
+                    || actions.SelectionWheelRight.WasReleased
+                    || actions.SelectionWheelLeft.WasReleased
+                    || actions.SelectionWheelUp.WasReleased)
+                {
+                    Close();
+                }
             }
 
 			if (button != null)
