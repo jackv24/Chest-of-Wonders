@@ -33,6 +33,9 @@ public class MagicSelectionWheel : ButtonSelectionWheel
 
     protected override bool DirectionConfirmed(Direction direction)
     {
+        if (!IsEnabled(direction))
+            return false;
+
         playerAttack.SetSelectedMagic(directionMappings[(int)direction]);
         return true;
     }
@@ -42,5 +45,26 @@ public class MagicSelectionWheel : ButtonSelectionWheel
         base.Start();
 
         playerAttack = GameManager.instance.player.GetComponent<PlayerAttack>();
+    }
+
+    protected override bool IsEnabled(Direction direction)
+    {
+        switch (directionMappings[(int)direction])
+        {
+            case ElementManager.Element.Fire:
+                return playerAttack.hasFireMagic;
+
+            case ElementManager.Element.Grass:
+                return playerAttack.hasGrassMagic;
+
+            case ElementManager.Element.Ice:
+                return playerAttack.hasIceMagic;
+
+            case ElementManager.Element.Wind:
+                return playerAttack.hasWindMagic;
+
+            default:
+                return false;
+        }
     }
 }

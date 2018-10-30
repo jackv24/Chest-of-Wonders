@@ -135,6 +135,7 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
         {
             sectionAnimators[i].SetBool("IsCurrent", i == currentDirection);
             sectionAnimators[i].SetBool("IsSelected", false);
+            sectionAnimators[i].SetBool("IsEnabled", IsEnabled((Direction)i));
         }
 
 		openClose.PlayOpen();
@@ -220,6 +221,7 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
     }
 
     protected abstract bool DirectionConfirmed(Direction direction);
+    protected abstract bool IsEnabled(Direction direction);
 
     protected virtual int GetSelectedDirection() { return -1; }
     protected virtual void OnOpen() { }

@@ -26,24 +26,16 @@ public class InventoryUI : NotebookPageGridUI
 
 	protected override void UpdateUI()
     {
-		if (!inventory)
-			inventory = GameManager.instance.player.GetComponent<PlayerInventory>();
+        if (!inventory)
+            inventory = PlayerInventory.Instance;
 
 		if (inventory)
         {
-			int itemCount = inventory.items.Count;
+            var items = inventory.GetItems();
+            int itemCount = items.Count;
 
             for(int i = 0; i < slots.Length; i++)
-			{
-				if (i < itemCount)
-				{
-					InventoryItem item = inventory.items[i];
-
-					slots[i].SetItem(item);
-				}
-				else
-					slots[i].SetItem(null);
-			}
+				slots[i].SetItem(i < itemCount ? items[i] : null);
         }
     }
 }

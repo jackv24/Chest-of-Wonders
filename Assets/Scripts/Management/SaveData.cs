@@ -33,7 +33,7 @@ public class SaveData
 	public PlayerAttack.MagicProgression MagicProgression;
 	public ElementManager.Element SelectedElement;
 
-	public List<string> InventoryItems = new List<string>();
+	public List<InventoryItemSaveData> InventoryItems = new List<InventoryItemSaveData>();
 
 	//Magic bank
 	public int MaxSouls;

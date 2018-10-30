@@ -31,14 +31,19 @@ public class InventoryItem : ScriptableObject
 
     [SerializeField]
     private int maxPocketAmount;
-    public int MaxPacketAmount { get { return maxPocketAmount; } }
+    public int MaxPocketAmount { get { return maxPocketAmount; } }
 
     [SerializeField]
     private PlayerStatsEffect statsEffect;
     public PlayerStatsEffect StatsEffect { get { return statsEffect; } }
 
+    public int PocketAmount { get { return PlayerInventory.Instance.GetItemCount(this); } }
+
     public bool Use()
     {
+        if (PocketAmount <= 0)
+            return false;
+
         bool didUse = false;
         PlayerStats playerStats = GameManager.instance.player.GetComponent<PlayerStats>();
 

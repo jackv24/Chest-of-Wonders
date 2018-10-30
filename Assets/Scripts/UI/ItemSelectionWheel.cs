@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using InControl;
 
 public class ItemSelectionWheel : ButtonSelectionWheel
 {
     [SerializeField, ArrayForEnum(typeof(Direction))]
-    private Image[] itemImages;
+    private ItemSelectionWheelItem[] itemDisplays;
 
     // TEMPORARY for testing
     [SerializeField, ArrayForEnum(typeof(Direction))]
@@ -15,7 +14,7 @@ public class ItemSelectionWheel : ButtonSelectionWheel
     {
         base.OnValidate();
 
-        ArrayForEnumAttribute.EnsureArraySize(ref itemImages, typeof(Direction));
+        ArrayForEnumAttribute.EnsureArraySize(ref itemDisplays, typeof(Direction));
         ArrayForEnumAttribute.EnsureArraySize(ref testItems, typeof(Direction));
     }
 
@@ -33,17 +32,16 @@ public class ItemSelectionWheel : ButtonSelectionWheel
     protected override void OnOpen()
     {
         // Arrays should be same size, but just in case
-        int size = Mathf.Min(itemImages.Length, testItems.Length);
+        int size = Mathf.Min(itemDisplays.Length, testItems.Length);
         for (int i = 0; i < size; i++)
         {
             var item = testItems[i];
-            var itemIcon = itemImages[i];
-
-            if (itemIcon)
-            {
-                itemIcon.sprite = item?.InventoryIcon;
-                itemIcon.SetNativeSize();
-            }
+            itemDisplays[i].SetDisplay(item);
         }
+    }
+
+    protected override bool IsEnabled(Direction direction)
+    {
+        return testItems[(int)direction]?.PocketAmount > 0;
     }
 }

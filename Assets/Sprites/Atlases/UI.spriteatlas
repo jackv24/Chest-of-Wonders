@@ -41,9 +41,11 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: e3cc2c32ebb371f48a7850f1537fa768, type: 3}
+    - {fileID: 102900000, guid: 5f603907be8001445832bda18e7c5b6a, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: a89627105e8ed4646b212a53258e41b9, type: 3}
   - {fileID: 21300000, guid: 14e067625958f5b4e9457e5c402b487d, type: 3}
   - {fileID: 21300000, guid: 6dbc2ad292c7651438faf43f20c1d566, type: 3}
   - {fileID: 21300000, guid: 8be7c9d315b6f6f49b562b67b31d9413, type: 3}
@@ -58,6 +60,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 73cb1bb66f242c74fb38587aab96dbc7, type: 3}
   - {fileID: 21300000, guid: 2513b2d6850108f4386b67635d4dc1d0, type: 3}
   - {fileID: 21300000, guid: 938ebf1783cbaec4eb99257415db1f24, type: 3}
+  - {fileID: 21300000, guid: 9dd3f2579174a604991abd430f6d99d9, type: 3}
   - {fileID: 21300000, guid: 1a0b6f67616432d47988fc6d8797f872, type: 3}
   - {fileID: 21300004, guid: f9bfa1f760ae0f64cb6288d060f71ef8, type: 3}
   - {fileID: 21300000, guid: f9bfa1f760ae0f64cb6288d060f71ef8, type: 3}
@@ -128,11 +131,13 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ed22044d7a68001478733e93dc9f15de, type: 3}
   - {fileID: 21300000, guid: 56c88c9d577f90b448aa9aa4695c87cf, type: 3}
   - {fileID: 21300000, guid: f9965ccd181382c41981b02bfabd9a54, type: 3}
+  - {fileID: 21300000, guid: 6cf8cf0e7e9b80e4db38d70b1c40b77b, type: 3}
   - {fileID: 21300000, guid: b39ade9e32e43794998bc86e61125334, type: 3}
   - {fileID: 21300000, guid: 1c13cace372d30745be46a0c88c8f676, type: 3}
   - {fileID: 21300000, guid: 2d7353dfd3050a34ca93c70640985d15, type: 3}
   - {fileID: 21300000, guid: de8bc9ffe2ba2184e94aa7e8b5433b65, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Key_Placeholder
   - star_appear006
   - star_appear007
   - Star_appear000
@@ -147,6 +152,7 @@ SpriteAtlas:
   - notebook example
   - Arrow001
   - Arrow002
+  - Key_Placeholder_Inventory
   - checkmark
   - ps4_buttons_cross
   - ps4_buttons_square
@@ -217,6 +223,7 @@ SpriteAtlas:
   - star_split_2
   - Outline_1px
   - Arrow000
+  - Soda Can_Placeholder
   - Star_appear003
   - star_split_1
   - Star_appear002

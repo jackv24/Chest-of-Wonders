@@ -76,4 +76,12 @@ public static class Extensions
 
 		self.position = pos;
 	}
+
+    public static int ClampMin(this int original, int minValue)
+    {
+        if (original < minValue)
+            original = minValue;
+
+        return minValue;
+    }
 }

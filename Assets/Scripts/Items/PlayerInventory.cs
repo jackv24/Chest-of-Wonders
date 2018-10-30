@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System;
 
 public class PlayerInventory : MonoBehaviour
 {
 	public static PlayerInventory Instance;
 
-    public List<InventoryItem> items = new List<InventoryItem>();
+    private Dictionary<InventoryItem, InventoryItemRuntimeData> items;
 
 	private void Awake()
 	{
@@ -19,33 +21,46 @@ public class PlayerInventory : MonoBehaviour
 		{
 			SaveManager.instance.OnDataLoaded += (SaveData data) =>
 			{
-				items = new List<InventoryItem>(data.InventoryItems.Count);
-
-				foreach (string name in data.InventoryItems)
-					items.Add((InventoryItem)Resources.Load($"Items/{name}", typeof(InventoryItem)));
+                items = data.InventoryItems
+                .GroupBy(d => d.ItemName)
+                .ToDictionary(
+                    group => Resources.Load<InventoryItem>($"Items/{group.Key}"),
+                    group => new InventoryItemRuntimeData(group.First())
+                    );
 			};
 
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
-				List<string> names = new List<string>((items.Count));
-
-				foreach (InventoryItem item in items)
-					names.Add(item.name);
-
-				data.InventoryItems = names;
+                data.InventoryItems = items
+                .Select(kvp => new InventoryItemSaveData(kvp.Key.name, kvp.Value))
+                .ToList();
 			};
 		}
 	}
 
 	public void AddItem(InventoryItem item)
     {
-        items.Add(item);
+        if (!items.ContainsKey(item))
+            items[item] = new InventoryItemRuntimeData();
+
+        var data = items[item];
+        data.Amount++;
+        items[item] = data;
+    }
+
+    public void RemoveItem(InventoryItem item)
+    {
+        if (!items.ContainsKey(item) || items[item].Amount <= 0)
+            return;
+
+        var data = items[item];
+        data.Amount--;
+        items[item] = data;
     }
 
 	public bool CheckItem(InventoryItem item, bool consume = false)
 	{
-		bool contains = items.Contains(item);
-
+		bool contains = items.ContainsKey(item);
 		if(contains && consume)
 		{
 			items.Remove(item);
@@ -53,4 +68,42 @@ public class PlayerInventory : MonoBehaviour
 
 		return contains;
 	}
+
+    public int GetItemCount(InventoryItem item)
+    {
+        if (!items.ContainsKey(item))
+            return -1;
+
+        return items[item].Amount;
+    }
+
+    public List<InventoryItem> GetItems()
+    {
+        return items
+            .Select(kvp => kvp.Key)
+            .ToList();
+    }
+}
+
+[Serializable]
+public struct InventoryItemSaveData
+{
+    public string ItemName;
+    public int Amount;
+
+    public InventoryItemSaveData(string itemName, InventoryItemRuntimeData runtimeData)
+    {
+        ItemName = itemName;
+        Amount = runtimeData.Amount;
+    }
+}
+
+public struct InventoryItemRuntimeData
+{
+    public int Amount;
+
+    public InventoryItemRuntimeData(InventoryItemSaveData saveData)
+    {
+        Amount = saveData.Amount;
+    }
 }

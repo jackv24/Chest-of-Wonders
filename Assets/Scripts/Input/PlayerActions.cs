@@ -115,7 +115,7 @@ public class PlayerActions : PlayerActionSet
         MeleeAttack.AddDefaultBinding(InputControlType.Action3);
         //MagicMeleeAttack.AddDefaultBinding(InputControlType.Action4);
         MagicProjectileAttack.AddDefaultBinding(InputControlType.Action4);
-        MagicProjectileDiagonalLock.AddDefaultBinding(InputControlType.Command);
+        MagicProjectileDiagonalLock.AddDefaultBinding(InputControlType.LeftTrigger);
 
         MagicSelection.AddDefaultBinding(InputControlType.LeftBumper);
         ItemSelection.AddDefaultBinding(InputControlType.RightBumper);
