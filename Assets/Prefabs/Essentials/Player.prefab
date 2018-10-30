@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 114467538663539762}
   - component: {fileID: 60381351151282148}
   m_Layer: 15
-  m_Name: Fire_D_Special_Ground Collider
+  m_Name: Ground Slide Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,23 +235,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1904300614673374
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4980708787995684}
-  - component: {fileID: 114942654493615672}
-  - component: {fileID: 60953170401547782}
-  m_Layer: 15
-  m_Name: Fire_U_Special Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &1905793282419424
 GameObject:
   m_ObjectHideFlags: 1
@@ -287,7 +270,6 @@ Transform:
   - {fileID: 4894850495181718}
   - {fileID: 4807472343386172}
   - {fileID: 4759038117736678}
-  - {fileID: 4980708787995684}
   m_Father: {fileID: 4000013017421258}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -298,7 +280,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.213, y: 21.121, z: 0}
+  m_LocalPosition: {x: 19.09, y: 19.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -450,19 +432,6 @@ Transform:
   m_Father: {fileID: 4000010964507712}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4980708787995684
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904300614673374}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4000010964507712}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4989383454461484
 Transform:
   m_ObjectHideFlags: 1
@@ -555,37 +524,6 @@ PolygonCollider2D:
       - {x: 0.43964577, y: 2.290966}
       - {x: -0.8379321, y: 1.9439983}
       - {x: 1.258652, y: -0.16828537}
---- !u!60 &60953170401547782
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904300614673374}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.104724884, y: 2.5535908}
-      - {x: 0.52025986, y: 2.5450873}
-      - {x: 1.3700638, y: 1.9395499}
-      - {x: 1.4661999, y: 0.8293499}
-      - {x: 1.2469082, y: 0.12422696}
-      - {x: 0.23743057, y: 0.00054225326}
-      - {x: -0.36613274, y: 0.40472028}
 --- !u!61 &61081321016914136
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -991,16 +929,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackColliders:
-    _Buckets: 00000000ffffffffffffffff05000000ffffffff0200000004000000
-    _HashCodes: d7280402ae109b26587f71179984275ec13691709703af0100000000
-    _Next: ffffffffffffffff01000000ffffffff03000000ffffffff00000000
+    _Buckets: ffffffffffffffff0000000005000000ffffffff0200000004000000
+    _HashCodes: a801b562ffffffff587f71179984275ec13691709703af0100000000
+    _Next: ffffffffffffffffffffffffffffffff03000000ffffffff00000000
     _Count: 6
-    _Version: 162
-    _FreeList: -1
-    _FreeCount: 0
+    _Version: 187
+    _FreeList: 1
+    _FreeCount: 1
     _Keys:
-    - Fire_D_Special_Ground
-    - Fire_U_Special
+    - Ground Slide
+    - 
     - Bat_Swing
     - Charged_Bat_Swing
     - Bat_Swing_Air
@@ -1008,7 +946,7 @@ MonoBehaviour:
     - 
     _Values:
     - {fileID: 1062567118676334}
-    - {fileID: 1904300614673374}
+    - {fileID: 0}
     - {fileID: 1425260823743886}
     - {fileID: 1161178783357966}
     - {fileID: 1094960521439024}
@@ -1213,7 +1151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 20
-  element: 1
+  element: 0
   useFacingDirection: 1
 --- !u!114 &114521421153489954
 MonoBehaviour:
@@ -1448,20 +1386,6 @@ MonoBehaviour:
   healthDropForce: 10
   hasDied: 0
   enemyRecord: {fileID: 0}
---- !u!114 &114942654493615672
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904300614673374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07131a97f07d6924ab664066bd299f0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amount: 20
-  element: 1
-  useFacingDirection: 1
 --- !u!114 &114996482148005152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1473,7 +1397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34b741314670544f88c1c4538d462c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
 --- !u!212 &212000014160401936
 SpriteRenderer:
   m_ObjectHideFlags: 1
