@@ -23,6 +23,7 @@ public class CustomSpriteImporter : AssetPostprocessor
 			TextureImporter textureImporter = (TextureImporter)assetImporter;
 			textureImporter.spritePixelsPerUnit = 32;
 			textureImporter.filterMode = FilterMode.Point;
+            textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
 
 			Debug.Log($"Preprocessing Texture: {assetPath}");
 		}
