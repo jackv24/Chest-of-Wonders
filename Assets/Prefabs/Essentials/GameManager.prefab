@@ -165,66 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SaveSlot: 0
-  defaultSaveData:
-    AutoSave:
-      SceneName: 
-      SpawnMarkerName: 
-    NpcSave:
-      SceneName: 
-      SpawnMarkerName: 
-    MaxHealth: 5
-    CurrentHealth: 5
-    HasFireMagic: 0
-    HasGrassMagic: 0
-    HasIceMagic: 0
-    HasWindMagic: 0
-    MagicProgression: 1
-    SelectedElement: 1
-    InventoryItems: []
-    MaxSouls: 3
-    CurrentFireSouls: 0
-    CurrentGrassSouls: 0
-    CurrentIceSouls: 0
-    CurrentWindSouls: 0
-    KilledEnemies:
-      _Buckets: 
-      _HashCodes: 
-      _Next: 
-      _Count: 0
-      _Version: 0
-      _FreeList: 0
-      _FreeCount: 0
-      _Keys: []
-      _Values: []
-    PersistentObjects:
-      _Buckets: ffffffffffffffffffffffff
-      _HashCodes: 000000000000000000000000
-      _Next: 000000000000000000000000
-      _Count: 0
-      _Version: 0
-      _FreeList: -1
-      _FreeCount: 0
-      _Keys:
-      - 
-      - 
-      - 
-      _Values: 000000
-    BlackboardDictionary:
-      _Buckets: ffffffffffffffffffffffff
-      _HashCodes: 000000000000000000000000
-      _Next: 000000000000000000000000
-      _Count: 0
-      _Version: 0
-      _FreeList: -1
-      _FreeCount: 0
-      _Keys:
-      - 
-      - 
-      - 
-      _Values:
-      - 
-      - 
-      - 
+  defaultSaveData: {fileID: 11400000, guid: 37a0147aa7796224abd3fe75a2934aa0, type: 2}
 --- !u!114 &114658657317432228
 MonoBehaviour:
   m_ObjectHideFlags: 1

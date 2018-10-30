@@ -19,8 +19,8 @@ public class SaveManager : MonoBehaviour
 
 	public int SaveSlot = 0;
 
-    [Space()]
-    public SaveData defaultSaveData;
+    [Space, SerializeField]
+    private SaveDataAsset defaultSaveData;
 
     //Assembled save location with slot number and editor extension
     public string SaveLocation { get { return string.Format("{0}/Save{1}.dat", Application.persistentDataPath, SaveSlot); } }
@@ -57,7 +57,7 @@ public class SaveManager : MonoBehaviour
 		}
 		else
 		{
-			data = defaultSaveData ?? new SaveData();
+			data = defaultSaveData ? defaultSaveData.Data : new SaveData();
 		}
 
 		//Subscribed object should process data after it has been loaded

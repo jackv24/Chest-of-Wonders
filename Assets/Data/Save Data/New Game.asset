@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c3c700d74344a46aa1c6b4add4208c, type: 3}
+  m_Name: New Game
+  m_EditorClassIdentifier: 
+  data:
+    AutoSave:
+      SceneName: 
+      SpawnMarkerName: 
+    NpcSave:
+      SceneName: 
+      SpawnMarkerName: 
+    MaxHealth: 5
+    CurrentHealth: 5
+    HasFireMagic: 0
+    HasGrassMagic: 0
+    HasIceMagic: 0
+    HasWindMagic: 0
+    MagicProgression: 0
+    SelectedElement: 0
+    InventoryItems: []
+    MaxSouls: 5
+    CurrentFireSouls: 0
+    CurrentGrassSouls: 0
+    CurrentIceSouls: 0
+    CurrentWindSouls: 0
+    KilledEnemies:
+      _Buckets: ffffffffffffffffffffffff
+      _HashCodes: 000000000000000000000000
+      _Next: 000000000000000000000000
+      _Count: 0
+      _Version: 0
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - 
+      - 
+      - 
+      _Values:
+      - killCount: 0
+        hasReceivedAward: 0
+      - killCount: 0
+        hasReceivedAward: 0
+      - killCount: 0
+        hasReceivedAward: 0
+    PersistentObjects:
+      _Buckets: ffffffffffffffffffffffff
+      _HashCodes: 000000000000000000000000
+      _Next: 000000000000000000000000
+      _Count: 0
+      _Version: 0
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - 
+      - 
+      - 
+      _Values: 000000
+    BlackboardDictionary:
+      _Buckets: ffffffffffffffffffffffff
+      _HashCodes: 000000000000000000000000
+      _Next: 000000000000000000000000
+      _Count: 0
+      _Version: 0
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - 
+      - 
+      - 
+      _Values:
+      - 
+      - 
+      - 

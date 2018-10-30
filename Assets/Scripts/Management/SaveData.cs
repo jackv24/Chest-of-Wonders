@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public class SaveData
@@ -34,7 +33,7 @@ public class SaveData
 	public PlayerAttack.MagicProgression MagicProgression;
 	public ElementManager.Element SelectedElement;
 
-	public List<string> InventoryItems;
+	public List<string> InventoryItems = new List<string>();
 
 	//Magic bank
 	public int MaxSouls;
@@ -45,8 +44,12 @@ public class SaveData
 	public int CurrentWindSouls;
 
 	[System.Serializable]
-	public class EnemyKillDictionary : SerializableDictionary<string, EnemyJournalManager.EnemyKillRecord> { public EnemyKillDictionary(int capacity) : base(capacity) { } }
-	public EnemyKillDictionary KilledEnemies;
+	public class EnemyKillDictionary : SerializableDictionary<string, EnemyJournalManager.EnemyKillRecord>
+    {
+        public EnemyKillDictionary() : base() { }
+        public EnemyKillDictionary(int capacity) : base(capacity) { }
+    }
+	public EnemyKillDictionary KilledEnemies = new EnemyKillDictionary();
 
 	[System.Serializable]
 	public class PersistentObjectDictionary : SerializableDictionary<string, bool> { }
