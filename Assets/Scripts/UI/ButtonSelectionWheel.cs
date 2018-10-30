@@ -86,26 +86,12 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
                     ConfirmDirection(Direction.Up);
             }
 
-			switch (Actions.LastInputType)
+			if (HoldButton.WasPressed)
 			{
-				// When using a controller only keep open while button is pressed
-                case BindingSourceType.DeviceBindingSource:
-					if (HoldButton.WasPressed)
-						Open();
-					else if (HoldButton.WasReleased)
-						Close();
-                    break;
-
-				// When using a keyboard button is a toggle
-				case BindingSourceType.KeyBindingSource:
-					if (HoldButton.WasPressed)
-					{
-						if (!isOpen)
-                            Open();
-						else
-                            Close();
-                    }
-                    break;
+				if (!isOpen)
+                    Open();
+				else
+                    Close();
             }
 		}
 
