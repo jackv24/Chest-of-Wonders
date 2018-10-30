@@ -186,10 +186,12 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
             return;
         selectedDirection = null;
 
-        playerInput.SkipFrame = true;
-        DirectionConfirmed(direction);
+        if (DirectionConfirmed(direction))
+        {
+            playerInput.SkipFrame = true;
 
-        Close();
+            Close();
+        }
     }
 
 	private void UpdateButtonPrompts()
@@ -231,7 +233,7 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
             Debug.LogError($"No button prompt assigned for \"{buttonDisplay.Value}\"", this);
     }
 
-    protected abstract void DirectionConfirmed(Direction direction);
+    protected abstract bool DirectionConfirmed(Direction direction);
 
     protected virtual int GetSelectedDirection() { return -1; }
     protected virtual void OnOpen() { }

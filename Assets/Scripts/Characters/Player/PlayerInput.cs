@@ -47,7 +47,17 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-		if (AcceptingInput != InputAcceptance.All)
+#if DEBUG
+        if (characterStats)
+        {
+            if (Input.GetKeyDown(KeyCode.Equals))
+                characterStats.AddHealth(1);
+            if (Input.GetKeyDown(KeyCode.Minus))
+                characterStats.RemoveHealth(1);
+        }
+#endif
+
+        if (AcceptingInput != InputAcceptance.All)
 		{
 			if (playerActions.MeleeAttack.WasReleased)
 			{
@@ -66,16 +76,6 @@ public class PlayerInput : MonoBehaviour
             inputDirection.x = 0;
         if (Mathf.Abs(inputDirection.y) <= moveDeadZone.y)
             inputDirection.y = 0;
-
-#if DEBUG
-		if (characterStats)
-        {
-            if(Input.GetKeyDown(KeyCode.H))
-            {
-                characterStats.currentHealth = characterStats.maxHealth;
-            }
-        }
-#endif
 
 		//Move the player using the CharacterMove script
 		if (GameManager.instance && GameManager.instance.CanDoActions)

@@ -63,7 +63,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyMTEZ3fUA5MuS1p_4M4C1sRpx3FQWMh1pr_JJrDA/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1537665988916
+  Google_LastUpdatedVersion: 1540867296261
   Google_Password: WonderfulChest128
   GoogleUpdateFrequency: 1
   GoogleInEditorCheckFrequency: 2
@@ -118,12 +118,28 @@ MonoBehaviour:
     - Boss Key
     Flags: 0000
     Languages_Touch: []
-  - Term: Items/BOSSKEY_DESCRIPTION
+  - Term: Items/BOSSKEY_DESC
     TermType: 0
     Description: 
     Languages:
     - A key that unlocks the boss door.
     - A key that unlocks the boss door.
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Items/SODA_CAN_NAME
+    TermType: 0
+    Description: 
+    Languages:
+    - Soda Can
+    - 
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Items/SODA_CAN_DESC
+    TermType: 0
+    Description: 
+    Languages:
+    - A tasty beverage from the surface. The label is too faded to read.
+    - 
     Flags: 0000
     Languages_Touch: []
   - Term: UI/GAME_TITLE

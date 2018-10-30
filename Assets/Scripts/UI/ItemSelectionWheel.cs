@@ -24,10 +24,10 @@ public class ItemSelectionWheel : ButtonSelectionWheel
         get { return Actions.ItemSelection; }
     }
 
-    protected override void DirectionConfirmed(Direction direction)
+    protected override bool DirectionConfirmed(Direction direction)
     {
         var item = testItems[(int)direction];
-        Debug.Log($"Using item: {(item ? item.name : "None")}");
+        return item?.Use() ?? false;
     }
 
     protected override void OnOpen()
@@ -41,7 +41,7 @@ public class ItemSelectionWheel : ButtonSelectionWheel
 
             if (itemIcon)
             {
-                itemIcon.sprite = item?.inventoryIcon;
+                itemIcon.sprite = item?.InventoryIcon;
                 itemIcon.SetNativeSize();
             }
         }

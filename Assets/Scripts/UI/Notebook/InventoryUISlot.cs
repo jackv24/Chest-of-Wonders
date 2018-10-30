@@ -23,7 +23,7 @@ public class InventoryUISlot : UIGridSlot
 			//If there is an item, show it and make this slot selectable, else don't
 			if (item)
 			{
-				itemIcon.sprite = item.inventoryIcon;
+				itemIcon.sprite = item.InventoryIcon;
 				itemIcon.SetNativeSize();
 
 				itemIcon.gameObject.SetActive(true);
@@ -51,6 +51,6 @@ public class InventoryUISlot : UIGridSlot
 	public override void OnSelect(BaseEventData eventData)
 	{
 		if(item)
-			ItemTooltip.Instance?.Show(item.displayName, item.description, transform.position);
+			ItemTooltip.Instance?.Show(item.DisplayName, item.Description, transform.position);
 	}
 }

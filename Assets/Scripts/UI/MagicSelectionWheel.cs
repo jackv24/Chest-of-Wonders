@@ -31,9 +31,10 @@ public class MagicSelectionWheel : ButtonSelectionWheel
         return -1;
     }
 
-    protected override void DirectionConfirmed(Direction direction)
+    protected override bool DirectionConfirmed(Direction direction)
     {
         playerAttack.SetSelectedMagic(directionMappings[(int)direction]);
+        return true;
     }
 
     protected override void Start()
