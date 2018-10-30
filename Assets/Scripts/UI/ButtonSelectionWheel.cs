@@ -37,6 +37,8 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
 
     private Direction? selectedDirection = null;
 
+    private static ButtonSelectionWheel openWheel;
+
     protected PlayerActions Actions;
 	private PlayerInput playerInput;
 
@@ -123,6 +125,10 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
 			return;
 		isOpen = true;
 
+        if (openWheel)
+            openWheel.Close();
+        openWheel = this;
+
         OnOpen();
         UpdateButtonPrompts();
 
@@ -146,6 +152,8 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
 		if (!isOpen)
 			return;
 		isOpen = false;
+
+        openWheel = null;
 
         if (selectedDirection != null)
             ConfirmDirection(selectedDirection.Value);
