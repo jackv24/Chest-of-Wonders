@@ -88,7 +88,7 @@ public class CharacterAnimator : MonoBehaviour
 			animator.transform.localScale = scale;
 
 			if (doTurnAnimation)
-				animator.Play("Turn");
+				animator.SetTrigger("doTurn");
 		}
 	}
 

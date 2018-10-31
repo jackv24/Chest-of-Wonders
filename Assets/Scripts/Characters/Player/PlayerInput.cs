@@ -55,6 +55,12 @@ public class PlayerInput : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Minus))
                 characterStats.RemoveHealth(1);
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+            Time.timeScale *= 0.5f;
+        if (Input.GetKeyDown(KeyCode.Y))
+            Time.timeScale = 1.0f;
+
 #endif
 
         if (AcceptingInput != InputAcceptance.All)
