@@ -44,7 +44,9 @@ SpriteAtlas:
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 484e6e90887eb5d48ae20f888804f3d6, type: 3}
   - {fileID: 21300000, guid: 3549ceb0454a7994c99bf8a5c4a027d6, type: 3}
+  - {fileID: 21300000, guid: 426b60e0dc5ad8840a7232c25a348eb0, type: 3}
   - {fileID: 21300000, guid: d45ee24107841724ba80592f42b82662, type: 3}
   - {fileID: 21300000, guid: 0dc10541bb9631244aa3838505558067, type: 3}
   - {fileID: 21300000, guid: b11cdc5178390b14eb7de7b89ee6aaa0, type: 3}
@@ -54,6 +56,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2ac26d222e9b4a6448736baa0756a1f1, type: 3}
   - {fileID: 21300000, guid: 49ea60327fa2de146b26673d88212abf, type: 3}
   - {fileID: 21300000, guid: 0fe4eb52067b64e42bd7493158dc6231, type: 3}
+  - {fileID: 21300000, guid: 7299b66298331c448ad62531f801a0f1, type: 3}
   - {fileID: 21300000, guid: bdef258284fc5c947943e16261229aaf, type: 3}
   - {fileID: 21300000, guid: 98d455a2f2862214f881f50490a79efd, type: 3}
   - {fileID: 21300000, guid: 742f961330d53324cbff37a77527e512, type: 3}
@@ -63,7 +66,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 69f58a542c69e304db8878a0b62f8e11, type: 3}
   - {fileID: 21300000, guid: 12f1b8c4400fcdd428bca46cbaa70bdc, type: 3}
   - {fileID: 21300000, guid: d5b2d0f45ca4efc42beee68a57627833, type: 3}
+  - {fileID: 21300000, guid: 145411f4055683c4e930232237dec8f5, type: 3}
   - {fileID: 21300000, guid: 5203305565738e1408086829d0a02be8, type: 3}
+  - {fileID: 21300000, guid: 854f02554cb02334283336ffa9907a48, type: 3}
   - {fileID: 21300000, guid: fc892865862b86f4899ea0e5a88b5e5b, type: 3}
   - {fileID: 21300140, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
   - {fileID: 21300016, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
@@ -165,6 +170,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6b3a1c95658386c4680365fd80c19273, type: 3}
   - {fileID: 21300000, guid: fa3e91c5319c04f4890f2af8217be1e6, type: 3}
   - {fileID: 21300000, guid: 7783dcd57ff5dcb4daf00b30a0dc5060, type: 3}
+  - {fileID: 21300000, guid: 16803456bb8536244b83e196b548f0c1, type: 3}
   - {fileID: 21300000, guid: ace9ea568e9362f4398594b0c9cca7f5, type: 3}
   - {fileID: 21300000, guid: 3d5810176ea4c0441b9f6a24c4101005, type: 3}
   - {fileID: 21300000, guid: 4df49157fb747634588b085f591e38cf, type: 3}
@@ -225,10 +231,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 433ec3e8956936f479abae1efce2296b, type: 3}
   - {fileID: 21300000, guid: 48a3b42991233e64ead4606994a0a97f, type: 3}
   - {fileID: 21300000, guid: 71ec6f29abc78a8439e2b9e43b7f0afc, type: 3}
+  - {fileID: 21300000, guid: bc069f29d9413ea4b9bcecc004a9d834, type: 3}
   - {fileID: 21300000, guid: ae9e43a934f6f0e44901a6baecd012a1, type: 3}
   - {fileID: 21300000, guid: 8c0497a924295a34f9f7497874c77262, type: 3}
   - {fileID: 21300000, guid: 526a8b1a3abc488499384a23fc70b257, type: 3}
   - {fileID: 21300000, guid: 54e5773a2c834c542b29813f833ea974, type: 3}
+  - {fileID: 21300000, guid: a500cb3a384f3544ebaef09c0b771a5b, type: 3}
   - {fileID: 21300000, guid: e0e8df7afb2e1fd4ab130a42de5bd502, type: 3}
   - {fileID: 21300000, guid: 5b5ddfaae31bafa4e9b4417ac4193d62, type: 3}
   - {fileID: 21300000, guid: 3adc1dba4c2a8f94a93dceb70f24e24f, type: 3}
@@ -237,6 +245,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ac131f2b4404bd3499dde77166dd6bea, type: 3}
   - {fileID: 21300000, guid: 92e2278bb064f4d429f0210ce6ecacc5, type: 3}
   - {fileID: 21300000, guid: 751e593c86bb37a4ea7e78f5aef8ba69, type: 3}
+  - {fileID: 21300000, guid: 473a0d4c65b5ec34ba3c33e71e405042, type: 3}
   - {fileID: 21300000, guid: def3c9ac4c3574649b426290cbd10d70, type: 3}
   - {fileID: 21300000, guid: 0bec8cbc0c3f8a74ab44d2f24dfb6d6c, type: 3}
   - {fileID: 21300000, guid: 6d91296d7f62a0c498a172213cb1c24e, type: 3}
@@ -246,7 +255,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2f13226fc5ea5694c9d76705e1a4634c, type: 3}
   - {fileID: 21300000, guid: 662b68bf4e77cbc4db3823f3a59e3d55, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Wall_bump_ceiling_01
   - TODO_Ballet_dodge20004
+  - Wall_bump_ground_01
   - Todo_Turn
   - 005
   - TODO_Ballet_dodge20002
@@ -256,6 +267,7 @@ SpriteAtlas:
   - TODO_Ballet_dodge20005
   - Air_bat_swing_001
   - Todo_FIRE_Up_RiseKick_02
+  - Wall_bump_ground_02
   - Todo_FIRE_Up_RiseKick_09
   - 005
   - 002
@@ -265,7 +277,9 @@ SpriteAtlas:
   - TODO_Ballet_dodge20002
   - 004
   - Todo_sit_03
+  - Wall_bump_ceiling_03
   - 001
+  - Wall_bump_air_03
   - Todo_FIRE_Up_RiseKick_08
   - player_bat_power_05
   - player_run_05
@@ -367,6 +381,7 @@ SpriteAtlas:
   - D_special_slide_05
   - 007
   - 003
+  - Wall_bump_air_02
   - 002
   - Todo_FIRE_Up_RiseKick_03
   - TODO_Ballet_dodge20003
@@ -427,10 +442,12 @@ SpriteAtlas:
   - D_special_slide_04
   - 006
   - 001
+  - Wall_bump_ground_03
   - 006
   - D_special_slide_02
   - Todo_FIRE_Up_RiseKick_04
   - 005
+  - Wall_bump_air_01
   - Air_bat_swing_006
   - TODO_Ballet_dodge20001
   - Todo_sit_02
@@ -439,6 +456,7 @@ SpriteAtlas:
   - 001
   - TODO_Ballet_dodge20004
   - TODO_Ballet_dodge20005
+  - Wall_bump_ceiling_02
   - 004
   - Todo_FIRE_Up_RiseKick_07
   - Air_bat_swing_002
