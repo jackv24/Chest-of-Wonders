@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerWallReact : MonoBehaviour
 {
+    [SerializeField]
+    private float horizontalNormalThreshold = 0.9f;
+
     private int wallBonkHash;
 
     private bool alreadyBonked;
@@ -39,7 +42,8 @@ public class PlayerWallReact : MonoBehaviour
             RaycastHit2D[] horizontalRayHits = characterMove.HorizontalRaycastHits;
             foreach (var rayHit in horizontalRayHits)
             {
-                if (rayHit.collider != null)
+                // If ray hit wall (normal is close enough to horizontal)
+                if (rayHit.collider != null && Mathf.Abs(Vector2.Dot(Vector2.right, rayHit.normal)) >= horizontalNormalThreshold)
                 {
                     didHit = true;
                     break;
