@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 114349844512411816}
   - component: {fileID: 114727504904657250}
   - component: {fileID: 114263609722694670}
+  - component: {fileID: 114318889258844994}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -902,8 +903,6 @@ MonoBehaviour:
   doTurnAnimation: 1
   passHorizontal: 1
   handleStun: 1
-  turnBlackListAnims:
-  - Air Bat Swing
   deathAnimation: {fileID: 0}
 --- !u!114 &114061908791259452
 MonoBehaviour:
@@ -1125,6 +1124,17 @@ MonoBehaviour:
   graphic: {fileID: 212000014160401936}
   flashAmount: 0.5
   flashInterval: 0.1
+--- !u!114 &114318889258844994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012949439504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc50f53bcc41be4a967a9e9b9d64c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114349844512411816
 MonoBehaviour:
   m_ObjectHideFlags: 1

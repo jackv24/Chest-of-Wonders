@@ -25,6 +25,9 @@ public class CharacterMove : MonoBehaviour
 
     public bool HittingWall { get; private set; } = false;
 
+    public RaycastHit2D[] VerticalRaycastHits { get; private set; }
+    public RaycastHit2D[] HorizontalRaycastHits { get; private set; }
+
     [Header("Movement")]
     [Tooltip("The horizontal move speed (m/s).")]
     public float moveSpeed = 2f;
@@ -161,9 +164,15 @@ public class CharacterMove : MonoBehaviour
 
     private void Update()
     {
-        //Only run if script should control movement
+        // Only run if script should control movement
         if (MovementState == CharacterMovementStates.Disabled)
             return;
+
+        // Struct arrays should be re-used, only reallocated if size needs to changs
+        if (VerticalRaycastHits == null || VerticalRaycastHits.Length != verticalRays)
+            VerticalRaycastHits = new RaycastHit2D[verticalRays];
+        if (HorizontalRaycastHits == null || HorizontalRaycastHits.Length != horizontalRays)
+            HorizontalRaycastHits = new RaycastHit2D[horizontalRays];
 
 		//Store collider rect for easy typing
 		box = Rect.MinMaxRect(
@@ -280,7 +289,7 @@ public class CharacterMove : MonoBehaviour
                 {
                     if (shouldDetectPlatforms && Time.time > nonDetectPlatformsTime)
                     {
-                        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, slopeDistance, groundLayer | platformLayer);
+                        RaycastHit2D hit = VerticalRaycastHits[i] = Physics2D.Raycast(origin, Vector2.down, slopeDistance, groundLayer | platformLayer);
 
                         if(hit.collider)
                         {
@@ -393,7 +402,7 @@ public class CharacterMove : MonoBehaviour
                     Vector2 origin = Vector2.Lerp(startPoint, endPoint, i / (float)(horizontalRays - 1));
 
                     //Cast ray
-                    RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, groundLayer);
+                    RaycastHit2D hit = HorizontalRaycastHits[i] = Physics2D.Raycast(origin, direction, distance, groundLayer);
 
                     Debug.DrawLine(origin, new Vector2(origin.x + distance * direction.x, origin.y));
 
