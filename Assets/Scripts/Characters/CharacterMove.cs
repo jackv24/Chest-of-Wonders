@@ -14,8 +14,6 @@ public class CharacterMove : MonoBehaviour
     public delegate void DirectionChangeEvent(float newFloat);
     public event DirectionChangeEvent OnChangedDirection;
 
-    private float oldDirection;
-
     public delegate void JumpEvent();
     public event JumpEvent OnJump;
 
@@ -23,6 +21,7 @@ public class CharacterMove : MonoBehaviour
 	public event GroundedEvent OnGrounded;
 
 	public float FacingDirection { get; private set; } = 1;
+    public bool CanChangeDirection { get; set; } = true;
 
     public bool HittingWall { get; private set; } = false;
 
@@ -451,9 +450,6 @@ public class CharacterMove : MonoBehaviour
 
     public void Move(float direction)
     {
-        //Cache old direction for comparison
-        oldDirection = InputDirection;
-
         //Update input direction
         if ((GameManager.instance.CanDoActions || ignoreCanMove) && (canMove || ignoreCanMove))
             InputDirection = direction < 0 ? Mathf.Floor(direction) : Mathf.Ceil(direction);
@@ -461,7 +457,7 @@ public class CharacterMove : MonoBehaviour
             InputDirection = 0;
 
 		//If direction has changed (and does not equal 0), then call changed direction event
-		if (InputDirection != oldDirection && InputDirection != 0 && OnChangedDirection != null)
+		if (CanChangeDirection && InputDirection != FacingDirection && InputDirection != 0 && OnChangedDirection != null)
 		{
 			FacingDirection = InputDirection;
 

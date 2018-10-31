@@ -89,4 +89,14 @@ public static class Extensions
     {
         return new Vector2(x ?? original.x, y ?? original.y);
     }
+
+    public static Vector3 Where(this Vector3 original, float? x = null, float? y = null, float? z = null)
+    {
+        return new Vector3(x ?? original.x, y ?? original.y, z ?? original.z);
+    }
+
+    public static Color Where(this Color original, float? r = null, float? g = null, float? b = null, float? a = null)
+    {
+        return new Color(r ?? original.r, g ?? original.g, b ?? original.b, a ?? original.a);
+    }
 }

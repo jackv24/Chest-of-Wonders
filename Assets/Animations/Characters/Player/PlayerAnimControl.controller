@@ -222,6 +222,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderID: Ground Slide
   setActive: 0
+--- !u!114 &114383945749498882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d110e07cf8e86b84b86d167b66ea287b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getLevel: 1
+  enableOnExit: 1
 --- !u!114 &114453722116484702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,19 +371,6 @@ MonoBehaviour:
   endTime: 1
   offset: {x: 0, y: 0.45}
   size: {x: 0.35, y: 0.9}
---- !u!114 &114964183322825694
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cdbce9653a9100448455c0afaba160d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  getLevel: 1
-  endTime: 0.6666667
 --- !u!206 &206000010757741008
 BlendTree:
   m_ObjectHideFlags: 1
@@ -2821,7 +2821,7 @@ AnimatorState:
   - {fileID: 1101724729997709478}
   m_StateMachineBehaviours:
   - {fileID: 114201818679263556}
-  - {fileID: 114964183322825694}
+  - {fileID: 114383945749498882}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
