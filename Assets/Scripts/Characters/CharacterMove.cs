@@ -24,8 +24,7 @@ public class CharacterMove : MonoBehaviour
 
 	public float FacingDirection { get; private set; } = 1;
 
-	public bool HittingWall { get { return hittingWall; } }
-	private bool hittingWall = false;
+    public bool HittingWall { get; private set; } = false;
 
     [Header("Movement")]
     [Tooltip("The horizontal move speed (m/s).")]
@@ -36,9 +35,7 @@ public class CharacterMove : MonoBehaviour
     [Tooltip("The rate at which the character accelerates to reach the move speed (m/s^2).")]
     public float acceleration = 1f;
 
-	//Use property since this does not need to be serialised, but not auto property so we can edit value directly
-	public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
-	private Vector2 velocity;
+    public Vector2 Velocity { get; set; }
 
     [Space()]
     [Tooltip("The maximum angle at which a slope is considered walkable upwards.")]
@@ -179,7 +176,7 @@ public class CharacterMove : MonoBehaviour
 
         //Apply gravity, capping fall speed
 		if(MovementState != CharacterMovementStates.SetVelocity)
-			velocity.y = Mathf.Max(Velocity.y - gravity * Time.deltaTime, -maxFallSpeed);
+			Velocity = Velocity.Where(y: Mathf.Max(Velocity.y - gravity * Time.deltaTime, -maxFallSpeed));
 
         //Jumping (only if we're in a state that can jump)
 		if(MovementState != CharacterMovementStates.SetVelocity)
@@ -228,7 +225,7 @@ public class CharacterMove : MonoBehaviour
             if (heldJump && jumpHeldTime < jumpTime)
             {
                 //Set velocity, slowly decreasing to zero over time
-                velocity.y = Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime);
+                Velocity = Velocity.Where(y: Mathf.Lerp(jumpForce, 0, jumpHeldTime / jumpTime));
 
                 //Count time jump is held
                 jumpHeldTime += Time.deltaTime;
@@ -347,7 +344,7 @@ public class CharacterMove : MonoBehaviour
                         //If moving upwards, stop jumping
                         heldJump = false;
 
-                    velocity.y = 0;
+                    Velocity = Velocity.Where(y: 0);
 
                     //Move player flush to ground (using shortest ray)
                     Vector2 delta = Vector2.down * (hits[index].distance - box.height / 2);
@@ -368,9 +365,9 @@ public class CharacterMove : MonoBehaviour
 		{
 			//Horizontal movement
 			if ((canMove || ignoreCanMove))
-				velocity.x = Mathf.Lerp(Velocity.x, moveSpeed * slopeSpeedMultiplier * InputDirection, acceleration * Time.deltaTime);
+                Velocity = Velocity.Where(x: Mathf.Lerp(Velocity.x, moveSpeed * slopeSpeedMultiplier * InputDirection, acceleration * Time.deltaTime));
 			else
-				velocity.x = Mathf.Lerp(Velocity.x, 0, acceleration * Time.deltaTime);
+                Velocity = Velocity.Where(x: Mathf.Lerp(Velocity.x, 0, acceleration * Time.deltaTime));
 		}
 
         //Lateral collision detection
@@ -414,9 +411,9 @@ public class CharacterMove : MonoBehaviour
                             transform.Translate(direction * (hit.distance - box.width / 2));
 
                             //Cease any lateral movement
-                            velocity.x = 0;
+                            Velocity = Velocity.Where(x: 0);
 
-							hitWall = true;
+                            hitWall = true;
                         }
 
                         //If one ray has connected, no more rays should be cast
@@ -424,7 +421,7 @@ public class CharacterMove : MonoBehaviour
                     }
                 }
 
-				hittingWall = hitWall;
+				HittingWall = hitWall;
             }
         }
 
@@ -443,10 +440,10 @@ public class CharacterMove : MonoBehaviour
 		}
 
         if (IsGrounded || Mathf.Abs(Velocity.y) < 0.01f)
-            velocity.y = 0;
+            Velocity = Velocity.Where(y: 0);
 
         if (Mathf.Abs(Velocity.x) < 0.01f)
-            velocity.x = 0;
+            Velocity = Velocity.Where(x: 0);
 
         //Move character by velocity
         transform.Translate(Velocity * Time.deltaTime);

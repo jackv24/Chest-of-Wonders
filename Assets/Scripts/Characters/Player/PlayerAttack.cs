@@ -178,7 +178,7 @@ public class PlayerAttack : MonoBehaviour
 				batChargeRoutine = StartCoroutine(BatCharge(chargeHoldTime));
 
 				animator?.SetTrigger("batSwing");
-			}
+            }
 			else if(!buttonDown && isChargingBat) //Button released
 			{
                 isChargingBat = false;
@@ -188,7 +188,7 @@ public class PlayerAttack : MonoBehaviour
 					animator?.SetTrigger("batSwingCharged");
 				else
 					animator?.SetTrigger("batSwing");
-			}
+            }
 		}
 
 		SetHoldingBat(buttonDown);
@@ -466,6 +466,10 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator BatCharge(float delay)
     {
+        // Can only charge bat after landing
+        while (!characterMove.IsGrounded)
+            yield return null;
+
         isChargingBat = true;
 
         //Wait for max bat hold

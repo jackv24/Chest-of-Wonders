@@ -1,25 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    [Tooltip("The Animator to use for animation (usually attached the a child graphic).")]
-    public Animator animator;
+    [SerializeField, Tooltip("The Animator to use for animation (usually attached the a child graphic).")]
+    private Animator animator;
+    public Animator Animator { get { return animator; } }
 
-    [Space()]
-    [Tooltip("Does the character look towards the right by default? (used to flip the character to face the right move direction)")]
-    public bool defaultRight = true;
+    [Space]
+    [SerializeField, Tooltip("Does the character look towards the right by default? (used to flip the character to face the right move direction)")]
+    private bool defaultRight = true;
 
 	//Characters are all facing right by default
     private float oldFaceDirection = 1;
 
-	public bool handleFlip = true;
-	public bool doTurnAnimation;
-	public bool passHorizontal;
-	public bool handleStun = true;
+    [SerializeField]
+    private bool handleFlip = true;
 
-    [Space()]
-    public AnimationClip deathAnimation;
+    [SerializeField]
+    private bool doTurnAnimation;
+
+    [SerializeField]
+    private bool passHorizontal;
+
+    [SerializeField]
+    private bool handleStun = true;
+
+    [Space, SerializeField]
+    private AnimationClip deathAnimation;
 
     private CharacterMove characterMove;
 	private CharacterStats characterStats;
@@ -87,8 +96,8 @@ public class CharacterAnimator : MonoBehaviour
 			//Set new scale as current scale
 			animator.transform.localScale = scale;
 
-			if (doTurnAnimation)
-				animator.SetTrigger("doTurn");
+            if (doTurnAnimation)
+                animator.Play("Turn");
 		}
 	}
 

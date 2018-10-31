@@ -124,7 +124,7 @@ public class PlayerDodge : MonoBehaviour
 		//Play animation and set length to wait
 		characterAnimator?.Play(dodgeAnim);
 		yield return null;
-		float duration = characterAnimator.animator.GetCurrentAnimatorStateInfo(0).length;
+		float duration = characterAnimator.Animator.GetCurrentAnimatorStateInfo(0).length;
 
 		//Start dodge
 		characterStats.damageImmunity = true;
