@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerWallReact : MonoBehaviour
 {
@@ -11,10 +12,11 @@ public class PlayerWallReact : MonoBehaviour
     [SerializeField]
     private float horizontalConsecutiveBonkDistance = 0.5f;
 
-    private int wallBonkHash;
-
     private bool alreadyHitWall;
     private float lastXBonkPosition;
+
+    private int wallBonkHash;
+    private int roofBonkHash;
 
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
@@ -23,7 +25,10 @@ public class PlayerWallReact : MonoBehaviour
     private void Awake()
     {
         characterMove = GetComponent<CharacterMove>();
+        Debug.Assert(characterMove);
+
         characterAnimator = GetComponent<CharacterAnimator>();
+        Debug.Assert(characterAnimator);
     }
 
     private void Start()
@@ -31,6 +36,7 @@ public class PlayerWallReact : MonoBehaviour
         animator = characterAnimator.Animator;
 
         wallBonkHash = Animator.StringToHash("wallBonk");
+        roofBonkHash = Animator.StringToHash("roofBonk");
 
         characterMove.OnChangedDirection += (dir) => alreadyHitWall = false;
     }
@@ -41,6 +47,9 @@ public class PlayerWallReact : MonoBehaviour
 
         if (characterMove.InputDirection != 0)
             DetectWallBonk();
+
+        if (!characterMove.IsGrounded)
+            DetectRoofBonk();
     }
 
     private void DetectWallBonk()
@@ -49,9 +58,9 @@ public class PlayerWallReact : MonoBehaviour
         if (alreadyHitWall && Mathf.Abs(transform.position.x - lastXBonkPosition) < horizontalConsecutiveBonkDistance)
             return;
 
-        RaycastHit2D[] horizontalRayHits = characterMove.HorizontalRaycastHits;
+        List<RaycastHit2D> horizontalRayHits = characterMove.HorizontalRaycastHits;
         int hitCount = 0;
-        int rayCount = horizontalRayHits.Length;
+        int rayCount = horizontalRayHits.Count;
         foreach (var rayHit in horizontalRayHits)
         {
             // If ray hit wall (normal is close enough to horizontal)
@@ -71,5 +80,22 @@ public class PlayerWallReact : MonoBehaviour
             if (hitCount >= Mathf.RoundToInt(rayCount * horizontalRayHitPercent))
                 animator.SetTrigger(wallBonkHash);
         }
+    }
+
+    private void DetectRoofBonk()
+    {
+        List<RaycastHit2D> verticalRayHits = characterMove.VerticalRaycastHits;
+        bool didHit = false;
+        foreach (var rayHit in verticalRayHits)
+        {
+            if (rayHit.collider != null && rayHit.normal.y < 0)
+            {
+                didHit = true;
+                break;
+            }
+        }
+
+        if (didHit)
+            animator.SetTrigger(roofBonkHash);
     }
 }

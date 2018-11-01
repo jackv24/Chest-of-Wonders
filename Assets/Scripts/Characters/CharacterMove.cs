@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum CharacterMovementStates
 {
@@ -25,8 +26,8 @@ public class CharacterMove : MonoBehaviour
 
     public bool HittingWall { get; private set; } = false;
 
-    public RaycastHit2D[] VerticalRaycastHits { get; private set; }
-    public RaycastHit2D[] HorizontalRaycastHits { get; private set; }
+    public List<RaycastHit2D> VerticalRaycastHits { get; private set; }
+    public List<RaycastHit2D> HorizontalRaycastHits { get; private set; }
 
     [Header("Movement")]
     [Tooltip("The horizontal move speed (m/s).")]
@@ -162,17 +163,37 @@ public class CharacterMove : MonoBehaviour
 		}
 	}
 
+    private void EnsureRaycastListSize(List<RaycastHit2D> rayList, int size)
+    {
+        if (rayList.Count != size)
+        {
+            int difference = size - rayList.Count;
+            if (difference > 0)
+                rayList.AddRange(new RaycastHit2D[difference]);
+            else
+                rayList.RemoveRange(0, -difference);
+        }
+    }
+
     private void Update()
     {
+        if (HorizontalRaycastHits == null)
+            HorizontalRaycastHits = new List<RaycastHit2D>(horizontalRays);
+        else
+            HorizontalRaycastHits.Clear();
+
+        if (VerticalRaycastHits == null)
+            VerticalRaycastHits = new List<RaycastHit2D>(verticalRays);
+        else
+            VerticalRaycastHits.Clear();
+
+        // Populate lists with blank RaycastHit2Ds
+        EnsureRaycastListSize(HorizontalRaycastHits, horizontalRays);
+        EnsureRaycastListSize(VerticalRaycastHits, verticalRays);
+
         // Only run if script should control movement
         if (MovementState == CharacterMovementStates.Disabled)
             return;
-
-        // Struct arrays should be re-used, only reallocated if size needs to changs
-        if (VerticalRaycastHits == null || VerticalRaycastHits.Length != verticalRays)
-            VerticalRaycastHits = new RaycastHit2D[verticalRays];
-        if (HorizontalRaycastHits == null || HorizontalRaycastHits.Length != horizontalRays)
-            HorizontalRaycastHits = new RaycastHit2D[horizontalRays];
 
 		//Store collider rect for easy typing
 		box = Rect.MinMaxRect(
@@ -262,7 +283,6 @@ public class CharacterMove : MonoBehaviour
 			IsGrounded = false;
 
             //All raycasts
-            RaycastHit2D[] hits = new RaycastHit2D[verticalRays];
             bool connected = false;
 
             //Keep track of the shortest ray
@@ -284,46 +304,46 @@ public class CharacterMove : MonoBehaviour
 
                 //Cast ray
                 if (Velocity.y > 0)
-                    hits[i] = Physics2D.Raycast(origin, Vector2.up, distance, groundLayer);
+                    VerticalRaycastHits[i] = Physics2D.Raycast(origin, Vector2.up, distance, groundLayer);
                 else
                 {
                     if (shouldDetectPlatforms && Time.time > nonDetectPlatformsTime)
                     {
-                        RaycastHit2D hit = VerticalRaycastHits[i] = Physics2D.Raycast(origin, Vector2.down, slopeDistance, groundLayer | platformLayer);
+                        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, slopeDistance, groundLayer | platformLayer);
 
                         if(hit.collider)
                         {
                             //Only actually count the hit if the character landed from above (don't jump up since rays are cast from centre)
                             if (hit.point.y < box.yMin - Velocity.y * Time.deltaTime || stickToPlatforms)
                             {
-                                hits[i] = hit;
+                                VerticalRaycastHits[i] = hit;
 
                                 stickToPlatforms = true;
                             }
                         }
 
                         //Stop detecting platforms when touched non platform layer
-                        if (hits[i].collider && ((1 << hits[i].collider.gameObject.layer) & platformLayer) == 0)
+                        if (VerticalRaycastHits[i].collider && ((1 << VerticalRaycastHits[i].collider.gameObject.layer) & platformLayer) == 0)
                         {
                             shouldDetectPlatforms = false;
                             stickToPlatforms = false;
                         }
                     }
                     else
-                        hits[i] = Physics2D.Raycast(origin, Vector2.down, slopeDistance, groundLayer);
+                        VerticalRaycastHits[i] = Physics2D.Raycast(origin, Vector2.down, slopeDistance, groundLayer);
                 }
 
                 Debug.DrawLine(origin, new Vector2(origin.x, origin.y + Mathf.Sign(Velocity.y) * (Velocity.y > 0 ? distance : slopeDistance)));
 
                 //If ray connected then player should be considered grounded
-                if (hits[i].collider != null)
+                if (VerticalRaycastHits[i].collider != null)
                 {
                     connected = true;
 
                     //If this ray is shorter than any other, set it as the shortest and one to use
-                    if (hits[i].distance < minDistance)
+                    if (VerticalRaycastHits[i].distance < minDistance)
                     {
-                        minDistance = hits[i].distance;
+                        minDistance = VerticalRaycastHits[i].distance;
                         index = i;
                     }
                 }
@@ -332,10 +352,10 @@ public class CharacterMove : MonoBehaviour
             //If a ray has connected with the ground
             if (connected)
             {
-                float angle = Vector2.Angle(Vector2.up, hits[index].normal);
+                float angle = Vector2.Angle(Vector2.up, VerticalRaycastHits[index].normal);
 
                 //If within distance, or if it should stick to the slope
-                if (hits[index].distance <= distance || (angle <= downSlopeLimit && stickToSlope))
+                if (VerticalRaycastHits[index].distance <= distance || (angle <= downSlopeLimit && stickToSlope))
                 {
                     //Set grounded and stop falling (if already falling)
                     if (Velocity.y <= 0)
@@ -354,7 +374,7 @@ public class CharacterMove : MonoBehaviour
                     Velocity = Velocity.Where(y: 0);
 
                     //Move player flush to ground (using shortest ray)
-                    Vector2 delta = Vector2.down * (hits[index].distance - box.height / 2);
+                    Vector2 delta = Vector2.down * (VerticalRaycastHits[index].distance - box.height / 2);
 
                     //If delta magnitude is below a very low threshold, zero it out (prevents slowly sinking/floating due to inaccuracies)
                     if (Mathf.Abs(delta.y) < 0.001f)
