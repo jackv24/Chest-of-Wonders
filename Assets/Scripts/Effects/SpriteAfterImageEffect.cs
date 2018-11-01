@@ -62,8 +62,6 @@ public class SpriteAfterImageEffect : MonoBehaviour
 				StartCoroutine(FadeOutImage(renderer));
 			}
 		}
-
-
 	}
 
 	public void StartAfterImageEffect()

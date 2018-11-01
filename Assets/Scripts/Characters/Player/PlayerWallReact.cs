@@ -21,6 +21,7 @@ public class PlayerWallReact : MonoBehaviour
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
     private Animator animator;
+    private PlayerDodge playerDodge;
 
     private void Awake()
     {
@@ -29,6 +30,8 @@ public class PlayerWallReact : MonoBehaviour
 
         characterAnimator = GetComponent<CharacterAnimator>();
         Debug.Assert(characterAnimator);
+
+        playerDodge = GetComponent<PlayerDodge>();
     }
 
     private void Start()
@@ -45,18 +48,24 @@ public class PlayerWallReact : MonoBehaviour
     {
         // Get in LateUpdate after CharacterMove has populated arrays, so we can react in the same frame
 
+        bool didWallBonk = false;
+        bool didRoofBonk = false;
+
         if (characterMove.InputDirection != 0)
-            DetectWallBonk();
+            didWallBonk = DetectWallBonk();
 
         if (!characterMove.IsGrounded)
-            DetectRoofBonk();
+            didRoofBonk = DetectRoofBonk();
+
+        if (didWallBonk || didRoofBonk)
+            playerDodge.EndDodge(false);
     }
 
-    private void DetectWallBonk()
+    private bool DetectWallBonk()
     {
         // Can only bonk again if wall hit flag is reset or we have moved far enough
         if (alreadyHitWall && Mathf.Abs(transform.position.x - lastXBonkPosition) < horizontalConsecutiveBonkDistance)
-            return;
+            return false;
 
         List<RaycastHit2D> horizontalRayHits = characterMove.HorizontalRaycastHits;
         int hitCount = 0;
@@ -78,11 +87,16 @@ public class PlayerWallReact : MonoBehaviour
 
             // Only do actual bonk if enough of our rays are hitting the wall
             if (hitCount >= Mathf.RoundToInt(rayCount * horizontalRayHitPercent))
+            {
                 animator.SetTrigger(wallBonkHash);
+                return true;
+            }
         }
+
+        return false;
     }
 
-    private void DetectRoofBonk()
+    private bool DetectRoofBonk()
     {
         List<RaycastHit2D> verticalRayHits = characterMove.VerticalRaycastHits;
         bool didHit = false;
@@ -97,5 +111,7 @@ public class PlayerWallReact : MonoBehaviour
 
         if (didHit)
             animator.SetTrigger(roofBonkHash);
+
+        return didHit;
     }
 }

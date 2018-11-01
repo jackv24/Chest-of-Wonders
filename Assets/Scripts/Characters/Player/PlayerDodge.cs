@@ -6,30 +6,41 @@ using UnityEngine;
 public class PlayerDodge : MonoBehaviour
 {
 	[Serializable]
-	public struct DodgeDetails
+	private struct DodgeDetails
 	{
 		public float speed;
 		public AnimationCurve speedCurve;
 	}
 
-	public enum DodgeType
+	private enum DodgeType
 	{
 		Ground,
 		Air
 	}
 
-	public DodgeDetails groundDodge;
-	public DodgeDetails airDodge;
+    [SerializeField]
+    private DodgeDetails groundDodge;
 
-	public float cooldownTime = 0.3f;
+    [SerializeField]
+    private DodgeDetails airDodge;
+
+    [SerializeField]
+    private float cooldownTime = 0.3f;
 	private float nextDodgeTime;
 
-	public int maxAirDodges = 1;
+    [SerializeField]
+    private int maxAirDodges = 1;
 	private int airDodgesLeft;
+
+    public bool IsDodging { get { return dodgeRoutine != null; } }
+
+    [SerializeField]
+    private SpriteAfterImageEffect trailEffect;
 
 	private Coroutine dodgeRoutine = null;
 
-	public SoundEventType dodgeSound;
+    [SerializeField]
+    private SoundEventType dodgeSound;
 
 	private CharacterAnimator characterAnimator;
 	private CharacterStats characterStats;
@@ -178,12 +189,16 @@ public class PlayerDodge : MonoBehaviour
 		}
 
 		EndDodge(returnToLocomotion);
-
-		dodgeRoutine = null;
 	}
 
-	private void EndDodge(bool changeAnim)
+	public void EndDodge(bool changeAnim)
 	{
+        if (dodgeRoutine == null)
+            return;
+
+        StopCoroutine(dodgeRoutine);
+        dodgeRoutine = null;
+
 		characterMove.MovementState = CharacterMovementStates.Normal;
 
 		//Playing locomotion state will naturally transition out to other states
@@ -195,5 +210,8 @@ public class PlayerDodge : MonoBehaviour
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
 
 		nextDodgeTime = Time.time + cooldownTime;
+
+        if (trailEffect)
+            trailEffect.EndAfterImageEffect();
 	}
 }

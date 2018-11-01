@@ -1135,6 +1135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc50f53bcc41be4a967a9e9b9d64c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalNormalThreshold: 0.9
+  horizontalRayHitPercent: 0.7
+  horizontalConsecutiveBonkDistance: 0.5
 --- !u!114 &114349844512411816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1321,6 +1324,7 @@ MonoBehaviour:
       m_RotationOrder: 0
   cooldownTime: 0.2
   maxAirDodges: 1
+  trailEffect: {fileID: 114521421153489954}
   dodgeSound:
     volume: 1
     pitchRange:
