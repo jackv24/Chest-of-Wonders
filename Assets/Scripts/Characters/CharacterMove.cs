@@ -326,7 +326,6 @@ public class CharacterMove : MonoBehaviour
                         minDistance = hits[i].distance;
                         index = i;
                     }
-
                 }
             }
 
@@ -406,8 +405,9 @@ public class CharacterMove : MonoBehaviour
 
                     Debug.DrawLine(origin, new Vector2(origin.x + distance * direction.x, origin.y));
 
-                    //If ray hit, there is a wall
-                    if (hit.collider != null)
+                    // If ray hit, there is a wall
+                    // If we've already hit a wall then we just store the hit info above
+                    if (!hitWall && hit.collider != null)
                     {
                         //Calculate angle of slope
                         float angle = Vector2.Angle(Vector2.up, hit.normal);
@@ -423,9 +423,6 @@ public class CharacterMove : MonoBehaviour
 
                             hitWall = true;
                         }
-
-                        //If one ray has connected, no more rays should be cast
-                        break;
                     }
                 }
 

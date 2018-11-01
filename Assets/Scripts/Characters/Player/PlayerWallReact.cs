@@ -1,15 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerWallReact : MonoBehaviour
 {
     [SerializeField]
     private float horizontalNormalThreshold = 0.9f;
 
+    [SerializeField, Range(0, 1.0f)]
+    private float horizontalRayHitPercent = 0.7f;
+
+    [SerializeField]
+    private float horizontalConsecutiveBonkDistance = 0.5f;
+
     private int wallBonkHash;
 
-    private bool alreadyBonked;
+    private bool alreadyHitWall;
+    private float lastXBonkPosition;
 
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
@@ -27,36 +32,44 @@ public class PlayerWallReact : MonoBehaviour
 
         wallBonkHash = Animator.StringToHash("wallBonk");
 
-        characterMove.OnChangedDirection += (dir) => alreadyBonked = false;
+        characterMove.OnChangedDirection += (dir) => alreadyHitWall = false;
     }
 
     private void LateUpdate()
     {
-        if (alreadyBonked)
+        // Get in LateUpdate after CharacterMove has populated arrays, so we can react in the same frame
+
+        if (characterMove.InputDirection != 0)
+            DetectWallBonk();
+    }
+
+    private void DetectWallBonk()
+    {
+        // Can only bonk again if wall hit flag is reset or we have moved far enough
+        if (alreadyHitWall && Mathf.Abs(transform.position.x - lastXBonkPosition) < horizontalConsecutiveBonkDistance)
             return;
 
-        // Get in LateUpdate after CharacterMove has populated arrays, so we can react in the same frame
-        bool didHit = false;
-        if (characterMove.InputDirection != 0)
+        RaycastHit2D[] horizontalRayHits = characterMove.HorizontalRaycastHits;
+        int hitCount = 0;
+        int rayCount = horizontalRayHits.Length;
+        foreach (var rayHit in horizontalRayHits)
         {
-            RaycastHit2D[] horizontalRayHits = characterMove.HorizontalRaycastHits;
-            foreach (var rayHit in horizontalRayHits)
+            // If ray hit wall (normal is close enough to horizontal)
+            if (rayHit.collider != null && Mathf.Abs(Vector2.Dot(Vector2.right, rayHit.normal)) >= horizontalNormalThreshold)
             {
-                // If ray hit wall (normal is close enough to horizontal)
-                if (rayHit.collider != null && Mathf.Abs(Vector2.Dot(Vector2.right, rayHit.normal)) >= horizontalNormalThreshold)
-                {
-                    didHit = true;
-                    break;
-                }
+                hitCount++;
             }
         }
 
-        if (didHit)
+        // Set bonk flags if any rays hit so we don't do bonk when sliding down wall
+        if (hitCount > 0)
         {
-            animator.SetTrigger(wallBonkHash);
-            alreadyBonked = true;
+            alreadyHitWall = true;
+            lastXBonkPosition = transform.position.x;
+
+            // Only do actual bonk if enough of our rays are hitting the wall
+            if (hitCount >= Mathf.RoundToInt(rayCount * horizontalRayHitPercent))
+                animator.SetTrigger(wallBonkHash);
         }
-        else
-            animator.ResetTrigger(wallBonkHash);
     }
 }
