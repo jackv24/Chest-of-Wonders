@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 public class PlayerWallReact : MonoBehaviour
 {
+    private readonly int wallKickAnim = Animator.StringToHash("Wall Kick");
+    private readonly int wallBonkGroundAnim = Animator.StringToHash("Wall Bump Ground");
+    private readonly int wallBonkAirAnim = Animator.StringToHash("Wall Bump Air");
+    private readonly int ceilingBonkAnim = Animator.StringToHash("Ceiling Bump");
+
     [SerializeField]
     private float horizontalNormalThreshold = 0.9f;
 
@@ -35,9 +40,6 @@ public class PlayerWallReact : MonoBehaviour
     [SerializeField]
     private CameraShakeTarget wallJumpCameraShake;
 
-    private int wallBonkHash;
-    private int roofBonkHash;
-
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
     private Animator animator;
@@ -61,9 +63,6 @@ public class PlayerWallReact : MonoBehaviour
     private void Start()
     {
         animator = characterAnimator.Animator;
-
-        wallBonkHash = Animator.StringToHash("wallBonk");
-        roofBonkHash = Animator.StringToHash("roofBonk");
 
         characterMove.OnChangedDirection += (dir) => alreadyHitWall = false;
         characterMove.OnGrounded += () => alreadyHitRoof = false;
@@ -116,6 +115,7 @@ public class PlayerWallReact : MonoBehaviour
         isWallJumping = true;
         wallJumpTimer = 0;
 
+        animator.Play(wallKickAnim);
         wallJumpCameraShake.DoShake();
     }
 
@@ -158,7 +158,7 @@ public class PlayerWallReact : MonoBehaviour
             // Only do actual bonk if enough of our rays are hitting the wall
             if (hitCount >= Mathf.RoundToInt(rayCount * horizontalRayHitPercent))
             {
-                animator.SetTrigger(wallBonkHash);
+                animator.Play(characterMove.IsGrounded ? wallBonkGroundAnim : wallBonkAirAnim);
                 return true;
             }
         }
@@ -184,7 +184,7 @@ public class PlayerWallReact : MonoBehaviour
         }
 
         if (didHit)
-            animator.SetTrigger(roofBonkHash);
+            animator.Play(ceilingBonkAnim);
 
         return didHit;
     }
