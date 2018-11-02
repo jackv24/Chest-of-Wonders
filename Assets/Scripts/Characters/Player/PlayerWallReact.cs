@@ -32,6 +32,9 @@ public class PlayerWallReact : MonoBehaviour
     private bool isWallJumping;
     private float wallJumpDirection;
 
+    [SerializeField]
+    private CameraShakeTarget wallJumpCameraShake;
+
     private int wallBonkHash;
     private int roofBonkHash;
 
@@ -112,6 +115,8 @@ public class PlayerWallReact : MonoBehaviour
         characterMove.SetFacing(wallJumpDirection);
         isWallJumping = true;
         wallJumpTimer = 0;
+
+        wallJumpCameraShake.DoShake();
     }
 
     private void EndWallJump()

@@ -26,6 +26,9 @@ public class CameraShake : MonoBehaviour, ICameraShakeHandler
 
 		public Vector2 GetOffset()
 		{
+            if (Profile.Duration == 0)
+                return Vector2.zero;
+
 			return Profile?.GetOffset(Elapsed / Profile.Duration) ?? Vector2.zero;
 		}
 	}
