@@ -13,6 +13,7 @@ public class PlayerWallReact : MonoBehaviour
     private float horizontalConsecutiveBonkDistance = 0.5f;
 
     private bool alreadyHitWall;
+    private bool alreadyHitRoof;
     private float lastXBonkPosition;
 
     private int wallBonkHash;
@@ -22,6 +23,7 @@ public class PlayerWallReact : MonoBehaviour
     private CharacterAnimator characterAnimator;
     private Animator animator;
     private PlayerDodge playerDodge;
+    private PlayerActions playerActions;
 
     private void Awake()
     {
@@ -32,6 +34,9 @@ public class PlayerWallReact : MonoBehaviour
         Debug.Assert(characterAnimator);
 
         playerDodge = GetComponent<PlayerDodge>();
+        Debug.Assert(playerDodge);
+
+        playerActions = ControlManager.GetPlayerActions();
     }
 
     private void Start()
@@ -42,23 +47,27 @@ public class PlayerWallReact : MonoBehaviour
         roofBonkHash = Animator.StringToHash("roofBonk");
 
         characterMove.OnChangedDirection += (dir) => alreadyHitWall = false;
+        characterMove.OnGrounded += () => alreadyHitRoof = false;
     }
 
     private void LateUpdate()
     {
         // Get in LateUpdate after CharacterMove has populated arrays, so we can react in the same frame
 
-        bool didWallBonk = false;
-        bool didRoofBonk = false;
+        if (!alreadyHitWall)
+        {
+            bool didWallBonk = false;
+            bool didRoofBonk = false;
 
-        if (characterMove.InputDirection != 0)
-            didWallBonk = DetectWallBonk();
+            if (characterMove.InputDirection != 0)
+                didWallBonk = DetectWallBonk();
 
-        if (!characterMove.IsGrounded)
-            didRoofBonk = DetectRoofBonk();
+            if (!characterMove.IsGrounded)
+                didRoofBonk = DetectRoofBonk();
 
-        if (didWallBonk || didRoofBonk)
-            playerDodge.EndDodge(false);
+            if (didWallBonk || didRoofBonk)
+                playerDodge.EndDodge(false);
+        }
     }
 
     private bool DetectWallBonk()
@@ -98,6 +107,9 @@ public class PlayerWallReact : MonoBehaviour
 
     private bool DetectRoofBonk()
     {
+        if (alreadyHitRoof)
+            return false;
+
         List<RaycastHit2D> verticalRayHits = characterMove.VerticalRaycastHits;
         bool didHit = false;
         foreach (var rayHit in verticalRayHits)
@@ -105,6 +117,7 @@ public class PlayerWallReact : MonoBehaviour
             if (rayHit.collider != null && rayHit.normal.y < 0)
             {
                 didHit = true;
+                alreadyHitRoof = true;
                 break;
             }
         }
