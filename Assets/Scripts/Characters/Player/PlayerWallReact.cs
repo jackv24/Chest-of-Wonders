@@ -16,6 +16,22 @@ public class PlayerWallReact : MonoBehaviour
     private bool alreadyHitRoof;
     private float lastXBonkPosition;
 
+    [Space, SerializeField]
+    private float wallBonkJumpWindow = 0.2f;
+    private float wallBonkJumpTime = 0;
+
+    [SerializeField]
+    private Vector2 wallJumpVelocity = new Vector2(1, 1);
+
+    [SerializeField]
+    private AnimationCurve wallJumpVelocityCurve = AnimationCurve.Linear(0, 1, 1, 1);
+
+    [SerializeField]
+    private float wallJumpDuration = 1.0f;
+    private float wallJumpTimer;
+    private bool isWallJumping;
+    private float wallJumpDirection;
+
     private int wallBonkHash;
     private int roofBonkHash;
 
@@ -54,20 +70,57 @@ public class PlayerWallReact : MonoBehaviour
     {
         // Get in LateUpdate after CharacterMove has populated arrays, so we can react in the same frame
 
-        if (!alreadyHitWall)
+        bool didWallBonk = false;
+        bool didRoofBonk = false;
+
+        // If we're wall jumping then don't need to be holding direction, allows chaining wall jumps by just jumping
+        if (characterMove.InputDirection != 0 || isWallJumping)
+            didWallBonk = DetectWallBonk();
+
+        if (!characterMove.IsGrounded)
+            didRoofBonk = DetectRoofBonk();
+
+        if (didWallBonk || didRoofBonk)
         {
-            bool didWallBonk = false;
-            bool didRoofBonk = false;
-
-            if (characterMove.InputDirection != 0)
-                didWallBonk = DetectWallBonk();
-
-            if (!characterMove.IsGrounded)
-                didRoofBonk = DetectRoofBonk();
-
-            if (didWallBonk || didRoofBonk)
-                playerDodge.EndDodge(false);
+            playerDodge.EndDodge(false);
+            EndWallJump();
         }
+
+        if (didWallBonk && !characterMove.IsGrounded)
+            wallBonkJumpTime = Time.time + wallBonkJumpWindow;
+
+        if (Time.time <= wallBonkJumpTime && playerActions.Jump.WasPressed)
+            StartWallJump();
+        else if (wallJumpTimer >= wallJumpDuration)
+            EndWallJump();
+
+        if (isWallJumping)
+        {
+            characterMove.Velocity = new Vector2(wallJumpVelocity.x * wallJumpDirection, wallJumpVelocity.y)
+                * wallJumpVelocityCurve.Evaluate(wallJumpTimer / wallJumpDuration);
+
+            wallJumpTimer += Time.deltaTime;
+        }
+    }
+
+    private void StartWallJump()
+    {
+        if (isWallJumping)
+            return;
+
+        characterMove.MovementState = CharacterMovementStates.SetVelocity;
+        characterMove.SetFacing(wallJumpDirection);
+        isWallJumping = true;
+        wallJumpTimer = 0;
+    }
+
+    private void EndWallJump()
+    {
+        if (!isWallJumping)
+            return;
+
+        characterMove.MovementState = CharacterMovementStates.Normal;
+        isWallJumping = false;
     }
 
     private bool DetectWallBonk()
@@ -79,12 +132,14 @@ public class PlayerWallReact : MonoBehaviour
         List<RaycastHit2D> horizontalRayHits = characterMove.HorizontalRaycastHits;
         int hitCount = 0;
         int rayCount = horizontalRayHits.Count;
+        float rayNormalsXSum = 0;
         foreach (var rayHit in horizontalRayHits)
         {
             // If ray hit wall (normal is close enough to horizontal)
             if (rayHit.collider != null && Mathf.Abs(Vector2.Dot(Vector2.right, rayHit.normal)) >= horizontalNormalThreshold)
             {
                 hitCount++;
+                rayNormalsXSum += rayHit.normal.x;
             }
         }
 
@@ -93,6 +148,7 @@ public class PlayerWallReact : MonoBehaviour
         {
             alreadyHitWall = true;
             lastXBonkPosition = transform.position.x;
+            wallJumpDirection = Mathf.Sign(rayNormalsXSum);
 
             // Only do actual bonk if enough of our rays are hitting the wall
             if (hitCount >= Mathf.RoundToInt(rayCount * horizontalRayHitPercent))

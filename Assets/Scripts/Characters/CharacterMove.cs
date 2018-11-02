@@ -476,6 +476,9 @@ public class CharacterMove : MonoBehaviour
 
     public void Move(float direction)
     {
+        if (MovementState != CharacterMovementStates.Normal)
+            return;
+
         //Update input direction
         if ((GameManager.instance.CanDoActions || ignoreCanMove) && (canMove || ignoreCanMove))
             InputDirection = direction < 0 ? Mathf.Floor(direction) : Mathf.Ceil(direction);
@@ -489,6 +492,17 @@ public class CharacterMove : MonoBehaviour
 
 			OnChangedDirection(InputDirection);
 		}
+    }
+
+    public void SetFacing(float direction)
+    {
+        direction = Mathf.Sign(direction);
+        if (FacingDirection != direction)
+        {
+            FacingDirection = direction;
+
+            OnChangedDirection(direction);
+        }
     }
 
     public void Jump(bool pressed)
