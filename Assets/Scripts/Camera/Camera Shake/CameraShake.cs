@@ -38,6 +38,7 @@ public class CameraShake : MonoBehaviour, ICameraShakeHandler
 	private Vector3 initialPosition;
 
 	private static int freezesRunning = 0;
+    private float initialTimeScale;
 
 	private void OnEnable()
 	{
@@ -103,8 +104,11 @@ public class CameraShake : MonoBehaviour, ICameraShakeHandler
 
 	private IEnumerator FreezeFrames(int frameCount)
 	{
-		if(freezesRunning <= 0)
-			Time.timeScale = 0;
+        if (freezesRunning <= 0)
+        {
+            initialTimeScale = Time.timeScale;
+            Time.timeScale = 0;
+        }
 
 		freezesRunning++;
 
@@ -115,6 +119,6 @@ public class CameraShake : MonoBehaviour, ICameraShakeHandler
 		freezesRunning--;
 
 		if (freezesRunning <= 0)
-			Time.timeScale = 1.0f;
+			Time.timeScale = initialTimeScale;
 	}
 }
