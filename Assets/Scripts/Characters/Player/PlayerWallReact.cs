@@ -40,6 +40,15 @@ public class PlayerWallReact : MonoBehaviour
     [SerializeField]
     private CameraShakeTarget wallJumpCameraShake;
 
+    [SerializeField]
+    private SoundEventSingle wallBonkSound;
+
+    [SerializeField]
+    private SoundEventSingle roofBonkSound;
+
+    [SerializeField]
+    private SoundEventSingle wallJumpSound;
+
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
     private Animator animator;
@@ -117,6 +126,7 @@ public class PlayerWallReact : MonoBehaviour
 
         animator.Play(wallKickAnim);
         wallJumpCameraShake.DoShake();
+        wallJumpSound.Play(transform.position, SoundType.Player);
     }
 
     private void EndWallJump()
@@ -159,6 +169,7 @@ public class PlayerWallReact : MonoBehaviour
             if (hitCount >= Mathf.RoundToInt(rayCount * horizontalRayHitPercent))
             {
                 animator.Play(characterMove.IsGrounded ? wallBonkGroundAnim : wallBonkAirAnim);
+                wallBonkSound.Play(transform.position, SoundType.Player);
                 return true;
             }
         }
@@ -184,7 +195,10 @@ public class PlayerWallReact : MonoBehaviour
         }
 
         if (didHit)
+        {
             animator.Play(ceilingBonkAnim);
+            roofBonkSound.Play(transform.position, SoundType.Player);
+        }
 
         return didHit;
     }

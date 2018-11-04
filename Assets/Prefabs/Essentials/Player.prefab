@@ -1168,6 +1168,24 @@ MonoBehaviour:
   wallJumpCameraShake:
     camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
     profile: {fileID: 11400000, guid: d6521b8a825b93148ae5127fcd6dbe2c, type: 2}
+  wallBonkSound:
+    volume: 0.7
+    pitchRange:
+      min: 0.85
+      max: 1.15
+    clip: {fileID: 8300000, guid: 29070f2f36e99da42800953953394c03, type: 3}
+  roofBonkSound:
+    volume: 0.5
+    pitchRange:
+      min: 0.85
+      max: 1.15
+    clip: {fileID: 8300000, guid: 0db09eae299840948a8cfebc5ddb9afa, type: 3}
+  wallJumpSound:
+    volume: 1
+    pitchRange:
+      min: 1
+      max: 1
+    clip: {fileID: 0}
 --- !u!114 &114349844512411816
 MonoBehaviour:
   m_ObjectHideFlags: 1
