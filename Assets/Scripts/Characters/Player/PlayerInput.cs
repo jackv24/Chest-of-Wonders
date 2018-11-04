@@ -85,7 +85,7 @@ public class PlayerInput : MonoBehaviour
 
 		//Move the player using the CharacterMove script
 		if (GameManager.instance && GameManager.instance.CanDoActions)
-			characterMove?.Move(inputDirection.x);
+			characterMove?.Move(inputDirection.x, playerActions.Dash.IsPressed);
 
 		if (AcceptingInput != InputAcceptance.All)
 			return;
