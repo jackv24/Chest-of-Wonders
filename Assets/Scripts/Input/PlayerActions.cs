@@ -9,7 +9,7 @@ public class PlayerActions : PlayerActionSet
 	{
 		Jump,
 		MeleeAttack,
-		MagicMeleeAttack,
+        Dash,
 		MagicProjectileAttack,
 		SwitchMagic,
 		Dodge,
@@ -33,9 +33,10 @@ public class PlayerActions : PlayerActionSet
     public PlayerTwoAxisAction Move;
 
     public PlayerAction MeleeAttack;
-    public PlayerAction MagicMeleeAttack;
 	public PlayerAction MagicProjectileAttack;
     public PlayerAction MagicProjectileDiagonalLock;
+
+    public PlayerAction Dash;
 
 	public PlayerAction MagicSelection;
     public PlayerAction ItemSelection;
@@ -69,9 +70,10 @@ public class PlayerActions : PlayerActionSet
         Jump.AddDefaultBinding(Key.Z);
 
         MeleeAttack.AddDefaultBinding(Key.C);
-        MagicMeleeAttack.AddDefaultBinding(Key.V);
         MagicProjectileAttack.AddDefaultBinding(Key.D);
         MagicProjectileDiagonalLock.AddDefaultBinding(Key.LeftShift);
+
+        Dash.AddDefaultBinding(Key.LeftControl);
 
         MagicSelection.AddDefaultBinding(Key.S);
         ItemSelection.AddDefaultBinding(Key.A);
@@ -113,9 +115,10 @@ public class PlayerActions : PlayerActionSet
         Jump.AddDefaultBinding(InputControlType.Action1);
 
         MeleeAttack.AddDefaultBinding(InputControlType.Action3);
-        //MagicMeleeAttack.AddDefaultBinding(InputControlType.Action4);
         MagicProjectileAttack.AddDefaultBinding(InputControlType.Action4);
         MagicProjectileDiagonalLock.AddDefaultBinding(InputControlType.LeftTrigger);
+
+        Dash.AddDefaultBinding(InputControlType.Action2);
 
         MagicSelection.AddDefaultBinding(InputControlType.LeftBumper);
         ItemSelection.AddDefaultBinding(InputControlType.RightBumper);
@@ -148,9 +151,10 @@ public class PlayerActions : PlayerActionSet
         Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
 
         MeleeAttack = CreatePlayerAction("Melee Attack");
-        MagicMeleeAttack = CreatePlayerAction("Physical Magic");
         MagicProjectileAttack = CreatePlayerAction("Magic Projectile");
         MagicProjectileDiagonalLock = CreatePlayerAction("Diagonal Lock");
+
+        Dash = CreatePlayerAction("Dash");
 
         MagicSelection = CreatePlayerAction("Switch Magic");
         ItemSelection = CreatePlayerAction("Use Item");
@@ -187,8 +191,8 @@ public class PlayerActions : PlayerActionSet
 			case ButtonActionType.MeleeAttack:
 				return MeleeAttack;
 
-			case ButtonActionType.MagicMeleeAttack:
-				return MagicMeleeAttack;
+			case ButtonActionType.Dash:
+				return Dash;
 
 			case ButtonActionType.MagicProjectileAttack:
 				return MagicProjectileAttack;

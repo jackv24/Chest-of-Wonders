@@ -25,25 +25,6 @@ public class PlayerAttack : MonoBehaviour
 
 	public ElementManager.Element selectedElement = ElementManager.Element.None;
 
-	#region Magic Melee Attack Animations
-
-	//Will build animation state name strings at runtime e.g, "Fire Special Ground D"
-	private const string magicMeleeAnimTemplate = "{0} Special {1} {2}";
-
-	private const string magicMeleeElementFire = "Fire";
-	private const string magicMeleeElementIce = "Ice";
-	private const string magicMeleeElementGrass = "Grass";
-	private const string magicMeleeElementWind = "Wind";
-
-	private const string magicMeleeStateGround = "Ground";
-	private const string magicMeleeStateAir = "Air";
-
-	private const string magicMeleeDirectionSide = "LR";
-	private const string magicMeleeDirectionUp = "U";
-	private const string magicMeleeDirectionDown = "D";
-
-	#endregion
-
 	[System.Serializable]
 	public class ProjectileAttack
 	{
@@ -108,13 +89,10 @@ public class PlayerAttack : MonoBehaviour
 
     private CharacterMove characterMove;
 	private Animator animator;
-	private CharacterAnimator characterAnimator;
 
     private void Awake()
     {
         characterMove = GetComponent<CharacterMove>();
-		characterAnimator = GetComponent<CharacterAnimator>();
-
 		animator = graphic.GetComponent<Animator>();
     }
 
@@ -491,60 +469,4 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-
-	public void UseMagicMeleeAttack(Vector2 inputDirection)
-	{
-		if (!canAttack || selectedElement == ElementManager.Element.None)
-			return;
-
-		//Snap input vector to 4 directions
-		Vector2 direction = Helper.SnapTo(inputDirection, 90.0f).normalized;
-
-		string animName = GetMagicMeleeStateName(selectedElement, characterMove.IsGrounded, direction.y);
-
-		//Play attack animation, and prevent further attacks while in this animation (animation state itself will handle attack with StateMachineBehaviours)
-		canAttack = false;
-		characterAnimator.Play(animName, () =>
-		{
-			canAttack = true;
-
-			characterAnimator.ReturnToLocomotion();
-		});
-	}
-
-	/// <summary>
-	/// Builds a state name string using the given parameters to be used for playing a magic melee animation.
-	/// </summary>
-	private string GetMagicMeleeStateName(ElementManager.Element element, bool isGrounded, float verticalDirection)
-	{
-		string meleeElementName;
-		switch(element)
-		{
-			case ElementManager.Element.Fire:
-				meleeElementName = magicMeleeElementFire;
-				break;
-			case ElementManager.Element.Grass:
-				meleeElementName = magicMeleeElementGrass;
-				break;
-			case ElementManager.Element.Ice:
-				meleeElementName = magicMeleeElementIce;
-				break;
-			case ElementManager.Element.Wind:
-				meleeElementName = magicMeleeElementWind;
-				break;
-			default:
-				meleeElementName = "NONE";
-				break;
-		}
-
-		string directionName;
-		if (verticalDirection > 0)
-			directionName = magicMeleeDirectionUp;
-		else if (verticalDirection < 0)
-			directionName = magicMeleeDirectionDown;
-		else
-			directionName = magicMeleeDirectionSide;
-
-		return string.Format(magicMeleeAnimTemplate, meleeElementName, isGrounded ? magicMeleeStateGround : magicMeleeStateAir, directionName);
-	}
 }
