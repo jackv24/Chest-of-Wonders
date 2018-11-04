@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(ParticleSystem))]
 public class TrailParticles : MonoBehaviour
 {
-	public float StopGroundedDelay;
+    [SerializeField]
+	private float stopGroundedDelay = 0.1f;
 	private Coroutine stopParticlesRoutine = null;
 
 	private bool wasGrounded;
+    private Func<bool> groundedFunction;
 
-	private CharacterMove characterMove;
 	private ParticleSystem system;
 	private DisableFinishedParticleSystem disableFinished;
 
@@ -25,14 +27,16 @@ public class TrailParticles : MonoBehaviour
 
 	private void Update()
 	{
-		if(characterMove)
+		if(groundedFunction != null)
 		{
-			//Update particle emiission state when grounded state changes
-			if(characterMove.IsGrounded != wasGrounded)
-			{
-				wasGrounded = characterMove.IsGrounded;
+            bool isGrounded = groundedFunction();
 
-				//Play particles only when on ground
+            // Update particle emission state when grounded state changes
+            if (isGrounded != wasGrounded)
+			{
+				wasGrounded = isGrounded;
+
+				// Play particles only when on ground
 				if (wasGrounded)
 				{
 					if (stopParticlesRoutine != null)
@@ -50,7 +54,7 @@ public class TrailParticles : MonoBehaviour
 
 	private IEnumerator StopParticlesDelayed()
 	{
-		yield return new WaitForSeconds(StopGroundedDelay);
+		yield return new WaitForSeconds(stopGroundedDelay);
 
 		system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
@@ -62,9 +66,9 @@ public class TrailParticles : MonoBehaviour
 	/// </summary>
 	/// <param name="target">The target to follow (will be temporarily set as a child).</param>
 	/// <param name="characterMove">The CharacterMove to get IsGrounded from.</param>
-	public void StartParticles(Transform target, CharacterMove characterMove)
+	public void StartParticles(Transform target, Func<bool> groundedFunction)
 	{
-		this.characterMove = characterMove;
+		this.groundedFunction = groundedFunction;
 
 		//Start of not emitting particles until we are sure we're grounded
 		wasGrounded = false;
@@ -86,7 +90,7 @@ public class TrailParticles : MonoBehaviour
 		//Set parent back to previous (should be object pool parent)
 		transform.SetParent(previousParent);
 		previousParent = null;
-		characterMove = null;
+        groundedFunction = null;
 
 		//Allow the particle system to disable itself
 		disableFinished.enabled = true;

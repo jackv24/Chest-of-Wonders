@@ -37,6 +37,9 @@ public class CharacterGroundEffects : MonoBehaviour
 
 	private TrailParticles currentTrailEffect;
 
+    private PlayerWallReact playerWallReact;
+    private bool didJustWallJump;
+
 	private CharacterMove characterMove;
 
 	private void OnValidate()
@@ -56,6 +59,10 @@ public class CharacterGroundEffects : MonoBehaviour
 	private void Awake()
 	{
 		characterMove = GetComponent<CharacterMove>();
+
+        playerWallReact = GetComponent<PlayerWallReact>();
+        if (playerWallReact)
+            playerWallReact.OnWallJumped += () => didJustWallJump = true;
 	}
 
 	private void Start()
@@ -89,8 +96,8 @@ public class CharacterGroundEffects : MonoBehaviour
 			};
 		}
 
-		GameManager.instance.OnLevelLoaded += GetCurrentGroundEffects;
-		GetCurrentGroundEffects();
+		GameManager.instance.OnLevelLoaded += UpdateGroundEffects;
+		UpdateGroundEffects();
 	}
 
 	//Intended to be called from CharacterAnimationEvents
@@ -107,7 +114,7 @@ public class CharacterGroundEffects : MonoBehaviour
 
 		groundTypeRegions.Add(region);
 
-		GetCurrentGroundEffects();
+		UpdateGroundEffects();
 	}
 
 	public void RemoveGroundTypeRegion(GroundTypeRegion region)
@@ -115,10 +122,10 @@ public class CharacterGroundEffects : MonoBehaviour
 		if(groundTypeRegions.Contains(region))
 			groundTypeRegions.Remove(region);
 
-		GetCurrentGroundEffects();
+		UpdateGroundEffects();
 	}
 
-	private void GetCurrentGroundEffects()
+	private void UpdateGroundEffects()
 	{
 		GroundType groundType = null;
 
@@ -155,7 +162,17 @@ public class CharacterGroundEffects : MonoBehaviour
 				GameObject obj = ObjectPooler.GetPooledObject(currentGroundEffects.trailEffect.gameObject);
 				currentTrailEffect = obj.GetComponent<TrailParticles>();
 
-				currentTrailEffect.StartParticles(transform, characterMove);
+				currentTrailEffect.StartParticles(transform, () =>
+                {
+                    bool isGrounded = characterMove.IsGrounded;
+                    if (!isGrounded && didJustWallJump)
+                    {
+                        didJustWallJump = false;
+                        isGrounded = true;
+                    }
+
+                    return isGrounded;
+                });
 			}
 		}
 	}

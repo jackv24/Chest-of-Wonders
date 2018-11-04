@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class PlayerWallReact : MonoBehaviour
 {
+    public Action OnWallJumped;
+
     private readonly int wallKickAnim = Animator.StringToHash("Wall Kick");
     private readonly int wallBonkGroundAnim = Animator.StringToHash("Wall Bump Ground");
     private readonly int wallBonkAirAnim = Animator.StringToHash("Wall Bump Air");
@@ -127,6 +130,8 @@ public class PlayerWallReact : MonoBehaviour
         animator.Play(wallKickAnim);
         wallJumpCameraShake.DoShake();
         wallJumpSound.Play(transform.position, SoundType.Player);
+
+        OnWallJumped?.Invoke();
     }
 
     private void EndWallJump()
