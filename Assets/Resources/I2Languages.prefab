@@ -63,7 +63,7 @@ MonoBehaviour:
   Google_WebServiceURL: https://script.google.com/macros/s/AKfycbyMTEZ3fUA5MuS1p_4M4C1sRpx3FQWMh1pr_JJrDA/exec
   Google_SpreadsheetKey: 1E1kI1D11eukx1-tdDvrgLswobyZWZvtqXF1LN06EbIM
   Google_SpreadsheetName: I2Loc Chest of Dark Wonder Localization
-  Google_LastUpdatedVersion: 1540867296261
+  Google_LastUpdatedVersion: 1541309097668
   Google_Password: WonderfulChest128
   GoogleUpdateFrequency: 1
   GoogleInEditorCheckFrequency: 2
@@ -138,7 +138,7 @@ MonoBehaviour:
     TermType: 0
     Description: 
     Languages:
-    - A tasty beverage from the surface. The label is too faded to read.
+    - A tasty beverage. The label is too faded to read.
     - 
     Flags: 0000
     Languages_Touch: []
@@ -404,6 +404,26 @@ MonoBehaviour:
     Description: 
     Languages:
     - Terribly pleasant to see you again.
+    - 
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Dialogue/EDGE_MEET
+    TermType: 0
+    Description: 
+    Languages:
+    - 'LOOK OUT!<pg>
+
+      *ahem* sorry about that, the edge here is super dangeous!<pg>
+
+      I couldn''t forgive myself if someone fell off...'
+    - 
+    Flags: 0000
+    Languages_Touch: []
+  - Term: Dialogue/EDGE_REPEAT
+    TermType: 0
+    Description: 
+    Languages:
+    - Be careful around here, okay?
     - 
     Flags: 0000
     Languages_Touch: []
