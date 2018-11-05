@@ -138,7 +138,7 @@ public class PlayerDodge : MonoBehaviour
 		float duration = characterAnimator.Animator.GetCurrentAnimatorStateInfo(0).length;
 
 		//Start dodge
-		characterStats.damageImmunity = true;
+		characterStats.DamageImmunity = true;
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.None;
 
 		characterMove.MovementState = CharacterMovementStates.SetVelocity;
@@ -206,7 +206,7 @@ public class PlayerDodge : MonoBehaviour
 			characterAnimator.ReturnToLocomotion();
 
 		//Return to previous state after dodge
-		characterStats.damageImmunity = false;
+		characterStats.DamageImmunity = false;
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
 
 		nextDodgeTime = Time.time + cooldownTime;

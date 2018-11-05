@@ -47,7 +47,7 @@ public class InventoryItem : ScriptableObject
         bool didUse = false;
         PlayerStats playerStats = GameManager.instance.player.GetComponent<PlayerStats>();
 
-        int healthOffset = Mathf.RoundToInt(playerStats.maxHealth * statsEffect.HealthPercentage);
+        int healthOffset = Mathf.RoundToInt(playerStats.MaxHealth * statsEffect.HealthPercentage);
         if (healthOffset != 0)
         {
             if (healthOffset > 0 && playerStats.AddHealth(healthOffset))

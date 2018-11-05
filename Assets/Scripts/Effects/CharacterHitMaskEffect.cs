@@ -17,7 +17,7 @@ public class CharacterHitMaskEffect : MonoBehaviour
 
 		if(characterSprite)
 		{
-			characterSprite.sharedMaterial = owner.graphic.sharedMaterial;
+			characterSprite.sharedMaterial = owner.Graphic.sharedMaterial;
 		}
 	}
 
@@ -25,7 +25,7 @@ public class CharacterHitMaskEffect : MonoBehaviour
 	{
 		if(owner && characterSprite)
 		{
-			characterSprite.sprite = owner.graphic.sprite;
+			characterSprite.sprite = owner.Graphic.sprite;
 			characterSprite.transform.position = owner.transform.position;
 			characterSprite.transform.rotation = owner.transform.rotation;
 		}

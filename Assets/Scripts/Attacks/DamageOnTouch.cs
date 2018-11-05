@@ -35,7 +35,7 @@ public class DamageOnTouch : Damager
 	private void FixedUpdate()
     {
         //Character can not cause damage if it can not take damage
-        if (characterStats && characterStats.damageImmunity)
+        if (characterStats && characterStats.DamageImmunity)
             return;
 
 		foreach(var damageable in damageablesInside)

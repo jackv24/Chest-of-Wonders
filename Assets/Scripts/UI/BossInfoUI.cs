@@ -41,9 +41,9 @@ public class BossInfoUI : MonoBehaviour
         if(stats)
         {
             //Only update slider if health value has changed
-            if(healthSlider && stats.currentHealth != oldHealth)
+            if(healthSlider && stats.CurrentHealth != oldHealth)
             {
-                float value = stats.currentHealth / (float)stats.maxHealth;
+                float value = stats.CurrentHealth / (float)stats.MaxHealth;
 
                 //Lerp slider value based on speed
                 healthSlider.value = Mathf.Lerp(healthSlider.value, value, sliderLerpSpeed * Time.deltaTime);
@@ -52,7 +52,7 @@ public class BossInfoUI : MonoBehaviour
                 if (Mathf.Abs(healthSlider.value - value) < 0.0001f)
                 {
                     //Stop updating slider
-                    oldHealth = stats.currentHealth;
+                    oldHealth = stats.CurrentHealth;
                 }
             }
         }

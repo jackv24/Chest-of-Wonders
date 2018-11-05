@@ -22,7 +22,7 @@ public abstract class CharacterStateBehaviour : CachedStateBehaviour
 		playerInput = GetComponentAtLevel<PlayerInput>(animator.gameObject);
 
 		if (characterStats)
-			characterStats.damageImmunity = true;
+			characterStats.DamageImmunity = true;
 
 		if (playerInput)
 			playerInput.AcceptingInput = PlayerInput.InputAcceptance.None;
@@ -53,7 +53,7 @@ public abstract class CharacterStateBehaviour : CachedStateBehaviour
 		hasEnded = true;
 
 		if (characterStats)
-			characterStats.damageImmunity = false;
+			characterStats.DamageImmunity = false;
 
 		if (playerInput)
 			playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;

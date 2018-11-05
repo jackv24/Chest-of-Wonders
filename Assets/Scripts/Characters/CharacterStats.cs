@@ -5,62 +5,106 @@ using NodeCanvas.Framework;
 
 public class CharacterStats : MonoBehaviour, IDamageable
 {
-	//Events (use System.Action for NodeCanvas compatibility)
+	// Events (use System.Action for NodeCanvas compatibility)
     public event System.Action OnDeath;
     public event System.Action OnDamaged;
 	public event System.Action OnKnockbackRecover;
 
-    public int currentHealth = 100;
-    public int maxHealth = 100;
+    [SerializeField]
+    protected int currentHealth = 100;
+    public int CurrentHealth { get { return currentHealth; } }
 
-    public ElementManager.Element element;
+    [SerializeField]
+    protected int maxHealth = 100;
+    public int MaxHealth { get { return maxHealth; } }
+
+    [SerializeField]
+    private ElementManager.Element element;
 
 	[Header("Taking Damage")]
-	public bool damageImmunity = false;
-	public float damageImmunityTime = 0.5f;
-    public Vector2 damageTextOffset = Vector2.up;
+    [SerializeField]
+    private bool damageImmunity = false;
+    public bool DamageImmunity
+    {
+        get { return damageImmunity; }
+        set { damageImmunity = value; }
+    }
 
-	[Space()]
-	public SoundEventType hurtSound;
-	public CameraShakeTarget hurtCameraShake;
-	public GameObject hurtEffect;
-	public Vector2 hurtEffectOffset;
+    [SerializeField]
+    private float damageImmunityTime = 0.5f;
 
-	[Space()]
-    public SpriteRenderer graphic;
-    [Range(0, 1f)]
-    public float flashAmount = 0.75f;
-    public float flashInterval = 0.1f;
+    [SerializeField]
+    private Vector2 damageTextOffset = Vector2.up;
 
-	[Space()]
-	public float knockbackDistance = 0.5f;
-	public float knockbackTime = 0.1f;
+	[Space, SerializeField]
+    private SoundEventType hurtSound;
+
+    [SerializeField]
+    private CameraShakeTarget hurtCameraShake;
+
+    [SerializeField]
+    private GameObject hurtEffect;
+
+    [SerializeField]
+    private Vector2 hurtEffectOffset;
+
+	[Space, SerializeField]
+    private SpriteRenderer graphic;
+    public SpriteRenderer Graphic { get { return graphic; } }
+
+    [Range(0, 1f), SerializeField]
+    private float flashAmount = 0.75f;
+
+    [SerializeField]
+    private float flashInterval = 0.1f;
+
+	[Space, SerializeField]
+    protected float knockbackDistance = 0.5f;
+
+    [SerializeField]
+    protected float knockbackTime = 0.1f;
 
     [Header("Death")]
-    public float deathTime = 1f;
-    public GameObject deathParticlePrefab;
-    public Vector2 deathParticleOffset;
+    [SerializeField]
+    private float deathTime = 1f;
 
-	[Space()]
-	public SoundEventType deathSound;
-	public CameraShakeTarget deathCameraShake;
+    [SerializeField]
+    private GameObject deathParticlePrefab;
 
-	[Space()]
-    public GameObject deathDrop;
-    public Vector2 dropOffset = Vector2.up;
-    [Space()]
-    public GameObject healthDrop;
-    public int minHealthDrops = 0;
-    public int maxHealthDrops = 2;
-    public float healthDropForce = 10.0f;
+    [SerializeField]
+    private Vector2 deathParticleOffset;
+
+	[Space, SerializeField]
+    private SoundEventType deathSound;
+
+    [SerializeField]
+    private CameraShakeTarget deathCameraShake;
+
+	[Space, SerializeField]
+    private GameObject deathDrop;
+
+    [SerializeField]
+    private Vector2 dropOffset = Vector2.up;
+
+    [Space, SerializeField]
+    private GameObject healthDrop;
+
+    [SerializeField]
+    private int minHealthDrops = 0;
+
+    [SerializeField]
+    private int maxHealthDrops = 2;
+
+    [SerializeField]
+    private float healthDropForce = 10.0f;
 
     //If health is zero or below, character is dead
     public bool IsDead { get { return currentHealth <= 0; } }
-	[HideInInspector]
-	public bool hasDied = false;
 
-	[Space()]
-	public EnemyJournalRecord enemyRecord;
+	private bool hasDied = false;
+
+	[Space, SerializeField]
+    private EnemyJournalRecord enemyRecord;
 
 	private Coroutine damageFlashRoutine = null;
 	private Coroutine knockBackRoutine = null;

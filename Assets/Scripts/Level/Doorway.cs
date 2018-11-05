@@ -55,7 +55,7 @@ public class Doorway : SpawnMarker
 			CharacterStats stats = other.GetComponent<CharacterStats>();
 
 			//Can't go through door if dead (prevents being knocked through door and canceling death)
-			if (stats && stats.currentHealth <= 0)
+			if (stats && stats.CurrentHealth <= 0)
 				return;
 
             if (!useButton)
