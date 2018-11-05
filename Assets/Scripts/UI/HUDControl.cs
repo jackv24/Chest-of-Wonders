@@ -10,9 +10,17 @@ public class HUDControl : MonoBehaviour
     private CompoundSlider healthBar;
 
     [SerializeField]
-    private float healthDrainTime = 0.2f;
+    private float healthDrainTime = 0.1f;
 
     private Coroutine healthDrainRoutine;
+
+    [SerializeField]
+    private Image manaBar;
+
+    [SerializeField]
+    private float manaDrainTime = 0.1f;
+
+    private Coroutine manaDrainRoutine;
 
 	[Header("Magic")]
     [SerializeField]
@@ -94,7 +102,10 @@ public class HUDControl : MonoBehaviour
         {
             playerStats = player.GetComponent<PlayerStats>();
             if (playerStats)
+            {
                 playerStats.OnHealthUpdated += UpdateHealthDisplay;
+                playerStats.OnManaUpdated += UpdateManaDisplay;
+            }
         }
     }
 
@@ -136,6 +147,23 @@ public class HUDControl : MonoBehaviour
         healthDrainRoutine = this.StartTimerRoutine(0, healthDrainTime, (time) =>
         {
             healthBar.Value = Mathf.Lerp(startValue, newValue, time);
+        });
+    }
+
+    private void UpdateManaDisplay(int currentMana, int maxMana)
+    {
+        if (!manaBar)
+            return;
+
+        float startValue = manaBar.fillAmount;
+        float newValue = (float)currentMana / maxMana;
+
+        if (manaDrainRoutine != null)
+            StopCoroutine(manaDrainRoutine);
+
+        manaDrainRoutine = this.StartTimerRoutine(0, manaDrainTime, (time) =>
+        {
+            manaBar.fillAmount = Mathf.Lerp(startValue, newValue, time);
         });
     }
 

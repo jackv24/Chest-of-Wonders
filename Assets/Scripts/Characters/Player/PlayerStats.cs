@@ -6,6 +6,16 @@ using System;
 public class PlayerStats : CharacterStats
 {
     public Action<int, int> OnHealthUpdated;
+    public Action<int, int> OnManaUpdated;
+
+    [Header("Player Stats")]
+    [SerializeField]
+    private int currentMana = 100;
+    public int CurrentMana { get { return currentMana; } }
+
+    [SerializeField]
+    private int maxMana = 100;
+    public int MaxMana { get { return maxMana; } }
 
 	private void Start()
 	{
@@ -42,5 +52,33 @@ public class PlayerStats : CharacterStats
     protected override void HealthUpdated()
     {
         OnHealthUpdated?.Invoke(currentHealth, maxHealth);
+    }
+
+    public bool AddMana(int amount)
+    {
+        if (currentMana >= maxMana || amount <= 0)
+            return false;
+
+        currentMana += amount;
+        if (currentMana > maxMana)
+            currentMana = maxMana;
+
+        OnManaUpdated?.Invoke(currentMana, maxMana);
+
+        return true;
+    }
+
+    public bool RemoveMana(int amount)
+    {
+        if (currentMana <= 0 || amount <= 0)
+            return false;
+
+        currentMana -= amount;
+        if (currentMana < 0)
+            currentMana = 0;
+
+        OnManaUpdated?.Invoke(currentMana, maxMana);
+
+        return true;
     }
 }

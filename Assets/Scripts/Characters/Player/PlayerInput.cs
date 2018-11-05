@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
     //Character scripts
     private CharacterMove characterMove;
     private PlayerAttack playerAttack;
-    private CharacterStats characterStats;
+    private PlayerStats playerStats;
 	private PlayerDodge playerDodge;
 	private CharacterAnimator characterAnimator;
 
@@ -35,7 +35,7 @@ public class PlayerInput : MonoBehaviour
         //Get references
         characterMove = GetComponent<CharacterMove>();
         playerAttack = GetComponent<PlayerAttack>();
-        characterStats = GetComponent<CharacterStats>();
+        playerStats = GetComponent<PlayerStats>();
 		playerDodge = GetComponent<PlayerDodge>();
 		characterAnimator = GetComponent<CharacterAnimator>();
     }
@@ -48,12 +48,17 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
 #if DEBUG
-        if (characterStats)
+        if (playerStats)
         {
             if (Input.GetKeyDown(KeyCode.Equals))
-                characterStats.AddHealth(1);
+                playerStats.AddHealth(1);
             if (Input.GetKeyDown(KeyCode.Minus))
-                characterStats.RemoveHealth(1);
+                playerStats.RemoveHealth(1);
+
+            if (Input.GetKeyDown(KeyCode.LeftBracket))
+                playerStats.RemoveMana(10);
+            if (Input.GetKeyDown(KeyCode.RightBracket))
+                playerStats.AddMana(10);
         }
 
         if (Input.GetKeyDown(KeyCode.T))
