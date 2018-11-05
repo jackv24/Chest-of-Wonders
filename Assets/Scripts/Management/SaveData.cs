@@ -22,8 +22,10 @@ public class SaveData
     public Location NpcSave; //Used when respawning after death
 
     //Player data
-    public int MaxHealth;
     public int CurrentHealth;
+    public int MaxHealth;
+
+    public int MaxMana;
 
 	public bool HasFireMagic;
 	public bool HasGrassMagic;

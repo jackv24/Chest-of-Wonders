@@ -18,8 +18,9 @@ MonoBehaviour:
     NpcSave:
       SceneName: 
       SpawnMarkerName: 
-    MaxHealth: 5
     CurrentHealth: 5
+    MaxHealth: 5
+    MaxMana: 100
     HasFireMagic: 0
     HasGrassMagic: 0
     HasIceMagic: 0

@@ -26,16 +26,23 @@ public class PlayerStats : CharacterStats
 				currentHealth = data.CurrentHealth;
 				maxHealth = data.MaxHealth;
 
+                maxMana = data.MaxMana;
+                currentMana = maxMana;
+
                 HealthUpdated();
             };
 
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
-				if (hardSave)
-					currentHealth = maxHealth;
+                if (hardSave)
+                {
+                    currentHealth = maxHealth;
+                }
 
 				data.CurrentHealth = currentHealth;
 				data.MaxHealth = maxHealth;
+
+                data.MaxMana = maxMana;
 			};
 		}
 	}
