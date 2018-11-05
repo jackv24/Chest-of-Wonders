@@ -35,8 +35,7 @@ public class CharacterMove : MonoBehaviour
     //What fraction of the move speed to actually move at (move speed is dampened on slopes)
     private float slopeSpeedMultiplier = 1;
 
-    public float dashSpeedMultiplier = 1.0f;
-    private bool isDashing;
+    protected virtual float MoveSpeedMultiplier { get { return 1.0f; } }
 
     [Tooltip("The rate at which the character accelerates to reach the move speed (m/s^2).")]
     public float acceleration = 1f;
@@ -124,7 +123,7 @@ public class CharacterMove : MonoBehaviour
     private BoxCollider2D col;
     private Rect box;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         //Get references
         col = GetComponent<BoxCollider2D>();
@@ -395,7 +394,7 @@ public class CharacterMove : MonoBehaviour
 		{
 			//Horizontal movement
 			if ((canMove || ignoreCanMove))
-                Velocity = Velocity.Where(x: Mathf.Lerp(Velocity.x, moveSpeed * slopeSpeedMultiplier * (isDashing ? dashSpeedMultiplier : 1.0f) * InputDirection, acceleration * Time.deltaTime));
+                Velocity = Velocity.Where(x: Mathf.Lerp(Velocity.x, moveSpeed * slopeSpeedMultiplier * MoveSpeedMultiplier * InputDirection, acceleration * Time.deltaTime));
 			else
                 Velocity = Velocity.Where(x: Mathf.Lerp(Velocity.x, 0, acceleration * Time.deltaTime));
 		}
@@ -477,12 +476,10 @@ public class CharacterMove : MonoBehaviour
         transform.Translate(Velocity * Time.deltaTime);
     }
 
-    public void Move(float direction, bool isDashing = false)
+    public void Move(float direction)
     {
         if (MovementState != CharacterMovementStates.Normal)
             return;
-
-        this.isDashing = isDashing;
 
         //Update input direction
         if ((GameManager.instance.CanDoActions || ignoreCanMove) && (canMove || ignoreCanMove))

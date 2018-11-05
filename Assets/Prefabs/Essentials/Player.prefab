@@ -281,7 +281,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012949439504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.09, y: 19.2, z: 0}
+  m_LocalPosition: {x: -2.4, y: 18.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010964507712}
@@ -855,11 +855,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012949439504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3c7ac02eb63664419f2556b87649a87, type: 3}
+  m_Script: {fileID: 11500000, guid: b88d1a34995e3f642a59c301dd3968b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
-  dashSpeedMultiplier: 1.5
   acceleration: 10
   upSlopeLimit: 50
   downSlopeLimit: 50
@@ -887,6 +886,7 @@ MonoBehaviour:
   startGroundDistance: 5
   knockBackRecoveryTime: 0.1
   allowKnockback: 1
+  dashSpeedMultiplier: 1.3
 --- !u!114 &114000014123730578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1449,8 +1449,9 @@ MonoBehaviour:
   minHealthDrops: 0
   maxHealthDrops: 2
   healthDropForce: 10
-  hasDied: 0
   enemyRecord: {fileID: 0}
+  currentMana: 100
+  maxMana: 100
 --- !u!114 &114996482148005152
 MonoBehaviour:
   m_ObjectHideFlags: 1

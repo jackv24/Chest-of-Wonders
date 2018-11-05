@@ -21,7 +21,7 @@ public class PlayerInput : MonoBehaviour
     public Vector2 moveDeadZone = new Vector2(0.1f, 0.05f);
 
     //Character scripts
-    private CharacterMove characterMove;
+    private PlayerMove playerMove;
     private PlayerAttack playerAttack;
     private PlayerStats playerStats;
 	private PlayerDodge playerDodge;
@@ -33,7 +33,7 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         //Get references
-        characterMove = GetComponent<CharacterMove>();
+        playerMove = GetComponent<PlayerMove>();
         playerAttack = GetComponent<PlayerAttack>();
         playerStats = GetComponent<PlayerStats>();
 		playerDodge = GetComponent<PlayerDodge>();
@@ -90,7 +90,7 @@ public class PlayerInput : MonoBehaviour
 
 		//Move the player using the CharacterMove script
 		if (GameManager.instance && GameManager.instance.CanDoActions)
-			characterMove?.Move(inputDirection.x, playerActions.Dash.IsPressed);
+			playerMove?.Move(inputDirection.x, playerActions.Dash.IsPressed);
 
 		if (AcceptingInput != InputAcceptance.All)
 			return;
@@ -101,17 +101,17 @@ public class PlayerInput : MonoBehaviour
 			return;
 		}
 
-		if (characterMove)
+		if (playerMove)
         {
             if (playerActions.Jump.WasPressed)
             {
-                if (inputDirection.y < 0 && characterMove.IsOnPlatform)
-                    characterMove.DropThroughPlatform();
+                if (inputDirection.y < 0 && playerMove.IsOnPlatform)
+                    playerMove.DropThroughPlatform();
                 else
-                    characterMove.Jump(true);
+                    playerMove.Jump(true);
             }
             else if (playerActions.Jump.WasReleased)
-                characterMove.Jump(false);
+                playerMove.Jump(false);
         }
 
 		if (GameManager.instance.CanDoActions)
