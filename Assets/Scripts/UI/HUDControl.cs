@@ -5,31 +5,58 @@ using UnityEngine.UI;
 
 public class HUDControl : MonoBehaviour
 {
-    public GameObject player;
-
     [Header("Stat Bars")]
-    public Slider healthBar;
+    [SerializeField]
+    private CompoundSlider healthBar;
 
-    public float barLerpSpeed = 1f;
+    [SerializeField]
+    private float healthDrainTime = 0.2f;
+
+    private Coroutine healthDrainRoutine;
 
 	[Header("Magic")]
-	public Image fireNotch;
-	public Image grassNotch;
-	public Image iceNotch;
-	public Image windNotch;
+    [SerializeField]
+    private Image fireNotch;
+
+    [SerializeField]
+    private Image grassNotch;
+
+    [SerializeField]
+    private Image iceNotch;
+
+    [SerializeField]
+    private Image windNotch;
+
 	[Space()]
-	public Color notchDisabledTint = Color.black;
-	public Color notchDeselectedTint = Color.gray;
+    [SerializeField]
+    private Color notchDisabledTint = Color.black;
+
+    [SerializeField]
+    private Color notchDeselectedTint = Color.gray;
+
 	[Space()]
-	public Image currentMagic;
+    [SerializeField]
+    private Image currentMagic;
+
 	[Space()]
-	public Sprite fireGraphic;
-	public Sprite grassGraphic;
-	public Sprite iceGraphic;
-	public Sprite windGraphic;
+    [SerializeField]
+    private Sprite fireGraphic;
+
+    [SerializeField]
+    private Sprite grassGraphic;
+
+    [SerializeField]
+    private Sprite iceGraphic;
+
+    [SerializeField]
+    private Sprite windGraphic;
+
 	[Space()]
-	public GameObject magicSwitchAnim;
-	public GameObject magicNotchSwitchAnim;
+    [SerializeField]
+    private GameObject magicSwitchAnim;
+
+    [SerializeField]
+    private GameObject magicNotchSwitchAnim;
 
 	[System.Serializable]
 	public class Progression
@@ -51,25 +78,31 @@ public class HUDControl : MonoBehaviour
 	public Progression basicProgression;
 	public Progression fullProgression;
 
-	private CharacterStats playerStats;
+    private GameObject player;
+
+    private PlayerStats playerStats;
     private PlayerAttack playerAttack;
 	private Animator animator;
 
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
-	}
 
-	private void Start()
-    {
-        if (!player)
-            player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player");
 
         if (player)
         {
-            playerStats = player.GetComponent<CharacterStats>();
-            playerAttack = player.GetComponent<PlayerAttack>();
+            playerStats = player.GetComponent<PlayerStats>();
+            if (playerStats)
+                playerStats.OnHealthUpdated += UpdateHealthDisplay;
+        }
+    }
 
+	private void Start()
+    {
+        if (player)
+        {
+            playerAttack = player.GetComponent<PlayerAttack>();
             if (playerAttack)
             {
                 playerAttack.OnUpdateMagic += UpdateAttackSlots;
@@ -88,18 +121,26 @@ public class HUDControl : MonoBehaviour
 		};
     }
 
-    private void Update()
+    private void UpdateHealthDisplay(int currentHealth, int maxHealth)
     {
-        if (playerStats)
+        if (!healthBar)
+            return;
+
+        healthBar.BarCount = maxHealth;
+        float startValue = healthBar.Value;
+        float newValue = (float)currentHealth / maxHealth;
+
+        if (healthDrainRoutine != null)
+            StopCoroutine(healthDrainRoutine);
+
+        healthDrainRoutine = this.StartTimerRoutine(0, healthDrainTime, (time) =>
         {
-            //Health bar
-            if (healthBar)
-                healthBar.value = Mathf.Lerp(healthBar.value, (float)playerStats.currentHealth / playerStats.maxHealth, barLerpSpeed * Time.deltaTime);
-        }
+            healthBar.Value = Mathf.Lerp(startValue, newValue, time);
+        });
     }
 
     //Loads display for mana bars
-    void UpdateAttackSlots()
+    private void UpdateAttackSlots()
     {
 		if (playerAttack)
 		{

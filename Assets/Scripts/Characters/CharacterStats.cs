@@ -86,27 +86,6 @@ public class CharacterStats : MonoBehaviour, IDamageable
 		hasDied = false;
     }
 
-    //Removes the specified amount of health
-    public bool RemoveHealth(int amount)
-    {
-		if (damageImmunity)
-			return false;
-
-		currentHealth -= amount;
-
-        //Keep health above or equal to 0
-        if (currentHealth <= 0)
-        {
-			if(!hasDied)
-				Die();
-
-			currentHealth = 0;
-		}
-
-        //Health was removed, so return true
-        return true;
-    }
-
     public bool TakeDamage(DamageProperties damageProperties)
     {
 		int removeAmount = ElementManager.CalculateDamage(damageProperties.amount, damageProperties.sourceElement, element);
@@ -158,6 +137,29 @@ public class CharacterStats : MonoBehaviour, IDamageable
         return false;
     }
 
+    //Removes the specified amount of health
+    public bool RemoveHealth(int amount)
+    {
+        if (damageImmunity)
+            return false;
+
+        currentHealth -= amount;
+
+        //Keep health above or equal to 0
+        if (currentHealth <= 0)
+        {
+            if (!hasDied)
+                Die();
+
+            currentHealth = 0;
+        }
+
+        HealthUpdated();
+
+        //Health was removed, so return true
+        return true;
+    }
+
     public bool AddHealth(int amount)
     {
         if (currentHealth < maxHealth)
@@ -167,11 +169,15 @@ public class CharacterStats : MonoBehaviour, IDamageable
             if (currentHealth > maxHealth)
                 currentHealth = maxHealth;
 
+            HealthUpdated();
+
             return true;
         }
         else
             return false;
     }
+
+    protected virtual void HealthUpdated() { }
 
 	private void DoDamageFlash(float time)
 	{

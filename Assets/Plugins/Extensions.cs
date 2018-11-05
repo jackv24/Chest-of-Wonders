@@ -2,6 +2,7 @@
 using System.Collections;
 using I2.Loc;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// Generic class containing useful extension methods
@@ -98,5 +99,27 @@ public static class Extensions
     public static Color Where(this Color original, float? r = null, float? g = null, float? b = null, float? a = null)
     {
         return new Color(r ?? original.r, g ?? original.g, b ?? original.b, a ?? original.a);
+    }
+
+    public static Coroutine StartTimerRoutine(this MonoBehaviour runner, float delay, float duration, Action<float> handler)
+    {
+        return runner.StartCoroutine(TimerRoutine(delay, duration, handler));
+    }
+
+    private static IEnumerator TimerRoutine(float delay, float duration, Action<float> handler)
+    {
+        if(delay > 0)
+            yield return new WaitForSeconds(delay);
+
+        float elapsed = 0;
+        while (elapsed < duration)
+        {
+            handler(elapsed / duration);
+
+            yield return null;
+            elapsed += Time.deltaTime;
+        }
+
+        handler(1.0f);
     }
 }
