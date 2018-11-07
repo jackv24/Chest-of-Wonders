@@ -888,6 +888,7 @@ MonoBehaviour:
   allowKnockback: 1
   dashSpeedMultiplier: 1.3
   dashManaDrainSpeed: 10
+  minStartDashMana: 20
 --- !u!114 &114000014123730578
 MonoBehaviour:
   m_ObjectHideFlags: 1
