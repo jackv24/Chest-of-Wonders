@@ -44,6 +44,9 @@ public class PlayerWallReact : MonoBehaviour
     private CameraShakeTarget wallJumpCameraShake;
 
     [SerializeField]
+    private CameraShakeTarget hardBonkCameraShake;
+
+    [SerializeField]
     private SoundEventSingle wallBonkSound;
 
     [SerializeField]
@@ -52,7 +55,7 @@ public class PlayerWallReact : MonoBehaviour
     [SerializeField]
     private SoundEventSingle wallJumpSound;
 
-    private CharacterMove characterMove;
+    private PlayerMove playerMove;
     private CharacterAnimator characterAnimator;
     private Animator animator;
     private PlayerDodge playerDodge;
@@ -60,8 +63,8 @@ public class PlayerWallReact : MonoBehaviour
 
     private void Awake()
     {
-        characterMove = GetComponent<CharacterMove>();
-        Debug.Assert(characterMove);
+        playerMove = GetComponent<PlayerMove>();
+        Debug.Assert(playerMove);
 
         characterAnimator = GetComponent<CharacterAnimator>();
         Debug.Assert(characterAnimator);
@@ -76,8 +79,8 @@ public class PlayerWallReact : MonoBehaviour
     {
         animator = characterAnimator.Animator;
 
-        characterMove.OnChangedDirection += (dir) => alreadyHitWall = false;
-        characterMove.OnGrounded += () => alreadyHitRoof = false;
+        playerMove.OnChangedDirection += (dir) => alreadyHitWall = false;
+        playerMove.OnGrounded += () => alreadyHitRoof = false;
     }
 
     private void LateUpdate()
@@ -88,11 +91,16 @@ public class PlayerWallReact : MonoBehaviour
         bool didRoofBonk = false;
 
         // If we're wall jumping then don't need to be holding direction, allows chaining wall jumps by just jumping
-        if (characterMove.InputDirection != 0 || isWallJumping)
+        if (playerMove.InputDirection != 0 || isWallJumping)
             didWallBonk = DetectWallBonk();
 
-        if (!characterMove.IsGrounded)
+        if (!playerMove.IsGrounded)
             didRoofBonk = DetectRoofBonk();
+
+        if (didWallBonk && (playerMove.IsDashing || playerDodge.IsDodging))
+            hardBonkCameraShake.DoShake();
+        else if (didRoofBonk && playerDodge.IsDodging)
+            hardBonkCameraShake.DoShake();
 
         if (didWallBonk || didRoofBonk)
         {
@@ -100,7 +108,7 @@ public class PlayerWallReact : MonoBehaviour
             EndWallJump();
         }
 
-        if (didWallBonk && !characterMove.IsGrounded)
+        if (didWallBonk && !playerMove.IsGrounded)
             wallBonkJumpTime = Time.time + wallBonkJumpWindow;
 
         if (Time.time <= wallBonkJumpTime && playerActions.Jump.WasPressed)
@@ -110,7 +118,7 @@ public class PlayerWallReact : MonoBehaviour
 
         if (isWallJumping)
         {
-            characterMove.Velocity = new Vector2(wallJumpVelocity.x * wallJumpDirection, wallJumpVelocity.y)
+            playerMove.Velocity = new Vector2(wallJumpVelocity.x * wallJumpDirection, wallJumpVelocity.y)
                 * wallJumpVelocityCurve.Evaluate(wallJumpTimer / wallJumpDuration);
 
             wallJumpTimer += Time.deltaTime;
@@ -122,8 +130,8 @@ public class PlayerWallReact : MonoBehaviour
         if (isWallJumping)
             return;
 
-        characterMove.MovementState = CharacterMovementStates.SetVelocity;
-        characterMove.SetFacing(wallJumpDirection);
+        playerMove.MovementState = CharacterMovementStates.SetVelocity;
+        playerMove.SetFacing(wallJumpDirection);
         isWallJumping = true;
         wallJumpTimer = 0;
 
@@ -139,7 +147,7 @@ public class PlayerWallReact : MonoBehaviour
         if (!isWallJumping)
             return;
 
-        characterMove.MovementState = CharacterMovementStates.Normal;
+        playerMove.MovementState = CharacterMovementStates.Normal;
         isWallJumping = false;
     }
 
@@ -149,7 +157,7 @@ public class PlayerWallReact : MonoBehaviour
         if (alreadyHitWall && Mathf.Abs(transform.position.x - lastXBonkPosition) < horizontalConsecutiveBonkDistance)
             return false;
 
-        List<RaycastHit2D> horizontalRayHits = characterMove.HorizontalRaycastHits;
+        List<RaycastHit2D> horizontalRayHits = playerMove.HorizontalRaycastHits;
         int hitCount = 0;
         int rayCount = horizontalRayHits.Count;
         float rayNormalsXSum = 0;
@@ -173,8 +181,9 @@ public class PlayerWallReact : MonoBehaviour
             // Only do actual bonk if enough of our rays are hitting the wall
             if (hitCount >= Mathf.RoundToInt(rayCount * horizontalRayHitPercent))
             {
-                animator.Play(characterMove.IsGrounded ? wallBonkGroundAnim : wallBonkAirAnim);
+                animator.Play(playerMove.IsGrounded ? wallBonkGroundAnim : wallBonkAirAnim);
                 wallBonkSound.Play(transform.position, SoundType.Player);
+
                 return true;
             }
         }
@@ -187,7 +196,7 @@ public class PlayerWallReact : MonoBehaviour
         if (alreadyHitRoof)
             return false;
 
-        List<RaycastHit2D> verticalRayHits = characterMove.VerticalRaycastHits;
+        List<RaycastHit2D> verticalRayHits = playerMove.VerticalRaycastHits;
         bool didHit = false;
         foreach (var rayHit in verticalRayHits)
         {

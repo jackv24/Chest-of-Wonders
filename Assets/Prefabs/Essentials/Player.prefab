@@ -1170,6 +1170,9 @@ MonoBehaviour:
   wallJumpCameraShake:
     camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
     profile: {fileID: 11400000, guid: d6521b8a825b93148ae5127fcd6dbe2c, type: 2}
+  hardBonkCameraShake:
+    camera: {fileID: 11400000, guid: 8e966550d1247b04ea3f6d924787812e, type: 2}
+    profile: {fileID: 11400000, guid: b00cb13ce19892a48bbbff9bcefd1874, type: 2}
   wallBonkSound:
     volume: 0.7
     pitchRange:

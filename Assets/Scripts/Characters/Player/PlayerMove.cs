@@ -11,10 +11,14 @@ public class PlayerMove : CharacterMove
     [SerializeField]
     private float dashManaDrainSpeed = 10.0f;
     private float dashManaDrain;
-
-    private bool isDashing;
-
     private PlayerStats playerStats;
+
+    public bool IsDashing { get; private set; }
+
+    protected override float MoveSpeedMultiplier
+    {
+        get { return IsDashing ? dashSpeedMultiplier : 1.0f; }
+    }
 
     protected override void Awake()
     {
@@ -23,24 +27,19 @@ public class PlayerMove : CharacterMove
         playerStats = GetComponent<PlayerStats>();
     }
 
-    protected override float MoveSpeedMultiplier
-    {
-        get { return isDashing ? dashSpeedMultiplier : 1.0f; }
-    }
-
     public bool Move(float direction, bool shouldDash)
     {
         // Only do dash and mana drain if we can move
         if (Move(direction))
         {
-            isDashing = shouldDash;
+            IsDashing = shouldDash;
 
-            if (isDashing)
+            if (IsDashing)
             {
                 if (direction == 0 || playerStats.CurrentMana <= 0)
                 {
                     dashManaDrain = 0;
-                    isDashing = false;
+                    IsDashing = false;
                 }
                 else
                 {
