@@ -28,28 +28,34 @@ public class PlayerMove : CharacterMove
         get { return isDashing ? dashSpeedMultiplier : 1.0f; }
     }
 
-    public void Move(float direction, bool shouldDash)
+    public bool Move(float direction, bool shouldDash)
     {
-        isDashing = shouldDash;
-
-        if (isDashing)
+        // Only do dash and mana drain if we can move
+        if (Move(direction))
         {
-            if (direction == 0 || playerStats.CurrentMana <= 0)
+            isDashing = shouldDash;
+
+            if (isDashing)
             {
-                dashManaDrain = 0;
-                isDashing = false;
-            }
-            else
-            {
-                dashManaDrain += dashManaDrainSpeed * Time.deltaTime;
-                if (dashManaDrain > 1.0f)
+                if (direction == 0 || playerStats.CurrentMana <= 0)
                 {
-                    playerStats.RemoveMana(1);
-                    dashManaDrain = dashManaDrain % 1;
+                    dashManaDrain = 0;
+                    isDashing = false;
+                }
+                else
+                {
+                    dashManaDrain += dashManaDrainSpeed * Time.deltaTime;
+                    if (dashManaDrain > 1.0f)
+                    {
+                        playerStats.RemoveMana(1);
+                        dashManaDrain = dashManaDrain % 1;
+                    }
                 }
             }
+
+            return true;
         }
 
-        Move(direction);
+        return false;
     }
 }

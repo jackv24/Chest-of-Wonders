@@ -476,10 +476,10 @@ public class CharacterMove : MonoBehaviour
         transform.Translate(Velocity * Time.deltaTime);
     }
 
-    public void Move(float direction)
+    public bool Move(float direction)
     {
         if (MovementState != CharacterMovementStates.Normal)
-            return;
+            return false;
 
         //Update input direction
         if ((GameManager.instance.CanDoActions || ignoreCanMove) && (canMove || ignoreCanMove))
@@ -494,6 +494,8 @@ public class CharacterMove : MonoBehaviour
 
 			OnChangedDirection(InputDirection);
 		}
+
+        return true;
     }
 
     public void SetFacing(float direction)
