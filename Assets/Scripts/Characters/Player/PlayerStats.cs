@@ -17,6 +17,14 @@ public class PlayerStats : CharacterStats
     private int maxMana = 100;
     public int MaxMana { get { return maxMana; } }
 
+    [SerializeField]
+    private float manaRegenDelay = 1.0f;
+    private float manaRegenStartTime;
+
+    [SerializeField]
+    private float manaRegenSpeed = 10.0f;
+    private float manaRegenRemainder;
+
 	private void Start()
 	{
 		if(SaveManager.instance)
@@ -86,6 +94,21 @@ public class PlayerStats : CharacterStats
 
         OnManaUpdated?.Invoke(currentMana, maxMana);
 
+        manaRegenStartTime = Time.time + manaRegenDelay;
+
         return true;
+    }
+
+    private void Update()
+    {
+        // Regenerate mana
+        if (currentMana < maxMana && Time.time >= manaRegenStartTime)
+        {
+            // Calculate amount to regen this frame (and store remainder if not whole number so regen is not frame-dependent)
+            float regenAmount = (manaRegenSpeed * Time.deltaTime) + manaRegenRemainder;
+            manaRegenRemainder = regenAmount % 1;
+
+            AddMana((int)regenAmount);
+        }
     }
 }
