@@ -127,6 +127,6 @@ public class PullSwitch : MonoBehaviour
 
 		//Restore game state
 		GameManager.instance.GameState = GameStates.Playing;
-		characterMove.MovementState = CharacterMovementStates.Disabled;
+		characterMove.MovementState = CharacterMovementStates.Normal;
 	}
 }
