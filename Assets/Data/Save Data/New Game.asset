@@ -13,11 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     AutoSave:
-      SceneName: 
-      SpawnMarkerName: 
+      SceneName: Demo_Spawnroom
+      SpawnMarkerName: SpawnMarker
     NpcSave:
-      SceneName: 
-      SpawnMarkerName: 
+      SceneName: Demo_Spawnroom
+      SpawnMarkerName: SpawnMarker
     CurrentHealth: 5
     MaxHealth: 5
     MaxMana: 100
