@@ -323,6 +323,19 @@ MonoBehaviour:
   particleOffset: {x: 0, y: 0.25}
   particleLeftRotation: 150
   particleRightRotation: 0
+--- !u!114 &114687871513232460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d110e07cf8e86b84b86d167b66ea287b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getLevel: 1
+  enableOnExit: 1
 --- !u!114 &114732079007938478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2109,7 +2122,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101748028064355760}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114687871513232460}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
