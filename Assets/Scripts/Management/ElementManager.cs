@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ElementManager : MonoBehaviour
 {
-    public static ElementManager instance;
+    private static ElementManager instance;
 
 	public static int ElementCount { get { return System.Enum.GetNames(typeof(Element)).Length; } }
 
@@ -38,12 +38,17 @@ public class ElementManager : MonoBehaviour
 
 	public Effectiveness GetEffectiveness(int x, int y)
     {
-        return damageArray[y * System.Enum.GetNames(typeof(Element)).Length + x];
+        return damageArray[Get1DArrayElementFrom2DIndexes(x, y)];
     }
 
     public void SetEffectiveness(int x, int y, Effectiveness value)
     {
-        damageArray[y * System.Enum.GetNames(typeof(Element)).Length + x] = value;
+        damageArray[Get1DArrayElementFrom2DIndexes(x, y)] = value;
+    }
+
+    private int Get1DArrayElementFrom2DIndexes(int x, int y)
+    {
+        return y * System.Enum.GetNames(typeof(Element)).Length + x;
     }
 
     public static int CalculateDamage(int sourceDamage, Element sourceElement, Element targetElement)
@@ -69,5 +74,13 @@ public class ElementManager : MonoBehaviour
 		}
 
         return Mathf.RoundToInt(newDamage);
+    }
+
+    public static Effectiveness GetEffectiveness(Element sourceElement, Element targetElement)
+    {
+        if (!instance)
+            return Effectiveness.Normal;
+
+        return instance.GetEffectiveness((int)targetElement, (int)sourceElement);
     }
 }
