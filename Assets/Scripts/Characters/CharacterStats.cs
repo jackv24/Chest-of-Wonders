@@ -103,7 +103,9 @@ public class CharacterStats : MonoBehaviour, IDamageable
 
 	private bool hasDied = false;
 
-	[Space, SerializeField]
+    protected virtual bool ShowDamageNumbers => true;
+
+    [Space, SerializeField]
     private EnemyJournalRecord enemyRecord;
 
 	private Coroutine damageFlashRoutine = null;
@@ -140,11 +142,14 @@ public class CharacterStats : MonoBehaviour, IDamageable
 			if (OnDamaged != null)
 				OnDamaged();
 
-			DamageText.instance?.ShowDamageText(
-				(Vector2)transform.position + damageTextOffset,
-				removeAmount,
-				DamageText.CalculateEffectiveness(damageProperties.amount, removeAmount)
-				);
+            if (ShowDamageNumbers)
+            {
+                DamageText.ShowDamageText(
+                    (Vector2)transform.position + damageTextOffset,
+                    removeAmount,
+                    ElementManager.GetEffectiveness(damageProperties.sourceElement, element)
+                    );
+            }
 
 			//Do damage immunity flash only if this was not a fatal hit
 			if (currentHealth > 0 && graphic && gameObject.activeSelf)

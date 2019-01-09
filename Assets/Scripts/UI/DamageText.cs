@@ -5,51 +5,62 @@ using UnityEngine.UI;
 
 public class DamageText : MonoBehaviour
 {
-	public enum Effectiveness
-	{
-		Nuetral,
-		Effective,
-		Ineffective
-	}
-
-    //Static instance as this should only be attached to one canvas
-    public static DamageText instance;
-
-    //Prefab to spawn for damage text
-    public GameObject textPrefab;
-
     [System.Serializable]
-    public struct TextConfig
+    private struct TextConfig
     {
         public Color textColor;
         public Color outlineColor;
         public int fontSize;
     }
 
-    public TextConfig neutralText;
-    public TextConfig effectiveText;
-    public TextConfig ineffectiveText;
+    //Static instance as this should only be attached to one canvas
+    private static DamageText instance;
 
-    //Animation
-    [Space()]
-    public float textLifeTime = 2f;
-    public AnimationCurve verticalMovement = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
-    public Gradient colourOverLifeTime;
+    [SerializeField]
+    private GameObject textPrefab;
+
+    [SerializeField]
+    private TextConfig neutralText;
+
+    [SerializeField]
+    private TextConfig effectiveText;
+
+    [SerializeField]
+    private TextConfig ineffectiveText;
+
+    [Header("Animation")]
+    [Space, SerializeField]
+    private float textLifeTime = 2f;
+
+    [SerializeField]
+    private AnimationCurve verticalMovement = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+
+    [SerializeField]
+    private Gradient colourOverLifeTime;
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
+        else
+            Debug.LogError("There should not be more than one DamageText instance!", this);
     }
 
-	public static Effectiveness CalculateEffectiveness(int originalDamage, int newDamage)
-	{
-		if (originalDamage == newDamage)
-			return Effectiveness.Nuetral;
-		else
-			return newDamage > originalDamage ? Effectiveness.Effective : Effectiveness.Ineffective;
-	}
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
+    }
 
-    public void ShowDamageText(Vector2 characterPos, int amount, Effectiveness effectiveNess)
+    public static void ShowDamageText(Vector2 characterPos, int amount, ElementManager.Effectiveness effectiveness)
+    {
+        if (!instance)
+            return;
+
+        instance.InternalShowDamageText(characterPos, amount, effectiveness);
+    }
+
+    private void InternalShowDamageText(Vector2 characterPos, int amount, ElementManager.Effectiveness effectiveness)
     {
         //Get damage text and make sure it is parented to this canvas
         GameObject obj = ObjectPooler.GetPooledObject(textPrefab);
@@ -65,13 +76,13 @@ public class DamageText : MonoBehaviour
 
         TextConfig config;
 
-        switch(effectiveNess)
+        switch(effectiveness)
 		{
-			case Effectiveness.Effective:
+			case ElementManager.Effectiveness.Effective:
 				config = effectiveText;
 				break;
 
-			case Effectiveness.Ineffective:
+			case ElementManager.Effectiveness.Ineffective:
 				config = ineffectiveText;
 				break;
 
@@ -95,7 +106,7 @@ public class DamageText : MonoBehaviour
         StartCoroutine("AnimateText", obj);
     }
 
-    IEnumerator AnimateText(GameObject textObject)
+    private IEnumerator AnimateText(GameObject textObject)
     {
         float lifeTime = 0;
 

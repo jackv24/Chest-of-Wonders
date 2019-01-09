@@ -25,7 +25,9 @@ public class PlayerStats : CharacterStats
     private float manaRegenSpeed = 10.0f;
     private float manaRegenRemainder;
 
-	private void Start()
+    protected override bool ShowDamageNumbers => false;
+
+    private void Start()
 	{
 		if(SaveManager.instance)
 		{

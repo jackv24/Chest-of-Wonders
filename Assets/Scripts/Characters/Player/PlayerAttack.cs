@@ -132,9 +132,7 @@ public class PlayerAttack : MonoBehaviour
 
 		//Create event handler to update the players facing direction
 		if (characterMove)
-        {
             characterMove.OnChangedDirection += delegate (float newDir) { directionX = newDir; };
-        }
     }
 
     void OnEnable()
@@ -142,7 +140,7 @@ public class PlayerAttack : MonoBehaviour
         canAttack = true;
     }
 
-    public void UseMelee(bool buttonDown, float verticalDirection)
+    public void UseMelee(bool buttonDown, Vector2 inputDirection)
     {
 		StopBatCharge();
 
@@ -152,8 +150,11 @@ public class PlayerAttack : MonoBehaviour
 			if(buttonDown && !HoldingBat)
 			{
 				heldStartTime = Time.time;
-
 				batChargeRoutine = StartCoroutine(BatCharge(chargeHoldTime));
+
+                // Force into correct facing direction (in case we're currently in a prevent turn animation)
+                if (inputDirection.x != 0)
+                    characterMove?.SetFacing(Mathf.Sign(inputDirection.x));
 
 				animator?.SetTrigger("batSwing");
             }
