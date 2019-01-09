@@ -17,7 +17,7 @@ public class SceneLoaderEditor : EditorWindow
 
     private bool autoAddGameScene = true;
 
-	[MenuItem("Overgrowth Tools/Scene Loader %#l")]
+	[MenuItem("Custom Tools/Scene Loader %#l")]
 	static void Init()
 	{
 		SceneLoaderEditor window = (SceneLoaderEditor)EditorWindow.GetWindow(typeof(SceneLoaderEditor));

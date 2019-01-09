@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class FindMissingScripts
 {
-	[MenuItem("Overgrowth Tools/Remove Missing Scripts in Scenes")]
+	[MenuItem("Custom Tools/Remove Missing Scripts in Scenes")]
 	public static void FindMissingComponentsInScenes()
 	{
 		bool wasFound = false;
@@ -23,7 +23,7 @@ public class FindMissingScripts
 			Debug.Log("No missing components were found in any open scenes!");
 	}
 
-	[MenuItem("Overgrowth Tools/Remove Missing Scripts in Project")]
+	[MenuItem("Custom Tools/Remove Missing Scripts in Project")]
 	public static void FindMissingComponentsInProject()
 	{
 		if (!EditorUtility.DisplayDialog("Are you sure?", "This may take a while, and will touch every GameObject in the project!", "YES", "NO"))

@@ -107,7 +107,7 @@ public class ElementManagerEditor : Editor
             GameObject obj = ((ElementManager)target).gameObject;
 
             //If this object is a prefab, mark it as dirty
-            if (PrefabUtility.GetPrefabObject(obj) != null)
+            if (PrefabUtility.GetPrefabInstanceHandle(obj) != null)
                 EditorUtility.SetDirty(target);
 
             EditorSceneManager.MarkSceneDirty(obj.scene);

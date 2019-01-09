@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class SceneCameraSettings
 {
-    private const string SortMenuPath = "Overgrowth Tools/Camera/Sort Mode/";
+    private const string SortMenuPath = "Custom Tools/Camera/Sort Mode/";
     
     [MenuItem(SortMenuPath + "Orthographic %#o")]
     public static void SetCameraSortModeOrthographic()

@@ -26,13 +26,13 @@ public class SpritePivotEditor : EditorWindow
 		}
 	}
 
-	[MenuItem("Overgrowth Tools/Sprite Pivots/Set Bottom")]
+	[MenuItem("Custom Tools/Sprite Pivots/Set Bottom")]
 	static void SetSpritePivotBottom()
 	{
 		SetSpritePivot(SpriteAlignment.BottomCenter);
 	}
 
-	[MenuItem("Overgrowth Tools/Sprite Pivots/Set Center")]
+	[MenuItem("Custom Tools/Sprite Pivots/Set Center")]
 	static void SetSpritePivotCenter()
 	{
 		SetSpritePivot(SpriteAlignment.Center);
