@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class Slambeak : MonoBehaviour
 {
-	public TriggerEvent slamTrigger;
+	public TriggerDetector slamTrigger;
 
 	[Space()]
 	public float stunTime = 2.0f;

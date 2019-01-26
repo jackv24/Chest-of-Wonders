@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -1803,7 +1804,7 @@ MonoBehaviour:
       height: 0.03125
     collData:
       vertices: []
-      type: 0
+      type: 1
     paramContainer:
       m_paramList: []
     prefabData:
@@ -3571,7 +3572,7 @@ MonoBehaviour:
     paramContainer:
       m_paramList: []
     prefabData:
-      prefab: {fileID: 1045537434247780, guid: 7192d4e6055e7db4d816afe638dd2eb7, type: 2}
+      prefab: {fileID: 1045537434247780, guid: 7192d4e6055e7db4d816afe638dd2eb7, type: 3}
       offset: {x: 0, y: 0, z: 0}
       offsetMode: 0
       showTileWithPrefab: 0
@@ -3589,7 +3590,7 @@ MonoBehaviour:
     paramContainer:
       m_paramList: []
     prefabData:
-      prefab: {fileID: 1375554269100262, guid: 448cb682fcc367a4d898d3210b53232c, type: 2}
+      prefab: {fileID: 1375554269100262, guid: 448cb682fcc367a4d898d3210b53232c, type: 3}
       offset: {x: 0, y: 0, z: 0}
       offsetMode: 0
       showTileWithPrefab: 0
@@ -3607,7 +3608,7 @@ MonoBehaviour:
     paramContainer:
       m_paramList: []
     prefabData:
-      prefab: {fileID: 1010066145427102, guid: 51aa72b8d1c225844b71f5099c896bc6, type: 2}
+      prefab: {fileID: 1010066145427102, guid: 51aa72b8d1c225844b71f5099c896bc6, type: 3}
       offset: {x: 0, y: 0, z: 0}
       offsetMode: 0
       showTileWithPrefab: 0
