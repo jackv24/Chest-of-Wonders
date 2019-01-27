@@ -7,8 +7,6 @@ using UnityEngine;
 /// </summary>
 public class CharacterGroundEffects : MonoBehaviour
 {
-	public SoundType soundType;
-
 	[System.Serializable]
 	public class GroundEffects
 	{
@@ -28,8 +26,20 @@ public class CharacterGroundEffects : MonoBehaviour
 		public GroundEffects groundEffects;
 	}
 
-	//Use a public array with a pair class for easy inspector assignment, but swap for a Dictionary at runtime for performance
-	[SerializeField] private List<MappedGroundEffect> supportedGroundEffects = new List<MappedGroundEffect>();
+    [SerializeField]
+    private SoundType soundType;
+
+    [SerializeField]
+    private Vector2 spawnOffset;
+
+    public Vector3 SpawnPosition
+    {
+        get { return transform.TransformPoint(spawnOffset); }
+    }
+
+    // Use a serialized array with a pair class for easy inspector assignment, but swap for a Dictionary at runtime for performance
+    [SerializeField]
+    private List<MappedGroundEffect> supportedGroundEffects = new List<MappedGroundEffect>();
 	private Dictionary<GroundType, GroundEffects> groundEffects;
 
 	private List<GroundTypeRegion> groundTypeRegions = new List<GroundTypeRegion>();
@@ -42,7 +52,13 @@ public class CharacterGroundEffects : MonoBehaviour
 
 	private CharacterMove characterMove;
 
-	private void OnValidate()
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.matrix = transform.localToWorldMatrix;
+        CustomGizmos.DrawPoint(spawnOffset);
+    }
+
+    private void OnValidate()
 	{
 		//Make sure we don't have duplicates
 		List<GroundType> foundTypes = new List<GroundType>();
@@ -81,8 +97,8 @@ public class CharacterGroundEffects : MonoBehaviour
 			{
 				if (currentGroundEffects != null)
 				{
-					currentGroundEffects.jumpSound.Play(transform.position, soundType);
-					currentGroundEffects.jumpEffect.SpawnPooled(transform.position);
+					currentGroundEffects.jumpSound.Play(SpawnPosition, soundType);
+					currentGroundEffects.jumpEffect.SpawnPooled(SpawnPosition);
 				}
 			};
 
@@ -90,8 +106,8 @@ public class CharacterGroundEffects : MonoBehaviour
 			{
 				if (currentGroundEffects != null)
 				{
-					currentGroundEffects.landSound.Play(transform.position, soundType);
-					currentGroundEffects.landEffect.SpawnPooled(transform.position);
+					currentGroundEffects.landSound.Play(SpawnPosition, soundType);
+					currentGroundEffects.landEffect.SpawnPooled(SpawnPosition);
 				}
 			};
 		}
@@ -103,7 +119,7 @@ public class CharacterGroundEffects : MonoBehaviour
 	//Intended to be called from CharacterAnimationEvents
 	public void PlayFootstep()
 	{
-		currentGroundEffects?.footstepSound?.Play(transform.position, soundType);
+		currentGroundEffects?.footstepSound?.Play(SpawnPosition, soundType);
 	}
 
 	public void AddGroundTypeRegion(GroundTypeRegion region)
@@ -154,13 +170,15 @@ public class CharacterGroundEffects : MonoBehaviour
 		{
 			currentGroundEffects = newGroundEffects;
 
-			currentTrailEffect?.StopParticles();
-			currentTrailEffect = null;
+            if (currentTrailEffect)
+            {
+                currentTrailEffect.StopParticles();
+                currentTrailEffect = null;
+            }
 
-			if(currentGroundEffects?.trailEffect?.gameObject)
+			if(currentGroundEffects?.trailEffect != null)
 			{
-				GameObject obj = ObjectPooler.GetPooledObject(currentGroundEffects.trailEffect.gameObject);
-				currentTrailEffect = obj.GetComponent<TrailParticles>();
+                currentTrailEffect = currentGroundEffects.trailEffect.SpawnPooled(SpawnPosition);
 
 				currentTrailEffect.StartParticles(transform, () =>
                 {

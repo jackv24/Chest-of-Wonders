@@ -79,7 +79,6 @@ public class TrailParticles : MonoBehaviour
 		//Set parent to target for easy follow and inherit velocity support
 		previousParent = transform.parent;
 		transform.SetParent(target, true);
-		transform.localPosition = Vector2.zero;
 	}
 
 	/// <summary>

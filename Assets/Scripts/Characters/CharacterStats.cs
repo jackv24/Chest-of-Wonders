@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using NodeCanvas.Framework;
+using Random = UnityEngine.Random;
 
 public class CharacterStats : MonoBehaviour, IDamageable
 {
 	// Events (use System.Action for NodeCanvas compatibility)
-    public event System.Action OnDeath;
-    public event System.Action OnDamaged;
-	public event System.Action OnKnockbackRecover;
+    public event Action OnDeath;
+    public event Action OnDamaged;
+	public event Action OnKnockbackRecover;
 
     [SerializeField]
     protected int currentHealth = 100;
@@ -114,6 +115,13 @@ public class CharacterStats : MonoBehaviour, IDamageable
     private CharacterMove characterMove;
     private CharacterAnimator characterAnimator;
     private Blackboard blackboard;
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.matrix = transform.localToWorldMatrix;
+        CustomGizmos.DrawPoint(dropOffset);
+        CustomGizmos.DrawPoint(deathParticleOffset);
+    }
 
     void Awake()
     {
@@ -261,11 +269,8 @@ public class CharacterStats : MonoBehaviour, IDamageable
     {
         yield return new WaitForSeconds(duration);
 
-        if(deathParticlePrefab)
-        {
-            GameObject obj = ObjectPooler.GetPooledObject(deathParticlePrefab);
-            obj.transform.position = transform.position + (Vector3)deathParticleOffset;
-        }
+        if (deathParticlePrefab)
+            deathParticlePrefab.SpawnPooled(transform.TransformPoint(deathParticleOffset));
 
         if (OnDeath != null)
             OnDeath();
@@ -275,8 +280,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
 
         if (deathDrop)
         {
-            GameObject dropped = ObjectPooler.GetPooledObject(deathDrop);
-            dropped.transform.position = (Vector2)gameObject.transform.position + dropOffset;
+            GameObject dropped = deathDrop.SpawnPooled(transform.TransformPoint(dropOffset));
 
 			//If a soul was dropped, set it's element to this character's element
 			SoulContainer soul = dropped.GetComponent<SoulContainer>();
@@ -290,8 +294,7 @@ public class CharacterStats : MonoBehaviour, IDamageable
 
             for(int i = 0; i < dropAmount; i++)
             {
-                GameObject drop = ObjectPooler.GetPooledObject(healthDrop);
-                drop.transform.position = (Vector2)gameObject.transform.position + dropOffset;
+                GameObject drop = healthDrop.SpawnPooled(transform.TransformPoint(dropOffset));
 
                 Rigidbody2D body = drop.GetComponent<Rigidbody2D>();
                 body.velocity = Vector2.zero;
