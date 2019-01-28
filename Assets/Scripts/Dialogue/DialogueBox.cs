@@ -309,7 +309,7 @@ public class DialogueBox : MonoBehaviour
 		string text = info.statement.text.TryGetTranslation();
 
 		//Split statement text into pages, then treat each page as it's own subtitle request
-		string[] textPages = Helper.ParseGameText(text);
+		string[] textPages = TextHelper.ParseGameText(text);
 		for (int i = 0; i < textPages.Length; i++)
 		{
 			if (skipNextFlip)
