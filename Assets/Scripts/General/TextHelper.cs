@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 public static class TextHelper
 {
     private static readonly Dictionary<char, string> styleMapping = new Dictionary<char, string>
     {
-        { '*', $"<color={"red"}>{{0}}</color>" }
+        { '*', $"<color=#{GlobalTextSettings.EmphasisedTextColor.ToHTML()}>{{0}}</color>" }
     };
 
     /// <summary>

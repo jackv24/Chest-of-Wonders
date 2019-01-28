@@ -122,4 +122,9 @@ public static class Extensions
 
         handler(1.0f);
     }
+
+    public static string ToHTML(this Color color)
+    {
+        return ColorUtility.ToHtmlStringRGB(color);
+    }
 }
