@@ -8,13 +8,6 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
 		Up, Down, Left, Right
 	}
 
-	private enum ButtonDisplayTypes
-	{
-		Keyboard,
-		PS4,
-		XBOX
-	}
-
 	protected abstract PlayerAction HoldButton { get; }
 
 	[SerializeField]
@@ -194,32 +187,10 @@ public abstract class ButtonSelectionWheel : MonoBehaviour
 		foreach(var obj in deviceButtonPrompts)
             obj?.SetActive(false);
 
-        BindingSourceType sourceType = Actions.LastInputType;
-        ButtonDisplayTypes? buttonDisplay = null;
-
-        if (sourceType == BindingSourceType.KeyBindingSource)
-            buttonDisplay = ButtonDisplayTypes.Keyboard;
-        else if (sourceType == BindingSourceType.DeviceBindingSource)
-		{
-			switch (Actions.LastDeviceStyle)
-			{
-				case InputDeviceStyle.Xbox360:
-				case InputDeviceStyle.XboxOne:
-                    buttonDisplay = ButtonDisplayTypes.XBOX;
-                    break;
-
-				case InputDeviceStyle.PlayStation3:
-				case InputDeviceStyle.PlayStation4:
-                    buttonDisplay = ButtonDisplayTypes.PS4;
-                    break;
-            }
-		}
+        ButtonDisplayTypes? buttonDisplay = ControlManager.GetButtonDisplayType(Actions);
 
 		if (buttonDisplay == null)
-		{
-            Debug.LogError($"Couldn't match source type \"{sourceType}\" with style \"{Actions.LastDeviceStyle}\" to button display", this);
             return;
-        }
 
         GameObject displayObj = deviceButtonPrompts[(int)buttonDisplay.Value];
 		if (displayObj)

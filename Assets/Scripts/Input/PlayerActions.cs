@@ -53,6 +53,11 @@ public class PlayerActions : PlayerActionSet
     public PlayerAction Back;
     public PlayerAction Pause;
 
+    public bool IsUsingKeyboard
+    {
+        get { return LastInputType == BindingSourceType.KeyBindingSource || LastInputType == BindingSourceType.MouseBindingSource; }
+    }
+
     public PlayerActions()
     {
         CreateActions();
@@ -233,4 +238,20 @@ public class PlayerActions : PlayerActionSet
 
 		return null;
 	}
+
+    public string GetBoundButtonName(ButtonActionType actionType)
+    {
+        var action = GetButtonAction(actionType);
+
+        if (action != null)
+        {
+            foreach(var binding in action.Bindings)
+            {
+                if (binding.BindingSourceType == LastInputType)
+                    return binding.Name;
+            }
+        }
+
+        return string.Empty;
+    }
 }

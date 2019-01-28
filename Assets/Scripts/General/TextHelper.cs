@@ -1,13 +1,36 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
 public static class TextHelper
 {
-    private static readonly Dictionary<char, string> styleMapping = new Dictionary<char, string>
+    private static readonly Dictionary<char, Func<string, string>> styleMapping = new Dictionary<char, Func<string, string>>
     {
-        { '*', $"<color=#{GlobalTextSettings.EmphasisedTextColor.ToHTML()}>{{0}}</color>" }
+        // Emphasis
+        { '*', text => $"<color=#{GlobalTextSettings.EmphasisedTextColor.ToHTML()}>{text}</color>" },
+
+        // Button Sprites
+        { '%', text =>
+            {
+                var playerActions = ControlManager.GetPlayerActions();
+                string buttonName = playerActions.GetBoundButtonName((PlayerActions.ButtonActionType)Enum.Parse(typeof(PlayerActions.ButtonActionType), text));
+
+                if (playerActions.IsUsingKeyboard)
+                {
+                    return $"<color=#{GlobalTextSettings.EmphasisedTextColor.ToHTML()}>{buttonName}</color>";
+                }
+                else
+                {
+                    return string.Format(
+                        "<size=32><sprite=\"{0} Buttons\" name=\"{1}\"></size>",
+                        ControlManager.GetButtonDisplayType().ToString(),
+                        buttonName
+                        );
+                }
+            }
+        }
     };
 
     /// <summary>
@@ -70,7 +93,7 @@ public static class TextHelper
                 }
 
                 // Format text between style keys and add to builder
-                mainBuilder.Append(string.Format(styleMapping[key], subBuilder.ToString()));
+                mainBuilder.Append(styleMapping[key](subBuilder.ToString()));
 
                 // Continue parsing text AFTER the previous style key
                 i = continueIndex;
