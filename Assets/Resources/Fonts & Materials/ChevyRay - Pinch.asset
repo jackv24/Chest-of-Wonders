@@ -4,26 +4,27 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: ChevyRay - Pinch
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -413831494
   material: {fileID: 21530978423604362}
-  materialHashCode: 0
+  materialHashCode: 862649073
   fontAssetType: 2
   m_fontInfo:
     Name: ChevyRay - Pinch
     PointSize: 7
-    Scale: 0
+    Scale: 1
     CharacterCount: 95
     LineHeight: 7
     Baseline: 0
     Ascender: 5
-    CapHeight: 0
+    CapHeight: 5
     Descender: -2
     CenterLine: 0
     SuperscriptOffset: 5
@@ -33,7 +34,7 @@ MonoBehaviour:
     UnderlineThickness: 0.3486328
     strikethrough: 1.0909091
     strikethroughThickness: 0.3486328
-    TabWidth: 0
+    TabWidth: 20
     Padding: 5
     AtlasWidth: 256
     AtlasHeight: 128
@@ -42,10 +43,10 @@ MonoBehaviour:
   - id: 32
     x: 5
     y: 123
-    width: 0
-    height: 0
+    width: 2
+    height: 7
     xOffset: 0
-    yOffset: 0
+    yOffset: 5
     xAdvance: 2
     scale: 1
   - id: 33
@@ -960,7 +961,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: ChevyRay - Pinch Material
   m_Shader: {fileID: 4800000, guid: 128e987d567d4e2c824d754223b3f3b0, type: 3}
   m_ShaderKeywords: 
@@ -999,7 +1001,8 @@ Material:
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: ChevyRay - Pinch Atlas
   m_ImageContentsHash:
     serializedVersion: 2

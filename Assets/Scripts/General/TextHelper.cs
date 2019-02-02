@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using TMPro;
 
 public static class TextHelper
 {
@@ -30,7 +31,10 @@ public static class TextHelper
                         );
                 }
             }
-        }
+        },
+
+        // Small text
+        { '_', text => ApplyTextStyle(text, GlobalTextSettings.WhisperStyle) },
     };
 
     /// <summary>
@@ -102,4 +106,16 @@ public static class TextHelper
 
         return mainBuilder.ToString();
     }
+
+    private static string ApplyTextStyle(string text, TextStyle style)
+    {
+        return $"<font=\"{style.Font.name}\"><size={style.Size}>{text}</size></font>";
+    }
+}
+
+[Serializable]
+public struct TextStyle
+{
+    public TMP_FontAsset Font;
+    public int Size;
 }
