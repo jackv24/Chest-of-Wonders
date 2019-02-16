@@ -401,14 +401,32 @@ public class DialogueBox : MonoBehaviour
 
         waitingForInput = true;
 
-        for (int i = 0; i <= textObj.textInfo.characterCount; i++)
+        float textUpdateTime = 1 / textSpeed;
+        float textUpdateElapsed = 0;
+        int visibleCharacters = 0;
+        while (true)
         {
             if (!waitingForInput)
                 break;
 
-	        textObj.maxVisibleCharacters = i;
+	        if (textUpdateElapsed >= textUpdateTime)
+            {
+                visibleCharacters++;
+                textObj.maxVisibleCharacters = visibleCharacters;
 
-            yield return new WaitForSeconds(1 / textSpeed);
+                if (visibleCharacters >= textObj.textInfo.characterCount)
+                    break;
+
+                // Since these numbers are so small the remained is not insignificant - use remained instead of resetting to 0
+                textUpdateElapsed %= textUpdateTime;
+            }
+            else
+            {
+                // Only yield if textUpdateElapsed remained is less than textUpdateTime
+                // (can do multiple characters per frame if speed is faster than framerate)
+                yield return null;
+                textUpdateElapsed += Time.deltaTime;
+            }
         }
 
 	    textObj.maxVisibleCharacters = textObj.textInfo.characterCount;
