@@ -68,24 +68,6 @@ public class PixelCamera2D : MonoBehaviour
         previousHeight = Screen.height;
     }
 
-    private Camera GetPixelCameraRenderer(Camera cameraToIgnore)
-    {
-        foreach (Camera possiblePixelCameraRenderer in GetComponentsInChildren<Camera>())
-        {
-            if (possiblePixelCameraRenderer != cameraToIgnore)
-            {
-                return possiblePixelCameraRenderer;
-            }
-        }
-
-        return null;
-    }
-
-    private float GetCameraRectOffset(int size)
-    {
-        return size % 2 == 0 ? 0 : 1f / size;
-    }
-
     public Vector3 ScreenToWorldPosition(Vector3 screenPosition)
     {
         int targetWidth  = Screen.width;
