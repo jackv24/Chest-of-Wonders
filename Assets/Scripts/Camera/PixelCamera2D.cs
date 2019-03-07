@@ -15,10 +15,10 @@ public class PixelCamera2D : MonoBehaviour
     private int baseHeight = 360;
 
     [SerializeField]
-    private PixelCamera2DBehaviour behaviour;
+    private MeshRenderer fullScreenQuad;
 
     [SerializeField]
-    private MeshRenderer quad;
+    private MeshRenderer[] gameScreenQuads;
 
     public int BaseWidth { get { return baseWidth; } }
     public int BaseHeight { get { return baseHeight; } }
@@ -28,11 +28,10 @@ public class PixelCamera2D : MonoBehaviour
 
     private int previousWidth = 0;
     private int previousHeight = 0;
-    private PixelCamera2DBehaviour previousBehaviour;
 
     private void Update()
     {
-        if (Screen.width != previousWidth || Screen.height != previousHeight || previousBehaviour != behaviour)
+        if (Screen.width != previousWidth || Screen.height != previousHeight)
         {
             UpdatePreviousValues();
 
@@ -40,43 +39,12 @@ public class PixelCamera2D : MonoBehaviour
         }
     }
 
-    public void SetRenderTexture(RenderTexture renderTexture)
-    {
-        mainCamera.targetTexture = renderTexture;
-        quad.sharedMaterial.mainTexture = renderTexture;
-    }
-
     private void UpdateCamera()
     {
-        if (behaviour == PixelCamera2DBehaviour.BestPixelPerfectFit)
-        {
-            BestFitBehaviour();
-        }
-        else if (behaviour == PixelCamera2DBehaviour.ScaleToFit)
-        {
-            ScaleBehaviour();
-        }
+        ScaleBehaviour();
 
         if (OnResize != null)
             OnResize();
-    }
-
-    private void BestFitBehaviour()
-    {
-        int nearestWidth = Screen.width / baseWidth * baseWidth;
-        int nearestHeight = Screen.height / baseHeight * baseHeight;
-
-        int xScaleFactor = nearestWidth / baseWidth;
-        int yScaleFactor = nearestHeight / baseHeight;
-
-        int scaleFactor = yScaleFactor < xScaleFactor ? yScaleFactor : xScaleFactor;
-
-        float heightRatio = (baseHeight * (float)scaleFactor) / Screen.height;
-
-        quad.transform.localScale = new Vector3(baseWidth / (float)baseHeight * heightRatio, 1f * heightRatio, 1f);
-
-        // Offset the camera rect in odd screen sizes to prevent subpixel issues.
-        screenCamera.rect = new Rect(GetCameraRectOffset(Screen.width), GetCameraRectOffset(Screen.height), screenCamera.rect.width, screenCamera.rect.height);
     }
 
     private void ScaleBehaviour()
@@ -86,20 +54,18 @@ public class PixelCamera2D : MonoBehaviour
         float scaleHeight = windowAspectRatio / targetAspectRatio;
 
         if (scaleHeight < 1f)
-        {
-            quad.transform.localScale = new Vector3(targetAspectRatio * scaleHeight, scaleHeight, 1f);
-        }
+            fullScreenQuad.transform.localScale = new Vector3(targetAspectRatio * scaleHeight, scaleHeight, 1f);
         else
-        {
+            fullScreenQuad.transform.localScale = new Vector3(targetAspectRatio, 1f, 1f);
+
+        foreach (var quad in gameScreenQuads)
             quad.transform.localScale = new Vector3(targetAspectRatio, 1f, 1f);
-        }
     }
 
     private void UpdatePreviousValues()
     {
         previousWidth = Screen.width;
         previousHeight = Screen.height;
-        previousBehaviour = behaviour;
     }
 
     private Camera GetPixelCameraRenderer(Camera cameraToIgnore)
@@ -122,19 +88,8 @@ public class PixelCamera2D : MonoBehaviour
 
     public Vector3 ScreenToWorldPosition(Vector3 screenPosition)
     {
-        int targetWidth  = baseWidth;
-        int targetHeight = baseHeight;
-
-        if (behaviour == PixelCamera2DBehaviour.BestPixelPerfectFit)
-        {
-            targetWidth  = Screen.width  / baseWidth  * baseWidth;
-            targetHeight = Screen.height / baseHeight * baseHeight;
-        }
-        else if (behaviour == PixelCamera2DBehaviour.ScaleToFit)
-        {
-            targetWidth = Screen.width;
-            targetHeight = Screen.height;
-        }
+        int targetWidth  = Screen.width;
+        int targetHeight = Screen.height;
 
         float xScaleFactor = (float)targetWidth / baseWidth;
         float yScaleFactor = (float)targetHeight / baseHeight;
