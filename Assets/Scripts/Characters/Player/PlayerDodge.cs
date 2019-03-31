@@ -5,24 +5,11 @@ using UnityEngine;
 
 public class PlayerDodge : MonoBehaviour
 {
-	[Serializable]
-	private struct DodgeDetails
-	{
-		public float speed;
-		public AnimationCurve speedCurve;
-	}
-
-	private enum DodgeType
-	{
-		Ground,
-		Air
-	}
+    [SerializeField]
+    private float speed;
 
     [SerializeField]
-    private DodgeDetails groundDodge;
-
-    [SerializeField]
-    private DodgeDetails airDodge;
+    private AnimationCurve speedCurve;
 
     [SerializeField]
     private float cooldownTime = 0.3f;
@@ -76,61 +63,40 @@ public class PlayerDodge : MonoBehaviour
 
 	public void Dodge(Vector2 direction)
 	{
+        // Cannot dodge on ground
+        if (characterMove.IsGrounded)
+            return;
+
 		//Can only dodge if in a regular state (can't dodge in the middle of an attack, etc)
 		if (!characterAnimator || characterAnimator.IsInState("Locomotion", "Jump", "Fall", "Land", "Turn"))
 		{
 			if (dodgeRoutine == null && Time.time >= nextDodgeTime)
 			{
-				//Determine dodge type
-				DodgeType type = characterMove.IsGrounded ? DodgeType.Ground : DodgeType.Air;
+				if (airDodgesLeft <= 0)
+					return;
 
-				//Limit air dodges
-				if (type == DodgeType.Air)
-				{
-					if (airDodgesLeft <= 0)
-						return;
+				airDodgesLeft--;
 
-					airDodgesLeft--;
-				}
-
-				dodgeRoutine = StartCoroutine(DodgeRoutine(type, direction));
+				dodgeRoutine = StartCoroutine(DodgeRoutine(direction));
 			}
 		}
 	}
 
-	IEnumerator DodgeRoutine(DodgeType type, Vector2 direction)
+	IEnumerator DodgeRoutine(Vector2 direction)
 	{
-		//Can only dodge horizontally on ground
-		if(type == DodgeType.Ground)
-		{
-			direction.y = 0;
-			direction.Normalize();
-		}
-
 		//Cannot dodge without a direction
 		if (direction.magnitude < 0.01f)
 			direction = new Vector2(characterMove.FacingDirection, 0);
 
-		//Snap to 8 directions
-		direction = Helper.SnapTo(direction, 45.0f).normalized;
+		//Snap to 4 directions
+		direction = Helper.SnapTo(direction, 90.0f).normalized;
 
-		//Determine animation to play (ground is side animation, air is directional)
+		//Determine animation to play
 		string dodgeAnim = "Dodge Side";
-		if(type == DodgeType.Air)
-		{
-			if (direction == Vector2.up)
-				dodgeAnim = "Dodge Up";
-			else if (direction == Vector2.down)
-				dodgeAnim = "Dodge Down";
-			else if (direction.x != 0)
-			{
-				if (direction.y > 0)
-					dodgeAnim = "Dodge Diagonal Up";
-				else if (direction.y < 0)
-					dodgeAnim = "Dodge Diagonal Down";
-			}
-			//Horizontal directions are already default, so no need to add a case for them
-		}
+		if (direction == Vector2.up)
+			dodgeAnim = "Dodge Up";
+		else if (direction == Vector2.down)
+			dodgeAnim = "Dodge Down";
 
 		//Play animation and set length to wait
 		characterAnimator?.Play(dodgeAnim);
@@ -138,7 +104,6 @@ public class PlayerDodge : MonoBehaviour
 		float duration = characterAnimator.Animator.GetCurrentAnimatorStateInfo(0).length;
 
 		//Start dodge
-		characterStats.DamageImmunity = true;
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.None;
 
 		characterMove.MovementState = CharacterMovementStates.SetVelocity;
@@ -149,46 +114,27 @@ public class PlayerDodge : MonoBehaviour
 
 		bool returnToLocomotion = true;
 
-		switch (type)
-		{
-			case DodgeType.Ground:
-				{
-					//Change speed over dodge time according to curve
-					float elapsed = 0;
-					while (elapsed <= duration)
-					{
-						characterMove.Velocity = direction * groundDodge.speed * groundDodge.speedCurve.Evaluate(elapsed / duration);
+        float elapsed = 0;
+        while (elapsed <= duration)
+        {
+            //Set velocity every frame according to curve
+            characterMove.Velocity = direction * speed * speedCurve.Evaluate(elapsed / duration);
 
-						yield return null;
-						elapsed += Time.deltaTime;
-					}
-				}
-				break;
+            //Land immediately and cancel when dodging into ground
+            if (characterMove.IsGrounded && characterMove.Velocity.y < 0)
+            {
+                if (characterAnimator)
+                    characterAnimator.Play("Land");
 
-			case DodgeType.Air:
-				{
-					float elapsed = 0;
-					while (elapsed <= duration)
-					{
-						//Set velocity every frame according to curve
-						characterMove.Velocity = direction * airDodge.speed * airDodge.speedCurve.Evaluate(elapsed / duration);
+                returnToLocomotion = false;
+                break;
+            }
 
-						//Land immediately and cancel when dodging into ground
-						if (characterMove.IsGrounded && characterMove.Velocity.y < 0)
-						{
-							characterAnimator?.Play("Land");
-							returnToLocomotion = false;
-							break;
-						}
+            yield return null;
+            elapsed += Time.deltaTime;
+        }
 
-						yield return null;
-						elapsed += Time.deltaTime;
-					}
-				}
-				break;
-		}
-
-		EndDodge(returnToLocomotion);
+        EndDodge(returnToLocomotion);
 	}
 
 	public void EndDodge(bool changeAnim)
@@ -206,7 +152,6 @@ public class PlayerDodge : MonoBehaviour
 			characterAnimator.ReturnToLocomotion();
 
 		//Return to previous state after dodge
-		characterStats.DamageImmunity = false;
 		playerInput.AcceptingInput = PlayerInput.InputAcceptance.All;
 
 		nextDodgeTime = Time.time + cooldownTime;

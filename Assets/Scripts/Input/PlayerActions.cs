@@ -28,7 +28,9 @@ public class PlayerActions : PlayerActionSet
     public PlayerAction Right;
     public PlayerAction Up;
     public PlayerAction Down;
+
     public PlayerAction Jump;
+    public PlayerAction Dodge;
 
     public PlayerTwoAxisAction Move;
 
@@ -45,8 +47,6 @@ public class PlayerActions : PlayerActionSet
 	public PlayerAction SelectionWheelDown;
 	public PlayerAction SelectionWheelLeft;
 	public PlayerAction SelectionWheelRight;
-
-    public PlayerAction Dodge;
 
 	public PlayerAction Interact;
     public PlayerAction Submit;
@@ -73,6 +73,7 @@ public class PlayerActions : PlayerActionSet
         Down.AddDefaultBinding(Key.DownArrow);
 
         Jump.AddDefaultBinding(Key.Z);
+        Dodge.AddDefaultBinding(Key.Z);
 
         MeleeAttack.AddDefaultBinding(Key.C);
         MagicProjectileAttack.AddDefaultBinding(Key.D);
@@ -87,8 +88,6 @@ public class PlayerActions : PlayerActionSet
         SelectionWheelDown.AddDefaultBinding(Key.X);
         SelectionWheelLeft.AddDefaultBinding(Key.Z);
         SelectionWheelRight.AddDefaultBinding(Key.C);
-
-        Dodge.AddDefaultBinding(Key.X);
 
         Interact.AddDefaultBinding(Key.UpArrow);
         Interact.AddDefaultBinding(Key.DownArrow);
@@ -118,10 +117,11 @@ public class PlayerActions : PlayerActionSet
         Down.AddDefaultBinding(InputControlType.LeftStickDown);
 
         Jump.AddDefaultBinding(InputControlType.Action1);
+        Dodge.AddDefaultBinding(InputControlType.Action1);
 
         MeleeAttack.AddDefaultBinding(InputControlType.Action3);
         MagicProjectileAttack.AddDefaultBinding(InputControlType.Action4);
-        MagicProjectileDiagonalLock.AddDefaultBinding(InputControlType.LeftTrigger);
+        MagicProjectileDiagonalLock.AddDefaultBinding(InputControlType.RightTrigger);
 
         Dash.AddDefaultBinding(InputControlType.Action2);
 
@@ -132,8 +132,6 @@ public class PlayerActions : PlayerActionSet
         SelectionWheelDown.AddDefaultBinding(InputControlType.Action1);
         SelectionWheelLeft.AddDefaultBinding(InputControlType.Action3);
         SelectionWheelRight.AddDefaultBinding(InputControlType.Action2);
-
-        Dodge.AddDefaultBinding(InputControlType.RightTrigger);
 
         Interact.AddDefaultBinding(InputControlType.Action2);
 
@@ -151,7 +149,9 @@ public class PlayerActions : PlayerActionSet
         Right = CreatePlayerAction("Move Right");
         Up = CreatePlayerAction("Move Up");
         Down = CreatePlayerAction("Move Down");
+
         Jump = CreatePlayerAction("Jump");
+        Dodge = CreatePlayerAction("Dodge");
 
         Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
 
@@ -168,8 +168,6 @@ public class PlayerActions : PlayerActionSet
         SelectionWheelDown = CreatePlayerAction("Selection Wheel Down");
         SelectionWheelLeft = CreatePlayerAction("Selection Wheel Left");
         SelectionWheelRight = CreatePlayerAction("Selection Wheel Right");
-
-        Dodge = CreatePlayerAction("Dodge");
 
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");

@@ -3,8 +3,9 @@
 --- !u!74 &7400000
 AnimationClip:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: PlayerDodgeUp
   serializedVersion: 6
   m_Legacy: 0
@@ -18,8 +19,6 @@ AnimationClip:
   m_FloatCurves: []
   m_PPtrCurves:
   - curve:
-    - time: 0
-      value: {fileID: 21300000, guid: 71ec6f29abc78a8439e2b9e43b7f0afc, type: 3}
     - time: 0.041666668
       value: {fileID: 21300000, guid: 742f961330d53324cbff37a77527e512, type: 3}
     - time: 0.125
@@ -51,7 +50,6 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 71ec6f29abc78a8439e2b9e43b7f0afc, type: 3}
     - {fileID: 21300000, guid: 742f961330d53324cbff37a77527e512, type: 3}
     - {fileID: 21300000, guid: 7783dcd57ff5dcb4daf00b30a0dc5060, type: 3}
     - {fileID: 21300000, guid: 2a997818c416d254baa5ff3128007a40, type: 3}
@@ -82,7 +80,6 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_GenerateMotionCurves: 0
   m_Events:
   - time: 0.041666668
     functionName: StartAfterImageEffect

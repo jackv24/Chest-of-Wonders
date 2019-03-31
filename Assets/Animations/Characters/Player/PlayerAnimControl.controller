@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getLevel: 1
   endTime: 1
-  offset: {x: 0, y: 0.45}
+  offset: {x: 0, y: -0.15}
   size: {x: 0.35, y: 0.9}
 --- !u!114 &114201818679263556
 MonoBehaviour:
@@ -243,22 +243,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getLevel: 1
   enableOnExit: 1
---- !u!114 &114453722116484702
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d80aaa836122d20409dd1369315aa922, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotation: 90
-  resetOnExit: 1
-  flipSignWithXScale: 1
-  rotateAroundCentre: 1
 --- !u!114 &114569266888263652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2643,33 +2627,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &1102238330275883556
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Dodge Diagonal Down
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours:
-  - {fileID: 114453722116484702}
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e87399f17379a4342b7e2334444f857e, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1102 &1102245417222256404
 AnimatorState:
   serializedVersion: 5
@@ -2719,32 +2676,6 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 68d98f0d88dcf0247a00ba644853d065, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &1102280420649050564
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Dodge Diagonal Up
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e87399f17379a4342b7e2334444f857e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -3497,14 +3428,8 @@ AnimatorStateMachine:
     m_State: {fileID: 1102206158521570036}
     m_Position: {x: -204, y: 312, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 1102280420649050564}
-    m_Position: {x: -204, y: 420, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 1102725967510346304}
     m_Position: {x: -204, y: 360, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1102238330275883556}
-    m_Position: {x: -204, y: 468, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102912605949902836}
     m_Position: {x: 960, y: 372, z: 0}
