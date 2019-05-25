@@ -1,21 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1706048386432494}
-  m_IsPrefabAsset: 1
 --- !u!1 &1706048386432494
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4099164834869566}
@@ -35,9 +25,10 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4099164834869566
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706048386432494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -46,11 +37,72 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114777719817609730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706048386432494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59cae71eb9bba0d448dd51127d51ccbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerRespawnDelay: 3
+  levelTransitionTime: 0.25
+  gamePauseLockDelay: 0.25
+--- !u!114 &114625276708325380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706048386432494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a75d6be792f6694881d0411bd036d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SaveSlot: 0
+  defaultSaveData: {fileID: 11400000, guid: 37a0147aa7796224abd3fe75a2934aa0, type: 2}
+  editorTestingSaveData: {fileID: 11400000, guid: 4f62196c59cffd340b5b49fa4ee8c92d,
+    type: 2}
+--- !u!114 &114658657317432228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706048386432494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5409c616bd63524096b4364d854b13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalMultiplier: 1
+  ineffectiveMultiplier: 0.5
+  effectiveMultiplier: 1.25
+  damageArray: 00000000000000000000000000000000000000000000000000000000020000000100000002000000000000000100000000000000020000000100000000000000020000000100000000000000000000000000000001000000020000000000000001000000
+--- !u!114 &114602473707108892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706048386432494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c814ce4fb3b57d34eb0b8d2ed0728e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &82169578968242942
 AudioSource:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706048386432494}
   m_Enabled: 1
   serializedVersion: 4
@@ -142,50 +194,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114602473707108892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1706048386432494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c814ce4fb3b57d34eb0b8d2ed0728e2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114625276708325380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1706048386432494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a75d6be792f6694881d0411bd036d96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SaveSlot: 0
-  defaultSaveData: {fileID: 11400000, guid: 37a0147aa7796224abd3fe75a2934aa0, type: 2}
---- !u!114 &114658657317432228
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1706048386432494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5409c616bd63524096b4364d854b13b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalMultiplier: 1
-  ineffectiveMultiplier: 0.5
-  effectiveMultiplier: 1.25
-  damageArray: 00000000000000000000000000000000000000000000000000000000020000000100000002000000000000000100000000000000020000000100000000000000020000000100000000000000000000000000000001000000020000000000000001000000
 --- !u!114 &114681356407913036
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706048386432494}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -196,26 +210,12 @@ MonoBehaviour:
   newEnemyKilledEvent: {fileID: 11400000, guid: b64aee85ab6b53241a611f89d8506be9,
     type: 2}
   lastEnemyKilledEvent: {fileID: 0}
---- !u!114 &114777719817609730
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1706048386432494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59cae71eb9bba0d448dd51127d51ccbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  playerRespawnDelay: 3
-  levelTransitionTime: 0.25
-  gamePauseLockDelay: 0.25
 --- !u!114 &114937157006816180
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706048386432494}
   m_Enabled: 1
   m_EditorHideFlags: 0

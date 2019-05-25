@@ -97,7 +97,7 @@ public class PlayerWallReact : MonoBehaviour
         if (!playerMove.IsGrounded)
             didRoofBonk = DetectRoofBonk();
 
-        if (didWallBonk && (playerMove.IsDashing || playerDodge.IsDodging))
+        if (didWallBonk && playerDodge.IsDodging)
             hardBonkCameraShake.DoShake();
         else if (didRoofBonk && playerDodge.IsDodging)
             hardBonkCameraShake.DoShake();

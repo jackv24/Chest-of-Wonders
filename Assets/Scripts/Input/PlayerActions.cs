@@ -5,23 +5,28 @@ using InControl;
 
 public class PlayerActions : PlayerActionSet
 {
+    // Need enumeration to match actions for easy access when not hard-coding to public fields
 	public enum ButtonActionType
 	{
-		Jump,
-		MeleeAttack,
-        Dash,
-		MagicProjectileAttack,
-		SwitchMagic,
-		Dodge,
-		Interact,
-		Submit,
-		Back,
-		Pause,
-        SelectionWheelUp,
-        SelectionWheelDown,
-        SelectionWheelLeft,
-        SelectionWheelRight,
-        ItemSelection
+        Left,
+        Right,
+        Up,
+        Down,
+
+        Jump,
+        Dodge,
+
+        MeleeAttack,
+        MagicAttack,
+        MagicDiagonalLock,
+
+        CycleMagicLeft,
+        CycleMagicRight,
+
+        Interact,
+        Submit,
+        Back,
+        Pause
     }
 
     public PlayerAction Left;
@@ -29,26 +34,19 @@ public class PlayerActions : PlayerActionSet
     public PlayerAction Up;
     public PlayerAction Down;
 
+    public PlayerTwoAxisAction Move;
+
     public PlayerAction Jump;
     public PlayerAction Dodge;
 
-    public PlayerTwoAxisAction Move;
-
     public PlayerAction MeleeAttack;
-	public PlayerAction MagicProjectileAttack;
-    public PlayerAction MagicProjectileDiagonalLock;
+	public PlayerAction MagicAttack;
+    public PlayerAction MagicDiagonalLock;
 
-    public PlayerAction Dash;
+    public PlayerAction CycleMagicLeft;
+    public PlayerAction CycleMagicRight;
 
-	public PlayerAction MagicSelection;
-    public PlayerAction ItemSelection;
-
-    public PlayerAction SelectionWheelUp;
-	public PlayerAction SelectionWheelDown;
-	public PlayerAction SelectionWheelLeft;
-	public PlayerAction SelectionWheelRight;
-
-	public PlayerAction Interact;
+    public PlayerAction Interact;
     public PlayerAction Submit;
     public PlayerAction Back;
     public PlayerAction Pause;
@@ -73,29 +71,19 @@ public class PlayerActions : PlayerActionSet
         Down.AddDefaultBinding(Key.DownArrow);
 
         Jump.AddDefaultBinding(Key.Z);
-        Dodge.AddDefaultBinding(Key.Z);
+        Dodge.AddDefaultBinding(Key.X);
 
         MeleeAttack.AddDefaultBinding(Key.C);
-        MagicProjectileAttack.AddDefaultBinding(Key.D);
-        MagicProjectileDiagonalLock.AddDefaultBinding(Key.LeftShift);
+        MagicAttack.AddDefaultBinding(Key.D);
+        MagicDiagonalLock.AddDefaultBinding(Key.LeftShift);
 
-        Dash.AddDefaultBinding(Key.LeftControl);
-
-        MagicSelection.AddDefaultBinding(Key.S);
-        ItemSelection.AddDefaultBinding(Key.A);
-
-        SelectionWheelUp.AddDefaultBinding(Key.S);
-        SelectionWheelDown.AddDefaultBinding(Key.X);
-        SelectionWheelLeft.AddDefaultBinding(Key.Z);
-        SelectionWheelRight.AddDefaultBinding(Key.C);
+        CycleMagicLeft.AddDefaultBinding(Key.A);
+        CycleMagicRight.AddDefaultBinding(Key.S);
 
         Interact.AddDefaultBinding(Key.UpArrow);
         Interact.AddDefaultBinding(Key.DownArrow);
 
-        Submit.AddDefaultBinding(Key.Z);
         Submit.AddDefaultBinding(Key.Return);
-
-        Back.AddDefaultBinding(Key.X);
         Back.AddDefaultBinding(Key.Escape);
 
         Pause.AddDefaultBinding(Key.Escape);
@@ -117,27 +105,18 @@ public class PlayerActions : PlayerActionSet
         Down.AddDefaultBinding(InputControlType.LeftStickDown);
 
         Jump.AddDefaultBinding(InputControlType.Action1);
-        Dodge.AddDefaultBinding(InputControlType.Action1);
+        Dodge.AddDefaultBinding(InputControlType.Action2);
 
-        MeleeAttack.AddDefaultBinding(InputControlType.Action3);
-        MagicProjectileAttack.AddDefaultBinding(InputControlType.Action4);
-        MagicProjectileDiagonalLock.AddDefaultBinding(InputControlType.RightTrigger);
+        MeleeAttack.AddDefaultBinding(InputControlType.Action4);
+        MagicAttack.AddDefaultBinding(InputControlType.Action3);
+        MagicDiagonalLock.AddDefaultBinding(InputControlType.RightTrigger);
 
-        Dash.AddDefaultBinding(InputControlType.Action2);
+        CycleMagicLeft.AddDefaultBinding(InputControlType.LeftBumper);
+        CycleMagicRight.AddDefaultBinding(InputControlType.RightBumper);
 
-        MagicSelection.AddDefaultBinding(InputControlType.LeftBumper);
-        ItemSelection.AddDefaultBinding(InputControlType.RightBumper);
-
-        SelectionWheelUp.AddDefaultBinding(InputControlType.Action4);
-        SelectionWheelDown.AddDefaultBinding(InputControlType.Action1);
-        SelectionWheelLeft.AddDefaultBinding(InputControlType.Action3);
-        SelectionWheelRight.AddDefaultBinding(InputControlType.Action2);
-
-        Interact.AddDefaultBinding(InputControlType.Action2);
+        Interact.AddDefaultBinding(InputControlType.Action4);
 
         Submit.AddDefaultBinding(InputControlType.Action1);
-        Submit.AddDefaultBinding(InputControlType.Action4);
-
         Back.AddDefaultBinding(InputControlType.Action2);
 
         Pause.AddDefaultBinding(InputControlType.Command);
@@ -150,24 +129,17 @@ public class PlayerActions : PlayerActionSet
         Up = CreatePlayerAction("Move Up");
         Down = CreatePlayerAction("Move Down");
 
+        Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
+
         Jump = CreatePlayerAction("Jump");
         Dodge = CreatePlayerAction("Dodge");
 
-        Move = CreateTwoAxisPlayerAction(Left, Right, Down, Up);
-
         MeleeAttack = CreatePlayerAction("Melee Attack");
-        MagicProjectileAttack = CreatePlayerAction("Magic Projectile");
-        MagicProjectileDiagonalLock = CreatePlayerAction("Diagonal Lock");
+        MagicAttack = CreatePlayerAction("Magic Projectile");
+        MagicDiagonalLock = CreatePlayerAction("Diagonal Lock");
 
-        Dash = CreatePlayerAction("Dash");
-
-        MagicSelection = CreatePlayerAction("Switch Magic");
-        ItemSelection = CreatePlayerAction("Use Item");
-
-        SelectionWheelUp = CreatePlayerAction("Selection Wheel Up");
-        SelectionWheelDown = CreatePlayerAction("Selection Wheel Down");
-        SelectionWheelLeft = CreatePlayerAction("Selection Wheel Left");
-        SelectionWheelRight = CreatePlayerAction("Selection Wheel Right");
+        CycleMagicLeft = CreatePlayerAction("Cycle Magic Left");
+        CycleMagicRight = CreatePlayerAction("Cycle Magic Right");
 
         Interact = CreatePlayerAction("Interact");
         Submit = CreatePlayerAction("Submit");
@@ -175,63 +147,54 @@ public class PlayerActions : PlayerActionSet
         Pause = CreatePlayerAction("Pause");
     }
 
-    public bool WasInteractPressed
-	{
-		get
-		{
-			// Interact.WasPressed returns true even when input is mostly X-based, so an additional check is needed
-			return Interact.WasPressed && (Move.Vector.magnitude < Mathf.Epsilon || Mathf.Abs(Move.Y) > Mathf.Abs(Move.X));
-		}
-	}
-
 	public PlayerAction GetButtonAction(ButtonActionType actionType)
 	{
 		switch(actionType)
 		{
-			case ButtonActionType.Jump:
-				return Jump;
+            case ButtonActionType.Left:
+                return Left;
 
-			case ButtonActionType.MeleeAttack:
-				return MeleeAttack;
+            case ButtonActionType.Right:
+                return Right;
 
-			case ButtonActionType.Dash:
-				return Dash;
+            case ButtonActionType.Up:
+                return Up;
 
-			case ButtonActionType.MagicProjectileAttack:
-				return MagicProjectileAttack;
+            case ButtonActionType.Down:
+                return Down;
 
-			case ButtonActionType.SwitchMagic:
-				return MagicSelection;
+            case ButtonActionType.Jump:
+                return Jump;
 
-			case ButtonActionType.Dodge:
-				return Dodge;
+            case ButtonActionType.Dodge:
+                return Dodge;
 
-			case ButtonActionType.Interact:
-				return Interact;
+            case ButtonActionType.MeleeAttack:
+                return MeleeAttack;
 
-			case ButtonActionType.Submit:
-				return Submit;
+            case ButtonActionType.MagicAttack:
+                return MagicAttack;
 
-			case ButtonActionType.Back:
-				return Back;
+            case ButtonActionType.MagicDiagonalLock:
+                return MagicDiagonalLock;
 
-			case ButtonActionType.Pause:
-				return Pause;
+            case ButtonActionType.CycleMagicLeft:
+                return CycleMagicLeft;
 
-            case ButtonActionType.SelectionWheelUp:
-                return SelectionWheelUp;
+            case ButtonActionType.CycleMagicRight:
+                return CycleMagicRight;
 
-            case ButtonActionType.SelectionWheelDown:
-                return SelectionWheelDown;
+            case ButtonActionType.Interact:
+                return Interact;
 
-            case ButtonActionType.SelectionWheelLeft:
-                return SelectionWheelLeft;
+            case ButtonActionType.Submit:
+                return Submit;
 
-            case ButtonActionType.SelectionWheelRight:
-                return SelectionWheelRight;
+            case ButtonActionType.Back:
+                return Back;
 
-            case ButtonActionType.ItemSelection:
-                return ItemSelection;
+            case ButtonActionType.Pause:
+                return Pause;
         }
 
 		return null;

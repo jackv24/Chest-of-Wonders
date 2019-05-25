@@ -90,7 +90,7 @@ public class PlayerInput : MonoBehaviour
 
 		//Move the player using the CharacterMove script
 		if (GameManager.instance && GameManager.instance.CanDoActions)
-			playerMove?.Move(inputDirection.x, playerActions.Dash.IsPressed);
+			playerMove?.Move(inputDirection.x);
 
 		if (AcceptingInput != InputAcceptance.All)
 			return;
@@ -123,20 +123,22 @@ public class PlayerInput : MonoBehaviour
 
 			if (playerAttack)
 			{
-				if (playerActions.MeleeAttack.WasPressed)
-				{
-					playerAttack.UseMelee(true, inputDirection);
-				}
-				else if (playerActions.MeleeAttack.WasReleased)
-				{
-					playerAttack.UseMelee(false, inputDirection);
-				}
-				else if (playerActions.MagicProjectileAttack.IsPressed)
-				{
-					playerAttack.UseProjectileMagic();
-				}
+                if (playerActions.CycleMagicLeft.WasPressed)
+                    playerAttack.SwitchMagic(-1);
+                else if (playerActions.CycleMagicRight.WasPressed)
+                    playerAttack.SwitchMagic(1);
 
-				playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicProjectileDiagonalLock.IsPressed);
+                // Melee attack
+                if (playerActions.MeleeAttack.WasPressed)
+					playerAttack.UseMelee(true, inputDirection);
+				else if (playerActions.MeleeAttack.WasReleased)
+					playerAttack.UseMelee(false, inputDirection);
+
+                // Magic attack
+				else if (playerActions.MagicAttack.IsPressed)
+					playerAttack.UseProjectileMagic();
+
+				playerAttack.UpdateAimDirection(inputDirection, playerActions.MagicDiagonalLock.IsPressed);
 			}
 
 			if(playerDodge)

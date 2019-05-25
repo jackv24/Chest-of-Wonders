@@ -22,6 +22,11 @@ public class SaveManager : MonoBehaviour
     [Space, SerializeField]
     private SaveDataAsset defaultSaveData;
 
+#if UNITY_EDITOR
+    [SerializeField]
+    private SaveDataAsset editorTestingSaveData;
+#endif
+
     //Assembled save location with slot number and editor extension
     public string SaveLocation { get { return string.Format("{0}/Save{1}.dat", Application.persistentDataPath, SaveSlot); } }
 
@@ -57,7 +62,12 @@ public class SaveManager : MonoBehaviour
 		}
 		else
 		{
-			data = defaultSaveData ? defaultSaveData.Data : new SaveData();
+#if UNITY_EDITOR
+            // In editor override default save data with testing data if assigned
+            var defaultSaveData = editorTestingSaveData ? editorTestingSaveData : this.defaultSaveData;
+#endif
+
+            data = defaultSaveData ? defaultSaveData.Data : new SaveData();
 		}
 
 		//Subscribed object should process data after it has been loaded
