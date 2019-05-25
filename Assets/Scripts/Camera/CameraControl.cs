@@ -4,36 +4,34 @@ using System.Collections.Generic;
 
 public class CameraControl : MonoBehaviour
 {
-	public static CameraControl Instance;
+    public class FocusTarget
+    {
+        public Transform target;
+        public Vector2 offset;
+
+        public Vector2 Position { get { return target ? (Vector2)target.position + offset : Vector2.zero; } }
+
+        public float weight;
+
+        public FocusTarget(Transform target, Vector2 offset, float weight = 1.0f)
+        {
+            if (!target)
+                Debug.LogError("Camera Focus Target cannot be null!", target);
+
+            this.target = target;
+            this.offset = offset;
+            this.weight = weight;
+        }
+    }
+
+    public static CameraControl Instance;
 
     public Transform target;
 
-	#region Camera Target Variables
-	public class FocusTarget
-	{
-		public Transform target;
-		public Vector2 offset;
-
-		public Vector2 Position { get { return target ? (Vector2)target.position + offset : Vector2.zero; } }
-
-		public float weight;
-
-		public FocusTarget(Transform target, Vector2 offset, float weight = 1.0f)
-		{
-			if (!target)
-				Debug.LogError("Camera Focus Target cannot be null!", target);
-
-			this.target = target;
-			this.offset = offset;
-			this.weight = weight;
-		}
-	}
 	private List<FocusTarget> focusTargets = new List<FocusTarget>();
 
 	public float focusTargetLerpSpeed = 2.0f;
-	#endregion
 
-	#region Camera Follow Variables
 	[Space()]
     public float followSpeed = 10f;
     public float heightOffset = 1f;
@@ -54,9 +52,7 @@ public class CameraControl : MonoBehaviour
     private LevelBounds bounds;
 
     private float minX, maxX, minY, maxY;
-	#endregion
 
-	#region Camera Lock Variables
 	[Space()]
 	public float cameraLockLerpSpeed = 2.0f;
 
@@ -68,7 +64,6 @@ public class CameraControl : MonoBehaviour
 
     private Vector2 minCameraWorld;
     private Vector2 maxCameraWorld;
-	#endregion
 
 	private Vector3 worldPos;
 

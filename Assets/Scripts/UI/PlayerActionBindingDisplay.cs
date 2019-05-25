@@ -14,11 +14,13 @@ public class PlayerActionBindingDisplay : MonoBehaviour
 
     private PlayerActions playerActions;
 
-    private void Start()
+    private void OnEnable()
     {
-        playerActions = ControlManager.GetPlayerActions();
+        if (playerActions == null)
+            playerActions = ControlManager.GetPlayerActions();
 
-        var bindings = playerActions.GetButtonAction(binding).Bindings;
-        keyText.text = bindings.FirstOrDefault().Name;
+        // Use text parsing system to get button display so it's consistent with buttons in dialogue
+        if (keyText)
+            keyText.text = TextHelper.GetButtonText(binding.ToString(), 22.4f); // 22.4f is (14 / 10) * 16 - specifically hard-coded for Picory font as it's too much work right now to work around TMP sprite scaling
     }
 }

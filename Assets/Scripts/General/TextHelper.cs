@@ -7,34 +7,20 @@ using TMPro;
 
 public static class TextHelper
 {
+    public const char SHORTCUT_EMPHASIS = '*';
+    public const char SHORTCUT_BUTTON = '%';
+    public const char SHORTCUT_SMALL = '_';
+
     private static readonly Dictionary<char, Func<string, string>> styleMapping = new Dictionary<char, Func<string, string>>
     {
         // Emphasis
-        { '*', text => $"<color=#{GlobalTextSettings.EmphasisedTextColor.ToHTML()}>{text}</color>" },
+        { SHORTCUT_EMPHASIS, text => $"<color=#{GlobalTextSettings.EmphasisedTextColor.ToHTML()}>{text}</color>" },
 
         // Button Sprites
-        { '%', text =>
-            {
-                var playerActions = ControlManager.GetPlayerActions();
-                string buttonName = playerActions.GetBoundButtonName((PlayerActions.ButtonActionType)Enum.Parse(typeof(PlayerActions.ButtonActionType), text));
-
-                if (playerActions.IsUsingKeyboard)
-                {
-                    return $"<color=#{GlobalTextSettings.EmphasisedTextColor.ToHTML()}>{buttonName}</color>";
-                }
-                else
-                {
-                    return string.Format(
-                        "<size=32><sprite=\"{0} Buttons\" name=\"{1}\"></size>",
-                        ControlManager.GetButtonDisplayType().ToString(),
-                        buttonName
-                        );
-                }
-            }
-        },
+        { SHORTCUT_BUTTON, text => GetButtonText(text, 32.0f) }, // 32.0f just so happens to be correct, may need to change if we change dialogue font
 
         // Small text
-        { '_', text => ApplyTextStyle(text, GlobalTextSettings.WhisperStyle) },
+        { SHORTCUT_SMALL, text => ApplyTextStyle(text, GlobalTextSettings.WhisperStyle) },
     };
 
     /// <summary>
@@ -110,6 +96,26 @@ public static class TextHelper
     private static string ApplyTextStyle(string text, TextStyle style)
     {
         return $"<font=\"{style.Font.name}\"><size={style.Size}>{text}</size></font>";
+    }
+
+    public static string GetButtonText(string original, float spriteFontSize)
+    {
+        var playerActions = ControlManager.GetPlayerActions();
+        string buttonName = playerActions.GetBoundButtonName((PlayerActions.ButtonActionType)Enum.Parse(typeof(PlayerActions.ButtonActionType), original));
+
+        if (playerActions.IsUsingKeyboard)
+        {
+            return $"<color=#{GlobalTextSettings.EmphasisedTextColor.ToHTML()}>{buttonName}</color>";
+        }
+        else
+        {
+            return string.Format(
+                "<size={2}><sprite=\"{0} Buttons\" name=\"{1}\"></size>",
+                ControlManager.GetButtonDisplayType().ToString(),
+                buttonName,
+                spriteFontSize
+                );
+        }
     }
 }
 
