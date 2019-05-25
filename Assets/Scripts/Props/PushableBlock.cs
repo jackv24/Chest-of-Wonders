@@ -172,7 +172,7 @@ public class PushableBlock : MonoBehaviour
 
 			playerAttack = player.GetComponent<PlayerAttack>();
 
-			if (playerAttack.HoldingBat)
+			if (playerAttack.IsHoldingBat)
 				player = null;
 			else
 			{

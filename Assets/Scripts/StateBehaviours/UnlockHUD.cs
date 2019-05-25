@@ -35,10 +35,7 @@ public class UnlockHUD : StateMachineBehaviour
 			PlayerAttack attack = FindObjectOfType<PlayerAttack>();
 
 			if (attack)
-			{
-				attack.magicProgression = progressionUnlock;
-				attack.UpdateMagic();
-			}
+				attack.CurrentMagicProgression = progressionUnlock;
 		}
 
 		if (Time.time > disableTime)

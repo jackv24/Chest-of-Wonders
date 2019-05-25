@@ -5,64 +5,53 @@ using System;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [Serializable]
+    public class ProjectileAttack
+    {
+        public GameObject projectilePrefab;
+        public GameObject projectileCastEffectPrefab;
+
+        public ElementManager.Element Element { get; private set; }
+
+        public ProjectileAttack(ElementManager.Element element)
+        {
+            Element = element;
+        }
+    }
+
+    public enum MagicProgression
+    {
+        Basic,
+        Full
+    }
+
     public event Action OnUpdateMagic;
-	public event Action<ElementManager.Element> OnSwitchMagic;
+    public event Action<ElementManager.Element> OnSwitchMagic;
 
-	public enum MagicProgression
-	{
-		Basic,
-		Full
-	}
-	public MagicProgression magicProgression;
+    [Header("Magic")]
+    public ProjectileAttack fireProjectile = new ProjectileAttack(ElementManager.Element.Fire);
+    public ProjectileAttack grassProjectile = new ProjectileAttack(ElementManager.Element.Grass);
+    public ProjectileAttack iceProjectile = new ProjectileAttack(ElementManager.Element.Ice);
+    public ProjectileAttack windProjectile = new ProjectileAttack(ElementManager.Element.Wind);
 
-	public bool canAttack = true;
-
-	[Header("Magic")]
-	public bool hasFireMagic;
-	public bool hasGrassMagic;
-	public bool hasIceMagic;
-	public bool hasWindMagic;
-
-	public ElementManager.Element selectedElement = ElementManager.Element.None;
-
-	[System.Serializable]
-	public class ProjectileAttack
-	{
-		public GameObject projectilePrefab;
-		public GameObject projectileCastEffectPrefab;
-
-		public ElementManager.Element Element { get; private set; }
-
-		public ProjectileAttack(ElementManager.Element element)
-		{
-			Element = element;
-		}
-	}
-
-	[Space()]
-	public ProjectileAttack fireProjectile = new ProjectileAttack(ElementManager.Element.Fire);
-	public ProjectileAttack grassProjectile = new ProjectileAttack(ElementManager.Element.Grass);
-	public ProjectileAttack iceProjectile = new ProjectileAttack(ElementManager.Element.Ice);
-	public ProjectileAttack windProjectile = new ProjectileAttack(ElementManager.Element.Wind);
-
-	[Space()]
-	public Transform upFirePoint;
+    [Space()]
+    public Transform upFirePoint;
     public Transform upForwardFirePoint;
     public Transform forwardFirePoint;
     public Transform downForwardFirePoint;
     public Transform downFirePoint;
-	public Transform soulAbsorbPoint;
+    public Transform soulAbsorbPoint;
 
-	[Space()]
-	public float fireDelay = 0.25f;
-	private float nextFireTime;
+    [Space()]
+    public float fireDelay = 0.25f;
+    private float nextFireTime;
 
-	[Space()]
-	public GameObject failedCastEffect;
+    [Space()]
+    public GameObject failedCastEffect;
     public SoundEventType failedCastSound;
 
-	[Space()]
-	public float arrowDistance = 1.0f;
+    [Space()]
+    public float arrowDistance = 1.0f;
     public float arrowHeight = 0.5f;
     public Transform arrow;
 
@@ -78,9 +67,7 @@ public class PlayerAttack : MonoBehaviour
     private float heldStartTime = 0;
     private bool isChargingBat;
 
-	public bool HoldingBat { get; private set; } = false;
-
-	private Coroutine batChargeRoutine = null;
+    private Coroutine batChargeRoutine = null;
 
     [Space()]
     public SpriteRenderer graphic;
@@ -88,7 +75,29 @@ public class PlayerAttack : MonoBehaviour
     public float flashInterval = 0.1f;
 
     private CharacterMove characterMove;
-	private Animator animator;
+    private Animator animator;
+
+    public bool IsHoldingBat { get; private set; }
+
+    public bool CanAttack { get; private set; } = true;
+
+    private MagicProgression _currentMagicProgression;
+    public MagicProgression CurrentMagicProgression
+    {
+        get => _currentMagicProgression;
+        set
+        {
+            _currentMagicProgression = value;
+            UpdateMagic();
+        }
+    }
+
+    public bool HasFireMagic { get; private set; }
+    public bool HasGrassMagic { get; private set; }
+    public bool HasIceMagic { get; private set; }
+    public bool HasWindMagic { get; private set; }
+
+    public ElementManager.Element SelectedElement { get; private set; }
 
     private void Awake()
     {
@@ -102,28 +111,28 @@ public class PlayerAttack : MonoBehaviour
 		{
 			SaveManager.instance.OnDataLoaded += (SaveData data) =>
 			{
-				magicProgression = data.MagicProgression;
+                CurrentMagicProgression = data.MagicProgression;
 
-				selectedElement = data.SelectedElement;
+				SelectedElement = data.SelectedElement;
 
-				hasFireMagic = data.HasFireMagic;
-				hasGrassMagic = data.HasGrassMagic;
-				hasIceMagic = data.HasIceMagic;
-				hasWindMagic = data.HasWindMagic;
+				HasFireMagic = data.HasFireMagic;
+				HasGrassMagic = data.HasGrassMagic;
+				HasIceMagic = data.HasIceMagic;
+				HasWindMagic = data.HasWindMagic;
 
 				UpdateMagic();
 			};
 
 			SaveManager.instance.OnDataSaving += (SaveData data, bool hardSave) =>
 			{
-				data.MagicProgression = magicProgression;
+				data.MagicProgression = CurrentMagicProgression;
 
-				data.SelectedElement = selectedElement;
+				data.SelectedElement = SelectedElement;
 
-				data.HasFireMagic = hasFireMagic;
-				data.HasGrassMagic = hasGrassMagic;
-				data.HasIceMagic = hasIceMagic;
-				data.HasWindMagic = hasWindMagic;
+				data.HasFireMagic = HasFireMagic;
+				data.HasGrassMagic = HasGrassMagic;
+				data.HasIceMagic = HasIceMagic;
+				data.HasWindMagic = HasWindMagic;
 			};
 		}
 
@@ -137,17 +146,17 @@ public class PlayerAttack : MonoBehaviour
 
     void OnEnable()
     {
-        canAttack = true;
+        CanAttack = true;
     }
 
     public void UseMelee(bool buttonDown, Vector2 inputDirection)
     {
 		StopBatCharge();
 
-		if (canAttack)
+		if (CanAttack)
 		{
 			//Button pressed
-			if(buttonDown && !HoldingBat)
+			if(buttonDown && !IsHoldingBat)
 			{
 				heldStartTime = Time.time;
 				batChargeRoutine = StartCoroutine(BatCharge(chargeHoldTime));
@@ -175,7 +184,7 @@ public class PlayerAttack : MonoBehaviour
 
 	public void SetHoldingBat(bool value)
 	{
-		HoldingBat = value;
+		IsHoldingBat = value;
 
 		animator?.SetBool("holdingBat", value);
 
@@ -235,21 +244,20 @@ public class PlayerAttack : MonoBehaviour
         aimDirection = direction;
     }
 
-    public void UpdateMagic()
+    private void UpdateMagic()
     {
-        if (OnUpdateMagic != null)
-            OnUpdateMagic();
+        OnUpdateMagic?.Invoke();
     }
 
 	public void SwitchMagic(int direction)
 	{
-		if (magicProgression <= MagicProgression.Basic)
+		if (CurrentMagicProgression <= MagicProgression.Basic)
 			return;
 
 		//Make sure direction is not larger than 1
 		direction = (int)Mathf.Sign(direction);
 
-		int selected = (int)selectedElement;
+		int selected = (int)SelectedElement;
 		int max = System.Enum.GetNames(typeof(ElementManager.Element)).Length - 1;
 
 		bool anyUnlocked = false;
@@ -268,19 +276,19 @@ public class PlayerAttack : MonoBehaviour
 			switch((ElementManager.Element)selected)
 			{
 				case ElementManager.Element.Fire:
-					if (hasFireMagic)
+					if (HasFireMagic)
 						success = true;
 					break;
 				case ElementManager.Element.Grass:
-					if (hasGrassMagic)
+					if (HasGrassMagic)
 						success = true;
 					break;
 				case ElementManager.Element.Ice:
-					if (hasIceMagic)
+					if (HasIceMagic)
 						success = true;
 					break;
 				case ElementManager.Element.Wind:
-					if (hasWindMagic)
+					if (HasWindMagic)
 						success = true;
 					break;
 			}
@@ -298,16 +306,16 @@ public class PlayerAttack : MonoBehaviour
 
 	public void SetSelectedMagic(ElementManager.Element element)
 	{
-		selectedElement = element;
+		SelectedElement = element;
 
-		OnSwitchMagic?.Invoke(selectedElement);
+		OnSwitchMagic?.Invoke(SelectedElement);
 
 		UpdateMagic();
 	}
 
     public void UseProjectileMagic()
     {
-		if (!canAttack || magicProgression <= MagicProgression.Basic)
+		if (!CanAttack || CurrentMagicProgression <= MagicProgression.Basic)
 			return;
 
 		//If magic slot was chosen correctly, and there is an attack in the slot
@@ -315,7 +323,7 @@ public class PlayerAttack : MonoBehaviour
 		{
 			ProjectileAttack attackType = null;
 
-			switch(selectedElement)
+			switch(SelectedElement)
 			{
 				case ElementManager.Element.Fire:
 					attackType = fireProjectile;

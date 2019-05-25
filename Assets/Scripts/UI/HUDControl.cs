@@ -172,7 +172,7 @@ public class HUDControl : MonoBehaviour
     {
 		if (playerAttack)
 		{
-			switch(playerAttack.magicProgression)
+			switch(playerAttack.CurrentMagicProgression)
 			{
 				case PlayerAttack.MagicProgression.Basic:
 					basicProgression.Evaluate();
@@ -184,20 +184,20 @@ public class HUDControl : MonoBehaviour
 
 			//Tint base magic notches to reflect obtained state
 			if (fireNotch)
-				fireNotch.color = playerAttack.hasFireMagic ? notchDeselectedTint : notchDisabledTint;
+				fireNotch.color = playerAttack.HasFireMagic ? notchDeselectedTint : notchDisabledTint;
 			if (grassNotch)
-				grassNotch.color = playerAttack.hasGrassMagic ? notchDeselectedTint : notchDisabledTint;
+				grassNotch.color = playerAttack.HasGrassMagic ? notchDeselectedTint : notchDisabledTint;
 			if (iceNotch)
-				iceNotch.color = playerAttack.hasIceMagic ? notchDeselectedTint : notchDisabledTint;
+				iceNotch.color = playerAttack.HasIceMagic ? notchDeselectedTint : notchDisabledTint;
 			if (windNotch)
-				windNotch.color = playerAttack.hasWindMagic ? notchDeselectedTint : notchDisabledTint;
+				windNotch.color = playerAttack.HasWindMagic ? notchDeselectedTint : notchDisabledTint;
 
 			//Show selected base magic
 			if(currentMagic)
 			{
 				currentMagic.color = Color.white;
 
-				switch(playerAttack.selectedElement)
+				switch(playerAttack.SelectedElement)
 				{
 					case ElementManager.Element.Fire:
 						currentMagic.sprite = fireGraphic;
@@ -238,7 +238,7 @@ public class HUDControl : MonoBehaviour
 			Vector3 pos = magicNotchSwitchAnim.transform.position;
 
 			//Position switch anim on top of notch
-			switch(playerAttack.selectedElement)
+			switch(playerAttack.SelectedElement)
 			{
 				case ElementManager.Element.Fire:
 					pos = fireNotch.transform.position;
