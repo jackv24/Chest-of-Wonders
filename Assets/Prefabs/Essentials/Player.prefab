@@ -415,12 +415,12 @@ MonoBehaviour:
   slopeSpeedDampening: 1
   canMove: 1
   ignoreCanMove: 0
-  jumpForce: 10
+  jumpForce: 11
   jumpTime: 0.6
   stopJumpDelay: 0.1
   platformDropDetectDelay: 0.2
-  gravity: 40
-  maxFallSpeed: 20
+  gravity: 50
+  maxFallSpeed: 25
   verticalRays: 5
   horizontalRays: 10
   skinWidthX: 0.01
@@ -615,36 +615,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1e89ff0673f3b4d8b7d0602b7f6767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 15
   speedCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.15876654
+      outSlope: 0.15876654
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.67213386
     - serializedVersion: 3
-      time: 0.75
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.23749898
+      value: 1.0094342
+      inSlope: -0.00615336
+      outSlope: -0.00615336
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.51396716
     - serializedVersion: 3
       time: 1
       value: 0.5
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.007075429
+      outSlope: -0.007075429
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.65573686
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2

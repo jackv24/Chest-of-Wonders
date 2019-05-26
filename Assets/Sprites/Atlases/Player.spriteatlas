@@ -42,7 +42,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 37e305d88ad1a634eb0826e10f2dc9ec, type: 3}
-    totalSpriteSurfaceArea: 1407814
+    totalSpriteSurfaceArea: 1420102
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -53,6 +53,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0dc10541bb9631244aa3838505558067, type: 3}
   - {fileID: 21300000, guid: 967a3351ae6d52548b8ccb33ba6b547f, type: 3}
   - {fileID: 21300000, guid: b11cdc5178390b14eb7de7b89ee6aaa0, type: 3}
+  - {fileID: 21300000, guid: e7f10061138d66244b3f37c0bedbeb07, type: 3}
   - {fileID: 21300000, guid: 10dde6d10b6a05a4d81ab5667bec562c, type: 3}
   - {fileID: 21300000, guid: 3c5d1fe199051174486a1c8b88ef20c1, type: 3}
   - {fileID: 21300000, guid: 53d8b21244ac53c4a85a225f48bbba00, type: 3}
@@ -60,12 +61,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 49ea60327fa2de146b26673d88212abf, type: 3}
   - {fileID: 21300000, guid: 0fe4eb52067b64e42bd7493158dc6231, type: 3}
   - {fileID: 21300000, guid: 7299b66298331c448ad62531f801a0f1, type: 3}
+  - {fileID: 21300000, guid: eadb2c62f6b9844449dbf183b2f91c73, type: 3}
   - {fileID: 21300000, guid: bdef258284fc5c947943e16261229aaf, type: 3}
   - {fileID: 21300000, guid: 98d455a2f2862214f881f50490a79efd, type: 3}
   - {fileID: 21300000, guid: 6f6273f20adc2524ba585bf714d02d1b, type: 3}
   - {fileID: 21300000, guid: 470c07f2baa999d439446ff94c812176, type: 3}
   - {fileID: 21300000, guid: 742f961330d53324cbff37a77527e512, type: 3}
   - {fileID: 21300000, guid: 64285d433c363ed49af400eb2908b3e2, type: 3}
+  - {fileID: 21300000, guid: c62fed63dfa40ed419cb843332bcf661, type: 3}
   - {fileID: 21300000, guid: 4665e6b3a77b53f479ced7e38b774835, type: 3}
   - {fileID: 21300000, guid: d1eb08c3280511840af53b04d4ea0651, type: 3}
   - {fileID: 21300000, guid: f54edaf33d6316f45b2f398b71797c75, type: 3}
@@ -200,6 +203,7 @@ SpriteAtlas:
   - {fileID: 21300010, guid: 3a9621973b24e4049881da9a41618f5e, type: 3}
   - {fileID: 21300008, guid: 3a9621973b24e4049881da9a41618f5e, type: 3}
   - {fileID: 21300006, guid: 3a9621973b24e4049881da9a41618f5e, type: 3}
+  - {fileID: 21300000, guid: 7b821ca7b0376d14094c9edb5411d89f, type: 3}
   - {fileID: 21300000, guid: 04a9eca72309d834ebfbc6ccb6c124b2, type: 3}
   - {fileID: 21300000, guid: 407fc8b790796e24d90ede37e62ec83c, type: 3}
   - {fileID: 21300000, guid: b71a93e790801624d87cb583d663410e, type: 3}
@@ -253,6 +257,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 48a3b42991233e64ead4606994a0a97f, type: 3}
   - {fileID: 21300000, guid: 71ec6f29abc78a8439e2b9e43b7f0afc, type: 3}
   - {fileID: 21300000, guid: bc069f29d9413ea4b9bcecc004a9d834, type: 3}
+  - {fileID: 21300000, guid: 96c3dd49bb9d61b48ac94d4d1245984c, type: 3}
   - {fileID: 21300000, guid: 71c99a99ca0235447a2268577689d86d, type: 3}
   - {fileID: 21300000, guid: ae9e43a934f6f0e44901a6baecd012a1, type: 3}
   - {fileID: 21300000, guid: 8c0497a924295a34f9f7497874c77262, type: 3}
@@ -288,6 +293,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0bec8cbc0c3f8a74ab44d2f24dfb6d6c, type: 3}
   - {fileID: 21300000, guid: 7b7c30fcb0b445644a2e9703f5a659b0, type: 3}
   - {fileID: 21300000, guid: 508cbf0de0e871f47ab4af260de753fa, type: 3}
+  - {fileID: 21300000, guid: 6120a43d00b9fde4cab7b2845bfb005e, type: 3}
   - {fileID: 21300000, guid: 6e4e1e4d373ce2a4fa28b17e9a115d52, type: 3}
   - {fileID: 21300000, guid: 6d91296d7f62a0c498a172213cb1c24e, type: 3}
   - {fileID: 21300000, guid: 986274ade2735bc4ebc3dcb946328179, type: 3}
@@ -316,6 +322,7 @@ SpriteAtlas:
   - 005
   - Magic_Air_Up0001
   - TODO_Ballet_dodge20002
+  - Player_Idle_002
   - Air_bat_swing_005
   - D_special_slide_03
   - TODO_Ballet_dodge20000
@@ -323,12 +330,14 @@ SpriteAtlas:
   - Air_bat_swing_001
   - Todo_FIRE_Up_RiseKick_02
   - Wall_bump_ground_02
+  - Player_Idle_006
   - Todo_FIRE_Up_RiseKick_09
   - 005
   - Jump_revamp_04
   - Magic_Air_forward0001
   - 002
   - Todo_FIRE_Up_RiseKick_01
+  - Player_Idle_001
   - Magic_Air_forward0004
   - Air_bat_swing_004
   - Player_dive_land_003
@@ -463,6 +472,7 @@ SpriteAtlas:
   - Combo_fireXleaf_6
   - Combo_fireXleaf_5
   - Combo_fireXleaf_4
+  - Player_Idle_005
   - D_special_slide_01
   - 007
   - Todo_FIRE_Up_RiseKick_06
@@ -516,6 +526,7 @@ SpriteAtlas:
   - 006
   - 001
   - Wall_bump_ground_03
+  - Player_Idle_003
   - Wall_kick_01
   - 006
   - D_special_slide_02
@@ -551,6 +562,7 @@ SpriteAtlas:
   - Todo_FIRE_Up_RiseKick_07
   - Player_dive_008
   - Wall_kick_04
+  - Player_Idle_004
   - Magic_Air_forward0002
   - Air_bat_swing_002
   - D_special_slide_06
