@@ -435,9 +435,6 @@ MonoBehaviour:
   startGroundDistance: 5
   knockBackRecoveryTime: 0.1
   allowKnockback: 1
-  dashSpeedMultiplier: 1.3
-  dashManaDrainSpeed: 10
-  minStartDashMana: 20
 --- !u!114 &114000013052724214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,13 +479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb64b71810dcfe47bc475006ec468bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magicProgression: 1
-  canAttack: 1
-  hasFireMagic: 1
-  hasGrassMagic: 1
-  hasIceMagic: 1
-  hasWindMagic: 1
-  selectedElement: 0
   fireProjectile:
     projectilePrefab: {fileID: 0}
     projectileCastEffectPrefab: {fileID: 0}

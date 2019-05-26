@@ -42,7 +42,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 37e305d88ad1a634eb0826e10f2dc9ec, type: 3}
-    totalSpriteSurfaceArea: 1362758
+    totalSpriteSurfaceArea: 1407814
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -68,6 +68,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 64285d433c363ed49af400eb2908b3e2, type: 3}
   - {fileID: 21300000, guid: 4665e6b3a77b53f479ced7e38b774835, type: 3}
   - {fileID: 21300000, guid: d1eb08c3280511840af53b04d4ea0651, type: 3}
+  - {fileID: 21300000, guid: f54edaf33d6316f45b2f398b71797c75, type: 3}
+  - {fileID: 21300000, guid: 5b600f141f70cea4b9fdcc00dc5f6864, type: 3}
   - {fileID: 21300000, guid: 35e7e6549ac98474aa14ac003020d56d, type: 3}
   - {fileID: 21300000, guid: 69f58a542c69e304db8878a0b62f8e11, type: 3}
   - {fileID: 21300000, guid: e39299a428ef6c04d9c54ef6dfa23555, type: 3}
@@ -176,9 +178,11 @@ SpriteAtlas:
   - {fileID: 21300134, guid: 410a2e75204b79445a8d95f85c8dc45e, type: 3}
   - {fileID: 21300000, guid: ee758295b4e71964785d96706c47b162, type: 3}
   - {fileID: 21300000, guid: 6b3a1c95658386c4680365fd80c19273, type: 3}
+  - {fileID: 21300000, guid: 051c73a509a23ee408862ec918df5d94, type: 3}
   - {fileID: 21300000, guid: fa3e91c5319c04f4890f2af8217be1e6, type: 3}
   - {fileID: 21300000, guid: 600412d54d5de984da73b4f6c1465248, type: 3}
   - {fileID: 21300000, guid: 7783dcd57ff5dcb4daf00b30a0dc5060, type: 3}
+  - {fileID: 21300000, guid: 14f5f3e54b4dd844d83288b77133e980, type: 3}
   - {fileID: 21300000, guid: 6f6cf926a98a91d409f305838f8d372e, type: 3}
   - {fileID: 21300000, guid: dab33436891730e40a4498b1d26d8538, type: 3}
   - {fileID: 21300000, guid: 16803456bb8536244b83e196b548f0c1, type: 3}
@@ -200,6 +204,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 407fc8b790796e24d90ede37e62ec83c, type: 3}
   - {fileID: 21300000, guid: b71a93e790801624d87cb583d663410e, type: 3}
   - {fileID: 21300000, guid: 4a8fdfe780d299a48b35e79176fe6ea1, type: 3}
+  - {fileID: 21300000, guid: 2d00e2f7d5f397142b1d966631922614, type: 3}
   - {fileID: 21300000, guid: 96935008b6bed0846afa7fbe035d01e5, type: 3}
   - {fileID: 21300000, guid: 2a997818c416d254baa5ff3128007a40, type: 3}
   - {fileID: 21300000, guid: 11f40c1885255544f8256225429f9f4a, type: 3}
@@ -257,6 +262,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8c13061a36e5ee94782d2fd816b0640b, type: 3}
   - {fileID: 21300000, guid: 526a8b1a3abc488499384a23fc70b257, type: 3}
   - {fileID: 21300000, guid: 54e5773a2c834c542b29813f833ea974, type: 3}
+  - {fileID: 21300000, guid: b3b8193a3c4724d44bb062511c5425ea, type: 3}
   - {fileID: 21300000, guid: a500cb3a384f3544ebaef09c0b771a5b, type: 3}
   - {fileID: 21300000, guid: 66798f4a35b7d434bae30727fe8976de, type: 3}
   - {fileID: 21300000, guid: 303f766a1bb19744aa3d5a3e6f6700d1, type: 3}
@@ -280,23 +286,28 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 473a0d4c65b5ec34ba3c33e71e405042, type: 3}
   - {fileID: 21300000, guid: def3c9ac4c3574649b426290cbd10d70, type: 3}
   - {fileID: 21300000, guid: 0bec8cbc0c3f8a74ab44d2f24dfb6d6c, type: 3}
+  - {fileID: 21300000, guid: 7b7c30fcb0b445644a2e9703f5a659b0, type: 3}
   - {fileID: 21300000, guid: 508cbf0de0e871f47ab4af260de753fa, type: 3}
   - {fileID: 21300000, guid: 6e4e1e4d373ce2a4fa28b17e9a115d52, type: 3}
   - {fileID: 21300000, guid: 6d91296d7f62a0c498a172213cb1c24e, type: 3}
   - {fileID: 21300000, guid: 986274ade2735bc4ebc3dcb946328179, type: 3}
   - {fileID: 21300000, guid: ae1794dd3ea58cb41ba1bbc143e1713d, type: 3}
+  - {fileID: 21300000, guid: 2ec6f5ddbb7dd25458a9b3634ec4c6f8, type: 3}
   - {fileID: 21300000, guid: f20cee1ea96522b44ad202f570dec14f, type: 3}
+  - {fileID: 21300000, guid: 9ac68f3ee49004848b58952cfdbc85c4, type: 3}
   - {fileID: 21300000, guid: f30e715e30e3b544c9216f79c7cf9639, type: 3}
   - {fileID: 21300000, guid: 48ea809ee091f7344a201284d6be40fd, type: 3}
   - {fileID: 21300000, guid: 5d5337ae4ae54024ca5bcfeb33ea3982, type: 3}
   - {fileID: 21300000, guid: b1fad70f05f91424c9a2d84fc06f4e31, type: 3}
   - {fileID: 21300000, guid: 16ceb41ff95378b4d92538652191bf22, type: 3}
   - {fileID: 21300000, guid: 70134d2f1ee4d6f4d93f284b6c36c995, type: 3}
+  - {fileID: 21300000, guid: 3b32024f536ad784e985886521ce279f, type: 3}
   - {fileID: 21300000, guid: 2f13226fc5ea5694c9d76705e1a4634c, type: 3}
   - {fileID: 21300000, guid: 02af9b6fd44b11b49a24e08534c2dd6a, type: 3}
   - {fileID: 21300000, guid: 2c9034af7665271488b726865a59034f, type: 3}
   - {fileID: 21300000, guid: 662b68bf4e77cbc4db3823f3a59e3d55, type: 3}
   - {fileID: 21300000, guid: 1e26adcf3d2544e48ac576c6a0a6aaaf, type: 3}
+  - {fileID: 21300000, guid: 4f622fdf996b908468ca83b99b2aa2b8, type: 3}
   m_PackedSpriteNamesToIndex:
   - Wall_bump_ceiling_01
   - TODO_Ballet_dodge20004
@@ -320,6 +331,8 @@ SpriteAtlas:
   - Todo_FIRE_Up_RiseKick_01
   - Magic_Air_forward0004
   - Air_bat_swing_004
+  - Player_dive_land_003
+  - Player_dive_003
   - Todo_FIRE_Up_RiseKick_10
   - TODO_Ballet_dodge20002
   - Wall_kick_03
@@ -428,9 +441,11 @@ SpriteAtlas:
   - player_bat_power_02
   - TODO_Ballet_dodge20000
   - D_special_slide_05
+  - Player_dive_land_001
   - 007
   - Magic_Air_Down0002
   - 003
+  - Player_dive_006
   - Jump_revamp_05
   - Magic_Air_Fall0002
   - Wall_bump_air_02
@@ -452,6 +467,7 @@ SpriteAtlas:
   - 007
   - Todo_FIRE_Up_RiseKick_06
   - TODO_Ballet_dodge20003
+  - Player_dive_001
   - Todo_FIRE_Up_RiseKick_05
   - 004
   - Todo_sit_01
@@ -509,6 +525,7 @@ SpriteAtlas:
   - Magic_Air_Up_Diagonal0002
   - Todo_FIRE_Up_RiseKick_04
   - 005
+  - Player_dive_land_002
   - Wall_bump_air_01
   - Magic_Air_Down0001
   - Magic_Air_Down0004
@@ -532,22 +549,27 @@ SpriteAtlas:
   - Wall_bump_ceiling_02
   - 004
   - Todo_FIRE_Up_RiseKick_07
+  - Player_dive_008
   - Wall_kick_04
   - Magic_Air_forward0002
   - Air_bat_swing_002
   - D_special_slide_06
   - Jump_revamp_06
+  - Player_dive_007
   - 002
+  - Player_dive_002
   - Magic_Air_Up_Diagonal0005
   - Magic_Air_Down_Diagonal0005
   - Magic_Air_Down_Diagonal0001
   - Air_bat_swing_003
   - Magic_Air_Fall0004
   - Magic_Air_forward0003
+  - Player_dive_005
   - 006
   - Jump_revamp_02
   - Magic_Air_Up0003
   - D_special_slide_07
   - Wall_kick_05
+  - Player_dive_004
   m_Tag: Player
   m_IsVariant: 0
